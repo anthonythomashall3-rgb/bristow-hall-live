@@ -1,0 +1,667 @@
+name: bristow-hall update
+
+# The Mac sleeps, so the update stopped with it. This does not. The site itself never goes down - it is static
+# files on Cloudflare - but it was only ever as current as the last time the laptop was awake.
+on:
+  schedule:
+    # 22 SEPTEMBER 2026 (collection 306; Anthony: "WE NEED UPDATES WHEN THERE IS ACTUALLY A REQUIREMENT FOR AN UPDATE NOT AT
+    # RANDOM TIMES"). The runs are started by the Cloudflare Worker bhr-dispatch at the slots of site/public/run_slots.json,
+    # which ops/calendar_build.py now writes from the release calendar: 20 minutes after each release the site shows, 5:05 PM
+    # on NYSE trading days for the S&P 500 close, and a look-again only for a release that is due and not yet posted. The
+    # firings below are only the second line, for a day the Worker fails: each looks at the site and stops in seconds
+    # unless the site is behind the last slot. GitHub's clock is UTC and ignores daylight saving, so five weekday checks
+    # cover the release windows in both EDT and EST (after 8:30, 9:15 and 10:00, and after the close), and one on each
+    # weekend day covers a rule-dated weekend day or a crisis morning. Until 22 September there were ten weekday firings,
+    # several placed for sources the tool no longer reads (the OFR index at midday, the EIA weekly, the mortgage survey).
+    - cron: '40 13 * * 1-5'
+    - cron: '40 14 * * 1-5'
+    - cron: '40 15 * * 1-5'
+    - cron: '40 21 * * 1-5'
+    - cron: '40 22 * * 1-5'
+    - cron: '40 14 * * 0,6'
+  # A PUSH TO MAIN (22 September 2026, collection 306; Anthony: "MAKE SURE THAT THE AUTOUPDATING FUNCTION OF THE WEBSITE IS
+  # ALWAYS FOR OUR MOST RECENT/BEST VERSION OF THE TOOL"). A port of a new version, or any fix, goes live the moment it is
+  # pushed, and the phone hears whether it worked. The runner's own commits are pushed with GitHub's token, which never
+  # starts a workflow, so a run cannot start itself.
+  push:
+    branches: [main]
+    paths-ignore: ['**.md', 'worker/**']     # notes and the Worker's code need no update run
+  workflow_dispatch:
+    inputs:
+      drill:
+        description: "send a fire-drill alert through the call-alert path (yes/no)"
+        default: "no"
+      mode:
+        description: "full (update, build, site) | build (no update) | site (re-render the pages from the committed state and deploy; ~2 min)"
+        default: "full"
+      origin:
+        description: "who started it: hand | slot (the Cloudflare Worker, at a release slot) | mac (the Mac's backup starter)"
+        default: "hand"
+      slot:
+        description: "the release slot (New York time) a slot or mac start is for"
+        default: ""
+      simulate:
+        description: "tests on a branch only: fail_first | fail_primary (see ops/run.sh) | bad_fred_key (the planted-key drill); ignored on main"
+        default: ""
+
+concurrency:
+  # the live update is one queue; a test run on another branch has its own (22 September 2026, collection 306)
+  group: ${{ github.ref_name == 'main' && 'update' || format('update-{0}', github.ref_name) }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write      # the second alert channel (s2/alert.sh opens an issue); 20 September 2026, collection 257
+  actions: read      # the month's minutes are read from this repository's own runs; 20 September 2026, collection 274
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    # v3.67 set 12 (runs take 2-4 minutes; a hung fetch must not burn 20). 22 September 2026 (collection 306): each attempt
+    # of ops/run.sh has its own limit (15 minutes, above the tool's own fetch time-outs), a failed first try is followed by
+    # a second (not after a time-out) and, if the code changed, the last good code, so the job's own limit is 50.
+    timeout-minutes: 50
+    # THE RUNNER'S CLOCK (20 September 2026, site-UI chat; collection 274). GitHub's machines keep UTC, so from 00:00 UTC -
+    # eight in the evening in New York - the chain's own "today" was already tomorrow. FRED keeps Central time and refuses
+    # a real-time window that begins after its own today: the scheduled run of 19 September at 00:07Z (the 22:05 slot,
+    # two hours late) died on "FRED error for UNRATE ... Variable realtime_start can not be after today's date", and any
+    # run pushed past midnight UTC would have died the same way. Chicago is FRED's own clock, so the chain can never ask
+    # for a day FRED does not have; it trails New York only between midnight and one in the morning, when nothing is
+    # released. The steps that need New York or UTC set it themselves.
+    env:
+      TZ: America/Chicago
+      # TEST MODE (22 September 2026, collection 306): a run on any branch other than main publishes a Cloudflare preview
+      # (the branch's own address, never the site), pushes to its own branch, skips the forward ledger and the account
+      # checks, opens no issue, and sends its notification to a test topic instead of Anthony's phone.
+      OPS_TEST: ${{ github.ref_name != 'main' && '1' || '0' }}
+      OPS_TEST_TOPIC: ${{ secrets.OPS_TEST_TOPIC }}
+    steps:
+      # WHETHER THIS RUN GOES (21 September 2026, collection 278). A run started by hand, by the Cloudflare Worker at a
+      # release slot (origin=slot) or by the Mac's backup starter (origin=mac; that starter was removed the same day - nothing
+      # depends on the Mac) always goes. GitHub's own firings go only
+      # when the site still carries a build from before the last slot of site/public/run_slots.json (or, if that cannot
+      # be read, of the weekday times 08:50, 09:35, 10:20 and 17:05, New York time): a firing that
+      # arrives hours late, or after the Worker's run, stops here in seconds. This replaces the 20 September rule (the
+      # 08:50 double firing and the four-hour catch-ups), which the slot list covers. If the check itself fails, the run goes.
+      - name: go only if the site is behind the last release slot
+        id: when
+        env:
+          EVENT: ${{ github.event_name }}
+          ORIGIN: ${{ inputs.origin || 'hand' }}
+          SLOT: ${{ inputs.slot }}
+          GH_TOKEN: ${{ github.token }}
+          REPO_PRIVATE: ${{ github.event.repository.private }}
+        run: |
+          if [ "$EVENT" != "schedule" ]; then
+            GO=true; echo "started by $ORIGIN${SLOT:+ for the $SLOT slot}: it runs"
+          else
+          GO=$(python3 - <<'PY'
+          import json, re, sys, time, datetime, urllib.request
+          from zoneinfo import ZoneInfo
+          ET = ZoneInfo('America/New_York'); now = datetime.datetime.now(ET); NOW = now.strftime('%Y-%m-%d %H:%M')
+          def get(p):
+              # a named client: the site answers 403 to Python's default user agent (found 21 September 2026)
+              req = urllib.request.Request('https://bhrrealtime.pages.dev/%s?t=%d' % (p, time.time()), headers={'User-Agent': 'bhr-dispatch-gate'})
+              with urllib.request.urlopen(req, timeout=20) as r:
+                  return r.read().decode('utf-8', 'replace')
+          slots, built = [], None
+          try:
+              j = json.loads(get('run_slots.json')); slots = [s['ny'] for s in j['slots']]; built = j.get('built_at')
+          except Exception:
+              pass
+          if not built:
+              try:
+                  built = re.search(r'"built_at"\s*:\s*"(\d{4}-\d\d-\d\d \d\d:\d\d)"', get('detector/bhs_state.json')).group(1)
+              except Exception:
+                  built = None
+          if not any(s > NOW for s in slots):
+              slots = []
+              for k in (-1, 0, 1):
+                  d = (now + datetime.timedelta(days=k)).date()
+                  for t in (['08:50', '09:35', '10:20', '17:05'] if d.weekday() < 5 else []):   # only if run_slots.json cannot be read
+                      slots.append('%s %s' % (d.isoformat(), t))
+          due = max([s for s in slots if s <= NOW], default=None)
+          go = due is not None and (built is None or built < due)
+          # ONLY WHEN THE STARTER HAS PLAINLY MISSED THE SLOT (22 September 2026, collection 306): at least 15 minutes after
+          # it, no run under way, and either no run has tried the slot or the last try ended over 20 minutes ago without the
+          # Worker's retry (it retries about ten minutes after a failure) - up to three tries, and never again after the
+          # checks held a try (the same data would be held again). A firing that found nothing to do is not a try.
+          # Otherwise a firing a few minutes after a slot doubled the Worker's run, or piled onto a slot that keeps failing;
+          # and if the Worker is down, a failed try is still retried here.
+          if go:
+              dueT = datetime.datetime.strptime(due, '%Y-%m-%d %H:%M').replace(tzinfo=ET)
+              if (now - dueT).total_seconds() < 15 * 60:
+                  go = False
+                  print('the %s slot is under 15 minutes old: the Worker starts it' % due, file=sys.stderr)
+          if go:
+              try:
+                  import os
+                  H = {'Authorization': 'Bearer ' + os.environ.get('GH_TOKEN', ''), 'Accept': 'application/vnd.github+json', 'User-Agent': 'bhr-gate'}
+                  since = dueT.astimezone(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+                  req = urllib.request.Request('https://api.github.com/repos/%s/actions/workflows/update.yml/runs?branch=main&per_page=30&created=%%3E%%3D%s' % (os.environ['GITHUB_REPOSITORY'], since), headers=H)
+                  runs = [r for r in json.load(urllib.request.urlopen(req, timeout=20)).get('workflow_runs', []) if str(r.get('id')) != os.environ.get('GITHUB_RUN_ID')]
+                  active = [r for r in runs if r.get('status') != 'completed']
+                  tries = [r for r in runs if r.get('status') == 'completed' and not (r.get('event') == 'schedule' and r.get('conclusion') == 'success')]
+                  why = ''
+                  if active:
+                      why = 'a run is under way'
+                  elif len(tries) >= 3:
+                      why = 'three runs have tried the slot (the Worker has said so)'
+                  elif tries:
+                      ended = datetime.datetime.fromisoformat(tries[0]['updated_at'].replace('Z', '+00:00'))
+                      if (now - ended).total_seconds() < 20 * 60:
+                          why = 'the last try ended under 20 minutes ago: the Worker retries it'
+                      else:
+                          jobs = json.load(urllib.request.urlopen(urllib.request.Request(tries[0]['jobs_url'], headers=H), timeout=20))
+                          if any(st.get('name') == 'check what was built before letting it out' and st.get('conclusion') == 'failure'
+                                 for jb in jobs.get('jobs', []) for st in jb.get('steps', [])):
+                              why = 'the checks held the last try: the same data would be held again'
+                  if why:
+                      go = False
+                      print('the %s slot: %s; nothing for GitHub to add' % (due, why), file=sys.stderr)
+                  elif tries:
+                      print('the %s slot: %d try(s), the last ended over 20 minutes ago and was not retried: the firing goes' % (due, len(tries)), file=sys.stderr)
+              except Exception as e:
+                  print('runs since the slot not read (%s): the firing goes' % type(e).__name__, file=sys.stderr)
+          print('GitHub firing at %s New York: the site carries the build of %s; the last slot %s; %s' % (NOW, built, due, 'it runs' if go else 'nothing to do'), file=sys.stderr)
+          print('true' if go else 'false')
+          PY
+          ) || GO=true
+          fi
+          # THE FREE MINUTES GUARD (24 September 2026; Anthony: "MAKE SURE I NEVER PAY A SINGLE CENT TO GITHUB ... I SHOULD NEVER
+          # BE PAYING FOR ANYTHING"). The repository is private, so GitHub gives 2,000 free Actions minutes a month; there is no
+          # card on the account and every product has a $0 budget with "stop usage", so nothing can ever be charged - but if the
+          # minutes run out, every run stops until the 1st and the site freezes. So the month's minutes are counted here, before
+          # any work: from 1,500, test runs on other branches wait for the next month; from 1,800, a push waits too (the next
+          # release-time run checks out main as it stands, so the new code still goes live within hours). Release-time runs,
+          # GitHub's own firings when the site is behind, and runs started by hand always go. If the count fails, the run goes.
+          if [ "${GO:-true}" = "true" ]; then
+          GO=$(python3 - <<'PY'
+          import json, math, os, sys, datetime as dt, urllib.request
+          ev, br = os.environ.get('EVENT', ''), os.environ.get('GITHUB_REF_NAME', '')
+          if os.environ.get('REPO_PRIVATE', 'true') == 'false':
+              print('a public repository: GitHub counts no minutes here', file=sys.stderr); print('true'); sys.exit(0)
+          H = {'Authorization': 'Bearer ' + os.environ.get('GH_TOKEN', ''), 'Accept': 'application/vnd.github+json', 'User-Agent': 'bhr-minutes'}
+          p = lambda s: dt.datetime.fromisoformat(s.replace('Z', '+00:00'))
+          now = dt.datetime.now(dt.timezone.utc); m0 = now.strftime('%Y-%m-01')
+          total, page, worked_today = 0, 1, 0
+          try:
+              while page <= 10:
+                  url = 'https://api.github.com/repos/%s/actions/runs?per_page=100&page=%d&created=%%3E%%3D%s' % (os.environ['GITHUB_REPOSITORY'], page, m0)
+                  runs = json.load(urllib.request.urlopen(urllib.request.Request(url, headers=H), timeout=20)).get('workflow_runs', [])
+                  for r in runs:
+                      if r.get('status') == 'completed' and r.get('run_started_at') and r.get('updated_at'):
+                          m = max(1, math.ceil((p(r['updated_at']) - p(r['run_started_at'])).total_seconds() / 60))
+                          total += m
+                          # a run of this workflow on main that did the work today (a firing that found nothing ends in a minute)
+                          if (r.get('path', '').endswith('update.yml') and r.get('head_branch') == 'main' and m >= 2
+                                  and r.get('conclusion') == 'success' and (now - p(r['run_started_at'])).total_seconds() < 86400):
+                              worked_today += 1
+                  if len(runs) < 100: break
+                  page += 1
+          except Exception as e:
+              print('the minutes of the month could not be counted (%s): the run goes' % type(e).__name__, file=sys.stderr)
+              print('true'); sys.exit(0)
+          go, why = True, ''
+          origin = os.environ.get('ORIGIN', 'hand')
+          if total >= 1500 and br != 'main':
+              go, why = False, 'test runs on other branches wait for the next month'
+          elif total >= 1800 and ev == 'push':
+              go, why = False, 'this push goes live with the next release-time run'
+          elif total >= 1900 and origin != 'hand' and worked_today:
+              # the last 100 minutes: one update a day (about 3 minutes each) lasts the rest of any month; by hand always goes
+              go, why = False, 'one update a day until the 1st, and one ran in the last 24 hours'
+          print('the month so far: about %d of the 2,000 free minutes%s' % (total, '; ' + why if why else ''), file=sys.stderr)
+          print('true' if go else 'false')
+          PY
+          ) || GO=true
+          fi
+          echo "go=${GO:-true}" >> "$GITHUB_OUTPUT"
+
+      # THE BRANCH AS IT STANDS NOW (22 September 2026, collection 306): a run that waited in the queue behind another starts
+      # from the data that run saved, not from the commit that was current when it was queued
+      - uses: actions/checkout@v5
+        if: steps.when.outputs.go == 'true'
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 1
+
+      - name: the commit this run starts from, and where the live tool keeps its files
+        id: tool
+        if: steps.when.outputs.go == 'true'
+        run: |
+          echo "OPS_BASE=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          python3 - >> "$GITHUB_OUTPUT" <<'PY'
+          import json, os
+          d = {'workspace': 'data/105_bristow_hall_system_2026-09-08/workspace', 'site_public': 'data/105_bristow_hall_system_2026-09-08/site/public'}
+          try:
+              d.update({k: v for k, v in json.load(open('ops/tool.json')).items() if k in d})
+          except Exception as e:
+              print('tool_json_error=%s' % str(e)[:100].replace('\n', ' '))
+          print('workspace=%s' % d['workspace'])
+          print('site_dir=%s' % os.path.dirname(d['site_public'].rstrip('/')))
+          print('site_sub=%s' % os.path.basename(d['site_public'].rstrip('/')))
+          PY
+          cat "$GITHUB_OUTPUT"
+
+      # THE PRIVATE DATA, IN (24 September 2026, ops-0924; the repository went public). The third-party files the update
+      # reads but may not republish are kept in the private repository bristow-hall-private-data at the same paths
+      # (ops/private_paths.gitignore names them). They are copied in here, before anything reads the data, with a deploy
+      # key that opens that one repository; three tries; a run that cannot read them stops rather than build without them.
+      - name: the private data, in
+        id: pdin
+        if: steps.when.outputs.go == 'true'
+        env:
+          PRIVATE_DATA_KEY: ${{ secrets.PRIVATE_DATA_KEY }}
+        run: |
+          mkdir -p ~/.ssh && printf '%s\n' "$PRIVATE_DATA_KEY" > ~/.ssh/private_data && chmod 600 ~/.ssh/private_data
+          export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/private_data -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+          P="$RUNNER_TEMP/private-data"
+          for i in 1 2 3; do git clone -q --depth 1 git@github.com:anthonythomashall3-rgb/bristow-hall-private-data.git "$P" && break || { rm -rf "$P"; sleep 15; }; done
+          [ -d "$P/.git" ] || { echo "the private data could not be read: the run stops"; exit 1; }
+          ( cd "$P" && git ls-files -z | tar --null -T - -cf - ) | tar -xf - -C "$GITHUB_WORKSPACE"
+          echo "private files in: $(cd "$P" && git ls-files | wc -l | tr -d ' ')"
+
+      - uses: actions/setup-python@v6
+        id: py
+        if: steps.when.outputs.go == 'true'
+        with:
+          python-version: '3.14'
+          cache: pip
+
+      # THE INSTALLS, KEPT BETWEEN RUNS (24 September 2026; Anthony: "I SHOULD NEVER BE PAYING FOR ANYTHING"). Every run spent
+      # 10-35 seconds on each of three installs of the same things - the PDF tool, the Python packages, the Cloudflare tool -
+      # about a quarter of a run's billed minutes. GitHub's cache is free and does not count against the minutes. The key
+      # moves with GitHub's runner image and with requirements.txt, so a new image or a new pin installs afresh, once.
+      - name: the runner image (the key of the kept installs)
+        id: img
+        if: steps.when.outputs.go == 'true'
+        run: echo "key=${ImageOS:-os}-${ImageVersion:-0}" >> "$GITHUB_OUTPUT"
+      - name: the installs kept from the last run on this image
+        if: steps.when.outputs.go == 'true'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ env.pythonLocation }}
+            ~/apt-debs
+            ~/.npm
+          key: bhr-installs-${{ steps.img.outputs.key }}-py${{ steps.py.outputs.python-version }}-${{ hashFiles('requirements.txt') }}-v1
+
+      - name: the one command-line tool the chain uses
+        id: apt
+        if: steps.when.outputs.go == 'true' && (inputs.mode || 'full') != 'site'
+        run: |
+          # the packages kept from an earlier run on this image: a second or two, no package lists to fetch
+          if ls ~/apt-debs/*.deb >/dev/null 2>&1 && sudo dpkg -i ~/apt-debs/*.deb >/dev/null 2>&1 && command -v pdftotext; then exit 0; fi
+          # three tries: a package mirror that hiccups must not cost a release (21 September 2026)
+          for i in 1 2 3; do sudo apt-get -qq update && break || sleep 20; done
+          # the packages this image lacks are downloaded into the kept folder, then installed from it
+          PKGS="$(apt-get install -s poppler-utils 2>/dev/null | awk '/^Inst /{print $2}')"
+          rm -rf ~/apt-debs; mkdir -p ~/apt-debs
+          if [ -n "$PKGS" ] && (cd ~/apt-debs && apt-get download $PKGS >/dev/null 2>&1) && sudo dpkg -i ~/apt-debs/*.deb >/dev/null 2>&1; then :
+          else rm -rf ~/apt-debs; for i in 1 2 3; do sudo apt-get -qq install -y poppler-utils && break || sleep 20; done; fi
+          command -v pdftotext
+
+      - name: install what the rule reads its data with
+        id: pip
+        if: steps.when.outputs.go == 'true'
+        continue-on-error: true     # a bad pin in a new version must not stop the fallback (ops/run.sh installs again)
+        run: pip install --quiet --retries 10 --timeout 60 -r requirements.txt || { sleep 30; pip install --quiet --retries 10 --timeout 60 -r requirements.txt; }
+
+      - name: write the keys where the rule looks for them
+        if: steps.when.outputs.go == 'true'
+        env:
+          # the planted-key drill (23 September 2026, collection 356; risks register R6): on a test branch only, simulate=bad_fred_key
+          # writes a well-formed key FRED has never issued in place of the secret, so the drill never touches the real key
+          FRED_API_KEY: ${{ (github.ref_name != 'main' && inputs.simulate == 'bad_fred_key') && 'abcdefghijklmnopqrstuvwxyz012345' || secrets.FRED_API_KEY }}
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: |
+          mkdir -p data/onset-detector-new-2026-08-23/live_data/config
+          {
+            echo "FRED_API_KEY=$FRED_API_KEY"
+            echo "BLS_API_KEY=$BLS_API_KEY"
+            echo "EIA_API_KEY=$EIA_API_KEY"
+          } > data/onset-detector-new-2026-08-23/live_data/config/local.env
+          chmod 600 data/onset-detector-new-2026-08-23/live_data/config/local.env
+
+      # THE FRED KEY, CHECKED ON EVERY RUN (23 September 2026, collection 356; risks register R6: "a planted expired token produces
+      # the alert, not silence"). Until now a refused FRED key was caught only when a channel went stale days later: the update's
+      # FRED errors keep the files in hand and are printed, and the run still ends "Updated". One small request asks FRED whether it
+      # accepts the key; the answer goes to ops/out/key_check.json, which the run's own message reads (ops/notify.py puts a refused
+      # key in the title, at the highest priority). The key is never printed; FRED's error text does not contain it.
+      - name: does FRED accept the key
+        if: steps.when.outputs.go == 'true'
+        continue-on-error: true
+        env:
+          FRED_API_KEY: ${{ (github.ref_name != 'main' && inputs.simulate == 'bad_fred_key') && 'abcdefghijklmnopqrstuvwxyz012345' || secrets.FRED_API_KEY }}
+        run: |
+          python3 - <<'PY'
+          import json, os, time, urllib.error, urllib.parse, urllib.request
+          k = os.environ.get('FRED_API_KEY', '').strip()
+          out = {'fred': 'missing'}
+          if k:
+              url = 'https://api.stlouisfed.org/fred/series?' + urllib.parse.urlencode({'series_id': 'UNRATE', 'file_type': 'json', 'api_key': k})
+              for i in range(3):
+                  try:
+                      with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'bhr-keycheck'}), timeout=30) as r:
+                          json.load(r); out = {'fred': 'accepted', 'http': r.status}; break
+                  except urllib.error.HTTPError as e:
+                      body = e.read().decode('utf-8', 'replace')[:400]
+                      try:
+                          msg = str(json.loads(body).get('error_message', body))
+                      except Exception:
+                          msg = body
+                      msg = ' '.join(msg.replace(k, '[key]').split())[:200]
+                      if e.code in (400, 401, 403) and 'api_key' in msg.lower():
+                          out = {'fred': 'refused', 'http': e.code, 'why': msg}; break
+                      out = {'fred': 'unreachable', 'http': e.code, 'why': msg}
+                  except Exception as e:
+                      out = {'fred': 'unreachable', 'why': type(e).__name__}
+                  time.sleep(5 * (i + 1))
+          os.makedirs('ops/out', exist_ok=True)
+          json.dump(out, open('ops/out/key_check.json', 'w'))
+          print('the FRED key: %s%s' % (out['fred'], '' if out['fred'] == 'accepted' else ' (%s)' % ', '.join(str(out[x]) for x in ('http', 'why') if x in out)))
+          PY
+
+      # UPDATE, BUILD, SITE - with a second try and the last good code behind it (ops/run.sh; 22 September 2026, collection
+      # 306). run_cloud.sh is the live tool's entry (ops/tool.json); ops/run.sh runs it with a time limit, tries once more
+      # after a failure, and if the code has changed since the last run that published, runs that run's code, so a broken
+      # new version never stops the site updating (the notification says so, and the new code stays in the repository).
+      - name: update, build, site
+        id: main
+        if: steps.when.outputs.go == 'true'
+        env:
+          GH_TOKEN: ${{ github.ref_name == 'main' && github.token || '' }}
+          ALERT_NTFY_TOPIC: ${{ github.ref_name == 'main' && secrets.NTFY_TOPIC || github.ref_name != 'main' && env.OPS_TEST_TOPIC || '' }}
+          BHS_DRILL: ${{ inputs.drill || 'no' }}
+          BHS_MODE: ${{ inputs.mode || 'full' }}
+          OPS_SIMULATE: ${{ github.ref_name != 'main' && inputs.simulate || '' }}
+        run: bash ops/run.sh
+
+      - name: check what was built before letting it out
+        id: gate
+        if: steps.when.outputs.go == 'true' && (inputs.mode || 'full') != 'site'
+        working-directory: ${{ steps.tool.outputs.workspace }}
+        run: |
+          # The data check REPORTS; the gate DECIDES. On the Mac, bhs_run.sh lets q41 fail and hands its findings
+          # to s2/deploy_gate.py, which knows that a stale channel is advisory and a corrupt state is not. Here its
+          # exit code was killing the job outright, so on 19 September one stale channel (DEXSLUS) failed the cloud
+          # run while the Mac published the same build with the same finding as an advisory. Same rule both sides.
+          # the gate reads out/q41_data_check.json. The repository carries the last run's copy, so a check that CRASHED
+          # (rather than failing) left the gate reading yesterday's findings and calling them passed; it is removed first,
+          # and the gate then treats a missing file as a failure of its own (20 September 2026, collection 274).
+          rm -f out/q41_data_check.json
+          PYTHONPATH=. python3 s2/q41_data_check.py || echo "the data check reported failures; the gate decides"
+          # the gate's line goes into run.log as well, because that is what the failure alert sends to the phone
+          PYTHONPATH=. python3 s2/deploy_gate.py 2>&1 | tee -a "$GITHUB_WORKSPACE/run.log"; exit ${PIPESTATUS[0]}
+
+      # THE RELEASE CALENDAR AND THE ROLLING NEXT DAYS (22 September 2026, collection 306). After the checks, so they see
+      # the pages exactly as the tool built them. ops/calendar_build.py reads every row of the data page and the front
+      # page, gets each input's release days from FRED's release calendars (once a day, cached) and its clock time from
+      # the agency, writes ops/release_calendar.json into the site, and adds a run slot after any release the tool's own
+      # list does not cover; ops/inject.py links the script that rolls a passed "next" day forward in the reader's browser.
+      # Never fails the run.
+      - name: the release calendar, and next days that roll forward by themselves
+        if: steps.when.outputs.go == 'true'
+        continue-on-error: true
+        env:
+          FRED_API_KEY: ${{ (github.ref_name != 'main' && inputs.simulate == 'bad_fred_key') && 'abcdefghijklmnopqrstuvwxyz012345' || secrets.FRED_API_KEY }}
+        run: |
+          python3 ops/calendar_build.py
+          python3 ops/inject.py
+          # the yearly drift report (23 September 2026, collection 356; risks register R4): measured every run from a weekly cache,
+          # said in January's first message and whenever a registered line is crossed (ops/notify.py)
+          python3 ops/drift_report.py || true
+          python3 ops/parity_check.py || true          # 362: the real-time parity ledger and open misses (never fails the run)
+
+      - name: do not leave the keys behind
+        if: always() && steps.when.outputs.go == 'true'
+        run: rm -f data/onset-detector-new-2026-08-23/live_data/config/local.env ~/.ssh/private_data
+
+      # THE KEY THAT PUBLISHES (20 September 2026, site-UI chat; collection 274). A Cloudflare API token can carry an
+      # expiry date, and on that day every deploy would start failing with nothing in the site to explain it. Cloudflare
+      # is asked what it knows about this token and the phone is told a month ahead, once a week. Never fails the run,
+      # never prints the token.
+      # every run prints what it finds (a route nobody has seen work is not a route); only Monday's close run (the 17:05
+      # slot, or GitHub's 40 21 firing) pushes to the phone (22 September 2026, collection 306: keyed on the 12:45 slot
+      # until then, which is gone with the release-driven schedule; the close run is on every trading day)
+      - name: the publishing key, and how long it has left
+        if: steps.when.outputs.go == 'true' && env.OPS_TEST != '1'
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          SCHEDULE: ${{ github.event.schedule }}
+          SLOT: ${{ inputs.slot }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request, datetime as dt
+          tok = os.environ.get('CLOUDFLARE_API_TOKEN', ''); acct = os.environ.get('CLOUDFLARE_ACCOUNT_ID', '')
+          topic = os.environ.get('NTFY_TOPIC', ''); sched = os.environ.get('SCHEDULE', '')
+          def verify(url):
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(url, headers={'Authorization': 'Bearer ' + tok}), timeout=20) as r:
+                      return json.load(r)
+              except Exception as e:
+                  return {'success': False, 'why': type(e).__name__}
+          res = verify('https://api.cloudflare.com/client/v4/user/tokens/verify')
+          if not res.get('success') and acct:
+              res = verify('https://api.cloudflare.com/client/v4/accounts/%s/tokens/verify' % acct)
+          r = res.get('result') or {}; msg = None
+          if not res.get('success'):
+              msg = 'Cloudflare does not recognise the token that publishes the site (%s). Deploys will fail.' % (res.get('why') or res.get('errors'))
+          elif r.get('status') != 'active':
+              msg = 'the Cloudflare token that publishes the site is %s. Deploys will fail.' % r.get('status')
+          elif r.get('expires_on'):
+              left = (dt.datetime.fromisoformat(r['expires_on'].replace('Z', '+00:00')) - dt.datetime.now(dt.timezone.utc)).days
+              print('the publishing token expires on %s (%d days)' % (r['expires_on'][:10], left))
+              if left <= 30:
+                  msg = ('the Cloudflare token that publishes the site expires on %s - %d days. Make a new one (Cloudflare, '
+                         'My Profile > API Tokens) and put it in the repository secret CLOUDFLARE_API_TOKEN.' % (r['expires_on'][:10], left))
+          else:
+              print('the publishing token is active and carries no expiry date')
+          if msg:
+              print(msg)
+              # once a week: the first weekday run, on Monday (a warning on every run is a warning nobody reads)
+              if topic and (sched.startswith('40 21') or os.environ.get('SLOT', '').endswith(' 17:05')) and dt.datetime.now(dt.timezone.utc).weekday() == 0:
+                  urllib.request.urlopen(urllib.request.Request('https://ntfy.sh/' + topic, data=msg.encode(),
+                      headers={'Title': 'Bristow-Hall: the publishing key', 'Priority': 'high'}), timeout=20).read()
+          PY
+
+      # THE MONTH'S MINUTES (20 September 2026, collection 274). A private repository gets 2,000 free Actions minutes a
+      # month, and when they are gone nothing runs until the next billing cycle - the one failure that stops the site
+      # without failing a run. The guard that watched this lived in the Mac's half-hourly job, which went off with the
+      # collector. At the midday run every day (v3.69; Mondays until then) this adds up what the month has cost so far and pushes at 1,600.
+      - name: the month's Actions minutes
+        if: always() && steps.when.outputs.go == 'true' && env.OPS_TEST != '1' && github.event.repository.private
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          SCHED: ${{ github.event.schedule }}
+          SLOT: ${{ inputs.slot }}
+        run: |
+          # every day at the midday run (v3.69 (22 September 2026, collection 302; the audit: a week is too long to find out; was Mondays only)
+          # counted at the close run of every trading day (the 17:05 slot, or GitHub's 40 21 firing); until 22 September at the
+          # 12:45 slot, which the release-driven schedule no longer has
+          # 22 September 2026 (collection 306): counted at EVERY run, failures included - runs that keep failing are exactly the
+          # ones that burn minutes (the pre-mortem: the guard used to be skipped on them)
+          gh api --paginate "repos/$GITHUB_REPOSITORY/actions/runs?per_page=100&created=>=$(date -u +%Y-%m-01)" \
+            --jq '.workflow_runs[] | "\(.run_started_at) \(.updated_at)"' > runs_this_month.txt
+          python3 - <<'PY'
+          import os, urllib.request, datetime as dt
+          rows = [l.split() for l in open('runs_this_month.txt') if l.strip()]
+          total = 0
+          for a, b in rows:
+              a = dt.datetime.fromisoformat(a.replace('Z', '+00:00')); b = dt.datetime.fromisoformat(b.replace('Z', '+00:00'))
+              total += max(1, -(-(b - a).total_seconds() // 60))     # GitHub bills each job by the minute, rounded up
+          print('this month: %d runs, about %d of the 2,000 free minutes' % (len(rows), total))
+          # to the phone at the close run of each day past 1,600 (the 17:05 slot, or GitHub's 40 21 firing), and at every run past 1,900
+          close = os.environ.get('SLOT', '').endswith(' 17:05') or os.environ.get('SCHED', '').startswith('40 21')
+          if os.environ.get('NTFY_TOPIC') and (total >= 1900 or (total >= 1600 and close)):
+              msg = ('The site updater has used about %d of the 2,000 free GitHub Actions minutes this month. At 2,000 '
+                     'nothing runs until the next billing cycle and the site freezes where it stands. Start fewer runs '
+                     'by hand, or wait for the cycle.' % total)
+              urllib.request.urlopen(urllib.request.Request('https://ntfy.sh/' + os.environ['NTFY_TOPIC'], data=msg.encode(),
+                  headers={'Title': 'Bristow-Hall: the minutes', 'Priority': 'high'}), timeout=20).read()
+          PY
+          rm -f runs_this_month.txt
+
+      - name: publish to Cloudflare Pages
+        id: publish
+        if: steps.when.outputs.go == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # the live site from main; a test branch publishes a preview at its own address (22 September 2026)
+          PAGES_BRANCH: ${{ github.ref_name == 'main' && 'main' || 'ops-test' }}
+          SITE_SUB: ${{ steps.tool.outputs.site_sub }}
+        working-directory: ${{ steps.tool.outputs.site_dir }}
+        run: |
+          # the version that deployed on 21 September 2026 first, then the latest 4.x, then the latest again after a pause:
+          # a bad release of the tool or a moment's trouble at Cloudflare must not keep the site from updating
+          npx --yes wrangler@4.136.0 pages deploy "$SITE_SUB" --project-name bhrrealtime --branch "$PAGES_BRANCH" --commit-dirty=true \
+            || npx --yes wrangler@4 pages deploy "$SITE_SUB" --project-name bhrrealtime --branch "$PAGES_BRANCH" --commit-dirty=true \
+            || { sleep 30; npx --yes wrangler@4 pages deploy "$SITE_SUB" --project-name bhrrealtime --branch "$PAGES_BRANCH" --commit-dirty=true; }
+
+      # THE FORWARD LEDGER, IN THE CLOUD (21 September 2026, collection 278; Anthony: "DONT RELY ON THE MAC AT ALL FOR THE
+      # SAVING OF REAL-TIME DATA"). One line per published build - the standing, the reading, every through-date, the state's
+      # sha256 - appended to live/FORWARD-LEDGER.jsonl and stamped with OpenTimestamps (live/ots/), committed with the data in
+      # the next step. Until today only the Mac's runner wrote it. Idempotent on built_at; never fails the run.
+      - name: the forward ledger
+        if: steps.when.outputs.go == 'true' && env.OPS_TEST != '1'
+        continue-on-error: true
+        timeout-minutes: 4
+        working-directory: ${{ steps.tool.outputs.workspace }}
+        run: |
+          pip install --quiet opentimestamps-client || echo "the OpenTimestamps client did not install; the line is written unstamped"
+          python3 s2/ledger.py 2>&1 | tail -3
+
+      # THE STARTER IS ALIVE (21 September 2026, collection 278). The Cloudflare Worker that starts these runs writes a
+      # heartbeat at every five-minute check. At the midday run, and at any run GitHub's own schedule had to start (which
+      # happens only when the site was behind a slot), its status page is read; the phone hears if its heartbeat is late,
+      # its GitHub token is missing, or the page cannot be read. Never fails the run.
+      - name: the update starter is alive
+        if: always() && steps.when.outputs.go == 'true' && env.OPS_TEST != '1'
+        continue-on-error: true
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          SCHED: ${{ github.event.schedule }}
+          SLOT: ${{ inputs.slot }}
+        run: |
+          python3 - <<'PY'
+          import json, os, time, urllib.request
+          sched, slot, topic = os.environ.get('SCHED', ''), os.environ.get('SLOT', ''), os.environ.get('NTFY_TOPIC', '')
+          bad = None
+          try:
+              req = urllib.request.Request('https://bhr-dispatch.anthonythomashall3.workers.dev/?t=%d' % time.time(), headers={'User-Agent': 'bhr-dispatch-gate'})
+              j = json.load(urllib.request.urlopen(req, timeout=20))
+              age = j.get('last_tick_minutes_ago')
+              print('the Worker: version %s; token %s; last check %s minutes ago (%s); %s' % (j.get('version'), j.get('token'), age, j.get('heartbeat'), j.get('decision')))
+              # the deployed starter must be the repository's (22 September 2026, collection 306): one redeployed from an old clone is caught here
+              import re as _re
+              want = (_re.search(r"const VERSION = '([^']+)'", open('worker/src/index.js').read()) or [None, None])[1]
+              if j.get('token') != 'set': bad = 'its GitHub token is missing'
+              elif isinstance(age, (int, float)) and age > 20: bad = 'it has not checked in for %d minutes' % age
+              elif want and j.get('version') != want: bad = 'it is running version %s, not the repository\'s %s (redeploy it from an up-to-date clone: cd worker && wrangler deploy)' % (j.get('version'), want)
+          except Exception as e:
+              bad = 'its status page could not be read (%s)' % type(e).__name__
+              print(bad)
+          if bad and topic and (slot.endswith(' 17:05') or sched.startswith('40 21') or os.environ.get('GITHUB_EVENT_NAME') == 'schedule'):
+              msg = ('The Cloudflare Worker bhr-dispatch that starts the site update at the release slots is not healthy: %s. '
+                     'The GitHub schedule covers the slots meanwhile. Check https://bhr-dispatch.anthonythomashall3.workers.dev' % bad)
+              urllib.request.urlopen(urllib.request.Request('https://ntfy.sh/' + topic, data=msg.encode(),
+                  headers={'Title': 'Bristow-Hall: the update starter', 'Priority': 'high'}), timeout=20).read()
+          PY
+
+      # THE NEW CODE BACK, AND THE LAST GOOD COMMIT (22 September 2026, collection 306). If ops/run.sh had to run the last
+      # good code, the new code is put back before anything is committed: the repository always keeps the newest version.
+      # A run that published with its own code records its commit as the new last good one (ops/state/last_good.json).
+      - name: put the new code back if the last good code ran
+        id: swapout
+        if: always() && steps.when.outputs.go == 'true'
+        run: python3 ops/lastgood.py swap-out
+
+      - name: remember this commit as the last good code
+        if: steps.when.outputs.go == 'true' && env.OPS_TEST != '1'
+        continue-on-error: true
+        env:
+          BHS_MODE: ${{ inputs.mode || 'full' }}
+        run: python3 ops/lastgood.py record
+
+      # THE PRIVATE DATA, OUT (24 September 2026, ops-0924): every file the patterns name, as this run left it (new ones
+      # included), goes back to the private repository; .gitignore keeps the same files out of the public commit below.
+      # A test branch never writes the private data.
+      - name: the private data, out
+        id: pdout
+        if: always() && steps.when.outputs.go == 'true' && steps.publish.outcome == 'success' && env.OPS_TEST != '1'
+        run: |
+          export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/private_data -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+          P="$RUNNER_TEMP/private-data"
+          git ls-files -z --others --ignored --exclude-from=ops/private_paths.gitignore -- data | tar --null -T - -cf - | tar -xf - -C "$P"
+          cd "$P"
+          git config user.name "bristow-hall runner"; git config user.email "noreply@users.noreply.github.com"
+          git add -A
+          git diff --staged --quiet || git commit -q -m "update $(date -u +%FT%TZ)"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break || sleep 15; done
+          [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ] || { echo "the private data was not saved"; exit 1; }
+
+      - name: keep the built site in the repository too
+        id: commit
+        # whenever the site was published and the new code is back in place (22 September 2026: a later step failing must
+        # not leave the published data unsaved, or the next run would start from yesterday's)
+        if: always() && steps.when.outputs.go == 'true' && steps.publish.outcome == 'success' && steps.swapout.outcome == 'success'
+        run: |
+          git config user.name  "bristow-hall runner"
+          git config user.email "noreply@users.noreply.github.com"
+          # the daily copy of the inputs (live/backup_<date>) is not committed at all any more (.gitignore, 20 September
+          # 2026): git already holds the previous version of every file that copy protects, in the history of the commit
+          # that changed it, so committing the copy too cost about 5 MB a day for nothing.
+          # EVERYTHING THE UPDATE WRITES, NOT ONLY THE SYSTEM'S OWN FOLDER (20 September 2026, collection 274). The
+          # update writes into eight collections - the lab's weekly files, the ALFRED vintage tables, the Department's
+          # state panels and first prints, the damage index's two files, the front page's tiles, the search week's
+          # stitched history - and only data/105 was committed, so every run began again from the snapshot the bundle
+          # carried. On the Mac those files persisted on disk, which is what "as it stood on the day" depends on: a
+          # first print that is re-derived next week from a revised file is not a first print. A single file over 50 MB
+          # is left out rather than pushed into the history.
+          git add -A data 2>/dev/null || true
+          # ops' own state: the last good commit and the release-calendar cache (22 September 2026, collection 306)
+          git add -A ops/state ops/cache 2>/dev/null || true
+          git diff --staged --name-only -z | while IFS= read -r -d '' f; do
+            if [ -f "$f" ] && [ "$(wc -c < "$f")" -gt 50000000 ]; then echo "not committing $f (over 50 MB)"; git reset -q -- "$f"; fi
+          done
+          git diff --staged --quiet || git commit -m "update $(date -u +%FT%TZ)"
+          # a push from elsewhere during a run used to fail this step (run 35532994643, 20 September 2026): rebase, then push, three tries
+          # v3.58 (20 September 2026): every run since 20:45Z had failed here without failing the job - the update writes tracked
+          # files outside data/105 and the rebase refused ("You have unstaged changes"). Autostash them, and fail loudly if
+          # the push did not land: a run that publishes to Cloudflare but not to the repository leaves the alert's "last
+          # published state" (../site/public/bhs_state.json at the next checkout) stale.
+          BR="${GITHUB_REF_NAME}"      # main; a test branch keeps its own commits (22 September 2026)
+          for i in 1 2 3; do git pull --rebase --autostash -q origin "$BR" && git push -q origin "HEAD:$BR" && break || sleep 20; done
+          git fetch -q origin "$BR"
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse "origin/$BR")" ]; then echo "the built site was not pushed to the repository"; git status -sb | head -20; exit 1; fi
+
+      # ONE NOTIFICATION FOR EVERY RUN (22 September 2026, collection 306; Anthony: "I want nefy to send me a notification for
+      # each update, including successful ones, and what it updated ... the change in the indicator level ... I NEED TO KNOW IF
+      # EVERY UPDATE WORKS SUCCESSFULLY OR NOT"). Replaces the failure-only alert of 21 September. Every run that did work
+      # sends one message: updated (the version, the indicator's level and change, the standing, the new data, anything due
+      # that has not come, the next update and the next release), or failed / held (where, what the site still shows, what
+      # happens next). A failure or hold is also a GitHub issue (email); the next good run closes it. A GitHub firing that
+      # found the site already current sends nothing.
+      - name: tell Anthony how the update went
+        if: always() && steps.when.outputs.go == 'true'
+        env:
+          NTFY_TOPIC: ${{ github.ref_name == 'main' && secrets.NTFY_TOPIC || github.ref_name != 'main' && env.OPS_TEST_TOPIC || '' }}
+          GH_TOKEN: ${{ github.ref_name == 'main' && github.token || '' }}
+          JOB_STATUS: ${{ job.status }}
+          OUT_SETUP: ${{ (steps.apt.outcome == 'failure' || steps.pip.outcome == 'failure') && 'failure' || 'success' }}
+          OUT_MAIN: ${{ steps.main.outcome }}
+          OUT_GATE: ${{ steps.gate.outcome }}
+          OUT_PUBLISH: ${{ steps.publish.outcome }}
+          OUT_PUSH: ${{ steps.commit.outcome }}
+          OPS_ORIGIN: ${{ inputs.origin || github.event_name }}
+          OPS_SLOT: ${{ inputs.slot }}
+          OPS_COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: python3 ops/notify.py

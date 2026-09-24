@@ -1,0 +1,332 @@
+{
+"BORROW": {
+"through": "2026-07-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"HOUST": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"BSCICP02DEM460S": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"AWHMAN": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"BUSINV": {
+"through": "2026-07-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"CASACBW027NBOG": {
+"through": "2026-09-09",
+"day": "2026-09-18",
+"seen_change": true
+},
+"MANEMP": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"CCNSA": {
+"through": "2026-09-05",
+"day": "2026-09-17",
+"seen_change": false
+},
+"DCOILWTICO": {
+"through": "2026-09-15",
+"day": "2026-09-17",
+"seen_change": false
+},
+"INDPRO": {
+"through": "2026-08-01",
+"day": "2026-09-18",
+"seen_change": true
+},
+"DEXSLUS": {
+"through": "2026-09-11",
+"day": "2026-09-17",
+"seen_change": false
+},
+"DFF": {
+"through": "2026-09-17",
+"day": "2026-09-18",
+"seen_change": true
+},
+"DPRIME": {
+"through": "2026-09-17",
+"day": "2026-09-18",
+"seen_change": true
+},
+"DTB1": {
+"through": "2001-08-24",
+"day": "2026-09-17",
+"seen_change": false
+},
+"DTWEXM": {
+"through": "2019-12-31",
+"day": "2026-09-17",
+"seen_change": false
+},
+"EPUMONETARY": {
+"through": "2026-07-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"IPDCONGD": {
+"through": "2026-08-01",
+"day": "2026-09-18",
+"seen_change": true
+},
+"IPMAN": {
+"through": "2026-08-01",
+"day": "2026-09-18",
+"seen_change": true
+},
+"IR": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"LNS11300001": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"M03002USM544NNBR": {
+"through": "1973-12-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"LNS12032194": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"LOLAOL": {
+"through": "2018-04-11",
+"day": "2026-09-17",
+"seen_change": false
+},
+"M14064USM144NNBR": {
+"through": "1965-11-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"NASDAQCOM": {
+"through": "2026-09-18",
+"day": "2026-09-19",
+"seen_change": true
+},
+"PERMIT1": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"T10Y2Y": {
+"through": "2026-09-18",
+"day": "2026-09-18",
+"seen_change": true
+},
+"T10Y3M": {
+"through": "2026-09-18",
+"day": "2026-09-18",
+"seen_change": true
+},
+"TOTRA": {
+"through": "2018-04-11",
+"day": "2026-09-17",
+"seen_change": false
+},
+"TSIFRGHT": {
+"through": "2026-06-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"UMCSENT": {
+"through": "2026-09-01",
+"day": "2026-09-17",
+"seen_change": true
+},
+"VIXCLS": {
+"through": "2026-09-17",
+"day": "2026-09-18",
+"seen_change": true
+},
+"WB_CRUDE_OIL_AVERAGE": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"WB_CRUDE_OIL_DUBAI": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"WB_LEAD": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"WB_NICKEL": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"WLCFLSCL": {
+"through": "2026-09-16",
+"day": "2026-09-17",
+"seen_change": true
+},
+"WPU101": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"WTISPLC": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"DTSCUSTOMS": {
+"through": "2026-09-17",
+"day": "2026-09-18",
+"seen_change": true
+},
+"UIBENEFITS_S20": {
+"through": "2026-09-17",
+"day": "2026-09-18",
+"seen_change": true
+},
+"DTSWITHHELD": {
+"through": "2026-09-17",
+"day": "2026-09-18",
+"seen_change": true
+},
+"GPRDAILY": {
+"through": "2026-09-14",
+"day": "2026-09-17",
+"seen_change": false
+},
+"DTSCORP_S65": {
+"through": "2026-09-17",
+"day": "2026-09-18",
+"seen_change": true
+},
+"OFREQUITY": {
+"through": "2026-09-16",
+"day": "2026-09-18",
+"seen_change": true
+},
+"EIAWRPUPUS2": {
+"through": "2026-09-11",
+"day": "2026-09-17",
+"seen_change": false
+},
+"EIAWGTSTUS1": {
+"through": "2026-09-11",
+"day": "2026-09-17",
+"seen_change": false
+},
+"VVIX": {
+"through": "2026-09-18",
+"day": "2026-09-18",
+"seen_change": true
+},
+"UIBENEFITS": {
+"through": "2026-09-17",
+"day": "2026-09-18",
+"seen_change": true
+},
+"EIAWRPUPUS2_M4": {
+"through": "2026-09-11",
+"day": "2026-09-17",
+"seen_change": false
+},
+"EPUDAILY": {
+"through": "2026-09-17",
+"day": "2026-09-17",
+"seen_change": true
+},
+"SKEW": {
+"through": "2026-09-17",
+"day": "2026-09-17",
+"seen_change": true
+},
+"PMMS30W": {
+"through": "2026-09-17",
+"day": "2026-09-17",
+"seen_change": true
+},
+"BBKMCOIX": {
+"through": "2026-07-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"UNRATE": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"M1SL": {
+"through": "2026-07-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"WBUSAPPWNSAUS": {
+"through": "2026-08-29",
+"day": "2026-09-17",
+"seen_change": false
+},
+"WARN": {
+"through": "2026-09-18",
+"day": "2026-09-18",
+"seen_change": true
+},
+"DCPF3M": {
+"through": "2026-09-11",
+"day": "2026-09-17",
+"seen_change": false
+},
+"H0RIFSPPFM06NB": {
+"through": "1997-08-29",
+"day": "2026-09-17",
+"seen_change": false
+},
+"DTB3": {
+"through": "2026-09-17",
+"day": "2026-09-18",
+"seen_change": true
+},
+"GS10": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"GS1": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"AUTHNOTT": {
+"through": "2026-08-01",
+"day": "2026-09-17",
+"seen_change": true
+},
+"DRSFRMACBS": {
+"through": "2026-04-01",
+"day": "2026-09-17",
+"seen_change": false
+},
+"NEWORDER": {
+"through": "2026-07-01",
+"day": "2026-09-17",
+"seen_change": false
+}
+}

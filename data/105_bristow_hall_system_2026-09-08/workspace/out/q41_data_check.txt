@@ -1,0 +1,176 @@
+PASS  tile: unemployment rate  got=4.1%  want=4.1%
+PASS  tile: unemployment rate month  got=Aug 2026  want=Aug 2026
+PASS  tile: payrolls (thousands -> millions)  got=159.1 million  want=159.1 million
+PASS  tile: payroll growth = 3-month average change  got=+71,000 a month  want=+71,000 a month
+PASS  tile: initial claims (persons, not thousands)  got=197,000  want=197,000
+PASS  tile: claims week  got=week ending 2026-09-19  want=week ending 2026-09-19
+PASS  tile: insured rate  got=1.1%  want=1.1%
+PASS  tile: job openings (thousands -> millions)  got=7.3 million  want=7.3 million
+PASS  tile: unemployed per opening reads ONE month  got=0.95  want=0.95
+PASS  tile: unemployed per opening labels that month  got=Jul 2026  want=Jul 2026
+PASS  tile: quits rate  got=1.9%  want=1.9%
+PASS  tile: CPI year over year, by date  got=3.4%  want=3.4%
+PASS  tile: CPI labels the latest month  got=year over year, Aug 2026  want=year over year, Aug 2026
+PASS  tile: Unemployment rate next release is not in the past  got=2026-10-02  want=>= 2026-09-24
+PASS  tile: Nonfarm payrolls next release is not in the past  got=2026-10-02  want=>= 2026-09-24
+PASS  tile: Payroll growth next release is not in the past  got=2026-10-02  want=>= 2026-09-24
+PASS  tile: Initial claims (week) next release is not in the past  got=2026-10-01  want=>= 2026-09-24
+PASS  tile: Insured unemployment rate next release is not in the past  got=2026-10-01  want=>= 2026-09-24
+PASS  tile: Job openings next release is not in the past  got=2026-09-29  want=>= 2026-09-24
+PASS  tile: Unemployed per opening next release is not in the past  got=2026-09-29  want=>= 2026-09-24
+PASS  tile: Quits rate next release is not in the past  got=2026-09-29  want=>= 2026-09-24
+PASS  tile: CPI inflation next release is not in the past  got=2026-10-14  want=>= 2026-09-24
+PASS  units: unemployment rate between 1 and 40 per cent  got=4.1  want=1-40
+PASS  units: payrolls between 80 and 300 million  got=159.1  want=80-300
+PASS  units: job openings between 1 and 25 million  got=7.3  want=1-25
+PASS  units: initial claims between 50,000 and 20,000,000  got=197000  want=5e4-2e7
+PASS  units: insured rate between 0.2 and 30 per cent  got=1.1  want=0.2-30
+PASS  units: quits rate between 0.5 and 6 per cent  got=1.9  want=0.5-6
+PASS  feed reading matches the readings table: Initial claims, continued claims, insure  got=1.77  want=1.77
+PASS  feed line matches the readings table: Initial claims, continued claims, insure  got=40  want=40
+PASS  feed is not dated in the future: Initial claims, continued claims, insure  got=2026-09-19  want=<= 2026-09-24
+PASS  feed next release is not in the past: Initial claims, continued claims, insure  got=2026-10-01  want=>= 2026-09-24
+PASS  feed has a source link: Initial claims, continued claims, insure  got=True  want=True
+PASS  feed reading matches the readings table: State insured unemployment rates (the br  got=0.094  want=0.094
+PASS  feed line matches the readings table: State insured unemployment rates (the br  got=0.6  want=0.6
+PASS  feed is not dated in the future: State insured unemployment rates (the br  got=2026-09-05  want=<= 2026-09-24
+PASS  feed next release is not in the past: State insured unemployment rates (the br  got=2026-10-01  want=>= 2026-09-24
+PASS  feed has a source link: State insured unemployment rates (the br  got=True  want=True
+PASS  feed reading matches the readings table: Unemployment rate, factory hours, nondur  got=-0.067  want=-0.067
+PASS  feed line matches the readings table: Unemployment rate, factory hours, nondur  got=0.3667  want=0.3667
+PASS  feed is not dated in the future: Unemployment rate, factory hours, nondur  got=2026-08-01  want=<= 2026-09-24
+PASS  feed next release is not in the past: Unemployment rate, factory hours, nondur  got=2026-10-02  want=>= 2026-09-24
+PASS  feed has a source link: Unemployment rate, factory hours, nondur  got=True  want=True
+PASS  feed reading matches the readings table: Job openings (the vacancy rate)  got=-0.063  want=-0.063
+PASS  feed line matches the readings table: Job openings (the vacancy rate)  got=0.25  want=0.25
+PASS  feed is not dated in the future: Job openings (the vacancy rate)  got=2026-07-01  want=<= 2026-09-24
+PASS  feed next release is not in the past: Job openings (the vacancy rate)  got=2026-09-29  want=>= 2026-09-24
+PASS  feed has a source link: Job openings (the vacancy rate)  got=True  want=True
+PASS  feed reading matches the readings table: Housing starts and building permits  got=0.0  want=0.0
+PASS  feed line matches the readings table: Housing starts and building permits  got=1.0  want=1.0
+PASS  feed is not dated in the future: Housing starts and building permits  got=2026-08-01  want=<= 2026-09-24
+PASS  feed next release is not in the past: Housing starts and building permits  got=2026-10-20  want=>= 2026-09-24
+PASS  feed has a source link: Housing starts and building permits  got=True  want=True
+PASS  feed reading matches the readings table: Commercial paper and three-month bill ra  got=0.0  want=0.0
+PASS  feed line matches the readings table: Commercial paper and three-month bill ra  got=0.9  want=0.9
+PASS  feed is not dated in the future: Commercial paper and three-month bill ra  got=2026-09-23  want=<= 2026-09-24
+PASS  feed next release is not in the past: Commercial paper and three-month bill ra  got=2026-09-25  want=>= 2026-09-24
+PASS  feed has a source link: Commercial paper and three-month bill ra  got=True  want=True
+PASS  feed reading matches the readings table: S&P 500 daily close (the market gate of   got=0.78  want=0.78
+PASS  feed line matches the readings table: S&P 500 daily close (the market gate of   got=20.0  want=20.0
+PASS  feed is not dated in the future: S&P 500 daily close (the market gate of   got=2026-09-24  want=<= 2026-09-24
+PASS  feed next release is not in the past: S&P 500 daily close (the market gate of   got=2026-09-25  want=>= 2026-09-24
+PASS  feed has a source link: S&P 500 daily close (the market gate of   got=True  want=True
+PASS  feed reading matches the readings table: Industrial production, as published (the  got=-0.02  want=-0.02
+PASS  feed line matches the readings table: Industrial production, as published (the  got=2.0  want=2.0
+PASS  feed next release is not in the past: Industrial production, as published (the  got=2026-10-16  want=>= 2026-09-24
+PASS  feed has a source link: Industrial production, as published (the  got=True  want=True
+PASS  feed reading matches the readings table: Federal funds target range, upper limit   got=0.25  want=0.25
+PASS  feed line matches the readings table: Federal funds target range, upper limit   got=0.1  want=0.1
+PASS  feed is not dated in the future: Federal funds target range, upper limit   got=2026-09-24  want=<= 2026-09-24
+PASS  feed next release is not in the past: Federal funds target range, upper limit   got=2026-09-25  want=>= 2026-09-24
+PASS  feed has a source link: Federal funds target range, upper limit   got=True  want=True
+PASS  feed reading matches the readings table: State continued weeks claimed, ETA 539 (  got=0.0  want=0.0
+PASS  feed line matches the readings table: State continued weeks claimed, ETA 539 (  got=0.33  want=0.33
+PASS  feed next release is not in the past: State continued weeks claimed, ETA 539 (  got=2026-10-21  want=>= 2026-09-24
+PASS  feed has a source link: State continued weeks claimed, ETA 539 (  got=True  want=True
+PASS  feed is not dated in the future: State unemployment rates, all 51 (the se  got=2026-08-01  want=<= 2026-09-24
+PASS  feed next release is not in the past: State unemployment rates, all 51 (the se  got=2026-10-20  want=>= 2026-09-24
+PASS  feed has a source link: State unemployment rates, all 51 (the se  got=True  want=True
+PASS  feed next release is not in the past: Real GDP (the damage grade's output dime  got=2026-09-30  want=>= 2026-09-24
+PASS  feed has a source link: Real GDP (the damage grade's output dime  got=True  want=True
+PASS  feed next release is not in the past: GDPNow (the output dimension's bridge fo  got=2026-09-25  want=>= 2026-09-24
+PASS  feed has a source link: GDPNow (the output dimension's bridge fo  got=True  want=True
+PASS  feed next release is not in the past: Sahm rule, real time (the comparator on   got=2026-10-02  want=>= 2026-09-24
+PASS  feed has a source link: Sahm rule, real time (the comparator on   got=True  want=True
+PASS  feed reading matches the readings table: Search week: Google searches for "unempl  got=-17.257  want=-17.257
+PASS  feed line matches the readings table: Search week: Google searches for "unempl  got=35.0  want=35.0
+PASS  feed is not dated in the future: Search week: Google searches for "unempl  got=2026-09-23  want=<= 2026-09-24
+PASS  feed next release is not in the past: Search week: Google searches for "unempl  got=2026-09-24  want=>= 2026-09-24
+PASS  feed has a source link: Search week: Google searches for "unempl  got=True  want=True
+PASS  feed reading matches the readings table: Search week: Google searches for "layoff  got=1.169  want=1.169
+PASS  feed line matches the readings table: Search week: Google searches for "layoff  got=35.0  want=35.0
+PASS  feed is not dated in the future: Search week: Google searches for "layoff  got=2026-09-23  want=<= 2026-09-24
+PASS  feed next release is not in the past: Search week: Google searches for "layoff  got=2026-09-24  want=>= 2026-09-24
+PASS  feed has a source link: Search week: Google searches for "layoff  got=True  want=True
+PASS  feed reading matches the readings table: Search week: Google searches for "laid o  got=27.343  want=27.343
+PASS  feed line matches the readings table: Search week: Google searches for "laid o  got=35.0  want=35.0
+PASS  feed is not dated in the future: Search week: Google searches for "laid o  got=2026-09-23  want=<= 2026-09-24
+PASS  feed next release is not in the past: Search week: Google searches for "laid o  got=2026-09-24  want=>= 2026-09-24
+PASS  feed has a source link: Search week: Google searches for "laid o  got=True  want=True
+PASS  headline date = last day of the daily series  got=2026-09-24  want=2026-09-24
+PASS  daily series is in date order  got=True  want=True
+PASS  no reading is negative  got=True  want=True
+PASS  standing "since" = the last episode's close month  got=2024-09  want=2024-09
+PASS  standing state  got=closed  want=closed
+PASS  every episode opens before it closes  got=True  want=True
+PASS  speed panel: calls before the end of the peak month  got=10  want=10
+PASS  speed panel: thirteen episodes  got=13  want=13
+PASS  record: no close is retrospective (every close walked, v3.64)  got=[]  want=[]
+PASS  activity opener: all four legs read this build  got=[]  want=[]
+PASS  state: no leg-tier keys and no leg labels (v3.64)  got=[]  want=[]
+PASS  state: nothing from the frozen rule (v3.65)  got=[]  want=[]
+PASS  speed panel: the four carry no announcement day (v3.66)  got=[]  want=[]
+PASS  v3.68: 1960 opened 1960-04-25 by the concurrence branch  got=[('1960-04-25', 'concurrence branch: a labour proposal with the activity picture')]  want=[('1960-04-25', 'concurrence branch: a labour proposal with the activity picture')]
+PASS  v3.71: 1948-49 closed 1949-10-28 by the activity closer (E26, the jobs condition)  got=[('1948-09-27', '1949-10-28', 'activity closer')]  want=[('1948-09-27', '1949-10-28', 'activity closer')]
+PASS  v3.71: 1953-54 closed 1954-06-03 by the labour core closer  got=[('1953-08-31', '1954-06-03', 'labour core: closer')]  want=[('1953-08-31', '1954-06-03', 'labour core: closer')]
+PASS  v3.71: 1957-58 closed 1958-05-23 by the labour core closer (C, the strong flow)  got=[('1957-08-26', '1958-05-23', 'labour core: closer')]  want=[('1957-08-26', '1958-05-23', 'labour core: closer')]
+PASS  v3.71: 1960-61 closed 1961-01-30 by the labour core closer  got=[('1960-04-25', '1961-01-30', 'labour core: closer')]  want=[('1960-04-25', '1961-01-30', 'labour core: closer')]
+PASS  v3.71: 1973 opened 1973-09-17 and 1973-75 closed 1975-05-01  got=[('1973-09-17', '1975-05-01', 'labour core: closer')]  want=[('1973-09-17', '1975-05-01', 'labour core: closer')]
+PASS  v3.71: today's vacancy line 0.25 and vacancy look-back 12  got=[0.25, 12]  want=[0.25, 12]
+PASS  v3.72: the state breadth ran and carries its states and month  got=[True, 51, True]  want=[True, 51, True]
+PASS  v3.72: the state breadth fired four times on the first prints, the last on 2024-05-17  got=['2024-05-17']  want=['2024-05-17']
+PASS  v3.73: the breadth block carries the E31b re-arm 0.25  got=0.25  want=0.25
+PASS  v3.74: the near-miss log is in the state  got=True  want=True
+PASS  v3.74: the state-rate channel row is present with its substitute named  got=True  want=True
+PASS  v3.74: the breadth JSON carries the substitute block  got=True  want=True
+PASS  v3.74: the scoreboard was built with the four recessions since 1994  got=4  want=4
+PASS  v3.74: the data census reports no gap  got=[]  want=[]
+PASS  v3.73: the claims substitute is in the state and idle while the release is current  got=True  want=True
+PASS  v3.73: the vacancy bridge is in the state  got=True  want=True
+PASS  v3.73: the chronology file parses with thirteen entries  got=13  want=13
+PASS  v3.73: the payroll backstop closer was read  got=True  want=True
+PASS  v3.73: the damage dimensions ran  got=True  want=True
+PASS  v3.73: every episode carries its three dimensions  got=[]  want=[]
+PASS  v3.73: the record's three heights (2007-09 5.8, 2020 5.5, 2024 1.3)  got=[5.8, 5.5, 1.3]  want=[5.8, 5.5, 1.3]
+PASS  v3.72: the 2024 episode still opens 2024-05-03 by the labour core  got=[('2024-05-03', 'labour core: Sahm gap with falling vacancies')]  want=[('2024-05-03', 'labour core: Sahm gap with falling vacancies')]
+PASS  v3.68: the concurrence branch and its walked diary are in the state  got=['1957-10-10', '1960-04-25', '1970-01-21', '1970-01-29', '1970-02-10', '1970-04-23', '1974-02-21', '1974-10-31', '1980-04-15', '1980-05-08', '1981-11-12', '1981-11-19']  want=['1957-10-10', '1960-04-25', '1970-01-21', '1970-01-29', '1970-02-10', '1970-04-23', '1974-02-21', '1974-10-31', '1980-04-15', '1980-05-08', '1981-11-12', '1981-11-19']
+PASS  v3.68: the concurrence branch ran this build  got=True  want=True
+PASS  data page: every armed leg has a status  got=[]  want=[]
+PASS  data page: no leg-tier channels (the tier retired in v3.57, its channels removed in v3.59)  got=0  want=0
+PASS  data page: the backstop tier's five inputs listed (335: Michez; 366: the Weekly Economic Index, both shadow readings)  got=5  want=5
+PASS  366: the WEI shadow reading is the 13-week mean of the cached FRED series  got=(2.86, 0.0, True)  want=(2.86, 0.0, True)
+PASS  366: the WEI row carries a next day (Thursday)  got=True  want=True
+PASS  data page: every leg channel carries a day in hand through  got=[]  want=[]
+PASS  data page: every leg channel is read by a leg  got=[]  want=[]
+PASS  data page: every feed names its series  got=[]  want=[]
+PASS  368: the margins page lists every reading  got=28  want=28
+PASS  368: the margins page carries the near-miss count  got=True  want=True
+PASS  368: the data page links the margins page  got=True  want=True
+PASS  372: schema version in the state  got=1  want=1
+PASS  372: schema check is clean  got=[]  want=[]
+PASS  378: the Department's latest icsa first print agrees with FRED (ICSA, week 2026-09-19)  got=197000.0  want=197000.0
+PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week 2026-09-12)  got=1719000.0  want=1719000.0
+PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-09-12)  got=1.1  want=1.1
+PASS  data page: every leg channel has a title  got=[]  want=[]
+PASS  record: every episode carries a damage score  got=[]  want=[]
+PASS  public state copies are this build  got=('2026-09-24 18:26', '2026-09-24 18:26')  want=('2026-09-24 18:26', '2026-09-24 18:26')
+PASS  front-page tiles fetched today  got=2026-09-24  want=2026-09-24
+PASS  no leg channel stale past its cadence  got=[]  want=[]
+PASS  data page: every leg channel shows where it stands  got=[]  want=[]
+PASS  data page: every leg channel has a next-published day  got=[]  want=[]
+PASS  data page: no next-published day in the past  got=[]  want=[]
+PASS  data page: a live channel is not marked ended  got=[]  want=[]
+PASS  data page: every feed has a next-published day  got=[]  want=[]
+PASS  every live leg channel pulled today (WARN within two days)  got=[]  want=[]
+PASS  data page: the five columns  got=['name', 'ids', 'value', 'through', 'next']  want=['name', 'ids', 'value', 'through', 'next']
+PASS  data page: no blank cell  got=0  want=0
+PASS  record: the front page sentence is computed from the state  got=0  want=0
+PASS  notes: the Notes are a short summary (Anthony, 24 September 2026: as short as the Sahm indicator notes)  got=126  want=at most 140 words
+PASS  note: every episode of the rule is dated by a chronology (advisory - a standing call no dater has yet dated is published and noted, never held)  got=[]  want=[]
+PASS  data page: every next-published day is a day  got=[]  want=[]
+PASS  data page: where it stands is the data only  got=[]  want=[]
+PASS  data page: every leg channel states its units  got=[]  want=[]
+PASS  data page: every feed value states its units  got=[]  want=[]
+PASS  data page: the search terms are on Google's own scale  got=[]  want=[]
+PASS  data page: every percent carries its % sign  got=[]  want=[]

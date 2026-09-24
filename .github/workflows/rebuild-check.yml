@@ -1,0 +1,55 @@
+# THE MONTHLY REBUILD CHECK (24 September 2026, collection 369; risks register R7): a runner that has never seen the project
+# clones the repository, builds the tool's state from the committed data alone and compares it with the state the live site
+# serves. Identical = the site can be rebuilt from the repository by anyone; different = a message to the phone (CHECK).
+# Runs on the first of each month at 06:00 UTC and by hand. It publishes nothing and commits nothing.
+name: rebuild check (R7)
+on:
+  schedule:
+    - cron: '0 6 1 * *'
+  workflow_dispatch:
+concurrency: rebuild-check
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+      # the third-party files the build reads live in the private repository (see update.yml, "the private data, in")
+      - name: the private data, in
+        env:
+          PRIVATE_DATA_KEY: ${{ secrets.PRIVATE_DATA_KEY }}
+        run: |
+          mkdir -p ~/.ssh && printf '%s\n' "$PRIVATE_DATA_KEY" > ~/.ssh/private_data && chmod 600 ~/.ssh/private_data
+          export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/private_data -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+          P="$RUNNER_TEMP/private-data"
+          for i in 1 2 3; do git clone -q --depth 1 git@github.com:anthonythomashall3-rgb/bristow-hall-private-data.git "$P" && break || { rm -rf "$P"; sleep 15; }; done
+          [ -d "$P/.git" ] || exit 1
+          ( cd "$P" && git ls-files -z | tar --null -T - -cf - ) | tar -xf - -C "$GITHUB_WORKSPACE"
+          rm -f ~/.ssh/private_data
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+          cache: pip
+      - run: pip install --quiet --retries 10 --timeout 60 -r requirements.txt
+      - name: build from the committed data alone
+        env:
+          BHS_MODE: build
+        run: bash run_cloud.sh
+      - name: compare with the live site
+        id: cmp
+        run: |
+          mkdir -p ops/out
+          python3 ops/rebuild_check.py data/105_bristow_hall_system_2026-09-08/workspace/out/bhs_state.json | tee ops/out/rebuild_check.txt
+          grep -q "IDENTICAL" ops/out/rebuild_check.txt && echo "verdict=IDENTICAL" >> "$GITHUB_OUTPUT" || echo "verdict=DIFFERENT" >> "$GITHUB_OUTPUT"
+      - name: tell Anthony
+        if: always()
+        env:
+          TOPIC: ${{ secrets.NTFY_TOPIC }}
+          VERDICT: ${{ steps.cmp.outputs.verdict }}
+        run: |
+          LINE="$(cat ops/out/rebuild_check.txt 2>/dev/null | head -1)"; [ -n "$LINE" ] || LINE="R7 rebuild check: the build itself failed (see the run)"
+          if [ "$VERDICT" = "IDENTICAL" ]; then T="Rebuild check: identical"; P=2; else T="CHECK (R7): the rebuild differs from the live site"; P=4; fi
+          [ -n "$TOPIC" ] && curl -s -m 20 -H "Title: $T" -H "Priority: $P" -H "Click: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" -d "$LINE" "https://ntfy.sh/$TOPIC" >/dev/null || true
+          echo "$LINE"

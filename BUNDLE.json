@@ -1,0 +1,11 @@
+{
+ "built": "2026-09-18T23:20:59Z",
+ "freeze": "FREEZE-v3.56-2026-09-18T2250Z.json",
+ "freeze_id": "40dc5eadf586fef57555d61ab4a23e61561da2013f9ebec23fff58951dd5c2df",
+ "version": "v3.56",
+ "walk": "walk94.py",
+ "data_files": 4549,
+ "code_files": 3684,
+ "missing": 0,
+ "megabytes": 484.4
+}

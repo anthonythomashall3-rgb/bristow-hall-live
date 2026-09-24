@@ -1,0 +1,107 @@
+{
+ "rule": "industrial production as published >= 2.0 log points below its prior-12-month high AND the S&P 500 >= 10 per cent (log) below its 250-trading-day high AND the policy rate >= 0.10 point above its low of the prior 365 days AND, in the latest month public (21 days after it ends), >= 33 per cent of states with the insured-rate proxy 0.45 point above its prior-12-month minimum (Core v7-W: the cell and gate the causal walk from 1948 chose, collection 288)",
+ "lines": {
+  "production": 0.02,
+  "market": 0.1,
+  "tightening": 0.1,
+  "breadth_unit": 0.45,
+  "breadth_share": 0.33,
+  "rearm_days": 182,
+  "bar_days_after_close": 183,
+  "breadth_public_days_after_month": 21
+ },
+ "asof": "2026-09-24",
+ "reading": {
+  "production_fall12": -0.0002,
+  "production_distance": 0.0202,
+  "production_vintage": "2026-09-18",
+  "production_level": 103.0682,
+  "production_last_month": "2026-08",
+  "market_drawdown": 0.0122,
+  "market_distance": 0.0878,
+  "market_close": 7704.13,
+  "market_close_date": "2026-09-24",
+  "policy_rate": 4.0,
+  "policy_low_365": 3.75,
+  "policy_rise": 0.25,
+  "policy_date": "2026-09-24",
+  "tightening": true,
+  "breadth_month": "2026-08",
+  "breadth_published": "2026-09-21",
+  "breadth_share": 0.0,
+  "breadth_states": 51,
+  "breadth_source": "live: ETA 539 continued weeks (OWN construction), real-time seasonal adjustment, FRED state payrolls",
+  "gate_open": false,
+  "all_four_hold": false,
+  "both_hold": false,
+  "armed": true,
+  "last_fire": "1981-12-30"
+ },
+ "activity_picture": {
+  "line": 0.01,
+  "holds_today": false,
+  "days_since_1947": 869,
+  "last_day": "1990-02-25",
+  "note": "the four conditions with production 1.0 log point below its twelve-month high: the concurrence branch confirms a standing labour proposal on such a day (v3.68)"
+ },
+ "calls": [
+  "1948-09-27",
+  "1953-08-31",
+  "1957-08-26",
+  "1970-01-21",
+  "1974-03-15",
+  "1981-11-13"
+ ],
+ "calls_note": "the calls of today's lines over the whole history (the frozen rule's opener branch); the walked record is walked_calls",
+ "walked_calls": [
+  "1948-09-27",
+  "1953-08-31",
+  "1957-08-26",
+  "1970-01-21",
+  "1974-03-15",
+  "1981-11-13"
+ ],
+ "vintages": 1223,
+ "vintages_added_this_run": 0,
+ "policy_days_added_this_run": 0,
+ "breadth_months_added_this_run": 0,
+ "g17_dates": [
+  "2026-10-16",
+  "2026-11-17",
+  "2026-12-16"
+ ],
+ "next_fomc": "2026-10-28",
+ "next_fomc_estimated": false,
+ "next_breadth_publication": "2026-10-21",
+ "channels": {
+  "production": {
+   "status": "current",
+   "age_days": 6,
+   "limit_days": 45,
+   "substitute": null
+  },
+  "market": {
+   "status": "current",
+   "age_days": 0,
+   "limit_days": 5,
+   "substitute": null
+  },
+  "policy": {
+   "status": "current",
+   "age_days": 0,
+   "limit_days": 10,
+   "substitute": null
+  },
+  "breadth": {
+   "status": "current",
+   "age_days": 24,
+   "limit_days": 56,
+   "substitute": null
+  }
+ },
+ "notes": [
+  "breadth: 2026-09 is public on 2026-10-21"
+ ],
+ "collection": "289_core_v7w_live_port_2026-09-21 (rule: 288 RECORD-core-v7-walk-1948-breadth; opener walk: 279 walk C, 288 walk D)",
+ "next_production_release": "2026-10-16"
+}

@@ -1,0 +1,17 @@
+FRED change check: 112 series tracked; 0 changed since last pulled (0 updated since 19:37 CT)
+search week (unemp): 3 day(s) appended, through 2026-09-20 (scale 0.088 on 248 overlap days)
+search week (unemp): Google's 90-day view through 2026-09-20 = 42
+search week (layoffs): 3 day(s) appended, through 2026-09-20 (scale 1.254 on 248 overlap days)
+search week (layoffs): Google's 90-day view through 2026-09-20 = 15
+search week (laidoff): 3 day(s) appended, through 2026-09-20 (scale 0.140 on 248 overlap days)
+search week (laidoff): Google's 90-day view through 2026-09-20 = 23
+home tiles: unchanged | 9 readings through Aug 2026 (unemployment rate), 2026-09-12 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-09-24, IURSA 2026-09-24, JTSJOL 2026-09-29, JTSQUR 2026-09-29, PAYEMS 2026-10-02, UNRATE 2026-10-02; saved to collection 109
+relcal_HOUST: unchanged (through 2026-08)
+relcal_UNRATE: unchanged (through 2026-08)
+relcal_JTSJOL: unchanged (through 2026-07)
+vacancy: no new JOLTS month (through 2026-07-01)
+S&P 500: nothing new (through 2026-09-18)
+Sahm gap: unchanged (through 2026-08-01)
+insured rate base: unchanged (through 2026-09-05)
+---- the damage index's unemployment rate ----
+left as they stand: 78 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)

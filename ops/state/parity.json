@@ -1,0 +1,85 @@
+{
+ "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
+ "checked_at": "2026-09-24T22:26Z",
+ "open_misses": [
+  {
+   "hours": 6.8,
+   "name": "the Weekly Economic Index",
+   "posted": "2026-09-24 11:39 ET",
+   "release": 465
+  }
+ ],
+ "reads": [
+  {
+   "from": "2026-09-22",
+   "ids": "Google Trends \"unemployment\"",
+   "lag_min": null,
+   "name": null,
+   "posted": null,
+   "read_at": "2026-09-24T05:04Z",
+   "release": null,
+   "to": "2026-09-23"
+  },
+  {
+   "from": "2026-09-22",
+   "ids": "Google Trends \"layoffs\"",
+   "lag_min": null,
+   "name": null,
+   "posted": null,
+   "read_at": "2026-09-24T05:04Z",
+   "release": null,
+   "to": "2026-09-23"
+  },
+  {
+   "from": "2026-09-22",
+   "ids": "Google Trends \"laid off\"",
+   "lag_min": null,
+   "name": null,
+   "posted": null,
+   "read_at": "2026-09-24T05:04Z",
+   "release": null,
+   "to": "2026-09-23"
+  },
+  {
+   "from": "2026-09-12",
+   "ids": "ICSA, CCSA, IURSA",
+   "lag_min": 24,
+   "name": "weekly claims",
+   "posted": "2026-09-24 08:30 ET",
+   "read_at": "2026-09-24T12:54Z",
+   "release": 180,
+   "to": "2026-09-19"
+  },
+  {
+   "from": "2026-09-23",
+   "ids": "DFEDTARU",
+   "lag_min": 53,
+   "name": "the fed funds target",
+   "posted": "2026-09-24 08:01 ET",
+   "read_at": "2026-09-24T12:54Z",
+   "release": 101,
+   "to": "2026-09-24"
+  },
+  {
+   "from": "2026-09-22",
+   "ids": "DCPF1M, DCPN30, WTB3MS",
+   "lag_min": 17,
+   "name": "H.15 rates",
+   "posted": "2026-09-24 16:16 ET",
+   "read_at": "2026-09-24T20:33Z",
+   "release": 18,
+   "to": "2026-09-23"
+  },
+  {
+   "from": "2026-09-23",
+   "ids": "^GSPC",
+   "lag_min": 33,
+   "name": "the S&P 500 close",
+   "posted": "2026-09-24 16:00 ET",
+   "read_at": "2026-09-24T20:33Z",
+   "release": 189,
+   "to": "2026-09-24"
+  }
+ ],
+ "since": "2026-09-23T23:12Z"
+}

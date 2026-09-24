@@ -1,0 +1,31 @@
+FRED change check: 112 series tracked; 0 changed since last pulled (0 updated since 18:22 CT)
+home tiles: unchanged | 9 readings through Aug 2026 (unemployment rate), 2026-09-12 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-09-24, IURSA 2026-09-24, JTSJOL 2026-09-29, JTSQUR 2026-09-29, PAYEMS 2026-10-02, UNRATE 2026-10-02; saved to collection 109
+relcal_HOUST: unchanged (through 2026-08)
+relcal_UNRATE: unchanged (through 2026-08)
+relcal_JTSJOL: unchanged (through 2026-07)
+vacancy: no new JOLTS month (through 2026-07-01)
+S&P 500: nothing new (through 2026-09-18)
+Sahm gap: unchanged (through 2026-08-01)
+insured rate base: unchanged (through 2026-09-05)
+---- v3.55 carried-leg channels ----
+DTB1           dead series, not refreshed: ends 2001-08 (successor DTB1YR)
+TOTRA          dead series, not refreshed: ends 2018-04 (successor WALCL)
+LOLAOL         dead series, not refreshed: ends 2018-04
+M14064USM144NNBR dead series, not refreshed: NBER Macrohistory, ends 1965
+DTWEXM         dead series, not refreshed: ends 2019-12 (successor DTWEXBGS)
+M0852BUSM497NNBR dead series, not refreshed: NBER Macrohistory
+M03002USM544NNBR dead series, not refreshed: NBER Macrohistory
+pink sheet: read earlier today (monthly data); not fetched again
+WRPUPUS2 none -> 2026-09-11
+WGFUPUS2 none -> 2026-09-11
+WDIUPUS2 none -> 2026-09-11
+WCESTUS1 none -> 2026-09-11
+WGTSTUS1 none -> 2026-09-11
+live sources: 16 pulled, 5 moved; UMCSENT 2026-09 = 47.8 (preliminary; next 2026-09-25) | VVIX_daily 2026-09-18, pmms30_weekly 2026-09-17, SKEW_daily 2026-09-17, epu_us_daily 2026-09-17, dts_withheld_taxes_daily 2026-09-17, dts_customs_duties_daily 2026-09-17
+hf channels: DTSCORP_S65      -> 2026-09-17 n=5201
+leg release calendar: 54 of 59 FRED channels dated (30 releases); no calendar: 5; posting days fetched for 0 of 0
+---- legs M, A, P: the spread and activity data, and their proposals ----
+leg M/A/P proposals: inputs unchanged; not rebuilt
+---- leg N: WARN notices ----
+WARN scrape: NOT started (no 117/.venv/bin/python)
+left as they stand: 130 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)

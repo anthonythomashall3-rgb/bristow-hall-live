@@ -1,0 +1,1 @@
+{"year": 2025, "filed": "2026-09-23", "version": "v3.73", "days_on_grid": 250, "days_open": 0, "episodes_touching_year": [], "highest_outside": {"value": 0.727, "day": "2025-07-02", "branch": "X"}, "near_miss_spells": [], "channels_worst": "current", "note": "the null extends by this year if no episode opened; a line may tighten only through the walk"}

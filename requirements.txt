@@ -1,0 +1,17 @@
+# PINNED TO EXACTLY WHAT THE MAC RUNS. Not "a recent pandas" - the same one.
+#
+# The fifth cloud run died with NotImplementedError on a datetime array, because the runner had pandas 2.3 and the
+# Mac has 3.0.5. Two engines that compute the rule must not disagree about arithmetic: a version gap here is not
+# an inconvenience, it is two different tools publishing to one site. When the Mac's versions change, these change
+# with them, deliberately, and the walk is re-run to prove the record is unmoved.
+pandas==3.0.5
+numpy==2.5.1
+xlrd==2.0.2
+openpyxl==3.1.5
+requests==2.32.5
+scipy==1.18.0
+lxml==6.1.2
+# the search week's daily feed (108/scripts/trends_live.py): the version in the Mac's own venv for that collection.
+# Until 20 September 2026 the runner had neither the package nor the script, so the search week - one of the rule's own
+# inputs, and the fastest of them - was quietly not refreshed on any cloud run (collection 274).
+pytrends==4.9.2

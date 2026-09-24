@@ -1,0 +1,476 @@
+{
+ "recorded": "2026-09-18T22:49:40Z",
+ "shapes": {
+  "THE LINE": {
+   "cadence": 2,
+   "first": "1962-01-02",
+   "last": "2026-09-18",
+   "level": 0.598,
+   "n": 11010,
+   "newest": 0.433,
+   "spread": 0.108387
+  },
+  "feed:AUTHNOTT": {
+   "cadence_stated": "monthly",
+   "n": 731,
+   "through": "2026-08-01",
+   "units": "Thousands of Units, not seasonally adjus",
+   "value": "276.4"
+  },
+  "feed:AWHMAN": {
+   "cadence_stated": "monthly",
+   "n": 1052,
+   "through": "2026-08-01",
+   "units": "Hours, seasonally adjusted",
+   "value": "41.7"
+  },
+  "feed:BBKMCOIX": {
+   "cadence_stated": "monthly",
+   "n": 799,
+   "through": "2026-07-01",
+   "units": "Standard Deviations, seasonally adjusted",
+   "value": "0.0965"
+  },
+  "feed:BORROW": {
+   "cadence_stated": "monthly",
+   "n": 811,
+   "through": "2026-07-01",
+   "units": "Millions of Dollars, not seasonally adju",
+   "value": "5,946"
+  },
+  "feed:BSCICP02DEM460S": {
+   "cadence_stated": "monthly",
+   "n": 765,
+   "through": "2026-08-01",
+   "units": "Percent, seasonally adjusted",
+   "value": "-11"
+  },
+  "feed:BUSINV": {
+   "cadence_stated": "monthly",
+   "n": 415,
+   "through": "2026-07-01",
+   "units": "Millions of Dollars, seasonally adjusted",
+   "value": "2,764,708"
+  },
+  "feed:CASACBW027NBOG": {
+   "cadence_stated": "weekly",
+   "n": 2802,
+   "through": "2026-09-09",
+   "units": "Billions of U.S. Dollars, not seasonally",
+   "value": "3,113.95"
+  },
+  "feed:CCNSA": {
+   "cadence_stated": "weekly",
+   "n": 3114,
+   "through": "2026-09-05",
+   "units": "Number, not seasonally adjusted",
+   "value": "1,577,344"
+  },
+  "feed:DCOILWTICO": {
+   "cadence_stated": "daily",
+   "n": 9502,
+   "through": "2026-09-15",
+   "units": "Dollars per Barrel, not seasonally adjus",
+   "value": "107.02"
+  },
+  "feed:DCPF3M": {
+   "cadence_stated": "weekly",
+   "n": 6747,
+   "through": "2026-09-11",
+   "units": "Percent, not seasonally adjusted",
+   "value": "3.9"
+  },
+  "feed:DEXSLUS": {
+   "cadence_stated": "daily",
+   "n": 13106,
+   "through": "2026-09-11",
+   "units": "Sri Lankan Rupees to One U.S. Dollar, no",
+   "value": "328.6"
+  },
+  "feed:DFF": {
+   "cadence_stated": "daily",
+   "n": 26377,
+   "through": "2026-09-17",
+   "units": "Percent, not seasonally adjusted",
+   "value": "3.88"
+  },
+  "feed:DPRIME": {
+   "cadence_stated": "daily",
+   "n": 18128,
+   "through": "2026-09-17",
+   "units": "Percent, not seasonally adjusted",
+   "value": "7"
+  },
+  "feed:DRSFRMACBS": {
+   "cadence_stated": "quarterly",
+   "n": 142,
+   "through": "2026-04-01",
+   "units": "Percent, seasonally adjusted",
+   "value": "1.86"
+  },
+  "feed:DTB1": {
+   "cadence_stated": "daily",
+   "n": 9876,
+   "through": "2001-08-24",
+   "units": "Percent, not seasonally adjusted",
+   "value": "3.25"
+  },
+  "feed:DTB3": {
+   "cadence_stated": "daily",
+   "n": 18169,
+   "through": "2026-09-17",
+   "units": "Percent, not seasonally adjusted",
+   "value": "3.97"
+  },
+  "feed:DTSCORP_S65": {
+   "cadence_stated": "daily",
+   "n": 5201,
+   "through": "2026-09-17",
+   "units": "millions of dollars, 65-business-day sum",
+   "value": "119,813"
+  },
+  "feed:DTSCUSTOMS": {
+   "cadence_stated": "daily",
+   "n": 5265,
+   "through": "2026-09-17",
+   "units": "millions of dollars, the day",
+   "value": "342"
+  },
+  "feed:DTSWITHHELD": {
+   "cadence_stated": "daily",
+   "n": 5265,
+   "through": "2026-09-17",
+   "units": "millions of dollars, the day",
+   "value": "6,282"
+  },
+  "feed:DTWEXM": {
+   "cadence_stated": "daily",
+   "n": 11834,
+   "through": "2019-12-31",
+   "units": "Index Mar 1973=100, not seasonally adjus",
+   "value": "90.82"
+  },
+  "feed:EIAWGTSTUS1": {
+   "cadence_stated": "weekly",
+   "n": 1915,
+   "through": "2026-09-11",
+   "units": "thousand barrels",
+   "value": "207,732"
+  },
+  "feed:EIAWRPUPUS2": {
+   "cadence_stated": "weekly",
+   "n": 1870,
+   "through": "2026-09-11",
+   "units": "thousand barrels per day",
+   "value": "21,255"
+  },
+  "feed:EIAWRPUPUS2_M4": {
+   "cadence_stated": "weekly",
+   "n": 1867,
+   "through": "2026-09-11",
+   "units": "thousand barrels per day, 4-week mean",
+   "value": "20,547.75"
+  },
+  "feed:EPUDAILY": {
+   "cadence_stated": "daily",
+   "n": 15235,
+   "through": "2026-09-17",
+   "units": "index",
+   "value": "342.15"
+  },
+  "feed:EPUMONETARY": {
+   "cadence_stated": "monthly",
+   "n": 499,
+   "through": "2026-07-01",
+   "units": "Index, not seasonally adjusted",
+   "value": "171.26"
+  },
+  "feed:GPRDAILY": {
+   "cadence_stated": "daily",
+   "n": 15232,
+   "through": "2026-09-14",
+   "units": "index, 1985-2019 average = 100",
+   "value": "189.53"
+  },
+  "feed:GS1": {
+   "cadence_stated": "monthly",
+   "n": 881,
+   "through": "2026-08-01",
+   "units": "Percent, not seasonally adjusted",
+   "value": "4.03"
+  },
+  "feed:GS10": {
+   "cadence_stated": "monthly",
+   "n": 881,
+   "through": "2026-08-01",
+   "units": "Percent, not seasonally adjusted",
+   "value": "4.68"
+  },
+  "feed:H0RIFSPPFM06NB": {
+   "cadence_stated": "daily",
+   "n": 10823,
+   "through": "1997-08-29",
+   "units": "Percent, not seasonally adjusted",
+   "value": "5.52"
+  },
+  "feed:HOUST": {
+   "cadence_stated": "monthly",
+   "n": 812,
+   "through": "2026-08-01",
+   "units": "Thousands of Units, seasonally adjusted ",
+   "value": "1,275"
+  },
+  "feed:INDPRO": {
+   "cadence_stated": "monthly",
+   "n": 1292,
+   "through": "2026-08-01",
+   "units": "Index 2017=100, seasonally adjusted",
+   "value": "103.07"
+  },
+  "feed:IPDCONGD": {
+   "cadence_stated": "monthly",
+   "n": 956,
+   "through": "2026-08-01",
+   "units": "Index 2017=100, seasonally adjusted",
+   "value": "96.45"
+  },
+  "feed:IPMAN": {
+   "cadence_stated": "monthly",
+   "n": 656,
+   "through": "2026-08-01",
+   "units": "Index 2017=100, seasonally adjusted",
+   "value": "99.10"
+  },
+  "feed:IR": {
+   "cadence_stated": "monthly",
+   "n": 477,
+   "through": "2026-08-01",
+   "units": "Index 2000=100, not seasonally adjusted",
+   "value": "150.8"
+  },
+  "feed:LNS11300001": {
+   "cadence_stated": "monthly",
+   "n": 943,
+   "through": "2026-08-01",
+   "units": "Percent, seasonally adjusted",
+   "value": "67.2"
+  },
+  "feed:LNS12032194": {
+   "cadence_stated": "monthly",
+   "n": 855,
+   "through": "2026-08-01",
+   "units": "Thousands of Persons, seasonally adjuste",
+   "value": "4,390"
+  },
+  "feed:LOLAOL": {
+   "cadence_stated": "weekly",
+   "n": 5396,
+   "through": "2018-04-11",
+   "units": "Millions of U.S. Dollars, not seasonally",
+   "value": "6,606"
+  },
+  "feed:M03002USM544NNBR": {
+   "cadence_stated": "monthly",
+   "n": 672,
+   "through": "1973-12-01",
+   "units": "Thousands of Cars per Week, not seasonal",
+   "value": "487"
+  },
+  "feed:M14064USM144NNBR": {
+   "cadence_stated": "monthly",
+   "n": 587,
+   "through": "1965-11-01",
+   "units": "Millions of Dollars, not seasonally adju",
+   "value": "21,957"
+  },
+  "feed:M1SL": {
+   "cadence_stated": "monthly",
+   "n": 811,
+   "through": "2026-07-01",
+   "units": "Billions of Dollars, seasonally adjusted",
+   "value": "19,886.4"
+  },
+  "feed:MANEMP": {
+   "cadence_stated": "monthly",
+   "n": 1052,
+   "through": "2026-08-01",
+   "units": "Thousands of Persons, seasonally adjuste",
+   "value": "12,638"
+  },
+  "feed:NASDAQCOM": {
+   "cadence_stated": "daily",
+   "n": 14022,
+   "through": "2026-09-17",
+   "units": "Index Feb 5, 1971=100, not seasonally ad",
+   "value": "26,418.3"
+  },
+  "feed:NEWORDER": {
+   "cadence_stated": "monthly",
+   "n": 414,
+   "through": "2026-07-01",
+   "units": "Millions of Dollars, seasonally adjusted",
+   "value": "85,716"
+  },
+  "feed:OFREQUITY": {
+   "cadence_stated": "daily",
+   "n": 6760,
+   "through": "2026-09-16",
+   "units": "index, contribution to the OFR FSI",
+   "value": "-0.532"
+  },
+  "feed:PERMIT1": {
+   "cadence_stated": "monthly",
+   "n": 800,
+   "through": "2026-08-01",
+   "units": "Thousands of Units, seasonally adjusted ",
+   "value": "878"
+  },
+  "feed:PMMS30W": {
+   "cadence_stated": "weekly",
+   "n": 2895,
+   "through": "2026-09-17",
+   "units": "percent, 30-year fixed rate",
+   "value": "6.95"
+  },
+  "feed:SKEW": {
+   "cadence_stated": "daily",
+   "n": 9229,
+   "through": "2026-09-17",
+   "units": "index points",
+   "value": "145.7"
+  },
+  "feed:T10Y2Y": {
+   "cadence_stated": "daily",
+   "n": 12572,
+   "through": "2026-09-18",
+   "units": "Percent, not seasonally adjusted",
+   "value": "0.25"
+  },
+  "feed:T10Y3M": {
+   "cadence_stated": "daily",
+   "n": 11181,
+   "through": "2026-09-18",
+   "units": "Percent, not seasonally adjusted",
+   "value": "0.87"
+  },
+  "feed:TOTRA": {
+   "cadence_stated": "weekly",
+   "n": 5396,
+   "through": "2018-04-11",
+   "units": "Millions of U.S. Dollars, not seasonally",
+   "value": "4,383,684"
+  },
+  "feed:TSIFRGHT": {
+   "cadence_stated": "monthly",
+   "n": 318,
+   "through": "2026-06-01",
+   "units": "Index 2000=100, seasonally adjusted",
+   "value": "134.9"
+  },
+  "feed:UIBENEFITS": {
+   "cadence_stated": "daily",
+   "n": 5265,
+   "through": "2026-09-17",
+   "units": "millions of dollars, the day",
+   "value": "69"
+  },
+  "feed:UIBENEFITS_S20": {
+   "cadence_stated": "daily",
+   "n": 5246,
+   "through": "2026-09-17",
+   "units": "millions of dollars, 20-business-day sum",
+   "value": "2,802"
+  },
+  "feed:UMCSENT": {
+   "cadence_stated": "monthly",
+   "n": 677,
+   "through": "2026-09-01",
+   "units": "Index 1966:Q1=100, not seasonally adjust",
+   "value": "47.8"
+  },
+  "feed:UNRATE": {
+   "cadence_stated": "monthly",
+   "n": 943,
+   "through": "2026-08-01",
+   "units": "Percent, seasonally adjusted",
+   "value": "4.1"
+  },
+  "feed:VIXCLS": {
+   "cadence_stated": "daily",
+   "n": 9276,
+   "through": "2026-09-17",
+   "units": "Index, not seasonally adjusted",
+   "value": "15.44"
+  },
+  "feed:VVIX": {
+   "cadence_stated": "daily",
+   "n": 5107,
+   "through": "2026-09-18",
+   "units": "index points",
+   "value": "87.38"
+  },
+  "feed:WARN": {
+   "cadence_stated": "daily (as the states post)",
+   "n": 42913,
+   "through": "2026-09-18",
+   "units": "notices on file, 25 states",
+   "value": "42,913"
+  },
+  "feed:WBUSAPPWNSAUS": {
+   "cadence_stated": "weekly",
+   "n": 1077,
+   "through": "2026-08-29",
+   "units": "Number, not seasonally adjusted",
+   "value": "8,250"
+  },
+  "feed:WB_CRUDE_OIL_AVERAGE": {
+   "cadence_stated": "monthly",
+   "n": 800,
+   "through": "2026-08-01",
+   "units": "dollars per barrel, monthly average",
+   "value": "84.4"
+  },
+  "feed:WB_CRUDE_OIL_DUBAI": {
+   "cadence_stated": "monthly",
+   "n": 800,
+   "through": "2026-08-01",
+   "units": "dollars per barrel, monthly average",
+   "value": "79.7"
+  },
+  "feed:WB_LEAD": {
+   "cadence_stated": "monthly",
+   "n": 800,
+   "through": "2026-08-01",
+   "units": "dollars per metric ton, monthly average",
+   "value": "1,855"
+  },
+  "feed:WB_NICKEL": {
+   "cadence_stated": "monthly",
+   "n": 800,
+   "through": "2026-08-01",
+   "units": "dollars per metric ton, monthly average",
+   "value": "16,751"
+  },
+  "feed:WLCFLSCL": {
+   "cadence_stated": "weekly",
+   "n": 1240,
+   "through": "2026-09-16",
+   "units": "Millions of U.S. Dollars, not seasonally",
+   "value": "0"
+  },
+  "feed:WPU101": {
+   "cadence_stated": "monthly",
+   "n": 1208,
+   "through": "2026-08-01",
+   "units": "Index 1982=100, not seasonally adjusted",
+   "value": "378.13"
+  },
+  "feed:WTISPLC": {
+   "cadence_stated": "monthly",
+   "n": 968,
+   "through": "2026-08-01",
+   "units": "Dollars per Barrel, not seasonally adjus",
+   "value": "83.9"
+  }
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "built": "2026-09-24",
+ "tiles": [
+  {
+   "lab": "Unemployment rate",
+   "val": "4.1%",
+   "sub": "Aug 2026",
+   "src": "https://fred.stlouisfed.org/series/UNRATE",
+   "sid": "UNRATE",
+   "next": "2026-10-02",
+   "link": "UNRATE"
+  },
+  {
+   "lab": "Nonfarm payrolls",
+   "val": "159.1 million",
+   "sub": "Aug 2026",
+   "src": "https://fred.stlouisfed.org/series/PAYEMS",
+   "sid": "PAYEMS",
+   "next": "2026-10-02",
+   "link": "PAYEMS"
+  },
+  {
+   "lab": "Payroll growth",
+   "val": "+71,000 a month",
+   "sub": "3-month average, Aug 2026",
+   "src": "https://fred.stlouisfed.org/series/PAYEMS",
+   "sid": "PAYEMS",
+   "next": "2026-10-02",
+   "link": "computed from PAYEMS"
+  },
+  {
+   "lab": "Initial claims (week)",
+   "val": "197,000",
+   "sub": "week ending 2026-09-19",
+   "src": "https://fred.stlouisfed.org/series/ICSA",
+   "sid": "ICSA",
+   "next": "2026-10-01",
+   "link": "ICSA"
+  },
+  {
+   "lab": "Insured unemployment rate",
+   "val": "1.1%",
+   "sub": "week ending 2026-09-12",
+   "src": "https://fred.stlouisfed.org/series/IURSA",
+   "sid": "IURSA",
+   "next": "2026-10-01",
+   "link": "IURSA"
+  },
+  {
+   "lab": "Job openings",
+   "val": "7.3 million",
+   "sub": "Jul 2026",
+   "src": "https://fred.stlouisfed.org/series/JTSJOL",
+   "sid": "JTSJOL",
+   "next": "2026-09-29",
+   "link": "JTSJOL"
+  },
+  {
+   "lab": "Unemployed per opening",
+   "val": "0.95",
+   "sub": "Jul 2026",
+   "src": "https://fred.stlouisfed.org/series/JTSJOL",
+   "sid": "JTSJOL",
+   "next": "2026-09-29",
+   "link": "UNEMPLOY \u00f7 JTSJOL"
+  },
+  {
+   "lab": "Quits rate",
+   "val": "1.9%",
+   "sub": "Jul 2026",
+   "src": "https://fred.stlouisfed.org/series/JTSQUR",
+   "sid": "JTSQUR",
+   "next": "2026-09-29",
+   "link": "JTSQUR"
+  },
+  {
+   "lab": "CPI inflation",
+   "val": "3.4%",
+   "sub": "year over year, Aug 2026",
+   "src": "https://fred.stlouisfed.org/graph/?id=CPIAUCSL&transformation=pc1",
+   "sid": "CPIAUCSL",
+   "next": "2026-10-14",
+   "link": "CPIAUCSL, year over year"
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+FRED change check: 112 series tracked; 12 changed since last pulled (2 updated since 15:57 CT): BORROW, CFNAIMA3, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3, M1SL, NASDAQCOM, T10Y2Y, T10Y3M, VIXCLS
+home tiles: unchanged | 9 readings through Aug 2026 (unemployment rate), 2026-09-12 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-09-24, IURSA 2026-09-24, JTSJOL 2026-09-29, JTSQUR 2026-09-29, PAYEMS 2026-10-02, UNRATE 2026-10-02; saved to collection 109
+relcal_HOUST: unchanged (through 2026-08)
+relcal_UNRATE: unchanged (through 2026-08)
+relcal_JTSJOL: unchanged (through 2026-07)
+vacancy: no new JOLTS month (through 2026-07-01)
+S&P 500: nothing new (through 2026-09-22)
+Sahm gap: unchanged (through 2026-08-01)
+insured rate base: unchanged (through 2026-09-05)
+---- the damage index's unemployment rate ----
+left as they stand: 79 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)

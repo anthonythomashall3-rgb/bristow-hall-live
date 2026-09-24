@@ -1,0 +1,9 @@
+# walk36 = walk34 with the menu dated (Rule 23 clause 3): the vacancy enters in December 2000, when JOLTS began
+s=open('walk34.py').read()
+def rep(a,b):
+    global s
+    assert s.count(a)==1,(a,s.count(a)); s=s.replace(a,b)
+rep('"""WALK 34 - ONE CLOCK FOR THE CHRONOLOGY, THE MACHINERY OF WALK30','"""WALK 36 - WALK 34 WITH THE MENU DATED (Rule 23 clause 3; collection 104, 8 September 2026). Each object enters the\nmenu only from the date its series existed and was published. Every object but one was published in real time\nbefore the walk begins: weekly initial and continued claims and the insured rate (the Department\'s weekly release,\nfirst prints from 1945 in collection 59), the unemployment rate and its survey week, hours and nondurable\nemployment (1939), housing starts (Census, 1959), the prime commercial paper and bill rates (the Board\'s weekly\nrelease), the S&P 500, state insured rates (1986, where the breadth object begins anyway). The exception is the\nvacancy rate: the series the rule reads is a research reconstruction before December 2000 (published in 2010 and\n2021), and what a user of the time had was the Conference Board help-wanted index, a different series on a different\nscale. Under the strict reading the vacancy confirmer, and the Sahm hub that needs it, enter in December 2000, when\nJOLTS began; that is what this walk does. The lenient reading (the help-wanted index stood in from 1951) is walk34\nitself. Everything else is walk34 verbatim.\n\nWALK 34 - ONE CLOCK FOR THE CHRONOLOGY, THE MACHINERY OF WALK30')
+rep("    G=vgap2(p['vk'],p['vb']); pubs=","    G=vgap2(p['vk'],p['vb']); G=G[G.index>=pd.Timestamp('2000-12-01')]   # the menu dated: the vacancy from JOLTS\n    pubs=")
+rep("out=open('walk34_%s.out'%sys.argv[1],'w')","out=open('walk36_%s.out'%sys.argv[1],'w')")
+open('walk36.py','w').write(s); print('walk36 written')

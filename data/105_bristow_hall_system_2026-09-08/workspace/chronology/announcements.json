@@ -1,0 +1,167 @@
+{
+ "schema": 1,
+ "note": "The chronology the rule learns from (plan L1, collection 331): the NBER's peaks and troughs with the committee's announcement days from 1980 on, the earlier turning points with the programme's knowledge dates (the first Economic Report of the President that dated them, else the walk's cut), and Paper 1's 2024 as a provisional entry from an independent, pre-registered dater. The walk learns a turning point the day after its known date. A new committee entry enters only through lesson_pending.json and Anthony's confirmation (L2, L3).",
+ "source_pages": [
+  "https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions",
+  "https://www.nber.org/research/business-cycle-dating/business-cycle-dating-committee-announcements"
+ ],
+ "updated": "2026-09-23",
+ "recessions": [
+  {
+   "peak": "1948-11",
+   "trough": "1949-10",
+   "dater": "NBER",
+   "peak_announced": null,
+   "peak_known": "1949-07-11",
+   "peak_known_source": "Economic Report of the President",
+   "trough_announced": null,
+   "trough_known": "1956-01-01",
+   "trough_known_source": "programme knowledge date (E15; collections 187, 247, 303)",
+   "status": "dated"
+  },
+  {
+   "peak": "1953-07",
+   "trough": "1954-05",
+   "dater": "NBER",
+   "peak_announced": null,
+   "peak_known": "1954-01-28",
+   "peak_known_source": "Economic Report of the President",
+   "trough_announced": null,
+   "trough_known": "1955-01-20",
+   "trough_known_source": "Economic Report of the President",
+   "status": "dated"
+  },
+  {
+   "peak": "1957-08",
+   "trough": "1958-04",
+   "dater": "NBER",
+   "peak_announced": null,
+   "peak_known": "1958-01-20",
+   "peak_known_source": "Economic Report of the President",
+   "trough_announced": null,
+   "trough_known": "1959-01-20",
+   "trough_known_source": "Economic Report of the President",
+   "status": "dated"
+  },
+  {
+   "peak": "1960-04",
+   "trough": "1961-02",
+   "dater": "NBER",
+   "peak_announced": null,
+   "peak_known": "1961-01-18",
+   "peak_known_source": "Economic Report of the President",
+   "trough_announced": null,
+   "trough_known": "1961-10-01",
+   "trough_known_source": "programme knowledge date (E15; collections 187, 247, 303)",
+   "status": "dated"
+  },
+  {
+   "peak": "1969-12",
+   "trough": "1970-11",
+   "dater": "NBER",
+   "peak_announced": null,
+   "peak_known": "1971-06-30",
+   "peak_known_source": "programme knowledge date (collections 187, 247, 303)",
+   "trough_announced": null,
+   "trough_known": "1971-06-30",
+   "trough_known_source": "programme knowledge date (E15; collections 187, 247, 303)",
+   "status": "dated"
+  },
+  {
+   "peak": "1973-11",
+   "trough": "1975-03",
+   "dater": "NBER",
+   "peak_announced": null,
+   "peak_known": "1976-01-26",
+   "peak_known_source": "Economic Report of the President",
+   "trough_announced": null,
+   "trough_known": "1976-01-26",
+   "trough_known_source": "Economic Report of the President",
+   "status": "dated"
+  },
+  {
+   "peak": "1980-01",
+   "trough": "1980-07",
+   "dater": "NBER",
+   "peak_announced": "1980-06-03",
+   "peak_known": "1980-06-03",
+   "peak_known_source": "NBER announcement",
+   "trough_announced": "1981-07-08",
+   "trough_known": "1981-07-08",
+   "trough_known_source": "NBER announcement",
+   "status": "dated"
+  },
+  {
+   "peak": "1981-07",
+   "trough": "1982-11",
+   "dater": "NBER",
+   "peak_announced": "1982-01-06",
+   "peak_known": "1982-01-06",
+   "peak_known_source": "NBER announcement",
+   "trough_announced": "1983-07-08",
+   "trough_known": "1983-07-08",
+   "trough_known_source": "NBER announcement",
+   "status": "dated"
+  },
+  {
+   "peak": "1990-07",
+   "trough": "1991-03",
+   "dater": "NBER",
+   "peak_announced": "1991-04-25",
+   "peak_known": "1991-04-25",
+   "peak_known_source": "NBER announcement",
+   "trough_announced": "1992-12-22",
+   "trough_known": "1992-02-06",
+   "trough_known_source": "NBER announcement",
+   "status": "dated"
+  },
+  {
+   "peak": "2001-03",
+   "trough": "2001-11",
+   "dater": "NBER",
+   "peak_announced": "2001-11-26",
+   "peak_known": "2001-11-26",
+   "peak_known_source": "NBER announcement",
+   "trough_announced": "2003-07-17",
+   "trough_known": "2003-02-28",
+   "trough_known_source": "NBER announcement",
+   "status": "dated"
+  },
+  {
+   "peak": "2007-12",
+   "trough": "2009-06",
+   "dater": "NBER",
+   "peak_announced": "2008-12-01",
+   "peak_known": "2008-12-01",
+   "peak_known_source": "NBER announcement",
+   "trough_announced": "2010-09-20",
+   "trough_known": "2010-09-20",
+   "trough_known_source": "NBER announcement",
+   "status": "dated"
+  },
+  {
+   "peak": "2020-02",
+   "trough": "2020-04",
+   "dater": "NBER",
+   "peak_announced": "2020-06-08",
+   "peak_known": "2020-06-08",
+   "peak_known_source": "NBER announcement",
+   "trough_announced": "2021-07-19",
+   "trough_known": "2021-01-31",
+   "trough_known_source": "NBER announcement",
+   "status": "dated"
+  },
+  {
+   "peak": "2024-04",
+   "trough": "2024-08",
+   "dater": "Paper 1 (Bristow and Hall), the breadth dater",
+   "peak_announced": null,
+   "peak_known": null,
+   "peak_known_source": "Paper 1; not yet dated by the committee",
+   "trough_announced": null,
+   "trough_known": null,
+   "trough_known_source": "Paper 1",
+   "status": "provisional-independent-dater"
+  }
+ ]
+}

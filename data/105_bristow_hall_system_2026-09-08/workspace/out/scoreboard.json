@@ -1,0 +1,183 @@
+{
+ "recessions": [
+  {
+   "peak": "2001-03",
+   "trough": "2001-11",
+   "window": [
+    "2000-11-29",
+    "2001-12-31"
+   ],
+   "daters": {
+    "Sahm": {
+     "call": "2001-07-06",
+     "days_after_tool": 99
+    },
+    "SOS_NSA": {
+     "call": "2001-04-12",
+     "days_after_tool": 14
+    },
+    "LMSI30": {
+     "call": "2001-04-26",
+     "days_after_tool": 28
+    },
+    "CFNAI": {
+     "call": "2001-05-24",
+     "days_after_tool": 56
+    },
+    "Michez": {
+     "call": "2001-05-10",
+     "days_after_tool": 42
+    }
+   },
+   "tool": "2001-03-29",
+   "first": "the rule"
+  },
+  {
+   "peak": "2007-12",
+   "trough": "2009-06",
+   "window": [
+    "2007-08-31",
+    "2009-07-31"
+   ],
+   "daters": {
+    "Sahm": {
+     "call": "2008-05-02",
+     "days_after_tool": 130
+    },
+    "SOS_NSA": {
+     "call": "2008-05-01",
+     "days_after_tool": 129
+    },
+    "LMSI30": {
+     "call": "2008-06-19",
+     "days_after_tool": 178
+    },
+    "CFNAI": {
+     "call": "2008-05-24",
+     "days_after_tool": 152
+    },
+    "Michez": {
+     "call": "2008-03-12",
+     "days_after_tool": 79
+    }
+   },
+   "tool": "2007-12-24",
+   "first": "the rule"
+  },
+  {
+   "peak": "2020-02",
+   "trough": "2020-04",
+   "window": [
+    "2019-10-30",
+    "2020-05-31"
+   ],
+   "daters": {
+    "Sahm": {
+     "call": "2020-05-08",
+     "days_after_tool": 57
+    },
+    "SOS_NSA": {
+     "call": "2020-04-09",
+     "days_after_tool": 28
+    },
+    "LMSI30": {
+     "call": "2020-04-09",
+     "days_after_tool": 28
+    },
+    "CFNAI": {
+     "call": "2020-04-20",
+     "days_after_tool": 39
+    },
+    "Michez": {
+     "call": "2020-04-07",
+     "days_after_tool": 26
+    }
+   },
+   "tool": "2020-03-12",
+   "first": "the rule"
+  },
+  {
+   "peak": "2024-04",
+   "trough": "2024-08",
+   "window": [
+    "2023-12-30",
+    "2024-10-01"
+   ],
+   "daters": {
+    "Sahm": {
+     "call": "2024-08-02",
+     "days_after_tool": 91
+    },
+    "SOS_NSA": {
+     "call": null,
+     "days_after_tool": null
+    },
+    "LMSI30": {
+     "call": null,
+     "days_after_tool": null
+    },
+    "CFNAI": {
+     "call": null,
+     "days_after_tool": null
+    },
+    "Michez": {
+     "call": null,
+     "days_after_tool": null
+    }
+   },
+   "tool": "2024-05-03",
+   "first": "the rule"
+  }
+ ],
+ "false_alarms": {
+  "Sahm": [
+   "2003-07-03"
+  ],
+  "SOS_NSA": [
+   "2023-10-05"
+  ],
+  "LMSI30": [],
+  "CFNAI": [],
+  "Michez": [
+   "2023-11-03",
+   "2025-12-16"
+  ],
+  "the rule": []
+ },
+ "first_caller": {
+  "Sahm": 0,
+  "SOS_NSA": 0,
+  "LMSI30": 0,
+  "CFNAI": 0,
+  "Michez": 0,
+  "the rule": 4
+ },
+ "since": "1994-01-01",
+ "built_at": "2026-09-24T22:26:38Z",
+ "note": "evidence, never a lesson: the outside rules on the programme's real-time data (collection 249, scored in 275), carried forward by the live tier; a call counts for a recession inside [-122, +31] days of the peak and trough months' ends, else it is a false alarm; the jury (three of five within a month) was tested and refused as a lesson source (collection 335)",
+ "jury": {
+  "rule": "a provisional lesson when at least three of the five non-NBER daters call a peak within one month of one another and the committee has not spoken",
+  "test_2024": {
+   "calls": {
+    "Sahm": [
+     "2024-08-02"
+    ],
+    "SOS_NSA": [
+     "2023-10-05"
+    ],
+    "LMSI30": [],
+    "CFNAI": [],
+    "Michez": [
+     "2023-11-03"
+    ]
+   },
+   "verdict": "no three within a month: Sahm 2024-08-02, SOS NSA 2023-10-05, Michez 2023-11-03 - the jury takes no lesson where Paper 1 dates April 2024; REFUSED as a lesson source"
+  },
+  "test_2003": {
+   "verdict": "Sahm alone (2003-07-03): no lesson, correctly"
+  },
+  "test_2022_23": {
+   "verdict": "SOS NSA and Michez within a month of each other (2023-10-05, 2023-11-03), no third: no lesson, correctly"
+  }
+ }
+}

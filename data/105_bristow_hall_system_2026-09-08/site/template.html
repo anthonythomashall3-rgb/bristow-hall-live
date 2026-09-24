@@ -1,0 +1,679 @@
+<title>Bristow-Hall Business Cycle Program — Real-Time Bristow-Hall Rule Recession Indicator</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#ffffff;color:#222222;font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;font-size:15px;line-height:1.55}
+a{color:#990000;text-decoration:none} a:hover{text-decoration:underline}
+.inner{width:90%;max-width:1800px;margin:0 auto;padding:0}
+/* the masthead */
+/* USC */
+.bh{background:#fff;border-top:5px solid #FFCC00;border-bottom:2px solid #990000}
+.bhrow{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:14px 0;width:90%;max-width:1800px;margin:0 auto}
+.nav{display:flex;flex-wrap:wrap;gap:15px;font-size:11.5px;font-weight:700;letter-spacing:.05em}
+.nav a{color:#990000;text-transform:uppercase;padding:4px 0;border-bottom:2px solid transparent;white-space:nowrap}
+.nav a:hover{border-bottom-color:#cfd6de;text-decoration:none}
+.nav a[aria-current="page"]{border-bottom-color:#FFCC00}
+.logo{display:flex;align-items:center;gap:13px;color:#990000}
+.mono{width:52px;height:52px;background:#990000;color:#fff;font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:24px;display:flex;align-items:center;justify-content:center;position:relative;border-radius:3px;flex:none}
+.mono span{position:absolute;left:10px;right:10px;bottom:7px;height:3px;background:#FFCC00}
+.wm .l1{font-weight:800;letter-spacing:.15em;font-size:16px;color:#990000;line-height:1.15}
+.wm .l2{letter-spacing:.28em;font-size:11.5px;color:#990000;font-weight:700;line-height:1.15;margin-top:3px}
+h1{font-size:28px;font-weight:400;line-height:1.25;margin:26px 0 0;padding-bottom:12px;border-bottom:3px solid #4d5760;display:flex;align-items:baseline;gap:10px;color:#222;flex-wrap:wrap}
+h1 .id{font-size:18px;color:#222}
+h1 .star{color:#990000;align-self:center;display:inline-flex}
+/* the row above the graph, as FRED lays out a series: observations | units | frequency | the ranges over the dates | the two buttons */
+.meta{display:flex;flex-wrap:nowrap;margin-top:16px;font-size:16px;line-height:1.65;color:#222}
+.meta > div{padding:0 20px 0 30px;border-left:1px solid #b9c0c7;min-width:0}
+.meta > div:first-child{padding-left:0;border-left:0}
+.meta > div:last-child{padding-right:0}
+.meta > div.obs{flex:4 1 auto;min-width:auto;position:relative}
+#obs,#upd,#next{white-space:nowrap}
+.meta > div.unt{flex:4 1 auto;min-width:190px}
+.meta > div.frq{flex:1 1 auto;min-width:125px}
+.meta > div.rng{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:14px;padding-right:30px}
+.meta > div.btns{flex:0 0 auto}
+.meta .lab{font-style:italic;color:#222}
+.meta .obslab{display:inline-flex;align-items:center;gap:7px;color:#990000;font-style:italic;cursor:pointer;user-select:none}
+.meta .obslab:focus-visible{outline:2px solid #990000;outline-offset:2px}
+.meta b{font-weight:700}
+/* the Observations list, as FRED's: the latest five, then View All */
+.obspop{position:absolute;left:-16px;top:28px;z-index:40;background:#fff;border:1px solid #d6dbe0;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.13);padding:14px 20px 16px;font-size:16px;line-height:1.5;white-space:nowrap}
+.obspop .rows{display:grid;grid-template-columns:auto auto;column-gap:12px}
+.obspop .d{color:#555;text-align:right}
+.obspop .v{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.obspop .btn{display:block;width:100%;margin-top:12px;font-size:17px;height:38px;padding:0 12px;border-radius:6px;text-align:center}
+.ranges{display:flex;align-items:center;height:38px;white-space:nowrap}
+.ranges a{color:#990000;padding:3px 17px;border-left:1.5px solid #4d5760;cursor:pointer;font-size:17px;line-height:1.35}
+.ranges a:first-child{border-left:0}
+.dates input{font:inherit;font-size:16px;width:118px;height:42px;padding:6px 11px;border:1px solid #8a9199;border-radius:4px;color:#222;background:#fff}
+.dates{display:flex;align-items:center;gap:10px;color:#222;font-size:16px}
+.btn{display:inline-block;font:inherit;font-size:13px;padding:5px 10px;border:1px solid #990000;border-radius:3px;background:#990000;color:#fff;cursor:pointer;white-space:nowrap}
+.btn.ghost{background:#fff;color:#990000}
+.btn.small{font-size:12px;padding:4px 8px}
+.btn:focus-visible,.ranges a:focus-visible{outline:2px solid #990000;outline-offset:2px}
+.btns{display:flex;flex-direction:column;gap:16px}
+.meta .btns .btn{width:100%;font-size:16px;height:38px;padding:0 14px;border-radius:5px;border-width:1.5px;display:inline-flex;align-items:center;justify-content:center;gap:9px}
+.dd{position:relative}
+.menu{position:absolute;right:0;top:100%;margin-top:4px;background:#fff;border:1px solid #cfd6de;box-shadow:0 4px 14px rgba(0,0,0,.14);min-width:190px;z-index:20;padding:4px 0}
+.menu a{display:block;padding:7px 14px;color:#222;cursor:pointer;font-size:13.5px;white-space:nowrap}
+.menu a:hover{background:#fdf2f2;text-decoration:none}
+/* the stage: the graph and, when open, the Edit Graph panel beside it */
+.stage{display:flex;gap:14px;align-items:flex-start;margin-top:16px}
+.plotcol{flex:1 1 auto;min-width:0}
+.plot{background:#f5f6f8;padding:14px 16px 10px;border:1px solid #e3e6ea}
+.plot .head{display:flex;align-items:center;gap:14px;font-size:13px;color:#222;margin-bottom:6px;flex-wrap:wrap}
+.plot .head .mark{display:inline-flex;align-items:center;gap:8px}
+.plot .head .mmono{width:30px;height:30px;background:#990000;color:#fff;font-family:Georgia,serif;font-weight:700;font-size:15px;display:inline-flex;align-items:center;justify-content:center;position:relative;border-radius:2px;flex:none}
+.plot .head .mmono i{position:absolute;left:6px;right:6px;bottom:4px;height:2px;background:#FFCC00}
+.plot .head .mwm{font-weight:800;letter-spacing:.12em;font-size:12.5px;color:#990000}
+.plot .head .leg i{display:inline-block;width:24px;border-top:3px solid #990000;vertical-align:middle;margin-right:6px}
+.plot .head .leg{margin-right:8px}
+.plot .head .zoom{margin-left:auto;display:flex;gap:4px}
+.plot .head .zoom button{font:inherit;font-size:13px;line-height:1;padding:3px 8px;border:1px solid #cfd6de;background:#fff;color:#990000;border-radius:3px;cursor:pointer}
+.plot .head .zoom button:hover{background:#fdf2f2}
+.chart{width:100%;overflow:hidden;background:#fff;border:1px solid #e3e6ea;cursor:crosshair;touch-action:none}
+.chart.drag{cursor:grabbing}
+.chart svg{display:block;height:auto;width:100%}
+/* fullscreen: the graph fills the screen and is redrawn at its size */
+.plot:fullscreen{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden}
+.plot:-webkit-full-screen{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden}
+.plot.pfs{position:fixed;left:0;top:0;right:0;bottom:0;z-index:1000;display:flex;flex-direction:column;overflow:hidden}
+.plot:fullscreen .chart{flex:1 1 0;min-height:0}
+.plot:-webkit-full-screen .chart{flex:1 1 0;min-height:0}
+.plot.pfs .chart{flex:1 1 0;min-height:0}
+.plot .foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px 24px;font-size:16px;color:#222;margin-top:10px}
+.plot .foot .src{line-height:1.5}
+.plot .foot .src em{color:#990000;font-style:italic}
+.plot .foot .src .sh{display:inline-block;width:14px;height:10px;background:#dcdcdc;vertical-align:-1px;margin:0 3px 0 2px}
+.plot .foot .src .hx{display:inline-block;width:14px;height:10px;vertical-align:-1px;margin:0 3px 0 2px;border:1px dashed #9aa3ad;background:repeating-linear-gradient(45deg,#b9c0c7 0 2px,transparent 2px 6px)}
+.plot .foot .right{display:flex;align-items:center;gap:22px;margin-left:auto;color:#333}
+.plot .foot .src em a{color:#990000}
+.plot .foot .btn{font-size:16px;height:38px;padding:0 14px;border-radius:5px;border-width:1.5px;display:inline-flex;align-items:center;gap:9px}
+.tip{position:absolute;pointer-events:none;background:#fff;border:1px solid #cfd6de;padding:6px 9px;font-size:12.5px;box-shadow:0 2px 8px rgba(0,0,0,.12);display:none;z-index:30;white-space:nowrap;color:#222}
+/* the Edit Graph panel */
+.edit{flex:0 0 350px;width:350px;background:#fff;border:1px solid #cfd6de;box-shadow:0 2px 10px rgba(0,0,0,.08);font-size:13px}
+.edit .ehead{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #cfd6de;background:#f5f6f8;font-weight:700}
+.edit .ehead button{font:inherit;background:none;border:0;font-size:18px;cursor:pointer;color:#555;line-height:1}
+.tabs{display:flex;border-bottom:1px solid #cfd6de}
+.tabs a{flex:1;text-align:center;padding:9px 4px;font-size:12px;letter-spacing:.06em;font-weight:700;color:#990000;cursor:pointer;border-bottom:3px solid transparent}
+.tabs a[aria-selected="true"]{color:#222;border-bottom-color:#990000}
+.tabs a:hover{text-decoration:none;background:#fdf2f2}
+.tab{padding:10px 12px 14px;max-height:560px;overflow-y:auto}
+.tab h4{margin:12px 0 5px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#333;border-bottom:1px solid #e3e6ea;padding-bottom:3px}
+.tab h4:first-child{margin-top:2px}
+.tab label{display:block;margin:6px 0 2px;color:#333;font-size:12.5px}
+.tab select,.tab input[type="text"],.tab input[type="number"]{font:inherit;font-size:12.5px;width:100%;padding:5px 6px;border:1px solid #cfd6de;border-radius:3px;background:#fff;color:#222}
+.tab input[type="color"]{width:44px;height:26px;padding:0 2px;border:1px solid #cfd6de;border-radius:3px;background:#fff;vertical-align:middle}
+.tab .row{display:flex;gap:8px;align-items:flex-end}
+.tab .row > div{flex:1}
+.tab .chk label{display:flex;align-items:center;gap:6px;margin:4px 0}
+.tab .chk input{margin:0}
+.tab .hint{font-size:11.5px;color:#555;margin:3px 0 6px}
+.tab .lineblk{border:1px solid #e3e6ea;padding:8px;margin:8px 0;background:#fafbfc}
+.tab .lineblk .nm{font-weight:700;margin-bottom:4px;word-break:break-word}
+.tab .btn{margin-top:8px}
+.catlist{border:1px solid #cfd6de;max-height:170px;overflow-y:auto;margin-top:4px}
+.catlist div{padding:6px 8px;cursor:pointer;border-bottom:1px solid #eef1f4;font-size:12.5px}
+.catlist div:hover{background:#fdf2f2}
+.catlist div[aria-selected="true"]{background:#f7dede}
+.catlist .code{color:#555;font-size:11px}
+/* the download panel shown where a file cannot be saved (the artifact preview) */
+.dlpanel{margin-top:12px;border:1px solid #cfd6de;background:#fff;padding:10px 14px}
+.dlpanel .ph{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.dlpanel .ph b{font-size:14px}
+.dlpanel .note{font-size:12.5px;color:#555;margin:0 0 8px}
+.dlpanel pre{background:#f5f6f8;border:1px solid #e3e6ea;padding:10px;font-size:12px;max-height:300px;overflow:auto;white-space:pre;margin:0}
+.dlpanel img{max-width:100%;border:1px solid #e3e6ea}
+h2{font-size:22px;font-weight:700;color:#111;margin:36px 0 10px;border-bottom:2px solid #990000;padding-bottom:7px}
+.notes{padding:0;max-width:none;font-size:15px;line-height:1.62;color:#2b2b2b}
+.notes p{margin:12px 0}
+.notes b{font-weight:700}
+.notes .kv{margin:5px 0;color:#333}
+.notes ul{margin:4px 0 8px 18px;padding:0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:8px}
+th{text-align:left;font-weight:700;color:#333;border-bottom:2px solid #cfd6de;padding:8px 8px 6px;background:#f5f6f8}
+td{padding:7px 8px;border-bottom:1px solid #e3e6ea;vertical-align:top}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sitefoot{background:#990000;color:#f3e3e3;margin-top:48px;padding:26px 0 30px}
+.sitefoot .t{font-weight:800;letter-spacing:.12em;font-size:13.5px;color:#FFCC00}
+.sitefoot .s{font-size:13px;margin-top:7px;color:#edcaca}
+.sitefoot a{color:#f3e3e3}
+.sitefoot .links{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 18px;margin-top:16px;font-size:13.5px;font-weight:700}
+.sitefoot .links a{white-space:nowrap}
+.hot{color:#7f0000;font-weight:700}
+.bar{position:relative;height:8px;background:#e3e6ea;min-width:120px;margin-top:5px}
+.bar span{position:absolute;left:0;top:0;bottom:0;background:#990000}
+.bar em{position:absolute;top:-4px;bottom:-4px;width:1px;background:#111}
+.side{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#555;white-space:nowrap}
+.err-neg{color:#7f0000} .err-pos{color:#555} .err-zero{color:#1b7f4b;font-weight:700}
+details{margin-top:22px} summary{cursor:pointer;color:#990000;font-size:15px}
+/* the speed panels */
+/* the two panels side by side on shared rows: heading, subtitle, chart, summary and citation line up across them */
+.speed{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:18px;margin-top:10px}
+.speed .pan{display:grid;grid-row:span 5;grid-template-rows:subgrid;row-gap:0;align-content:start;min-width:0;background:#f5f6f8;border:1px solid #e3e6ea;padding:12px 14px 8px}
+@media (max-width:900px){ .speed{grid-template-columns:minmax(0,1fr);row-gap:18px} .speed .pan{display:block;grid-row:auto} }
+.speed .pan h3{margin:0 0 6px;font-size:15px;font-weight:700;color:#222}
+.speed .pan .sub{font-size:12.5px;color:#555;margin:0 0 6px}
+.speed .pan svg{display:block;width:100%;height:auto;background:#fff;border:1px solid #e3e6ea}
+.speed .pan .sum{font-size:13px;color:#222;margin:8px 0 0}
+.key{font-size:12.5px;color:#333;margin:8px 0 0;display:flex;gap:18px;flex-wrap:wrap;padding:0}
+.key i{display:inline-block;width:11px;height:11px;border-radius:50%;background:#990000;vertical-align:-1px;margin-right:5px}
+.key i.nb{border-radius:0;background:#111;transform:rotate(45deg);width:9px;height:9px;margin-right:7px}
+.key i.sq{border-radius:0;background:#2e8b57;width:10px;height:10px}.key i.sq.br{background:#1f5fbf}
+@media (max-width:900px){ .stage{flex-direction:column} .edit{width:100%;flex-basis:auto} }
+@media (max-width:1300px){ .meta{display:grid;grid-template-columns:auto auto auto;row-gap:18px} .meta > div.rng{grid-column:1 / span 2;justify-self:end;border-left:0} .meta > div.btns{grid-column:3} }
+@media (max-width:760px){ .meta > div.rng{justify-self:auto} }
+@media (max-width:760px){ .meta{display:block} .meta > div{padding:0;border-left:0;margin:0 0 14px} .meta > div.rng{align-items:flex-start} .ranges a:first-child{padding-left:0} .meta .btns{flex-direction:row;gap:10px} .meta .btns .btn{width:auto} }
+</style>
+
+<header class="bh"><div class="bhrow">
+  <div class="logo" aria-label="Bristow-Hall Business Cycle Program"><div class="mono">BH<span></span></div><div class="wm"><div class="l1">BRISTOW-HALL</div><div class="l2">BUSINESS CYCLE PROGRAM</div></div></div>
+  <nav class="nav" aria-label="Sections"><a href="/">Home</a><a href="/detector/" aria-current="page">Recession Indicator</a><a href="/disturbance/">Disturbance Indicator</a><a href="/state-onset/">State Recession</a><a href="/stress-map/">Stress Map</a><a href="/damage-index/">Damage Index</a><a href="/chronology/">Chronology</a><a href="/data/">Data</a><a href="/#papers">Papers</a></nav>
+</div></header>
+<div class="inner" id="top">
+<h1 id="series"><span class="star"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2.6 14.9 8.5 21.4 9.4 16.7 14 17.8 20.4 12 17.4 6.2 20.4 7.3 14 2.6 9.4 9.1 8.5"/></svg></span>Real-time Bristow-Hall Rule Recession Indicator <span class="id">(BHRREALTIME)</span></h1>
+
+<div class="meta">
+  <div class="obs"><div class="lab"><span class="obslab" id="obslab" role="button" tabindex="0" aria-expanded="false" aria-controls="obspop">Observations<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 9 12 16 19 9"/></svg></span></div><div class="obspop" id="obspop" hidden><div class="rows" id="obsrows"></div><button class="btn" id="obsall" type="button">View All</button></div><div id="obs"></div><div id="upd"></div><div id="next"></div></div>
+  <div class="unt"><div class="lab">Units:</div>Index,<br>1.00 = recession, 0&ndash;10 damage</div>
+  <div class="frq"><div class="lab">Frequency:</div><span id="freq1"></span></div>
+  <div class="rng">
+    <div class="ranges" role="group" aria-label="Range"><a data-range="1" tabindex="0">1Y</a><a data-range="5" tabindex="0">5Y</a><a data-range="10" tabindex="0">10Y</a><a data-range="max" aria-pressed="true" tabindex="0">Max</a></div>
+    <div class="dates"><input id="d0" type="text" aria-label="from"> to <input id="d1" type="text" aria-label="to"></div>
+  </div>
+  <div class="btns"><button class="btn" id="eg" type="button" aria-expanded="false">Edit Graph<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-6"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></button>
+      <div class="dd"><button class="btn ghost" id="dl" type="button" aria-haspopup="true" aria-expanded="false">Download<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+        <div class="menu" id="dlmenu" hidden role="menu"><a role="menuitem" data-k="csv">CSV (data)</a><a role="menuitem" data-k="xlsx">Excel (data)</a><a role="menuitem" data-k="png">Image (graph)</a><a role="menuitem" data-k="pptx">PowerPoint (graph)</a></div></div>
+  </div>
+</div>
+
+<div class="stage" id="stage">
+  <div class="plotcol">
+    <div class="plot" id="plot">
+      <div class="head"><span class="mark"><span class="mmono">BH<i></i></span><span class="mwm">BRISTOW-HALL</span></span><span id="legend"></span><span class="zoom"><button type="button" id="zin" title="Zoom in" aria-label="Zoom in">+</button><button type="button" id="zout" title="Zoom out" aria-label="Zoom out">−</button><button type="button" id="zreset" hidden>Reset zoom</button></span></div>
+      <div class="chart" id="chart"></div>
+      <div class="foot"><div class="src">Source: <a href="https://www.marshall.usc.edu/personnel/duke-bristow" target="_blank" rel="noopener">Bristow, Duke</a> &amp; <a href="https://www.linkedin.com/in/anthonyhall-/" target="_blank" rel="noopener">Hall, Anthony</a><br><em id="leg"><a href="https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions">Shaded areas indicate U.S. recessions.</a> Lined area: the 2024 recession (Paper 1).</em></div><div class="right"><span>bristowhallsystem</span><button class="btn ghost" id="fs" type="button">Fullscreen<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button></div></div>
+    </div>
+    <div class="dlpanel" id="dlpanel" hidden><div class="ph"><b id="dltitle"></b><button class="btn ghost small" id="dlclose" type="button">Close</button></div><p class="note" id="dlnote"></p><div id="dlbody"></div></div>
+  </div>
+  <aside class="edit" id="edit" hidden aria-label="Edit Graph">
+    <div class="ehead"><span>EDIT GRAPH</span><button id="egclose" type="button" aria-label="Close">×</button></div>
+    <div class="tabs" role="tablist"><a role="tab" data-tab="line" aria-selected="true">EDIT LINE</a><a role="tab" data-tab="add" aria-selected="false">ADD LINE</a><a role="tab" data-tab="format" aria-selected="false">FORMAT</a></div>
+    <div class="tab" id="tab-line"></div>
+    <div class="tab" id="tab-add" hidden></div>
+    <div class="tab" id="tab-format" hidden></div>
+  </aside>
+</div>
+
+<h2>Notes</h2>
+<div class="notes">
+  <p class="kv"><b>Source:</b> <a href="https://www.marshall.usc.edu/personnel/duke-bristow" target="_blank" rel="noopener">Bristow, Duke</a> and <a href="https://www.linkedin.com/in/anthonyhall-/" target="_blank" rel="noopener">Hall, Anthony</a> &nbsp;&nbsp;&nbsp; <b>Release:</b> <a>Bristow-Hall Rule Recession Indicator</a></p>
+  <p class="kv"><b>Units:</b> Index, 1.00 = recession, 0&ndash;10 damage</p>
+  <p class="kv"><b>Data through:</b> <span id="ver"></span></p>
+  <p class="kv"><b>Frequency:</b> <span id="freq2"></span></p>
+  <p class="kv"><b>Notes:</b></p>
+  <p>The Bristow-Hall Rule signals a recession&rsquo;s start when a labor measure (insured unemployment, initial claims or the Sahm gap, national or state) crosses its threshold and a demand measure (job openings, hours, housing, credit or stocks) confirms it, or when production and stocks fall, the policy rate rises and unemployment spreads across states. It signals the end when initial claims fall from their peak and a second measure confirms it.</p>
+  <p>The index shows how near a call is (1.00 = recession); during a recession it adds a damage grade (0&ndash;10, log scale; 1929&ndash;33 = 10) from unemployment, real GDP and industrial production.</p>
+  <p>This indicator is based on real-time data: each call uses only data as published that day, with thresholds set only from recessions already dated.<!-- 24 September 2026 (Anthony: "as short as the Sahm Indicator notes section"): 405 words to 126; the record sentence (R15, s2/record_sentence.py) and the six-measure damage consensus left the Notes; the speed panels carry the record --></p>
+  <p class="kv"><b>Citation:</b></p>
+  <p id="cite"></p>
+</div>
+
+<h2>How fast the rule speaks: the rule's call against the NBER's announcement</h2>
+<div class="speed" id="speed">
+  <div class="pan"><h3>Peaks — the start of a recession</h3><p class="sub">Months after the end of the peak month (for 2024, the peak month Paper 1 gives*)</p><div id="sp-peak"></div><p class="sum" id="sum-peak"></p><p class="sum" style="color:#2e8b57">The Sahm rule: Sahm, Claudia (2019), "Direct Stimulus Payments to Individuals," in <i>Recession Ready: Fiscal Policies to Stabilize the American Economy</i>, The Hamilton Project and the Washington Center for Equitable Growth. <a href="https://www.hamiltonproject.org/assets/files/Sahm_web_20190506.pdf">Paper</a></p></div>
+  <div class="pan"><h3>Troughs — the end of a recession</h3><p class="sub">Months after the end of the trough month (for 2024, the trough month Paper 1 gives*)</p><div id="sp-trough"></div><p class="sum" id="sum-trough"></p><p class="sum" style="color:#1f5fbf">The Bristow Rule: Hall, Anthony and Duke Bristow (2026), "Recession Signals Without Recession and the Case of 2024," USC Marshall FBE Working Paper. <a href="/papers/recession-signals-without-recession-2024.pdf">Paper</a></p></div>
+</div>
+<div class="notes"><p class="key" style="padding:0"><span><i></i>The rule fired</span><span><i class="sq"></i>The Sahm rule crossed 0.50 (peaks; real time)</span><span><i class="sq br"></i>The Bristow Rule dated the end (troughs; real time)</span><span><i class="nb"></i>The NBER announced</span><span id="speednote"></span></p></div>
+
+
+</div>
+<div class="sitefoot"><div class="inner">
+  <div class="t">BRISTOW-HALL BUSINESS CYCLE PROGRAM</div>
+  <div class="s">Real-time dating of the American business cycle.</div>
+  <div class="links"><a href="/">Home</a><a href="/detector/">Recession Indicator</a><a href="/disturbance/">Disturbance Indicator</a><a href="/state-onset/">State Recession Indicator</a><a href="/stress-map/">National Stress Map</a><a href="/damage-index/">Damage Index</a><a href="/chronology/">Chronology</a><a href="/#papers">Papers</a><a href="/data/">Data</a></div>
+</div></div>
+<div class="tip" id="tip"></div>
+
+<script>
+const S = __STATE__;
+const SITE = __SITE__;
+(function(){
+  const $=s=>document.querySelector(s);
+  const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const MONL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const toT=s=>{const p=s.split('-');return Date.UTC(+p[0],+p[1]-1,p[2]?+p[2]:1);};
+  const fmtD=s=>{const p=s.split('-');return MON[+p[1]-1]+' '+(+p[2])+', '+p[0];};
+  const fmtM=s=>{const p=s.split('-');return MON[+p[1]-1]+' '+p[0];};
+  const fmtML=s=>{const p=s.split('-');return MONL[+p[1]-1]+' '+p[0];};
+  const monthEnd=(y,m)=>Date.UTC(y,m,0);
+  const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const SER=S.series; const PHMAP={}; if(SER.phase){ for(let k=0;k<SER.dates.length;k++) PHMAP[SER.dates[k]]=SER.phase[k]; }; const N=SER.dates.length; const ld=SER.dates[N-1], lv=SER.values[N-1];
+  // each recession's peak: the highest reading of each run above 1.00 (the last day at that height)
+  const PEAKD=new Set(); { let bi=-1,bv=-Infinity; for(let k=0;k<=N;k++){ const v=k<N?SER.values[k]:null; if(v!==null&&v!==undefined&&v>1){ if(v>=bv){ bv=v; bi=k; } } else if(bi>=0){ PEAKD.add(SER.dates[bi]); bi=-1; bv=-Infinity; } } }
+  const NB=S.nber.filter(r=>r.peak<'2024');
+  // v3.58 (20 September 2026): the reference chronology's recessions the NBER has not dated - Paper 1's 2024 (peak April,
+  // trough August). The lined area is drawn from THESE months, not from the rule's call months: the call is the alarm, to
+  // the day; the months of a recession are the chronology's.
+  const REF=S.nber.filter(r=>!(r.peak<'2024'));
+  // 21 SEPTEMBER 2026 (Anthony: the 2024 bar should begin in April, as Paper 1 has it; "make sure we have no other dating errors
+  // with the width of each of our gray bars"): EVERY BAR NOW RUNS FROM THE FIRST DAY OF THE PEAK MONTH THROUGH THE LAST DAY OF THE
+  // TROUGH MONTH - Paper 1's months ("the missing gray bar spans April to August 2024") and its figures (axvspan from the peak
+  // month, Hall & Bristow 2026, figures_1_2.py). A call made inside the peak month (2001, 2007) sits inside its bar; the record
+  // still counts it early, by days to the END of the peak month. The note that follows is the 10 September convention, kept as written.
+  // THE SHADING FOLLOWED FRED'S CONVENTION (the trough method, 10 September 2026): a recession is drawn from the first day of
+  // the month AFTER the peak month through the last day of the trough month, which is how FRED shades its graphs and how the
+  // record counts a call as early (before the peak month ended). Drawn from the peak month's first day, as before, a call made
+  // inside the peak month (1990, 2001, 2007) fell inside the shading and read as late. The rule's own 2024 recession is drawn
+  // the same way from the month it dated as the peak.
+  const monthAfter=m=>{const y=+m.slice(0,4),mo=+m.slice(5,7); return mo===12?(y+1)+'-01':y+'-'+String(mo+1).padStart(2,'0');};
+  const nber=NB.map(r=>({a:toT(r.peak+'-01'),b:monthEnd(+r.trough.slice(0,4),+r.trough.slice(5,7))}));
+  const _overlaps=(e,r)=>{const ra=toT(r.peak+'-01')-183*86400000, rb=monthEnd(+r.trough.slice(0,4),+r.trough.slice(5,7))+92*86400000; return toT(e.open_month+'-01')<=rb&&monthEnd(+e.close_month.slice(0,4),+e.close_month.slice(5,7))>=ra;};
+  const _notNB=S.episodes.filter(e=>e.close_month&&!NB.some(r=>_overlaps(e,r)));
+  // a rule episode the reference chronology dates (2024: Paper 1) is drawn from the reference's months; one that nothing yet dates, from its own
+  const missed=_notNB.map(e=>{const r=REF.find(r=>_overlaps(e,r)); return r?{a:toT(r.peak+'-01'),b:monthEnd(+r.trough.slice(0,4),+r.trough.slice(5,7)),e:e,ref:r}:{a:toT(e.open_month+'-01'),b:monthEnd(+e.close_month.slice(0,4),+e.close_month.slice(5,7)),e:e,ref:null};});
+  // The legend names the lined areas the page draws. Fixed text named "the 2024 recession (Paper 1)"; a recession this
+  // rule dates that nothing else has dated yet is drawn the same way, so a second one would have been drawn and not
+  // named (20 September 2026, collection 274).
+  var LINED_TXT=(function(){ const p=missed.map(m=>'the '+(m.ref?m.ref.peak:m.e.open_month).slice(0,4)+' recession ('+(m.ref?'Paper 1':'this rule')+')');
+    return p.length?((p.length>1?'Lined areas: ':'Lined area: ')+p.join(' and ')+'.'):''; })();
+  { const _lg=$('#leg'); if(_lg) _lg.innerHTML='<a href="https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions">Shaded areas indicate U.S. recessions.</a>'+(LINED_TXT?' '+LINED_TXT:''); }
+  // ---- observations block, next data, citation ----
+  $('#obs').innerHTML=(ld.length>7?fmtD(ld):fmtM(ld))+': <b>'+lv.toFixed(2)+'</b>'+(SER.provisional?' <span style="color:#555;font-size:12px">(month in progress)</span>':'');
+  // Updated, as FRED writes it: the day and the time of the build, Eastern
+  { const ba=String(S.built_at||''); const mt=ba.match(/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/); let s='Updated: '+fmtD(mt?ba.slice(0,10):S.built);
+    if(mt){ const hh=+mt[4]; let tz='ET'; try{ const z=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',timeZoneName:'short'}).formatToParts(new Date(Date.UTC(+mt[1],+mt[2]-1,+mt[3],hh+5,+mt[5]))).find(x=>x.type==='timeZoneName'); if(z) tz=z.value; }catch(e){} s+=' '+((hh%12)||12)+':'+mt[5]+' '+(hh<12?'AM':'PM')+' '+tz; }
+    $('#upd').textContent=s; }
+  // THE PAGE'S OWN CLOCK. The state carries every release the rule reads for the next 150 days with its time
+  // (Eastern). The page reads the current time in Eastern time and says what comes next and what has come out
+  // since it was built. Nothing here waits for a rebuild; the numbers on the page do.
+  const CAL=S.calendar||[]; const KIND={claims:'weekly claims',jobs:'jobs report',jolts:'JOLTS',starts:'housing starts',h15:'H.15 week'};
+  function nowET(){ const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date()); const g=k=>p.find(x=>x.type===k).value; return g('year')+'-'+g('month')+'-'+g('day')+' '+(g('hour')==='24'?'00':g('hour'))+':'+g('minute'); }
+  const fmtT=t=>{ const h=+t.slice(0,2), m=t.slice(3,5); return (h%12||12)+':'+m+(h<12?' AM':' PM')+' ET'; };
+  // the daily inputs (the S&P 500 close and the search day) are read at 4:20 PM ET on every day the NYSE trades
+  function easterT(y){ const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),n=h+l-7*m+114; return Date.UTC(y,Math.floor(n/31)-1,(n%31)+1); }
+  function nyseClosed(t){ const D=new Date(t), y=D.getUTCFullYear(), m=D.getUTCMonth()+1, d=D.getUTCDate(), w=D.getUTCDay(); if(w===0||w===6) return true;
+    const nth=(mm,wd,n)=>{ const f=new Date(Date.UTC(y,mm-1,1)).getUTCDay(); return 1+((wd-f+7)%7)+7*(n-1); };
+    const lastWd=(mm,wd)=>{ const L=new Date(Date.UTC(y,mm,0)).getUTCDate(), lw=new Date(Date.UTC(y,mm-1,L)).getUTCDay(); return L-((lw-wd+7)%7); };
+    const fixed=(mm,dd)=>{ const x=new Date(Date.UTC(y,mm-1,dd)).getUTCDay(); return x===6?[mm,dd-1]:x===0?[mm,dd+1]:[mm,dd]; };
+    const H=[[1,nth(1,1,3)],[2,nth(2,1,3)],[5,lastWd(5,1)],[9,nth(9,1,1)],[11,nth(11,4,4)],fixed(6,19),fixed(7,4),fixed(12,25)];
+    const nj=new Date(Date.UTC(y,0,1)).getUTCDay(); if(nj!==6) H.push(nj===0?[1,2]:[1,1]);
+    const gf=new Date(easterT(y)-2*86400000); H.push([gf.getUTCMonth()+1,gf.getUTCDate()]);
+    return H.some(h=>h[0]===m&&h[1]===d); }
+  function nextClose(now){ const p=now.slice(0,10).split('-').map(Number); let t=Date.UTC(p[0],p[1]-1,p[2]); if(now.slice(11)>='16:20') t+=86400000; for(let k=0;k<15;k++,t+=86400000){ if(!nyseClosed(t)) return new Date(t).toISOString().slice(0,10); } return null; }
+  function nextByKind(kind,now){ const e=CAL.find(x=>x.kind===kind&&(x.date+' '+x.time)>now); return e?e.date:null; }
+  function tick(){
+    const now=nowET(); const up=CAL.filter(x=>(x.date+' '+x.time)>now);
+    const first=up[0];
+    let nd=first?first.date:null; const nc=nextClose(now); if(nc&&(!nd||nc<nd)) nd=nc;
+    $('#next').textContent='Next Release Date: '+(nd?fmtD(nd):'—');
+  }
+  // re-check only when something can change: at the next release time, or at midnight Eastern
+  let tickTimer=null;
+  function armTick(){ if(tickTimer) clearTimeout(tickTimer); const now=nowET(); const nxt=CAL.find(x=>(x.date+' '+x.time)>now); const nowMs=Date.now();
+    const etParts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).formatToParts(new Date()); const g=k=>+etParts.find(x=>x.type===k).value;
+    const toMidnight=(24*3600-((g('hour')%24)*3600+g('minute')*60+g('second')))*1000+1000;
+    let toNext=toMidnight; { const hm=now.slice(11).split(':').map(Number); const mins=(16*60+20)-(hm[0]*60+hm[1]); if(mins>0) toNext=Math.min(toNext,mins*60000+1000); }
+    if(nxt){ const [h,m]=nxt.time.split(':').map(Number); const [y,mo,d]=now.split(' ')[0].split('-').map(Number); const [nh,nm]=now.split(' ')[1].split(':').map(Number); if(nxt.date===now.split(' ')[0]) toNext=Math.min(toMidnight,((h-nh)*60+(m-nm))*60000+1000); }
+    tickTimer=setTimeout(()=>{ tick(); armTick(); },Math.max(1000,Math.min(toNext,24*3600*1000))); }
+  tick(); armTick();
+  document.addEventListener('visibilitychange',()=>{ if(!document.hidden){ tick(); armTick(); } });
+  // ---- Observations: the latest five, as FRED shows them, and View All: every observation on a page of its own ----
+  // the list gives the last five changes: each row is the day the reading (to two decimals) became what it shows
+  { const lab=$('#obslab'), pop=$('#obspop'); const rows=[]; const disp=k=>{ const v=SER.values[k]; return (v===null||v===undefined||!isFinite(v))?null:(+v).toFixed(2); };
+    let k=N-1; while(k>=0&&disp(k)===null) k--;
+    while(k>=0&&rows.length<5){ const val=disp(k); let j=k; while(j-1>=0&&(disp(j-1)===val||disp(j-1)===null)) j--; while(disp(j)===null) j++;
+      const dd=SER.dates[j]; rows.push('<span class="d">'+(dd.length>7?fmtD(dd):fmtM(dd))+':</span><span class="v">'+val+'</span>'); k=j-1; while(k>=0&&disp(k)===null) k--; }
+    $('#obsrows').innerHTML=rows.join('');
+    const openPop=o=>{ pop.hidden=!o; lab.setAttribute('aria-expanded',String(o)); };
+    lab.addEventListener('click',e=>{ e.stopPropagation(); openPop(pop.hidden); });
+    lab.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openPop(pop.hidden); } });
+    pop.addEventListener('click',e=>e.stopPropagation());
+    document.addEventListener('click',()=>openPop(false)); document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!pop.hidden) openPop(false); });
+    $('#obsall').addEventListener('click',()=>{ openPop(false); viewAll(); }); }
+  function viewAll(){ let rows=''; for(let k=0;k<N;k++){ const v=SER.values[k]; rows+='<tr><td>'+SER.dates[k]+'</td><td class="n">'+((v===null||v===undefined||!isFinite(v))?'.':Math.max(0,+v).toFixed(3))+'</td></tr>'; }
+    const html='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>BHRREALTIME</title>'
+      +'<style>body{font-family:Arial,Helvetica,sans-serif;color:#222;margin:24px 5%}h1{font-size:22px;font-weight:400;margin:0 0 8px}p{margin:2px 0;font-size:14px}table{border-collapse:collapse;margin-top:14px;font-size:14px}th,td{padding:3px 22px 3px 0;text-align:left;border-bottom:1px solid #e3e6ea}th{border-bottom:2px solid #cfd6de}.n{text-align:right;font-variant-numeric:tabular-nums}</style></head><body>'
+      +'<h1>Real-time Bristow-Hall Rule Recession Indicator (BHRREALTIME)</h1><p>Units: Index, 1.00 = recession, 0&ndash;10 damage</p><p>Frequency: '+esc(SER.frequency||'Daily, on release days')+'</p><p>'+esc($('#upd').textContent)+'</p>'
+      +'<table><thead><tr><th>DATE</th><th class="n">VALUE</th></tr></thead><tbody>'+rows+'</tbody></table></body></html>';
+    try{ const url=URL.createObjectURL(new Blob([html],{type:'text/html'})); const w=window.open(url,'_blank'); if(w) return; }catch(e){}
+    dataPanel('csv'); }
+  const FREQTXT=(SER.frequency||'Daily, on release days'); $('#freq1').innerHTML=FREQTXT.replace(', ',',<br>'); $('#freq2').textContent=FREQTXT;
+  const CITE='Bristow, Duke and Hall, Anthony, Real-time Bristow-Hall Rule Recession Indicator [BHRREALTIME], retrieved from the Bristow-Hall System.';
+  $('#cite').textContent=CITE;
+  { const ds=[]; const walk=o=>{ for(const k in o){ const v=o[k]; if(v&&typeof v==='object') walk(v); else if(typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)) ds.push(v); } }; walk(S.through||{}); if(!ds.length) ds.push(ld.length>7?ld:ld+'-01'); ds.sort(); $('#ver').textContent=fmtD(ds[ds.length-1]); }   // the latest day the data reach
+  if(S.notes&&S.notes.vacancy){ const _vn=$('#vacnote'); if(_vn) _vn.textContent=S.notes.vacancy; }
+  // the lined area's months come from the chronology itself (the episodes no NBER recession matches), not from fixed text
+  if(missed.length){ const lm=missed.map(r=>r.ref?('peak '+fmtML(r.ref.peak+'-01')+', trough '+fmtML(r.ref.trough+'-01')+' (Paper 1); the rule called it '+fmtD(r.e.open_pub)+' and closed it '+fmtD(r.e.close_pub)):('peak '+fmtML(r.e.open_month+'-01')+', trough '+fmtML(r.e.close_month+'-01')+' (the rule\'s own months; no chronology has dated it yet)')).join('; ');
+    const _lm=$('#linedmonths'); if(_lm) _lm.textContent=lm; document.querySelectorAll('.linedmonths').forEach(n=>n.textContent=lm); }
+  // ---- the series catalogue: what can be put on the graph ----
+  const inEp=(m,eps)=>eps.some(e=>e.a<=m&&m<=e.b);
+  const CAT=[
+    {code:'BHRREALTIME',name:'Real-time Bristow-Hall Rule Recession Indicator',units:'Index',native:'Daily',dates:SER.dates,values:SER.values.map(v=>v===null?null:Math.max(0,v))},
+    {code:'SAHMREALTIME',name:'Sahm Rule Recession Indicator, real time (FRED SAHMREALTIME)',units:'Percentage Points',native:'Monthly',dates:S.sahm.dates,values:S.sahm.values},
+    {code:'NBERREC',name:'NBER recessions, 1 from the peak month through the trough month (the months of Paper 1\'s figures)',units:'+1 or 0',native:'Daily',dates:SER.dates,values:SER.dates.map(d=>{const m=d.slice(0,7); return NB.some(r=>r.peak<=m&&m<=r.trough)?1:0;})},
+    {code:'BHRREC',name:'Bristow-Hall Rule recessions, 1 from the day it opened through the day it closed',units:'+1 or 0',native:'Daily',dates:SER.dates,values:SER.dates.map(d=>S.episodes.some(e=>e.open_pub<=d&&(!e.close_pub||d<=e.close_pub))?1:0)}
+  ];
+  const UNITS=[['lin','Index / level'],['chg','Change'],['ch1','Change from Year Ago'],['pch','Percent Change'],['pc1','Percent Change from Year Ago']];
+  const FREQS=['Daily','Monthly','Quarterly','Semiannual','Annual']; const AGGS=[['avg','Average'],['sum','Sum'],['eop','End of Period']];
+  const COLORS=['#990000','#c0392b','#2e8b57','#8e44ad','#e67e22','#111111'];
+  const LINES=[]; let nextId=0;
+  function mkLine(src,formula,name){ const id=String.fromCharCode(97+nextId++); const L={id:id,src:src,units:'lin',freq:(src?src.native:'Daily'),agg:'avg',formula:formula||id,units2:'lin',color:COLORS[(nextId-1)%COLORS.length],width:2,style:'solid',mark:'none',axis:'left',name:name||(src?src.name:'User-defined line')}; LINES.push(L); return L; }
+  mkLine(CAT[0]);
+  // ---- transforms ----
+  function periodKey(d,freq){ const y=d.slice(0,4), m=+d.slice(5,7); if(freq==='Monthly') return d.slice(0,7); if(freq==='Quarterly') return y+'-'+String(Math.floor((m-1)/3)*3+1).padStart(2,'0'); if(freq==='Semiannual') return y+'-'+(m<=6?'01':'07'); if(freq==='Annual') return y+'-01'; return d; }
+  function effFreq(L){ const nat=L.src?L.src.native:'Daily'; const order={Daily:0,Monthly:1,Quarterly:2,Semiannual:3,Annual:4}; return order[L.freq]<order[nat]?nat:L.freq; }
+  function aggregate(D,V,freq,agg){ if(freq==='Daily'||(freq==='Monthly'&&D.length&&D[0].length===7)) return {dates:D.slice(),values:V.slice()}; const keys=[],map={}; for(let i=0;i<D.length;i++){ const k=periodKey(D[i],freq); if(!(k in map)){map[k]=[];keys.push(k);} const v=V[i]; if(v!==null&&v!==undefined&&isFinite(v)) map[k].push(v); }
+    return {dates:keys,values:keys.map(k=>{const a=map[k]; if(!a.length) return null; if(agg==='sum') return a.reduce((x,y)=>x+y,0); if(agg==='eop') return a[a.length-1]; return a.reduce((x,y)=>x+y,0)/a.length;})}; }
+  function unitsT(D,V,mode,freq){ if(mode==='lin') return {dates:D,values:V}; const yearAgo=(mode==='ch1'||mode==='pc1'); const per={Monthly:12,Quarterly:4,Semiannual:2,Annual:1}[freq]||12;
+    const prevIdx=i=>{ if(!yearAgo) return i-1; if(freq!=='Daily') return i-per; const T=toT(D[i])-365.25*86400000; let lo=0,hi=i-1,ans=-1; while(lo<=hi){ const m=(lo+hi)>>1; if(toT(D[m])<=T){ans=m;lo=m+1;} else hi=m-1; } return ans; };
+    return {dates:D,values:V.map((v,i)=>{ const j=prevIdx(i); if(j<0) return null; const p=V[j]; if(v===null||p===null||v===undefined||p===undefined||!isFinite(v)||!isFinite(p)) return null; if(mode==='chg'||mode==='ch1') return v-p; if(p===0) return null; return (v/p-1)*100; })}; }
+  const FN={exp:1,log:1,sqrt:1,abs:1,min:1,max:1,round:1,pow:1};
+  function compile(f){ const s=(f||'').toLowerCase().replace(/\s+/g,''); if(!s) return null; const tok=s.match(/[a-z]+|\d*\.?\d+|[+\-*/()^]/g); if(!tok||tok.join('')!==s) return null; let js='',refs=[];
+    for(const t of tok){ if(/^[a-z]$/.test(t)){ js+='v.'+t; refs.push(t); } else if(/^[a-z]+$/.test(t)){ if(!FN[t]) return null; js+='Math.'+t; } else if(t==='^') js+='**'; else js+=t; }
+    try{ const fn=new Function('v','return ('+js+');'); return {fn:fn,refs:refs}; }catch(e){ return null; } }
+  function baseData(L){ if(!L.src) return {dates:[],values:[]}; const f=effFreq(L); const a=aggregate(L.src.dates,L.src.values,f,L.agg); return unitsT(a.dates,a.values,L.units,f); }
+  function lineData(L){
+    const comps={}; for(const M of LINES) comps[M.id]=baseData(M);
+    let out;
+    const ident=(L.formula||'').replace(/\s+/g,'').toLowerCase()===L.id;
+    if(ident&&L.src) out=comps[L.id];
+    else { const c=compile(L.formula); if(!c){ return {dates:[],values:[],error:'formula'}; }
+      const own=L.src?comps[L.id]:comps[c.refs[0]]||{dates:[],values:[]}; const maps={}; for(const r of c.refs){ const cd=comps[r]; if(!cd) return {dates:[],values:[],error:'no line '+r}; const m={}; cd.dates.forEach((d,i)=>{m[d]=cd.values[i];}); maps[r]=m; }
+      const D=own.dates, V=D.map(d=>{ const v={}; for(const r of c.refs){ const x=maps[r][d]; if(x===null||x===undefined||!isFinite(x)) return null; v[r]=x; } let y; try{ y=c.fn(v); }catch(e){ return null; } return (typeof y==='number'&&isFinite(y))?y:null; });
+      out={dates:D,values:V};
+      const refL=LINES.find(M=>M.id===(L.src?L.id:c.refs[0])); const order={Daily:0,Monthly:1,Quarterly:2,Semiannual:3,Annual:4}; if(refL&&order[L.freq]>order[effFreq(refL)]) out=aggregate(out.dates,out.values,L.freq,L.agg); }
+    if(L.units2!=='lin') out=unitsT(out.dates,out.values,L.units2,effFreq(L));
+    return out;
+  }
+  function lineLabel(L){ const u=UNITS.find(x=>x[0]===L.units); let s=L.name; const bits=[]; if(L.units!=='lin') bits.push(u[1]); if(L.src&&effFreq(L)!==L.src.native) bits.push(effFreq(L)+' '+AGGS.find(a=>a[0]===L.agg)[1].toLowerCase()); if(L.units2!=='lin') bits.push(UNITS.find(x=>x[0]===L.units2)[1]+' of the formula'); if(bits.length) s+=' ('+bits.join('; ')+')'; return s; }
+  function lineCode(L){ let c=L.src?L.src.code:'LINE_'+L.id.toUpperCase(); if(L.units!=='lin') c+='_'+L.units.toUpperCase(); if(L.src&&effFreq(L)!==L.src.native) c+='_'+effFreq(L)[0]; if(!L.src||(L.formula||'').replace(/\s+/g,'').toLowerCase()!==L.id) c+='_F'; if(L.units2!=='lin') c+='_'+L.units2.toUpperCase(); return c; }
+  // ---- format state ----
+  const FMT={type:'line',title:false,axisTitles:true,tooltip:true,shading:true,log:false,frame:'#f5f6f8',plotbg:'#ffffff',text:'#333333',height:null,width:null};
+  // ---- the graph ----
+  const tip=$('#tip'); const chartEl=$('#chart'); const plotEl=$('#plot');
+  function isFS(){ const f=document.fullscreenElement||document.webkitFullscreenElement; return (!!f&&f===plotEl)||plotEl.classList.contains('pfs'); }
+  function showTip(x,y,html){tip.innerHTML=html;tip.style.display='block';tip.style.left=(x+14)+'px';tip.style.top=(y+14)+'px';}
+  function hideTip(){tip.style.display='none';}
+  const lastT=toT(ld+'-01'); const firstT=toT(SER.dates[0]+'-01'); const endT=lastT+45*86400000;
+  const MINSPAN=180*86400000;
+  let cur={t0:firstT,t1:endT};
+  let GEO=null;   // the last drawn geometry: ml, pw, t0, t1, mt, ph
+  function niceStep(x){ if(!(x>0)) return 1; const p=Math.pow(10,Math.floor(Math.log10(x))); const r=x/p; return (r<1.5?1:r<3.5?2:r<7.5?5:10)*p; }
+  function domain(vals,log,floor0){ let lo=Infinity,hi=-Infinity; for(const v of vals){ if(v===null||v===undefined||!isFinite(v)) continue; if(log&&v<=0) continue; if(v<lo)lo=v; if(v>hi)hi=v; }
+    if(lo===Infinity) return {lo:0,hi:1,step:0.25}; if(log){ if(lo===hi){lo/=2;hi*=2;} return {lo:lo,hi:hi,log:true}; } if(floor0){ lo=Math.min(0,lo); hi=Math.max(hi,1.25); } if(lo===hi){lo-=1;hi+=1;} const step=niceStep((hi-lo)/5); lo=Math.floor(lo/step)*step; hi=Math.ceil(hi/step)*step; return {lo:lo,hi:hi,step:step}; }
+  function ticksOf(dm){ const t=[]; if(dm.log){ const a=Math.floor(Math.log10(dm.lo)), b=Math.ceil(Math.log10(dm.hi)); for(let d=a;d<=b;d++) for(const m of [1,2,5]){ const v=m*Math.pow(10,d); if(v>=dm.lo*0.999&&v<=dm.hi*1.001) t.push(v);} return t; } for(let v=dm.lo;v<=dm.hi+dm.step*1e-6;v+=dm.step) t.push(+v.toFixed(10)); return t; }
+  function fmtV(v,units){ if(v===null||v===undefined) return '—'; const a=Math.abs(v); if(units==='Index') return v.toFixed(2); return a>=1000?v.toFixed(0):a>=100?v.toFixed(1):a>=1?v.toFixed(2):v.toFixed(3); }
+  function tickLabel(v,dm){ if(dm.log) return String(v); return dm.step<0.01?v.toFixed(3):dm.step<0.1?v.toFixed(2):dm.step<1?v.toFixed(2):v.toFixed(0); }
+  let PTS=[];
+  function render(opts){
+    opts=opts||{}; const t0=cur.t0,t1=cur.t1;
+    const years=(t1-t0)/(365.25*86400000);
+    // fullscreen (18 September 2026): drawn at the screen's own size, so the graph fills it and its text and lines keep their size
+    const FS=!opts.width&&!opts.height&&isFS(); const fsK=FS?Math.max(1,600/Math.max(1,chartEl.clientWidth)):1;
+    const W=opts.width||(FS?Math.round(chartEl.clientWidth*fsK):0)||FMT.width||Math.max(600,chartEl.clientWidth||1160);
+    const H=opts.height||(FS?Math.max(200,Math.round(chartEl.clientHeight*fsK)):0)||FMT.height||470;
+    const data=LINES.map(L=>({L:L,d:lineData(L)}));
+    const anyRight=LINES.some(L=>L.axis==='right');
+    const ml=56,mr=anyRight?56:16,mt=(FMT.title||opts.export)?34:12,mb=FMT.axisTitles?36:30;
+    const pw=W-ml-mr, ph=H-mt-mb;
+    const idxOnly=LINES.filter(L=>L.axis==='left').every(L=>L.src===CAT[0]&&L.units==='lin'&&L.units2==='lin'&&(L.formula||'').replace(/\s+/g,'').toLowerCase()===L.id)&&LINES.some(L=>L.axis==='left');
+    const vis=side=>data.filter(x=>x.L.axis===side).flatMap(x=>x.d.dates.map((dd,i)=>{const t=toT(dd+'-01'); return (t>=t0&&t<=t1)?x.d.values[i]:null;}));
+    const domL=domain(vis('left'),FMT.log,idxOnly&&!FMT.log); const domR=anyRight?domain(vis('right'),false,false):null;
+    const xs=t=>ml+(t-t0)/(t1-t0)*pw;
+    const yOf=(v,dm)=>{ if(dm.log){ const a=Math.log10(dm.lo),b=Math.log10(dm.hi); return mt+(1-(Math.log10(v)-a)/(b-a))*ph; } return mt+(1-(v-dm.lo)/(dm.hi-dm.lo))*ph; };
+    const ysL=v=>yOf(v,domL), ysR=v=>yOf(v,domR);
+    const tc=FMT.text; const ff='Arial,Helvetica,sans-serif';
+    let svg='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(LINES.map(lineLabel).join('; '))+'" xmlns="http://www.w3.org/2000/svg">';
+    svg+='<defs><clipPath id="clipPlot"><rect x="'+ml+'" y="'+mt+'" width="'+pw+'" height="'+ph+'"/></clipPath><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#b9c0c7" stroke-width="2"/></pattern></defs>';
+    svg+='<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="'+(opts.export?'#ffffff':FMT.plotbg)+'"/>';
+    if(opts.export||FMT.title){ svg+='<text x="'+ml+'" y="22" font-size="14" font-weight="bold" fill="'+tc+'" font-family="'+ff+'">'+esc(LINES.length===1?lineLabel(LINES[0]):'Bristow-Hall System')+'</text>'; }
+    if(FMT.shading) for(const r of nber){ if(r.b<t0||r.a>t1) continue; const a=Math.max(r.a,t0),b=Math.min(r.b,t1); svg+='<rect x="'+xs(a).toFixed(1)+'" y="'+mt+'" width="'+Math.max(1,xs(b)-xs(a)).toFixed(1)+'" height="'+ph+'" fill="#dcdcdc"/>'; }
+    if(FMT.shading) for(const r of missed){ if(r.b<t0||r.a>t1) continue; const a=Math.max(r.a,t0),b=Math.min(r.b,t1); svg+='<rect x="'+xs(a).toFixed(1)+'" y="'+mt+'" width="'+Math.max(2,xs(b)-xs(a)).toFixed(1)+'" height="'+ph+'" fill="url(#hatch)" stroke="#9aa3ad" stroke-width="1" stroke-dasharray="3 2"/>'; }
+    for(const v of ticksOf(domL)){ const y=ysL(v); if(!isFinite(y)) continue; svg+='<line x1="'+ml+'" x2="'+(W-mr)+'" y1="'+y.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="#e3e6ea" stroke-width="1"/><text x="'+(ml-8)+'" y="'+(y+4).toFixed(1)+'" text-anchor="end" font-size="11" fill="'+tc+'" font-family="'+ff+'">'+tickLabel(v,domL)+'</text>'; }
+    if(domR) for(const v of ticksOf(domR)){ const y=ysR(v); svg+='<text x="'+(W-mr+8)+'" y="'+(y+4).toFixed(1)+'" text-anchor="start" font-size="11" fill="'+tc+'" font-family="'+ff+'">'+tickLabel(v,domR)+'</text>'; }
+    if(FMT.axisTitles){ const lu=[...new Set(LINES.filter(L=>L.axis==='left').map(L=>L.units!=='lin'||L.units2!=='lin'?UNITS.find(u=>u[0]===(L.units2!=='lin'?L.units2:L.units))[1]:(L.src?L.src.units:'')))].join(', ');
+      svg+='<text transform="translate(13 '+(mt+ph/2).toFixed(1)+') rotate(-90)" text-anchor="middle" font-size="11" fill="'+tc+'" font-family="'+ff+'">'+esc(lu)+'</text>';
+      if(domR){ const ru=[...new Set(LINES.filter(L=>L.axis==='right').map(L=>L.units!=='lin'||L.units2!=='lin'?UNITS.find(u=>u[0]===(L.units2!=='lin'?L.units2:L.units))[1]:(L.src?L.src.units:'')))].join(', '); svg+='<text transform="translate('+(W-12)+' '+(mt+ph/2).toFixed(1)+') rotate(90)" text-anchor="middle" font-size="11" fill="'+tc+'" font-family="'+ff+'">'+esc(ru)+'</text>'; } }
+    const y0=new Date(t0).getUTCFullYear(), y1=new Date(t1).getUTCFullYear(); const pxy=pw/Math.max(years,0.25); const ystep=pxy>=60?1:pxy>=28?2:pxy>=12?5:10;
+    for(let y=Math.ceil(y0/ystep)*ystep;y<=y1;y+=ystep){ const t=Date.UTC(y,0,1); if(t<t0||t>t1) continue; const x=xs(t); svg+='<line x1="'+x.toFixed(1)+'" x2="'+x.toFixed(1)+'" y1="'+mt+'" y2="'+(H-mb)+'" stroke="#e3e6ea"/><text x="'+x.toFixed(1)+'" y="'+(H-mb+16)+'" text-anchor="middle" font-size="11" fill="'+tc+'" font-family="'+ff+'">'+y+'</text>'; }
+    if(pxy>=300){ const mstep=pxy>=900?1:pxy>=450?2:3; for(let y=y0;y<=y1;y++) for(let m=0;m<12;m+=mstep){ const t=Date.UTC(y,m,1); if(t<t0||t>t1) continue; svg+='<text x="'+xs(t).toFixed(1)+'" y="'+(H-mb+28)+'" text-anchor="middle" font-size="9" fill="#666" font-family="'+ff+'">'+MON[m]+'</text>'; } }
+    if(idxOnly&&!FMT.log&&domL.lo<=1&&domL.hi>=1) svg+='<line x1="'+ml+'" x2="'+(W-mr)+'" y1="'+ysL(1).toFixed(1)+'" y2="'+ysL(1).toFixed(1)+'" stroke="#111111" stroke-width="1.3"/>';
+    svg+='<rect x="'+ml+'" y="'+mt+'" width="'+pw+'" height="'+ph+'" fill="none" stroke="#cfd6de"/>';
+    const pts=[]; const nL=data.length; let mainN=0;
+    data.forEach((x,li)=>{ const L=x.L, D=x.d; const ys=L.axis==='right'?ysR:ysL; const dm=L.axis==='right'?domR:domL; const per={Daily:0,Monthly:1,Quarterly:3,Semiannual:6,Annual:12}[effFreq(L)];
+      const dash=L.style==='dashed'?' stroke-dasharray="7 5"':L.style==='dotted'?' stroke-dasharray="2 4"':'';
+      const base=ys(dm.log?dm.lo:Math.min(Math.max(0,dm.lo),dm.hi));
+      let d='',pen=false,bars='',marks=''; const P=[]; let slot=per?xs(Date.UTC(2000,per,1))-xs(Date.UTC(2000,0,1)):xs(Date.UTC(2000,0,8))-xs(Date.UTC(2000,0,1));
+      const pad=(t1-t0)*0.02;
+      // the damage tail (17 September 2026): after the close the indicator keeps the recession's damage until the unemployment first print turns down; those days carry phase 'tail' and are drawn dotted
+      const PHM=null; let dT='',penT=false;   // no dashed segments (Anthony, 17 September 2026)
+      for(let i=0;i<D.dates.length;i++){ const t=toT(D.dates[i]+'-01'); if(t<t0-pad||t>t1+pad) continue; let v=D.values[i]; if(v===null||v===undefined||!isFinite(v)||(dm.log&&v<=0)){pen=false;penT=false;continue;} const xx=xs(t),yy=ys(v); P.push([xx,yy,i,v,t]);
+        const tail=PHM&&PHM[String(D.dates[i]).slice(0,10)]==='tail';
+        if(tail){ dT+=(penT?'L':'M')+xx.toFixed(1)+' '+yy.toFixed(1); penT=true; if(pen) d+='L'+xx.toFixed(1)+' '+yy.toFixed(1); pen=false; }
+        else { d+=(pen?'L':'M')+xx.toFixed(1)+' '+yy.toFixed(1); pen=true; if(penT) dT+='L'+xx.toFixed(1)+' '+yy.toFixed(1); penT=false; } }
+      svg+='<g clip-path="url(#clipPlot)">';
+      if(FMT.type==='bar'){ const bw=Math.max(1,slot*0.72/nL); for(const p of P){ const bx=p[0]-slot*0.36+li*bw; const top=Math.min(p[1],base), hh=Math.abs(p[1]-base); bars+='<rect x="'+bx.toFixed(1)+'" y="'+top.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+Math.max(0.5,hh).toFixed(1)+'" fill="'+L.color+'" opacity="0.9"/>'; } svg+=bars; }
+      else { if(FMT.type==='area'&&P.length){ let ad='M'+P[0][0].toFixed(1)+' '+base.toFixed(1); for(const p of P) ad+='L'+p[0].toFixed(1)+' '+p[1].toFixed(1); ad+='L'+P[P.length-1][0].toFixed(1)+' '+base.toFixed(1)+'Z'; svg+='<path d="'+ad+'" fill="'+L.color+'" opacity="0.28"/>'; }
+        svg+='<path d="'+d+'" fill="none" stroke="'+L.color+'" stroke-width="'+L.width+'"'+dash+' stroke-linejoin="round"/>';
+
+        if(L.mark!=='none'&&P.length<=600){ for(const p of P){ const r=Math.max(2.2,L.width*1.4); if(L.mark==='circle') marks+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+r+'" fill="'+L.color+'"/>'; else if(L.mark==='square') marks+='<rect x="'+(p[0]-r).toFixed(1)+'" y="'+(p[1]-r).toFixed(1)+'" width="'+(2*r)+'" height="'+(2*r)+'" fill="'+L.color+'"/>'; else if(L.mark==='triangle') marks+='<path d="M'+p[0].toFixed(1)+' '+(p[1]-r*1.2).toFixed(1)+'L'+(p[0]+r*1.1).toFixed(1)+' '+(p[1]+r*0.9).toFixed(1)+'L'+(p[0]-r*1.1).toFixed(1)+' '+(p[1]+r*0.9).toFixed(1)+'Z" fill="'+L.color+'"/>'; else marks+='<path d="M'+p[0].toFixed(1)+' '+(p[1]-r*1.3).toFixed(1)+'L'+(p[0]+r*1.3).toFixed(1)+' '+p[1].toFixed(1)+'L'+p[0].toFixed(1)+' '+(p[1]+r*1.3).toFixed(1)+'L'+(p[0]-r*1.3).toFixed(1)+' '+p[1].toFixed(1)+'Z" fill="'+L.color+'"/>'; } svg+=marks; } }
+      svg+='</g>';
+      const isMain=L.src===CAT[0]&&L.units==='lin'&&L.units2==='lin'&&effFreq(L)==='Daily'&&(L.formula||'').replace(/\s+/g,'').toLowerCase()===L.id;
+      for(const p of P){ if(p[4]>=t0&&p[4]<=t1){ pts.push({x:p[0],y:p[1],i:p[2],v:p[3],L:L,date:D.dates[p[2]],k:pts.length,pk:isMain&&PEAKD.has(D.dates[p[2]])}); if(isMain) mainN++; } }
+    });
+    if(opts.export){ svg+='<text x="'+ml+'" y="'+(H-6)+'" font-size="10" fill="#555" font-family="'+ff+'">Source: Bristow, Duke &amp; Hall, Anthony. Shaded areas indicate U.S. recessions. '+LINED_TXT+'</text><text x="'+(W-mr)+'" y="'+(H-mb+2)+'" text-anchor="end" font-size="11" font-weight="bold" fill="#111" font-family="'+ff+'">BHS</text>'; }
+    if(!opts.export) svg+='<g id="cur" style="pointer-events:none"></g>';
+    svg+='</svg>';
+    return {svg:svg,pts:pts,W:W,H:H,geo:{ml:ml,pw:pw,mt:mt,ph:ph,t0:t0,t1:t1,W:W,H:H,mainN:mainN}};
+  }
+  // the cursor: a vertical line at the chosen observation, a marker on each line, and a box above with the date and value.
+  // EVERY POINT IS REACHABLE (18 September 2026; the sticky peak of 17 September jumped over the points beside a peak):
+  // the points within half a pixel of the nearest one across, and of those the one nearest the pointer's height, so where
+  // a pixel holds several days the pointer's height picks among them; the marker then glides through every point between
+  // where it was and where the pointer is, one a frame, when they lie within a few pixels (a slow sweep lands on every
+  // observation even where a pixel holds several); the arrow keys step one observation at a time.
+  let CUR=null, OVER=false, GT=null, GR=0, PKS=[];
+  // THE PEAKS HOLD THE MARKER (18 September 2026): within a few pixels of a recession's peak the marker stays on the
+  // peak, so it need not be hit exactly. Six pixels either side, never more than 36 days either side (zoomed all the
+  // way out that is about 4 px) while the days are packed at least one to a pixel; zoomed in further the hold narrows
+  // faster than the days spread, and once they are two pixels apart it takes none of them: every day is reachable.
+  function holdR(k){ const rho=(GEO.mainN||0)/Math.max(1,GEO.pw/k); if(!(rho>0)) return 0; return Math.min(6,6*rho*rho,36/rho)*k; }
+  function pickAt(px,py,tol){
+    if(PKS.length){ const R=holdR(tol*2); let hp=null,hd=Infinity; for(const p of PKS){ const d=Math.abs(p.x-px); if(d<=R&&d<hd){ hp=p; hd=d; } } if(hp) return hp; }
+    let bd=Infinity; for(const p of PTS){ const d=Math.abs(p.x-px); if(d<bd) bd=d; } if(!(bd<=40)) return null;
+    const lim=bd+tol; let best=null,by=Infinity,bx=Infinity;
+    for(const p of PTS){ const dx=Math.abs(p.x-px); if(dx>lim) continue; const dy=Math.abs(p.y-py); if(dy<by||(dy===by&&dx<bx)){ best=p; by=dy; bx=dx; } }
+    return best; }
+  function cursorAt(px,py,tol){
+    const g=chartEl.querySelector('#cur'); if(!g||!GEO) return; if(!FMT.tooltip||px===null){ g.innerHTML=''; CUR=null; GT=null; return; }
+    const best=pickAt(px,py,tol||0.5); if(!best){ g.innerHTML=''; CUR=null; GT=null; return; } glideTo(best,(tol||0.5)*2); }
+  function glideTo(tp,k){ if(tp.pk||!CUR||CUR.L!==tp.L||PTS[CUR.k]!==CUR||Math.abs(CUR.x-tp.x)>3*k||Math.abs(tp.k-CUR.k)<=1){ GT=null; showPoint(tp); return; } GT=tp; if(!GR) GR=requestAnimationFrame(glide); }
+  function glide(){ GR=0; if(!GT||!CUR||PTS[CUR.k]!==CUR||PTS[GT.k]!==GT){ GT=null; return; } if(CUR===GT){ GT=null; return; } const dir=GT.k>CUR.k?1:-1; let j=CUR.k+dir; while(j!==GT.k&&PTS[j].L!==CUR.L) j+=dir; showPoint(PTS[j]); if(PTS[j]!==GT) GR=requestAnimationFrame(glide); else GT=null; }
+  function stepPoint(dir){ GT=null; if(!CUR||PTS[CUR.k]!==CUR) return false; for(let j=CUR.k+dir;j>=0&&j<PTS.length;j+=dir){ if(PTS[j].L===CUR.L){ showPoint(PTS[j]); return true; } } return false; }
+  function showPoint(best){
+    const g=chartEl.querySelector('#cur'); if(!g||!GEO||!best||!FMT.tooltip) return; CUR=best;
+    const at=PTS.filter(p=>p.date===best.date&&p.L.freq===best.L.freq); const ff='Arial,Helvetica,sans-serif';
+    let h='<line x1="'+best.x.toFixed(1)+'" x2="'+best.x.toFixed(1)+'" y1="'+GEO.mt+'" y2="'+(GEO.mt+GEO.ph)+'" stroke="#111" stroke-width="1"/>';
+    let top=Infinity; for(const p of at){ h+='<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="7" fill="'+p.L.color+'" opacity="0.25"/><circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="3.5" fill="#fff" stroke="'+p.L.color+'" stroke-width="2"/>'; if(p.y<top) top=p.y; }
+    const ef=effFreq(best.L); const dateLab=best.date.length>7?fmtD(best.date):ef==='Monthly'?fmtM(best.date):ef==='Annual'?best.date.slice(0,4):fmtM(best.date)+' ('+ef.toLowerCase()+')';
+    const rows=[]; const note='';
+    if(LINES.length===1){ rows.push({b:dateLab+':',v:fmtV(best.v,best.L.src?best.L.src.units:''),c:'#222'}); }
+    else { rows.push({b:dateLab,v:'',c:'#222'}); for(const p of at) rows.push({b:lineCode(p.L)+':',v:fmtV(p.v,p.L.src?p.L.src.units:''),c:p.L.color}); }
+    const cw=Math.max(...rows.map(r=>(r.b.length+r.v.length+1)*6.6), note?note.length*5.6:0)+18; const rh=16; const chh=rows.length*rh+(note?14:0)+10;
+    let bx=best.x-cw/2; bx=Math.max(GEO.ml+2,Math.min(GEO.ml+GEO.pw-cw-2,bx)); let by=top-chh-14; const flip=by<GEO.mt+2; if(flip) by=top+14;
+    h+='<g><rect x="'+bx.toFixed(1)+'" y="'+by.toFixed(1)+'" width="'+cw.toFixed(1)+'" height="'+chh+'" rx="2" fill="#fff" stroke="#b9c2cc" stroke-width="1"/>';
+    h+=flip?'<path d="M'+(best.x-6).toFixed(1)+' '+by.toFixed(1)+'L'+best.x.toFixed(1)+' '+(by-7).toFixed(1)+'L'+(best.x+6).toFixed(1)+' '+by.toFixed(1)+'Z" fill="#fff" stroke="#b9c2cc"/>':'<path d="M'+(best.x-6).toFixed(1)+' '+(by+chh).toFixed(1)+'L'+best.x.toFixed(1)+' '+(by+chh+7).toFixed(1)+'L'+(best.x+6).toFixed(1)+' '+(by+chh).toFixed(1)+'Z" fill="#fff" stroke="#b9c2cc"/>';
+    rows.forEach((r,k)=>{ h+='<text x="'+(bx+9).toFixed(1)+'" y="'+(by+13+k*rh).toFixed(1)+'" font-size="12" font-family="'+ff+'" fill="'+r.c+'"><tspan font-weight="bold">'+esc(r.b)+'</tspan> '+esc(r.v)+'</text>'; });
+    if(note) h+='<text x="'+(bx+9).toFixed(1)+'" y="'+(by+13+rows.length*rh).toFixed(1)+'" font-size="10.5" font-family="'+ff+'" fill="#555">'+esc(note)+'</text>';
+    h+='</g>'; g.innerHTML=h;
+  }
+  function draw(){
+    const r=render(); chartEl.innerHTML=r.svg; PTS=r.pts; GEO=r.geo; const sv=chartEl.querySelector('svg');
+    CUR=null; GT=null; PKS=PTS.filter(p=>p.pk); const PE=!!window.PointerEvent;
+    sv.addEventListener(PE?'pointermove':'mousemove',e=>{ if(dragging) return; OVER=true; const rc=sv.getBoundingClientRect(); const k=GEO.W/rc.width; cursorAt((e.clientX-rc.left)*k,(e.clientY-rc.top)*(GEO.H/rc.height),0.5*k); });
+    sv.addEventListener(PE?'pointerleave':'mouseleave',()=>{ OVER=false; cursorAt(null); });
+    plotEl.style.background=FMT.frame;
+    $('#legend').innerHTML=LINES.map(L=>'<span class="leg"><i style="border-top-color:'+L.color+'"></i>'+esc(lineLabel(L))+(L.axis==='right'?' (right)':'')+'</span>').join('');
+    $('#zreset').hidden=(cur.t0<=firstT&&cur.t1>=endT);
+  }
+  // ---- the window: zoom (wheel or pinch over the graph, the + and - buttons, the ranges, the dates) and pan (drag) ----
+  function setWindow(t0,t1){ let span=t1-t0; if(span<MINSPAN){ const c=(t0+t1)/2; t0=c-MINSPAN/2; t1=c+MINSPAN/2; span=MINSPAN; } if(span>endT-firstT){ t0=firstT; t1=endT; } else { if(t0<firstT){ t0=firstT; t1=t0+span; } if(t1>endT){ t1=endT; t0=t1-span; } } cur={t0:t0,t1:t1}; draw(); setInputs(cur.t0,Math.min(cur.t1,lastT)); document.querySelectorAll('.ranges a').forEach(x=>x.setAttribute('aria-pressed','false')); }
+  function zoomAt(factor,tAt){ if(tAt===undefined) tAt=(cur.t0+cur.t1)/2; setWindow(tAt-(tAt-cur.t0)*factor, tAt+(cur.t1-tAt)*factor); }
+  chartEl.addEventListener('wheel',e=>{ const sv=chartEl.querySelector('svg'); if(!sv||!GEO) return; e.preventDefault(); const rc=sv.getBoundingClientRect(); const px=(e.clientX-rc.left)*(GEO.W/rc.width); const tAt=GEO.t0+(px-GEO.ml)/GEO.pw*(GEO.t1-GEO.t0); const k=Math.max(-0.07,Math.min(0.07,e.deltaY/1500))*(e.ctrlKey?1.5:1); zoomAt(Math.exp(k),tAt); },{passive:false});
+  let dragging=false,dx=0,w0=null,moved=false;
+  chartEl.addEventListener('mousedown',e=>{ dragging=true; moved=false; dx=e.clientX; w0={t0:cur.t0,t1:cur.t1}; chartEl.classList.add('drag'); cursorAt(null); e.preventDefault(); });
+  window.addEventListener('mouseup',()=>{ dragging=false; chartEl.classList.remove('drag'); });
+  window.addEventListener('mousemove',e=>{ if(!dragging||!GEO) return; const sv=chartEl.querySelector('svg'); const rc=sv.getBoundingClientRect(); const dt=-(e.clientX-dx)*(GEO.W/rc.width)/GEO.pw*(w0.t1-w0.t0); if(Math.abs(e.clientX-dx)>2) moved=true; if(w0.t0+dt<firstT||w0.t1+dt>endT) return; cur={t0:w0.t0+dt,t1:w0.t1+dt}; draw(); setInputs(cur.t0,Math.min(cur.t1,lastT)); });
+  $('#zin').addEventListener('click',()=>zoomAt(1/1.5)); $('#zout').addEventListener('click',()=>zoomAt(1.5)); $('#zreset').addEventListener('click',()=>range('max'));
+  const d0=$('#d0'), d1=$('#d1');
+  function setInputs(t0,t1){ d0.value=new Date(t0).toISOString().slice(0,10); d1.value=new Date(t1).toISOString().slice(0,10); }
+  // ranges as on FRED: the last one, five or ten years, or everything
+  function range(r){ if(r==='max'){ cur={t0:firstT,t1:endT}; } else { const y=+r; const t0=Date.UTC(new Date(lastT).getUTCFullYear()-y,new Date(lastT).getUTCMonth(),1); cur={t0:Math.max(firstT,t0),t1:endT}; } draw(); setInputs(cur.t0,lastT); document.querySelectorAll('.ranges a').forEach(x=>x.setAttribute('aria-pressed',x.dataset.range===r?'true':'false')); }
+  document.querySelectorAll('.ranges a').forEach(a=>{ const go=()=>range(a.dataset.range); a.addEventListener('click',go); a.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}}); });
+  function applyDates(){ const a=Date.parse(d0.value), b=Date.parse(d1.value); if(isNaN(a)||isNaN(b)||a>=b) return; setWindow(a,b+45*86400000); }
+  d0.addEventListener('change',applyDates); d1.addEventListener('change',applyDates);
+  window.addEventListener('resize',draw);
+  // ---- fullscreen: the graph fills the screen (the browser's own fullscreen; where there is none, the page's) ----
+  const fsBtn=$('#fs');
+  function fsDraw(){ fsBtn.innerHTML=isFS()?'Exit Fullscreen<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3"/></svg>':'Fullscreen<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>'; draw(); requestAnimationFrame(draw); setTimeout(draw,250); setTimeout(draw,700); }
+  function pageFS(on){ plotEl.classList.toggle('pfs',on); document.documentElement.style.overflow=on?'hidden':''; fsDraw(); }
+  fsBtn.addEventListener('click',()=>{
+    if(plotEl.classList.contains('pfs')){ pageFS(false); return; }
+    const f=document.fullscreenElement||document.webkitFullscreenElement; if(f){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); return; }
+    const req=plotEl.requestFullscreen||plotEl.webkitRequestFullscreen; if(!req){ pageFS(true); return; }
+    try{ const r=req.call(plotEl); if(r&&r.catch) r.catch(()=>pageFS(true)); }catch(e){ pageFS(true); } });
+  document.addEventListener('fullscreenchange',fsDraw); document.addEventListener('webkitfullscreenchange',fsDraw);
+  // the arrow keys step the marker one observation at a time; Escape leaves the page's own fullscreen
+  chartEl.tabIndex=0; chartEl.addEventListener('blur',()=>{ if(!OVER) cursorAt(null); });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&plotEl.classList.contains('pfs')){ pageFS(false); return; }
+    if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight') return; if(!(OVER||document.activeElement===chartEl)) return;
+    const tg=e.target; if(tg&&/^(INPUT|SELECT|TEXTAREA)$/.test(tg.tagName)) return;
+    if(!CUR){ if(PTS.length){ showPoint(PTS[PTS.length-1]); e.preventDefault(); } return; }
+    if(stepPoint(e.key==='ArrowRight'?1:-1)) e.preventDefault(); });
+  // ---- download: CSV (data), Excel (data), Image (graph), PowerPoint (graph) ----
+  const dlBtn=$('#dl'), dlMenu=$('#dlmenu'); const panel=$('#dlpanel');
+  dlBtn.addEventListener('click',e=>{ e.stopPropagation(); const open=dlMenu.hidden; dlMenu.hidden=!open; dlBtn.setAttribute('aria-expanded',String(open)); });
+  document.addEventListener('click',()=>{ dlMenu.hidden=true; dlBtn.setAttribute('aria-expanded','false'); });
+  $('#dlclose').addEventListener('click',()=>{ panel.hidden=true; });
+  function showPanel(title,note,node){ $('#dltitle').textContent=title; $('#dlnote').textContent=note; const b=$('#dlbody'); b.innerHTML=''; b.appendChild(node); panel.hidden=false; panel.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+  function csvText(){ const data=LINES.map(L=>({L:L,d:lineData(L)})); const keys=new Set(); data.forEach(x=>x.d.dates.forEach(d=>keys.add(d))); const D=[...keys].sort(); const maps=data.map(x=>{const m={}; x.d.dates.forEach((d,i)=>{m[d]=x.d.values[i];}); return m;});
+    let h='DATE,'+data.map(x=>lineCode(x.L)).join(',')+'\n'; for(const d of D){ h+=(d.length===7?d+'-01':d)+','+maps.map((m,j)=>{const v=m[d]; return (v===null||v===undefined||!isFinite(v))?'.':(data[j].L.src===CAT[0]&&data[j].L.units==='lin'&&data[j].L.units2==='lin'?(+v).toFixed(3):(+v).toPrecision(6).replace(/\.?0+$/,''));}).join(',')+'\n'; } return h; }
+  function csvRows(){ return csvText().trim().split('\n').map((r,ri)=>r.split(',').map((c,i)=>(ri===0||i===0||c==='.')?c:+c)); }
+  // Where a file can be handed to the viewer: through the claude.ai viewer's download prompt when the page runs
+  // there, through the browser when the page is served as a site; otherwise the file is shown on the page.
+  let DLC=null; try{ if(window.claude&&typeof window.claude.use==='function') window.claude.use('downloads').then(d=>{DLC=d;}).catch(()=>{}); }catch(e){}
+  async function deliver(name,data){
+    if(DLC){ try{ await DLC.save({filename:name,data:data}); return true; }catch(e){ if(e&&(e.code==='declined'||e.code==='rate_limited')) return true; return false; } }
+    if(SITE){ try{ const a=document.createElement('a'); const url=(typeof data==='string')?URL.createObjectURL(new Blob([data],{type:'text/plain'})):(data instanceof Blob?URL.createObjectURL(data):URL.createObjectURL(new Blob([data]))); a.href=url; a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(url); a.remove();},3000); return true; }catch(e){ return false; } }
+    return false;
+  }
+  function loadScript(src){ return new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=()=>rej(new Error('load')); document.head.appendChild(s); }); }
+  function exportSvg(){ const r=render({width:1200,height:520,export:true}); const div=document.createElement('div'); div.innerHTML=r.svg; return {el:div.firstChild,W:r.W,H:r.H}; }
+  function svgToCanvas(scale){ return new Promise((res,rej)=>{ const x=exportSvg(); const xml=new XMLSerializer().serializeToString(x.el); const img=new Image(); img.onload=()=>{ const c=document.createElement('canvas'); c.width=x.W*scale; c.height=x.H*scale; const g=c.getContext('2d'); g.fillStyle='#fff'; g.fillRect(0,0,c.width,c.height); g.scale(scale,scale); g.drawImage(img,0,0); res(c); }; img.onerror=()=>rej(new Error('render')); img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(xml); }); }
+  async function svgToPng(scale){ const c=await svgToCanvas(scale); return c.toDataURL('image/png'); }
+  function canvasBlob(c){ return new Promise((res,rej)=>{ try{ c.toBlob(b=>b?res(b):rej(new Error('blob')),'image/png'); }catch(e){ rej(e); } }); }
+  function dataPanel(kind){ const pre=document.createElement('pre'); pre.textContent=csvText(); const wrap=document.createElement('div'); const b=document.createElement('button'); b.className='btn ghost small'; b.type='button'; b.textContent='Copy to clipboard'; b.style.marginBottom='8px'; b.addEventListener('click',()=>{ try{ navigator.clipboard.writeText(pre.textContent).then(()=>{b.textContent='Copied';},()=>{b.textContent='Select the text and copy';}); }catch(e){ b.textContent='Select the text and copy'; } }); wrap.appendChild(b); wrap.appendChild(pre);
+    showPanel(kind==='xlsx'?'Excel (data)':'CSV (data)','The file could not be saved from this view; the data are below, one column per line on the graph, as of '+fmtD(S.built)+'.',wrap); }
+  function imgPanel(title,png,note){ const img=document.createElement('img'); img.src=png; img.alt='The graph as an image'; showPanel(title,note||'The file could not be saved from this view; right-click the image and choose "Save Image As".',img); }
+  async function doDownload(k){
+    const name='BHRREALTIME';
+    if(k==='csv'){ if(!(await deliver(name+'.csv',csvText()))) dataPanel('csv'); return; }
+    if(k==='xlsx'){ let buf=null; try{ if(!window.XLSX) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'); const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(csvRows()),'Data'); XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['Real-time Bristow-Hall Rule Recession Indicator (BHRREALTIME)'],['Units','Index, 1.00 = recession, 0\u201310 damage'],['Frequency',FREQTXT],['Updated',S.built],['Source','Bristow, Duke and Hall, Anthony via the Bristow-Hall System'],['Citation',CITE]]),'Notes'); buf=XLSX.write(wb,{bookType:'xlsx',type:'array'}); }catch(e){ buf=null; }
+      if(!buf){ dataPanel('xlsx'); return; } if(!(await deliver(name+'.xlsx',buf))) dataPanel('xlsx'); return; }
+    if(k==='png'){ try{ const c=await svgToCanvas(2); const blob=await canvasBlob(c); if(!(await deliver(name+'.png',blob))) imgPanel('Image (graph)',c.toDataURL('image/png')); }catch(e){ showPanel('Image (graph)','The image could not be rendered in this browser.',document.createElement('div')); } return; }
+    if(k==='pptx'){ let png=null; try{ png=await svgToPng(2); }catch(e){ showPanel('PowerPoint (graph)','The graph could not be rendered in this browser.',document.createElement('div')); return; }
+      let blob=null; try{ if(!window.PptxGenJS) await loadScript('https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js'); const pptx=new PptxGenJS(); pptx.layout='LAYOUT_WIDE'; const sl=pptx.addSlide(); sl.addText(LINES.length===1?lineLabel(LINES[0]):'The Bristow-Hall System',{x:0.5,y:0.3,w:12.3,h:0.5,fontSize:18,bold:true,fontFace:'Arial'}); sl.addImage({data:png,x:0.5,y:0.95,w:12.3,h:5.33}); sl.addText('Source: Bristow, Duke & Hall, Anthony. Retrieved '+fmtD(S.built)+'.',{x:0.5,y:6.5,w:12.3,h:0.4,fontSize:10,fontFace:'Arial',color:'555555'}); blob=await pptx.write({outputType:'blob'}); }catch(e){ blob=null; }
+      if(!blob){ imgPanel('PowerPoint (graph)',png,'The PowerPoint file could not be built in this browser; the graph is below as an image (right-click to save it).'); return; }
+      if(!(await deliver(name+'.pptx',blob))) imgPanel('PowerPoint (graph)',png,'The file could not be saved from this view; the graph is below as an image (right-click to save it).'); return; }
+  }
+  dlMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{ e.stopPropagation(); dlMenu.hidden=true; dlBtn.setAttribute('aria-expanded','false'); doDownload(a.dataset.k); }));
+  // ---- Edit Graph ----
+  const edit=$('#edit'), egBtn=$('#eg'); let selLine=0, selCat=-1;
+  function openEdit(o){ edit.hidden=!o; egBtn.setAttribute('aria-expanded',String(o)); if(o) buildTabs(); setTimeout(draw,30); }
+  egBtn.addEventListener('click',()=>openEdit(edit.hidden)); $('#egclose').addEventListener('click',()=>openEdit(false));
+  document.querySelectorAll('.tabs a').forEach(a=>a.addEventListener('click',()=>{ document.querySelectorAll('.tabs a').forEach(x=>x.setAttribute('aria-selected','false')); a.setAttribute('aria-selected','true'); ['line','add','format'].forEach(t=>{$('#tab-'+t).hidden=t!==a.dataset.tab;}); }));
+  function opt(list,val){ return list.map(o=>'<option value="'+o[0]+'"'+(o[0]===val?' selected':'')+'>'+esc(o[1])+'</option>').join(''); }
+  function buildTabs(){ buildLineTab(); buildAddTab(); buildFormatTab(); }
+  function buildLineTab(){
+    if(selLine>=LINES.length) selLine=LINES.length-1; const L=LINES[selLine]; const el=$('#tab-line');
+    el.innerHTML='<h4>Line</h4><select id="el-sel">'+LINES.map((M,i)=>'<option value="'+i+'"'+(i===selLine?' selected':'')+'>Line '+(i+1)+' ('+M.id+'): '+esc(M.name)+'</option>').join('')+'</select>'+(LINES.length>1?'<button class="btn ghost small" id="el-rm" type="button">Remove this line</button>':'')
+      +'<h4>Units</h4><select id="el-units">'+opt(UNITS,L.units)+'</select>'
+      +'<h4>Modify frequency</h4><div class="row"><div><label>Frequency</label><select id="el-freq">'+opt(FREQS.map(f=>[f,f]),L.freq)+'</select></div><div><label>Aggregation method</label><select id="el-agg">'+opt(AGGS,L.agg)+'</select></div></div>'
+      +'<h4>Customize data</h4><p class="hint">Combine the lines on this graph with a formula; each line is a letter ('+LINES.map(M=>M.id+' = '+esc(lineCode(M))).join(', ')+'). Operators + − * / ^ and parentheses; exp, log, sqrt, abs, min, max.</p><label>Formula</label><input type="text" id="el-formula" value="'+esc(L.formula)+'"><button class="btn small" id="el-apply" type="button">Apply Formula</button><span id="el-msg" class="hint" style="margin-left:8px"></span>'
+      +'<h4>Units (applied to the formula\'s result)</h4><select id="el-units2">'+opt(UNITS,L.units2)+'</select>';
+    $('#el-sel').addEventListener('change',e=>{ selLine=+e.target.value; buildLineTab(); });
+    if($('#el-rm')) $('#el-rm').addEventListener('click',()=>{ LINES.splice(selLine,1); selLine=0; buildTabs(); draw(); });
+    $('#el-units').addEventListener('change',e=>{ L.units=e.target.value; draw(); buildFormatTab(); });
+    $('#el-freq').addEventListener('change',e=>{ L.freq=e.target.value; draw(); });
+    $('#el-agg').addEventListener('change',e=>{ L.agg=e.target.value; draw(); });
+    $('#el-units2').addEventListener('change',e=>{ L.units2=e.target.value; draw(); });
+    const apply=()=>{ const f=$('#el-formula').value; const c=compile(f); const m=$('#el-msg'); if(!c){ m.textContent='not a valid formula'; m.style.color='#7f0000'; return; } for(const r of c.refs) if(!LINES.some(M=>M.id===r)){ m.textContent='no line '+r; m.style.color='#7f0000'; return; } L.formula=f; m.textContent='applied'; m.style.color='#1b7f4b'; draw(); buildFormatTab(); };
+    $('#el-apply').addEventListener('click',apply); $('#el-formula').addEventListener('keydown',e=>{ if(e.key==='Enter') apply(); });
+  }
+  function buildAddTab(){
+    const el=$('#tab-add');
+    el.innerHTML='<h4>Add data series</h4><label>Search the series available on this graph</label><input type="text" id="ad-q" placeholder="e.g. Sahm, NBER, recession"><div class="catlist" id="ad-list"></div><button class="btn small" id="ad-add" type="button">Add data series</button>'
+      +'<h4>Create user-defined line</h4><p class="hint">A new line computed from the lines already on the graph ('+LINES.map(M=>M.id+' = '+esc(lineCode(M))).join(', ')+').</p><label>Formula</label><input type="text" id="ad-formula" value="'+(LINES.length>1?'a-b':'a')+'"><label>Name</label><input type="text" id="ad-name" value="User-defined line"><button class="btn small" id="ad-create" type="button">Create user-defined line</button><span id="ad-msg" class="hint" style="margin-left:8px"></span>';
+    const list=$('#ad-list'); const q=$('#ad-q');
+    const fill=()=>{ const s=q.value.trim().toLowerCase(); list.innerHTML=''; CAT.forEach((c,i)=>{ if(s&&!(c.name+' '+c.code).toLowerCase().includes(s)) return; const d=document.createElement('div'); d.setAttribute('aria-selected',String(i===selCat)); d.innerHTML=esc(c.name)+'<div class="code">'+esc(c.code)+' · '+esc(c.units)+' · Monthly · '+c.dates[0].slice(0,4)+' to '+c.dates[c.dates.length-1].slice(0,4)+'</div>'; d.addEventListener('click',()=>{ selCat=i; fill(); }); list.appendChild(d); }); };
+    q.addEventListener('input',fill); fill();
+    $('#ad-add').addEventListener('click',()=>{ if(selCat<0){ q.focus(); return; } mkLine(CAT[selCat]); selLine=LINES.length-1; buildTabs(); draw(); });
+    $('#ad-create').addEventListener('click',()=>{ const f=$('#ad-formula').value; const c=compile(f); const m=$('#ad-msg'); if(!c||!c.refs.length){ m.textContent='not a valid formula'; m.style.color='#7f0000'; return; } for(const r of c.refs) if(!LINES.some(M=>M.id===r)){ m.textContent='no line '+r; m.style.color='#7f0000'; return; } const L=mkLine(null,f,$('#ad-name').value||'User-defined line'); L.freq=LINES.find(M=>M.id===c.refs[0]).freq; selLine=LINES.length-1; buildTabs(); draw(); });
+  }
+  function buildFormatTab(){
+    const el=$('#tab-format');
+    el.innerHTML='<h4>Graph type</h4><select id="ft-type">'+opt([['line','Line'],['area','Area'],['bar','Bar']],FMT.type)+'</select>'
+      +'<h4>Display</h4><div class="chk"><label><input type="checkbox" id="ft-title"'+(FMT.title?' checked':'')+'> Title</label><label><input type="checkbox" id="ft-axis"'+(FMT.axisTitles?' checked':'')+'> Axis titles</label><label><input type="checkbox" id="ft-tip"'+(FMT.tooltip?' checked':'')+'> Tooltip</label><label><input type="checkbox" id="ft-shade"'+(FMT.shading?' checked':'')+'> Recession shading</label><label><input type="checkbox" id="ft-log"'+(FMT.log?' checked':'')+'> Log scale left</label></div>'
+      +'<h4>Customize</h4><div class="row"><div><label>Frame</label><input type="color" id="ft-frame" value="'+FMT.frame+'"></div><div><label>Plot area</label><input type="color" id="ft-plot" value="'+FMT.plotbg+'"></div><div><label>Text</label><input type="color" id="ft-text" value="'+FMT.text+'"></div></div>'
+      +'<div class="row" style="margin-top:8px"><div><label>Height</label><input type="number" id="ft-h" min="200" max="1200" step="10" value="'+(FMT.height||420)+'"></div><div><label>Width</label><input type="number" id="ft-w" min="300" max="3000" step="10" placeholder="auto" value="'+(FMT.width||'')+'"></div><div><button class="btn small" id="ft-apply" type="button" style="margin-top:0">Apply</button></div></div>'
+      +LINES.map((L,i)=>'<div class="lineblk"><div class="nm">Line '+(i+1)+' ('+L.id+'): '+esc(lineLabel(L))+'</div><div class="row"><div><label>Line style</label><select data-l="'+i+'" data-k="style">'+opt([['solid','Solid'],['dashed','Dashed'],['dotted','Dotted']],L.style)+'</select></div><div><label>Line width</label><select data-l="'+i+'" data-k="width">'+opt([1,2,3,4,5,6].map(w=>[String(w),String(w)]),String(L.width))+'</select></div></div>'
+        +'<div class="row" style="margin-top:6px"><div><label>Color</label><input type="color" data-l="'+i+'" data-k="color" value="'+L.color+'"></div><div><label>Mark type</label><select data-l="'+i+'" data-k="mark">'+opt([['none','None'],['circle','Circle'],['square','Square'],['triangle','Triangle'],['diamond','Diamond']],L.mark)+'</select></div><div><label>Y-axis position</label><select data-l="'+i+'" data-k="axis">'+opt([['left','Left'],['right','Right']],L.axis)+'</select></div></div></div>').join('');
+    $('#ft-type').addEventListener('change',e=>{FMT.type=e.target.value; draw();});
+    $('#ft-title').addEventListener('change',e=>{FMT.title=e.target.checked; draw();}); $('#ft-axis').addEventListener('change',e=>{FMT.axisTitles=e.target.checked; draw();}); $('#ft-tip').addEventListener('change',e=>{FMT.tooltip=e.target.checked; hideTip();}); $('#ft-shade').addEventListener('change',e=>{FMT.shading=e.target.checked; draw();}); $('#ft-log').addEventListener('change',e=>{FMT.log=e.target.checked; draw();});
+    $('#ft-frame').addEventListener('input',e=>{FMT.frame=e.target.value; draw();}); $('#ft-plot').addEventListener('input',e=>{FMT.plotbg=e.target.value; draw();}); $('#ft-text').addEventListener('input',e=>{FMT.text=e.target.value; draw();});
+    $('#ft-apply').addEventListener('click',()=>{ const h=+$('#ft-h').value, w=+$('#ft-w').value; FMT.height=(h>=200&&h<=1200)?h:null; FMT.width=(w>=300&&w<=3000)?w:null; draw(); });
+    el.querySelectorAll('[data-l]').forEach(inp=>inp.addEventListener(inp.type==='color'?'input':'change',e=>{ const L=LINES[+inp.dataset.l]; const k=inp.dataset.k; L[k]=k==='width'?+e.target.value:e.target.value; draw(); }));
+  }
+  // months between two year-months (the speed panels' summaries)
+  function md(a,b){return (+a.slice(0,4)-+b.slice(0,4))*12+(+a.slice(5,7)-+b.slice(5,7));}
+  // ---- how fast the rule speaks: the rule's firing day against the NBER's announcement, peaks and troughs ----
+  const ANN=S.announcements||[]; const DAY=86400000, MO=30.4375;
+  function months(from,to){ return (toT(to)-toT(from+'-01'))/DAY/MO; }
+  // the speed panels measure from the END of the turn's month (the record's convention: days from the end of the peak month), so a call inside the month reads as early
+  function monthEndISO(ym){ const y=+ym.slice(0,4), m=+ym.slice(5,7); const d=new Date(Date.UTC(m===12?y+1:y,(m%12),1)-DAY); return d.toISOString().slice(0,10); }
+  function monthsEnd(from,to){ return (toT(to)-toT(monthEndISO(from)))/DAY/MO; }
+  function speedPanel(side){
+    const rows=[]; for(const a of ANN){ const nb=a.source!=='not dated by the NBER'; const ruleDay=side==='peak'?a.rule_open:a.rule_close; if(!ruleDay) continue; const ep=S.episodes.find(e=>e.open_pub===a.rule_open); const ref=side==='peak'?a.peak:a.trough; const annDay=nb?(side==='peak'?a.peak_ann:a.trough_ann):null;
+      const sahmDay=(side==='peak'&&a.sahm_peak)?a.sahm_peak:null; const brDay=(side==='trough'&&a.bristow_known)?a.bristow_known:null;
+      rows.push({retro:(side==='trough'&&a.close_basis==='retrospective'),ref:ref,nb:nb,rule:monthsEnd(ref,ruleDay),ruleDay:ruleDay,ann:annDay?monthsEnd(ref,annDay):null,annDay:annDay,sahm:sahmDay?monthsEnd(ref,sahmDay):null,sahmDay:sahmDay,br:brDay?monthsEnd(ref,brDay):null,brDay:brDay,brEnd:a.bristow_end||null,source:a.source}); }
+    const xmin=Math.min(-6,Math.floor(Math.min(...rows.map(r=>r.rule)))-1), xmax=Math.ceil(Math.max(...rows.map(r=>Math.max(r.rule,r.ann===null?0:r.ann,r.sahm===null?0:r.sahm,r.br===null?0:r.br))))+2;
+    const W=560, rowH=30, ml=86, mr=24, mt=26, mb=30, H=mt+rows.length*rowH+mb; const pw=W-ml-mr; const xs=m=>ml+(m-xmin)/(xmax-xmin)*pw; const ff='Arial,Helvetica,sans-serif';
+    let svg='<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Months after the '+side+' month: the rule\'s call against the NBER\'s announcement">';
+    const step=xmax-xmin>30?6:3; for(let m=Math.ceil(xmin/step)*step;m<=xmax;m+=step){ const x=xs(m); svg+='<line x1="'+x.toFixed(1)+'" x2="'+x.toFixed(1)+'" y1="'+mt+'" y2="'+(H-mb)+'" stroke="'+(m===0?'#111':'#e3e6ea')+'" stroke-width="'+(m===0?1.2:1)+'"'+(m===0?' stroke-dasharray="3 3"':'')+'/><text x="'+x.toFixed(1)+'" y="'+(H-mb+15)+'" text-anchor="middle" font-size="10.5" fill="#333" font-family="'+ff+'">'+(m>0?'+':'')+m+'</text>'; }
+    svg+='<text x="'+xs(0).toFixed(1)+'" y="'+(mt-9)+'" text-anchor="middle" font-size="10.5" fill="#333" font-family="'+ff+'">end of the '+side+' month</text><text x="'+(ml+pw/2).toFixed(1)+'" y="'+(H-4)+'" text-anchor="middle" font-size="10.5" fill="#555" font-family="'+ff+'">months after the end of the '+side+' month (negative = before it ended)</text>';
+    rows.forEach((r,i)=>{ const y=mt+i*rowH+rowH/2; const xr=xs(r.rule); const lab=fmtM(r.ref)+(r.nb?'':'*'); const dfmt=m=>(m>0?'+':'')+m.toFixed(1);
+      svg+='<text x="'+(ml-8)+'" y="'+(y+4)+'" text-anchor="end" font-size="11.5" fill="#222" font-family="'+ff+'">'+lab+'</text><line x1="'+ml+'" x2="'+(W-mr)+'" y1="'+y+'" y2="'+y+'" stroke="#eef1f4"/>';
+      if(r.ann!==null){ const xa=xs(r.ann); svg+='<line x1="'+xr.toFixed(1)+'" x2="'+xa.toFixed(1)+'" y1="'+y+'" y2="'+y+'" stroke="#9aa3ad" stroke-width="2"/>'; svg+='<g class="mk" data-tip="'+esc('The NBER announced '+fmtD(r.annDay)+': '+dfmt(r.ann)+' months after the end of '+fmtML(r.ref)+' (the '+side+' month)'+(/Digest/.test(r.source)?' (first Business Conditions Digest issue carrying the date)':''))+'"><path d="M'+xa.toFixed(1)+' '+(y-6)+'L'+(xa+6).toFixed(1)+' '+y+'L'+xa.toFixed(1)+' '+(y+6)+'L'+(xa-6).toFixed(1)+' '+y+'Z" fill="#111"/><text x="'+(xa+9).toFixed(1)+'" y="'+(y+4)+'" font-size="10.5" fill="#111" font-family="'+ff+'">'+dfmt(r.ann)+'</text></g>'; }
+      else { svg+='<text x="'+(xs(Math.max(r.rule,r.sahm===null?0:r.sahm,r.br===null?0:r.br,0))+14).toFixed(1)+'" y="'+(y+4)+'" font-size="10.5" fill="#555" font-family="'+ff+'">'+(r.nb?'':'not dated by the NBER; reference '+fmtM(r.ref)+' (Paper 1)')+'</text>'; }
+      if(r.br!==null){ const xb=xs(r.br); svg+='<g class="mk" data-tip="'+esc('The Bristow Rule (Hall and Bristow, 2026) dates the end as '+fmtML(r.brEnd)+', the month the real-time Sahm indicator peaked; the first lower reading was released '+fmtD(r.brDay)+': '+dfmt(r.br)+' months after the end of '+fmtML(r.ref)+' (the trough month)')+'"><rect x="'+(xb-4.5).toFixed(1)+'" y="'+(y-4.5)+'" width="9" height="9" fill="#1f5fbf"/><text x="'+xb.toFixed(1)+'" y="'+(y+16)+'" text-anchor="middle" font-size="10" fill="#1f5fbf" font-family="'+ff+'">'+dfmt(r.br)+'</text></g>'; }
+      if(r.sahm!==null){ const xsm=xs(r.sahm); svg+='<g class="mk" data-tip="'+esc('The Sahm rule crossed 0.50 on '+fmtD(r.sahmDay)+' (FRED SAHMREALTIME, on the release day): '+dfmt(r.sahm)+' months after the end of '+fmtML(r.ref)+' (the '+side+' month)')+'"><rect x="'+(xsm-4.5).toFixed(1)+'" y="'+(y-4.5)+'" width="9" height="9" fill="#2e8b57"/><text x="'+xsm.toFixed(1)+'" y="'+(y+16)+'" text-anchor="middle" font-size="10" fill="#2e8b57" font-family="'+ff+'">'+dfmt(r.sahm)+'</text></g>'; }
+      svg+='<g class="mk" data-tip="'+esc('The rule fired '+fmtD(r.ruleDay)+': '+dfmt(r.rule)+' months after the end of '+fmtML(r.ref)+' (the '+side+' month)'+(r.nb?'':' (the month Paper 1 gives — Hall & Bristow, 2026; the NBER has not dated this recession)')+(r.retro?' — retrospective: the close the labor rule\u2019s first walked lines (January 1956) give; before 1956 the rule had no closer that could be walked, so this is not a real-time close':''))+'"><circle cx="'+xr.toFixed(1)+'" cy="'+y+'" r="6" fill="'+(r.retro?'#fff':'#990000')+'" stroke="'+(r.retro?'#990000':'#fff')+'" stroke-width="'+(r.retro?'2':'1.5')+'"/><text x="'+xr.toFixed(1)+'" y="'+(y-9)+'" text-anchor="middle" font-size="10.5" fill="#990000" font-family="'+ff+'">'+dfmt(r.rule)+'</text></g>'; });
+    svg+='</svg>';
+    const scored=rows.filter(r=>r.nb&&!r.retro); const med=a=>{ const s=a.slice().sort((x,y)=>x-y); const n=s.length; return n?(n%2?s[(n-1)/2]:(s[n/2-1]+s[n/2])/2):null; };
+    const _sa=scored.filter(r=>r.ann!==null); const mr_=med(scored.map(r=>r.rule)), ma=_sa.length?med(_sa.map(r=>r.ann)):null; const exact=scored.filter(r=>md(r.ruleDay.slice(0,7),r.ref)===0).length, within=scored.filter(r=>Math.abs(md(r.ruleDay.slice(0,7),r.ref))<=1).length;
+    const sh=scored.filter(r=>r.sahm!==null); const ms=sh.length?med(sh.map(r=>r.sahm)):null;
+    const _rt=rows.filter(r=>!r.retro); const early=_rt.filter(r=>r.rule<=0).length; const late=_rt.filter(r=>r.rule>0);
+    return {rows:rows,svg:svg,sum:'The rule fired before the '+side+' month ended in '+early+' of the '+_rt.length+' recessions'+(rows.length>_rt.length?' it closed in real time (the '+rows.filter(r=>r.retro).map(r=>fmtM(r.ref)).join(' and ')+' closes, drawn hollow, are retrospective)':'')+(late.length?' (after it: '+late.map(r=>fmtM(r.ref)+', '+Math.round(r.rule*MO)+' days').join('; ')+')':'')+'. Median over the '+scored.length+' recessions the NBER dated: the rule '+(mr_>0?'+':'')+mr_.toFixed(1)+' months, '+(ms!==null?'the Sahm rule '+(ms>0?'+':'')+ms.toFixed(1)+' months, ':'')+(ma!==null?'the NBER '+(ma>0?'+':'')+ma.toFixed(1)+' months':'')+(ma!==null&&_sa.length<scored.length?' (over the '+_sa.length+' with an announcement day; the NBER announced none of the four before 1962)':'')+' after the end of the '+side+' month.'};
+  }
+  const SPR={}; for(const side of ['peak','trough']){ const r=speedPanel(side); SPR[side]=r.rows; $('#sp-'+side).innerHTML=r.svg; $('#sum-'+side).textContent=r.sum; }
+  (function(){ const p=SPR.peak.find(r=>!r.nb), t=SPR.trough.find(r=>!r.nb); if(!p){ $('#speednote').textContent=''; return; }
+    const dd=(from,to)=>Math.round((toT(to)-toT(from))/DAY); const dm=m=>(m>0?'+':'')+m; const pe=monthEndISO(p.ref);
+    let txt='* The NBER has not dated a recession in 2024; the reference is Paper 1 (Hall & Bristow, 2026): peak '+fmtML(p.ref)+(t?', trough '+fmtML(t.ref):'')+'. The rule fired '+fmtD(p.ruleDay)+', '+dm(dd(pe,p.ruleDay))+' days from the end of that peak month'+(p.sahmDay?' and '+dd(p.ruleDay,p.sahmDay)+' days before the Sahm rule crossed 0.50':'')+'. The rule\u2019s own months are not the reference: the call sits inside them by construction.';
+    $('#speednote').textContent=txt; })();
+  const so=S.sahm_other||[]; const _sn=$('#sahmnote'); if(_sn) _sn.textContent=so.length?('The real-time Sahm rule also crossed 0.50 outside any recession the rule or the NBER dated: '+so.map(x=>fmtM(x.month)+' (released '+fmtD(x.pub)+')').join(', ')+'. The Bristow-Hall Rule made no call at those dates.'):'';
+  document.querySelectorAll('#speed .mk').forEach(g=>{ g.addEventListener('mousemove',e=>showTip(e.pageX,e.pageY,esc(g.dataset.tip))); g.addEventListener('mouseleave',hideTip); });
+  // ---- first draw ----
+  range('max');
+})();
+</script>

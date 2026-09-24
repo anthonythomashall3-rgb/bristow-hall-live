@@ -1,0 +1,158 @@
+[
+ {
+  "published": "1948-09-27",
+  "kind": "peak",
+  "leg": "P",
+  "date": "1948-09"
+ },
+ {
+  "published": "1950-03-09",
+  "kind": "trough",
+  "leg": "J",
+  "date": "1949-12"
+ },
+ {
+  "published": "1953-08-31",
+  "kind": "peak",
+  "leg": "P",
+  "date": "1953-08"
+ },
+ {
+  "published": "1954-06-03",
+  "kind": "trough",
+  "leg": "H",
+  "date": "1954-03"
+ },
+ {
+  "published": "1957-08-26",
+  "kind": "peak",
+  "leg": "P",
+  "date": "1957-08"
+ },
+ {
+  "published": "1958-07-03",
+  "kind": "trough",
+  "leg": "H",
+  "date": "1958-03"
+ },
+ {
+  "published": "1960-04-25",
+  "kind": "peak",
+  "leg": "Y",
+  "date": "1960-04"
+ },
+ {
+  "published": "1961-05-04",
+  "kind": "trough",
+  "leg": "H",
+  "date": "1961-03"
+ },
+ {
+  "published": "1969-11-26",
+  "kind": "peak",
+  "leg": "W",
+  "date": "1969-11"
+ },
+ {
+  "published": "1970-12-24",
+  "kind": "trough",
+  "leg": "C",
+  "date": "1970-11"
+ },
+ {
+  "published": "1973-09-17",
+  "kind": "peak",
+  "leg": "V",
+  "date": "1973-06"
+ },
+ {
+  "published": "1975-05-01",
+  "kind": "trough",
+  "leg": "C",
+  "date": "1975-03"
+ },
+ {
+  "published": "1979-11-05",
+  "kind": "peak",
+  "leg": "W",
+  "date": "1979-08"
+ },
+ {
+  "published": "1980-07-24",
+  "kind": "trough",
+  "leg": "C",
+  "date": "1980-07"
+ },
+ {
+  "published": "1981-05-28",
+  "kind": "peak",
+  "leg": "V",
+  "date": "1981-05"
+ },
+ {
+  "published": "1982-11-04",
+  "kind": "trough",
+  "leg": "C",
+  "date": "1982-11"
+ },
+ {
+  "published": "1990-05-16",
+  "kind": "peak",
+  "leg": "W",
+  "date": "1990-01"
+ },
+ {
+  "published": "1991-04-25",
+  "kind": "trough",
+  "leg": "C",
+  "date": "1991-04"
+ },
+ {
+  "published": "2001-03-15",
+  "kind": "peak",
+  "leg": "U",
+  "date": "2001-03"
+ },
+ {
+  "published": "2001-11-21",
+  "kind": "trough",
+  "leg": "C",
+  "date": "2001-11"
+ },
+ {
+  "published": "2007-12-24",
+  "kind": "peak",
+  "leg": "B",
+  "date": "2007-11"
+ },
+ {
+  "published": "2009-06-18",
+  "kind": "trough",
+  "leg": "C",
+  "date": "2009-05"
+ },
+ {
+  "published": "2020-03-12",
+  "kind": "peak",
+  "leg": "K",
+  "date": "2020-03"
+ },
+ {
+  "published": "2020-05-07",
+  "kind": "trough",
+  "leg": "C",
+  "date": "2020-05"
+ },
+ {
+  "published": "2024-05-03",
+  "kind": "peak",
+  "leg": "X",
+  "date": "2024-01"
+ },
+ {
+  "published": "2024-09-26",
+  "kind": "trough",
+  "leg": "C",
+  "date": "2024-09"
+ }
+]

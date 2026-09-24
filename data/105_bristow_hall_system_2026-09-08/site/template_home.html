@@ -1,0 +1,151 @@
+<title>Bristow-Hall Business Cycle Program</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:#1c1c1c;font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;font-size:15px;line-height:1.55}
+a{color:#990000;text-decoration:none} a:hover{text-decoration:underline}
+.inner{width:90%;max-width:1800px;margin:0 auto;padding:0}
+/* USC */
+.bh{background:#fff;border-top:5px solid #FFCC00;border-bottom:2px solid #990000}
+.bhrow{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:14px 0;width:90%;max-width:1800px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:13px;color:#990000}
+.mono{width:52px;height:52px;background:#990000;color:#fff;font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:24px;display:flex;align-items:center;justify-content:center;position:relative;border-radius:3px;flex:none}
+.mono span{position:absolute;left:10px;right:10px;bottom:7px;height:3px;background:#FFCC00}
+.wm .l1{font-weight:800;letter-spacing:.15em;font-size:16px;color:#990000;line-height:1.15}
+.wm .l2{letter-spacing:.28em;font-size:11.5px;color:#990000;font-weight:700;line-height:1.15;margin-top:3px}
+.nav{display:flex;flex-wrap:wrap;gap:15px;font-size:11.5px;font-weight:700;letter-spacing:.05em}
+.nav a{color:#990000;text-transform:uppercase;padding:4px 0;border-bottom:2px solid transparent;white-space:nowrap}
+.nav a:hover{border-bottom-color:#cfd6de;text-decoration:none}
+.nav a[aria-current="page"]{border-bottom-color:#FFCC00}
+.hero{text-align:center;padding:38px 0 10px}
+.hero h1{font-size:34px;line-height:1.18;font-weight:700;color:#990000;margin:0 0 12px;letter-spacing:-.01em}
+.hero .tag{font-size:18px;color:#333;margin:0;max-width:none}
+.lede{font-size:15.5px;color:#333;margin:22px 0 0;max-width:none;text-align:center}
+.by{color:#666;font-size:13px;margin:12px 0 0;text-align:center}
+h2{font-size:25px;font-weight:700;color:#111;margin:40px 0 0}
+.rule{border-bottom:3px solid #990000;margin:6px 0 16px}
+.tiles{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #dfe4ea;border-left:1px solid #dfe4ea}
+.tile{border-right:1px solid #dfe4ea;border-bottom:1px solid #dfe4ea;padding:11px 13px;min-height:92px}
+.tile .lab{font-style:italic;color:#444;font-size:13px;line-height:1.3}
+.tile .val{margin-top:5px;font-size:15px}
+.tile .val b{font-weight:700;font-size:17px;color:#111}
+.tile .sub{color:#666;font-size:12.5px;margin-top:3px}
+.tile .lnk{margin-top:5px;font-size:12.5px}
+.tools{display:grid;gap:18px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{border:1px solid #dfe4ea;padding:13px;display:flex;flex-direction:column;gap:10px;background:#fff}
+.badge{display:inline-block;font-size:10.5px;letter-spacing:.12em;font-weight:700;padding:3px 8px;border-radius:2px;align-self:flex-start}
+.badge.live{color:#166534;background:#e8f3ec;border:1px solid #cfe3d6}
+.badge.dev{color:#7a5200;background:#fbf4e6;border:1px solid #eadfc4}
+.thumb{border:1px solid #e6e9ed;background:#fff;height:150px;width:100%;display:block}
+.thumb.ph{background:repeating-linear-gradient(135deg,#fcfdfe,#fcfdfe 10px,#f3f5f8 10px,#f3f5f8 20px);border-style:dashed}
+.card .name{font-weight:700;font-size:16px;color:#990000}
+.card .desc{color:#555;font-size:13.5px}
+.papers{border-top:1px solid #dfe4ea}
+.paper{border-bottom:1px solid #dfe4ea;padding:13px 0;display:flex;gap:16px;flex-wrap:wrap;align-items:baseline}
+.paper .t{font-weight:700;font-size:15.5px;color:#990000;flex:1 1 460px}
+.paper .a{color:#555;font-size:13px;flex:0 1 340px}
+.foot{background:#990000;color:#f3e3e3;margin-top:48px;padding:26px 0 30px}
+.foot .t{font-weight:800;letter-spacing:.12em;font-size:13.5px;color:#FFCC00}
+.foot .s{font-size:13px;margin-top:7px;color:#edcaca}
+.foot a{color:#f3e3e3}
+.foot .links{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 18px;margin-top:16px;font-size:13.5px;font-weight:700}
+.foot .links a{white-space:nowrap}
+@media (max-width:1100px){ .tiles{grid-template-columns:repeat(3,1fr)} .tools{grid-template-columns:repeat(2,minmax(0,1fr))} .hero h1{font-size:28px} }
+@media (max-width:720px){ .tiles{grid-template-columns:repeat(2,1fr)} .tools{grid-template-columns:1fr} .hero h1{font-size:24px} .hero .tag{font-size:16px} }
+</style>
+
+<header class="bh"><div class="bhrow">
+  <div class="logo" aria-label="Bristow-Hall Business Cycle Program"><div class="mono">BH<span></span></div><div class="wm"><div class="l1">BRISTOW-HALL</div><div class="l2">BUSINESS CYCLE PROGRAM</div></div></div>
+  <nav class="nav" aria-label="Sections">
+    <a href="/" aria-current="page">Home</a>
+    <a href="/detector/">Recession Indicator</a>
+    <a href="/disturbance/">Disturbance Indicator</a>
+    <a href="/state-onset/">State Recession</a>
+    <a href="/stress-map/">Stress Map</a>
+    <a href="/damage-index/">Damage Index</a>
+    <a href="/chronology/">Chronology</a>
+    <a href="/data/">Data</a>
+    <a href="/#papers">Papers</a>
+  </nav>
+</div></header>
+
+<div class="inner">
+  <div class="hero">
+    <h1>Bristow-Hall Business Cycle Program</h1>
+    <p class="by">Duke Bristow &middot; Anthony Hall &middot; University of Southern California</p>
+  </div>
+
+  <h2>Current readings</h2><div class="rule"></div>
+  <div class="tiles" id="tiles"></div>
+
+  <h2>The tools</h2><div class="rule"></div>
+  <div class="tools" id="tools"></div>
+
+  <h2 id="papers">Papers</h2><div class="rule"></div>
+  <div class="papers">
+    <div class="paper"><div class="t"><a href="/papers/recession-signals-without-recession-2024.pdf">Recession Signals Without Recession and the Case of 2024</a></div><div class="a">Hall &amp; Bristow &middot; FBE Working Paper &middot; September 2026 &middot; <a href="/papers/recession-signals-without-recession-2024.pdf">PDF</a></div></div>
+    <div class="paper"><div class="t">The Bristow-Hall Rule: A New Methodology for Detecting and Dating Recessions in Real Time</div><div class="a">Bristow &amp; Hall &middot; the rule, its pre-registered clauses, and the walk-forward record &middot; in preparation</div></div>
+    <div class="paper"><div class="t">The Damage Index: A Richter Scale for Recessions</div><div class="a">Hall &amp; Bristow &middot; how deep, how broad and where - the state and industry disturbances a national date hides &middot; in preparation</div></div>
+  </div>
+</div>
+
+<div class="foot"><div class="inner">
+  <div class="t">BRISTOW-HALL BUSINESS CYCLE PROGRAM</div>
+  <div class="s">Real-time dating of the American business cycle.</div>
+  <div class="links"><a href="/">Home</a><a href="/detector/">Recession Indicator</a><a href="/disturbance/">Disturbance Indicator</a><a href="/state-onset/">State Recession Indicator</a><a href="/stress-map/">National Stress Map</a><a href="/damage-index/">Damage Index</a><a href="/chronology/">Chronology</a><a href="/#papers">Papers</a><a href="/data/">Data</a></div>
+</div></div>
+
+<script>
+const H=__HOME__;
+const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmtD(s){ if(!s) return '-'; const p=String(s).split('-'); return MN[+p[1]-1]+' '+(+p[2])+', '+p[0]; }
+function fmtM(s){ if(!s) return '-'; const p=String(s).split('-'); return MN[+p[1]-1]+' '+p[0]; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+(function(){
+  const st=H.standing||{}, open=st.state==='open';
+  const own='<div class="tile"><div class="lab">Bristow-Hall Rule, recession indicator</div>'
+    +'<div class="val"><b>'+(open?'RECESSION OPEN':'NO RECESSION')+'</b></div>'
+    // Inside a recession the line is the damage - 1.00 plus what the recession has cost so far, on the scale of ten -
+    // so the tile reads the damage and the day the rule called; outside one it reads the indicator against 1.00, as
+    // before (20 September 2026, collection 274: the tile read "reading 2.92 of 1.00" through the fire drill).
+    +'<div class="sub">'+(open?'opened '+fmtD(st.since||'')+'; damage '+(H.last_value==null?'-':Math.max(0,H.last_value-1).toFixed(2))+' of 10, '
+                             :'none since '+fmtM(st.since||st.dated||'')+'; reading '+(H.last_value==null?'-':H.last_value.toFixed(2))+' of 1.00, ')+fmtD(H.last_date)+'</div>'
+    +'<div class="lnk"><a href="/detector/">the indicator &#8599;</a></div></div>';
+  const rest=(H.tiles||[]).map(t=>'<div class="tile"><div class="lab">'+esc(t.lab)+'</div>'
+    +'<div class="val"><b>'+esc(t.val)+'</b></div>'
+    +'<div class="sub">'+esc(t.sub)+(t.next?'; next release '+fmtD(t.next):'')+'</div>'
+    +(t.src?'<div class="lnk"><a href="'+esc(t.src)+'" target="_blank" rel="noopener">'+esc(t.link||t.sid||'FRED')+' &#8599;</a></div>':'')
+    +'</div>').join('');
+  document.getElementById('tiles').innerHTML=own+rest;
+})();
+(function(){
+  const T=[
+   {n:'Real-Time Bristow-Hall Rule Recession Indicator',s:'live',href:'/detector/',d:'The rule’s reading on one line, every release day since 1948, with the recessions it dated and the committee’s.',spark:true},
+   {n:'Real-Time National Disturbance Indicator',s:'dev',href:'/disturbance/',d:'The national labour disturbance beneath a call: what moved, when it moved, and how far it went.'},
+   {n:'Real-Time State Recession Indicator',s:'dev',href:'/state-onset/',d:'The same rule read state by state, so an onset is seen where it starts and not only in the aggregate.'},
+   {n:'National Stress Map',s:'dev',href:'/stress-map/',d:'Labour-market stress across the fifty states and the District, on one scale, week by week.'},
+   {n:'Damage Index',s:'dev',href:'/damage-index/',d:'A Richter scale for recessions: how deep, how broad, and where - not only when.'},
+   {n:'Business-Cycle Chronology',s:'dev',href:'/chronology/',d:'The programme’s dated chronology of peaks and troughs beside the committee’s and the OECD’s.'}
+  ];
+  document.getElementById('tools').innerHTML=T.map(t=>{
+    const head=t.s==='live'?'<span class="badge live">LIVE</span>':'<span class="badge dev">IN DEVELOPMENT</span>';
+    const thumb=t.spark?'<a href="'+t.href+'"><svg class="thumb" id="spark" viewBox="0 0 420 150" preserveAspectRatio="none" role="img"></svg></a>':'<a href="'+t.href+'"><div class="thumb ph"></div></a>';
+    return '<div class="card">'+head+thumb+'<div class="name"><a href="'+t.href+'">'+t.n+'</a></div><div class="desc">'+t.d+'</div></div>';
+  }).join('');
+})();
+(function(){
+  const s=H.spark||{dates:[],values:[]}; const el=document.getElementById('spark'); if(!el||!s.dates.length) return;
+  const W=420,Hh=150,pad=5;
+  const t=d=>Date.parse(d+'T00:00:00Z');
+  const x0=t(s.dates[0]), x1=t(s.dates[s.dates.length-1]);
+  const X=d=>pad+(t(d)-x0)/(x1-x0)*(W-2*pad);
+  const vmax=Math.max(1.6,...s.values.filter(v=>v!=null));
+  const Y=v=>Hh-pad-(Math.min(v,vmax)/vmax)*(Hh-2*pad);
+  let g='';
+  for(const r of (H.bands||[])){ const a=X(r[0]),b=X(r[1]); if(b>=pad&&a<=W-pad) g+='<rect x="'+Math.max(pad,a).toFixed(1)+'" y="0" width="'+Math.max(1,(Math.min(W-pad,b)-Math.max(pad,a))).toFixed(1)+'" height="'+Hh+'" fill="#e9edf2"/>'; }
+  g+='<line x1="'+pad+'" x2="'+(W-pad)+'" y1="'+Y(1).toFixed(1)+'" y2="'+Y(1).toFixed(1)+'" stroke="#FFCC00" stroke-width="1" stroke-dasharray="4 3"/>';
+  let d='',pen=false;
+  s.dates.forEach((dt,i)=>{ const v=s.values[i]; if(v==null){pen=false;return;} const px=X(dt).toFixed(1), py=Y(v).toFixed(1); d+=(pen?'L':'M')+px+' '+py+' '; pen=true; });
+  g+='<path d="'+d+'" fill="none" stroke="#990000" stroke-width="1.2"/>';
+  el.innerHTML=g;
+})();
+</script>

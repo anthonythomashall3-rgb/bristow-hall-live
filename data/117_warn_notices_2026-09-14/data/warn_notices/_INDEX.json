@@ -1,0 +1,202 @@
+[
+ {
+  "state": "OR",
+  "col": "Received Date",
+  "frm": "1988-11-28",
+  "to": "2026-09-18",
+  "n": 1370,
+  "recessions": 5
+ },
+ {
+  "state": "IL",
+  "col": "Initial Date Reported",
+  "frm": "1988-12-05",
+  "to": "2026-09-18",
+  "n": 5211,
+  "recessions": 5
+ },
+ {
+  "state": "AL",
+  "col": "Initial Report Date",
+  "frm": "1998-07-14",
+  "to": "2026-09-18",
+  "n": 1073,
+  "recessions": 4
+ },
+ {
+  "state": "KY",
+  "col": "date_received",
+  "frm": "1998-10-02",
+  "to": "2026-09-18",
+  "n": 834,
+  "recessions": 4
+ },
+ {
+  "state": "TX",
+  "col": "NOTICE_DATE",
+  "frm": "1999-01-04",
+  "to": "2026-09-18",
+  "n": 7606,
+  "recessions": 4
+ },
+ {
+  "state": "OK",
+  "col": "notice_date",
+  "frm": "2001-03-21",
+  "to": "2026-09-18",
+  "n": 220,
+  "recessions": 3
+ },
+ {
+  "state": "VT",
+  "col": "notice_date",
+  "frm": "2003-07-31",
+  "to": "2026-06-17",
+  "n": 100,
+  "recessions": 3
+ },
+ {
+  "state": "WA",
+  "col": "Received Date",
+  "frm": "2004-01-12",
+  "to": "2026-09-18",
+  "n": 1515,
+  "recessions": 3
+ },
+ {
+  "state": "AK",
+  "col": "Notice Date",
+  "frm": "2006-02-25",
+  "to": "2026-09-18",
+  "n": 66,
+  "recessions": 3
+ },
+ {
+  "state": "DE",
+  "col": "notice_date",
+  "frm": "2007-01-16",
+  "to": "2026-09-18",
+  "n": 104,
+  "recessions": 3
+ },
+ {
+  "state": "SD",
+  "col": "Date Received",
+  "frm": "2007-05-16",
+  "to": "2026-09-18",
+  "n": 80,
+  "recessions": 3
+ },
+ {
+  "state": "IN",
+  "col": "LO/CL Date",
+  "frm": "2008-01-18",
+  "to": "2026-09-18",
+  "n": 1277,
+  "recessions": 2
+ },
+ {
+  "state": "CA",
+  "col": "notice_date",
+  "frm": "2008-09-04",
+  "to": "2026-09-18",
+  "n": 18166,
+  "recessions": 2
+ },
+ {
+  "state": "RI",
+  "col": "Date Received",
+  "frm": "2009-01-12",
+  "to": "2026-09-18",
+  "n": 126,
+  "recessions": 2
+ },
+ {
+  "state": "UT",
+  "col": "Date of Notice",
+  "frm": "2009-01-16",
+  "to": "2026-09-18",
+  "n": 282,
+  "recessions": 2
+ },
+ {
+  "state": "NE",
+  "col": "Date",
+  "frm": "2010-02-02",
+  "to": "2026-09-18",
+  "n": 960,
+  "recessions": 2
+ },
+ {
+  "state": "AZ",
+  "col": "notice_date",
+  "frm": "2010-04-28",
+  "to": "2026-08-21",
+  "n": 766,
+  "recessions": 2
+ },
+ {
+  "state": "IA",
+  "col": "Notice Date",
+  "frm": "2011-01-13",
+  "to": "2026-09-18",
+  "n": 432,
+  "recessions": 2
+ },
+ {
+  "state": "TN",
+  "col": "Received Date",
+  "frm": "2011-05-25",
+  "to": "2026-09-18",
+  "n": 1069,
+  "recessions": 2
+ },
+ {
+  "state": "SC",
+  "col": "date",
+  "frm": "2013-02-25",
+  "to": "2026-09-18",
+  "n": 609,
+  "recessions": 2
+ },
+ {
+  "state": "MT",
+  "col": "Date of Notice",
+  "frm": "2015-01-29",
+  "to": "2026-09-18",
+  "n": 46,
+  "recessions": 2
+ },
+ {
+  "state": "DC",
+  "col": "Notice Date",
+  "frm": "2017-02-02",
+  "to": "2026-09-18",
+  "n": 143,
+  "recessions": 2
+ },
+ {
+  "state": "WI",
+  "col": "Original Notice Type / Update Type",
+  "frm": "2019-12-31",
+  "to": "2026-09-18",
+  "n": 636,
+  "recessions": 2
+ },
+ {
+  "state": "CT",
+  "col": "warn_document_date",
+  "frm": "2025-09-23",
+  "to": "2026-09-18",
+  "n": 27,
+  "recessions": 0
+ },
+ {
+  "state": "NY",
+  "col": "Date of WARN Notice ",
+  "frm": "2026-01-06",
+  "to": "2026-09-18",
+  "n": 195,
+  "recessions": 0
+ }
+]

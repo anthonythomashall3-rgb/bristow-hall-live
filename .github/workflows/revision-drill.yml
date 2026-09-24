@@ -1,0 +1,84 @@
+# THE REVISION DRILL ON A SCHEDULE (24 September 2026, collection 371; plan Step 5 item 13, Step 6 R3 and R10). Collection 334
+# built the drill: with BHS_REVISION_SEED=<seed>[:all] the build re-draws every pre-first-print week of the claims histories from
+# the Department's real revisions since 2002 and reads them through its own doors. Here it runs on GitHub's runner from the
+# committed data alone (BHS_MODE=build, as the rebuild check): the base, the four draws of 334, the base again. ops/drill_check.py
+# holds the pass line: the walked diary, the standing and the frozen replay's peaks never move; the drill must have applied; the
+# second base equals the first. The frozen troughs' moves are reported, never a failure. Runs on the first of each month at 07:00
+# UTC (an hour after the rebuild check) and by hand. It publishes nothing and commits nothing; the phone gets one line.
+# NOT AT EACH PUSH ANY MORE (24 September 2026; Anthony: "MAKE SURE I NEVER PAY A SINGLE CENT TO GITHUB"): at 15 minutes a run it
+# was the largest single use of the 2,000 free Actions minutes (55 of 436 in its first week, four pushes). A port that changes
+# the claims histories' handling starts it by hand: gh workflow run revision-drill.yml
+name: revision drill (item 13)
+on:
+  schedule:
+    - cron: '0 7 1 * *'
+  workflow_dispatch:
+concurrency: revision-drill
+jobs:
+  drill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+      # the third-party files the build reads live in the private repository (see update.yml, "the private data, in")
+      - name: the private data, in
+        env:
+          PRIVATE_DATA_KEY: ${{ secrets.PRIVATE_DATA_KEY }}
+        run: |
+          mkdir -p ~/.ssh && printf '%s\n' "$PRIVATE_DATA_KEY" > ~/.ssh/private_data && chmod 600 ~/.ssh/private_data
+          export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/private_data -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+          P="$RUNNER_TEMP/private-data"
+          for i in 1 2 3; do git clone -q --depth 1 git@github.com:anthonythomashall3-rgb/bristow-hall-private-data.git "$P" && break || { rm -rf "$P"; sleep 15; }; done
+          [ -d "$P/.git" ] || exit 1
+          ( cd "$P" && git ls-files -z | tar --null -T - -cf - ) | tar -xf - -C "$GITHUB_WORKSPACE"
+          rm -f ~/.ssh/private_data
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+          cache: pip
+      - run: pip install --quiet --retries 10 --timeout 60 -r requirements.txt
+      - name: the base, the four draws, the base again
+        env:
+          BHS_MODE: build
+        run: |
+          set -uo pipefail
+          W=data/105_bristow_hall_system_2026-09-08/workspace; D=ops/out/drill; mkdir -p "$D"
+          keep() { cp "$W/out/bhs_state.json" "$D/$1_state.json" && cp "$W/out/frozen_record.json" "$D/$1_frozen.json"; }
+          build() { echo "== $1 $(date -u +%FT%TZ)"; if bash run_cloud.sh > "$D/build_$1.log" 2>&1; then echo "$1 exit 0"; else echo "$1 exit $?"; tail -5 "$D/build_$1.log"; fi; keep "$1" || echo "$1: no state kept"; }
+          build base
+          for d in 1:typical 2:typical 3:typical 1:all; do
+            export BHS_REVISION_SEED="$d"; build "${d/:/_}"; unset BHS_REVISION_SEED
+            grep -h "REVISION DRILL" "$D/build_${d/:/_}.log" | cut -c1-220 || echo "${d/:/_}: the drill did not report"
+          done
+          build base_again
+          echo "== done $(date -u +%FT%TZ)"
+      - name: the pass line
+        id: cmp
+        run: |
+          python3 ops/drill_check.py ops/out/drill | tee ops/out/drill_check.txt
+          grep -q "^Revision drill: PASS" ops/out/drill_check.txt && echo "verdict=PASS" >> "$GITHUB_OUTPUT" || echo "verdict=FAIL" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: revision-drill-${{ github.run_id }}
+          path: |
+            ops/out/drill/
+            ops/out/drill_check.txt
+            ops/out/drill_check.json
+          retention-days: 90
+          if-no-files-found: warn
+      - name: tell Anthony
+        if: always()
+        env:
+          TOPIC: ${{ secrets.NTFY_TOPIC }}
+          VERDICT: ${{ steps.cmp.outputs.verdict }}
+        run: |
+          LINE="$(head -1 ops/out/drill_check.txt 2>/dev/null)"; [ -n "$LINE" ] || LINE="Revision drill: the builds themselves failed (see the run)"
+          if [ "$VERDICT" = "PASS" ]; then T="Revision drill: pass"; P=2; else T="CHECK (item 13): the revision drill failed"; P=4; fi
+          [ -n "$TOPIC" ] && curl -s -m 20 -H "Title: $T" -H "Priority: $P" -H "Click: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" -d "$LINE" "https://ntfy.sh/$TOPIC" >/dev/null || true
+          echo "$LINE"
+      - name: the verdict is the job's
+        if: steps.cmp.outputs.verdict != 'PASS'
+        run: exit 1

@@ -1,0 +1,43 @@
+{
+ "_what": "Where the LIVE tool keeps what the update machinery (ops/) reads. When a new version or a new tool goes live, change these paths if they move, and nothing else in ops/ needs to change. See ops/README.md, 'The contract'.",
+ "tool": "Bristow-Hall Rule, v3.x line (collection 105)",
+ "entry": "run_cloud.sh",
+ "workspace": "data/105_bristow_hall_system_2026-09-08/workspace",
+ "site_public": "data/105_bristow_hall_system_2026-09-08/site/public",
+ "state": "data/105_bristow_hall_system_2026-09-08/site/public/bhs_state.json",
+ "data_page": "data/105_bristow_hall_system_2026-09-08/site/public/data/index.html",
+ "home_page": "data/105_bristow_hall_system_2026-09-08/site/public/index.html",
+ "run_slots": "data/105_bristow_hall_system_2026-09-08/site/public/run_slots.json",
+ "run_log": "run.log",
+ "site_url": "https://bhrrealtime.pages.dev",
+ "indicator_url": "https://bhrrealtime.pages.dev/detector/",
+ "indicator_name": "Bristow-Hall Rule recession indicator",
+ "indicator_unit": "1.00 = recession",
+ "restore_before_retry": ["data/105_bristow_hall_system_2026-09-08/site", "data/105_bristow_hall_system_2026-09-08/bhs_state.json"],
+ "code_globs": ["*.py", "*.sh", "requirements.txt"],
+ "version_files": ["data/105_bristow_hall_system_2026-09-08/workspace/cache/bhs_version.json",
+                   "data/105_bristow_hall_system_2026-09-08/site/template.html",
+                   "data/105_bristow_hall_system_2026-09-08/site/template_home.html"],
+ "_version_files": "Files besides code that make a version what it is. When the last good version has to run (ops/run.sh), every file a person's commit changed since it (and no run wrote) is put back with its code; these are used only if that history cannot be read.",
+ "calendar_rules": {
+  "dcpf1m, dcpn30, wtb3ms": "h15_daily",
+  "^gspc": "nyse_close",
+  "google trends*": "utc_day_end",
+  "eta 539": "month_end_plus_21",
+  "eta 539 state insured rates": "fred:180",
+  "eta 539 by state": "fred:180",
+  "dfedtaru": "fred_every_day",
+  "laus state rates (51)": "fred:112"
+ },
+ "_calendar_rules": "23 September 2026 (collection 358): the H.15 row is posted every business day (h15_daily, 4:15 PM ET), DFEDTARU every day at FRED's measured clock (fred_every_day, 8:01 AM ET; an FOMC decision reaches it the next morning), the Google rows at the end of the UTC day the tool reads (utc_day_end); before, the H.15 week, the FOMC days and 9:00 the next morning. The rules h15_week, fomc and daily_next_morning remain available.",
+ "conditional_slots": [
+  {"reading_contains": "sudden stop: S&P 500 below its high of the prior twenty trading days",
+   "ratio_at_least": 0.75, "every_day_at": ["09:05"],
+   "why": "the day's Google searches, read the morning they are known, while the S&P 500 is near the sudden stop's market line"}
+ ],
+ "_conditional_slots": "Runs that are needed only in a given state: while the S&P 500 stands within a quarter of the sudden stop's line (20 percent below its 20-day high), a day's Google searches can complete a call, so each morning's searches are read that morning, weekends included. Otherwise they are read with the day's close.",
+ "fomc_decision_days": ["2026-01-28", "2026-03-18", "2026-04-29", "2026-06-17", "2026-07-29", "2026-09-16", "2026-10-28", "2026-12-09",
+                        "2027-01-27", "2027-03-17", "2027-04-28", "2027-06-09", "2027-07-28", "2027-09-15", "2027-10-27", "2027-12-08",
+                        "2028-01-26"],
+ "_fomc_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm, read 22 September 2026 (second day of each meeting; the statement at 2:00 PM ET). The Board publishes the next year's calendar each summer: add it here then. The notification says when the list is about to run out."
+}
