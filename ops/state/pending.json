@@ -1,16 +1,18 @@
 {
- "came_in": [],
- "expired": [],
- "last_check_ny": "2026-09-25 18:14",
- "pending": [
+ "came_in": [
   {
+   "came_in": "2026-09-25 13:55",
    "due_ny": "2026-09-25 12:01",
    "expected_day": false,
    "ids": "gdpnow",
+   "note": "cleared by hand (411): the value moved 5.08 -> 5.02 at the 1:50 PM run; a nowcast's through-date does not move",
    "short": "GDPNow",
    "since_ny": "2026-09-25 12:21",
    "through_before": "2026-07-01"
   }
  ],
+ "expired": [],
+ "last_check_ny": "2026-09-25 18:14",
+ "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }

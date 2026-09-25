@@ -838,16 +838,22 @@ def pending_update(cal, new_rows, old_rows, prev_built):
     except Exception:
         last_t = nowx - dt.timedelta(hours=6)
     last_t = max(last_t, nowx - dt.timedelta(days=4))
-    thr_new, thr_old = {}, {}
-    for rows_, d_ in ((new_rows, thr_new), (old_rows, thr_old)):
+    thr_new, thr_old, val_new, val_old = {}, {}, {}, {}
+    for rows_, d_, v_ in ((new_rows, thr_new, val_new), (old_rows, thr_old, val_old)):
         for r in rows_:                          # the data page's rows: the first that carries a through-date (tiles carry none)
             if r.get('through') and r['ids'] not in d_:
                 d_[r['ids']] = r['through']
+                v_[r['ids']] = r.get('value', '')
+    # collection 411: a release is in when its row's through-date OR its value moved - GDPNow revises the nowcast of the same
+    # quarter, so its through-date stands still and every GDPNow day was left "waiting" for a week
+    def _moved(ids, thr_before, val_before):
+        cur = thr_new.get(ids)
+        return cur is None or cur > (thr_before or '') or (val_before is not None and val_new.get(ids, '') != val_before)
     pend = {(p['ids'], p['due_ny']): p for p in st.get('pending', [])}
     came = []
     for k, p in list(pend.items()):
         cur = thr_new.get(p['ids'])
-        if cur is None or cur > p.get('through_before', ''):
+        if _moved(p['ids'], p.get('through_before', ''), p.get('value_before')):
             came.append(dict(p, came_in=nowx.strftime('%Y-%m-%d %H:%M'), through_now=cur))
             del pend[k]
     for r in cal['rows']:
@@ -862,13 +868,14 @@ def pending_update(cal, new_rows, old_rows, prev_built):
             if not (last_t < eff <= nowx - dt.timedelta(minutes=5)):
                 continue
             before = thr_old.get(r['ids'], thr_new[r['ids']])
-            if thr_new[r['ids']] > before:
+            vbefore = val_old.get(r['ids'], val_new.get(r['ids'], ''))
+            if _moved(r['ids'], before, vbefore if r['ids'] in val_old else None):
                 came.append({'ids': r['ids'], 'short': r['short'], 'due_ny': x['ny'], 'came_in': nowx.strftime('%Y-%m-%d %H:%M')})
                 continue
             key = (r['ids'], x['ny'])
             if key not in pend:
                 pend[key] = {'ids': r['ids'], 'short': r['short'], 'due_ny': x['ny'], 'expected_day': x.get('expected', False),
-                             'through_before': before, 'since_ny': nowx.strftime('%Y-%m-%d %H:%M')}
+                             'through_before': before, 'value_before': vbefore, 'since_ny': nowx.strftime('%Y-%m-%d %H:%M')}
     # a release the next one has overtaken is dropped (its row moved on, or a newer one is waited for); an entry older than
     # a week is set aside as expired (said in the message) so an agency's cancelled release cannot be waited for forever
     keep, expired = {}, list(st.get('expired', []))[-20:]
