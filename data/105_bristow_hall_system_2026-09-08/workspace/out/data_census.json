@@ -1,5 +1,5 @@
 {
- "built_at": "2026-09-25 12:51",
+ "built_at": "2026-09-25 13:53",
  "version": "v3.74",
  "census_date": "2026-09-25",
  "feeds": [
@@ -167,7 +167,7 @@
    "through": "2026-07",
    "next": "2026-09-30",
    "link": "https://www.atlantafed.org/cqer/research/gdpnow",
-   "value": "5.08",
+   "value": "5.02",
    "backup": "the Atlanta Fed page; the last printed quarter carried",
    "format_check": "the vintage appender names each vintage by its FRED date",
    "auto": "yes"
