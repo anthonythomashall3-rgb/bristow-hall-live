@@ -1,15 +1,15 @@
-    0.3s  FRED change check: 112 series tracked; 18 changed since last pulled (0 updated since 11:50 CT): BORROW, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3, M1SL, NASDAQCOM, NEWORDER ...
-    2.9s  home tiles: unchanged | 9 readings through Aug 2026 (unemployment rate), Sep 19, 2026 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-10-01, IURSA 2026-10-01, JTSJOL 2026-09-29, JTSQUR 2026-09-29, PAYEMS 2026-10-02, UNRATE 2026-10-02; saved to collection 109
-    3.2s  PAYEMS         no new vintage since 2026-09-04 (through 2026-08-01)
-    3.5s  GDPC1          no new vintage since 2026-08-26 (through 2026-04-01)
-    4.0s  GDPNOW         1 vintage(s) appended, the last 2026-09-25: data through 2026-07-01
-    4.1s  indeed postings  4844 rows, last 2026-09-18
-    4.2s  relcal_HOUST: unchanged (through 2026-08)
-    4.3s  relcal_UNRATE: unchanged (through 2026-08)
-    4.3s  relcal_JTSJOL: unchanged (through 2026-07)
-    4.3s  vacancy: no new JOLTS month (through 2026-07-01)
-    4.7s  S&P 500: nothing new (through 2026-09-24)
-    5.6s  Sahm gap: unchanged (through 2026-08-01)
-    5.6s  insured rate base: unchanged (through 2026-09-12)
-    5.6s  ---- the damage index's unemployment rate ----
-    5.6s  left as they stand: 80 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
+    0.3s  FRED change check: 112 series tracked; 18 changed since last pulled (0 updated since 12:50 CT): BORROW, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3, M1SL, NASDAQCOM, NEWORDER ...
+    1.9s  home tiles: unchanged | 9 readings through Aug 2026 (unemployment rate), Sep 19, 2026 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-10-01, IURSA 2026-10-01, JTSJOL 2026-09-29, JTSQUR 2026-09-29, PAYEMS 2026-10-02, UNRATE 2026-10-02; saved to collection 109
+    2.3s  PAYEMS         no new vintage since 2026-09-04 (through 2026-08-01)
+    2.6s  GDPC1          no new vintage since 2026-08-26 (through 2026-04-01)
+    3.0s  GDPNOW         no new vintage since 2026-09-25 (through 2026-07-01)
+    3.2s  indeed postings  4844 rows, last 2026-09-18
+    3.2s  relcal_HOUST: unchanged (through 2026-08)
+    3.3s  relcal_UNRATE: unchanged (through 2026-08)
+    3.3s  relcal_JTSJOL: unchanged (through 2026-07)
+    3.3s  vacancy: no new JOLTS month (through 2026-07-01)
+    3.6s  S&P 500: nothing new (through 2026-09-24)
+    4.1s  Sahm gap: unchanged (through 2026-08-01)
+    4.1s  insured rate base: unchanged (through 2026-09-12)
+    4.1s  ---- the damage index's unemployment rate ----
+    4.1s  left as they stand: 80 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
