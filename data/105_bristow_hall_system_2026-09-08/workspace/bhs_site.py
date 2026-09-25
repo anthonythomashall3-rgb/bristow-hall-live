@@ -326,8 +326,7 @@ try:
       'tr.near td{background:#fff4f4}.fl{color:#990000;font-size:12px;font-weight:700;margin-left:6px}.dwrap{overflow-x:auto}h3{margin:28px 0 0;font-size:18px;color:#222}.sub{color:#555;font-size:13px;margin:4px 0 0}</style>\n</head>\n<body>\n'
       +_nav_m+'\n<div class="inner"><h2 style="margin-top:30px">Margins</h2><div class="rule"></div>'
       '<div class="dwrap"><table class="dtab"><thead><tr><th>Side</th><th>Object</th><th class="num">Reading</th><th class="num">Line</th><th class="num">Of the line</th><th class="num">Through</th><th class="num">Next</th></tr></thead><tbody>'+_mrows+'</tbody></table></div>'
-      '<h3>Near misses since 1948: %d</h3>' % len(_sp)+
-      '<div class="dwrap"><table class="dtab"><thead><tr><th>From</th><th>To</th><th>Branch</th><th class="num">Peak, of the line</th><th class="num">Days</th></tr></thead><tbody>'+_nrows+'</tbody></table></div>'
+      # 25 Sep 2026, Anthony: near-miss table removed from the site (state keeps near_misses)
       '</div>\n'+_footer+'\n</body>\n</html>\n')
     os.makedirs(os.path.join(SITE,'public','margins'),exist_ok=True)
     open(os.path.join(SITE,'public','margins','index.html'),'w',encoding='utf-8').write(_us(_mpage))

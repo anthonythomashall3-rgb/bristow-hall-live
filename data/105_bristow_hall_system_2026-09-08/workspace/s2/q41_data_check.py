@@ -184,7 +184,7 @@ chk('data page: every feed names its series',[f['name'][:24] for f in S['feeds']
 try:
     _mp=open(os.path.join(COL,'site','public','margins','index.html'),encoding='utf-8').read()
     chk('368: the margins page lists every reading',_mp.count('<tr class='),len(S.get('readings') or []))
-    chk('368: the margins page carries the near-miss count',('since 1948: %d<' % len((S.get('near_misses') or {}).get('spells') or [])) in _mp,True)   # audit-0924: the heading carries it
+    chk('368: the margins page no longer shows near misses (Anthony, 25 Sep 2026)','Near misses' not in _mp,True)
     chk('368: the data page links the margins page','href="/margins/"' in _dp,True)
 except Exception as _e: chk('368: the margins page built',repr(_e)[:80],'ok')
 # ---- collection 372 (24 September 2026; plan Step 6 R10): the state's schema version - a hard gate (a state of another schema is a corrupt state)
