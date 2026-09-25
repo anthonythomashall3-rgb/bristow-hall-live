@@ -1,7 +1,7 @@
 {
- "built_at": "2026-09-25 10:19",
+ "built_at": "2026-09-25 12:02",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-09-25T14:19:11Z",
+ "generated_utc": "2026-09-25T16:03:43Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -4673,7 +4673,7 @@
    "link": "https://www.atlantafed.org/cqer/research/gdpnow",
    "name": "gdpnow",
    "next_expected": false,
-   "next_ny": "2026-09-25 12:01",
+   "next_ny": "2026-09-30 12:01",
    "read_lag_min": 0,
    "release_id": 386,
    "short": "GDPNow",
