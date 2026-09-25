@@ -1,19 +1,19 @@
-    0.3s  FRED change check: 112 series tracked; 16 changed since last pulled (0 updated since 22:09 CT): BORROW, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3, M1SL, NASDAQCOM, PERMIT1 ...
-    1.2s  first prints: collection 45 already carries every week ALFRED has (through 2026-09-19, released 2026-09-24)
-    1.4s  DOL release of 2026-09-24: week ending 2026-09-19 already in collection 45
-    1.9s  state 539: the Department's file is unchanged since last read (modified Thu, 24 Sep 2026 19:50:57 GMT); panel stands through 2026-09-12
-    2.3s  state first prints: nothing new (insured unemployment through 2026-09-12; 2 press release(s) on file)
-    3.5s  home tiles: unchanged | 9 readings through Aug 2026 (unemployment rate), Sep 19, 2026 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-10-01, IURSA 2026-10-01, JTSJOL 2026-09-29, JTSQUR 2026-09-29, PAYEMS 2026-10-02, UNRATE 2026-10-02; saved to collection 109
-    3.8s  PAYEMS         no new vintage since 2026-09-04 (through 2026-08-01)
-    4.1s  GDPC1          no new vintage since 2026-08-26 (through 2026-04-01)
-    4.4s  GDPNOW         no new vintage since 2026-09-17 (through 2026-07-01)
-    4.6s  indeed postings  4844 rows, last 2026-09-18
-    4.6s  relcal_HOUST: unchanged (through 2026-08)
-    4.7s  relcal_UNRATE: unchanged (through 2026-08)
-    4.7s  relcal_JTSJOL: unchanged (through 2026-07)
-    4.7s  vacancy: no new JOLTS month (through 2026-07-01)
-    5.1s  S&P 500: nothing new (through 2026-09-24)
-    5.7s  Sahm gap: unchanged (through 2026-08-01)
-    5.7s  insured rate base: unchanged (through 2026-09-12)
-    5.7s  ---- the damage index's unemployment rate ----
-    5.7s  left as they stand: 76 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
+    5.5s  FRED change check: 112 series tracked; 16 changed since last pulled (every release asked (the list since the last check ran long)): BORROW, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3, M1SL, NASDAQCOM, PERMIT1 ...
+    6.7s  first prints: collection 45 already carries every week ALFRED has (through 2026-09-19, released 2026-09-24)
+    6.9s  DOL release of 2026-09-24: week ending 2026-09-19 already in collection 45
+    7.7s  state 539: the Department's file is unchanged since last read (modified Thu, 24 Sep 2026 19:50:57 GMT); panel stands through 2026-09-12
+    8.2s  state first prints: nothing new (insured unemployment through 2026-09-12; 2 press release(s) on file)
+    9.5s  home tiles: unchanged | 9 readings through Aug 2026 (unemployment rate), Sep 19, 2026 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-10-01, IURSA 2026-10-01, JTSJOL 2026-09-29, JTSQUR 2026-09-29, PAYEMS 2026-10-02, UNRATE 2026-10-02; saved to collection 109
+    9.8s  PAYEMS         no new vintage since 2026-09-04 (through 2026-08-01)
+   10.2s  GDPC1          no new vintage since 2026-08-26 (through 2026-04-01)
+   10.5s  GDPNOW         no new vintage since 2026-09-17 (through 2026-07-01)
+   10.6s  indeed postings  4844 rows, last 2026-09-18
+   10.7s  relcal_HOUST: unchanged (through 2026-08)
+   10.8s  relcal_UNRATE: unchanged (through 2026-08)
+   10.8s  relcal_JTSJOL: unchanged (through 2026-07)
+   10.8s  vacancy: no new JOLTS month (through 2026-07-01)
+   11.2s  S&P 500: nothing new (through 2026-09-24)
+   12.2s  Sahm gap: unchanged (through 2026-08-01)
+   12.2s  insured rate base: unchanged (through 2026-09-12)
+   12.2s  ---- the damage index's unemployment rate ----
+   12.2s  left as they stand: 76 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)

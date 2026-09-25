@@ -1,7 +1,7 @@
 {
- "built_at": "2026-09-24 23:19",
+ "built_at": "2026-09-24 23:43",
  "fallback": "weekdays 08:50, 09:35, 10:20 and 17:05 (New York time), used only if this list cannot be read",
- "generated_utc": "2026-09-25T03:19:54Z",
+ "generated_utc": "2026-09-25T03:43:59Z",
  "made_by": "ops/calendar_build.py (22 September 2026): a run 20 minutes after each release the site shows, the S&P 500 close at 5:05 PM on NYSE trading days, a look-again only for a release that is due and not posted; nothing else",
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
  "slots": [
@@ -27,10 +27,10 @@
    ]
   },
   {
-   "ny": "2026-09-24 12:05",
-   "utc": "2026-09-24T16:05:00Z",
+   "ny": "2026-09-24 11:50",
+   "utc": "2026-09-24T15:50:00Z",
    "why": [
-    "weekly economic index (lewis, mertens an (11:45 AM ET)"
+    "weekly economic index (lewis, mertens an (11:30 AM ET)"
    ]
   },
   {
@@ -111,10 +111,16 @@
    ]
   },
   {
+   "ny": "2026-10-01 11:50",
+   "utc": "2026-10-01T15:50:00Z",
+   "why": [
+    "weekly economic index (lewis, mertens an (11:30 AM ET)"
+   ]
+  },
+  {
    "ny": "2026-10-01 12:20",
    "utc": "2026-10-01T16:20:00Z",
    "why": [
-    "weekly economic index (lewis, mertens an (11:45 AM ET)",
     "GDPNow (12:01 PM ET)"
    ]
   },
@@ -183,10 +189,16 @@
    ]
   },
   {
+   "ny": "2026-10-08 11:50",
+   "utc": "2026-10-08T15:50:00Z",
+   "why": [
+    "weekly economic index (lewis, mertens an (11:30 AM ET)"
+   ]
+  },
+  {
    "ny": "2026-10-08 12:20",
    "utc": "2026-10-08T16:20:00Z",
    "why": [
-    "weekly economic index (lewis, mertens an (11:45 AM ET)",
     "GDPNow (12:01 PM ET)"
    ]
   },
@@ -247,10 +259,16 @@
    ]
   },
   {
+   "ny": "2026-10-15 11:50",
+   "utc": "2026-10-15T15:50:00Z",
+   "why": [
+    "weekly economic index (lewis, mertens an (11:30 AM ET)"
+   ]
+  },
+  {
    "ny": "2026-10-15 12:20",
    "utc": "2026-10-15T16:20:00Z",
    "why": [
-    "weekly economic index (lewis, mertens an (11:45 AM ET)",
     "GDPNow (12:01 PM ET)"
    ]
   },
