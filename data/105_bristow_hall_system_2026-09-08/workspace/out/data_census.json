@@ -1,7 +1,7 @@
 {
- "built_at": "2026-09-24 23:43",
+ "built_at": "2026-09-25 08:27",
  "version": "v3.74",
- "census_date": "2026-09-24",
+ "census_date": "2026-09-25",
  "feeds": [
   {
    "feed": "Initial claims, continued claims, insured unemployment rate",
@@ -112,8 +112,8 @@
    "series": "DFEDTARU",
    "source": "Federal Reserve, FOMC statement (FRED DFEDTARU, the daily series)",
    "every": "Daily - FRED posts the series every day, weekends included, at about 8:01 AM ET; it moves only at an FOMC decision (eight scheduled meetings a year, the statement at 2:00 PM ET), carried by the next morning's post",
-   "through": "2026-09-24",
-   "next": "2026-09-25",
+   "through": "2026-09-25",
+   "next": "2026-09-26",
    "link": "https://fred.stlouisfed.org/series/DFEDTARU",
    "value": "4.00",
    "backup": "the FOMC statement on federalreserve.gov (the rate carried from the last reading until then)",
@@ -165,7 +165,7 @@
    "source": "Federal Reserve Bank of Atlanta, GDPNow (FRED GDPNOW, every update as a vintage)",
    "every": "Several times a month, on the days of the releases it reads (FRED carries each update between about 10:30 AM and 1 PM ET); the Atlanta Fed posts its schedule",
    "through": "2026-07",
-   "next": "2026-09-25",
+   "next": "2026-09-30",
    "link": "https://www.atlantafed.org/cqer/research/gdpnow",
    "value": "5.08",
    "backup": "the Atlanta Fed page; the last printed quarter carried",
@@ -190,10 +190,10 @@
    "series": "Google Trends \"unemployment\"",
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
-   "through": "2026-09-23",
+   "through": "2026-09-24",
    "next": "2026-09-25",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
-   "value": "57",
+   "value": "51",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
    "format_check": "the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-fetched window whose overlap deviates over 15 per cent is not appended; pull_log.csv)",
    "auto": "yes"
@@ -203,10 +203,10 @@
    "series": "Google Trends \"layoffs\"",
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
-   "through": "2026-09-23",
+   "through": "2026-09-24",
    "next": "2026-09-25",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=layoffs",
-   "value": "29",
+   "value": "21",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
    "format_check": "the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-fetched window whose overlap deviates over 15 per cent is not appended; pull_log.csv)",
    "auto": "yes"
@@ -216,10 +216,10 @@
    "series": "Google Trends \"laid off\"",
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
-   "through": "2026-09-23",
+   "through": "2026-09-24",
    "next": "2026-09-25",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=laid%20off",
-   "value": "51",
+   "value": "48",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
    "format_check": "the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-fetched window whose overlap deviates over 15 per cent is not appended; pull_log.csv)",
    "auto": "yes"
@@ -278,7 +278,7 @@
   {
    "channel": "the policy rate (FOMC target range, FRED DFEDTARU)",
    "status": "current",
-   "last": "2026-09-24",
+   "last": "2026-09-25",
    "limit_days": 10,
    "substitute": null
   },

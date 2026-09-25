@@ -1,471 +1,28 @@
 {
- "built_at": "2026-09-24 23:43",
+ "built_at": "2026-09-25 08:27",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-09-25T03:43:59Z",
+ "generated_utc": "2026-09-25T12:27:55Z",
  "rows": [
   {
    "agrees_with_build": true,
-   "build_next": "2026-09-25",
-   "confirmed_through": "2027-01-14",
-   "fred_clock": null,
-   "freq": "daily",
-   "ids": "^gspc",
-   "link": "https://www.spglobal.com/spdji/en/indices/equity/sp-500/",
-   "name": "s&p 500 daily close",
-   "next_expected": false,
-   "next_ny": "2026-09-25 16:00",
-   "read_lag_min": 0,
-   "release_id": null,
-   "short": "the S&P 500 close",
-   "slots": false,
-   "source": "rule: nyse_close",
-   "through": "2026-09-24",
-   "time_known": true,
-   "time_note": "the market close",
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-09-17 16:00",
-     "utc": "2026-09-17T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-18 16:00",
-     "utc": "2026-09-18T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-21 16:00",
-     "utc": "2026-09-21T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-22 16:00",
-     "utc": "2026-09-22T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-23 16:00",
-     "utc": "2026-09-23T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-24 16:00",
-     "utc": "2026-09-24T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-25 16:00",
-     "utc": "2026-09-25T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-28 16:00",
-     "utc": "2026-09-28T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-29 16:00",
-     "utc": "2026-09-29T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-30 16:00",
-     "utc": "2026-09-30T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-01 16:00",
-     "utc": "2026-10-01T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-02 16:00",
-     "utc": "2026-10-02T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-05 16:00",
-     "utc": "2026-10-05T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-06 16:00",
-     "utc": "2026-10-06T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-07 16:00",
-     "utc": "2026-10-07T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-08 16:00",
-     "utc": "2026-10-08T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-09 16:00",
-     "utc": "2026-10-09T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-12 16:00",
-     "utc": "2026-10-12T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-13 16:00",
-     "utc": "2026-10-13T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-14 16:00",
-     "utc": "2026-10-14T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-15 16:00",
-     "utc": "2026-10-15T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-16 16:00",
-     "utc": "2026-10-16T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-19 16:00",
-     "utc": "2026-10-19T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-20 16:00",
-     "utc": "2026-10-20T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-21 16:00",
-     "utc": "2026-10-21T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-22 16:00",
-     "utc": "2026-10-22T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-23 16:00",
-     "utc": "2026-10-23T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-26 16:00",
-     "utc": "2026-10-26T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-27 16:00",
-     "utc": "2026-10-27T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-28 16:00",
-     "utc": "2026-10-28T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-29 16:00",
-     "utc": "2026-10-29T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-30 16:00",
-     "utc": "2026-10-30T20:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-02 16:00",
-     "utc": "2026-11-02T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-03 16:00",
-     "utc": "2026-11-03T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-04 16:00",
-     "utc": "2026-11-04T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-05 16:00",
-     "utc": "2026-11-05T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-06 16:00",
-     "utc": "2026-11-06T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-09 16:00",
-     "utc": "2026-11-09T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-10 16:00",
-     "utc": "2026-11-10T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-11 16:00",
-     "utc": "2026-11-11T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-12 16:00",
-     "utc": "2026-11-12T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-13 16:00",
-     "utc": "2026-11-13T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-16 16:00",
-     "utc": "2026-11-16T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-17 16:00",
-     "utc": "2026-11-17T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-18 16:00",
-     "utc": "2026-11-18T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-19 16:00",
-     "utc": "2026-11-19T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-20 16:00",
-     "utc": "2026-11-20T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-23 16:00",
-     "utc": "2026-11-23T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-24 16:00",
-     "utc": "2026-11-24T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 16:00",
-     "utc": "2026-11-25T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-27 16:00",
-     "utc": "2026-11-27T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-30 16:00",
-     "utc": "2026-11-30T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-01 16:00",
-     "utc": "2026-12-01T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-02 16:00",
-     "utc": "2026-12-02T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-03 16:00",
-     "utc": "2026-12-03T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-04 16:00",
-     "utc": "2026-12-04T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-07 16:00",
-     "utc": "2026-12-07T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-08 16:00",
-     "utc": "2026-12-08T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-09 16:00",
-     "utc": "2026-12-09T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-10 16:00",
-     "utc": "2026-12-10T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-11 16:00",
-     "utc": "2026-12-11T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-14 16:00",
-     "utc": "2026-12-14T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-15 16:00",
-     "utc": "2026-12-15T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-16 16:00",
-     "utc": "2026-12-16T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 16:00",
-     "utc": "2026-12-17T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-18 16:00",
-     "utc": "2026-12-18T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-21 16:00",
-     "utc": "2026-12-21T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-22 16:00",
-     "utc": "2026-12-22T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-23 16:00",
-     "utc": "2026-12-23T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-24 16:00",
-     "utc": "2026-12-24T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-28 16:00",
-     "utc": "2026-12-28T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-29 16:00",
-     "utc": "2026-12-29T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-30 16:00",
-     "utc": "2026-12-30T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-31 16:00",
-     "utc": "2026-12-31T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-04 16:00",
-     "utc": "2027-01-04T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-05 16:00",
-     "utc": "2027-01-05T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-06 16:00",
-     "utc": "2027-01-06T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-07 16:00",
-     "utc": "2027-01-07T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-08 16:00",
-     "utc": "2027-01-08T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-11 16:00",
-     "utc": "2027-01-11T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-12 16:00",
-     "utc": "2027-01-12T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-13 16:00",
-     "utc": "2027-01-13T21:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-14 16:00",
-     "utc": "2027-01-14T21:00:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-09-25",
-   "confirmed_through": "2027-01-19",
+   "build_next": "2026-09-26",
+   "confirmed_through": "2027-01-20",
    "fred_clock": null,
    "freq": "daily",
    "ids": "dfedtaru",
    "link": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
    "name": "federal funds target range, upper limit",
    "next_expected": false,
-   "next_ny": "2026-09-25 08:01",
+   "next_ny": "2026-09-26 08:01",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the fed funds target (FRED, daily)",
    "slots": false,
    "source": "rule: fred_every_day",
-   "through": "2026-09-24",
+   "through": "2026-09-25",
    "time_known": true,
    "time_note": "FRED's daily post, at its measured clock (every day, weekends included)",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-09-22 08:01",
-     "utc": "2026-09-22T12:01:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-09-23 08:01",
@@ -1060,6 +617,11 @@
      "expected": false,
      "ny": "2027-01-19 08:01",
      "utc": "2027-01-19T13:01:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-20 08:01",
+     "utc": "2027-01-20T13:01:00Z"
     }
    ],
    "waiting_since_due": null
@@ -1067,7 +629,2314 @@
   {
    "agrees_with_build": true,
    "build_next": "2026-09-25",
-   "confirmed_through": "2027-01-14",
+   "confirmed_through": "2027-01-15",
+   "fred_clock": null,
+   "freq": "daily",
+   "ids": "^gspc",
+   "link": "https://www.spglobal.com/spdji/en/indices/equity/sp-500/",
+   "name": "s&p 500 daily close",
+   "next_expected": false,
+   "next_ny": "2026-09-25 16:00",
+   "read_lag_min": 0,
+   "release_id": null,
+   "short": "the S&P 500 close",
+   "slots": false,
+   "source": "rule: nyse_close",
+   "through": "2026-09-24",
+   "time_known": true,
+   "time_note": "the market close",
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-09-18 16:00",
+     "utc": "2026-09-18T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-21 16:00",
+     "utc": "2026-09-21T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-22 16:00",
+     "utc": "2026-09-22T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-23 16:00",
+     "utc": "2026-09-23T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-24 16:00",
+     "utc": "2026-09-24T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-25 16:00",
+     "utc": "2026-09-25T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-28 16:00",
+     "utc": "2026-09-28T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-29 16:00",
+     "utc": "2026-09-29T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-30 16:00",
+     "utc": "2026-09-30T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-01 16:00",
+     "utc": "2026-10-01T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-02 16:00",
+     "utc": "2026-10-02T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-05 16:00",
+     "utc": "2026-10-05T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-06 16:00",
+     "utc": "2026-10-06T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-07 16:00",
+     "utc": "2026-10-07T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-08 16:00",
+     "utc": "2026-10-08T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-09 16:00",
+     "utc": "2026-10-09T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-12 16:00",
+     "utc": "2026-10-12T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-13 16:00",
+     "utc": "2026-10-13T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-14 16:00",
+     "utc": "2026-10-14T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-15 16:00",
+     "utc": "2026-10-15T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-16 16:00",
+     "utc": "2026-10-16T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-19 16:00",
+     "utc": "2026-10-19T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-20 16:00",
+     "utc": "2026-10-20T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-21 16:00",
+     "utc": "2026-10-21T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-22 16:00",
+     "utc": "2026-10-22T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-23 16:00",
+     "utc": "2026-10-23T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-26 16:00",
+     "utc": "2026-10-26T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-27 16:00",
+     "utc": "2026-10-27T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-28 16:00",
+     "utc": "2026-10-28T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-29 16:00",
+     "utc": "2026-10-29T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-30 16:00",
+     "utc": "2026-10-30T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-02 16:00",
+     "utc": "2026-11-02T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-03 16:00",
+     "utc": "2026-11-03T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-04 16:00",
+     "utc": "2026-11-04T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-05 16:00",
+     "utc": "2026-11-05T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-06 16:00",
+     "utc": "2026-11-06T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-09 16:00",
+     "utc": "2026-11-09T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-10 16:00",
+     "utc": "2026-11-10T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-11 16:00",
+     "utc": "2026-11-11T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-12 16:00",
+     "utc": "2026-11-12T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-13 16:00",
+     "utc": "2026-11-13T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-16 16:00",
+     "utc": "2026-11-16T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-17 16:00",
+     "utc": "2026-11-17T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-18 16:00",
+     "utc": "2026-11-18T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-19 16:00",
+     "utc": "2026-11-19T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-20 16:00",
+     "utc": "2026-11-20T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-23 16:00",
+     "utc": "2026-11-23T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-24 16:00",
+     "utc": "2026-11-24T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 16:00",
+     "utc": "2026-11-25T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-27 16:00",
+     "utc": "2026-11-27T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-30 16:00",
+     "utc": "2026-11-30T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-01 16:00",
+     "utc": "2026-12-01T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-02 16:00",
+     "utc": "2026-12-02T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-03 16:00",
+     "utc": "2026-12-03T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 16:00",
+     "utc": "2026-12-04T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-07 16:00",
+     "utc": "2026-12-07T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-08 16:00",
+     "utc": "2026-12-08T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-09 16:00",
+     "utc": "2026-12-09T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-10 16:00",
+     "utc": "2026-12-10T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-11 16:00",
+     "utc": "2026-12-11T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-14 16:00",
+     "utc": "2026-12-14T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-15 16:00",
+     "utc": "2026-12-15T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-16 16:00",
+     "utc": "2026-12-16T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 16:00",
+     "utc": "2026-12-17T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 16:00",
+     "utc": "2026-12-18T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-21 16:00",
+     "utc": "2026-12-21T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-22 16:00",
+     "utc": "2026-12-22T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 16:00",
+     "utc": "2026-12-23T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-24 16:00",
+     "utc": "2026-12-24T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-28 16:00",
+     "utc": "2026-12-28T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-29 16:00",
+     "utc": "2026-12-29T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-30 16:00",
+     "utc": "2026-12-30T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-31 16:00",
+     "utc": "2026-12-31T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-04 16:00",
+     "utc": "2027-01-04T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-05 16:00",
+     "utc": "2027-01-05T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-06 16:00",
+     "utc": "2027-01-06T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-07 16:00",
+     "utc": "2027-01-07T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-08 16:00",
+     "utc": "2027-01-08T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-11 16:00",
+     "utc": "2027-01-11T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-12 16:00",
+     "utc": "2027-01-12T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-13 16:00",
+     "utc": "2027-01-13T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-14 16:00",
+     "utc": "2027-01-14T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-15 16:00",
+     "utc": "2027-01-15T21:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-09-25",
+   "confirmed_through": "2027-01-20",
+   "fred_clock": null,
+   "freq": "daily",
+   "ids": "google trends \"unemployment\"",
+   "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
+   "name": "search week: google searches for \"unemployment\"",
+   "next_expected": false,
+   "next_ny": "2026-09-25 20:00",
+   "read_lag_min": 0,
+   "release_id": null,
+   "short": "Google searches",
+   "slots": false,
+   "source": "rule: utc_day_end",
+   "through": "2026-09-24",
+   "time_known": true,
+   "time_note": "the day's end in UTC, 8 PM ET in summer and 7 PM in winter (the tool reads Google's days in UTC); Google publishes no hour",
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-09-23 20:00",
+     "utc": "2026-09-24T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-24 20:00",
+     "utc": "2026-09-25T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-25 20:00",
+     "utc": "2026-09-26T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-26 20:00",
+     "utc": "2026-09-27T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-27 20:00",
+     "utc": "2026-09-28T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-28 20:00",
+     "utc": "2026-09-29T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-29 20:00",
+     "utc": "2026-09-30T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-30 20:00",
+     "utc": "2026-10-01T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-01 20:00",
+     "utc": "2026-10-02T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-02 20:00",
+     "utc": "2026-10-03T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-03 20:00",
+     "utc": "2026-10-04T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-04 20:00",
+     "utc": "2026-10-05T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-05 20:00",
+     "utc": "2026-10-06T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-06 20:00",
+     "utc": "2026-10-07T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-07 20:00",
+     "utc": "2026-10-08T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-08 20:00",
+     "utc": "2026-10-09T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-09 20:00",
+     "utc": "2026-10-10T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-10 20:00",
+     "utc": "2026-10-11T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-11 20:00",
+     "utc": "2026-10-12T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-12 20:00",
+     "utc": "2026-10-13T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-13 20:00",
+     "utc": "2026-10-14T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-14 20:00",
+     "utc": "2026-10-15T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-15 20:00",
+     "utc": "2026-10-16T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-16 20:00",
+     "utc": "2026-10-17T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-17 20:00",
+     "utc": "2026-10-18T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-18 20:00",
+     "utc": "2026-10-19T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-19 20:00",
+     "utc": "2026-10-20T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-20 20:00",
+     "utc": "2026-10-21T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-21 20:00",
+     "utc": "2026-10-22T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-22 20:00",
+     "utc": "2026-10-23T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-23 20:00",
+     "utc": "2026-10-24T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-24 20:00",
+     "utc": "2026-10-25T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-25 20:00",
+     "utc": "2026-10-26T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-26 20:00",
+     "utc": "2026-10-27T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-27 20:00",
+     "utc": "2026-10-28T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-28 20:00",
+     "utc": "2026-10-29T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-29 20:00",
+     "utc": "2026-10-30T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-30 20:00",
+     "utc": "2026-10-31T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-31 20:00",
+     "utc": "2026-11-01T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-01 19:00",
+     "utc": "2026-11-02T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-02 19:00",
+     "utc": "2026-11-03T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-03 19:00",
+     "utc": "2026-11-04T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-04 19:00",
+     "utc": "2026-11-05T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-05 19:00",
+     "utc": "2026-11-06T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-06 19:00",
+     "utc": "2026-11-07T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-07 19:00",
+     "utc": "2026-11-08T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-08 19:00",
+     "utc": "2026-11-09T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-09 19:00",
+     "utc": "2026-11-10T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-10 19:00",
+     "utc": "2026-11-11T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-11 19:00",
+     "utc": "2026-11-12T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-12 19:00",
+     "utc": "2026-11-13T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-13 19:00",
+     "utc": "2026-11-14T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-14 19:00",
+     "utc": "2026-11-15T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-15 19:00",
+     "utc": "2026-11-16T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-16 19:00",
+     "utc": "2026-11-17T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-17 19:00",
+     "utc": "2026-11-18T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-18 19:00",
+     "utc": "2026-11-19T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-19 19:00",
+     "utc": "2026-11-20T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-20 19:00",
+     "utc": "2026-11-21T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-21 19:00",
+     "utc": "2026-11-22T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-22 19:00",
+     "utc": "2026-11-23T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-23 19:00",
+     "utc": "2026-11-24T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-24 19:00",
+     "utc": "2026-11-25T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 19:00",
+     "utc": "2026-11-26T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-26 19:00",
+     "utc": "2026-11-27T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-27 19:00",
+     "utc": "2026-11-28T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-28 19:00",
+     "utc": "2026-11-29T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-29 19:00",
+     "utc": "2026-11-30T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-30 19:00",
+     "utc": "2026-12-01T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-01 19:00",
+     "utc": "2026-12-02T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-02 19:00",
+     "utc": "2026-12-03T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-03 19:00",
+     "utc": "2026-12-04T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 19:00",
+     "utc": "2026-12-05T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-05 19:00",
+     "utc": "2026-12-06T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-06 19:00",
+     "utc": "2026-12-07T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-07 19:00",
+     "utc": "2026-12-08T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-08 19:00",
+     "utc": "2026-12-09T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-09 19:00",
+     "utc": "2026-12-10T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-10 19:00",
+     "utc": "2026-12-11T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-11 19:00",
+     "utc": "2026-12-12T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-12 19:00",
+     "utc": "2026-12-13T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-13 19:00",
+     "utc": "2026-12-14T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-14 19:00",
+     "utc": "2026-12-15T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-15 19:00",
+     "utc": "2026-12-16T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-16 19:00",
+     "utc": "2026-12-17T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 19:00",
+     "utc": "2026-12-18T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 19:00",
+     "utc": "2026-12-19T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-19 19:00",
+     "utc": "2026-12-20T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-20 19:00",
+     "utc": "2026-12-21T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-21 19:00",
+     "utc": "2026-12-22T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-22 19:00",
+     "utc": "2026-12-23T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 19:00",
+     "utc": "2026-12-24T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-24 19:00",
+     "utc": "2026-12-25T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-25 19:00",
+     "utc": "2026-12-26T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-26 19:00",
+     "utc": "2026-12-27T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-27 19:00",
+     "utc": "2026-12-28T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-28 19:00",
+     "utc": "2026-12-29T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-29 19:00",
+     "utc": "2026-12-30T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-30 19:00",
+     "utc": "2026-12-31T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-31 19:00",
+     "utc": "2027-01-01T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-01 19:00",
+     "utc": "2027-01-02T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-02 19:00",
+     "utc": "2027-01-03T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-03 19:00",
+     "utc": "2027-01-04T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-04 19:00",
+     "utc": "2027-01-05T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-05 19:00",
+     "utc": "2027-01-06T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-06 19:00",
+     "utc": "2027-01-07T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-07 19:00",
+     "utc": "2027-01-08T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-08 19:00",
+     "utc": "2027-01-09T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-09 19:00",
+     "utc": "2027-01-10T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-10 19:00",
+     "utc": "2027-01-11T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-11 19:00",
+     "utc": "2027-01-12T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-12 19:00",
+     "utc": "2027-01-13T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-13 19:00",
+     "utc": "2027-01-14T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-14 19:00",
+     "utc": "2027-01-15T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-15 19:00",
+     "utc": "2027-01-16T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-16 19:00",
+     "utc": "2027-01-17T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-17 19:00",
+     "utc": "2027-01-18T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-18 19:00",
+     "utc": "2027-01-19T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-19 19:00",
+     "utc": "2027-01-20T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-20 19:00",
+     "utc": "2027-01-21T00:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-09-25",
+   "confirmed_through": "2027-01-20",
+   "fred_clock": null,
+   "freq": "daily",
+   "ids": "google trends \"layoffs\"",
+   "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=layoffs",
+   "name": "search week: google searches for \"layoffs\"",
+   "next_expected": false,
+   "next_ny": "2026-09-25 20:00",
+   "read_lag_min": 0,
+   "release_id": null,
+   "short": "Google searches",
+   "slots": false,
+   "source": "rule: utc_day_end",
+   "through": "2026-09-24",
+   "time_known": true,
+   "time_note": "the day's end in UTC, 8 PM ET in summer and 7 PM in winter (the tool reads Google's days in UTC); Google publishes no hour",
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-09-23 20:00",
+     "utc": "2026-09-24T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-24 20:00",
+     "utc": "2026-09-25T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-25 20:00",
+     "utc": "2026-09-26T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-26 20:00",
+     "utc": "2026-09-27T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-27 20:00",
+     "utc": "2026-09-28T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-28 20:00",
+     "utc": "2026-09-29T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-29 20:00",
+     "utc": "2026-09-30T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-30 20:00",
+     "utc": "2026-10-01T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-01 20:00",
+     "utc": "2026-10-02T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-02 20:00",
+     "utc": "2026-10-03T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-03 20:00",
+     "utc": "2026-10-04T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-04 20:00",
+     "utc": "2026-10-05T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-05 20:00",
+     "utc": "2026-10-06T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-06 20:00",
+     "utc": "2026-10-07T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-07 20:00",
+     "utc": "2026-10-08T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-08 20:00",
+     "utc": "2026-10-09T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-09 20:00",
+     "utc": "2026-10-10T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-10 20:00",
+     "utc": "2026-10-11T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-11 20:00",
+     "utc": "2026-10-12T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-12 20:00",
+     "utc": "2026-10-13T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-13 20:00",
+     "utc": "2026-10-14T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-14 20:00",
+     "utc": "2026-10-15T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-15 20:00",
+     "utc": "2026-10-16T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-16 20:00",
+     "utc": "2026-10-17T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-17 20:00",
+     "utc": "2026-10-18T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-18 20:00",
+     "utc": "2026-10-19T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-19 20:00",
+     "utc": "2026-10-20T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-20 20:00",
+     "utc": "2026-10-21T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-21 20:00",
+     "utc": "2026-10-22T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-22 20:00",
+     "utc": "2026-10-23T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-23 20:00",
+     "utc": "2026-10-24T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-24 20:00",
+     "utc": "2026-10-25T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-25 20:00",
+     "utc": "2026-10-26T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-26 20:00",
+     "utc": "2026-10-27T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-27 20:00",
+     "utc": "2026-10-28T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-28 20:00",
+     "utc": "2026-10-29T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-29 20:00",
+     "utc": "2026-10-30T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-30 20:00",
+     "utc": "2026-10-31T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-31 20:00",
+     "utc": "2026-11-01T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-01 19:00",
+     "utc": "2026-11-02T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-02 19:00",
+     "utc": "2026-11-03T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-03 19:00",
+     "utc": "2026-11-04T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-04 19:00",
+     "utc": "2026-11-05T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-05 19:00",
+     "utc": "2026-11-06T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-06 19:00",
+     "utc": "2026-11-07T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-07 19:00",
+     "utc": "2026-11-08T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-08 19:00",
+     "utc": "2026-11-09T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-09 19:00",
+     "utc": "2026-11-10T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-10 19:00",
+     "utc": "2026-11-11T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-11 19:00",
+     "utc": "2026-11-12T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-12 19:00",
+     "utc": "2026-11-13T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-13 19:00",
+     "utc": "2026-11-14T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-14 19:00",
+     "utc": "2026-11-15T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-15 19:00",
+     "utc": "2026-11-16T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-16 19:00",
+     "utc": "2026-11-17T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-17 19:00",
+     "utc": "2026-11-18T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-18 19:00",
+     "utc": "2026-11-19T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-19 19:00",
+     "utc": "2026-11-20T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-20 19:00",
+     "utc": "2026-11-21T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-21 19:00",
+     "utc": "2026-11-22T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-22 19:00",
+     "utc": "2026-11-23T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-23 19:00",
+     "utc": "2026-11-24T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-24 19:00",
+     "utc": "2026-11-25T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 19:00",
+     "utc": "2026-11-26T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-26 19:00",
+     "utc": "2026-11-27T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-27 19:00",
+     "utc": "2026-11-28T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-28 19:00",
+     "utc": "2026-11-29T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-29 19:00",
+     "utc": "2026-11-30T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-30 19:00",
+     "utc": "2026-12-01T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-01 19:00",
+     "utc": "2026-12-02T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-02 19:00",
+     "utc": "2026-12-03T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-03 19:00",
+     "utc": "2026-12-04T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 19:00",
+     "utc": "2026-12-05T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-05 19:00",
+     "utc": "2026-12-06T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-06 19:00",
+     "utc": "2026-12-07T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-07 19:00",
+     "utc": "2026-12-08T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-08 19:00",
+     "utc": "2026-12-09T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-09 19:00",
+     "utc": "2026-12-10T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-10 19:00",
+     "utc": "2026-12-11T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-11 19:00",
+     "utc": "2026-12-12T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-12 19:00",
+     "utc": "2026-12-13T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-13 19:00",
+     "utc": "2026-12-14T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-14 19:00",
+     "utc": "2026-12-15T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-15 19:00",
+     "utc": "2026-12-16T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-16 19:00",
+     "utc": "2026-12-17T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 19:00",
+     "utc": "2026-12-18T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 19:00",
+     "utc": "2026-12-19T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-19 19:00",
+     "utc": "2026-12-20T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-20 19:00",
+     "utc": "2026-12-21T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-21 19:00",
+     "utc": "2026-12-22T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-22 19:00",
+     "utc": "2026-12-23T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 19:00",
+     "utc": "2026-12-24T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-24 19:00",
+     "utc": "2026-12-25T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-25 19:00",
+     "utc": "2026-12-26T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-26 19:00",
+     "utc": "2026-12-27T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-27 19:00",
+     "utc": "2026-12-28T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-28 19:00",
+     "utc": "2026-12-29T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-29 19:00",
+     "utc": "2026-12-30T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-30 19:00",
+     "utc": "2026-12-31T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-31 19:00",
+     "utc": "2027-01-01T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-01 19:00",
+     "utc": "2027-01-02T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-02 19:00",
+     "utc": "2027-01-03T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-03 19:00",
+     "utc": "2027-01-04T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-04 19:00",
+     "utc": "2027-01-05T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-05 19:00",
+     "utc": "2027-01-06T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-06 19:00",
+     "utc": "2027-01-07T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-07 19:00",
+     "utc": "2027-01-08T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-08 19:00",
+     "utc": "2027-01-09T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-09 19:00",
+     "utc": "2027-01-10T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-10 19:00",
+     "utc": "2027-01-11T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-11 19:00",
+     "utc": "2027-01-12T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-12 19:00",
+     "utc": "2027-01-13T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-13 19:00",
+     "utc": "2027-01-14T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-14 19:00",
+     "utc": "2027-01-15T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-15 19:00",
+     "utc": "2027-01-16T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-16 19:00",
+     "utc": "2027-01-17T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-17 19:00",
+     "utc": "2027-01-18T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-18 19:00",
+     "utc": "2027-01-19T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-19 19:00",
+     "utc": "2027-01-20T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-20 19:00",
+     "utc": "2027-01-21T00:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-09-25",
+   "confirmed_through": "2027-01-20",
+   "fred_clock": null,
+   "freq": "daily",
+   "ids": "google trends \"laid off\"",
+   "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=laid%20off",
+   "name": "search week: google searches for \"laid off\"",
+   "next_expected": false,
+   "next_ny": "2026-09-25 20:00",
+   "read_lag_min": 0,
+   "release_id": null,
+   "short": "Google searches",
+   "slots": false,
+   "source": "rule: utc_day_end",
+   "through": "2026-09-24",
+   "time_known": true,
+   "time_note": "the day's end in UTC, 8 PM ET in summer and 7 PM in winter (the tool reads Google's days in UTC); Google publishes no hour",
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-09-23 20:00",
+     "utc": "2026-09-24T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-24 20:00",
+     "utc": "2026-09-25T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-25 20:00",
+     "utc": "2026-09-26T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-26 20:00",
+     "utc": "2026-09-27T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-27 20:00",
+     "utc": "2026-09-28T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-28 20:00",
+     "utc": "2026-09-29T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-29 20:00",
+     "utc": "2026-09-30T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-30 20:00",
+     "utc": "2026-10-01T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-01 20:00",
+     "utc": "2026-10-02T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-02 20:00",
+     "utc": "2026-10-03T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-03 20:00",
+     "utc": "2026-10-04T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-04 20:00",
+     "utc": "2026-10-05T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-05 20:00",
+     "utc": "2026-10-06T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-06 20:00",
+     "utc": "2026-10-07T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-07 20:00",
+     "utc": "2026-10-08T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-08 20:00",
+     "utc": "2026-10-09T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-09 20:00",
+     "utc": "2026-10-10T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-10 20:00",
+     "utc": "2026-10-11T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-11 20:00",
+     "utc": "2026-10-12T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-12 20:00",
+     "utc": "2026-10-13T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-13 20:00",
+     "utc": "2026-10-14T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-14 20:00",
+     "utc": "2026-10-15T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-15 20:00",
+     "utc": "2026-10-16T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-16 20:00",
+     "utc": "2026-10-17T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-17 20:00",
+     "utc": "2026-10-18T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-18 20:00",
+     "utc": "2026-10-19T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-19 20:00",
+     "utc": "2026-10-20T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-20 20:00",
+     "utc": "2026-10-21T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-21 20:00",
+     "utc": "2026-10-22T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-22 20:00",
+     "utc": "2026-10-23T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-23 20:00",
+     "utc": "2026-10-24T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-24 20:00",
+     "utc": "2026-10-25T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-25 20:00",
+     "utc": "2026-10-26T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-26 20:00",
+     "utc": "2026-10-27T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-27 20:00",
+     "utc": "2026-10-28T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-28 20:00",
+     "utc": "2026-10-29T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-29 20:00",
+     "utc": "2026-10-30T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-30 20:00",
+     "utc": "2026-10-31T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-31 20:00",
+     "utc": "2026-11-01T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-01 19:00",
+     "utc": "2026-11-02T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-02 19:00",
+     "utc": "2026-11-03T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-03 19:00",
+     "utc": "2026-11-04T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-04 19:00",
+     "utc": "2026-11-05T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-05 19:00",
+     "utc": "2026-11-06T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-06 19:00",
+     "utc": "2026-11-07T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-07 19:00",
+     "utc": "2026-11-08T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-08 19:00",
+     "utc": "2026-11-09T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-09 19:00",
+     "utc": "2026-11-10T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-10 19:00",
+     "utc": "2026-11-11T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-11 19:00",
+     "utc": "2026-11-12T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-12 19:00",
+     "utc": "2026-11-13T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-13 19:00",
+     "utc": "2026-11-14T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-14 19:00",
+     "utc": "2026-11-15T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-15 19:00",
+     "utc": "2026-11-16T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-16 19:00",
+     "utc": "2026-11-17T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-17 19:00",
+     "utc": "2026-11-18T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-18 19:00",
+     "utc": "2026-11-19T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-19 19:00",
+     "utc": "2026-11-20T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-20 19:00",
+     "utc": "2026-11-21T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-21 19:00",
+     "utc": "2026-11-22T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-22 19:00",
+     "utc": "2026-11-23T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-23 19:00",
+     "utc": "2026-11-24T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-24 19:00",
+     "utc": "2026-11-25T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 19:00",
+     "utc": "2026-11-26T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-26 19:00",
+     "utc": "2026-11-27T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-27 19:00",
+     "utc": "2026-11-28T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-28 19:00",
+     "utc": "2026-11-29T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-29 19:00",
+     "utc": "2026-11-30T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-30 19:00",
+     "utc": "2026-12-01T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-01 19:00",
+     "utc": "2026-12-02T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-02 19:00",
+     "utc": "2026-12-03T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-03 19:00",
+     "utc": "2026-12-04T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 19:00",
+     "utc": "2026-12-05T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-05 19:00",
+     "utc": "2026-12-06T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-06 19:00",
+     "utc": "2026-12-07T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-07 19:00",
+     "utc": "2026-12-08T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-08 19:00",
+     "utc": "2026-12-09T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-09 19:00",
+     "utc": "2026-12-10T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-10 19:00",
+     "utc": "2026-12-11T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-11 19:00",
+     "utc": "2026-12-12T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-12 19:00",
+     "utc": "2026-12-13T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-13 19:00",
+     "utc": "2026-12-14T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-14 19:00",
+     "utc": "2026-12-15T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-15 19:00",
+     "utc": "2026-12-16T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-16 19:00",
+     "utc": "2026-12-17T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 19:00",
+     "utc": "2026-12-18T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 19:00",
+     "utc": "2026-12-19T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-19 19:00",
+     "utc": "2026-12-20T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-20 19:00",
+     "utc": "2026-12-21T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-21 19:00",
+     "utc": "2026-12-22T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-22 19:00",
+     "utc": "2026-12-23T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 19:00",
+     "utc": "2026-12-24T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-24 19:00",
+     "utc": "2026-12-25T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-25 19:00",
+     "utc": "2026-12-26T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-26 19:00",
+     "utc": "2026-12-27T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-27 19:00",
+     "utc": "2026-12-28T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-28 19:00",
+     "utc": "2026-12-29T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-29 19:00",
+     "utc": "2026-12-30T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-30 19:00",
+     "utc": "2026-12-31T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-31 19:00",
+     "utc": "2027-01-01T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-01 19:00",
+     "utc": "2027-01-02T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-02 19:00",
+     "utc": "2027-01-03T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-03 19:00",
+     "utc": "2027-01-04T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-04 19:00",
+     "utc": "2027-01-05T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-05 19:00",
+     "utc": "2027-01-06T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-06 19:00",
+     "utc": "2027-01-07T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-07 19:00",
+     "utc": "2027-01-08T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-08 19:00",
+     "utc": "2027-01-09T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-09 19:00",
+     "utc": "2027-01-10T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-10 19:00",
+     "utc": "2027-01-11T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-11 19:00",
+     "utc": "2027-01-12T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-12 19:00",
+     "utc": "2027-01-13T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-13 19:00",
+     "utc": "2027-01-14T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-14 19:00",
+     "utc": "2027-01-15T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-15 19:00",
+     "utc": "2027-01-16T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-16 19:00",
+     "utc": "2027-01-17T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-17 19:00",
+     "utc": "2027-01-18T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-18 19:00",
+     "utc": "2027-01-19T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-19 19:00",
+     "utc": "2027-01-20T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-20 19:00",
+     "utc": "2027-01-21T00:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-09-25",
+   "confirmed_through": "2027-01-15",
    "fred_clock": null,
    "freq": "daily",
    "ids": "dcpf1m, dcpn30, wtb3ms",
@@ -1084,11 +2953,6 @@
    "time_known": true,
    "time_note": null,
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-09-17 16:15",
-     "utc": "2026-09-17T20:15:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-09-18 16:15",
@@ -1488,1875 +3352,11 @@
      "expected": false,
      "ny": "2027-01-14 16:15",
      "utc": "2027-01-14T21:15:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-09-25",
-   "confirmed_through": "2027-01-19",
-   "fred_clock": null,
-   "freq": "daily",
-   "ids": "google trends \"unemployment\"",
-   "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
-   "name": "search week: google searches for \"unemployment\"",
-   "next_expected": false,
-   "next_ny": "2026-09-25 20:00",
-   "read_lag_min": 0,
-   "release_id": null,
-   "short": "Google searches",
-   "slots": false,
-   "source": "rule: utc_day_end",
-   "through": "2026-09-23",
-   "time_known": true,
-   "time_note": "the day's end in UTC, 8 PM ET in summer and 7 PM in winter (the tool reads Google's days in UTC); Google publishes no hour",
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-09-22 20:00",
-     "utc": "2026-09-23T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-23 20:00",
-     "utc": "2026-09-24T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-24 20:00",
-     "utc": "2026-09-25T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-25 20:00",
-     "utc": "2026-09-26T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-26 20:00",
-     "utc": "2026-09-27T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-27 20:00",
-     "utc": "2026-09-28T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-28 20:00",
-     "utc": "2026-09-29T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-29 20:00",
-     "utc": "2026-09-30T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-30 20:00",
-     "utc": "2026-10-01T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-01 20:00",
-     "utc": "2026-10-02T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-02 20:00",
-     "utc": "2026-10-03T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-03 20:00",
-     "utc": "2026-10-04T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-04 20:00",
-     "utc": "2026-10-05T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-05 20:00",
-     "utc": "2026-10-06T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-06 20:00",
-     "utc": "2026-10-07T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-07 20:00",
-     "utc": "2026-10-08T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-08 20:00",
-     "utc": "2026-10-09T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-09 20:00",
-     "utc": "2026-10-10T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-10 20:00",
-     "utc": "2026-10-11T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-11 20:00",
-     "utc": "2026-10-12T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-12 20:00",
-     "utc": "2026-10-13T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-13 20:00",
-     "utc": "2026-10-14T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-14 20:00",
-     "utc": "2026-10-15T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-15 20:00",
-     "utc": "2026-10-16T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-16 20:00",
-     "utc": "2026-10-17T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-17 20:00",
-     "utc": "2026-10-18T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-18 20:00",
-     "utc": "2026-10-19T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-19 20:00",
-     "utc": "2026-10-20T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-20 20:00",
-     "utc": "2026-10-21T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-21 20:00",
-     "utc": "2026-10-22T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-22 20:00",
-     "utc": "2026-10-23T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-23 20:00",
-     "utc": "2026-10-24T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-24 20:00",
-     "utc": "2026-10-25T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-25 20:00",
-     "utc": "2026-10-26T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-26 20:00",
-     "utc": "2026-10-27T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-27 20:00",
-     "utc": "2026-10-28T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-28 20:00",
-     "utc": "2026-10-29T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-29 20:00",
-     "utc": "2026-10-30T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-30 20:00",
-     "utc": "2026-10-31T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-31 20:00",
-     "utc": "2026-11-01T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-01 19:00",
-     "utc": "2026-11-02T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-02 19:00",
-     "utc": "2026-11-03T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-03 19:00",
-     "utc": "2026-11-04T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-04 19:00",
-     "utc": "2026-11-05T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-05 19:00",
-     "utc": "2026-11-06T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-06 19:00",
-     "utc": "2026-11-07T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-07 19:00",
-     "utc": "2026-11-08T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-08 19:00",
-     "utc": "2026-11-09T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-09 19:00",
-     "utc": "2026-11-10T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-10 19:00",
-     "utc": "2026-11-11T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-11 19:00",
-     "utc": "2026-11-12T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-12 19:00",
-     "utc": "2026-11-13T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-13 19:00",
-     "utc": "2026-11-14T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-14 19:00",
-     "utc": "2026-11-15T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-15 19:00",
-     "utc": "2026-11-16T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-16 19:00",
-     "utc": "2026-11-17T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-17 19:00",
-     "utc": "2026-11-18T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-18 19:00",
-     "utc": "2026-11-19T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-19 19:00",
-     "utc": "2026-11-20T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-20 19:00",
-     "utc": "2026-11-21T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-21 19:00",
-     "utc": "2026-11-22T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-22 19:00",
-     "utc": "2026-11-23T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-23 19:00",
-     "utc": "2026-11-24T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-24 19:00",
-     "utc": "2026-11-25T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 19:00",
-     "utc": "2026-11-26T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-26 19:00",
-     "utc": "2026-11-27T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-27 19:00",
-     "utc": "2026-11-28T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-28 19:00",
-     "utc": "2026-11-29T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-29 19:00",
-     "utc": "2026-11-30T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-30 19:00",
-     "utc": "2026-12-01T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-01 19:00",
-     "utc": "2026-12-02T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-02 19:00",
-     "utc": "2026-12-03T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-03 19:00",
-     "utc": "2026-12-04T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-04 19:00",
-     "utc": "2026-12-05T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-05 19:00",
-     "utc": "2026-12-06T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-06 19:00",
-     "utc": "2026-12-07T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-07 19:00",
-     "utc": "2026-12-08T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-08 19:00",
-     "utc": "2026-12-09T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-09 19:00",
-     "utc": "2026-12-10T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-10 19:00",
-     "utc": "2026-12-11T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-11 19:00",
-     "utc": "2026-12-12T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-12 19:00",
-     "utc": "2026-12-13T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-13 19:00",
-     "utc": "2026-12-14T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-14 19:00",
-     "utc": "2026-12-15T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-15 19:00",
-     "utc": "2026-12-16T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-16 19:00",
-     "utc": "2026-12-17T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 19:00",
-     "utc": "2026-12-18T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-18 19:00",
-     "utc": "2026-12-19T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-19 19:00",
-     "utc": "2026-12-20T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-20 19:00",
-     "utc": "2026-12-21T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-21 19:00",
-     "utc": "2026-12-22T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-22 19:00",
-     "utc": "2026-12-23T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-23 19:00",
-     "utc": "2026-12-24T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-24 19:00",
-     "utc": "2026-12-25T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-25 19:00",
-     "utc": "2026-12-26T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-26 19:00",
-     "utc": "2026-12-27T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-27 19:00",
-     "utc": "2026-12-28T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-28 19:00",
-     "utc": "2026-12-29T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-29 19:00",
-     "utc": "2026-12-30T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-30 19:00",
-     "utc": "2026-12-31T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-31 19:00",
-     "utc": "2027-01-01T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-01 19:00",
-     "utc": "2027-01-02T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-02 19:00",
-     "utc": "2027-01-03T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-03 19:00",
-     "utc": "2027-01-04T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-04 19:00",
-     "utc": "2027-01-05T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-05 19:00",
-     "utc": "2027-01-06T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-06 19:00",
-     "utc": "2027-01-07T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-07 19:00",
-     "utc": "2027-01-08T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-08 19:00",
-     "utc": "2027-01-09T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-09 19:00",
-     "utc": "2027-01-10T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-10 19:00",
-     "utc": "2027-01-11T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-11 19:00",
-     "utc": "2027-01-12T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-12 19:00",
-     "utc": "2027-01-13T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-13 19:00",
-     "utc": "2027-01-14T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-14 19:00",
-     "utc": "2027-01-15T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-15 19:00",
-     "utc": "2027-01-16T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-16 19:00",
-     "utc": "2027-01-17T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-17 19:00",
-     "utc": "2027-01-18T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-18 19:00",
-     "utc": "2027-01-19T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-19 19:00",
-     "utc": "2027-01-20T00:00:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-09-25",
-   "confirmed_through": "2027-01-19",
-   "fred_clock": null,
-   "freq": "daily",
-   "ids": "google trends \"layoffs\"",
-   "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=layoffs",
-   "name": "search week: google searches for \"layoffs\"",
-   "next_expected": false,
-   "next_ny": "2026-09-25 20:00",
-   "read_lag_min": 0,
-   "release_id": null,
-   "short": "Google searches",
-   "slots": false,
-   "source": "rule: utc_day_end",
-   "through": "2026-09-23",
-   "time_known": true,
-   "time_note": "the day's end in UTC, 8 PM ET in summer and 7 PM in winter (the tool reads Google's days in UTC); Google publishes no hour",
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-09-22 20:00",
-     "utc": "2026-09-23T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-23 20:00",
-     "utc": "2026-09-24T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-24 20:00",
-     "utc": "2026-09-25T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-25 20:00",
-     "utc": "2026-09-26T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-26 20:00",
-     "utc": "2026-09-27T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-27 20:00",
-     "utc": "2026-09-28T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-28 20:00",
-     "utc": "2026-09-29T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-29 20:00",
-     "utc": "2026-09-30T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-30 20:00",
-     "utc": "2026-10-01T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-01 20:00",
-     "utc": "2026-10-02T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-02 20:00",
-     "utc": "2026-10-03T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-03 20:00",
-     "utc": "2026-10-04T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-04 20:00",
-     "utc": "2026-10-05T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-05 20:00",
-     "utc": "2026-10-06T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-06 20:00",
-     "utc": "2026-10-07T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-07 20:00",
-     "utc": "2026-10-08T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-08 20:00",
-     "utc": "2026-10-09T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-09 20:00",
-     "utc": "2026-10-10T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-10 20:00",
-     "utc": "2026-10-11T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-11 20:00",
-     "utc": "2026-10-12T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-12 20:00",
-     "utc": "2026-10-13T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-13 20:00",
-     "utc": "2026-10-14T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-14 20:00",
-     "utc": "2026-10-15T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-15 20:00",
-     "utc": "2026-10-16T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-16 20:00",
-     "utc": "2026-10-17T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-17 20:00",
-     "utc": "2026-10-18T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-18 20:00",
-     "utc": "2026-10-19T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-19 20:00",
-     "utc": "2026-10-20T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-20 20:00",
-     "utc": "2026-10-21T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-21 20:00",
-     "utc": "2026-10-22T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-22 20:00",
-     "utc": "2026-10-23T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-23 20:00",
-     "utc": "2026-10-24T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-24 20:00",
-     "utc": "2026-10-25T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-25 20:00",
-     "utc": "2026-10-26T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-26 20:00",
-     "utc": "2026-10-27T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-27 20:00",
-     "utc": "2026-10-28T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-28 20:00",
-     "utc": "2026-10-29T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-29 20:00",
-     "utc": "2026-10-30T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-30 20:00",
-     "utc": "2026-10-31T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-31 20:00",
-     "utc": "2026-11-01T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-01 19:00",
-     "utc": "2026-11-02T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-02 19:00",
-     "utc": "2026-11-03T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-03 19:00",
-     "utc": "2026-11-04T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-04 19:00",
-     "utc": "2026-11-05T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-05 19:00",
-     "utc": "2026-11-06T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-06 19:00",
-     "utc": "2026-11-07T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-07 19:00",
-     "utc": "2026-11-08T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-08 19:00",
-     "utc": "2026-11-09T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-09 19:00",
-     "utc": "2026-11-10T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-10 19:00",
-     "utc": "2026-11-11T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-11 19:00",
-     "utc": "2026-11-12T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-12 19:00",
-     "utc": "2026-11-13T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-13 19:00",
-     "utc": "2026-11-14T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-14 19:00",
-     "utc": "2026-11-15T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-15 19:00",
-     "utc": "2026-11-16T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-16 19:00",
-     "utc": "2026-11-17T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-17 19:00",
-     "utc": "2026-11-18T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-18 19:00",
-     "utc": "2026-11-19T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-19 19:00",
-     "utc": "2026-11-20T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-20 19:00",
-     "utc": "2026-11-21T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-21 19:00",
-     "utc": "2026-11-22T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-22 19:00",
-     "utc": "2026-11-23T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-23 19:00",
-     "utc": "2026-11-24T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-24 19:00",
-     "utc": "2026-11-25T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 19:00",
-     "utc": "2026-11-26T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-26 19:00",
-     "utc": "2026-11-27T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-27 19:00",
-     "utc": "2026-11-28T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-28 19:00",
-     "utc": "2026-11-29T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-29 19:00",
-     "utc": "2026-11-30T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-30 19:00",
-     "utc": "2026-12-01T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-01 19:00",
-     "utc": "2026-12-02T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-02 19:00",
-     "utc": "2026-12-03T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-03 19:00",
-     "utc": "2026-12-04T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-04 19:00",
-     "utc": "2026-12-05T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-05 19:00",
-     "utc": "2026-12-06T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-06 19:00",
-     "utc": "2026-12-07T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-07 19:00",
-     "utc": "2026-12-08T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-08 19:00",
-     "utc": "2026-12-09T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-09 19:00",
-     "utc": "2026-12-10T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-10 19:00",
-     "utc": "2026-12-11T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-11 19:00",
-     "utc": "2026-12-12T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-12 19:00",
-     "utc": "2026-12-13T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-13 19:00",
-     "utc": "2026-12-14T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-14 19:00",
-     "utc": "2026-12-15T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-15 19:00",
-     "utc": "2026-12-16T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-16 19:00",
-     "utc": "2026-12-17T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 19:00",
-     "utc": "2026-12-18T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-18 19:00",
-     "utc": "2026-12-19T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-19 19:00",
-     "utc": "2026-12-20T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-20 19:00",
-     "utc": "2026-12-21T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-21 19:00",
-     "utc": "2026-12-22T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-22 19:00",
-     "utc": "2026-12-23T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-23 19:00",
-     "utc": "2026-12-24T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-24 19:00",
-     "utc": "2026-12-25T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-25 19:00",
-     "utc": "2026-12-26T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-26 19:00",
-     "utc": "2026-12-27T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-27 19:00",
-     "utc": "2026-12-28T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-28 19:00",
-     "utc": "2026-12-29T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-29 19:00",
-     "utc": "2026-12-30T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-30 19:00",
-     "utc": "2026-12-31T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-31 19:00",
-     "utc": "2027-01-01T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-01 19:00",
-     "utc": "2027-01-02T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-02 19:00",
-     "utc": "2027-01-03T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-03 19:00",
-     "utc": "2027-01-04T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-04 19:00",
-     "utc": "2027-01-05T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-05 19:00",
-     "utc": "2027-01-06T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-06 19:00",
-     "utc": "2027-01-07T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-07 19:00",
-     "utc": "2027-01-08T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-08 19:00",
-     "utc": "2027-01-09T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-09 19:00",
-     "utc": "2027-01-10T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-10 19:00",
-     "utc": "2027-01-11T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-11 19:00",
-     "utc": "2027-01-12T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-12 19:00",
-     "utc": "2027-01-13T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-13 19:00",
-     "utc": "2027-01-14T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-14 19:00",
-     "utc": "2027-01-15T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-15 19:00",
-     "utc": "2027-01-16T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-16 19:00",
-     "utc": "2027-01-17T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-17 19:00",
-     "utc": "2027-01-18T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-18 19:00",
-     "utc": "2027-01-19T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-19 19:00",
-     "utc": "2027-01-20T00:00:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-09-25",
-   "confirmed_through": "2027-01-19",
-   "fred_clock": null,
-   "freq": "daily",
-   "ids": "google trends \"laid off\"",
-   "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=laid%20off",
-   "name": "search week: google searches for \"laid off\"",
-   "next_expected": false,
-   "next_ny": "2026-09-25 20:00",
-   "read_lag_min": 0,
-   "release_id": null,
-   "short": "Google searches",
-   "slots": false,
-   "source": "rule: utc_day_end",
-   "through": "2026-09-23",
-   "time_known": true,
-   "time_note": "the day's end in UTC, 8 PM ET in summer and 7 PM in winter (the tool reads Google's days in UTC); Google publishes no hour",
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-09-22 20:00",
-     "utc": "2026-09-23T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-23 20:00",
-     "utc": "2026-09-24T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-24 20:00",
-     "utc": "2026-09-25T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-25 20:00",
-     "utc": "2026-09-26T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-26 20:00",
-     "utc": "2026-09-27T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-27 20:00",
-     "utc": "2026-09-28T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-28 20:00",
-     "utc": "2026-09-29T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-29 20:00",
-     "utc": "2026-09-30T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-30 20:00",
-     "utc": "2026-10-01T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-01 20:00",
-     "utc": "2026-10-02T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-02 20:00",
-     "utc": "2026-10-03T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-03 20:00",
-     "utc": "2026-10-04T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-04 20:00",
-     "utc": "2026-10-05T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-05 20:00",
-     "utc": "2026-10-06T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-06 20:00",
-     "utc": "2026-10-07T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-07 20:00",
-     "utc": "2026-10-08T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-08 20:00",
-     "utc": "2026-10-09T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-09 20:00",
-     "utc": "2026-10-10T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-10 20:00",
-     "utc": "2026-10-11T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-11 20:00",
-     "utc": "2026-10-12T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-12 20:00",
-     "utc": "2026-10-13T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-13 20:00",
-     "utc": "2026-10-14T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-14 20:00",
-     "utc": "2026-10-15T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-15 20:00",
-     "utc": "2026-10-16T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-16 20:00",
-     "utc": "2026-10-17T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-17 20:00",
-     "utc": "2026-10-18T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-18 20:00",
-     "utc": "2026-10-19T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-19 20:00",
-     "utc": "2026-10-20T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-20 20:00",
-     "utc": "2026-10-21T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-21 20:00",
-     "utc": "2026-10-22T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-22 20:00",
-     "utc": "2026-10-23T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-23 20:00",
-     "utc": "2026-10-24T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-24 20:00",
-     "utc": "2026-10-25T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-25 20:00",
-     "utc": "2026-10-26T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-26 20:00",
-     "utc": "2026-10-27T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-27 20:00",
-     "utc": "2026-10-28T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-28 20:00",
-     "utc": "2026-10-29T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-29 20:00",
-     "utc": "2026-10-30T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-30 20:00",
-     "utc": "2026-10-31T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-31 20:00",
-     "utc": "2026-11-01T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-01 19:00",
-     "utc": "2026-11-02T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-02 19:00",
-     "utc": "2026-11-03T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-03 19:00",
-     "utc": "2026-11-04T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-04 19:00",
-     "utc": "2026-11-05T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-05 19:00",
-     "utc": "2026-11-06T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-06 19:00",
-     "utc": "2026-11-07T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-07 19:00",
-     "utc": "2026-11-08T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-08 19:00",
-     "utc": "2026-11-09T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-09 19:00",
-     "utc": "2026-11-10T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-10 19:00",
-     "utc": "2026-11-11T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-11 19:00",
-     "utc": "2026-11-12T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-12 19:00",
-     "utc": "2026-11-13T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-13 19:00",
-     "utc": "2026-11-14T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-14 19:00",
-     "utc": "2026-11-15T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-15 19:00",
-     "utc": "2026-11-16T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-16 19:00",
-     "utc": "2026-11-17T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-17 19:00",
-     "utc": "2026-11-18T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-18 19:00",
-     "utc": "2026-11-19T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-19 19:00",
-     "utc": "2026-11-20T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-20 19:00",
-     "utc": "2026-11-21T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-21 19:00",
-     "utc": "2026-11-22T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-22 19:00",
-     "utc": "2026-11-23T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-23 19:00",
-     "utc": "2026-11-24T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-24 19:00",
-     "utc": "2026-11-25T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 19:00",
-     "utc": "2026-11-26T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-26 19:00",
-     "utc": "2026-11-27T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-27 19:00",
-     "utc": "2026-11-28T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-28 19:00",
-     "utc": "2026-11-29T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-29 19:00",
-     "utc": "2026-11-30T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-30 19:00",
-     "utc": "2026-12-01T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-01 19:00",
-     "utc": "2026-12-02T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-02 19:00",
-     "utc": "2026-12-03T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-03 19:00",
-     "utc": "2026-12-04T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-04 19:00",
-     "utc": "2026-12-05T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-05 19:00",
-     "utc": "2026-12-06T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-06 19:00",
-     "utc": "2026-12-07T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-07 19:00",
-     "utc": "2026-12-08T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-08 19:00",
-     "utc": "2026-12-09T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-09 19:00",
-     "utc": "2026-12-10T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-10 19:00",
-     "utc": "2026-12-11T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-11 19:00",
-     "utc": "2026-12-12T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-12 19:00",
-     "utc": "2026-12-13T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-13 19:00",
-     "utc": "2026-12-14T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-14 19:00",
-     "utc": "2026-12-15T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-15 19:00",
-     "utc": "2026-12-16T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-16 19:00",
-     "utc": "2026-12-17T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 19:00",
-     "utc": "2026-12-18T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-18 19:00",
-     "utc": "2026-12-19T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-19 19:00",
-     "utc": "2026-12-20T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-20 19:00",
-     "utc": "2026-12-21T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-21 19:00",
-     "utc": "2026-12-22T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-22 19:00",
-     "utc": "2026-12-23T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-23 19:00",
-     "utc": "2026-12-24T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-24 19:00",
-     "utc": "2026-12-25T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-25 19:00",
-     "utc": "2026-12-26T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-26 19:00",
-     "utc": "2026-12-27T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-27 19:00",
-     "utc": "2026-12-28T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-28 19:00",
-     "utc": "2026-12-29T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-29 19:00",
-     "utc": "2026-12-30T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-30 19:00",
-     "utc": "2026-12-31T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-31 19:00",
-     "utc": "2027-01-01T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-01 19:00",
-     "utc": "2027-01-02T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-02 19:00",
-     "utc": "2027-01-03T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-03 19:00",
-     "utc": "2027-01-04T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-04 19:00",
-     "utc": "2027-01-05T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-05 19:00",
-     "utc": "2027-01-06T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-06 19:00",
-     "utc": "2027-01-07T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-07 19:00",
-     "utc": "2027-01-08T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-08 19:00",
-     "utc": "2027-01-09T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-09 19:00",
-     "utc": "2027-01-10T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-10 19:00",
-     "utc": "2027-01-11T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-11 19:00",
-     "utc": "2027-01-12T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-12 19:00",
-     "utc": "2027-01-13T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-13 19:00",
-     "utc": "2027-01-14T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-14 19:00",
-     "utc": "2027-01-15T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-15 19:00",
-     "utc": "2027-01-16T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-16 19:00",
-     "utc": "2027-01-17T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-17 19:00",
-     "utc": "2027-01-18T00:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-18 19:00",
-     "utc": "2027-01-19T00:00:00Z"
     },
     {
      "expected": false,
-     "ny": "2027-01-19 19:00",
-     "utc": "2027-01-20T00:00:00Z"
+     "ny": "2027-01-15 16:15",
+     "utc": "2027-01-15T21:15:00Z"
     }
    ],
    "waiting_since_due": null
@@ -4665,7 +4665,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-09-25",
+   "build_next": "2026-09-30",
    "confirmed_through": "2026-12-23",
    "fred_clock": "12:01",
    "freq": "weekly",

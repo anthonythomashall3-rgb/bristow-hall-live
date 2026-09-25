@@ -1,6 +1,6 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
- "checked_at": "2026-09-25T03:44Z",
+ "checked_at": "2026-09-25T12:28Z",
  "open_misses": [],
  "reads": [
   {
@@ -91,6 +91,46 @@
    "posted": "2026-09-24 16:00 ET",
    "read_at": "2026-09-24T20:33Z",
    "release": 189,
+   "to": "2026-09-24"
+  },
+  {
+   "from": "2026-09-24",
+   "ids": "DFEDTARU",
+   "lag_min": 27,
+   "name": "the fed funds target",
+   "posted": "2026-09-25 08:01 ET",
+   "read_at": "2026-09-25T12:28Z",
+   "release": 101,
+   "to": "2026-09-25"
+  },
+  {
+   "from": "2026-09-23",
+   "ids": "Google Trends \"unemployment\"",
+   "lag_min": null,
+   "name": null,
+   "posted": null,
+   "read_at": "2026-09-25T12:28Z",
+   "release": null,
+   "to": "2026-09-24"
+  },
+  {
+   "from": "2026-09-23",
+   "ids": "Google Trends \"layoffs\"",
+   "lag_min": null,
+   "name": null,
+   "posted": null,
+   "read_at": "2026-09-25T12:28Z",
+   "release": null,
+   "to": "2026-09-24"
+  },
+  {
+   "from": "2026-09-23",
+   "ids": "Google Trends \"laid off\"",
+   "lag_min": null,
+   "name": null,
+   "posted": null,
+   "read_at": "2026-09-25T12:28Z",
+   "release": null,
    "to": "2026-09-24"
   }
  ],

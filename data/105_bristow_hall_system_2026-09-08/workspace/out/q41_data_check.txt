@@ -11,15 +11,15 @@ PASS  tile: unemployed per opening labels that month  got=Jul 2026  want=Jul 202
 PASS  tile: quits rate  got=1.9%  want=1.9%
 PASS  tile: CPI year over year, by date  got=3.4%  want=3.4%
 PASS  tile: CPI labels the latest month  got=year over year, Aug 2026  want=year over year, Aug 2026
-PASS  tile: Unemployment rate next release is not in the past  got=2026-10-02  want=>= 2026-09-24
-PASS  tile: Nonfarm payrolls next release is not in the past  got=2026-10-02  want=>= 2026-09-24
-PASS  tile: Payroll growth next release is not in the past  got=2026-10-02  want=>= 2026-09-24
-PASS  tile: Initial claims (week) next release is not in the past  got=2026-10-01  want=>= 2026-09-24
-PASS  tile: Insured unemployment rate next release is not in the past  got=2026-10-01  want=>= 2026-09-24
-PASS  tile: Job openings next release is not in the past  got=2026-09-29  want=>= 2026-09-24
-PASS  tile: Unemployed per opening next release is not in the past  got=2026-09-29  want=>= 2026-09-24
-PASS  tile: Quits rate next release is not in the past  got=2026-09-29  want=>= 2026-09-24
-PASS  tile: CPI inflation next release is not in the past  got=2026-10-14  want=>= 2026-09-24
+PASS  tile: Unemployment rate next release is not in the past  got=2026-10-02  want=>= 2026-09-25
+PASS  tile: Nonfarm payrolls next release is not in the past  got=2026-10-02  want=>= 2026-09-25
+PASS  tile: Payroll growth next release is not in the past  got=2026-10-02  want=>= 2026-09-25
+PASS  tile: Initial claims (week) next release is not in the past  got=2026-10-01  want=>= 2026-09-25
+PASS  tile: Insured unemployment rate next release is not in the past  got=2026-10-01  want=>= 2026-09-25
+PASS  tile: Job openings next release is not in the past  got=2026-09-29  want=>= 2026-09-25
+PASS  tile: Unemployed per opening next release is not in the past  got=2026-09-29  want=>= 2026-09-25
+PASS  tile: Quits rate next release is not in the past  got=2026-09-29  want=>= 2026-09-25
+PASS  tile: CPI inflation next release is not in the past  got=2026-10-14  want=>= 2026-09-25
 PASS  units: unemployment rate between 1 and 40 per cent  got=4.1  want=1-40
 PASS  units: payrolls between 80 and 300 million  got=159.1  want=80-300
 PASS  units: job openings between 1 and 25 million  got=7.3  want=1-25
@@ -28,75 +28,75 @@ PASS  units: insured rate between 0.2 and 30 per cent  got=1.1  want=0.2-30
 PASS  units: quits rate between 0.5 and 6 per cent  got=1.9  want=0.5-6
 PASS  feed reading matches the readings table: Initial claims, continued claims, insure  got=1.77  want=1.77
 PASS  feed line matches the readings table: Initial claims, continued claims, insure  got=40  want=40
-PASS  feed is not dated in the future: Initial claims, continued claims, insure  got=2026-09-19  want=<= 2026-09-24
-PASS  feed next release is not in the past: Initial claims, continued claims, insure  got=2026-10-01  want=>= 2026-09-24
+PASS  feed is not dated in the future: Initial claims, continued claims, insure  got=2026-09-19  want=<= 2026-09-25
+PASS  feed next release is not in the past: Initial claims, continued claims, insure  got=2026-10-01  want=>= 2026-09-25
 PASS  feed has a source link: Initial claims, continued claims, insure  got=True  want=True
 PASS  feed reading matches the readings table: State insured unemployment rates (the br  got=0.094  want=0.094
 PASS  feed line matches the readings table: State insured unemployment rates (the br  got=0.6  want=0.6
-PASS  feed is not dated in the future: State insured unemployment rates (the br  got=2026-09-05  want=<= 2026-09-24
-PASS  feed next release is not in the past: State insured unemployment rates (the br  got=2026-10-01  want=>= 2026-09-24
+PASS  feed is not dated in the future: State insured unemployment rates (the br  got=2026-09-05  want=<= 2026-09-25
+PASS  feed next release is not in the past: State insured unemployment rates (the br  got=2026-10-01  want=>= 2026-09-25
 PASS  feed has a source link: State insured unemployment rates (the br  got=True  want=True
 PASS  feed reading matches the readings table: Unemployment rate, factory hours, nondur  got=-0.067  want=-0.067
 PASS  feed line matches the readings table: Unemployment rate, factory hours, nondur  got=0.3667  want=0.3667
-PASS  feed is not dated in the future: Unemployment rate, factory hours, nondur  got=2026-08-01  want=<= 2026-09-24
-PASS  feed next release is not in the past: Unemployment rate, factory hours, nondur  got=2026-10-02  want=>= 2026-09-24
+PASS  feed is not dated in the future: Unemployment rate, factory hours, nondur  got=2026-08-01  want=<= 2026-09-25
+PASS  feed next release is not in the past: Unemployment rate, factory hours, nondur  got=2026-10-02  want=>= 2026-09-25
 PASS  feed has a source link: Unemployment rate, factory hours, nondur  got=True  want=True
 PASS  feed reading matches the readings table: Job openings (the vacancy rate)  got=-0.063  want=-0.063
 PASS  feed line matches the readings table: Job openings (the vacancy rate)  got=0.25  want=0.25
-PASS  feed is not dated in the future: Job openings (the vacancy rate)  got=2026-07-01  want=<= 2026-09-24
-PASS  feed next release is not in the past: Job openings (the vacancy rate)  got=2026-09-29  want=>= 2026-09-24
+PASS  feed is not dated in the future: Job openings (the vacancy rate)  got=2026-07-01  want=<= 2026-09-25
+PASS  feed next release is not in the past: Job openings (the vacancy rate)  got=2026-09-29  want=>= 2026-09-25
 PASS  feed has a source link: Job openings (the vacancy rate)  got=True  want=True
 PASS  feed reading matches the readings table: Housing starts and building permits  got=0.0  want=0.0
 PASS  feed line matches the readings table: Housing starts and building permits  got=1.0  want=1.0
-PASS  feed is not dated in the future: Housing starts and building permits  got=2026-08-01  want=<= 2026-09-24
-PASS  feed next release is not in the past: Housing starts and building permits  got=2026-10-20  want=>= 2026-09-24
+PASS  feed is not dated in the future: Housing starts and building permits  got=2026-08-01  want=<= 2026-09-25
+PASS  feed next release is not in the past: Housing starts and building permits  got=2026-10-20  want=>= 2026-09-25
 PASS  feed has a source link: Housing starts and building permits  got=True  want=True
 PASS  feed reading matches the readings table: Commercial paper and three-month bill ra  got=0.0  want=0.0
 PASS  feed line matches the readings table: Commercial paper and three-month bill ra  got=0.9  want=0.9
-PASS  feed is not dated in the future: Commercial paper and three-month bill ra  got=2026-09-23  want=<= 2026-09-24
-PASS  feed next release is not in the past: Commercial paper and three-month bill ra  got=2026-09-25  want=>= 2026-09-24
+PASS  feed is not dated in the future: Commercial paper and three-month bill ra  got=2026-09-23  want=<= 2026-09-25
+PASS  feed next release is not in the past: Commercial paper and three-month bill ra  got=2026-09-25  want=>= 2026-09-25
 PASS  feed has a source link: Commercial paper and three-month bill ra  got=True  want=True
 PASS  feed reading matches the readings table: S&P 500 daily close (the market gate of   got=0.78  want=0.78
 PASS  feed line matches the readings table: S&P 500 daily close (the market gate of   got=20.0  want=20.0
-PASS  feed is not dated in the future: S&P 500 daily close (the market gate of   got=2026-09-24  want=<= 2026-09-24
-PASS  feed next release is not in the past: S&P 500 daily close (the market gate of   got=2026-09-25  want=>= 2026-09-24
+PASS  feed is not dated in the future: S&P 500 daily close (the market gate of   got=2026-09-24  want=<= 2026-09-25
+PASS  feed next release is not in the past: S&P 500 daily close (the market gate of   got=2026-09-25  want=>= 2026-09-25
 PASS  feed has a source link: S&P 500 daily close (the market gate of   got=True  want=True
 PASS  feed reading matches the readings table: Industrial production, as published (the  got=-0.02  want=-0.02
 PASS  feed line matches the readings table: Industrial production, as published (the  got=2.0  want=2.0
-PASS  feed next release is not in the past: Industrial production, as published (the  got=2026-10-16  want=>= 2026-09-24
+PASS  feed next release is not in the past: Industrial production, as published (the  got=2026-10-16  want=>= 2026-09-25
 PASS  feed has a source link: Industrial production, as published (the  got=True  want=True
 PASS  feed reading matches the readings table: Federal funds target range, upper limit   got=0.25  want=0.25
 PASS  feed line matches the readings table: Federal funds target range, upper limit   got=0.1  want=0.1
-PASS  feed is not dated in the future: Federal funds target range, upper limit   got=2026-09-24  want=<= 2026-09-24
-PASS  feed next release is not in the past: Federal funds target range, upper limit   got=2026-09-25  want=>= 2026-09-24
+PASS  feed is not dated in the future: Federal funds target range, upper limit   got=2026-09-25  want=<= 2026-09-25
+PASS  feed next release is not in the past: Federal funds target range, upper limit   got=2026-09-26  want=>= 2026-09-25
 PASS  feed has a source link: Federal funds target range, upper limit   got=True  want=True
 PASS  feed reading matches the readings table: State continued weeks claimed, ETA 539 (  got=0.0  want=0.0
 PASS  feed line matches the readings table: State continued weeks claimed, ETA 539 (  got=0.33  want=0.33
-PASS  feed next release is not in the past: State continued weeks claimed, ETA 539 (  got=2026-10-21  want=>= 2026-09-24
+PASS  feed next release is not in the past: State continued weeks claimed, ETA 539 (  got=2026-10-21  want=>= 2026-09-25
 PASS  feed has a source link: State continued weeks claimed, ETA 539 (  got=True  want=True
-PASS  feed is not dated in the future: State unemployment rates, all 51 (the se  got=2026-08-01  want=<= 2026-09-24
-PASS  feed next release is not in the past: State unemployment rates, all 51 (the se  got=2026-10-20  want=>= 2026-09-24
+PASS  feed is not dated in the future: State unemployment rates, all 51 (the se  got=2026-08-01  want=<= 2026-09-25
+PASS  feed next release is not in the past: State unemployment rates, all 51 (the se  got=2026-10-20  want=>= 2026-09-25
 PASS  feed has a source link: State unemployment rates, all 51 (the se  got=True  want=True
-PASS  feed next release is not in the past: Real GDP (the damage grade's output dime  got=2026-09-30  want=>= 2026-09-24
+PASS  feed next release is not in the past: Real GDP (the damage grade's output dime  got=2026-09-30  want=>= 2026-09-25
 PASS  feed has a source link: Real GDP (the damage grade's output dime  got=True  want=True
-PASS  feed next release is not in the past: GDPNow (the output dimension's bridge fo  got=2026-09-25  want=>= 2026-09-24
+PASS  feed next release is not in the past: GDPNow (the output dimension's bridge fo  got=2026-09-30  want=>= 2026-09-25
 PASS  feed has a source link: GDPNow (the output dimension's bridge fo  got=True  want=True
-PASS  feed next release is not in the past: Sahm rule, real time (the comparator on   got=2026-10-02  want=>= 2026-09-24
+PASS  feed next release is not in the past: Sahm rule, real time (the comparator on   got=2026-10-02  want=>= 2026-09-25
 PASS  feed has a source link: Sahm rule, real time (the comparator on   got=True  want=True
-PASS  feed reading matches the readings table: Search week: Google searches for "unempl  got=-17.257  want=-17.257
+PASS  feed reading matches the readings table: Search week: Google searches for "unempl  got=-19.04  want=-19.04
 PASS  feed line matches the readings table: Search week: Google searches for "unempl  got=35.0  want=35.0
-PASS  feed is not dated in the future: Search week: Google searches for "unempl  got=2026-09-23  want=<= 2026-09-24
-PASS  feed next release is not in the past: Search week: Google searches for "unempl  got=2026-09-25  want=>= 2026-09-24
+PASS  feed is not dated in the future: Search week: Google searches for "unempl  got=2026-09-24  want=<= 2026-09-25
+PASS  feed next release is not in the past: Search week: Google searches for "unempl  got=2026-09-25  want=>= 2026-09-25
 PASS  feed has a source link: Search week: Google searches for "unempl  got=True  want=True
-PASS  feed reading matches the readings table: Search week: Google searches for "layoff  got=1.169  want=1.169
+PASS  feed reading matches the readings table: Search week: Google searches for "layoff  got=-3.139  want=-3.139
 PASS  feed line matches the readings table: Search week: Google searches for "layoff  got=35.0  want=35.0
-PASS  feed is not dated in the future: Search week: Google searches for "layoff  got=2026-09-23  want=<= 2026-09-24
-PASS  feed next release is not in the past: Search week: Google searches for "layoff  got=2026-09-25  want=>= 2026-09-24
+PASS  feed is not dated in the future: Search week: Google searches for "layoff  got=2026-09-24  want=<= 2026-09-25
+PASS  feed next release is not in the past: Search week: Google searches for "layoff  got=2026-09-25  want=>= 2026-09-25
 PASS  feed has a source link: Search week: Google searches for "layoff  got=True  want=True
-PASS  feed reading matches the readings table: Search week: Google searches for "laid o  got=27.343  want=27.343
+PASS  feed reading matches the readings table: Search week: Google searches for "laid o  got=24.345  want=24.345
 PASS  feed line matches the readings table: Search week: Google searches for "laid o  got=35.0  want=35.0
-PASS  feed is not dated in the future: Search week: Google searches for "laid o  got=2026-09-23  want=<= 2026-09-24
-PASS  feed next release is not in the past: Search week: Google searches for "laid o  got=2026-09-25  want=>= 2026-09-24
+PASS  feed is not dated in the future: Search week: Google searches for "laid o  got=2026-09-24  want=<= 2026-09-25
+PASS  feed next release is not in the past: Search week: Google searches for "laid o  got=2026-09-25  want=>= 2026-09-25
 PASS  feed has a source link: Search week: Google searches for "laid o  got=True  want=True
 PASS  headline date = last day of the daily series  got=2026-09-24  want=2026-09-24
 PASS  daily series is in date order  got=True  want=True
@@ -154,8 +154,8 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-09-12)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-09-24 23:43', '2026-09-24 23:43')  want=('2026-09-24 23:43', '2026-09-24 23:43')
-PASS  front-page tiles fetched today  got=2026-09-24  want=2026-09-24
+PASS  public state copies are this build  got=('2026-09-25 08:27', '2026-09-25 08:27')  want=('2026-09-25 08:27', '2026-09-25 08:27')
+PASS  front-page tiles fetched today  got=2026-09-25  want=2026-09-25
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]
 PASS  data page: every leg channel has a next-published day  got=[]  want=[]
