@@ -22,6 +22,9 @@ TOOL = cb.jload(os.path.join(OPS, 'tool.json'), {}) or {}
 STATE_REL = TOOL.get('state', 'data/105_bristow_hall_system_2026-09-08/site/public/bhs_state.json')
 PARITY = os.path.join(OPS, 'state', 'parity.json')
 PARITY_HOURS = 6
+# the backstop tier's rows (workspace/out/backstop_state.json), read like data-page rows (seagate-0924, 24 Sep 2026)
+BACKSTOP_REL = os.path.join(os.path.dirname(STATE_REL).replace('site/public', 'workspace/out'), 'backstop_state.json')
+BACKSTOP_IDS = {'WEI': 'WEI (backstop shadow reading)', 'CFNAI': 'CFNAIMA3 (backstop CFNAI)'}
 NAMES = {10: 'CPI', 13: 'G.17 industrial production', 18: 'H.15 rates', 27: 'housing starts', 50: 'the jobs report', 53: 'GDP',
          101: 'the fed funds target', 112: 'state unemployment rates', 180: 'weekly claims', 189: 'the S&P 500 close',
          192: 'JOLTS', 219: 'CFNAI', 386: 'GDPNow', 456: 'the Sahm rule (FRED)', 465: 'the Weekly Economic Index'}
@@ -40,6 +43,16 @@ def feeds_of(text):
     except Exception:
         return {}
     return {(f.get('ids') or f.get('name') or ''): str(f.get('through') or '') for f in st.get('feeds') or []}
+
+
+def backstop_rows(text):
+    """{row ids: data_through} for the backstop rules that are FRED releases (WEI 465, CFNAI 219)"""
+    try:
+        rules = (json.loads(text) or {}).get('rules') or {}
+    except Exception:
+        return {}
+    return {BACKSTOP_IDS[k]: str(v.get('data_through') or '') for k, v in rules.items()
+            if k in BACKSTOP_IDS and isinstance(v, dict)}
 
 
 def rid_of(ids):
@@ -97,8 +110,10 @@ def reference(rid, read_at, posted, to=None):
     return post_before(rid, read_at, posted)
 
 
-def advances(old_text, new_text, read_at, posted):
+def advances(old_text, new_text, read_at, posted, old_extra=None, new_extra=None):
     old, new = feeds_of(old_text), feeds_of(new_text)
+    old.update(old_extra or {})
+    new.update(new_extra or {})
     out = []
     for ids, thr in new.items():
         o = old.get(ids, '')
@@ -118,7 +133,7 @@ def latest_post(rid, posted, now):
     return post_before(rid, now, posted)
 
 
-def misses(doc, posted, now):
+def misses(doc, posted, now, present=None):
     """releases whose latest post is older than PARITY_HOURS with no read of their row after it; only posts since the ledger
     began count (a post the ledger never saw read is not a miss)"""
     out = []
@@ -130,6 +145,8 @@ def misses(doc, posted, now):
     for rid in sorted(ROW_OF):
         if rid == 189:
             continue                                   # the S&P close is read at 5:05 PM by the tool's own slot; not a FRED post to miss
+        if present is not None and not any(ROW_OF[rid].lower() in (i or '').lower() for i in present):
+            continue                                   # no row of the state carries this release: it cannot be read or missed
         lp = latest_post(rid, posted, now)
         if not lp or lp < since:
             continue
@@ -157,12 +174,18 @@ def run_once(now=None):
     doc = cb.jload(PARITY, {}) or {}
     new_text = open(os.path.join(ROOT, STATE_REL), encoding='utf-8').read()
     old_text = sh('git', 'show', 'HEAD:' + STATE_REL)
-    adv = advances(old_text, new_text, now, posted) if old_text else []
+    try:
+        new_bs = backstop_rows(open(os.path.join(ROOT, BACKSTOP_REL), encoding='utf-8').read())
+    except Exception:
+        new_bs = {}
+    old_bs = backstop_rows(sh('git', 'show', 'HEAD:' + BACKSTOP_REL))
+    adv = advances(old_text, new_text, now, posted, old_bs, new_bs) if old_text else []
     known = {(r['ids'], r['to']) for r in doc.get('reads') or []}
     adv = [a for a in adv if (a['ids'], a['to']) not in known]
     doc['reads'] = (doc.get('reads') or []) + adv
     doc.setdefault('since', now.strftime('%Y-%m-%dT%H:%MZ'))
-    doc['open_misses'] = misses(doc, posted, now)
+    present = set(feeds_of(new_text)) | set(new_bs)
+    doc['open_misses'] = misses(doc, posted, now, present)
     doc['checked_at'] = now.strftime('%Y-%m-%dT%H:%MZ')
     save(doc)
     print('parity: %d new read(s) this run%s; open misses: %s' % (
@@ -200,8 +223,38 @@ def report(doc):
     print('open misses: %s' % ('; '.join('%s posted %s, unread %s h' % (m['name'], m['posted'], m['hours']) for m in doc.get('open_misses') or []) or 'none'))
 
 
+def backfill_backstop(n=80):
+    """one-off (seagate-0924, 24 Sep 2026): write into the ledger the backstop reads made before the ledger counted them"""
+    posted = cb.jload(cb.FRED_POSTED, {}) or {}
+    doc = cb.jload(PARITY, {}) or {}
+    log = [l.split('|') for l in sh('git', 'log', '-n', str(n), '--format=%H|%cI', '--', BACKSTOP_REL).splitlines() if '|' in l]
+    log.reverse()
+    known = {(r['ids'], r['to']) for r in doc.get('reads') or []}
+    new = []
+    for (h0, _), (h1, t1) in zip(log, log[1:]):
+        read_at = dt.datetime.fromisoformat(t1).astimezone(UTC)
+        o = backstop_rows(sh('git', 'show', '%s:%s' % (h0, BACKSTOP_REL)))
+        w = backstop_rows(sh('git', 'show', '%s:%s' % (h1, BACKSTOP_REL)))
+        for a in advances('{}', '{}', read_at, posted, o, w):
+            if (a['ids'], a['to']) not in known and a.get('from'):
+                new.append(a); known.add((a['ids'], a['to']))
+    doc['reads'] = sorted((doc.get('reads') or []) + new, key=lambda r: r.get('read_at') or '')
+    now = dt.datetime.now(UTC)
+    try:
+        cur = open(os.path.join(ROOT, STATE_REL), encoding='utf-8').read()
+        bs = backstop_rows(open(os.path.join(ROOT, BACKSTOP_REL), encoding='utf-8').read())
+        doc['open_misses'] = misses(doc, posted, now, set(feeds_of(cur)) | set(bs))
+    except Exception:
+        pass
+    save(doc)
+    print('backfilled %d backstop read(s): %s; open misses: %s' % (len(new), '; '.join('%s %s -> %s at %s' % (a['ids'], a['from'], a['to'], a['read_at']) for a in new),
+          '; '.join(m['name'] for m in doc.get('open_misses') or []) or 'none'))
+
+
 if __name__ == '__main__':
-    if '--history' in sys.argv:
+    if '--backfill-backstop' in sys.argv:
+        backfill_backstop()
+    elif '--history' in sys.argv:
         n = int(sys.argv[sys.argv.index('--history') + 1]) if len(sys.argv) > sys.argv.index('--history') + 1 and sys.argv[-1].isdigit() else 80
         d = history(n); report(d)
         if '--save' in sys.argv:

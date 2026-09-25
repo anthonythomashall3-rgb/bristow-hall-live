@@ -755,6 +755,9 @@ def build(allow_fetch=True):
                 clean.append((t, exp))
         nxt = next(((t, e) for t, e in clean if t > now_et()), None)
         rlag = read_lag(rid, nxt[0].strftime('%H:%M') if nxt else RELEASE_TIME.get(rid)) if rid else 0
+        _rl = {norm(k): v for k, v in (TOOL.get('calendar_read_lag_min') or {}).items()}.get(r['ids'])
+        if _rl is not None:                          # a row read from a later post than its release (tool.json; 24 Sep 2026)
+            rlag = int(_rl)
         short = SHORT.get(rid) or RULE_SHORT.get(label.replace('rule: ', '')) or (r['name'][:40] if r['name'] else r['ids'])
         confirmed = [t for t, e in clean if t > now_et() and not e]
         if not nxt:

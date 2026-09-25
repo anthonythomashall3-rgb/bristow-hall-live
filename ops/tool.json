@@ -30,6 +30,8 @@
   "laus state rates (51)": "fred:112"
  },
  "_calendar_rules": "23 September 2026 (collection 358): the H.15 row is posted every business day (h15_daily, 4:15 PM ET), DFEDTARU every day at FRED's measured clock (fred_every_day, 8:01 AM ET; an FOMC decision reaches it the next morning), the Google rows at the end of the UTC day the tool reads (utc_day_end); before, the H.15 week, the FOMC days and 9:00 the next morning. The rules h15_week, fomc and daily_next_morning remain available.",
+ "calendar_read_lag_min": {"eta 539 state insured rates": 1455},
+ "_calendar_read_lag_min": "24 September 2026 (seagate-0924): minutes after the release's time before a row is due, where the tool reads a later post than the release. The state insured rates come from FRED's state release (469), posted the Friday morning after the Department's Thursday 8:30 release (FRED's stamp on 18 September 2026: 8:39 AM ET), so the row is due Friday 8:45 AM ET; the day shown stays Thursday.",
  "conditional_slots": [
   {"reading_contains": "sudden stop: S&P 500 below its high of the prior twenty trading days",
    "ratio_at_least": 0.75, "every_day_at": ["09:05"],
