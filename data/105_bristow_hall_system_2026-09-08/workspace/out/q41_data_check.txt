@@ -154,7 +154,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-09-12)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-09-25 08:52', '2026-09-25 08:52')  want=('2026-09-25 08:52', '2026-09-25 08:52')
+PASS  public state copies are this build  got=('2026-09-25 09:59', '2026-09-25 09:59')  want=('2026-09-25 09:59', '2026-09-25 09:59')
 PASS  front-page tiles fetched today  got=2026-09-25  want=2026-09-25
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]

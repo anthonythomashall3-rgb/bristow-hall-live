@@ -1,12 +1,12 @@
 {
- "built_at": "2026-09-25 08:52",
+ "built_at": "2026-09-25 09:59",
  "version": "v3.74",
  "census_date": "2026-09-25",
  "feeds": [
   {
    "feed": "Initial claims, continued claims, insured unemployment rate",
    "series": "ICSA, CCSA, IURSA",
-   "source": "Department of Labor (the UI claims news release; ALFRED vintages after it)",
+   "source": "Department of Labor (the UI claims news release; ALFRED vintages after it; the first prints back to August 1975 from the release archive, the bound news releases and volumes, the captures of the Internet Archive, the closing table of the release and the press: collections 45, 399, 396, 382, 397 and 404)",
    "every": "Weekly - Thursday 8:30 AM ET (Wednesday before a Thursday holiday)",
    "through": "2026-09-19",
    "next": "2026-10-01",
