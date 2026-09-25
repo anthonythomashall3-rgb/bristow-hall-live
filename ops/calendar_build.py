@@ -699,7 +699,9 @@ def link_gaps(rows, cal_rows, allow_fetch, today, force=False):
             out.append('%s has no link on the data page' % (r['ids'][:40]))
             continue
         toks = tokens(r['ids'])
-        m = re.search(r'fred\.stlouisfed\.org/(?:series|graph)/?\??(?:id=)?([A-Z0-9_^]+)?', url, re.I)
+        # a FRED or ALFRED series page (collection 411: the rows now link ALFRED where the tool reads first prints; the old
+        # pattern read "alfred.stlouisfed.org/series?seid=UNRATE" as FRED series "seid")
+        m = re.search(r'(?://|^)(?:al)?fred\.stlouisfed\.org/(?:series/|series\?seid=|graph/\?id=)([A-Z0-9_^]+)', url, re.I)
         if m and m.group(1) and toks and m.group(1).upper() not in [x.upper() for x in toks]:
             out.append('%s links to FRED series %s' % (r['ids'][:40], m.group(1)))
         if url.lower().startswith('http'):
