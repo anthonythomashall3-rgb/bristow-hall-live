@@ -11,3 +11,8 @@ Runs start at the release times (a Cloudflare Worker, `worker/`), with GitHub's 
 Third-party data that may not be republished (index providers, rating agencies, survey and trade publishers) is kept in
 a private repository and read at run time; `ops/private_paths.gitignore` lists it. The series are cited on the site's
 data page with a link to each publisher.
+
+Data from U.S. federal agencies are in the public domain. Indeed Hiring Lab's job postings data are used under the
+Creative Commons Attribution 4.0 license (https://github.com/hiring-lab/job_postings_tracker).
+
+Security: this repository never uses a self-hosted runner, and no workflow runs on pull requests.

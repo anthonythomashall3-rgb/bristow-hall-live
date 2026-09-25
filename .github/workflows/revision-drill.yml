@@ -11,12 +11,15 @@
 name: revision drill (item 13)
 on:
   schedule:
-    - cron: '0 7 1 * *'
+    - cron: '23 7 1 * *'   # off the hour, when GitHub's queue is busiest
   workflow_dispatch:
 concurrency: revision-drill
+permissions:
+  contents: read     # reads only (the repository is public; 25 September 2026)
+
 jobs:
   drill:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04   # pinned (audit-0924): ubuntu-latest becomes Ubuntu 26 from 19 October 2026
     timeout-minutes: 50
     steps:
       - uses: actions/checkout@v5
@@ -59,7 +62,7 @@ jobs:
         run: |
           python3 ops/drill_check.py ops/out/drill | tee ops/out/drill_check.txt
           grep -q "^Revision drill: PASS" ops/out/drill_check.txt && echo "verdict=PASS" >> "$GITHUB_OUTPUT" || echo "verdict=FAIL" >> "$GITHUB_OUTPUT"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7   # Node 24 (v4 ran on Node 20)
         if: always()
         with:
           name: revision-drill-${{ github.run_id }}

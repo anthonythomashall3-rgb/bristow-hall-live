@@ -62,7 +62,7 @@ chk('tile: payrolls (thousands -> millions)',tile['Nonfarm payrolls']['val'],f'{
 g3=(P.iloc[-1]-P.iloc[-4])/3.0
 chk('tile: payroll growth = 3-month average change',tile['Payroll growth']['val'],f'{round(g3)*1000:+,.0f} a month')
 chk('tile: initial claims (persons, not thousands)',tile['Initial claims (week)']['val'],f'{IC.iloc[-1]:,.0f}')
-chk('tile: claims week',tile['Initial claims (week)']['sub'],'week ending '+IC.index[-1].date().isoformat())
+chk('tile: claims week',tile['Initial claims (week)']['sub'],'week ending '+IC.index[-1].strftime('%b')+' '+str(IC.index[-1].day)+', '+str(IC.index[-1].year))   # audit-0924: US date
 chk('tile: insured rate',tile['Insured unemployment rate']['val'],f'{IU.iloc[-1]:.1f}%')
 chk('tile: job openings (thousands -> millions)',tile['Job openings']['val'],f'{J.iloc[-1]/1000:,.1f} million')
 m=J.index[-1]
@@ -167,7 +167,7 @@ _armed=set()   # v3.64 (collection 291): the retired leg tier's keys have left t
 chk('data page: every armed leg has a status',sorted(_armed-set(_ls)),[])
 _dp=open(os.path.join(COL,'site','public','data','index.html')).read() if os.path.exists(os.path.join(COL,'site','public','data','index.html')) else ''
 chk('data page: no leg-tier channels (the tier retired in v3.57, its channels removed in v3.59)',len(_lf),0)
-chk('data page: the backstop tier\'s five inputs listed (335: Michez; 366: the Weekly Economic Index, both shadow readings)',_dp.count('the backstop tier ('),5)
+chk('data page: the backstop tier\'s five inputs listed (335: Michez; 366: the Weekly Economic Index, both shadow readings)',_dp.count('data-legs="the backstop tier"'),5)   # audit-0924: the rows, not a phrase
 # ---- collection 366 (24 September 2026): the WEI shadow reading equals the 13-week mean of FRED's series as cached by s2/backstop.py
 try:
     _wj=json.load(open(os.path.join(COL,'workspace','cache','backstop','WEI.json')))['obs']; _ws=pd.Series({pd.Timestamp(d):v for d,v in _wj}).sort_index(); _w13=round(float(_ws.rolling(13).mean().dropna().iloc[-1]),2)
@@ -184,7 +184,7 @@ chk('data page: every feed names its series',[f['name'][:24] for f in S['feeds']
 try:
     _mp=open(os.path.join(COL,'site','public','margins','index.html'),encoding='utf-8').read()
     chk('368: the margins page lists every reading',_mp.count('<tr class='),len(S.get('readings') or []))
-    chk('368: the margins page carries the near-miss count',('since 1948: %d.' % len((S.get('near_misses') or {}).get('spells') or [])) in _mp,True)
+    chk('368: the margins page carries the near-miss count',('since 1948: %d<' % len((S.get('near_misses') or {}).get('spells') or [])) in _mp,True)   # audit-0924: the heading carries it
     chk('368: the data page links the margins page','href="/margins/"' in _dp,True)
 except Exception as _e: chk('368: the margins page built',repr(_e)[:80],'ok')
 # ---- collection 372 (24 September 2026; plan Step 6 R10): the state's schema version - a hard gate (a state of another schema is a corrupt state)

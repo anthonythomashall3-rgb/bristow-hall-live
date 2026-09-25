@@ -1173,8 +1173,11 @@ def nxt_thu(d):
 def nxt_claims(through,days=12):
     # the Thursday whose release carries the week after the last week in hand (claims: week end + 12 days; the insured week
     # and the state rates: + 19). A release day already past whose data are not yet in hand stays the 'next' (marked pending).
-    t=pd.Timestamp(through)+pd.Timedelta(days=days); s=t.date().isoformat()
-    return s if t>pd.Timestamp(today) else s+' (released; not yet posted)'
+    t=pd.Timestamp(through)+pd.Timedelta(days=days)
+    # audit-0924 (24 Sep 2026): a Thursday already gone by is not printed as the next release with '(released; not yet
+    # posted)' - the next Thursday is. A feed that stops arriving is for the checks and the watchdogs, not for the page.
+    while t<pd.Timestamp(today): t=t+pd.Timedelta(days=7)
+    return t.date().isoformat()
 def first_fri(d):
     m=(pd.Timestamp(d)+pd.offsets.MonthBegin(1)); f=m+pd.offsets.Week(weekday=4) if m.weekday()!=4 else m; return f.date().isoformat()
 R=[]
@@ -1283,15 +1286,9 @@ def _fval(x,fmt='{:,.0f}',suf=''):
 _h15next=next((c['date'] for c in CAL if c['kind']=='h15'),None)
 _nxt=lambda w: next((n['date'] for n in NEXT if n['what'].startswith(w)),None)
 def _bnote():
-    # the object is a year-over-year share, so a week with no states in the Department's archive costs two readings:
-    # its own and the week 52 weeks later. The state data can be in hand while the object waits for its base week.
-    try:
-        _w=pd.read_csv(os.path.expanduser('~/Projects/Onset Detector Data/45_dol_first_prints_2026-09/state_iu_first_print_wide.csv'),index_col=0,parse_dates=True)
-        _d=_w.index.max(); _o=pd.Timestamp(_fthr(RAW['B']))
-        if _d>_o:
-            _base=_o+pd.Timedelta(days=7)-pd.DateOffset(weeks=52)
-            return f"state data in hand through {_d.date()}; the object is a year-over-year share and its base week {_base.date()} is missing from the Department's archive, so it resumes when the gap passes"
-    except Exception: pass
+    # audit-0924 (25 Sep 2026): no note. The breadth object reads the states' insured rates as FRED posts them each Friday
+    # (the Department's current file), not the first-print archive, so the archive's eight missing 2025 weeks never hold
+    # it back; the note used to say they did.
     return None
 # ---- 358 (23 September 2026): the data page's cadences, sources and next days made exact (display only; the rule untouched) ----
 # FRED posts DFEDTARU every day, weekends included, at about 8:01 AM ET (51 archived stamps since January 2025); an FOMC decision
@@ -1386,6 +1383,28 @@ _UNITS_FEED={'ICSA':'claims, seasonally adjusted','CCSA':'claims, seasonally adj
  'NDMANEMP':'thousands of persons, seasonally adjusted','JTSJOL':'thousands of openings, seasonally adjusted','CLF16OV':'thousands of persons, seasonally adjusted','HOUST':'thousands of units, seasonally adjusted annual rate',
  'PERMIT':'thousands of units, seasonally adjusted annual rate','DCPF1M':'percent','DCPN30':'percent','WTB3MS':'percent','^GSPC':'index points','SAHMREALTIME':'percentage points','INDPRO':'index, 2017=100, seasonally adjusted','DFEDTARU':'percent',
  'PAYEMS':'thousands of persons, seasonally adjusted','GDPC1':'billions of chained 2017 dollars, seasonally adjusted annual rate','GDPNOW':'percent change from the prior quarter, seasonally adjusted annual rate'}   # v3.73
+# audit-0924 (24 Sep 2026): the period of each series' latest value, printed beside its units when it is not the row's
+_WKY={'ICSA','CCSA','IURSA'}; _QTR={'GDPC1','GDPNOW'}
+def _series_last_date(x_):
+    try:
+        if x_ in _WKY:
+            q_=pd.read_csv(os.path.join(_D0,x_+'.csv')); ok_=pd.to_numeric(q_.iloc[:,1],errors='coerce').notna(); return pd.Timestamp(q_[ok_].iloc[-1,0])
+        if x_ in ('UNRATE','AWHMAN','NDMANEMP','PAYEMS','GDPC1','GDPNOW','JTSJOL','CLF16OV','HOUST','PERMIT'):
+            t_=pd.read_csv(os.path.join(_AL0,x_+'_all_vintages.csv'),index_col=0); v_=pd.to_numeric(t_[t_.columns[-1]],errors='coerce').dropna(); return pd.Timestamp(v_.index[-1])
+    except Exception: return None
+    return None
+def _pkey(x_,d):
+    d=pd.Timestamp(d)
+    if x_ in _QTR: return '%d:Q%d'%(d.year,(d.month-1)//3+1)
+    if x_ in _WKY: return 'week ending '+d.strftime('%b')+' '+str(d.day)+', '+str(d.year)
+    return d.strftime('%b %Y')
+def _period_note(x_,f_):
+    d_=_series_last_date(x_)
+    if d_ is None: return ''
+    try: rk_=_pkey(x_,pd.Timestamp(str(f_.get('through'))[:10]))
+    except Exception: rk_=None
+    k_=_pkey(x_,d_)
+    return '' if k_==rk_ else ', '+k_
 _GT90={}   # the search terms as Google shows them: the past-90-days view (0-100), last complete day
 try:
     for _tg in _TSRC:
@@ -1399,22 +1418,22 @@ for _f in FEEDS:
     try:
         if _f['name'].startswith('State continued weeks'):   # v3.63: the breadth gate's share, and the month it reads
             _aob=(_AO_ST.get('reading') or {}); _f['value']='{:.0%}'.format(float(_aob['breadth_share']))
-            _f['values']=[('ETA 539',_f['value'],'share of states with the insured-rate proxy 0.45 point over its twelve-month low, '+str(_aob.get('breadth_month')))]; continue
+            _f['values']=[('ETA 539',_f['value'],'share of states with the insured-rate proxy 0.45 point over its twelve-month low, '+pd.Timestamp(str(_aob.get('breadth_month'))[:7]+'-01').strftime('%b %Y'))]; continue
         if _f['name'].startswith('State unemployment rates'):   # v3.72: the second opener's own breadth, on the states' first prints
             _f['value']='{:.0%}'.format(float(SB_ST['latest_share']))
-            _f['values']=[('LAUS state rates (51)',_f['value'],'share of the 51 states whose own Sahm gap on first prints stands at or above 0.70, '+str((SB_ST.get('through') or '')[:7]))]; continue
+            _f['values']=[('LAUS state rates (51)',_f['value'],'share of the 51 states whose own Sahm gap on first prints stands at or above 0.70, '+pd.Timestamp(str(SB_ST.get('through'))[:7]+'-01').strftime('%b %Y'))]; continue
         if _f['name'].startswith('State insured'):
-            _f['value']='{:.0%}'.format(lastv(RAW['B'])[0]); _f['values']=[('ETA 539',_f['value'],'share of states with the insured rate 0.20 point over its 52-week low')]; continue
+            _f['value']='{:.1%}'.format(lastv(RAW['B'])[0]*p['bshare']); _f['values']=[('ETA 539',_f['value'],'share of states with the insured rate 0.20 point over its 52-week low')]; continue
         if _f['name'].startswith('Search week'):
             _tg=next((k_ for k_,v_ in _TSRC.items() if v_ in _f['name']),None)
             if _tg and _tg in _GT90:
                 _f['value']='{:.0f}'.format(_GT90[_tg][1]); _f['through']=_GT90[_tg][0]
                 _f['values']=[('Google Trends',_f['value'],'index, 0-100 over the past 90 days, the last complete day')]
-            elif _tg: _f['value']='{:.1f}'.format(lastv(GT_TERMS[_tg][1])[0]); _f['values']=[('Google Trends',_f['value'],'index, the programme\'s stitched scale')]
+            elif _tg: _f['value']='{:.1f}'.format(lastv(GT_TERMS[_tg][1])[0]); _f['values']=[('Google Trends',_f['value'],'index, the program\'s stitched scale')]
             continue
         _ids=[x_.strip() for x_ in (_f.get('ids') or '').split(',') if x_.strip() in _RAWF]
         if _ids:
-            _f['values']=[(x_,_RAWF[x_][1].format(_RAWF[x_][0]()),_UNITS_FEED.get(x_,'')) for x_ in _ids]
+            _f['values']=[(x_,_RAWF[x_][1].format(_RAWF[x_][0]()),_UNITS_FEED.get(x_,'')+_period_note(x_,_f)) for x_ in _ids]
             _f['value']='; '.join(v_ for _,v_,_ in _f['values'])
     except Exception as _e: print('feed value not set for',_f['name'][:30],':',_e)
 # ---- v3.71c (22 September 2026, collection 310): a paper rate the Board has not printed since an earlier day carries that day, beside its value;
@@ -1427,7 +1446,7 @@ for _f in FEEDS:
             _pp={'DCPF1M':os.path.join(_C25,'fred_daily','DCPF1M.csv'),'DCPN30':os.path.join(_C25,'fred_daily','DCPN30.csv')}.get(x_)
             if _pp:
                 _q=pd.read_csv(_pp); _q=_q[pd.to_numeric(_q.iloc[:,1],errors='coerce').notna()]; _ld=pd.Timestamp(_q.iloc[-1,0])
-                if _ld<_thr-pd.Timedelta(days=4): u_=u_+', last printed '+str(_ld.day)+' '+_ld.strftime('%B %Y')+' (the Board prints n.a. when too few trades settle)'
+                if _ld<_thr-pd.Timedelta(days=4): u_=u_+', last printed '+_ld.strftime('%b')+' '+str(_ld.day)+', '+str(_ld.year)
             _nv.append((x_,v_,u_))
         _f['values']=_nv
     except Exception as _e: print('paper rate days not set:',_e)

@@ -52,12 +52,8 @@
     for (i = 0; i < times.length; i++) {
       if (Date.parse(times[i].utc) > now) { if (!nxt) nxt = times[i]; } else prev = times[i];
     }
-    if (r.waiting_since_due) {                                              // due, and not posted by the agency yet
-      for (i = 0; i < times.length; i++) if (times[i].ny === r.waiting_since_due) return { t: times[i], note: 'due; not published yet' };
-    }
-    if (prev && builtAt && builtAt < prev.ny && now - Date.parse(prev.utc) < 6 * 3600000 && !/nyse_close|daily_next|utc_day_end/.test(r.source || '')) {
-      return { t: prev, note: 'released; on this page at the next update' };   // the site was built before this release
-    }
+    // audit-0924 (24 Sep 2026; Anthony: the day it is next published, exact dates only, no sentences): a release that has
+    // gone by is never shown as due or pending - the next one is. A late feed is the checks' business, not the page's.
     if (!nxt) return null;
     var today = nyDay(now), passedToday = false;
     for (i = 0; i < times.length; i++) {
@@ -111,15 +107,13 @@
           var pick = choose(r, t.next, now, cal.built_at);
           if (!pick) return;
           var lab = label(pick.t, r.time_known, r.time_note), note = pick.note || '';
-          sub.textContent = String(t.sub || '') + (note.indexOf('due') === 0 ? '; due ' + lab + ' (not published yet)'
-                                                 : note ? '; released ' + lab + ' (on this page at the next update)'
-                                                 : '; next release ' + lab);
+          sub.textContent = String(t.sub || '') + '; next release ' + lab;
         });
       }
     } catch (e) { /* the front page stays as built */ }
   }).catch(function () { /* the page stays as built */ });
-  // when the site next updates itself
-  var leg = document.querySelector('#dtab') ? document.querySelector('p.dleg') : null;
+  // audit-0924 (24 Sep 2026): no 'This page updates itself...' sentence on the data page (Anthony: no explanatory sentences)
+  var leg = null;
   if (leg) {
     get('/run_slots.json').then(function (rs) {
       var stamp = nyStamp(now), next = null, i, s = rs.slots || [];

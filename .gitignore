@@ -16,6 +16,12 @@ data/105_bristow_hall_system_2026-09-08/live/backup_*
 **/*.env
 **/local.env
 
+# audit-0924 (24 September 2026): the ETA 539 state panel is committed so the cloud keeps it current (s2/state539_live.py
+# appends each week the Department publishes); the Department's 13 MB file and the backup copies it leaves beside the
+# panel are not - they would add about 30 MB to the history every week.
+data/37_dol_eta5159_2026-09/raw/
+data/37_dol_eta5159_2026-09/panel/*.bak
+
 # the private data (ops/private_paths.gitignore, copied in and out by the workflow; never committed here)
 **/AAA.csv
 **/AAA_*.csv
@@ -756,3 +762,7 @@ data/105_bristow_hall_system_2026-09-08/live/backup_*
 /data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/BAA_all_vintages.csv
 /data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/MORTGAGE30US_all_vintages.csv
 /data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/UMCSENT_all_vintages.csv
+
+# backups a run makes of the files it rewrites (<file>.bak, <file>.bak_<time>): git already keeps the previous version
+*.bak
+*.bak_*

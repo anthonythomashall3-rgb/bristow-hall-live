@@ -48,7 +48,7 @@ def fred(series):
     cp = os.path.join(CACHE, series + '.json')
     try:
         url = 'https://api.stlouisfed.org/fred/series/observations?' + urllib.parse.urlencode({'series_id': series, 'api_key': key(), 'file_type': 'json', 'observation_start': '1960-01-01'})
-        with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'bristow-hall-backstop/1.0'}), timeout=60) as r: j = json.load(r)
+        with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (research data collector)'}), timeout=60) as r: j = json.load(r)
         obs = [(o['date'], float(o['value'])) for o in j['observations'] if o['value'] not in ('.', '')]
         json.dump({'fetched': NOW.isoformat(), 'obs': obs}, open(cp, 'w'))
     except Exception as e:
@@ -72,7 +72,7 @@ def release_next(series):
         try:
             def q(path, **kw):
                 u = 'https://api.stlouisfed.org/fred/' + path + '?' + urllib.parse.urlencode(dict(kw, api_key=key(), file_type='json'))
-                with urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'bristow-hall-backstop/1.0'}), timeout=60) as r: return json.load(r)
+                with urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0 (research data collector)'}), timeout=60) as r: return json.load(r)
             rid = q('series/release', series_id=series)['releases'][0]['id']
             ds = [d['date'] for d in q('release/dates', release_id=rid, realtime_start=today, include_release_dates_with_no_data='true',
                                        sort_order='asc', limit=6)['release_dates'] if d['date'] >= today]
@@ -112,7 +112,7 @@ def ar539():
         if (now - W.index.max().to_pydatetime()).days <= 16:
             _AR539.update(W=W, p=p); return W, p
     try:
-        with urllib.request.urlopen(urllib.request.Request('https://oui.doleta.gov/unemploy/csv/ar539.csv', headers={'User-Agent': 'bristow-hall-backstop/1.0'}), timeout=120) as r: raw = r.read()
+        with urllib.request.urlopen(urllib.request.Request('https://oui.doleta.gov/unemploy/csv/ar539.csv', headers={'User-Agent': 'Mozilla/5.0 (research data collector)'}), timeout=120) as r: raw = r.read()
         p2 = os.path.join(CACHE, 'ar539.csv'); open(p2, 'wb').write(raw)
         W = _ar539_read(p2); _AR539.update(W=W, p=p2); return W, p2
     except Exception:
@@ -314,9 +314,11 @@ def main():
     except Exception as e: state['opener'] = {'error': repr(e)[:300]}
     json.dump(state, open(os.path.join(OUT, 'backstop_state.json'), 'w'), indent=1, default=str)
     try:
-        os.makedirs(os.path.join(SITE, 'detector'), exist_ok=True); os.makedirs(os.path.join(SITE, 'backstop'), exist_ok=True)
+        os.makedirs(os.path.join(SITE, 'detector'), exist_ok=True)
         json.dump(state, open(os.path.join(SITE, 'detector', 'backstop.json'), 'w'), default=str)
-        open(os.path.join(SITE, 'backstop', 'index.html'), 'w', encoding='utf-8').write(page(state))
+        # audit-0924 (24 Sep 2026; Anthony: no explanatory pages): the /backstop/ page is no longer published
+        _old = os.path.join(SITE, 'backstop', 'index.html')
+        if os.path.exists(_old): os.remove(_old)
     except Exception as e: state['site_error'] = repr(e)[:200]
     line = 'backstop: ' + ' | '.join('%s %s%s' % (k, 'ON' if r.get('on') else ('off' if 'error' not in r else 'ERR'), '' if 'error' in r else ' (%s vs %s, through %s)' % (r['reading'], r['line'], r['data_through'])) for k, r in state['rules'].items())
     line += ' | opener: ' + _opener_text(state.get('opener') or {})

@@ -1,5 +1,5 @@
 {
- "built_at": "2026-09-24 18:26",
+ "built_at": "2026-09-24 20:19",
  "version": "v3.74",
  "census_date": "2026-09-24",
  "feeds": [
@@ -24,7 +24,7 @@
    "through": "2026-09-05",
    "next": "2026-10-01",
    "link": "https://oui.doleta.gov/unemploy/claims.asp",
-   "value": "16%",
+   "value": "9.4%",
    "backup": "the advance state table of the weekly release PDF while the archive catches up",
    "format_check": "the page-8 parse validated against the advance table",
    "auto": "yes"
@@ -191,7 +191,7 @@
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
    "through": "2026-09-23",
-   "next": "2026-09-24",
+   "next": "2026-09-25",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
    "value": "57",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
@@ -204,7 +204,7 @@
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
    "through": "2026-09-23",
-   "next": "2026-09-24",
+   "next": "2026-09-25",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=layoffs",
    "value": "29",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
@@ -217,7 +217,7 @@
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
    "through": "2026-09-23",
-   "next": "2026-09-24",
+   "next": "2026-09-25",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=laid%20off",
    "value": "51",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",

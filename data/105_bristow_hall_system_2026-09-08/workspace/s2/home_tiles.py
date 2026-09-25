@@ -90,7 +90,7 @@ def get(sid):
 from concurrent.futures import ThreadPoolExecutor as _TPE
 with _TPE(max_workers=3) as _ex: S=dict(zip(SERIES,_ex.map(get,SERIES)))
 def mon(d): return pd.Timestamp(d).strftime('%b %Y')
-def day(d): return pd.Timestamp(d).date().isoformat()
+def day(d): d=pd.Timestamp(d); return d.strftime('%b')+' '+str(d.day)+', '+str(d.year)   # audit-0924: 'Sep 19, 2026'
 U=S['UNRATE']; P=S['PAYEMS']; J=S['JTSJOL']; UE=S['UNEMPLOY']; Q=S['JTSQUR']; C=S['CPIAUCSL']; IC=S['ICSA']; IU=S['IURSA']
 # UNITS, checked against FRED's own unit strings (11 September 2026):
 #   UNRATE, IURSA, JTSQUR  percent          PAYEMS, JTSJOL, UNEMPLOY  thousands of persons
@@ -103,15 +103,15 @@ _um=J.index[-1]                           # unemployed per opening: BOTH series 
 assert _um in UE.index, f'UNEMPLOY has no observation for {_um.date()}'
 upo=UE.loc[_um]/J.loc[_um]
 T=[
- dict(lab='Unemployment rate',      val=f'{U.iloc[-1]:.1f}%',              sub=mon(U.index[-1]),                    src='https://fred.stlouisfed.org/series/UNRATE'),
- dict(lab='Nonfarm payrolls',       val=f'{P.iloc[-1]/1000:,.1f} million',  sub=mon(P.index[-1]),                    src='https://fred.stlouisfed.org/series/PAYEMS'),
- dict(lab='Payroll growth',         val=f'{round(g3)*1000:+,.0f} a month', sub='3-month average, '+mon(P.index[-1]),src='https://fred.stlouisfed.org/series/PAYEMS'),
- dict(lab='Initial claims (week)',  val=f'{IC.iloc[-1]:,.0f}',             sub='week ending '+day(IC.index[-1]),    src='https://fred.stlouisfed.org/series/ICSA'),
- dict(lab='Insured unemployment rate',val=f'{IU.iloc[-1]:.1f}%',           sub='week ending '+day(IU.index[-1]),    src='https://fred.stlouisfed.org/series/IURSA'),
- dict(lab='Job openings',           val=f'{J.iloc[-1]/1000:,.1f} million',  sub=mon(J.index[-1]),                    src='https://fred.stlouisfed.org/series/JTSJOL'),
- dict(lab='Unemployed per opening', val=f'{upo:.2f}',                      sub=mon(_um),                    src='https://fred.stlouisfed.org/series/JTSJOL'),
- dict(lab='Quits rate',             val=f'{Q.iloc[-1]:.1f}%',              sub=mon(Q.index[-1]),                    src='https://fred.stlouisfed.org/series/JTSQUR'),
- dict(lab='CPI inflation',          val=(f'{cpi:.1f}%' if cpi is not None else 'n/a'),                     sub='year over year, '+mon(C.index[-1]), src='https://fred.stlouisfed.org/series/CPIAUCSL'),
+ dict(lab='Unemployment rate',      val=f'{U.iloc[-1]:.1f}%',              sub=mon(U.index[-1]),                    src='https://www.bls.gov/news.release/empsit.toc.htm'),
+ dict(lab='Nonfarm payrolls',       val=f'{P.iloc[-1]/1000:,.1f} million',  sub=mon(P.index[-1]),                    src='https://www.bls.gov/news.release/empsit.toc.htm'),
+ dict(lab='Payroll growth',         val=f'{round(g3)*1000:+,.0f} a month', sub='3-month average, '+mon(P.index[-1]),src='https://www.bls.gov/news.release/empsit.toc.htm'),
+ dict(lab='Initial claims (week)',  val=f'{IC.iloc[-1]:,.0f}',             sub='week ending '+day(IC.index[-1]),    src='https://www.dol.gov/ui/data.pdf'),
+ dict(lab='Insured unemployment rate',val=f'{IU.iloc[-1]:.1f}%',           sub='week ending '+day(IU.index[-1]),    src='https://www.dol.gov/ui/data.pdf'),
+ dict(lab='Job openings',           val=f'{J.iloc[-1]/1000:,.1f} million',  sub=mon(J.index[-1]),                    src='https://www.bls.gov/jlt/'),
+ dict(lab='Unemployed per opening', val=f'{upo:.2f}',                      sub=mon(_um),                    src='https://www.bls.gov/jlt/'),
+ dict(lab='Quits rate',             val=f'{Q.iloc[-1]:.1f}%',              sub=mon(Q.index[-1]),                    src='https://www.bls.gov/jlt/'),
+ dict(lab='CPI inflation',          val=(f'{cpi:.1f}%' if cpi is not None else 'n/a'),                     sub='year over year, '+mon(C.index[-1]), src='https://www.bls.gov/cpi/'),
 ]
 _ID={"Unemployment rate":"UNRATE","Nonfarm payrolls":"PAYEMS","Payroll growth":"PAYEMS","Initial claims (week)":"ICSA",
      "Insured unemployment rate":"IURSA","Job openings":"JTSJOL","Unemployed per opening":"JTSJOL","Quits rate":"JTSQUR","CPI inflation":"CPIAUCSL"}
@@ -121,10 +121,13 @@ for _s in set(_ID.values()):
 # Three tiles are computed rather than read, so the link under them must say so: the number shown is not the
 # series the link opens. CPI inflation is the exception that can be linked exactly — FRED's own year-over-year
 # transformation of CPIAUCSL is the figure printed.
-_LINK={'Payroll growth':'computed from PAYEMS',
-       'Unemployed per opening':'UNEMPLOY \u00f7 JTSJOL',
-       'CPI inflation':'CPIAUCSL, year over year'}
-_SRC={'CPI inflation':'https://fred.stlouisfed.org/graph/?id=CPIAUCSL&transformation=pc1'}
+# audit-0924 (24 Sep 2026; Anthony: every link to the publisher's own page): each tile names the release it links to
+_LINK={'Unemployment rate':'BLS Employment Situation','Nonfarm payrolls':'BLS Employment Situation',
+       'Payroll growth':'computed from the BLS Employment Situation','Initial claims (week)':'Department of Labor, weekly claims',
+       'Insured unemployment rate':'Department of Labor, weekly claims','Job openings':'BLS JOLTS',
+       'Unemployed per opening':'computed from the BLS Employment Situation and JOLTS','Quits rate':'BLS JOLTS',
+       'CPI inflation':'computed from the BLS Consumer Price Index'}
+_SRC={}
 for _t in T:
     _t["sid"]=_ID.get(_t["lab"]); _t["next"]=_NX.get(_t["sid"])
     _t["link"]=_LINK.get(_t["lab"],_t["sid"])

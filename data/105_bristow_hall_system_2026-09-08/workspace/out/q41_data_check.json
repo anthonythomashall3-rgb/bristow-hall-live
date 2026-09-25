@@ -36,8 +36,8 @@
 },
 {
 "name": "tile: claims week",
-"got": "week ending 2026-09-19",
-"want": "week ending 2026-09-19",
+"got": "week ending Sep 19, 2026",
+"want": "week ending Sep 19, 2026",
 "status": "PASS",
 "gate": null
 },
@@ -617,7 +617,7 @@
 },
 {
 "name": "feed next release is not in the past: Search week: Google searches for \"unempl",
-"got": "2026-09-24",
+"got": "2026-09-25",
 "want": ">= 2026-09-24",
 "status": "PASS",
 "gate": null
@@ -652,7 +652,7 @@
 },
 {
 "name": "feed next release is not in the past: Search week: Google searches for \"layoff",
-"got": "2026-09-24",
+"got": "2026-09-25",
 "want": ">= 2026-09-24",
 "status": "PASS",
 "gate": null
@@ -687,7 +687,7 @@
 },
 {
 "name": "feed next release is not in the past: Search week: Google searches for \"laid o",
-"got": "2026-09-24",
+"got": "2026-09-25",
 "want": ">= 2026-09-24",
 "status": "PASS",
 "gate": null
@@ -1093,8 +1093,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-09-24 18:26', '2026-09-24 18:26')",
-"want": "('2026-09-24 18:26', '2026-09-24 18:26')",
+"got": "('2026-09-24 20:19', '2026-09-24 20:19')",
+"want": "('2026-09-24 20:19', '2026-09-24 20:19')",
 "status": "PASS",
 "gate": "hard"
 },

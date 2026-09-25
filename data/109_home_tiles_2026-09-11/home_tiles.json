@@ -5,82 +5,82 @@
    "lab": "Unemployment rate",
    "val": "4.1%",
    "sub": "Aug 2026",
-   "src": "https://fred.stlouisfed.org/series/UNRATE",
+   "src": "https://www.bls.gov/news.release/empsit.toc.htm",
    "sid": "UNRATE",
    "next": "2026-10-02",
-   "link": "UNRATE"
+   "link": "BLS Employment Situation"
   },
   {
    "lab": "Nonfarm payrolls",
    "val": "159.1 million",
    "sub": "Aug 2026",
-   "src": "https://fred.stlouisfed.org/series/PAYEMS",
+   "src": "https://www.bls.gov/news.release/empsit.toc.htm",
    "sid": "PAYEMS",
    "next": "2026-10-02",
-   "link": "PAYEMS"
+   "link": "BLS Employment Situation"
   },
   {
    "lab": "Payroll growth",
    "val": "+71,000 a month",
    "sub": "3-month average, Aug 2026",
-   "src": "https://fred.stlouisfed.org/series/PAYEMS",
+   "src": "https://www.bls.gov/news.release/empsit.toc.htm",
    "sid": "PAYEMS",
    "next": "2026-10-02",
-   "link": "computed from PAYEMS"
+   "link": "computed from the BLS Employment Situation"
   },
   {
    "lab": "Initial claims (week)",
    "val": "197,000",
-   "sub": "week ending 2026-09-19",
-   "src": "https://fred.stlouisfed.org/series/ICSA",
+   "sub": "week ending Sep 19, 2026",
+   "src": "https://www.dol.gov/ui/data.pdf",
    "sid": "ICSA",
    "next": "2026-10-01",
-   "link": "ICSA"
+   "link": "Department of Labor, weekly claims"
   },
   {
    "lab": "Insured unemployment rate",
    "val": "1.1%",
-   "sub": "week ending 2026-09-12",
-   "src": "https://fred.stlouisfed.org/series/IURSA",
+   "sub": "week ending Sep 12, 2026",
+   "src": "https://www.dol.gov/ui/data.pdf",
    "sid": "IURSA",
    "next": "2026-10-01",
-   "link": "IURSA"
+   "link": "Department of Labor, weekly claims"
   },
   {
    "lab": "Job openings",
    "val": "7.3 million",
    "sub": "Jul 2026",
-   "src": "https://fred.stlouisfed.org/series/JTSJOL",
+   "src": "https://www.bls.gov/jlt/",
    "sid": "JTSJOL",
    "next": "2026-09-29",
-   "link": "JTSJOL"
+   "link": "BLS JOLTS"
   },
   {
    "lab": "Unemployed per opening",
    "val": "0.95",
    "sub": "Jul 2026",
-   "src": "https://fred.stlouisfed.org/series/JTSJOL",
+   "src": "https://www.bls.gov/jlt/",
    "sid": "JTSJOL",
    "next": "2026-09-29",
-   "link": "UNEMPLOY \u00f7 JTSJOL"
+   "link": "computed from the BLS Employment Situation and JOLTS"
   },
   {
    "lab": "Quits rate",
    "val": "1.9%",
    "sub": "Jul 2026",
-   "src": "https://fred.stlouisfed.org/series/JTSQUR",
+   "src": "https://www.bls.gov/jlt/",
    "sid": "JTSQUR",
    "next": "2026-09-29",
-   "link": "JTSQUR"
+   "link": "BLS JOLTS"
   },
   {
    "lab": "CPI inflation",
    "val": "3.4%",
    "sub": "year over year, Aug 2026",
-   "src": "https://fred.stlouisfed.org/graph/?id=CPIAUCSL&transformation=pc1",
+   "src": "https://www.bls.gov/cpi/",
    "sid": "CPIAUCSL",
    "next": "2026-10-14",
-   "link": "CPIAUCSL, year over year"
+   "link": "computed from the BLS Consumer Price Index"
   }
  ]
 }

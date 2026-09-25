@@ -5,12 +5,15 @@
 name: rebuild check (R7)
 on:
   schedule:
-    - cron: '0 6 1 * *'
+    - cron: '17 6 1 * *'   # off the hour, when GitHub's queue is busiest
   workflow_dispatch:
 concurrency: rebuild-check
+permissions:
+  contents: read     # reads only (the repository is public; 25 September 2026)
+
 jobs:
   rebuild:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04   # pinned (audit-0924): ubuntu-latest becomes Ubuntu 26 from 19 October 2026
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v5

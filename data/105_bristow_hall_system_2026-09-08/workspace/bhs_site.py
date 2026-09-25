@@ -94,19 +94,19 @@ _header=_re2.search(r'<header class="bh">.*?</header>',_h,_re2.S).group(0)
 _footer=_re2.search(r'<div class="foot">.*?</div></div>',_h,_re2.S).group(0)
 _STUBS=[
  ('disturbance','Real-Time National Disturbance Indicator',
-  'The national labour disturbance beneath a call: what moved, when it moved, and how far it went.',
+  'The national labor disturbance beneath a call: what moved, when it moved, and how far it went.',
   'The detector reads the same public releases as the recession indicator and asks a narrower question — not whether a recession has opened, but whether the labour market has been disturbed at all, and in which of its parts. It waits on the disturbance measure being written down and walked forward on the same terms as the rule: every clause fixed before it is scored, every number read as it stood on its release day.'),
  ('state-onset','Real-Time State Recession Indicator',
   'The same rule read state by state, so an onset is seen where it starts and not only in the aggregate.',
   'The weekly state claims and the state unemployment rates are already gathered and refreshed at every release (collections 37 and 45). What remains is the walk: the rule read on each state separately, from 1976 forward, with no line chosen from a state’s own future. Until that walk is finished and audited nothing is published here.'),
  ('stress-map','National Stress Map',
-  'Labour-market stress across the fifty states and the District, on one scale, week by week.',
+  'Labor-market stress across the fifty states and the District, on one scale, week by week.',
   'One scale, one week, fifty-one places. The map draws on the same weekly state claims as the state onset detector; it waits on the scale being fixed in advance, so that a state’s colour means the same thing in 1980 as in 2026.'),
  ('damage-index','Damage Index',
   'A Richter scale for recessions: how deep, how broad, and where — not only when.',
   'Dating a recession says when; it does not say how much. The index measures the depth of the fall and the breadth of the states and industries carrying it on one scale fixed in advance, so that two recessions can be compared without hindsight about either, and so that a disturbance a national date hides — one state, one industry — still has a number. It is the subject of Paper 3, <i>The Damage Index: A Richter Scale for Recessions</i>.'),
  ('chronology','Business-Cycle Chronology',
-  'The programme’s dated chronology of peaks and troughs beside the committee’s and the OECD’s.',
+  'The program’s dated chronology of peaks and troughs beside the committee’s and the OECD’s.',
   'The rule’s own peaks and troughs, 1948 to today, set beside the National Bureau’s and the OECD’s, with the days each was called and the days each was announced. The material exists in the record; the page is what remains.'),
 ]
 for _slug,_name,_tag,_body in _STUBS:
@@ -118,10 +118,8 @@ for _slug,_name,_tag,_body in _STUBS:
         '.stub .back{margin-top:26px;font-size:14px}</style>\n</head>\n<body>\n'
         +_nav+'\n<div class="inner"><div class="stub">'
         '<span class="badge dev">IN DEVELOPMENT</span>'
-        '<h1>'+_name+'</h1><p class="tag">'+_tag+'</p><p>'+_body+'</p>'
-        '<p>Nothing is published on a page here until its rule is written down, walked forward with no line chosen from the future, and audited. '
-        'The recession indicator, which has been through that, is <a href="/detector/">live now</a>.</p>'
-        '<p class="back"><a href="/">&larr; Back to the programme</a></p></div></div>\n'
+        '<h1>'+_name+'</h1><p class="tag">'+_tag+'</p>'                  # audit-0924: the name and one line, nothing else
+        '<p class="back"><a href="/">&larr; Back to the program</a></p></div></div>\n'
         +_footer+'\n</body>\n</html>\n')
     os.makedirs(os.path.join(SITE,'public',_slug),exist_ok=True)
     open(os.path.join(SITE,'public',_slug,'index.html'),'w',encoding='utf-8').write(_p)
@@ -134,7 +132,7 @@ print('stub pages built:',', '.join('/'+s+'/' for s,_,_,_ in _STUBS))
 # heading sorts by it, a second click reverses. Names carry no parentheticals; the ID column names the series.
 import re as _re3, datetime as _dt3
 def _esc(x):
-    return ('' if x is None else str(x)).replace('&','&amp;').replace('<','&lt;').replace('>','&gt;')
+    return ('' if x is None else str(x)).replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;')
 _MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 def _fmtd(d):
     try:
@@ -143,16 +141,54 @@ def _fmtd(d):
         try:
             y,m=str(d).split('-'); return _MON[int(m)-1]+' '+y
         except Exception: return _esc(d)
+def _fmtp(d,cad):
+    # audit-0924: a monthly value is its month, a quarterly one its quarter - not the first day of either
+    try:
+        y,m=[int(x) for x in str(d)[:7].split('-')]
+        if cad=='monthly': return _MON[m-1]+' '+str(y)
+        if cad=='quarterly': return '%d:Q%d'%(y,(m-1)//3+1)
+    except Exception: pass
+    return _fmtd(d)
+def _us(h):
+    # audit-0924 (Anthony, 17 Sep 2026: US spelling for everything) - the page text only; the state's own keys are unchanged
+    for a_,b_ in (('labour','labor'),('Labour','Labor'),('programme','program'),('Programme','Program'),('colour','color'),('per cent','percent'),('centre','center')):
+        h=h.replace(a_,b_)
+    return h
 def _strip_paren(x): return _re3.sub(r'\s*\([^)]*\)','',x or '').replace('  ',' ').strip().rstrip(':,')
 # exact words only on the data page (Anthony, 17 and 20 September 2026): the Next published column carries the day, so a
 # cadence says only what is fixed - 'Monthly - usually the first Friday, 8:30 AM ET' becomes 'Monthly, 8:30 AM ET'
 def _exact_every(s): return _re3.sub(r'\s*-\s*(?:usually|about)\b[^,]*,\s*',', ',s or '')
+# audit-0924 (24 Sep 2026; Anthony: every link to the publisher's own page, exact words only, no explanatory sentences)
+_PUB={'S&P 500':('S&P Dow Jones Indices, S&P 500','https://www.spglobal.com/spdji/en/indices/equity/sp-500/','Every trading day, 4:00 PM ET'),
+      'Federal funds target range':('Federal Reserve, FOMC statement','https://www.federalreserve.gov/monetarypolicy/openmarket.htm','At each FOMC decision, 2:00 PM ET'),
+      'Initial claims':('Department of Labor, weekly claims release',None,'Weekly, Thursday 8:30 AM ET'),
+      'State insured unemployment rates':('Department of Labor, ETA 539',None,'Weekly, Thursday'),
+      'Unemployment rate, factory hours':('Bureau of Labor Statistics, Employment Situation',None,'Monthly, 8:30 AM ET'),
+      'Job openings':('Bureau of Labor Statistics, JOLTS',None,'Monthly, 10:00 AM ET'),
+      'Housing starts':('Census Bureau, New Residential Construction',None,'Monthly, 8:30 AM ET'),
+      'Commercial paper':('Federal Reserve, H.15 Selected Interest Rates',None,'Daily, 4:15 PM ET'),
+      'Industrial production':('Federal Reserve, G.17 Industrial Production and Capacity Utilization',None,'Monthly, 9:15 AM ET'),
+      'State continued weeks claimed':('Department of Labor, ETA 539; Bureau of Labor Statistics',None,'Monthly'),
+      'State unemployment rates':('Bureau of Labor Statistics, Local Area Unemployment Statistics',None,'Monthly, 10:00 AM ET'),
+      'Real GDP':('Bureau of Economic Analysis, Gross Domestic Product',None,'Quarterly, 8:30 AM ET'),
+      'GDPNow':('Federal Reserve Bank of Atlanta, GDPNow',None,'Several times a month'),
+      'Sahm rule':('Federal Reserve Bank of St. Louis, FRED SAHMREALTIME',None,'Monthly'),
+      'Search week':('Google Trends, United States',None,'Daily')}
+def _pub(name):
+    for k_,v_ in _PUB.items():
+        if str(name or '').startswith(k_): return v_
+    return None
+def _cad_kind(every):
+    e_=str(every or '').lower()
+    return 'quarterly' if e_.startswith('quarterly') else 'monthly' if e_.startswith('monthly') else 'weekly' if e_.startswith('weekly') else 'daily'
 def _iso(d):
     d=str(d or '')
     if _re3.match(r'^\d{4}-\d{2}-\d{2}$',d): return d
     if _re3.match(r'^\d{4}-\d{2}$',d): return d+'-01'
     m=_re3.search(r'(\d{4}-\d{2}-\d{2})',d)
     if m: return m.group(1)
+    m=_re3.search(r'([A-Z][a-z]{2}) (\d{1,2}), (\d{4})',d)                    # audit-0924: 'week ending Sep 19, 2026'
+    if m and m.group(1) in _MON: return '%s-%02d-%02d'%(m.group(3),_MON.index(m.group(1))+1,int(m.group(2)))
     m=_re3.search(r'([A-Z][a-z]{2}) (\d{4})',d)
     if m and m.group(1) in _MON: return '%s-%02d-01'%(m.group(2),_MON.index(m.group(1))+1)
     return ''
@@ -163,7 +199,9 @@ def _nxt_iso(n):
     return ''
 _rows=[]
 for f in state.get('feeds',[]):
-    _rows.append(dict(kind='rule',name=_strip_paren(f.get('name')),ids=f.get('ids') or '',url=f.get('url'),source=_strip_paren(f.get('source'))+((' &middot; '+_exact_every(_strip_paren(f.get('every')))) if f.get('every') else ''),
+    _pb=_pub(_strip_paren(f.get('name')))
+    _rows.append(dict(kind='rule',cad=('quarterly' if str(f.get('name','')).startswith('GDPNow') else _cad_kind(f.get('every'))),name=_strip_paren(f.get('name')),ids=f.get('ids') or '',url=((_pb[1] or f.get('url')) if _pb else f.get('url')),
+                      source=((_pb[0]+' &middot; '+_pb[2]) if _pb else _strip_paren(f.get('source'))+((' &middot; '+_exact_every(_strip_paren(f.get('every')))) if f.get('every') else '')),
                       value=f.get('value') or '',values=f.get('values') or [],units=None,through=str(f.get('through') or ''),nxt=str(f.get('next') or ''),refreshed=state.get('built') or '',legs='the rule',note=None))
 _seen=set()
 for t in _tiles:
@@ -174,26 +212,28 @@ for t in _tiles:
     _tu=_TILE_UNITS.get(sid,'')
     if 'a month' in (t.get('val') or ''): _tu='persons a month, the three-month average change'
     if 'per opening' in (t.get('lab') or '').lower(): _tu='unemployed persons per job opening'
-    _rows.append(dict(kind='front',name=_strip_paren(t.get('lab')),ids=sid,url=t.get('src') or ('https://fred.stlouisfed.org/series/'+sid),source='FRED series '+sid+' &middot; front page',
+    _TPUB={'UNRATE':'Bureau of Labor Statistics, Employment Situation','PAYEMS':'Bureau of Labor Statistics, Employment Situation','ICSA':'Department of Labor, weekly claims release',
+           'IURSA':'Department of Labor, weekly claims release','JTSJOL':'Bureau of Labor Statistics, JOLTS','JTSQUR':'Bureau of Labor Statistics, JOLTS','CPIAUCSL':'Bureau of Labor Statistics, Consumer Price Index'}
+    _rows.append(dict(kind='front',cad=('weekly' if sid in ('ICSA','IURSA') else 'monthly'),name=_strip_paren(t.get('lab')),ids=sid,url=t.get('src') or ('https://fred.stlouisfed.org/series/'+sid),source=_TPUB.get(sid,'FRED series '+sid),
                       value=(t.get('val') or ''),values=[],units=_tu,through=_iso(t.get('sub')),nxt=str(t.get('next') or ''),refreshed=_tiles_built,legs='front page',note=None))
 import json
 _lf=state.get('leg_feeds',[]); _ls=state.get('leg_status',{})
 # v3.59 (20 September 2026): the backstop tier's three inputs, read from out/backstop_state.json (written by s2/backstop.py before the build)
 try:
     _bs=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'out','backstop_state.json')))
-    _BSROW={'SOS_NSA':('Insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)','CCNSA / COVEMP','https://fred.stlouisfed.org/series/CCNSA','Department of Labor, weekly claims release; FRED CCNSA and COVEMP'),
+    _BSROW={'SOS_NSA':('Insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)','CCNSA / COVEMP','https://www.dol.gov/ui/data.pdf','Department of Labor, weekly claims release'),
             'LMSI30':('States with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)','ETA 539 by state','https://oui.doleta.gov/unemploy/DataDownloads.asp','Department of Labor, ETA 539 state weekly claims'),
-            'CFNAI':('Chicago Fed National Activity Index, three-month average','CFNAIMA3','https://fred.stlouisfed.org/series/CFNAIMA3','Federal Reserve Bank of Chicago; FRED CFNAIMA3'),
+            'CFNAI':('Chicago Fed National Activity Index, three-month average','CFNAIMA3','https://www.chicagofed.org/research/data/cfnai/current-data','Federal Reserve Bank of Chicago'),
             # v3.74 (23 September 2026, collection 335; the row's link, its series and its next day added after the deploy's ops check
             # reported the row with no link and no release calendar): the shadow reading. Its ids name both inputs, so the ops calendar
             # reads both FRED releases (50, the Employment Situation; 192, JOLTS) and keeps the one whose day the reading gives.
-            'Michez':('Michaillat and Saez\'s rule: the smaller of the unemployment indicator and the vacancy indicator','UNRATE, JTSJOL','https://doi.org/10.1111/obes.12685','Michaillat and Saez (2025), Has the Recession Started?, Oxford Bulletin of Economics and Statistics 87(6); first prints of the unemployment rate (BLS) and job openings (JOLTS)'),
+            'Michez':('Michaillat and Saez\'s rule: the smaller of the unemployment indicator and the vacancy indicator','UNRATE, JTSJOL','https://doi.org/10.1111/obes.12685','Michaillat and Saez (2025); Bureau of Labor Statistics'),
             # v3.74 + collection 366 (24 September 2026; Anthony: 'yes'): the Weekly Economic Index as a fifth shadow reading - the only weekly read on the
             # labour-hoarding type; current vintage, real-time history from April 2020; not in the opener, not on the scoreboard
-            'WEI':('Weekly Economic Index (Lewis, Mertens and Stock), 13-week mean - a shadow reading for the labour-hoarding type','WEI','https://www.dallasfed.org/research/wei','Federal Reserve Bank of Dallas, Weekly Economic Index; FRED WEI &middot; Weekly - Thursdays, the week ending the prior Saturday')}
+            'WEI':('Weekly Economic Index (Lewis, Mertens and Stock), 13-week mean','WEI','https://www.dallasfed.org/research/wei','Federal Reserve Bank of Dallas &middot; Weekly, Thursday')}
     for _k,_r in (_bs.get('rules') or {}).items():
         _nm,_id,_url,_src=_BSROW.get(_k,(_k,_k,'','backstop tier'))
-        _rows.append(dict(kind='backstop',name=_nm,ids=_id,url=_url,source=_src+' &middot; the backstop tier (its line '+str(_r.get('line'))+')',value=str(_r.get('reading')) if _r.get('reading') is not None else '',values=[],units=_r.get('unit'),through=str(_r.get('data_through') or ''),nxt=(next((str(x.get('date')) for x in state.get('next_releases',[]) if str(x.get('what','')).lower().startswith('weekly claims')),'') if _k not in ('CFNAI','Michez','WEI') else str(_r.get('next') or '')),refreshed=str(_bs.get('built_at') or '')[:10],legs='the backstop tier',note=('ON since '+str(_r.get('since')) if _r.get('on') else 'off since '+str(_r.get('since')))))
+        _rows.append(dict(kind='backstop',cad=('monthly' if _k in ('CFNAI','Michez') else 'weekly'),name=_nm,ids=_id,url=_url,source=_src+' &middot; line '+str(_r.get('line')),value=str(_r.get('reading')) if _r.get('reading') is not None else '',values=[],units=_r.get('unit'),through=str(_r.get('data_through') or ''),nxt=(next((str(x.get('date')) for x in state.get('next_releases',[]) if str(x.get('what','')).lower().startswith('weekly claims')),'') if _k not in ('CFNAI','Michez','WEI') else str(_r.get('next') or '')),refreshed=str(_bs.get('built_at') or '')[:10],legs='the backstop tier',note=('ON since '+_fmtd(_r.get('since')) if _r.get('on') else 'off since '+_fmtd(_r.get('since')))))
 except Exception as _e: print('backstop rows not listed:', _e)
 for f in _lf:
     who=('legs '+f['legs'] if f.get('legs') else '')+((' &middot; ' if f.get('legs') else '')+'confirms '+f['confirms'] if f.get('confirms') else '')
@@ -228,8 +268,8 @@ def _drow(r):
             +'<td><b>'+t1+'</b><div class="src">'+r['source']+'</div>'+('<div class="note">'+_esc(r['note'])+'</div>' if r.get('note') else '')+'</td>'
             +'<td class="id">'+_esc(r['ids'])+'</td>'
             +'<td class="val">'+_vcell(r)+'</td>'
-            +'<td class="num">'+(_fmtd(r['through']) if r['through'] else '<span class="na">&mdash;</span>')+'</td>'
-            +'<td class="num">'+(('not yet scheduled' if r['nxt'].startswith('~') else ((_fmtd(r['nxt'][:10])+(' (released; not yet posted)' if 'not yet posted' in r['nxt'] else '')) if _re3.match(r'^\d{4}-\d{2}-\d{2}',r['nxt']) else _esc(r['nxt']))) if r['nxt'] else '<span class="na">&mdash;</span>')+'</td></tr>')
+            +'<td class="num">'+(_fmtp(r['through'],r.get('cad')) if r['through'] else '<span class="na">&mdash;</span>')+'</td>'
+            +'<td class="num">'+(('<span class="na">&mdash;</span>' if r['nxt'].startswith('~') else (_fmtd(r['nxt'][:10]) if _re3.match(r'^\d{4}-\d{2}-\d{2}',r['nxt']) else _esc(r['nxt']))) if r['nxt'] else '<span class="na">&mdash;</span>')+'</td></tr>')
 _rows.sort(key=lambda r:_iso(r['through']),reverse=True)
 _trs=''.join(_drow(r) for r in _rows)
 _stale=state.get('leg_channels_stale',[])
@@ -239,7 +279,7 @@ _stale_line=('<p class="dlede">Stale past its own cadence: '+_esc(', '.join(_sta
 # without a new reading and what stands in for it; a channel past its limit is named here with its substitute, never frozen silently
 _chs=state.get('channels') or []; _chd=[c for c in _chs if c.get('status')!='current']
 _ch_line=(('<p class="dlede">Not current: '+_esc('; '.join('%s - %s, %s days since its last reading (limit %s); substitute: %s'%(c.get('channel'),c.get('status'),c.get('age_days'),c.get('limit_days'),c.get('substitute')) for c in _chd))+'.</p>') if _chd
-          else (('<p class="dleg">All %d channels the rule reads are current; each has a named substitute should its publisher go dark (the S&amp;P 500 switches to the official close on FRED by itself).</p>'%len(_chs)) if _chs else ''))
+          else '')   # audit-0924: no sentence when every channel is current
 _nav_data=_header.replace(' aria-current="page"','').replace('href="/data/"','href="/data/" aria-current="page"')
 _datapage=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
  '<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Bristow-Hall Business Cycle Program — Data</title>\n'
@@ -253,13 +293,14 @@ _datapage=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
  '.dtab .src{color:#666;font-size:12.5px;font-weight:400;margin-top:3px}'
  '.dtab .note{color:#7f0000;font-size:12.5px;margin-top:4px}'
  '.dtab .na{color:#999}.dwrap{overflow-x:auto}.dlede{max-width:none;color:#7f0000;margin:12px 0 0}'
- '.dleg{margin-top:8px;font-size:12.5px;color:#555}.dleg summary{cursor:pointer;color:#990000}</style>\n</head>\n<body>\n'
+ '.dleg{margin-top:8px;font-size:12.5px;color:#555}.dleg summary{cursor:pointer;color:#990000}'
+ '@media (max-width:1100px){.dtab th[data-k="ids"],.dtab td.id{display:none}.dtab td{padding:9px 6px}.dtab .v{white-space:normal}}</style>\n</head>\n<body>\n'
  +_nav_data+'\n<div class="inner">'
  '<h2 style="margin-top:30px">Data</h2><div class="rule"></div>'+_stale_line+_ch_line+
  '<div class="dwrap"><table class="dtab" id="dtab"><thead><tr>'
  '<th data-k="name">Series</th><th data-k="ids">ID</th><th data-k="value">Where it stands</th><th class="num on" data-k="through">In hand through</th>'
  '<th class="num" data-k="next">Next published</th></tr></thead><tbody>'
- +_trs+'</tbody></table></div><p class="dleg"><a href="/margins/">Margins &mdash; every object\'s distance to its line</a></p>'+_legend+
+ +_trs+'</tbody></table></div><p class="dleg"><a href="/margins/">Margins</a></p>'+_legend+
  '<script>(function(){var tb=document.getElementById("dtab"),ths=tb.querySelectorAll("th[data-k]"),cur="through",dir=-1;'
  'function srt(k,d){var body=tb.tBodies[0],rows=Array.prototype.slice.call(body.rows);rows.sort(function(a,b){var x=a.dataset[k]||"",y=b.dataset[k]||"";if(x===y)return 0;if(x==="")return 1;if(y==="")return -1;return (x<y?-1:1)*d;});'
  'rows.forEach(function(r){body.appendChild(r);});ths.forEach(function(t){t.classList.remove("on","asc");if(t.dataset.k===k){t.classList.add("on");if(d>0)t.classList.add("asc");}});}'
@@ -267,7 +308,7 @@ _datapage=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
  'srt("through",-1);})();</script>'
  '</div>\n'+_footer+'\n</body>\n</html>\n')
 os.makedirs(os.path.join(SITE,'public','data'),exist_ok=True)
-open(os.path.join(SITE,'public','data','index.html'),'w',encoding='utf-8').write(_datapage)
+open(os.path.join(SITE,'public','data','index.html'),'w',encoding='utf-8').write(_us(_datapage))
 
 # ---- THE MARGINS PAGE (24 September 2026, collection 368; plan Step 5 item 18): every object's distance to its line today, flagged within
 # ---- 20 per cent on the side that is live (open when the rule stands closed, close when it stands open), and the near-miss log the build
@@ -280,10 +321,12 @@ try:
     _rd.sort(key=lambda r:(-1 if r.get('side')==_live else 0, -_rat(r)))
     _mrows=''
     for r in _rd:
-        _q=_rat(r); _flag=(r.get('side')==_live and _q>=0.8)
+        _q=_rat(r); _flag=(r.get('side')==_live and 0.8<=_q<1); _past=(r.get('side')==_live and _q>=1)   # audit-0924: 250% of a line is not 'within 20%'
+        _nx=str(r.get('next') or '').split(' (')[0]
+        if _nx=='daily': _nx=(_dt3.date.today()+_dt3.timedelta(days=(3 if _dt3.date.today().weekday()==4 else 2 if _dt3.date.today().weekday()==5 else 1))).isoformat()
         _mrows+=('<tr class="%s"><td>%s</td><td>%s</td><td class="num">%s</td><td class="num">%s</td><td class="num"><b>%s</b>%s</td><td class="num">%s</td><td class="num">%s</td></tr>'
-                 % ('near' if _flag else '', r.get('side',''), _esc(str(r.get('object',''))), r.get('reading',''), r.get('line',''),
-                    ('%.0f%%' % (100*_q)) if _q>-9 else '', ' <span class="fl">within 20%</span>' if _flag else '', _fmtd(r.get('through')) if r.get('through') else '', _fmtd(r.get('next')) if r.get('next') else ''))
+                 % ('near' if (_flag or _past) else '', r.get('side',''), _esc(str(r.get('object',''))), r.get('reading',''), r.get('line',''),
+                    ('%.0f%%' % (100*_q)) if _q>-9 else '', ' <span class="fl">within 20%</span>' if _flag else (' <span class="fl">past its line</span>' if _past else ''), _fmtd(r.get('through')) if r.get('through') else '', _fmtd(_nx) if _nx else ''))
     _sp=list(_nm.get('spells') or []); _sp.sort(key=lambda x:str(x.get('start')))
     _nrows=''.join('<tr><td>%s</td><td>%s</td><td>%s</td><td class="num">%s</td><td class="num">%s</td></tr>' % (_fmtd(x.get('start')), _fmtd(x.get('end')), _esc(str(x.get('branch',''))), ('%.0f%%' % (100*float(x.get('max')))) if x.get('max') is not None else '', x.get('days','')) for x in _sp[-12:][::-1])
     _nav_m=_header.replace(' aria-current="page"','')
@@ -293,27 +336,26 @@ try:
       '.dtab th.num,.dtab td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}.dtab td{padding:9px 10px;border-bottom:1px solid #dfe4ea;vertical-align:top}'
       'tr.near td{background:#fff4f4}.fl{color:#990000;font-size:12px;font-weight:700;margin-left:6px}.dwrap{overflow-x:auto}h3{margin:28px 0 0;font-size:18px;color:#222}.sub{color:#555;font-size:13px;margin:4px 0 0}</style>\n</head>\n<body>\n'
       +_nav_m+'\n<div class="inner"><h2 style="margin-top:30px">Margins</h2><div class="rule"></div>'
-      '<p class="sub">Each object today, as a share of its line. The rule stands <b>%s</b>; the %s side is live.</p>' % ((state.get('standing') or {}).get('state','?'), _live)+
       '<div class="dwrap"><table class="dtab"><thead><tr><th>Side</th><th>Object</th><th class="num">Reading</th><th class="num">Line</th><th class="num">Of the line</th><th class="num">Through</th><th class="num">Next</th></tr></thead><tbody>'+_mrows+'</tbody></table></div>'
-      '<h3>Near misses</h3><p class="sub">Spells with an object at or above %s of its line outside a call, since 1948: %d. The last twelve.</p>' % (_nm.get('line',0.8), len(_sp))+
+      '<h3>Near misses since 1948: %d</h3>' % len(_sp)+
       '<div class="dwrap"><table class="dtab"><thead><tr><th>From</th><th>To</th><th>Branch</th><th class="num">Peak, of the line</th><th class="num">Days</th></tr></thead><tbody>'+_nrows+'</tbody></table></div>'
       '</div>\n'+_footer+'\n</body>\n</html>\n')
     os.makedirs(os.path.join(SITE,'public','margins'),exist_ok=True)
-    open(os.path.join(SITE,'public','margins','index.html'),'w',encoding='utf-8').write(_mpage)
+    open(os.path.join(SITE,'public','margins','index.html'),'w',encoding='utf-8').write(_us(_mpage))
     print('margins page built: %d objects, %d flagged within 20%% on the %s side, %d near-miss spells' % (len(_rd), sum(1 for r in _rd if r.get('side')==_live and _rat(r)>=0.8), _live, len(_sp)))
 except Exception as _e: print('margins page not built:', _e)
 
 # /data/warn/: the 25 states' own WARN notice pages, the sources leg N reads (17 September 2026, Anthony: a link takes
 # the reader to the actual source, never to a scraper's repository). Each state's page as the state publishes it.
-_WARN_STATES=[('AK','Alaska','https://jobs.alaska.gov/RR/WARN_notices.htm'),('AL','Alabama','https://www.madeinalabama.com/warn-list/'),('AZ','Arizona','https://www.azjobconnection.gov/search/warn_lookups'),
+_WARN_STATES=[('AK','Alaska','https://jobs.alaska.gov/RR/WARN_notices.htm'),('AL','Alabama','https://www.madeinalabama.com/warn-list/'),('AZ','Arizona','https://www.azjobconnection.gov/search/warn_lookups?utf8=%E2%9C%93&q%5Bnotice_on_gteq%5D=1990-01-01&q%5Bnotice_on_lteq%5D=2035-12-31&commit=Search&q%5Bs%5D=notice_on+desc'),
  ('CA','California','https://edd.ca.gov/en/Jobs_and_Training/Layoff_Services_WARN'),('CT','Connecticut','https://dolpublicdocumentlibrary.ct.gov/CsblrCategory?prefix=%2Frapid_response%2Fwarn_documents'),
- ('DC','District of Columbia','https://does.dc.gov/page/industry-closings-and-layoffs-warn-notifications-'),('DE','Delaware','https://joblink.delaware.gov/search/warn_lookups'),('IA','Iowa','https://workforce.iowa.gov/employers/business-resources/warn'),
- ('IL','Illinois','https://www2.illinois.gov/dceo/WorkforceDevelopment/warn/Pages/default.aspx'),('IN','Indiana','https://www.in.gov/dwd/warn-notices/current-warn-notices/'),('KY','Kentucky','https://kcc.ky.gov/employer/Pages/Business-Downsizing-Assistance---WARN.aspx'),
- ('MT','Montana','https://wsd.dli.mt.gov/wioa/related-links/warn-notice-page'),('NE','Nebraska','https://dol.nebraska.gov/ReemploymentServices/LayoffServices/LayoffsAndDownsizingWARN'),('NY','New York','https://dol.ny.gov/warn-notices'),
+ ('DC','District of Columbia','https://does.dc.gov/page/industry-closings-and-layoffs-warn-notifications'),('DE','Delaware','https://joblink.delaware.gov/search/warn_lookups?utf8=%E2%9C%93&q%5Bnotice_on_gteq%5D=1990-01-01&q%5Bnotice_on_lteq%5D=2035-12-31&commit=Search&q%5Bs%5D=notice_on+desc'),('IA','Iowa','https://workforce.iowa.gov/employers/business-resources/warn'),
+ ('IL','Illinois','https://dceo.illinois.gov/workforcedevelopment/warn.html'),('IN','Indiana','https://www.in.gov/dwd/warn-notices/current-warn-notices/'),('KY','Kentucky','https://kcc.ky.gov/Pages/News.aspx'),
+ ('MT','Montana','https://wsd.dli.mt.gov/wioa/related-links/warn-notice-page'),('NE','Nebraska','https://dol.nebraska.gov/ReemploymentServices/LayoffServices/LayoffsAndDownsizingWARN'),('NY','New York','https://dol.ny.gov/warn-dashboard'),
  ('OK','Oklahoma','https://www.employoklahoma.gov/Participants/s/warnnotices'),('OR','Oregon','https://ccwd.hecc.oregon.gov/Layoff/WARN'),('RI','Rhode Island','https://dlt.ri.gov/employers/worker-adjustment-and-retraining-notification-warn'),
  ('SC','South Carolina','https://scworks.org/employer/employer-programs/risk-closing/layoff-notification-reports'),('SD','South Dakota','https://dlr.sd.gov/workforce_services/businesses/warn_notices.aspx'),
  ('TN','Tennessee','https://www.tn.gov/workforce/general-resources/major-publications0/major-publications-redirect/reports.html'),('TX','Texas','https://www.twc.texas.gov/data-reports/warn-notice'),('UT','Utah','https://jobs.utah.gov/employer/business/warnnotices.html'),
- ('VT','Vermont','https://www.vermontjoblink.com/search/warn_lookups'),('WA','Washington','https://esd.wa.gov/about-employees/WARN'),('WI','Wisconsin','https://dwd.wisconsin.gov/dislocatedworker/warn/')]
+ ('VT','Vermont','https://www.vermontjoblink.com/search/warn_lookups?utf8=%E2%9C%93&q%5Bnotice_on_gteq%5D=1990-01-01&q%5Bnotice_on_lteq%5D=2035-12-31&commit=Search&q%5Bs%5D=notice_on+desc'),('WA','Washington','https://esd.wa.gov/about-employees/WARN'),('WI','Wisconsin','https://dwd.wisconsin.gov/dislocatedworker/warn/')]
 try:
     _wix={x['state']:x for x in json.load(open(os.path.join(_bhs_root(),'117_warn_notices_2026-09-14','data','warn_notices','_INDEX.json')))}
 except Exception: _wix={}

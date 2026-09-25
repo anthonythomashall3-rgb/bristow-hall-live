@@ -3,7 +3,7 @@ PASS  tile: unemployment rate month  got=Aug 2026  want=Aug 2026
 PASS  tile: payrolls (thousands -> millions)  got=159.1 million  want=159.1 million
 PASS  tile: payroll growth = 3-month average change  got=+71,000 a month  want=+71,000 a month
 PASS  tile: initial claims (persons, not thousands)  got=197,000  want=197,000
-PASS  tile: claims week  got=week ending 2026-09-19  want=week ending 2026-09-19
+PASS  tile: claims week  got=week ending Sep 19, 2026  want=week ending Sep 19, 2026
 PASS  tile: insured rate  got=1.1%  want=1.1%
 PASS  tile: job openings (thousands -> millions)  got=7.3 million  want=7.3 million
 PASS  tile: unemployed per opening reads ONE month  got=0.95  want=0.95
@@ -86,17 +86,17 @@ PASS  feed has a source link: Sahm rule, real time (the comparator on   got=True
 PASS  feed reading matches the readings table: Search week: Google searches for "unempl  got=-17.257  want=-17.257
 PASS  feed line matches the readings table: Search week: Google searches for "unempl  got=35.0  want=35.0
 PASS  feed is not dated in the future: Search week: Google searches for "unempl  got=2026-09-23  want=<= 2026-09-24
-PASS  feed next release is not in the past: Search week: Google searches for "unempl  got=2026-09-24  want=>= 2026-09-24
+PASS  feed next release is not in the past: Search week: Google searches for "unempl  got=2026-09-25  want=>= 2026-09-24
 PASS  feed has a source link: Search week: Google searches for "unempl  got=True  want=True
 PASS  feed reading matches the readings table: Search week: Google searches for "layoff  got=1.169  want=1.169
 PASS  feed line matches the readings table: Search week: Google searches for "layoff  got=35.0  want=35.0
 PASS  feed is not dated in the future: Search week: Google searches for "layoff  got=2026-09-23  want=<= 2026-09-24
-PASS  feed next release is not in the past: Search week: Google searches for "layoff  got=2026-09-24  want=>= 2026-09-24
+PASS  feed next release is not in the past: Search week: Google searches for "layoff  got=2026-09-25  want=>= 2026-09-24
 PASS  feed has a source link: Search week: Google searches for "layoff  got=True  want=True
 PASS  feed reading matches the readings table: Search week: Google searches for "laid o  got=27.343  want=27.343
 PASS  feed line matches the readings table: Search week: Google searches for "laid o  got=35.0  want=35.0
 PASS  feed is not dated in the future: Search week: Google searches for "laid o  got=2026-09-23  want=<= 2026-09-24
-PASS  feed next release is not in the past: Search week: Google searches for "laid o  got=2026-09-24  want=>= 2026-09-24
+PASS  feed next release is not in the past: Search week: Google searches for "laid o  got=2026-09-25  want=>= 2026-09-24
 PASS  feed has a source link: Search week: Google searches for "laid o  got=True  want=True
 PASS  headline date = last day of the daily series  got=2026-09-24  want=2026-09-24
 PASS  daily series is in date order  got=True  want=True
@@ -154,7 +154,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-09-12)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-09-24 18:26', '2026-09-24 18:26')  want=('2026-09-24 18:26', '2026-09-24 18:26')
+PASS  public state copies are this build  got=('2026-09-24 20:19', '2026-09-24 20:19')  want=('2026-09-24 20:19', '2026-09-24 20:19')
 PASS  front-page tiles fetched today  got=2026-09-24  want=2026-09-24
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]

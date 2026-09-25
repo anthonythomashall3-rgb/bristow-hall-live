@@ -36,7 +36,7 @@ h2{font-size:25px;font-weight:700;color:#111;margin:40px 0 0}
 .badge.live{color:#166534;background:#e8f3ec;border:1px solid #cfe3d6}
 .badge.dev{color:#7a5200;background:#fbf4e6;border:1px solid #eadfc4}
 .thumb{border:1px solid #e6e9ed;background:#fff;height:150px;width:100%;display:block}
-.thumb.ph{background:repeating-linear-gradient(135deg,#fcfdfe,#fcfdfe 10px,#f3f5f8 10px,#f3f5f8 20px);border-style:dashed}
+.thumb.ph{background:repeating-linear-gradient(135deg,#fcfdfe,#fcfdfe 10px,#f3f5f8 10px,#f3f5f8 20px);border-style:solid}
 .card .name{font-weight:700;font-size:16px;color:#990000}
 .card .desc{color:#555;font-size:13.5px}
 .papers{border-top:1px solid #dfe4ea}
@@ -120,11 +120,11 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;',
 (function(){
   const T=[
    {n:'Real-Time Bristow-Hall Rule Recession Indicator',s:'live',href:'/detector/',d:'The rule’s reading on one line, every release day since 1948, with the recessions it dated and the committee’s.',spark:true},
-   {n:'Real-Time National Disturbance Indicator',s:'dev',href:'/disturbance/',d:'The national labour disturbance beneath a call: what moved, when it moved, and how far it went.'},
+   {n:'Real-Time National Disturbance Indicator',s:'dev',href:'/disturbance/',d:'The national labor disturbance beneath a call: what moved, when it moved, and how far it went.'},
    {n:'Real-Time State Recession Indicator',s:'dev',href:'/state-onset/',d:'The same rule read state by state, so an onset is seen where it starts and not only in the aggregate.'},
-   {n:'National Stress Map',s:'dev',href:'/stress-map/',d:'Labour-market stress across the fifty states and the District, on one scale, week by week.'},
+   {n:'National Stress Map',s:'dev',href:'/stress-map/',d:'Labor-market stress across the fifty states and the District, on one scale, week by week.'},
    {n:'Damage Index',s:'dev',href:'/damage-index/',d:'A Richter scale for recessions: how deep, how broad, and where - not only when.'},
-   {n:'Business-Cycle Chronology',s:'dev',href:'/chronology/',d:'The programme’s dated chronology of peaks and troughs beside the committee’s and the OECD’s.'}
+   {n:'Business-Cycle Chronology',s:'dev',href:'/chronology/',d:'The program’s dated chronology of peaks and troughs beside the committee’s and the OECD’s.'}
   ];
   document.getElementById('tools').innerHTML=T.map(t=>{
     const head=t.s==='live'?'<span class="badge live">LIVE</span>':'<span class="badge dev">IN DEVELOPMENT</span>';
@@ -142,7 +142,7 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;',
   const Y=v=>Hh-pad-(Math.min(v,vmax)/vmax)*(Hh-2*pad);
   let g='';
   for(const r of (H.bands||[])){ const a=X(r[0]),b=X(r[1]); if(b>=pad&&a<=W-pad) g+='<rect x="'+Math.max(pad,a).toFixed(1)+'" y="0" width="'+Math.max(1,(Math.min(W-pad,b)-Math.max(pad,a))).toFixed(1)+'" height="'+Hh+'" fill="#e9edf2"/>'; }
-  g+='<line x1="'+pad+'" x2="'+(W-pad)+'" y1="'+Y(1).toFixed(1)+'" y2="'+Y(1).toFixed(1)+'" stroke="#FFCC00" stroke-width="1" stroke-dasharray="4 3"/>';
+  g+='<line x1="'+pad+'" x2="'+(W-pad)+'" y1="'+Y(1).toFixed(1)+'" y2="'+Y(1).toFixed(1)+'" stroke="#FFCC00" stroke-width="1"/>';
   let d='',pen=false;
   s.dates.forEach((dt,i)=>{ const v=s.values[i]; if(v==null){pen=false;return;} const px=X(dt).toFixed(1), py=Y(v).toFixed(1); d+=(pen?'L':'M')+px+' '+py+' '; pen=true; });
   g+='<path d="'+d+'" fill="none" stroke="#990000" stroke-width="1.2"/>';

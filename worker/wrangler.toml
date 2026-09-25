@@ -1,0 +1,20 @@
+# bhr-dispatch - starts the Bristow-Hall site's update at the release slots (collection 278, 21 September 2026).
+# Deployed from the Mac:  cd cloud/worker && wrangler deploy
+# Secrets (never in this file): GH_TOKEN (Anthony's fine-grained GitHub token, Actions: Read and write on
+# bristow-hall-live), NTFY_TOPIC (the site's phone alert topic).
+name = "bhr-dispatch"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[triggers]
+# every five minutes; the Worker itself decides whether a release slot has passed since the site's last build
+crons = ["*/5 * * * *"]
+
+# the heartbeat (last_tick) and which alerts were already sent (21 September 2026)
+[[kv_namespaces]]
+binding = "STATE"
+id = "189256f3f4594c47b65abc74ee39b035"
+
+[observability]
+enabled = true
