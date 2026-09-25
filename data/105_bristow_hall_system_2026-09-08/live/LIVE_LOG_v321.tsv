@@ -2083,3 +2083,31 @@ run_date	side	object	reading	line	at_or_above	data_through
 2026-09-25	close	S&P 500 above its 26-week low on the release day, percent	21.445	15.0	YES	2026-09-19
 2026-09-25	close	continued claims 4-week mean below its 26-week maximum, log points	5.0815	3.0	YES	2026-09-19
 2026-09-25	close	insured rate 4-week mean below its 26-week maximum, tenths	0.0	3.0	no	2026-09-19
+2026-09-25	open	insured rate, rise above its 52-week low (co-signed within 0.2 of the line)	0.0	0.45	no	2026-09-12
+2026-09-25	open	insured rate, rise above its 52-week low	0.0	0.6	no	2026-09-12
+2026-09-25	open	initial claims, 4-week mean above its base (the higher of its 52-week low and 85% of its 5-year median), percent (co-signed within 15 of the line)	1.7699	40	no	2026-09-19
+2026-09-25	open	household co-signer: 3-month average unemployment rate above its 12-month low, as last published (signs a near-line insured-rate or claims proposal)	-0.0333	0.2	no	2026-08-01
+2026-09-25	open	Sahm gap (three-month average unemployment rate above its twelve-month low, as it stood on the release day; it proposes only with the vacancy rate 0.25 or more off its 4-month high in two of the prior 12 months)	-0.0667	0.3667	no	2026-08-01
+2026-09-25	open	sudden stop: one week of initial claims above the claims base, percent (fires with the S&P 500 20 percent under its 20-day high)	-0.3793	35.0	no	2026-09-19
+2026-09-25	open	sudden stop: the search week - 7-day mean of Google searches for "unemployment" above its base, percent (fires with the S&P 500 20 percent under its 20-day high at that day's close; known the next morning; the earliest term fires)	-19.0404	35.0	no	2026-09-24
+2026-09-25	open	sudden stop: the search week - 7-day mean of Google searches for "layoffs" above its base, percent (fires with the S&P 500 20 percent under its 20-day high at that day's close; known the next morning; the earliest term fires)	-3.1395	35.0	no	2026-09-24
+2026-09-25	open	sudden stop: the search week - 7-day mean of Google searches for "laid off" above its base, percent (fires with the S&P 500 20 percent under its 20-day high at that day's close; known the next morning; the earliest term fires)	24.3452	35.0	no	2026-09-24
+2026-09-25	open	sudden stop: S&P 500 below its high of the prior twenty trading days, percent, at the latest close (the claims week reads the close before its release, the search week the day's close)	0.7801	20.0	no	2026-09-24
+2026-09-25	open	activity opener: industrial production as published, below its high of the prior twelve months, log points (one of four conditions, with the S&P 500 10 percent below its 250-day high, the policy rate 0.1 point above its 365-day low and state breadth at 33 percent; the cell and gate the causal walk from 1948 chose)	-0.02	2.0	no	2026-09-18
+2026-09-25	open	activity opener: S&P 500 below its high of the prior 250 trading days, log percent, at the latest close	1.22	10.0	no	2026-09-24
+2026-09-25	open	activity opener: the policy rate above its low of the prior 365 days, points (the FOMC target range's upper limit, FRED DFEDTARU)	0.25	0.1	YES	2026-09-25
+2026-09-25	open	activity opener: state breadth, the share of states with the insured-rate proxy 0.45 point above its twelve-month low, in the latest month public (the gate)	0.0	0.33	no	2026-08
+2026-09-25	open	survey-week insured rate, rise above its 52-week low (branch W, line 0.3)	0.1	0.3	no	2026-09-01
+2026-09-25	open	survey-week insured rate, rise above its 52-week low (branch V, line 0.6)	0.1	0.6	no	2026-09-01
+2026-09-25	open	state breadth, share of states with the insured rate 0.20 above its 52-week low	0.0385	0.6	no	2026-09-12
+2026-09-25	confirm	vacancy rate, 4-month mean below its 4-month maximum (openings as they stood on the JOLTS release day)	-0.0627	0.25	no	2026-07-01
+2026-09-25	confirm	hours pair (factory hours 2% off their 12-month high and nondurable jobs -1.2% over 3 months, as they stood on the release day; 1 = both)	0.0	1.0	no	2026-08-01
+2026-09-25	confirm	housing x rate pair (starts or building permits 29 log points below their 12-month high, and the unemployment rate 0.4 above its 18-month low, each as it stood on its release day; 1 = both halves at their lines)	0.0	1.0	no	2026-08-01
+2026-09-25	confirm	starts x vacancy pair (starts 29 log points below their 12-month high and the vacancy rate 0.25 off its 4-month high; 1 = both)	-0.2509	1.0	no	2026-08-01
+2026-09-25	confirm	paper spread (the wider of AA financial and AA nonfinancial 30-day paper over the 3-month bill), 13-week mean above its 39-week low, points	0.0	0.9	no	2026-09-18
+2026-09-25	close	initial claims 3-week mean, drop from its 26-week maximum, log points	12.6831	6.0	YES	2026-09-19
+2026-09-25	close	run of falling weeks	2.0	3.0	no	2026-09-19
+2026-09-25	close	hump above the 52-week minimum, log points	15.3906	20.0	no	2026-09-19
+2026-09-25	close	S&P 500 above its 26-week low on the release day, percent	21.445	15.0	YES	2026-09-19
+2026-09-25	close	continued claims 4-week mean below its 26-week maximum, log points	5.0815	3.0	YES	2026-09-19
+2026-09-25	close	insured rate 4-week mean below its 26-week maximum, tenths	0.0	3.0	no	2026-09-19
