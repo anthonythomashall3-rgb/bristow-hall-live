@@ -1,7 +1,14 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-09-25 08:53",
+   "due_ny": "2026-09-24 08:30",
+   "ids": "eta 539 state insured rates",
+   "short": "weekly claims"
+  }
+ ],
  "expired": [],
- "last_check_ny": "2026-09-25 08:23",
+ "last_check_ny": "2026-09-25 08:48",
  "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }

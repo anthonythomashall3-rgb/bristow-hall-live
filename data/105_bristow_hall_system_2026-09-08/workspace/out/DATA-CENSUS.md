@@ -1,11 +1,11 @@
-# The data census - 2026-09-25 (the tool v3.74, built 2026-09-25 08:27)
+# The data census - 2026-09-25 (the tool v3.74, built 2026-09-25 08:52)
 
 Every input the live tool reads: the publisher and route, the backup or substitute, the schedule, what is in hand, and the guard on its format. Gaps are listed at the end.
 
 | feed | series | source | every | in hand through | next | backup or substitute | format guard |
 |---|---|---|---|---|---|---|---|
 | Initial claims, continued claims, insured unemployment rate | ICSA, CCSA, IURSA | Department of Labor (the UI claims news release; ALFRED vintages after it) | Weekly - Thursday 8:30 AM ET (Wednesday before a Thursday ho | 2026-09-19 | 2026-10-01 | the states' ETA 539 weekly file with the Bureau's seasonal factors (s2/claims_substitute.py, exact where teste | q41 feed checks; the claims loader asserts the release week columns (45) |
-| State insured unemployment rates (the breadth object) | ETA 539 state insured rates | Department of Labor (page 8 of the weekly release; the advance state table of th | Weekly - Thursday 8:30 AM ET, one week behind initial claims | 2026-09-05 | 2026-10-01 | the advance state table of the weekly release PDF while the archive catches up | the page-8 parse validated against the advance table |
+| State insured unemployment rates (the breadth object) | ETA 539 state insured rates | Department of Labor (page 8 of the weekly release; the advance state table of th | Weekly - Thursday 8:30 AM ET, one week behind initial claims | 2026-09-12 | 2026-10-01 | the advance state table of the weekly release PDF while the archive catches up | the page-8 parse validated against the advance table |
 | Unemployment rate, factory hours, nondurable employment | UNRATE, AWHMAN, NDMANEMP, PAYEMS | Bureau of Labor Statistics, Employment Situation | Monthly - usually the first Friday, 8:30 AM ET | 2026-08-01 | 2026-10-02 | the Chicago Fed real-time unemployment forecast; ADP private payrolls (LSEG first prints) - declared, not auto | q41: the tile and the readings recomputed from the fetched files |
 | Job openings (the vacancy rate) | JTSJOL, CLF16OV | Bureau of Labor Statistics, JOLTS | Monthly - about five weeks after the month, 10:00 AM ET | 2026-07-01 | 2026-09-29 | the Indeed Hiring Lab postings index, at most two months (s2/vacancy_bridge.py; collection 330) | walk39 asserts the vacancy first prints are not stale (>150 rows, within 8 months) |
 | Housing starts and building permits | HOUST, PERMIT | Census Bureau, New Residential Construction | Monthly - about the 17th, 8:30 AM ET | 2026-08-01 | 2026-10-20 | building permits beside starts (the pair reads either); the Census calendar | q41 feed checks |

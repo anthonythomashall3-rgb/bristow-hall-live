@@ -31,9 +31,9 @@ PASS  feed line matches the readings table: Initial claims, continued claims, in
 PASS  feed is not dated in the future: Initial claims, continued claims, insure  got=2026-09-19  want=<= 2026-09-25
 PASS  feed next release is not in the past: Initial claims, continued claims, insure  got=2026-10-01  want=>= 2026-09-25
 PASS  feed has a source link: Initial claims, continued claims, insure  got=True  want=True
-PASS  feed reading matches the readings table: State insured unemployment rates (the br  got=0.094  want=0.094
+PASS  feed reading matches the readings table: State insured unemployment rates (the br  got=0.038  want=0.038
 PASS  feed line matches the readings table: State insured unemployment rates (the br  got=0.6  want=0.6
-PASS  feed is not dated in the future: State insured unemployment rates (the br  got=2026-09-05  want=<= 2026-09-25
+PASS  feed is not dated in the future: State insured unemployment rates (the br  got=2026-09-12  want=<= 2026-09-25
 PASS  feed next release is not in the past: State insured unemployment rates (the br  got=2026-10-01  want=>= 2026-09-25
 PASS  feed has a source link: State insured unemployment rates (the br  got=True  want=True
 PASS  feed reading matches the readings table: Unemployment rate, factory hours, nondur  got=-0.067  want=-0.067
@@ -154,7 +154,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-09-12)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-09-25 08:27', '2026-09-25 08:27')  want=('2026-09-25 08:27', '2026-09-25 08:27')
+PASS  public state copies are this build  got=('2026-09-25 08:52', '2026-09-25 08:52')  want=('2026-09-25 08:52', '2026-09-25 08:52')
 PASS  front-page tiles fetched today  got=2026-09-25  want=2026-09-25
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]

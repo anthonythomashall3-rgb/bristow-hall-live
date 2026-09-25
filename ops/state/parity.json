@@ -1,6 +1,6 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
- "checked_at": "2026-09-25T12:28Z",
+ "checked_at": "2026-09-25T12:53Z",
  "open_misses": [],
  "reads": [
   {
@@ -132,6 +132,16 @@
    "read_at": "2026-09-25T12:28Z",
    "release": null,
    "to": "2026-09-24"
+  },
+  {
+   "from": "2026-09-05",
+   "ids": "ETA 539 state insured rates",
+   "lag_min": null,
+   "name": null,
+   "posted": null,
+   "read_at": "2026-09-25T12:53Z",
+   "release": null,
+   "to": "2026-09-12"
   }
  ],
  "since": "2026-09-23T23:12Z"

@@ -1,7 +1,7 @@
 {
- "built_at": "2026-09-25 08:27",
+ "built_at": "2026-09-25 08:52",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-09-25T12:27:55Z",
+ "generated_utc": "2026-09-25T12:53:03Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -3676,6 +3676,109 @@
    "confirmed_through": "2026-12-31",
    "fred_clock": "08:34",
    "freq": "weekly",
+   "ids": "eta 539 state insured rates",
+   "link": "https://oui.doleta.gov/unemploy/claims.asp",
+   "name": "state insured unemployment rates",
+   "next_expected": false,
+   "next_ny": "2026-10-01 08:30",
+   "read_lag_min": 1455,
+   "release_id": 180,
+   "short": "weekly claims",
+   "slots": true,
+   "source": "FRED release 180",
+   "through": "2026-09-12",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-09-17 08:30",
+     "utc": "2026-09-17T12:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-09-24 08:30",
+     "utc": "2026-09-24T12:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-01 08:30",
+     "utc": "2026-10-01T12:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-08 08:30",
+     "utc": "2026-10-08T12:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-15 08:30",
+     "utc": "2026-10-15T12:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-22 08:30",
+     "utc": "2026-10-22T12:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-29 08:30",
+     "utc": "2026-10-29T12:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-05 08:30",
+     "utc": "2026-11-05T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-12 08:30",
+     "utc": "2026-11-12T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-19 08:30",
+     "utc": "2026-11-19T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 08:30",
+     "utc": "2026-11-25T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-03 08:30",
+     "utc": "2026-12-03T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-10 08:30",
+     "utc": "2026-12-10T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 08:30",
+     "utc": "2026-12-17T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-24 08:30",
+     "utc": "2026-12-24T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-31 08:30",
+     "utc": "2026-12-31T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-10-01",
+   "confirmed_through": "2026-12-31",
+   "fred_clock": "08:34",
+   "freq": "weekly",
    "ids": "iursa",
    "link": "https://www.dol.gov/ui/data.pdf",
    "name": "insured unemployment rate",
@@ -3893,109 +3996,6 @@
    "slots": true,
    "source": "FRED release 180",
    "through": "2026-09-12",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-09-17 08:30",
-     "utc": "2026-09-17T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-09-24 08:30",
-     "utc": "2026-09-24T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-01 08:30",
-     "utc": "2026-10-01T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-08 08:30",
-     "utc": "2026-10-08T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-15 08:30",
-     "utc": "2026-10-15T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-22 08:30",
-     "utc": "2026-10-22T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-29 08:30",
-     "utc": "2026-10-29T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-05 08:30",
-     "utc": "2026-11-05T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-12 08:30",
-     "utc": "2026-11-12T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-19 08:30",
-     "utc": "2026-11-19T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 08:30",
-     "utc": "2026-11-25T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-03 08:30",
-     "utc": "2026-12-03T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-10 08:30",
-     "utc": "2026-12-10T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 08:30",
-     "utc": "2026-12-17T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-24 08:30",
-     "utc": "2026-12-24T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-31 08:30",
-     "utc": "2026-12-31T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-10-01",
-   "confirmed_through": "2026-12-31",
-   "fred_clock": "08:34",
-   "freq": "weekly",
-   "ids": "eta 539 state insured rates",
-   "link": "https://oui.doleta.gov/unemploy/claims.asp",
-   "name": "state insured unemployment rates",
-   "next_expected": false,
-   "next_ny": "2026-10-01 08:30",
-   "read_lag_min": 1455,
-   "release_id": 180,
-   "short": "weekly claims",
-   "slots": true,
-   "source": "FRED release 180",
-   "through": "2026-09-05",
    "time_known": true,
    "time_note": null,
    "times": [

@@ -1,5 +1,5 @@
 {
- "built_at": "2026-09-25 08:27",
+ "built_at": "2026-09-25 08:52",
  "version": "v3.74",
  "census_date": "2026-09-25",
  "feeds": [
@@ -21,10 +21,10 @@
    "series": "ETA 539 state insured rates",
    "source": "Department of Labor (page 8 of the weekly release; the advance state table of the release PDF while the archive catches up)",
    "every": "Weekly - Thursday 8:30 AM ET, one week behind initial claims",
-   "through": "2026-09-05",
+   "through": "2026-09-12",
    "next": "2026-10-01",
    "link": "https://oui.doleta.gov/unemploy/claims.asp",
-   "value": "9.4%",
+   "value": "3.8%",
    "backup": "the advance state table of the weekly release PDF while the archive catches up",
    "format_check": "the page-8 parse validated against the advance table",
    "auto": "yes"
