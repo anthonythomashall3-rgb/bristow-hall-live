@@ -52,8 +52,21 @@
     for (i = 0; i < times.length; i++) {
       if (Date.parse(times[i].utc) > now) { if (!nxt) nxt = times[i]; } else prev = times[i];
     }
-    // audit-0924 (24 Sep 2026; Anthony: the day it is next published, exact dates only, no sentences): a release that has
-    // gone by is never shown as due or pending - the next one is. A late feed is the checks' business, not the page's.
+    // WHILE A RELEASE IS BEING FETCHED (audit-0925, 25 Sep 2026; Anthony: "fix the s&p 500 issue while its fetching"). From
+    // 4:00 PM until the run that reads the close had published, the S&P 500 row already showed the next trading day while its
+    // value was still the day before's close. A release whose time has passed but that no build has read yet - the build the
+    // site carries (cal.built_at, New York) is older than the release plus the time the tool needs before it can read it (its
+    // read lag; the close settles by 4:15) - is still the next one the site publishes, so it stays, day and clock time only.
+    // Once a build after it is published, the next one shows (below). Only rows a run is timed to read (their own slot, or the
+    // close run) and read within three hours of their release; if no build comes within three hours of that, the page rolls
+    // forward as before (a late run is the checks' business).
+    if (prev && !prev.expected && builtAt) {
+      var close = /^rule: nyse_close/.test(r.source || '');
+      var lag = (+r.read_lag_min || 0) + (close ? 15 : 0), readAt = Date.parse(prev.utc) + lag * 60000;
+      if ((r.slots || close) && lag <= 180 && now < readAt + 3 * 3600 * 1000 && builtAt < nyStamp(readAt)) return { t: prev };
+    }
+    // audit-0924 (24 Sep 2026; Anthony: the day it is next published, exact dates only, no sentences): a release the site
+    // has read is never shown as due or pending - the next one is. A late feed is the checks' business, not the page's.
     if (!nxt) return null;
     var today = nyDay(now), passedToday = false;
     for (i = 0; i < times.length; i++) {

@@ -1,0 +1,243 @@
+{
+ "day": "2026-09-25",
+ "fetch": {
+  "the ETA 539 file (s2/state539_live.py, s2/activity_opener.py, s2/backstop.py)": "ok",
+  "the Indeed postings index (bhs_update.py)": "ok",
+  "the LAUS release schedule (s2/state_breadth.py)": "blocked",
+  "the S&P 500 chart feed (bhs_update.py)": "blocked",
+  "the weekly claims release (bhs_dol_press.py)": "blocked"
+ },
+ "problems": {},
+ "rows": {
+  "0": [
+   [
+    "Department of Labor, weekly claims release (data.pdf)",
+    "https://www.dol.gov/ui/data.pdf"
+   ],
+   [
+    "ALFRED ICSA",
+    "https://alfred.stlouisfed.org/series?seid=ICSA"
+   ],
+   [
+    "ALFRED CCSA",
+    "https://alfred.stlouisfed.org/series?seid=CCSA"
+   ],
+   [
+    "ALFRED IURSA",
+    "https://alfred.stlouisfed.org/series?seid=IURSA"
+   ]
+  ],
+  "1": [
+   [
+    "FRED release 469, State Unemployment Insurance Weekly Claims Report",
+    "https://fred.stlouisfed.org/release?rid=469"
+   ]
+  ],
+  "2": [
+   [
+    "ALFRED UNRATE",
+    "https://alfred.stlouisfed.org/series?seid=UNRATE"
+   ],
+   [
+    "ALFRED AWHMAN",
+    "https://alfred.stlouisfed.org/series?seid=AWHMAN"
+   ],
+   [
+    "ALFRED NDMANEMP",
+    "https://alfred.stlouisfed.org/series?seid=NDMANEMP"
+   ],
+   [
+    "ALFRED PAYEMS",
+    "https://alfred.stlouisfed.org/series?seid=PAYEMS"
+   ]
+  ],
+  "3": [
+   [
+    "ALFRED JTSJOL",
+    "https://alfred.stlouisfed.org/series?seid=JTSJOL"
+   ],
+   [
+    "ALFRED CLF16OV",
+    "https://alfred.stlouisfed.org/series?seid=CLF16OV"
+   ]
+  ],
+  "4": [
+   [
+    "ALFRED HOUST",
+    "https://alfred.stlouisfed.org/series?seid=HOUST"
+   ],
+   [
+    "ALFRED PERMIT",
+    "https://alfred.stlouisfed.org/series?seid=PERMIT"
+   ]
+  ],
+  "5": [
+   [
+    "FRED DCPF1M",
+    "https://fred.stlouisfed.org/series/DCPF1M"
+   ],
+   [
+    "FRED DCPN30",
+    "https://fred.stlouisfed.org/series/DCPN30"
+   ],
+   [
+    "FRED WTB3MS",
+    "https://fred.stlouisfed.org/series/WTB3MS"
+   ]
+  ],
+  "6": [
+   [
+    "Yahoo Finance ^GSPC",
+    "https://finance.yahoo.com/quote/%5EGSPC/history/"
+   ],
+   [
+    "FRED SP500",
+    "https://fred.stlouisfed.org/series/SP500"
+   ]
+  ],
+  "7": [
+   [
+    "ALFRED INDPRO",
+    "https://alfred.stlouisfed.org/series?seid=INDPRO"
+   ]
+  ],
+  "8": [
+   [
+    "FRED DFEDTARU",
+    "https://fred.stlouisfed.org/series/DFEDTARU"
+   ]
+  ],
+  "9": [
+   [
+    "Department of Labor, ETA 539 (ar539.csv)",
+    "https://oui.doleta.gov/unemploy/csv/ar539.csv"
+   ],
+   [
+    "FRED release 112, State Employment and Unemployment",
+    "https://fred.stlouisfed.org/release?rid=112"
+   ]
+  ],
+  "10": [
+   [
+    "FRED release 112, State Employment and Unemployment",
+    "https://fred.stlouisfed.org/release?rid=112"
+   ]
+  ],
+  "11": [
+   [
+    "FRED GDPC1",
+    "https://fred.stlouisfed.org/series/GDPC1"
+   ]
+  ],
+  "12": [
+   [
+    "ALFRED GDPNOW",
+    "https://alfred.stlouisfed.org/series?seid=GDPNOW"
+   ]
+  ],
+  "13": [
+   [
+    "FRED SAHMREALTIME",
+    "https://fred.stlouisfed.org/series/SAHMREALTIME"
+   ]
+  ],
+  "14": [
+   [
+    "Google Trends \"unemployment\"",
+    "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment"
+   ]
+  ],
+  "15": [
+   [
+    "Google Trends \"layoffs\"",
+    "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=layoffs"
+   ]
+  ],
+  "16": [
+   [
+    "Google Trends \"laid off\"",
+    "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=laid%20off"
+   ]
+  ],
+  "17": [
+   [
+    "FRED UNRATE",
+    "https://fred.stlouisfed.org/series/UNRATE"
+   ]
+  ],
+  "18": [
+   [
+    "FRED PAYEMS",
+    "https://fred.stlouisfed.org/series/PAYEMS"
+   ]
+  ],
+  "19": [
+   [
+    "FRED ICSA",
+    "https://fred.stlouisfed.org/series/ICSA"
+   ]
+  ],
+  "20": [
+   [
+    "FRED IURSA",
+    "https://fred.stlouisfed.org/series/IURSA"
+   ]
+  ],
+  "21": [
+   [
+    "FRED JTSJOL",
+    "https://fred.stlouisfed.org/series/JTSJOL"
+   ]
+  ],
+  "22": [
+   [
+    "FRED JTSQUR",
+    "https://fred.stlouisfed.org/series/JTSQUR"
+   ]
+  ],
+  "23": [
+   [
+    "FRED CPIAUCSL",
+    "https://fred.stlouisfed.org/series/CPIAUCSL"
+   ]
+  ],
+  "24": [
+   [
+    "FRED CCNSA",
+    "https://fred.stlouisfed.org/series/CCNSA"
+   ],
+   [
+    "FRED COVEMP",
+    "https://fred.stlouisfed.org/series/COVEMP"
+   ]
+  ],
+  "25": [
+   [
+    "Department of Labor, ETA 539 (ar539.csv)",
+    "https://oui.doleta.gov/unemploy/csv/ar539.csv"
+   ]
+  ],
+  "26": [
+   [
+    "FRED CFNAIMA3",
+    "https://fred.stlouisfed.org/series/CFNAIMA3"
+   ]
+  ],
+  "27": [
+   [
+    "ALFRED UNRATE",
+    "https://alfred.stlouisfed.org/series?seid=UNRATE"
+   ],
+   [
+    "ALFRED JTSJOL",
+    "https://alfred.stlouisfed.org/series?seid=JTSJOL"
+   ]
+  ],
+  "28": [
+   [
+    "FRED WEI",
+    "https://fred.stlouisfed.org/series/WEI"
+   ]
+  ]
+ }
+}

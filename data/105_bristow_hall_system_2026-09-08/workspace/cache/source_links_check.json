@@ -1,0 +1,369 @@
+{
+ "checked_utc": "2026-09-25T22:18:49Z",
+ "urls": {
+  "https://alfred.stlouisfed.org/series?seid=AWHMAN": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://alfred.stlouisfed.org/series?seid=CCSA": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://alfred.stlouisfed.org/series?seid=CLF16OV": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://alfred.stlouisfed.org/series?seid=GDPNOW": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://alfred.stlouisfed.org/series?seid=HOUST": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://alfred.stlouisfed.org/series?seid=ICSA": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://alfred.stlouisfed.org/series?seid=INDPRO": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://alfred.stlouisfed.org/series?seid=IURSA": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://alfred.stlouisfed.org/series?seid=JTSJOL": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://alfred.stlouisfed.org/series?seid=NDMANEMP": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://alfred.stlouisfed.org/series?seid=PAYEMS": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://alfred.stlouisfed.org/series?seid=PERMIT": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://alfred.stlouisfed.org/series?seid=UNRATE": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://finance.yahoo.com/quote/%5EGSPC/history/": {
+   "alerted": null,
+   "code": 200,
+   "day": "2026-09-25",
+   "final": null,
+   "hops": [],
+   "status": "ok"
+  },
+  "https://fred.stlouisfed.org/release?rid=112": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/release?rid=469": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/CCNSA": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/CFNAIMA3": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/COVEMP": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/CPIAUCSL": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/DCPF1M": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/DCPN30": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/DFEDTARU": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/GDPC1": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/ICSA": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/IURSA": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/JTSJOL": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/JTSQUR": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/PAYEMS": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/SAHMREALTIME": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/SP500": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/UNEMPLOY": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/UNRATE": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/WEI": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://fred.stlouisfed.org/series/WTB3MS": {
+   "alerted": null,
+   "code": null,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "ok",
+   "via": "FRED API"
+  },
+  "https://oui.doleta.gov/unemploy/DataDownloads.asp": {
+   "alerted": null,
+   "code": 200,
+   "day": "2026-09-25",
+   "final": null,
+   "hops": [],
+   "status": "ok"
+  },
+  "https://oui.doleta.gov/unemploy/claims.asp": {
+   "alerted": null,
+   "code": 200,
+   "day": "2026-09-25",
+   "final": null,
+   "hops": [],
+   "status": "ok"
+  },
+  "https://oui.doleta.gov/unemploy/csv/ar539.csv": {
+   "alerted": null,
+   "code": 206,
+   "day": "2026-09-25",
+   "final": null,
+   "hops": [],
+   "status": "ok"
+  },
+  "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=5d&interval=1d": {
+   "alerted": null,
+   "code": 429,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "blocked"
+  },
+  "https://raw.githubusercontent.com/hiring-lab/data/master/US/aggregate_job_postings_US.csv": {
+   "alerted": null,
+   "code": 206,
+   "day": "2026-09-25",
+   "final": null,
+   "hops": [],
+   "status": "ok"
+  },
+  "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=laid%20off": {
+   "alerted": null,
+   "code": 429,
+   "day": "2026-09-25",
+   "final": null,
+   "quiet": true,
+   "status": "blocked"
+  },
+  "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=layoffs": {
+   "alerted": null,
+   "code": 429,
+   "day": "2026-09-25",
+   "final": null,
+   "quiet": true,
+   "status": "blocked"
+  },
+  "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment": {
+   "alerted": null,
+   "code": 429,
+   "day": "2026-09-25",
+   "final": null,
+   "quiet": true,
+   "status": "blocked"
+  },
+  "https://www.bls.gov/lau/": {
+   "alerted": null,
+   "code": 403,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "blocked"
+  },
+  "https://www.bls.gov/schedule/news_release/laus.htm": {
+   "alerted": null,
+   "code": 403,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "blocked"
+  },
+  "https://www.dol.gov/ui/data.pdf": {
+   "alerted": null,
+   "code": 403,
+   "day": "2026-09-25",
+   "final": null,
+   "status": "blocked"
+  }
+ }
+}
