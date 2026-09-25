@@ -53,13 +53,13 @@ PASS  feed next release is not in the past: Housing starts and building permits 
 PASS  feed has a source link: Housing starts and building permits  got=True  want=True
 PASS  feed reading matches the readings table: Commercial paper and three-month bill ra  got=0.0  want=0.0
 PASS  feed line matches the readings table: Commercial paper and three-month bill ra  got=0.9  want=0.9
-PASS  feed is not dated in the future: Commercial paper and three-month bill ra  got=2026-09-23  want=<= 2026-09-25
-PASS  feed next release is not in the past: Commercial paper and three-month bill ra  got=2026-09-25  want=>= 2026-09-25
+PASS  feed is not dated in the future: Commercial paper and three-month bill ra  got=2026-09-24  want=<= 2026-09-25
+PASS  feed next release is not in the past: Commercial paper and three-month bill ra  got=2026-09-28  want=>= 2026-09-25
 PASS  feed has a source link: Commercial paper and three-month bill ra  got=True  want=True
-PASS  feed reading matches the readings table: S&P 500 daily close (the market gate of   got=0.78  want=0.78
+PASS  feed reading matches the readings table: S&P 500 daily close (the market gate of   got=0.274  want=0.274
 PASS  feed line matches the readings table: S&P 500 daily close (the market gate of   got=20.0  want=20.0
-PASS  feed is not dated in the future: S&P 500 daily close (the market gate of   got=2026-09-24  want=<= 2026-09-25
-PASS  feed next release is not in the past: S&P 500 daily close (the market gate of   got=2026-09-25  want=>= 2026-09-25
+PASS  feed is not dated in the future: S&P 500 daily close (the market gate of   got=2026-09-25  want=<= 2026-09-25
+PASS  feed next release is not in the past: S&P 500 daily close (the market gate of   got=2026-09-28  want=>= 2026-09-25
 PASS  feed has a source link: S&P 500 daily close (the market gate of   got=True  want=True
 PASS  feed reading matches the readings table: Industrial production, as published (the  got=-0.02  want=-0.02
 PASS  feed line matches the readings table: Industrial production, as published (the  got=2.0  want=2.0
@@ -98,7 +98,7 @@ PASS  feed line matches the readings table: Search week: Google searches for "la
 PASS  feed is not dated in the future: Search week: Google searches for "laid o  got=2026-09-24  want=<= 2026-09-25
 PASS  feed next release is not in the past: Search week: Google searches for "laid o  got=2026-09-25  want=>= 2026-09-25
 PASS  feed has a source link: Search week: Google searches for "laid o  got=True  want=True
-PASS  headline date = last day of the daily series  got=2026-09-24  want=2026-09-24
+PASS  headline date = last day of the daily series  got=2026-09-25  want=2026-09-25
 PASS  daily series is in date order  got=True  want=True
 PASS  no reading is negative  got=True  want=True
 PASS  standing "since" = the last episode's close month  got=2024-09  want=2024-09
@@ -154,7 +154,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-09-12)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-09-25 15:51', '2026-09-25 15:51')  want=('2026-09-25 15:51', '2026-09-25 15:51')
+PASS  public state copies are this build  got=('2026-09-25 17:06', '2026-09-25 17:06')  want=('2026-09-25 17:06', '2026-09-25 17:06')
 PASS  front-page tiles fetched today  got=2026-09-25  want=2026-09-25
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]
