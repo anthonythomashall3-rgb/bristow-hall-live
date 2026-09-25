@@ -1,15 +1,18 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
  "checked_at": "2026-09-25T03:10Z",
- "open_misses": [
-  {
-   "hours": 11.6,
-   "name": "the Weekly Economic Index",
-   "posted": "2026-09-24 11:39 ET",
-   "release": 465
-  }
- ],
+ "open_misses": [],
  "reads": [
+  {
+   "from": "2026-07-01",
+   "ids": "CFNAIMA3 (backstop CFNAI)",
+   "lag_min": null,
+   "name": "CFNAI",
+   "posted": null,
+   "read_at": "2026-09-21T15:57Z",
+   "release": 219,
+   "to": "2026-08-01"
+  },
   {
    "from": "2026-09-22",
    "ids": "Google Trends \"unemployment\"",
@@ -59,6 +62,16 @@
    "read_at": "2026-09-24T12:54Z",
    "release": 101,
    "to": "2026-09-24"
+  },
+  {
+   "from": "2026-09-12",
+   "ids": "WEI (backstop shadow reading)",
+   "lag_min": 29,
+   "name": "the Weekly Economic Index",
+   "posted": "2026-09-24 11:39 ET",
+   "read_at": "2026-09-24T16:08Z",
+   "release": 465,
+   "to": "2026-09-19"
   },
   {
    "from": "2026-09-22",
