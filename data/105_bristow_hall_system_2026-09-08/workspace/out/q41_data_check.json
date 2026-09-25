@@ -1029,7 +1029,7 @@
 "gate": null
 },
 {
-"name": "368: the margins page carries the near-miss count",
+"name": "368: the margins page no longer shows near misses (Anthony, 25 Sep 2026)",
 "got": "True",
 "want": "True",
 "status": "PASS",
@@ -1093,8 +1093,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-09-25 09:59', '2026-09-25 09:59')",
-"want": "('2026-09-25 09:59', '2026-09-25 09:59')",
+"got": "('2026-09-25 10:19', '2026-09-25 10:19')",
+"want": "('2026-09-25 10:19', '2026-09-25 10:19')",
 "status": "PASS",
 "gate": "hard"
 },

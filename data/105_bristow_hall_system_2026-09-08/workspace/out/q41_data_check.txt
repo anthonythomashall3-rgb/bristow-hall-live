@@ -145,7 +145,7 @@ PASS  data page: every leg channel carries a day in hand through  got=[]  want=[
 PASS  data page: every leg channel is read by a leg  got=[]  want=[]
 PASS  data page: every feed names its series  got=[]  want=[]
 PASS  368: the margins page lists every reading  got=28  want=28
-PASS  368: the margins page carries the near-miss count  got=True  want=True
+PASS  368: the margins page no longer shows near misses (Anthony, 25 Sep 2026)  got=True  want=True
 PASS  368: the data page links the margins page  got=True  want=True
 PASS  372: schema version in the state  got=1  want=1
 PASS  372: schema check is clean  got=[]  want=[]
@@ -154,7 +154,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-09-12)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-09-25 09:59', '2026-09-25 09:59')  want=('2026-09-25 09:59', '2026-09-25 09:59')
+PASS  public state copies are this build  got=('2026-09-25 10:19', '2026-09-25 10:19')  want=('2026-09-25 10:19', '2026-09-25 10:19')
 PASS  front-page tiles fetched today  got=2026-09-25  want=2026-09-25
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]
