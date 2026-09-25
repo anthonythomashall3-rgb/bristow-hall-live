@@ -97,7 +97,9 @@ RELEASE_TIME = {
     386: '12:01',   # GDPNow as the tool reads it (FRED GDPNOW, every update a vintage): FRED's clock is used (10:31 AM-12:41 PM ET,
                     # median 12:01, ten updates since 2025: nine archived, one seen live 17 September 2026); the Atlanta Fed publishes no hour. Was 17:05 (the close run) until
                     # 23 September 2026 (358): a time the page showed as "next published" that was ours, not the publisher's
-    465: '11:45',   # Weekly Economic Index (Dallas Fed; FRED posts about 11:39 ET on Thursdays; 366)
+    465: '11:30',   # Weekly Economic Index: the Dallas Fed publishes it "at or shortly after 10:30 a.m. CT" on Thursdays
+                    # (11:30 AM ET; audit-0924). Was 11:45 until 25 Sep 2026. FRED posts it about nine minutes later (11:39 both
+                    # Thursdays read), so the run reads it after that (ops/tool.json calendar_read_lag_min)
 }
 NO_SLOT = set()     # a release read at a run the day already has gets no slot of its own (GDPNow had none until 358)
 # where a time is not the publisher's own announced hour, the page and the message say whose it is (22 September 2026,
@@ -136,7 +138,8 @@ FRED_POSTED = os.path.join(OPS, 'state', 'fred_posted.json')
 FRED_SERIES = {10: 'CPIAUCSL', 13: 'INDPRO', 18: 'DCPN30', 27: 'HOUST', 50: 'UNRATE', 53: 'GDPC1', 101: 'DFEDTARU', 112: 'CAUR',
                180: 'ICSA', 189: 'SP500', 192: 'JTSJOL', 219: 'CFNAIMA3', 386: 'GDPNOW', 456: 'SAHMREALTIME',
                465: 'WEI'}                        # 366 (24 Sep 2026): the Weekly Economic Index, Thursdays (FRED's stamp 17 Sep: 11:39 ET)
-FRED_PUBLISHES = {101, 386, 456, 465}              # FRED's post is the publication the tool reads: the page shows FRED's clock
+FRED_PUBLISHES = {101, 386, 456}                   # FRED's post is the publication the tool reads: the page shows FRED's clock
+                                                   # (the WEI left it 25 Sep 2026: the Dallas Fed publishes it at its own hour)
 FRED_READ = {10, 13, 27, 50, 53, 112, 192, 219, 386, 456, 465}   # the tool takes these from FRED (claims: from the Department's PDF)
 FRED_DAILY = {18, 101, 189}                   # a post every (business) day
 POSTS_KEPT, POSTS_USED = 40, 9

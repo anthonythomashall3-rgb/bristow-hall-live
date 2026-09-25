@@ -8,6 +8,10 @@ import os, json
 HOME=os.path.expanduser('~'); COL=os.path.join(HOME,'mnt','Onset Detector Data','105_bristow_hall_system_2026-09-08')
 SITE=os.path.join(COL,'site')
 state=json.load(open(os.path.join(SITE,'bhs_state.json')))
+# 25 Sep 2026 (ops-0924; audit-0924, Anthony 'FIX THIS'): the state the site serves says what the data page says - each feed's
+# publisher page and exact cadence (s2/feed_publishers.py), no Yahoo or FRED address where another publishes, no approximate clock
+import importlib.util as _iu_fp0; _sp_fp0=_iu_fp0.spec_from_file_location('feed_publishers',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','feed_publishers.py')); _fp0=_iu_fp0.module_from_spec(_sp_fp0); _sp_fp0.loader.exec_module(_fp0)
+state['feeds']=[_fp0.normalize(dict(_f)) for _f in state.get('feeds') or []]
 # R10 (24 September 2026, collection 372): the renderer refuses a state of any schema but the one it renders (s2/schema.py); in the cloud
 # this line is not guarded by `|| true`, so a refusal fails the run and the ops layer holds the site as it was - nothing wrong is published.
 import importlib.util as _iu372; _sp372=_iu372.spec_from_file_location('bhs_schema',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','schema.py')); _schema372=_iu372.module_from_spec(_sp372); _sp372.loader.exec_module(_schema372)
@@ -158,26 +162,11 @@ def _strip_paren(x): return _re3.sub(r'\s*\([^)]*\)','',x or '').replace('  ',' 
 # exact words only on the data page (Anthony, 17 and 20 September 2026): the Next published column carries the day, so a
 # cadence says only what is fixed - 'Monthly - usually the first Friday, 8:30 AM ET' becomes 'Monthly, 8:30 AM ET'
 def _exact_every(s): return _re3.sub(r'\s*-\s*(?:usually|about)\b[^,]*,\s*',', ',s or '')
-# audit-0924 (24 Sep 2026; Anthony: every link to the publisher's own page, exact words only, no explanatory sentences)
-_PUB={'S&P 500':('S&P Dow Jones Indices, S&P 500','https://www.spglobal.com/spdji/en/indices/equity/sp-500/','Every trading day, 4:00 PM ET'),
-      'Federal funds target range':('Federal Reserve, FOMC statement','https://www.federalreserve.gov/monetarypolicy/openmarket.htm','At each FOMC decision, 2:00 PM ET'),
-      'Initial claims':('Department of Labor, weekly claims release',None,'Weekly, Thursday 8:30 AM ET'),
-      'State insured unemployment rates':('Department of Labor, ETA 539',None,'Weekly, Thursday'),
-      'Unemployment rate, factory hours':('Bureau of Labor Statistics, Employment Situation',None,'Monthly, 8:30 AM ET'),
-      'Job openings':('Bureau of Labor Statistics, JOLTS',None,'Monthly, 10:00 AM ET'),
-      'Housing starts':('Census Bureau, New Residential Construction',None,'Monthly, 8:30 AM ET'),
-      'Commercial paper':('Federal Reserve, H.15 Selected Interest Rates',None,'Daily, 4:15 PM ET'),
-      'Industrial production':('Federal Reserve, G.17 Industrial Production and Capacity Utilization',None,'Monthly, 9:15 AM ET'),
-      'State continued weeks claimed':('Department of Labor, ETA 539; Bureau of Labor Statistics',None,'Monthly'),
-      'State unemployment rates':('Bureau of Labor Statistics, Local Area Unemployment Statistics',None,'Monthly, 10:00 AM ET'),
-      'Real GDP':('Bureau of Economic Analysis, Gross Domestic Product',None,'Quarterly, 8:30 AM ET'),
-      'GDPNow':('Federal Reserve Bank of Atlanta, GDPNow',None,'Several times a month'),
-      'Sahm rule':('Federal Reserve Bank of St. Louis, FRED SAHMREALTIME',None,'Monthly'),
-      'Search week':('Google Trends, United States',None,'Daily')}
-def _pub(name):
-    for k_,v_ in _PUB.items():
-        if str(name or '').startswith(k_): return v_
-    return None
+# audit-0924 (24 Sep 2026; Anthony: every link to the publisher's own page, exact words only, no explanatory sentences);
+# one list since 25 Sep 2026 (ops-0924): s2/feed_publishers.py, which also rewrites the feed records this page publishes
+import importlib.util as _iu_fp; _sp_fp=_iu_fp.spec_from_file_location('feed_publishers',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','feed_publishers.py')); _fp=_iu_fp.module_from_spec(_sp_fp); _sp_fp.loader.exec_module(_fp)
+_PUB=_fp.PUB
+_pub=_fp.pub
 def _cad_kind(every):
     e_=str(every or '').lower()
     return 'quarterly' if e_.startswith('quarterly') else 'monthly' if e_.startswith('monthly') else 'weekly' if e_.startswith('weekly') else 'daily'
