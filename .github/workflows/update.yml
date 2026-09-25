@@ -267,7 +267,7 @@ jobs:
         if: steps.when.outputs.go == 'true'
         with:
           python-version: '3.14'
-          cache: pip
+          # no 'cache: pip' (409, 25 Sep 2026): the kept installs below hold the whole Python and its packages
 
       # THE INSTALLS, KEPT BETWEEN RUNS (24 September 2026; Anthony: "I SHOULD NEVER BE PAYING FOR ANYTHING"). Every run spent
       # 10-35 seconds on each of three installs of the same things - the PDF tool, the Python packages, the Cloudflare tool -
@@ -526,7 +526,7 @@ jobs:
             || npx --yes wrangler@4 pages deploy "$SITE_SUB" --project-name bhrrealtime --branch "$PAGES_BRANCH" --commit-dirty=true \
             || { sleep 30; npx --yes wrangler@4 pages deploy "$SITE_SUB" --project-name bhrrealtime --branch "$PAGES_BRANCH" --commit-dirty=true; }
 
-      # TEST BUILDS ARE DELETED AFTER THEIR TEST (audit-0924, 24 September 2026; Anthony: "Auto-delete"). A test branch
+      # TEST BUILDS ARE DELETED AFTER THEIR TEST (audit-0924, 24 September 2026; Anthony: "Auto-delete"); live builds after 30 days (409). A test branch
       # publishes a preview at its own public address; one older than two hours has had its test, so it is deleted and no
       # stale copy of the site stays public. Runs after every publish; never fails the run.
       - name: delete old test builds
@@ -554,6 +554,19 @@ jobs:
                   else: kept += 1
               if len(res) < 25: break
           print('test builds: %d older than two hours deleted, %d newer kept' % (gone, kept))
+          # OLD LIVE BUILDS TOO (409, audit-0925, 25 Sep 2026): each production build stays public at its own address for ever;
+          # those older than 30 days go, the newest 50 always stay (the live one among them), at most 25 a run
+          gone = seen = 0
+          for page in range(1, 41):
+              res = call(base + '?env=production&per_page=25&page=%d' % page).get('result') or []
+              for d in res:
+                  seen += 1
+                  age = (now - datetime.datetime.fromisoformat(d['created_on'].replace('Z', '+00:00'))).total_seconds()
+                  if seen > 50 and age > 30 * 86400 and gone < 25:
+                      try: call(base + '/' + d['id'] + '?force=true', 'DELETE'); gone += 1
+                      except Exception as e: print('not deleted:', d['id'][:8], type(e).__name__)
+              if len(res) < 25 or gone >= 25: break
+          print('production builds: %d older than 30 days deleted (the newest 50 always kept; %d looked at)' % (gone, seen))
           PY
 
       # THE FORWARD LEDGER, IN THE CLOUD (21 September 2026, collection 278; Anthony: "DONT RELY ON THE MAC AT ALL FOR THE
