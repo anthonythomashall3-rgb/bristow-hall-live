@@ -9,7 +9,111 @@
  },
  "problems": {},
  "rows": {
-  "0": [
+  "row|CCNSA / COVEMP|Insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)": [
+   [
+    "FRED CCNSA",
+    "https://fred.stlouisfed.org/series/CCNSA"
+   ],
+   [
+    "FRED COVEMP",
+    "https://fred.stlouisfed.org/series/COVEMP"
+   ]
+  ],
+  "row|CFNAIMA3|Chicago Fed National Activity Index, three-month average": [
+   [
+    "FRED CFNAIMA3",
+    "https://fred.stlouisfed.org/series/CFNAIMA3"
+   ]
+  ],
+  "row|CPIAUCSL|CPI inflation": [
+   [
+    "FRED CPIAUCSL",
+    "https://fred.stlouisfed.org/series/CPIAUCSL"
+   ]
+  ],
+  "row|DCPF1M, DCPN30, WTB3MS|Commercial paper and three-month bill rates": [
+   [
+    "FRED DCPF1M",
+    "https://fred.stlouisfed.org/series/DCPF1M"
+   ],
+   [
+    "FRED DCPN30",
+    "https://fred.stlouisfed.org/series/DCPN30"
+   ],
+   [
+    "FRED WTB3MS",
+    "https://fred.stlouisfed.org/series/WTB3MS"
+   ]
+  ],
+  "row|DFEDTARU|Federal funds target range, upper limit": [
+   [
+    "FRED DFEDTARU",
+    "https://fred.stlouisfed.org/series/DFEDTARU"
+   ]
+  ],
+  "row|ETA 539 by state|States with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)": [
+   [
+    "Department of Labor, ETA 539 (ar539.csv)",
+    "https://oui.doleta.gov/unemploy/csv/ar539.csv"
+   ]
+  ],
+  "row|ETA 539 state insured rates|State insured unemployment rates": [
+   [
+    "FRED release 469, State Unemployment Insurance Weekly Claims Report",
+    "https://fred.stlouisfed.org/release?rid=469"
+   ]
+  ],
+  "row|ETA 539|State continued weeks claimed, ETA 539": [
+   [
+    "Department of Labor, ETA 539 (ar539.csv)",
+    "https://oui.doleta.gov/unemploy/csv/ar539.csv"
+   ],
+   [
+    "FRED release 112, State Employment and Unemployment",
+    "https://fred.stlouisfed.org/release?rid=112"
+   ]
+  ],
+  "row|GDPC1|Real GDP": [
+   [
+    "FRED GDPC1",
+    "https://fred.stlouisfed.org/series/GDPC1"
+   ]
+  ],
+  "row|GDPNOW|GDPNow": [
+   [
+    "ALFRED GDPNOW",
+    "https://alfred.stlouisfed.org/series?seid=GDPNOW"
+   ]
+  ],
+  "row|Google Trends \"laid off\"|Search week: Google searches for \"laid off\"": [
+   [
+    "Google Trends \"laid off\"",
+    "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=laid%20off"
+   ]
+  ],
+  "row|Google Trends \"layoffs\"|Search week: Google searches for \"layoffs\"": [
+   [
+    "Google Trends \"layoffs\"",
+    "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=layoffs"
+   ]
+  ],
+  "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\"": [
+   [
+    "Google Trends \"unemployment\"",
+    "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment"
+   ]
+  ],
+  "row|HOUST, PERMIT|Housing starts and building permits": [
+   [
+    "ALFRED HOUST",
+    "https://alfred.stlouisfed.org/series?seid=HOUST"
+   ],
+   [
+    "ALFRED PERMIT",
+    "https://alfred.stlouisfed.org/series?seid=PERMIT"
+   ]
+  ],
+  "row|ICSA, CCSA, IURSA|Initial claims, continued claims, insured unemployment rate": [
    [
     "Department of Labor, weekly claims release (data.pdf)",
     "https://www.dol.gov/ui/data.pdf"
@@ -27,13 +131,65 @@
     "https://alfred.stlouisfed.org/series?seid=IURSA"
    ]
   ],
-  "1": [
+  "row|ICSA|Initial claims": [
    [
-    "FRED release 469, State Unemployment Insurance Weekly Claims Report",
-    "https://fred.stlouisfed.org/release?rid=469"
+    "FRED ICSA",
+    "https://fred.stlouisfed.org/series/ICSA"
    ]
   ],
-  "2": [
+  "row|INDPRO|Industrial production, as published": [
+   [
+    "ALFRED INDPRO",
+    "https://alfred.stlouisfed.org/series?seid=INDPRO"
+   ]
+  ],
+  "row|IURSA|Insured unemployment rate": [
+   [
+    "FRED IURSA",
+    "https://fred.stlouisfed.org/series/IURSA"
+   ]
+  ],
+  "row|JTSJOL, CLF16OV|Job openings": [
+   [
+    "ALFRED JTSJOL",
+    "https://alfred.stlouisfed.org/series?seid=JTSJOL"
+   ],
+   [
+    "ALFRED CLF16OV",
+    "https://alfred.stlouisfed.org/series?seid=CLF16OV"
+   ]
+  ],
+  "row|JTSJOL|Job openings": [
+   [
+    "FRED JTSJOL",
+    "https://fred.stlouisfed.org/series/JTSJOL"
+   ]
+  ],
+  "row|JTSQUR|Quits rate": [
+   [
+    "FRED JTSQUR",
+    "https://fred.stlouisfed.org/series/JTSQUR"
+   ]
+  ],
+  "row|LAUS state rates (51)|State unemployment rates, all 51": [
+   [
+    "FRED release 112, State Employment and Unemployment",
+    "https://fred.stlouisfed.org/release?rid=112"
+   ]
+  ],
+  "row|PAYEMS|Nonfarm payrolls": [
+   [
+    "FRED PAYEMS",
+    "https://fred.stlouisfed.org/series/PAYEMS"
+   ]
+  ],
+  "row|SAHMREALTIME|Sahm rule, real time": [
+   [
+    "FRED SAHMREALTIME",
+    "https://fred.stlouisfed.org/series/SAHMREALTIME"
+   ]
+  ],
+  "row|UNRATE, AWHMAN, NDMANEMP, PAYEMS|Unemployment rate, factory hours, nondurable employment": [
    [
     "ALFRED UNRATE",
     "https://alfred.stlouisfed.org/series?seid=UNRATE"
@@ -51,179 +207,7 @@
     "https://alfred.stlouisfed.org/series?seid=PAYEMS"
    ]
   ],
-  "3": [
-   [
-    "ALFRED JTSJOL",
-    "https://alfred.stlouisfed.org/series?seid=JTSJOL"
-   ],
-   [
-    "ALFRED CLF16OV",
-    "https://alfred.stlouisfed.org/series?seid=CLF16OV"
-   ]
-  ],
-  "4": [
-   [
-    "ALFRED HOUST",
-    "https://alfred.stlouisfed.org/series?seid=HOUST"
-   ],
-   [
-    "ALFRED PERMIT",
-    "https://alfred.stlouisfed.org/series?seid=PERMIT"
-   ]
-  ],
-  "5": [
-   [
-    "FRED DCPF1M",
-    "https://fred.stlouisfed.org/series/DCPF1M"
-   ],
-   [
-    "FRED DCPN30",
-    "https://fred.stlouisfed.org/series/DCPN30"
-   ],
-   [
-    "FRED WTB3MS",
-    "https://fred.stlouisfed.org/series/WTB3MS"
-   ]
-  ],
-  "6": [
-   [
-    "Yahoo Finance ^GSPC",
-    "https://finance.yahoo.com/quote/%5EGSPC/history/"
-   ],
-   [
-    "FRED SP500",
-    "https://fred.stlouisfed.org/series/SP500"
-   ]
-  ],
-  "7": [
-   [
-    "ALFRED INDPRO",
-    "https://alfred.stlouisfed.org/series?seid=INDPRO"
-   ]
-  ],
-  "8": [
-   [
-    "FRED DFEDTARU",
-    "https://fred.stlouisfed.org/series/DFEDTARU"
-   ]
-  ],
-  "9": [
-   [
-    "Department of Labor, ETA 539 (ar539.csv)",
-    "https://oui.doleta.gov/unemploy/csv/ar539.csv"
-   ],
-   [
-    "FRED release 112, State Employment and Unemployment",
-    "https://fred.stlouisfed.org/release?rid=112"
-   ]
-  ],
-  "10": [
-   [
-    "FRED release 112, State Employment and Unemployment",
-    "https://fred.stlouisfed.org/release?rid=112"
-   ]
-  ],
-  "11": [
-   [
-    "FRED GDPC1",
-    "https://fred.stlouisfed.org/series/GDPC1"
-   ]
-  ],
-  "12": [
-   [
-    "ALFRED GDPNOW",
-    "https://alfred.stlouisfed.org/series?seid=GDPNOW"
-   ]
-  ],
-  "13": [
-   [
-    "FRED SAHMREALTIME",
-    "https://fred.stlouisfed.org/series/SAHMREALTIME"
-   ]
-  ],
-  "14": [
-   [
-    "Google Trends \"unemployment\"",
-    "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment"
-   ]
-  ],
-  "15": [
-   [
-    "Google Trends \"layoffs\"",
-    "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=layoffs"
-   ]
-  ],
-  "16": [
-   [
-    "Google Trends \"laid off\"",
-    "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=laid%20off"
-   ]
-  ],
-  "17": [
-   [
-    "FRED UNRATE",
-    "https://fred.stlouisfed.org/series/UNRATE"
-   ]
-  ],
-  "18": [
-   [
-    "FRED PAYEMS",
-    "https://fred.stlouisfed.org/series/PAYEMS"
-   ]
-  ],
-  "19": [
-   [
-    "FRED ICSA",
-    "https://fred.stlouisfed.org/series/ICSA"
-   ]
-  ],
-  "20": [
-   [
-    "FRED IURSA",
-    "https://fred.stlouisfed.org/series/IURSA"
-   ]
-  ],
-  "21": [
-   [
-    "FRED JTSJOL",
-    "https://fred.stlouisfed.org/series/JTSJOL"
-   ]
-  ],
-  "22": [
-   [
-    "FRED JTSQUR",
-    "https://fred.stlouisfed.org/series/JTSQUR"
-   ]
-  ],
-  "23": [
-   [
-    "FRED CPIAUCSL",
-    "https://fred.stlouisfed.org/series/CPIAUCSL"
-   ]
-  ],
-  "24": [
-   [
-    "FRED CCNSA",
-    "https://fred.stlouisfed.org/series/CCNSA"
-   ],
-   [
-    "FRED COVEMP",
-    "https://fred.stlouisfed.org/series/COVEMP"
-   ]
-  ],
-  "25": [
-   [
-    "Department of Labor, ETA 539 (ar539.csv)",
-    "https://oui.doleta.gov/unemploy/csv/ar539.csv"
-   ]
-  ],
-  "26": [
-   [
-    "FRED CFNAIMA3",
-    "https://fred.stlouisfed.org/series/CFNAIMA3"
-   ]
-  ],
-  "27": [
+  "row|UNRATE, JTSJOL|Michaillat and Saez's rule: the smaller of the unemployment indicator and the vacancy indicator": [
    [
     "ALFRED UNRATE",
     "https://alfred.stlouisfed.org/series?seid=UNRATE"
@@ -233,11 +217,58 @@
     "https://alfred.stlouisfed.org/series?seid=JTSJOL"
    ]
   ],
-  "28": [
+  "row|UNRATE|Unemployment rate": [
+   [
+    "FRED UNRATE",
+    "https://fred.stlouisfed.org/series/UNRATE"
+   ]
+  ],
+  "row|WEI|Weekly Economic Index (Lewis, Mertens and Stock), 13-week mean": [
    [
     "FRED WEI",
     "https://fred.stlouisfed.org/series/WEI"
    ]
+  ],
+  "row|^GSPC|S&P 500 daily close": [
+   [
+    "Yahoo Finance ^GSPC",
+    "https://finance.yahoo.com/quote/%5EGSPC/history/"
+   ],
+   [
+    "FRED SP500",
+    "https://fred.stlouisfed.org/series/SP500"
+   ]
   ]
- }
+ },
+ "rows_with_new_data_this_run": [
+  "row|CCNSA / COVEMP|Insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)",
+  "row|CFNAIMA3|Chicago Fed National Activity Index, three-month average",
+  "row|CPIAUCSL|CPI inflation",
+  "row|DCPF1M, DCPN30, WTB3MS|Commercial paper and three-month bill rates",
+  "row|DFEDTARU|Federal funds target range, upper limit",
+  "row|ETA 539 by state|States with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
+  "row|ETA 539 state insured rates|State insured unemployment rates",
+  "row|ETA 539|State continued weeks claimed, ETA 539",
+  "row|GDPC1|Real GDP",
+  "row|GDPNOW|GDPNow",
+  "row|Google Trends \"laid off\"|Search week: Google searches for \"laid off\"",
+  "row|Google Trends \"layoffs\"|Search week: Google searches for \"layoffs\"",
+  "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\"",
+  "row|HOUST, PERMIT|Housing starts and building permits",
+  "row|ICSA, CCSA, IURSA|Initial claims, continued claims, insured unemployment rate",
+  "row|ICSA|Initial claims",
+  "row|INDPRO|Industrial production, as published",
+  "row|IURSA|Insured unemployment rate",
+  "row|JTSJOL, CLF16OV|Job openings",
+  "row|JTSJOL|Job openings",
+  "row|JTSQUR|Quits rate",
+  "row|LAUS state rates (51)|State unemployment rates, all 51",
+  "row|PAYEMS|Nonfarm payrolls",
+  "row|SAHMREALTIME|Sahm rule, real time",
+  "row|UNRATE, AWHMAN, NDMANEMP, PAYEMS|Unemployment rate, factory hours, nondurable employment",
+  "row|UNRATE, JTSJOL|Michaillat and Saez's rule: the smaller of the unemployment indicator and the vacancy indicator",
+  "row|UNRATE|Unemployment rate",
+  "row|WEI|Weekly Economic Index (Lewis, Mertens and Stock), 13-week mean",
+  "row|^GSPC|S&P 500 daily close"
+ ]
 }
