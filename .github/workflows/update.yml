@@ -627,7 +627,13 @@ jobs:
       - name: the private data, out
         id: pdout
         if: always() && steps.when.outputs.go == 'true' && steps.publish.outcome == 'success' && env.OPS_TEST != '1'
+        env:
+          PRIVATE_DATA_KEY: ${{ secrets.PRIVATE_DATA_KEY }}
         run: |
+          # the key is written again for this step only: "do not leave the keys behind" removed it with the others
+          # (25 September 2026: the first live run, 36088535570, could not reach the private repository without it)
+          mkdir -p ~/.ssh && printf '%s\n' "$PRIVATE_DATA_KEY" > ~/.ssh/private_data && chmod 600 ~/.ssh/private_data
+          trap 'rm -f ~/.ssh/private_data' EXIT
           export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/private_data -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
           P="$RUNNER_TEMP/private-data"
           git ls-files -z --others --ignored --exclude-from=ops/private_paths.gitignore -- data | tar --null -T - -cf - | tar -xf - -C "$P"
@@ -635,8 +641,11 @@ jobs:
           git config user.name "bristow-hall runner"; git config user.email "noreply@users.noreply.github.com"
           git add -A
           git diff --staged --quiet || git commit -q -m "update $(date -u +%FT%TZ)"
-          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break || sleep 15; done
-          [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ] || { echo "the private data was not saved"; exit 1; }
+          ok=0
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && { ok=1; break; } || sleep 15; done
+          # every run proves it can still write there, even when nothing changed (a push of nothing still signs in)
+          [ "$ok" = 1 ] && [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ] || { echo "the private data was not saved"; exit 1; }
+          echo "private files out: $(git ls-files | wc -l | tr -d ' '); the private repository at $(git rev-parse --short HEAD)"
 
       - name: keep the built site in the repository too
         id: commit
