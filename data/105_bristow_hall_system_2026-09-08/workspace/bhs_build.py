@@ -67,7 +67,7 @@ def _bhs_fingerprint():
     pats=[os.path.join(_L,'data','fred_weekly','*.csv'),os.path.join(_L,'vac','*.csv'),
           os.path.join(_R,'onset-detector-new-2026-08-23','27_realtime_vintages','alfred_all_vintages','*_all_vintages.csv'),
           os.path.join(_R,'186_realtime_channels_2026-09-15','vintages','*.csv'),os.path.join(_R,'45_dol_first_prints_2026-09','*.csv'),
-          os.path.join(_R,'37_*','*.csv'),'cache/objects.pkl','cache/alfred_first_*.csv','cache/relcal_*.csv','cache/surveys/*.csv','cache/SAHMREALTIME.csv','s2/first_prints_early_1984_2002.csv']   # E66: the early first prints are an input
+          os.path.join(_R,'37_*','*.csv'),'cache/objects.pkl','cache/alfred_first_*.csv','cache/relcal_*.csv','cache/surveys/*.csv','cache/SAHMREALTIME.csv','s2/first_prints_early_1975_2002.csv']   # E66, E66c: the early first prints are an input
     h=_hl0.md5()
     for pat in pats:
         for f in sorted(_gl0.glob(pat)):
@@ -164,18 +164,24 @@ def open(f,*a,**k):   # every walk file read from here on (the heads exec each o
         for n in _BHS_MEMO_NAMES: txt=txt.replace('\ndef %s('%n,'\n@_BHS_MEMO\ndef %s('%n)
         return io.StringIO(txt)
     return _bhs_real_open(f,*a,**k)
-# ---- E66 (24 September 2026; collections 396, 399, 382; the perfection plan's Gap 1): THE WEEKLY CLAIMS FIRST PRINTS FROM JANUARY 1985. Collection 45,
-# ---- the Department's own release archive, begins on 17 October 2002; the bound news releases (1985-2001), the bound volumes (1994-2009) and the
-# ---- Internet Archive's captures (1996-2011) carry the release as printed back to the last week of 1984, checked against 45 week for week where
-# ---- they overlap (340/340, 240/240 and 414/414 weeks identical). s2/first_prints_early_1984_2002.csv is that early table, static; it is put in
-# ---- front of 45's live file at every build (cache/national_first_prints_1985_live.csv, rewritten only when either changes) and every reader of
-# ---- 45's national file reads the merged file through the substitute door. The rule does not change; on the record one label moves (the 2001
-# ---- opening of 15 March 2001 is made by U as well as I, the same day) and the revision drill's exposure ends in 1984. BHS_FIRSTPRINTS_OFF=1
-# ---- reads 45 alone, for a cmpstate.
+# ---- E66 (24 September 2026; collections 396, 399, 382; the perfection plan's Gap 1) and E66c (25 September 2026; collections 397 and 404):
+# ---- THE WEEKLY CLAIMS FIRST PRINTS FROM AUGUST 1975. Collection 45, the Department's own release archive, begins on 17 October 2002; the bound
+# ---- news releases (1985-2001), the bound volumes (1994-2009) and the Internet Archive's captures (1996-2011) carry the release as printed back
+# ---- to the last week of 1984, checked against 45 week for week where they overlap (340/340, 240/240 and 414/414 weeks identical); the release's
+# ---- own closing table in the bound "Unemployment Insurance Claims" (HathiTrust's and Google Books' page images, 397 and 404) and, for the weeks
+# ---- no copy covers, the wires and papers of the release day (AP, UPI, the New York Times, the Daily Labor Report; 404) carry it back to
+# ---- 2 August 1975, with seven weeks of 1976-81 filled from the current series and marked. s2/first_prints_early_1975_2002.csv is that early
+# ---- table, static; it is put in front of 45's live file at every build (cache/national_first_prints_1985_live.csv, rewritten only when either
+# ---- changes) and every reader of 45's national file reads the merged file through the substitute door. The rule does not change. On the record
+# ---- E66 moved one label (the 2001 opening of 15 March 2001 is made by U as well as I, the same day); E66c moves four events of 1979-82 against
+# ---- the 1985 table (404/doc/PREREG-press-first-prints-e66c-2026-09-25.md; adopted by Anthony, "(c), then (b)"): the 1980 peak is called on
+# ---- 7 September 1979 by U, dated April 1979, instead of 5 November 1979 by W, dated August 1979; the 1980 trough closes on 9 July 1980 instead
+# ---- of 24 July; the 1981 peak is called on 2 June 1981 instead of 28 May (V, dated May 1981, both); the 1982 trough closes on 15 November 1982
+# ---- instead of 4 November. The revision drill's exposure ends in 1975. BHS_FIRSTPRINTS_OFF=1 reads 45 alone, for a cmpstate.
 FIRSTPRINTS={'active':False}
 try:
     import pandas as _pd66
-    _e66_early=os.path.join('s2','first_prints_early_1984_2002.csv')
+    _e66_early=os.path.join('s2','first_prints_early_1975_2002.csv')
     if os.path.exists(_e66_early) and not os.environ.get('BHS_FIRSTPRINTS_OFF'):
         _root66=next(r for r in (os.path.expanduser('~/Projects/Onset Detector Data'),os.path.expanduser('~/mnt/Onset Detector Data')) if os.path.isdir(r))
         _p45live=os.path.join(_root66,'45_dol_first_prints_2026-09','national_first_prints.csv')
@@ -191,8 +197,8 @@ try:
         if not os.path.exists(_pm66) or _bhs_real_open(_pm66).read()!=_txt66:
             with _bhs_real_open(_pm66,'w') as _fh66: _fh66.write(_txt66)
         FIRSTPRINTS=dict(active=True,file=_pm66,early_table=_e66_early,early_weeks=int(len(_early66)),early_from=str(_early66['ic_week_ended'].min()),early_to=str(_early66['ic_week_ended'].max()),
-                         live_rows=int(len(_live66)),sources={k:int(v) for k,v in _early66['source'].value_counts().items()},
-                         note='the weekly claims first prints from the last week of 1984: the bound news releases (399), the bound volumes (396), the Archive (382); current series where marked')
+                         live_rows=int(len(_live66)),sources={k:int(v) for k,v in _early66['source'].map(lambda _s:_s.split('|')[0].split(' (')[0].strip()).value_counts().items()},   # E66c: by label; a press row's source names its story
+                         note='the weekly claims first prints from August 1975: the closing table of the release in the bound volumes (397; the Google Books copies, 404), the wires and papers of the release day where no copy holds the week (404), the bound news releases (399), the bound volumes (396), the Archive (382); current series where marked')
         print('E66: weekly claims first prints from %s: %d early weeks in front of 45\'s %d rows (%s)'%(FIRSTPRINTS['early_from'],FIRSTPRINTS['early_weeks'],FIRSTPRINTS['live_rows'],FIRSTPRINTS['sources']))
 except Exception as _e66:
     FIRSTPRINTS={'active':False,'note':'did not run (%r)'%(_e66,)}; print('E66 first prints not applied:',_e66)
