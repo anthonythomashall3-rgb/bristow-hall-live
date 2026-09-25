@@ -1,7 +1,7 @@
 {
- "built_at": "2026-09-24 23:10",
+ "built_at": "2026-09-24 23:19",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-09-25T03:10:57Z",
+ "generated_utc": "2026-09-25T03:19:54Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -3990,7 +3990,7 @@
    "name": "state insured unemployment rates",
    "next_expected": false,
    "next_ny": "2026-10-01 08:30",
-   "read_lag_min": 0,
+   "read_lag_min": 1455,
    "release_id": 180,
    "short": "weekly claims",
    "slots": true,
@@ -4080,7 +4080,7 @@
      "utc": "2026-12-31T13:30:00Z"
     }
    ],
-   "waiting_since_due": "2026-09-24 08:30"
+   "waiting_since_due": null
   },
   {
    "agrees_with_build": true,
