@@ -99,11 +99,11 @@ sa_coo-31924054239177_1054,,367000,395000,284000,,3.8,2544000,2307000,sa-table-r
 sa_coo-31924054239177_1106,,360000,367000,309000,,3.8,2575000,2389000,sa-table-rev,1977-06-20,1977-06-11,1977-06-04,sa-table-rev2,release day = the week's own (the year's median lag); the level is the print of 1977-07-05
 sa_coo-31924054239177_1106,,367000,360000,310000,,3.7,2510000,2302000,sa-table-rev,1977-06-27,1977-06-18,1977-06-11,sa-table-rev1,release day = the week's own (the year's median lag); the level is the print of 1977-07-05
 sa_coo-31924054239177_1106,,388000,367000,321000,,3.7,2521000,2304000,sa-table,1977-07-05,1977-06-25,1977-06-18,sa-table,
-current_19770702,,350000,,,,,2616000,,current,1977-07-11,1977-07-02,1977-06-25,current-fill,icsa from the current series;iusa from the current series
+current_19770702,,385000,,,,,2616000,,prev-rev1,1977-07-11,1977-07-02,1977-06-25,"prev-rev1 | the next release (sa_coo-31924054239177_1158, 1977-07-18) restating the week",icsa from the current series;iusa from the current series;the level is the next release's restatement of the week;release day = the week's own (the year's median lag); the level is the print of 1977-07-18
 sa_coo-31924054239177_1158,,375000,385000,429000,,3.7,2542000,2204000,sa-table,1977-07-18,1977-07-09,1977-07-02,sa-table,
 sa_coo-31924054239177_1214,,391000,375000,420000,,3.8,2587000,2463000,sa-table-rev,1977-07-25,1977-07-16,1977-07-09,sa-table-rev1,release day = the week's own (the year's median lag); the level is the print of 1977-08-01
 sa_coo-31924054239177_1214,,396000,391000,396000,,3.9,2616000,2509000,sa-table,1977-08-01,1977-07-23,1977-07-16,sa-table,
-current_19770730,,365000,,,,,2584000,,current,1977-08-08,1977-07-30,1977-07-23,current-fill,icsa from the current series;iusa from the current series
+current_19770730,,396000,,,,,2584000,,prev-rev1,1977-08-08,1977-07-30,1977-07-23,"prev-rev1 | the next release (sa_coo-31924054239177_1270, 1977-08-15) restating the week",icsa from the current series;iusa from the current series;the level is the next release's restatement of the week;release day = the week's own (the year's median lag); the level is the print of 1977-08-15
 sa_coo-31924054239177_1270,,394000,396000,376000,,3.9,2658000,2470000,sa-table,1977-08-15,1977-08-06,1977-07-30,sa-table,
 sa_coo-31924054239177_1354,,385000,403000,320000,,4.1,2761000,2439000,sa-table-rev,1977-08-22,1977-08-13,1977-08-06,sa-table-rev2,release day = the week's own (the year's median lag); the level is the print of 1977-09-06
 sa_coo-31924054239177_1354,,393000,385000,299000,,4.1,2806000,2414000,sa-table-rev,1977-08-29,1977-08-20,1977-08-13,sa-table-rev1,release day = the week's own (the year's median lag); the level is the print of 1977-09-06
@@ -134,7 +134,7 @@ sa_coo-31924054239185_0486,,338000,348000,447000,,3.7,2569000,3318000,sa-table-r
 sa_coo-31924054239185_0486,,352000,338000,438000,,3.5,2428000,3144000,sa-table,1978-02-21,1978-02-11,1978-02-04,sa-table,
 sa_coo-31924054239185_0514,,418000,352000,455000,,3.8,2601000,3389000,sa-table-rev,1978-02-27,1978-02-18,1978-02-11,sa-table-rev1,release day = the week's own (the year's median lag); the level is the print of 1978-03-06
 sa_coo-31924054239185_0514,,369000,418000,372000,,3.6,2507000,3254000,sa-table,1978-03-06,1978-02-25,1978-02-18,sa-table,
-current_19780304,,355000,,,,,2553000,,current,1978-03-13,1978-03-04,1978-02-25,current-fill,icsa from the current series;iusa from the current series
+current_19780304,,337000,,,,,2553000,,prev-rev1,1978-03-13,1978-03-04,1978-02-25,"prev-rev1 | the next release (sa_coo-31924054239185_0562, 1978-03-20) restating the week",icsa from the current series;iusa from the current series;the level is the next release's restatement of the week;release day = the week's own (the year's median lag); the level is the print of 1978-03-20
 sa_coo-31924054239185_0562,,333000,337000,338000,,3.6,2479000,3148000,sa-table,1978-03-20,1978-03-11,1978-03-04,sa-table,
 sa_coo-31924054239185_0594,,325000,338000,303000,,3.6,2462000,3066000,sa-table,1978-03-27,1978-03-18,1978-03-11,sa-table,release day assumed (nine days after the week)
 sa_coo-31924054239185_0624,,312000,325000,281000,,3.5,2387000,2900000,sa-table,1978-04-03,1978-03-25,1978-03-18,sa-table,
@@ -148,7 +148,7 @@ sa_coo-31924054239185_0828,,329000,335000,269000,,3.1,2166000,2151000,sa-table,1
 sa_coo-31924054239185_0852,,339000,329000,267000,,,2159000,2094000,sa-table-rev,1978-05-29,1978-05-20,1978-05-13,sa-table-rev1,release day = the week's own (the year's median lag); the level is the print of 1978-06-05
 sa_coo-31924054239185_0852,,332000,339000,260000,,3.1,2184000,2055000,sa-table,1978-06-05,1978-05-27,1978-05-20,sa-table,
 sa_coo-31924054239185_0930,,317000,320000,243000,,3.1,2147000,1934000,sa-table-rev,1978-06-12,1978-06-03,1978-05-27,sa-table-rev2,release day = the week's own (the year's median lag); the level is the print of 1978-06-26
-current_19780610,,331000,,,,,2224000,,current,1978-06-19,1978-06-10,1978-06-03,current-fill,icsa from the current series;iusa from the current series
+current_19780610,,339000,,,,,2224000,,prev-rev1,1978-06-19,1978-06-10,1978-06-03,"prev-rev1 | the next release (sa_coo-31924054239185_0930, 1978-06-26) restating the week",icsa from the current series;iusa from the current series;the level is the next release's restatement of the week;release day = the week's own (the year's median lag); the level is the print of 1978-06-26
 sa_coo-31924054239185_0930,,340000,339000,287000,,3.1,2156000,1956000,sa-table,1978-06-26,1978-06-17,1978-06-10,sa-table,
 sa_coo-31924054239185_1002,,351000,,298000,,3.1,2182000,1974000,sa-table-rev,1978-07-03,1978-06-24,1978-06-17,sa-table-rev2,release day = the week's own (the year's median lag); the level is the print of 1978-07-17
 sa_coo-31924054239185_0978,,383000,298000,349000,,3.2,1916000,2319000,sa-table,1978-07-10,1978-07-01,1978-06-24,sa-table,
@@ -276,14 +276,14 @@ press_19801025,,440000,,,,,3477000,,press,1980-11-06,1980-10-25,1980-10-18,press
 press_19801101,,433000,,,,,3593000,,press,1980-11-13,1980-11-01,1980-10-25,press | DLR AN5ZAAAAYAAJ RA23-PP1,release day assumed (twelve days after the week)
 sa_uiug-30112079483084_0236,,424000,441000,416000,,3.9,3457000,2862000,sa-table-rev,1980-11-18,1980-11-08,1980-11-01,sa-table-rev2,release day = the week's own (the year's median lag); the level is the print of 1980-12-09
 sa_uiug-30112079483084_0210,,392000,,407000,,3.9,3457000,2866000,sa-table-rev,1980-11-25,1980-11-15,1980-11-01,sa-table-rev1,the issue's reference week is the following week: a one-week revision;release day = the week's own (the year's median lag); the level is the print of 1980-12-02
-current_19801122,,398000,,,,,3260000,,current,1980-12-02,1980-11-22,1980-11-15,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1980-12-01)
+current_19801122,,441000,,,,,3260000,,prev-rev6,1980-12-02,1980-11-22,1980-11-15,"prev-rev6 | the release 6 weeks on (sa_uiug-30112079483084_0314, 1981-01-07) restating the week",icsa from the current series;iusa from the current series;the level is the restatement of the week in the release 6 weeks on;release day = the week's own (the year's median lag); the level is the print of 1981-01-07
 sa_uiug-30112079483084_0314,,364000,441000,407000,,3.7,3181000,2779000,sa-table-rev,1980-12-09,1980-11-29,1980-11-22,sa-table-rev2,release day = the week's own (the year's median lag); the level is the print of 1981-01-07
 sa_uiug-30112079483084_0262,,421000,,534000,,3.8,3336000,3293000,sa-table,1980-12-16,1980-12-06,1980-11-29,sa-table,
 sa_uiug-30112079483084_0314,,406000,534000,481000,,3.6,3125000,3150000,sa-table-rev,1980-12-23,1980-12-13,1980-12-06,sa-table-rev1,the issue's reference week is the following week: a one-week revision;release day = the week's own (the year's median lag); the level is the print of 1981-01-07
 sa_uiug-30112079483084_0340,,404000,406000,500000,,3.6,3134000,3244000,sa-table-rev,1980-12-30,1980-12-20,1980-12-13,sa-table-rev1,release day = the week's own (the year's median lag); the level is the print of 1981-01-10
 sa_uiug-30112079483084_0340,,374000,404000,539000,,3.3,2837000,2905000,sa-table,1981-01-10,1980-12-27,1980-12-20,sa-table,
 sa_uiug-30112079483084_0368,,367000,380000,565000,,3.5,3008000,3436000,sa-table,1981-01-14,1981-01-03,1980-12-27,sa-table,
-current_19810110,,419000,,,,,3123000,,current,1981-01-20,1981-01-10,1981-01-03,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1981-01-19)
+current_19810110,,484000,,,,,3123000,,prev-rev3,1981-01-20,1981-01-10,1981-01-03,"prev-rev3 | the release 3 weeks on (sa_uiug-30112079483084_0424, 1981-02-04) restating the week",icsa from the current series;iusa from the current series;the level is the restatement of the week in the release 3 weeks on;release day = the week's own (the year's median lag); the level is the print of 1981-02-04
 sa_uiug-30112079483084_0424,,368000,484000,638000,,3.5,3038000,4716000,sa-table-rev,1981-01-27,1981-01-17,1981-01-10,sa-table-rev1,release day = the week's own (the year's median lag); the level is the print of 1981-02-04
 sa_uiug-30112079483084_0424,,393000,368000,521000,,3.5,3059000,3888000,sa-table,1981-02-04,1981-01-24,1981-01-17,sa-table,
 sa_uiug-30112079483084_0450,,408000,393000,490000,,3.3,2875000,3737000,sa-table,1981-02-09,1981-01-31,1981-01-24,sa-table,release day assumed (nine days after the week)
@@ -493,20 +493,20 @@ press_19841222,,405000,,,,3.0,2600000,,press,1985-01-03,1984-12-22,1984-12-15,pr
 news_uiug.30112066686533_00000015,,397000,402000,,,,2299000,,news,1985-01-10,1984-12-29,1984-12-22,news,
 news_uiug.30112066686533_00000017,,326000,398000,,,,2538000,,news,1985-01-17,1985-01-05,1984-12-29,news,
 press_19850112,,437000,,,,,2593000,,press,1985-01-24,1985-01-12,1985-01-05,press | DLR Ft1ZAAAAYAAJ RA57-PP7 (the issue reporting the release of 24 January 1985),iusa from the current series
-current_19850119,,359000,,,,,2543000,,current,1985-01-31,1985-01-19,1985-01-12,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-01-24)
-current_19850126,,368000,,,,,2472000,,current,1985-02-07,1985-01-26,1985-01-19,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-01-31)
-current_19850202,,386000,,,,,2601000,,current,1985-02-14,1985-02-02,1985-01-26,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-02-07)
-current_19850209,,401000,,,,,2632000,,current,1985-02-21,1985-02-09,1985-02-02,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-02-14)
-current_19850216,,390000,,,,,2608000,,current,1985-02-28,1985-02-16,1985-02-09,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-02-21)
+press_19850119,,392000,,,,,2543000,,press,1985-01-31,1985-01-19,1985-01-12,press | AP 1985-01-31 Nexis 3SJB-73N0-0011-70D2-00000-00 (the release of 31 January 1985),iusa from the current series
+press_19850126,,394000,,,,,2472000,,press,1985-02-07,1985-01-26,1985-01-19,press | AP 1985-02-07 Nexis 3SJB-7080-0011-74XJ-00000-00 (the release of 7 February 1985),iusa from the current series
+press_19850202,,394000,,,,,2601000,,press,1985-02-14,1985-02-02,1985-01-26,press | AP 1985-02-15 Nexis 3SJB-6VY0-0011-73N7-00000-00 (the release of 14 February 1985),iusa from the current series
+press_19850209,,425000,,,,,2632000,,press-derived,1985-02-21,1985-02-09,1985-02-02,press-derived | AP 1985-02-28 Nexis 3SJB-6P50-0011-74R6-00000-00 (the release of 28 February 1985),iusa from the current series;release day = the week's own (the year's median lag); the level is the print of 1985-02-28
+press_19850216,,422000,,,,,2608000,,press,1985-02-28,1985-02-16,1985-02-09,press | AP 1985-02-28 Nexis 3SJB-6P50-0011-74R6-00000-00 (the release of 28 February 1985),iusa from the current series
 news_uiug.30112066686533_00000019,,403000,411000,,,3.0,2700000,,news,1985-03-07,1985-02-23,1985-02-16,news,
 news_uiug.30112066686533_00000021,,388000,403000,,,3.0,2683000,,news,1985-03-14,1985-03-02,1985-02-23,news,
 news_uiug.30112066686533_00000023,,401000,387000,,,3.0,2673000,,news,1985-03-21,1985-03-09,1985-03-02,news,
-current_19850316,,386000,,,,,2591000,,current,1985-03-28,1985-03-16,1985-03-09,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-03-21)
-current_19850323,,373000,,,,,2578000,,current,1985-04-04,1985-03-23,1985-03-16,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-03-28)
+press_19850316,,394000,,,,,2591000,,press,1985-03-28,1985-03-16,1985-03-09,press | AP 1985-03-28 Nexis 3SJB-67S0-0011-72C6-00000-00 (the release of 28 March 1985),iusa from the current series
+press_19850323,,395000,,,,,2578000,,press,1985-04-04,1985-03-23,1985-03-16,press | AP 1985-04-04 Nexis 3SJB-64P0-0011-71S0-00000-00 (the release of 4 April 1985),iusa from the current series
 current_19850330,,386000,,,,,2556000,,current,1985-04-11,1985-03-30,1985-03-23,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-04-04)
-current_19850406,,405000,,,,,2526000,,current,1985-04-18,1985-04-06,1985-03-30,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-04-11)
+current_19850406,,393000,,,,,2526000,,prev-rev1,1985-04-18,1985-04-06,1985-03-30,"prev-rev1 | the next release (news_uiug.30112066686533_00000025, 1985-04-25) restating the week",icsa from the current series;iusa from the current series;the level is the next release's restatement of the week;release day = the week's own (the year's median lag); the level is the print of 1985-04-25
 news_uiug.30112066686533_00000025,,408000,393000,,,,2573000,,news,1985-04-25,1985-04-13,1985-04-06,news,
-current_19850420,,391000,,,,,2600000,,current,1985-05-02,1985-04-20,1985-04-13,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-04-25)
+press_19850420,,389000,,,,,2600000,,press,1985-05-02,1985-04-20,1985-04-13,press | AP 1985-05-02 Nexis 3SJB-5PB0-0011-70VC-00000-00 (the release of 2 May 1985),iusa from the current series
 news_uiug.30112066686533_00000027,,373000,389000,,,,2564000,,news,1985-05-09,1985-04-27,1985-04-20,news,
 news_uiug.30112066686533_00000029,,386000,373000,,,2.8,2575000,,news,1985-05-16,1985-05-04,1985-04-27,news,
 news_uiug.30112066686533_00000031,,387000,386000,,,2.8,2545000,,news,1985-05-23,1985-05-11,1985-05-04,news,
@@ -522,27 +522,27 @@ news_uiug.30112066686533_00000049,,436000,378000,,,,2673000,,news,1985-07-25,198
 news_uiug.30112066686533_00000051,,393000,428000,,,,2560000,,news,1985-08-01,1985-07-20,1985-07-13,news,
 news_uiug.30112066686533_00000053,,369000,393000,,,2.8,2557000,,news,1985-08-08,1985-07-27,1985-07-20,news,
 news_uiuo.ark:/13960/t3230c77b_00000001,,375000,,,,2.8,2570000,,news,1985-08-15,1985-08-03,1985-07-27,news,
-current_19850810,,402000,,,,,2518000,,current,1985-08-22,1985-08-10,1985-08-03,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-08-15)
+press_19850810,,382000,,,,,2518000,,press,1985-08-22,1985-08-10,1985-08-03,press | WSJ 1985-08-23 Nexis 3SJB-1V90-0030-C3TH-00000-00 (the release of 22 August 1985),iusa from the current series
 news_uiug.30112066686533_00000055,,370000,391000,,,2.8,2545000,,news,1985-08-29,1985-08-17,1985-08-10,news,
-current_19850824,,405000,,,,,2574000,,current,1985-09-05,1985-08-24,1985-08-17,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-08-29)
+press_19850824,,382000,,,,,2574000,,press,1985-09-05,1985-08-24,1985-08-17,press | WSJ abstract 1985-09-06 Nexis 3SJB-1TW0-0030-C25X-00000-00 (the release of 5 September 1985),iusa from the current series
 news_uiug.30112066686533_00000057,,379000,382000,,,2.8,2561000,,news,1985-09-12,1985-08-31,1985-08-24,news,iusa from the current series
 news_uiuo.ark:/13960/t3230c77b_00000005,,382000,,,,,2469000,,news,1985-09-19,1985-09-07,1985-08-31,news,
-current_19850914,,408000,,,,,2596000,,current,1985-09-26,1985-09-14,1985-09-07,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-09-19)
+press_19850914,,396000,,,,,2596000,,press,1985-09-26,1985-09-14,1985-09-07,press | WSJ abstract 1985-09-27 Nexis 3SJB-1SG0-0030-C4R5-00000-00 (the release of 26 September 1985),iusa from the current series
 news_uiug.30112066686533_00000001,,375000,399000,,,2.8,2526000,,news,1985-10-03,1985-09-21,1985-09-14,news,
 news_uiug.30112066686533_00000003,,367000,375000,,,,2474000,,news,1985-10-10,1985-09-28,1985-09-21,news,
-current_19851005,,405000,,,,,2623000,,current,1985-10-17,1985-10-05,1985-09-28,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-10-10)
-current_19851012,,400000,,,,,2657000,,current,1985-10-24,1985-10-12,1985-10-05,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-10-17)
+press_19851005,,364000,,,,,2623000,,press,1985-10-17,1985-10-05,1985-09-28,press | WSJ abstract 1985-10-18 Nexis 3SJB-1RS0-0030-C1YY-00000-00 (the release of 17 October 1985),iusa from the current series
+press_19851012,,384000,,,,,2657000,,press,1985-10-24,1985-10-12,1985-10-05,press | AP 1985-10-24 Nexis 3SJB-2GN0-0011-732C-00000-00 (the release of 24 October 1985),iusa from the current series
 news_uiug.30112066686533_00000005,,360000,378000,,,,2402000,,news,1985-10-31,1985-10-19,1985-10-12,news,
-current_19851026,,418000,,,,,2644000,,current,1985-11-07,1985-10-26,1985-10-19,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-10-31)
-current_19851102,,398000,,,,,2657000,,current,1985-11-14,1985-11-02,1985-10-26,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-11-07)
-current_19851109,,397000,,,,,2673000,,current,1985-11-21,1985-11-09,1985-11-02,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-11-14)
-current_19851116,,397000,,,,,2612000,,current,1985-11-28,1985-11-16,1985-11-09,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-11-21)
+press_19851026,,391000,,,,,2644000,,press-rev1,1985-11-07,1985-10-26,1985-10-19,press-rev1 | WSJ abstract 1985-11-15 Nexis 3SJB-1PW0-0030-C564-00000-00 (the release of 14 November 1985),iusa from the current series;release day = the week's own (the year's median lag); the level is the print of 1985-11-14
+press_19851102,,366000,,,,,2657000,,press,1985-11-14,1985-11-02,1985-10-26,press | WSJ abstract 1985-11-15 Nexis 3SJB-1PW0-0030-C564-00000-00 (the release of 14 November 1985),iusa from the current series
+press_19851109,,392000,,,,,2673000,,press,1985-11-21,1985-11-09,1985-11-02,press | WSJ abstract 1985-11-22 Nexis 3SJB-1PR0-0030-C4P8-00000-00 (the release of 21 November 1985),iusa from the current series
+press_19851116,,385000,,,,,2612000,,press,1985-11-28,1985-11-16,1985-11-09,press | WSJ abstract 1985-11-29 Nexis 3SJB-1PJ0-0030-C41D-00000-00 (the release of 28 November 1985),iusa from the current series
 news_uiug.30112066686533_00000007,,342000,384000,,,,2615000,,news,1985-12-05,1985-11-23,1985-11-16,news,
 news_uiug.30112066686533_00000011,,371000,400000,,,,2406000,,news,1985-12-12,1985-11-30,1985-11-23,news,
-current_19851207,,399000,,,,,2638000,,current,1985-12-19,1985-12-07,1985-11-30,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-12-12)
+press_19851207,,395000,,,,,2638000,,press,1985-12-19,1985-12-07,1985-11-30,press | WSJ abstract 1985-12-20 Nexis 3SJB-1P40-0030-C2C1-00000-00 (the release of 19 December 1985),iusa from the current series
 news_uiug.30112066686533_00000013,,390000,395000,,,2.8,2603000,,news,1985-12-26,1985-12-14,1985-12-07,news,
-current_19851221,,370000,,,,,2680000,,current,1986-01-02,1985-12-21,1985-12-14,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1985-12-26)
-current_19851228,,390000,,,,,2543000,,current,1986-01-09,1985-12-28,1985-12-21,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-01-02)
+press_19851221,,381000,,,,,2680000,,press,1986-01-02,1985-12-21,1985-12-14,press | WSJ abstract 1986-01-03 Nexis 3SJB-1NR0-0030-C12H-00000-00 (the release of 2 January 1986),iusa from the current series
+press_19851228,,417000,,,,,2543000,,press,1986-01-09,1985-12-28,1985-12-21,press | WSJ abstract 1986-01-10 Nexis 3SJB-1NH0-0030-C06C-00000-00 (the release of 9 January 1986),iusa from the current series
 news_uiug.30112066686533_00000061,,356000,411000,,,2.8,2562000,,news,1986-01-16,1986-01-04,1985-12-28,news,
 news_uiug.30112066686533_00000063,,431000,356000,,,3.0,2776000,,news,1986-01-23,1986-01-11,1986-01-04,news,release day 1986-01-16 was 5 days after the week where the year's releases came 12 days after it; set to the week's own
 news_uiug.30112066686533_00000065,,370000,434000,,,2.8,2645000,,news,1986-01-30,1986-01-18,1986-01-11,news,
@@ -550,10 +550,10 @@ news_uiug.30112066686533_00000067,,316000,377000,,,2.7,2463000,,news,1986-02-06,
 news_uiug.30112066686533_00000069,,365000,315000,,,2.8,2574000,,news,1986-02-13,1986-02-01,1986-01-25,news,
 news_uiug.30112066686533_00000071,,396000,364000,,,2.7,2552000,,news,1986-02-20,1986-02-08,1986-02-01,news,
 news_uiug.30112066686533_00000073,,380000,396000,,,2.7,2542000,,news,1986-02-27,1986-02-15,1986-02-08,news,
-current_19860222,,390000,,,,,2569000,,current,1986-03-06,1986-02-22,1986-02-15,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-02-27)
-current_19860301,,375000,,,,,2626000,,current,1986-03-13,1986-03-01,1986-02-22,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-03-06)
-current_19860308,,366000,,,,,2570000,,current,1986-03-20,1986-03-08,1986-03-01,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-03-13)
-current_19860315,,382000,,,,,2603000,,current,1986-03-27,1986-03-15,1986-03-08,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-03-20)
+press_19860222,,406000,,,,,2569000,,press,1986-03-06,1986-02-22,1986-02-15,press | WSJ abstract 1986-03-07 Nexis 3SJB-1JF0-0030-C45Y-00000-00 (the release of 6 March 1986),iusa from the current series
+press_19860301,,393000,,,,,2626000,,press,1986-03-13,1986-03-01,1986-02-22,press | WSJ abstract 1986-03-14 Nexis 3SJB-1J80-0030-C3B1-00000-00 (the release of 13 March 1986),iusa from the current series
+press_19860308,,381000,,,,,2570000,,press,1986-03-20,1986-03-08,1986-03-01,press | WSJ abstract 1986-03-21 Nexis 3SJB-1J10-0030-C2FB-00000-00 (the release of 20 March 1986),iusa from the current series
+press_19860315,,395000,,,,,2603000,,press,1986-03-27,1986-03-15,1986-03-08,press | WSJ abstract 1986-03-28 Nexis 3SJB-1HS0-0030-C1H5-00000-00 (the release of 27 March 1986),iusa from the current series
 news_uiug.30112066686533_00000077,,417000,395000,,,2.9,2656000,,news,1986-04-03,1986-03-22,1986-03-15,news,
 news_uiug.30112066686533_00000079,,384000,417000,,,2.9,2649000,,news,1986-04-10,1986-03-29,1986-03-22,news,
 news_uiug.30112066686533_00000081,,372000,384000,,,2.9,2701000,,news,1986-04-17,1986-04-05,1986-03-29,news,
@@ -561,48 +561,48 @@ news_uiug.30112066686533_00000083,,379000,372000,,,2.8,2615000,,news,1986-04-24,
 news_uiug.30112066686533_00000075,,375000,380000,,,2.8,2597000,,news,1986-05-01,1986-04-19,1986-04-12,news,
 news_uiug.30112066686533_00000085,,384000,375000,,,2.8,2588000,,news,1986-05-08,1986-04-26,1986-04-19,news,
 news_uiug.30112066686533_00000087,,389000,384000,,,2.8,2646000,,news,1986-05-15,1986-05-03,1986-04-26,news,
-current_19860510,,395000,,,,,2670000,,current,1986-05-22,1986-05-10,1986-05-03,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-05-15)
+press_19860510,,392000,,,,,2670000,,press,1986-05-22,1986-05-10,1986-05-03,press | WSJ abstract 1986-05-23 Nexis 3SJB-1G20-0030-C07F-00000-00 (the release of 22 May 1986),iusa from the current series
 news_uiug.30112066686533_00000089,,384000,392000,,,2.8,2648000,,news,1986-05-29,1986-05-17,1986-05-10,news,
 news_uiug.30112066686533_00000091,,393000,384000,,,2.8,2653000,,news,1986-06-05,1986-05-24,1986-05-17,news,
 news_uiug.30112066686533_00000093,,355000,393000,,,2.8,2584000,,news,1986-06-12,1986-05-31,1986-05-24,news,
-current_19860607,,375000,,,,,2708000,,current,1986-06-19,1986-06-07,1986-05-31,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-06-12)
-current_19860614,,369000,,,,,2653000,,current,1986-06-26,1986-06-14,1986-06-07,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-06-19)
-current_19860621,,367000,,,,,2644000,,current,1986-07-03,1986-06-21,1986-06-14,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-06-26)
-current_19860628,,371000,,,,,2637000,,current,1986-07-10,1986-06-28,1986-06-21,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-07-03)
-current_19860705,,371000,,,,,2606000,,current,1986-07-17,1986-07-05,1986-06-28,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-07-10)
+press_19860607,,395000,,,,,2708000,,press,1986-06-19,1986-06-07,1986-05-31,press | WSJ abstract 1986-06-20 Nexis 3SJB-1DV0-0030-C2W8-00000-00 (the release of 19 June 1986),iusa from the current series
+press_19860614,,376000,,,,,2653000,,press,1986-06-26,1986-06-14,1986-06-07,press | WSJ abstract 1986-06-27 Nexis 3SJB-1DM0-0030-C203-00000-00 (the release of 26 June 1986),iusa from the current series
+press_19860621,,382000,,,,,2644000,,press,1986-07-03,1986-06-21,1986-06-14,press | WSJ abstract 1986-07-07 Nexis 3SJB-1DC0-0030-C10G-00000-00 (the release of 3 July 1986),iusa from the current series
+press_19860628,,373000,,,,,2637000,,press,1986-07-10,1986-06-28,1986-06-21,press | WSJ abstract 1986-07-11 Nexis 3SJB-1D60-0030-C08J-00000-00 (the release of 10 July 1986),iusa from the current series
+press_19860705,,355000,,,,,2606000,,press,1986-07-17,1986-07-05,1986-06-28,press | WSJ abstract 1986-07-18 Nexis 3SJB-1CH0-0030-C4S5-00000-00 (the release of 17 July 1986),iusa from the current series
 news_uiug.30112066686533_00000099,,391000,364000,,,2.9,2766000,,news,1986-07-24,1986-07-12,1986-07-05,news,
 news_uiug.30112066686533_00000101,,371000,391000,,,2.8,2659000,,news,1986-07-31,1986-07-19,1986-07-12,news,
 news_uiug.30112066686533_00000103,,381000,372000,,,2.9,2686000,,news,1986-08-07,1986-07-26,1986-07-19,news,
 news_uiug.30112066686533_00000105,,393000,381000,,,2.9,2713000,,news,1986-08-14,1986-08-02,1986-07-26,news,
-current_19860809,,416000,,,,,2583000,,current,1986-08-21,1986-08-09,1986-08-02,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-08-14)
-current_19860816,,407000,,,,,2686000,,current,1986-08-28,1986-08-16,1986-08-09,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-08-21)
-current_19860823,,397000,,,,,2658000,,current,1986-09-04,1986-08-23,1986-08-16,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-08-28)
-current_19860830,,401000,,,,,2687000,,current,1986-09-11,1986-08-30,1986-08-23,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-09-04)
-current_19860906,,400000,,,,,2664000,,current,1986-09-18,1986-09-06,1986-08-30,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-09-11)
-current_19860913,,394000,,,,,2756000,,current,1986-09-25,1986-09-13,1986-09-06,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-09-18)
-current_19860920,,399000,,,,,2671000,,current,1986-10-02,1986-09-20,1986-09-13,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-09-25)
-current_19860927,,389000,,,,,2703000,,current,1986-10-09,1986-09-27,1986-09-20,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-10-02)
-current_19861004,,391000,,,,,2698000,,current,1986-10-16,1986-10-04,1986-09-27,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-10-09)
-current_19861011,,387000,,,,,2780000,,current,1986-10-23,1986-10-11,1986-10-04,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-10-16)
-current_19861018,,385000,,,,,2665000,,current,1986-10-30,1986-10-18,1986-10-11,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-10-23)
+press_19860809,,416000,,,,,2583000,,press-rev1,1986-08-21,1986-08-09,1986-08-02,press-rev1 | WSJ abstract 1986-08-29 Nexis 3SJB-19R0-0030-C4K4-00000-00 (the release of 28 August 1986),iusa from the current series;release day = the week's own (the year's median lag); the level is the print of 1986-08-28
+press_19860816,,384000,,,,,2686000,,press,1986-08-28,1986-08-16,1986-08-09,press | WSJ abstract 1986-08-29 Nexis 3SJB-19R0-0030-C4K4-00000-00 (the release of 28 August 1986),iusa from the current series
+press_19860823,,374000,,,,,2658000,,press,1986-09-04,1986-08-23,1986-08-16,press | WSJ abstract 1986-09-05 Nexis 3SJB-19H0-0030-C3S4-00000-00 (the release of 4 September 1986),iusa from the current series
+press_19860830,,375000,,,,,2687000,,press,1986-09-11,1986-08-30,1986-08-23,press | WSJ abstract 1986-09-12 Nexis 3SJB-1980-0030-C2V1-00000-00 (the release of 11 September 1986),iusa from the current series
+press_19860906,,353000,,,,,2664000,,press,1986-09-18,1986-09-06,1986-08-30,press | WSJ abstract 1986-09-19 Nexis 3SJB-1920-0030-C253-00000-00 (the release of 18 September 1986),iusa from the current series
+press_19860913,,392000,,,,,2756000,,press,1986-09-25,1986-09-13,1986-09-06,press | WSJ abstract 1986-09-26 Nexis 3SJB-18S0-0030-C12R-00000-00 (the release of 25 September 1986),iusa from the current series
+press_19860920,,375000,,,,,2671000,,press,1986-10-02,1986-09-20,1986-09-13,press | WSJ abstract 1986-10-03 Nexis 3SJB-18F0-0030-C00S-00000-00 (the release of 2 October 1986),iusa from the current series
+press_19860927,,362000,,,,,2703000,,press-rev1,1986-10-09,1986-09-27,1986-09-20,press-rev1 | WSJ abstract 1986-10-17 Nexis 3SJB-17X0-0030-C3GM-00000-00 (the release of 16 October 1986),iusa from the current series;release day = the week's own (the year's median lag); the level is the print of 1986-10-16
+press_19861004,,359000,,,,,2698000,,press,1986-10-16,1986-10-04,1986-09-27,press | WSJ abstract 1986-10-17 Nexis 3SJB-17X0-0030-C3GM-00000-00 (the release of 16 October 1986),iusa from the current series
+press_19861011,,371000,,,,,2780000,,press,1986-10-23,1986-10-11,1986-10-04,press | WSJ abstract 1986-10-24 Nexis 3SJB-17N0-0030-C2NN-00000-00 (the release of 23 October 1986),iusa from the current series
+press_19861018,,350000,,,,,2665000,,press,1986-10-30,1986-10-18,1986-10-11,press | WSJ abstract 1986-10-31 Nexis 3SJB-17D0-0030-C1RD-00000-00 (the release of 30 October 1986),iusa from the current series
 news_uiug.30112066686533_00000113,,355000,353000,,,2.8,2656000,,news,1986-11-06,1986-10-25,1986-10-18,news,
 news_uiug.30112066686533_00000115,,335000,355000,,,2.7,2580000,,news,1986-11-13,1986-11-01,1986-10-25,news,
 news_uiug.30112066686533_00000117,,340000,335000,,,2.7,2552000,,news,1986-11-20,1986-11-08,1986-11-01,news,
 news_uiug.30112066686533_00000119,,364000,340000,,,2.6,2498000,,news,1986-11-26,1986-11-15,1986-11-08,news,
 news_uiug.30112066686533_00000121,,364000,364000,,,2.8,2623000,,news,1986-12-04,1986-11-22,1986-11-15,news,
-current_19861129,,366000,,,,,2555000,,current,1986-12-11,1986-11-29,1986-11-22,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1986-12-04)
+press_19861129,,350000,,,,,2555000,,press,1986-12-11,1986-11-29,1986-11-22,press | WSJ abstract 1986-12-12 Nexis 3SJB-15T0-0030-C1S1-00000-00 (the release of 11 December 1986),iusa from the current series
 news_uiug.30112066686533_00000123,,371000,350000,,,2.8,2658000,,news,1986-12-18,1986-12-06,1986-11-29,news,
 news_uiug.30112066686533_00000125,,377000,371000,,,2.6,2483000,,news,1986-12-24,1986-12-13,1986-12-06,news,
 news_uiug.30112066686533_00000127,,361000,377000,,,2.7,2550000,,news,1986-12-31,1986-12-20,1986-12-13,news,
 news_uiug.30112066686533_00000129,,363000,361000,,,2.5,2323000,,news,1987-01-08,1986-12-27,1986-12-20,news,
 news_uiug.30112066686533_00000131,,326000,363000,,,2.6,2476000,,news,1987-01-15,1987-01-03,1986-12-27,news,
-current_19870110,,348000,,,,,2590000,,current,1987-01-22,1987-01-10,1987-01-03,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1987-01-15)
+press_19870110,,391000,,,,,2590000,,press,1987-01-22,1987-01-10,1987-01-03,press | WSJ abstract 1987-01-23 Nexis 3SJB-1480-0030-C203-00000-00 (the release of 22 January 1987),iusa from the current series
 news_uiug.30112066686533_00000135,,372000,,,,2.6,2464000,,news,1987-01-29,1987-01-17,1987-01-10,news,
-current_19870124,,346000,,,,,2443000,,current,1987-02-05,1987-01-24,1987-01-17,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1987-01-29)
+press_19870124,,332000,,,,,2443000,,press,1987-02-05,1987-01-24,1987-01-17,press | WSJ abstract 1987-02-06 Nexis 3SJB-13R0-0030-C02B-00000-00 (the release of 5 February 1987),iusa from the current series
 news_uiug.30112066686533_00000139,,374000,332000,,,2.6,2516000,,news,1987-02-12,1987-01-31,1987-01-24,news,
 news_uiug.30112066686533_00000141,,395000,374000,,,2.7,2549000,,news,1987-02-19,1987-02-07,1987-01-31,news,
 news_uiug.30112066686533_00000143,,364000,395000,,,2.6,2459000,,news,1987-02-26,1987-02-14,1987-02-07,news,
-current_19870221,,341000,,,,,2451000,,current,1987-03-05,1987-02-21,1987-02-14,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1987-02-26)
+current_19870221,,344000,,,,,2451000,,prev-rev1,1987-03-05,1987-02-21,1987-02-14,"prev-rev1 | the next release (news_uiug.30112066686533_00000145, 1987-03-12) restating the week",icsa from the current series;iusa from the current series;the level is the next release's restatement of the week;release day = the week's own (the year's median lag); the level is the print of 1987-03-12
 news_uiug.30112066686533_00000145,,373000,344000,,,2.6,2477000,,news,1987-03-12,1987-02-28,1987-02-21,news,
 news_uiug.30112066686533_00000147,,340000,373000,,,2.6,2507000,,news,1987-03-19,1987-03-07,1987-02-28,news,
 news_uiug.30112066686533_00000149,,341000,340000,,,2.6,2454000,,news,1987-03-26,1987-03-14,1987-03-07,news,
@@ -664,18 +664,18 @@ news_msu.31293026746598_00000075,,294000,312000,,,2.2,2131000,,news,1988-04-14,1
 news_msu.31293026746598_00000077,,314000,294000,,,2.2,2107000,,news,1988-04-21,1988-04-09,1988-04-02,news,
 news_msu.31293026746598_00000079,,275000,314000,,,2.2,2130000,,news,1988-04-28,1988-04-16,1988-04-09,news,release day 1988-04-21 was 5 days after the week where the year's releases came 12 days after it; set to the week's own
 news_msu.31293026746598_00000081,,315000,287000,,,2.1,2090000,,news,1988-05-05,1988-04-23,1988-04-16,news,release day 1988-04-28 was 5 days after the week where the year's releases came 12 days after it; set to the week's own
-current_19880430,,313000,,,,,2067000,,current,1988-05-12,1988-04-30,1988-04-23,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1988-05-05)
+press_19880430,,295000,,,,,2067000,,press,1988-05-12,1988-04-30,1988-04-23,press | Journal of Commerce 1988-05-13 Nexis 3S6Y-CVP0-009G-J2H9-00000-00 (the release of 12 May 1988),iusa from the current series
 news_msu.31293026746598_00000083,,310000,295000,,,2.1,2077000,,news,1988-05-19,1988-05-07,1988-04-30,news,iusa from the current series
-current_19880514,,314000,,,,,2059000,,current,1988-05-26,1988-05-14,1988-05-07,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1988-05-19)
+press_19880514,,305000,,,,,2059000,,press,1988-05-26,1988-05-14,1988-05-07,press | Financial Post 1988-05-27 Nexis 3RH6-B140-0001-11V0-00000-00 (the release of 26 May 1988),iusa from the current series
 news_msu.31293026746598_00000087,,313000,305000,,,2.1,2068000,,news,1988-06-02,1988-05-21,1988-05-14,news,iusa from the current series
 news_msu.31293026746598_00000089,,333000,313000,,,2.2,2099000,,news,1988-06-09,1988-05-28,1988-05-21,news,iusa from the current series
 news_msu.31293026746598_00000091,,287000,333000,,,2.0,2045000,,news,1988-06-16,1988-06-04,1988-05-28,news,iusa from the current series
-current_19880611,,305000,,,,,2040000,,current,1988-06-23,1988-06-11,1988-06-04,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1988-06-16)
+press_19880611,,298000,,,,,2040000,,press,1988-06-23,1988-06-11,1988-06-04,press | WSJ abstract 1988-06-24 Nexis 3SR8-X940-0030-D3RJ-00000-00 (the release of 23 June 1988),iusa from the current series
 news_uiug.30112066686533_00000279,,307000,298000,,,2.1,2068000,,news,1988-06-30,1988-06-18,1988-06-11,news,iusa from the current series
 news_msu.31293026746598_00000093,,309000,307000,,,2.1,2034000,,news,1988-07-07,1988-06-25,1988-06-18,news,iusa from the current series
 news_msu.31293026746598_00000095,,304000,309000,,,,2030000,,news,1988-07-14,1988-07-02,1988-06-25,news,iusa from the current series
 news_msu.31293026746598_00000097,,295000,304000,,,2.1,2035000,,news,1988-07-21,1988-07-09,1988-07-02,news,iusa from the current series
-current_19880716,,315000,,,,,2027000,,current,1988-07-28,1988-07-16,1988-07-09,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1988-07-21)
+current_19880716,,318000,,,,,2027000,,prev-rev1,1988-07-28,1988-07-16,1988-07-09,"prev-rev1 | the next release (news_msu.31293026746598_00000099, 1988-08-04) restating the week",icsa from the current series;iusa from the current series;the level is the next release's restatement of the week;release day = the week's own (the year's median lag); the level is the print of 1988-08-04
 news_msu.31293026746598_00000099,,371000,318000,,,2.1,2073000,,news,1988-08-04,1988-07-23,1988-07-16,news,iusa from the current series
 news_msu.31293026746598_00000101,,331000,371000,,,2.1,2099000,,news,1988-08-11,1988-07-30,1988-07-23,news,
 news_msu.31293026746598_00000103,,311000,331000,,,2.2,2108000,,news,1988-08-18,1988-08-06,1988-07-30,news,iusa from the current series
@@ -693,7 +693,7 @@ news_msu.31293026746598_00000125,,302000,272000,,,2.0,1955000,,news,1988-11-03,1
 news_msu.31293026746598_00000127,,284000,302000,,,1.9,1901000,,news,1988-11-10,1988-10-29,1988-10-22,news,
 news_msu.31293026746598_00000129,,293000,284000,,,2.0,1967000,,news,1988-11-17,1988-11-05,1988-10-29,news,release day 1988-11-10 was 5 days after the week where the year's releases came 12 days after it; set to the week's own
 news_uiug.30112066686533_00000319,,269000,294000,,,,1831000,,news,1988-11-23,1988-11-12,1988-11-05,news,
-current_19881119,,294000,,,,,2011000,,current,1988-12-01,1988-11-19,1988-11-12,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1988-11-24)
+press_19881119,,309000,,,,,2011000,,press,1988-12-01,1988-11-19,1988-11-12,press | Financial Post 1988-12-02 Nexis 3RH5-VFX0-0001-13RK-00000-00 (the release of 1 December 1988),iusa from the current series
 news_msu.31293026746598_00000133,,281000,311000,,,1.9,1845000,,news,1988-12-08,1988-11-26,1988-11-19,news,
 news_msu.31293026746598_00000135,,332000,281000,,,2.1,2130000,,news,1988-12-15,1988-12-03,1988-11-26,news,release day 1988-12-08 was 5 days after the week where the year's releases came 12 days after it; set to the week's own
 news_msu.31293026746598_00000137,,278000,332000,,,1.9,1892000,,news,1988-12-22,1988-12-10,1988-12-03,news,
@@ -737,7 +737,7 @@ news_msu.31293026746598_00000207,,318000,316000,,,2.1,2153000,,news,1989-09-07,1
 news_msu.31293026746598_00000209,,319000,318000,,,2.2,2211000,,news,1989-09-14,1989-09-02,1989-08-26,news,
 news_msu.31293026746598_00000211,,311000,319000,,,2.1,2133000,,news,1989-09-21,1989-09-09,1989-09-02,news,
 news_msu.31293026746598_00000213,,319000,311000,,,2.2,2199000,,news,1989-09-28,1989-09-16,1989-09-09,news,
-current_19890923,,334000,,,,,2169000,,current,1989-10-05,1989-09-23,1989-09-16,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1989-09-28)
+press_19890923,,328000,,,,,2169000,,press,1989-10-05,1989-09-23,1989-09-16,press | WSJ abstract 1989-10-06 Nexis 3SR8-X3C0-0030-D4PG-00000-00 (the release of 5 October 1989),iusa from the current series
 news_msu.31293026746598_00000215,,333000,328000,,,2.2,2204000,,news,1989-10-12,1989-09-30,1989-09-23,news,release day 1989-10-05 was 5 days after the week where the year's releases came 12 days after it; set to the week's own
 news_msu.31293026746598_00000217,,396000,334000,,,2.2,2202000,,news,1989-10-19,1989-10-07,1989-09-30,news,
 news_msu.31293026746598_00000219,,332000,396000,,,2.1,2202000,,news,1989-10-26,1989-10-14,1989-10-07,news,
@@ -750,7 +750,7 @@ news_msu.31293026746598_00000231,,310000,363000,,,2.1,2210000,,news,1989-12-07,1
 news_uiug.30112066686533_00000425,,396000,310000,,,2.3,2332000,,news,1989-12-14,1989-12-02,1989-11-25,news,
 news_msu.31293026746598_00000235,,333000,396000,,,2.2,2235000,,news,1989-12-21,1989-12-09,1989-12-02,news,
 news_msu.31293026746598_00000237,,349000,333000,,,2.2,2241000,,news,1989-12-28,1989-12-16,1989-12-09,news,
-current_19891223,,381000,,,,,2295000,,current,1990-01-04,1989-12-23,1989-12-16,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1989-12-28)
+press_19891223,,426000,,,,,2295000,,press,1990-01-04,1989-12-23,1989-12-16,press | WSJ abstract 1990-01-05 Nexis 3SR8-X250-0030-D4H0-00000-00 (the release of 4 January 1990),iusa from the current series
 news_uiug.30112066686533_00000433,,341000,428000,,,2.4,2448000,,news,1990-01-11,1989-12-30,1989-12-23,news,
 news_msu.31293026746606_00000135,,317000,343000,,,2.3,2381000,,news,1990-01-18,1990-01-06,1989-12-30,news,
 news_msu.31293026746606_00000137,,388000,317000,,,2.3,2366000,,news,1990-01-25,1990-01-13,1990-01-06,news,
@@ -758,32 +758,32 @@ news_msu.31293026746606_00000139,,363000,391000,,,2.2,2276000,,news,1990-02-01,1
 news_msu.31293026746606_00000141,,368000,364000,,,2.4,2480000,,news,1990-02-08,1990-01-27,1990-01-20,news,
 news_uiug.30112066686533_00000443,,352000,368000,,,2.2,2293000,,news,1990-02-15,1990-02-03,1990-01-27,news,
 news_msu.31293026746606_00000143,,372000,352000,,,2.4,2438000,,news,1990-02-22,1990-02-10,1990-02-03,news,
-current_19900217,,348000,,,,,2323000,,current,1990-03-01,1990-02-17,1990-02-10,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-02-22)
-current_19900224,,350000,,,,,2382000,,current,1990-03-08,1990-02-24,1990-02-17,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-03-01)
-current_19900303,,351000,,,,,2347000,,current,1990-03-15,1990-03-03,1990-02-24,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-03-08)
-current_19900310,,349000,,,,,2385000,,current,1990-03-22,1990-03-10,1990-03-03,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-03-15)
-current_19900317,,349000,,,,,2341000,,current,1990-03-29,1990-03-17,1990-03-10,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-03-22)
+press_19900217,,361000,,,,,2323000,,press,1990-03-01,1990-02-17,1990-02-10,press | WSJ abstract 1990-03-02 Nexis 3SR8-X190-0030-D2WV-00000-00 (the release of 1 March 1990),iusa from the current series
+press_19900224,,346000,,,,,2382000,,press,1990-03-08,1990-02-24,1990-02-17,press | WSJ abstract 1990-03-09 Nexis 3SR8-X170-0030-D20C-00000-00 (the release of 8 March 1990),iusa from the current series
+press_19900303,,343000,,,,,2347000,,press,1990-03-15,1990-03-03,1990-02-24,press | WSJ abstract 1990-03-16 Nexis 3SR8-X140-0030-D14X-00000-00 (the release of 15 March 1990),iusa from the current series
+press_19900310,,358000,,,,,2385000,,press,1990-03-22,1990-03-10,1990-03-03,press | WSJ abstract 1990-03-23 Nexis 3SR8-X120-0030-D09C-00000-00 (the release of 22 March 1990),iusa from the current series
+press_19900317,,350000,,,,,2341000,,press,1990-03-29,1990-03-17,1990-03-10,press | WSJ abstract 1990-03-30 Nexis 3SR8-X0X0-0030-D4SF-00000-00 (the release of 29 March 1990),iusa from the current series
 news_uiug.30112066686533_00000447,,343000,350000,,,2.3,2385000,,news,1990-04-05,1990-03-24,1990-03-17,news,
 news_msu.31293026746606_00000147,,338000,342000,,,2.2,2313000,,news,1990-04-12,1990-03-31,1990-03-24,news,
 news_uiug.30112066686533_00000451,,371000,338000,,,2.3,2375000,,news,1990-04-19,1990-04-07,1990-03-31,news,
-current_19900414,,357000,,,,,2323000,,current,1990-04-26,1990-04-14,1990-04-07,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-04-19)
+press_19900414,,348000,,,,,2323000,,press,1990-04-26,1990-04-14,1990-04-07,press | WSJ abstract 1990-04-27 Nexis 3SR8-X0J0-0030-D1CG-00000-00 (the release of 26 April 1990),iusa from the current series
 news_uiug.30112066686533_00000453,,372000,348000,,,2.4,2474000,,news,1990-05-03,1990-04-21,1990-04-14,news,
 news_uiug.30112066686533_00000455,,350000,372000,,,2.3,2402000,,news,1990-05-10,1990-04-28,1990-04-21,news,
-current_19900505,,354000,,,,,2403000,,current,1990-05-17,1990-05-05,1990-04-28,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-05-10)
+press_19900505,,353000,,,,,2403000,,press,1990-05-17,1990-05-05,1990-04-28,press | UPI 1990-05-17 Nexis 3SJD-NT80-0038-G54Y-00000-00 (the release of 17 May 1990),iusa from the current series
 news_uiug.30112066686533_00000459,,353000,,,,2.3,2379000,,news,1990-05-24,1990-05-12,1990-05-05,news,
 news_uiug.30112066686533_00000461,,343000,353000,,,,2434000,,news,1990-05-31,1990-05-19,1990-05-12,news,
 news_msu.31293026746606_00000151,,356000,342000,,,2.3,2397000,,news,1990-06-07,1990-05-26,1990-05-19,news,
 news_uiug.30112066686533_00000465,,351000,356000,,,2.3,2400000,,news,1990-06-14,1990-06-02,1990-05-26,news,
 news_uiug.30112066686533_00000467,,355000,351000,,,2.3,2388000,,news,1990-06-21,1990-06-09,1990-06-02,news,
 news_uiug.30112066686533_00000469,,359000,356000,,,2.4,2472000,,news,1990-06-28,1990-06-16,1990-06-09,news,
-current_19900623,,362000,,,,,2402000,,current,1990-07-05,1990-06-23,1990-06-16,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-06-28)
+press_19900623,,365000,,,,,2402000,,press,1990-07-05,1990-06-23,1990-06-16,press | WSJ abstract 1990-07-06 Nexis 3SR8-WYH0-0030-D3VK-00000-00 (the release of 5 July 1990),iusa from the current series
 news_msu.31293026746606_00000153,,350000,365000,,,2.3,2440000,,news,1990-07-12,1990-06-30,1990-06-23,news,
 news_uiug.30112066686533_00000475,,361000,350000,,,2.3,2429000,,news,1990-07-19,1990-07-07,1990-06-30,news,
 news_uiug.30112066686533_00000477,,358000,361000,,,2.4,2490000,,news,1990-07-26,1990-07-14,1990-07-07,news,
 news_uiug.30112066686533_00000479,,355000,358000,,,2.4,2517000,,news,1990-08-02,1990-07-21,1990-07-14,news,
 news_uiug.30112066686533_00000481,,344000,355000,,,2.3,2425000,,news,1990-08-09,1990-07-28,1990-07-21,news,
-current_19900804,,369000,,,,,2461000,,current,1990-08-16,1990-08-04,1990-07-28,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-08-09)
-current_19900811,,381000,,,,,2460000,,current,1990-08-23,1990-08-11,1990-08-04,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-08-16)
+press_19900804,,341000,,,,,2461000,,press,1990-08-16,1990-08-04,1990-07-28,press | WSJ abstract 1990-08-17 Nexis 3SR8-WXC0-0030-D40M-00000-00 (the release of 16 August 1990),iusa from the current series
+press_19900811,,366000,,,,,2460000,,press,1990-08-23,1990-08-11,1990-08-04,press | WSJ abstract 1990-08-24 Nexis 3SR8-WX70-0030-D374-00000-00 (the release of 23 August 1990),iusa from the current series
 news_msu.31293026746606_00000155,,382000,366000,,,2.4,2473000,,news,1990-08-30,1990-08-18,1990-08-11,news,
 news_msu.31293026746606_00000157,,370000,382000,,,2.4,2507000,,news,1990-09-06,1990-08-25,1990-08-18,news,
 news_msu.31293026746606_00000159,,382000,370000,,,2.4,2546000,,news,1990-09-13,1990-09-01,1990-08-25,news,
@@ -792,30 +792,30 @@ news_uiug.30112066686533_00000493,,403000,382000,,,2.5,2602000,,news,1990-09-27,
 news_uiug.30112066686533_00000497,,390000,403000,,,2.4,2556000,,news,1990-10-04,1990-09-22,1990-09-15,news,
 news_uiug.30112066686533_00000499,,397000,390000,,,2.5,2594000,,news,1990-10-11,1990-09-29,1990-09-22,news,
 news_uiug.30112066686533_00000505,,395000,397000,,,2.5,2657000,,news,1990-10-18,1990-10-06,1990-09-29,news,
-current_19901013,,422000,,,,,2621000,,current,1990-10-25,1990-10-13,1990-10-06,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-10-18)
+press_19901013,,421000,,,,,2621000,,press,1990-10-25,1990-10-13,1990-10-06,press | WSJ abstract 1990-10-26 Nexis 3SR8-WWB0-0030-D0R8-00000-00 (the release of 25 October 1990),iusa from the current series
 news_msu.31293026746606_00000167,,454000,421000,,,2.6,2759000,,news,1990-11-01,1990-10-20,1990-10-13,news,
 news_uiug.30112066686533_00000509,,443000,454000,,,2.6,2730000,,news,1990-11-08,1990-10-27,1990-10-20,news,
 news_msu.31293026746606_00000169,,448000,443000,,,2.7,2832000,,news,1990-11-15,1990-11-03,1990-10-27,news,
 news_msu.31293026746606_00000171,,488000,449000,,,2.7,2890000,,news,1990-11-21,1990-11-10,1990-11-03,news,
-current_19901117,,447000,,,,,2789000,,current,1990-11-29,1990-11-17,1990-11-10,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-11-22)
+press_19901117,,452000,,,,,2789000,,press,1990-11-29,1990-11-17,1990-11-10,press | WSJ abstract 1990-11-30 Nexis 3SR8-WVW0-0030-D1V6-00000-00 (the release of 29 November 1990),iusa from the current series
 news_msu.31293026746606_00000173,,435000,452000,,,2.7,2843000,,news,1990-12-06,1990-11-24,1990-11-17,news,
 news_uiug.30112066686533_00000517,,471000,435000,,,2.9,3004000,,news,1990-12-13,1990-12-01,1990-11-24,news,
 news_msu.31293026746606_00000175,,455000,471000,,,2.8,2953000,,news,1990-12-20,1990-12-08,1990-12-01,news,
-current_19901215,,447000,,,,,3000000,,current,1990-12-27,1990-12-15,1990-12-08,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-12-20)
-current_19901222,,474000,,,,,2984000,,current,1991-01-03,1990-12-22,1990-12-15,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1990-12-27)
+press_19901215,,441000,,,,,3000000,,press,1990-12-27,1990-12-15,1990-12-08,press | UPI 1990-12-28 Nexis 3SJD-KXM0-0038-G0J0-00000-00 (the release of 27 December 1990),iusa from the current series
+press_19901222,,515000,,,,,2984000,,press,1991-01-03,1990-12-22,1990-12-15,press | WSJ abstract 1991-01-04 Nexis 3SR8-WVF0-0030-D34R-00000-00 (the release of 3 January 1991),iusa from the current series
 news_msu.31293026746606_00000177,,472000,515000,,,2.9,3019000,,news,1991-01-10,1990-12-29,1990-12-22,news,
 news_msu.31293026746606_00000179,,396000,472000,,,2.8,2982000,,news,1991-01-17,1991-01-05,1990-12-29,news,
 news_msu.31293026746606_00000181,,463000,396000,,,2.9,3069000,,news,1991-01-24,1991-01-12,1991-01-05,news,
 news_uiug.30112066686533_00000529,,485000,463000,,,3.0,3120000,,news,1991-01-31,1991-01-19,1991-01-12,news,
 news_msu.31293026746606_00000183,,417000,485000,,,,2913000,,news,1991-02-07,1991-01-26,1991-01-19,news,
 news_msu.31293026746606_00000185,,456000,417000,,,2.9,3071000,,news,1991-02-14,1991-02-02,1991-01-26,news,
-current_19910209,,480000,,,,,3228000,,current,1991-02-21,1991-02-09,1991-02-02,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1991-02-14)
+press_19910209,,489000,,,,,3228000,,press,1991-02-21,1991-02-09,1991-02-02,press | WSJ abstract 1991-02-22 Nexis 3SR8-WTS0-0030-D2GM-00000-00 (the release of 21 February 1991),iusa from the current series
 news_uiug.30112066686533_00000535,,488000,489000,,,3.0,3167000,,news,1991-02-28,1991-02-16,1991-02-09,news,
 news_uiug.30112066686533_00000537,,508000,488000,,,3.1,3254000,,news,1991-03-07,1991-02-23,1991-02-16,news,
-current_19910302,,488000,,,,,3304000,,current,1991-03-14,1991-03-02,1991-02-23,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1991-03-07)
+press_19910302,,474000,,,,,3304000,,press,1991-03-14,1991-03-02,1991-02-23,press | WSJ abstract 1991-03-15 Nexis 3SR8-WTF0-0030-D505-00000-00 (the release of 14 March 1991),iusa from the current series
 news_msu.31293026746606_00000187,,519000,474000,,,3.1,3326000,,news,1991-03-21,1991-03-09,1991-03-02,news,
 news_msu.31293026746606_00000189,,510000,519000,,,3.1,3325000,,news,1991-03-28,1991-03-16,1991-03-09,news,
-current_19910323,,509000,,,,,3448000,,current,1991-04-04,1991-03-23,1991-03-16,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1991-03-28)
+press_19910323,,543000,,,,,3448000,,press,1991-04-04,1991-03-23,1991-03-16,press | AP 1991-04-04 Nexis 3SJ4-J860-0008-C1K1-00000-00 (the release of 4 April 1991),iusa from the current series
 news_msu.31293026746606_00000191,,473000,543000,,,3.2,3368000,,news,1991-04-11,1991-03-30,1991-03-23,news,
 news_uiug.30112066686533_00000539,,451000,473000,,,3.3,3542000,,news,1991-04-18,1991-04-06,1991-03-30,news,
 news_msu.31293026746606_00000193,,498000,451000,,,3.3,3496000,,news,1991-04-25,1991-04-13,1991-04-06,news,
@@ -825,7 +825,7 @@ news_msu.31293026746606_00000195,,459000,455000,,,3.3,3534000,,news,1991-05-16,1
 news_msu.31293026746606_00000197,,454000,459000,,,3.3,3546000,,news,1991-05-23,1991-05-11,1991-05-04,news,
 news_msu.31293026746606_00000199,,445000,454000,,,3.4,3603000,,news,1991-05-30,1991-05-18,1991-05-11,news,
 news_msu.31293026746606_00000201,,439000,445000,,,3.3,3512000,,news,1991-06-06,1991-05-25,1991-05-18,news,
-current_19910601,,432000,,,,,3472000,,current,1991-06-13,1991-06-01,1991-05-25,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1991-06-06)
+press_19910601,,401000,,,,,3472000,,press,1991-06-13,1991-06-01,1991-05-25,press | WSJ abstract 1991-06-14 Nexis 3SR8-WPX0-0030-D3P9-00000-00 (the release of 13 June 1991),iusa from the current series
 news_uiug.30112066686533_00000555,,448000,401000,,,3.4,3624000,,news,1991-06-20,1991-06-08,1991-06-01,news,
 news_msu.31293026746606_00000203,,431000,448000,,,3.3,3514000,,news,1991-06-27,1991-06-15,1991-06-08,news,
 news_msu.31293026746606_00000205,,423000,431000,,,3.3,3536000,,news,1991-07-05,1991-06-22,1991-06-15,news,
@@ -843,14 +843,14 @@ news_msu.31293026746606_00000227,,402000,419000,,,3.0,3163000,,news,1991-09-19,1
 news_uiug.30112066686533_00000587,,439000,403000,,,3.2,3366000,,news,1991-09-26,1991-09-14,1991-09-07,news,
 news_uiug.30112066686533_00000589,,430000,440000,,,3.1,3332000,,news,1991-10-03,1991-09-21,1991-09-14,news,
 news_msu.31293026746606_00000231,,435000,430000,,,3.1,3343000,,news,1991-10-10,1991-09-28,1991-09-21,news,
-current_19911005,,424000,,,,,3290000,,current,1991-10-17,1991-10-05,1991-09-28,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1991-10-10)
+press_19911005,,423000,,,,,3290000,,press,1991-10-17,1991-10-05,1991-09-28,press | UPI 1991-10-17 Nexis 3SJ4-DBG0-000F-41GJ-00000-00 (the release of 17 October 1991),iusa from the current series
 news_msu.31293026746606_00000233,,452000,423000,,,3.2,3431000,,news,1991-10-24,1991-10-12,1991-10-05,news,
 news_uiug.30112066686533_00000595,,405000,452000,,,3.1,3259000,,news,1991-10-31,1991-10-19,1991-10-12,news,
 news_uiug.30112066686533_00000597,,420000,406000,,,3.2,3400000,,news,1991-11-07,1991-10-26,1991-10-19,news,
 news_uiug.30112066686533_00000601,,454000,421000,,,3.1,3337000,,news,1991-11-14,1991-11-02,1991-10-26,news,
 news_uiug.30112066686533_00000605,,493000,454000,,,3.2,3431000,,news,1991-11-21,1991-11-09,1991-11-02,news,
 news_uiug.30112066686533_00000612,,413000,493000,,,3.2,3379000,,news,1991-11-27,1991-11-16,1991-11-09,news,
-current_19911123,,444000,,,,,3315000,,current,1991-12-05,1991-11-23,1991-11-16,current-fill,icsa from the current series;iusa from the current series;release day = the week's own (the year's median lag; was 1991-11-28)
+press_19911123,,471000,,,,,3315000,,press,1991-12-05,1991-11-23,1991-11-16,press | AP 1991-12-05 Nexis 3SJ4-CYN0-0008-C21V-00000-00 (the release of 5 December 1991),iusa from the current series
 news_uiug.30112066686533_00000615,,414000,475000,,,2.9,3043000,,news,1991-12-12,1991-11-30,1991-11-23,news,
 news_msu.31293026746606_00000235,,493000,414000,,,3.3,3477000,,news,1991-12-19,1991-12-07,1991-11-30,news,
 news_msu.31293026746606_00000239,,473000,493000,,,3.1,3331000,,news,1991-12-26,1991-12-14,1991-12-07,news,
@@ -917,7 +917,7 @@ news_ien.35556028789584_00000227,,321000,340000,,,,2665000,,news,1993-02-18,1993
 news_ien.35556028789584_00000231,,325000,,,,,2628000,,news,1993-02-25,1993-02-13,1993-02-06,news,
 news_ien.35556028789584_00000235,,351000,,,,,2607000,,news,1993-03-04,1993-02-20,1993-02-13,news,
 news_ien.35556028789584_00000239,,376000,,,,,2690000,,news,1993-03-11,1993-02-27,1993-02-20,news,
-current_19930306,,354000,,,,,2645000,,current,1993-03-11,1993-03-06,1993-02-27,current-fill,icsa from the current series;iusa from the current series
+press_19930306,,361000,,,,,2645000,,press-derived,1993-03-18,1993-03-06,1993-02-27,press-derived | AP 1993-03-18 Nexis 3SJF-3H90-001T-40SX-00000-00 (the release of 18 March 1993),iusa from the current series;release day = the release that first carried the week (1993-03-18; the lag moved from twelve days to five that day)
 news_ien.35556028789584_00000243,,351000,,,,2.6,2699000,,news,1993-03-18,1993-03-13,1993-03-06,news,
 news_ien.35556028789584_00000249,,349000,,,,2.5,2637000,,news,1993-03-25,1993-03-20,1993-03-13,news,
 news_ien.35556028789584_00000255,,380000,347000,,,2.6,2722000,,news,1993-04-01,1993-03-27,1993-03-20,news,
@@ -962,7 +962,7 @@ news_ien.35556028789584_00000475,,332000,328000,,,2.6,2709000,,news,1993-12-23,1
 news_ien.35556028789584_00000481,,291000,330000,,,2.6,2772000,,news,1993-12-30,1993-12-25,1993-12-18,news,
 news_ien.35556028749620_00000005,,363000,293000,,,2.5,2678000,,news,1994-01-06,1994-01-01,1993-12-25,news,
 news_ien.35556028749620_00000011,,354000,355000,,,2.4,2582000,,news,1994-01-13,1994-01-08,1994-01-01,news,
-current_19940115,,355000,,,,,2705000,,current,1994-01-20,1994-01-15,1994-01-08,current-fill,icsa from the current series;iusa from the current series
+press_19940115,,380000,,,,,2705000,,press,1994-01-20,1994-01-15,1994-01-08,press | AP 1994-01-20 Nexis 3SJD-WH70-001T-43NM-00000-00 (the release of 20 January 1994),iusa from the current series
 news_ien.35556028749620_00000017,,309000,365000,,,2.3,2488000,,news,1994-01-27,1994-01-22,1994-01-15,news,
 news_uiug.30112066686574_00000019,,422000,363000,,,2.7,2847000,,news,1994-02-03,1994-01-29,1994-01-22,news,
 news_ien.35556028749620_00000023,,366000,413000,,,2.6,2733000,,news,1994-02-10,1994-02-05,1994-01-29,news,
@@ -990,7 +990,7 @@ news_ien.35556028749620_00000155,,332000,353000,,,2.6,2753000,,news,1994-07-07,1
 news_ien.35556028749620_00000163,,363000,344000,,,2.6,2768000,,news,1994-07-14,1994-07-09,1994-07-02,news,
 news_ien.35556028749620_00000167,,392000,365000,,,2.6,2749000,,news,1994-07-21,1994-07-16,1994-07-09,news,
 news_ien.35556028749620_00000173,,331000,390000,,,2.6,2798000,,news,1994-07-28,1994-07-23,1994-07-16,news,
-current_19940730,,332000,,,,,2650000,,current,1994-08-04,1994-07-30,1994-07-23,current-fill,icsa from the current series;iusa from the current series
+press_19940730,,319000,,,,,2650000,,press,1994-08-04,1994-07-30,1994-07-23,press | AP 1994-08-04 Nexis 3SJD-Y5J0-0070-11PS-00000-00 (the release of 4 August 1994),iusa from the current series
 news_uiug.30112066686574_00000169,,321000,315000,,,2.5,2686000,,news,1994-08-11,1994-08-06,1994-07-30,news,
 news_ien.35556028749620_00000179,,327000,324000,,,2.5,2684000,,news,1994-08-18,1994-08-13,1994-08-06,news,
 news_ien.35556028749620_00000183,,322000,325000,,,2.5,2665000,,news,1994-08-25,1994-08-20,1994-08-13,news,
@@ -1062,10 +1062,10 @@ news_ien.35556028749620_00000461,,371000,370000,,,2.4,2674000,,news,1995-11-22,1
 news_ien.35556028749620_00000469,,363000,379000,,,2.3,2653000,,news,1995-11-30,1995-11-25,1995-11-18,news,iusa from the current series
 news_ien.35556028749620_00000475,,377000,363000,,,2.4,2712000,,news,1995-12-07,1995-12-02,1995-11-25,news,iusa from the current series
 news_ien.35556028749620_00000481,,341000,378000,,,2.3,2623000,,news,1995-12-14,1995-12-09,1995-12-02,news,iusa from the current series
-current_19951216,,373000,,,,,2629000,,current,1995-12-21,1995-12-16,1995-12-09,current-fill,icsa from the current series;iusa from the current series
-current_19951223,,374000,,,,,2631000,,current,1995-12-28,1995-12-23,1995-12-16,current-fill,icsa from the current series;iusa from the current series
-current_19951230,,359000,,,,,2622000,,current,1996-01-04,1995-12-30,1995-12-23,current-fill,icsa from the current series;iusa from the current series
-current_19960106,,361000,,,,,2558000,,current,1996-01-11,1996-01-06,1995-12-30,current-fill,icsa from the current series;iusa from the current series
+press_19951216,,370000,,,,,2629000,,press,1996-01-18,1995-12-16,1995-12-09,press | AP 1996-01-18 Nexis 3SJ4-P9W0-0006-H2RC-00000-00 (the release of 18 January 1996),iusa from the current series
+press_19951223,,378000,,,,,2631000,,press,1996-01-18,1995-12-23,1995-12-16,press | AP 1996-01-18 Nexis 3SJ4-P9W0-0006-H2RC-00000-00 (the release of 18 January 1996),iusa from the current series
+press_19951230,,372000,,,,,2622000,,press,1996-01-18,1995-12-30,1995-12-23,press | AP 1996-01-18 Nexis 3SJ4-P9W0-0006-H2RC-00000-00 (the release of 18 January 1996),iusa from the current series
+press_19960106,,394000,,,,,2558000,,press,1996-01-18,1996-01-06,1995-12-30,press | AP 1996-01-18 Nexis 3SJ4-P9W0-0006-H2RC-00000-00 (the release of 18 January 1996),iusa from the current series
 news_msu.31293026746630_00000001,,327000,,,,2.1,2549000,,news,1996-01-18,1996-01-13,1996-01-06,news,iusa from the current series
 news_msu.31293026746630_00000007,,413000,316000,,,2.5,2702000,,news,1996-01-25,1996-01-20,1996-01-13,news,iusa from the current series
 news_msu.31293026746630_00000013,,388000,413000,,,2.4,2707000,,news,1996-02-01,1996-01-27,1996-01-20,news,iusa from the current series
@@ -1083,7 +1083,7 @@ ht_coo.31924078646985_00000165,,360000,,344742,,2.3,2589000,2811745,hathitrust,1
 news_msu.31293026746630_00000049,,372000,359000,,,2.3,2613000,,news,1996-04-25,1996-04-20,1996-04-13,news,
 news_msu.31293026746630_00000053,,348000,372000,,,2.3,2560000,,news,1996-05-02,1996-04-27,1996-04-20,news,
 ht_coo.31924078646985_00000211,,336000,,294469,,2.3,2574000,2594897,hathitrust,1996-05-09,1996-05-04,1996-04-27,ht,
-current_19960511,,352000,,,,,2602000,,current,1996-05-16,1996-05-11,1996-05-04,current-fill,icsa from the current series;iusa from the current series
+press_19960511,,352000,,,,,2602000,,press,1996-05-16,1996-05-11,1996-05-04,press | the release as issued (CQ Federal Department and Agency Documents) 1996-05-16 Nexis 3SKP-86X0-00C0-41J9-00000-00 (USDL release text) (the release of 16 May 1996),iusa from the current series
 news_msu.31293026746630_00000057,,344000,351000,,,2.2,2537000,,news,1996-05-23,1996-05-18,1996-05-11,news,
 news_msu.31293026746630_00000061,,346000,345000,,,2.3,2543000,,news,1996-05-30,1996-05-25,1996-05-18,news,
 news_msu.31293026746630_00000065,,354000,345000,,,2.3,2605000,,news,1996-06-06,1996-06-01,1996-05-25,news,

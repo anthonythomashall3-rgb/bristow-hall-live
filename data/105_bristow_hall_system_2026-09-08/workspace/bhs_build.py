@@ -170,14 +170,19 @@ def open(f,*a,**k):   # every walk file read from here on (the heads exec each o
 # ---- to the last week of 1984, checked against 45 week for week where they overlap (340/340, 240/240 and 414/414 weeks identical); the release's
 # ---- own closing table in the bound "Unemployment Insurance Claims" (HathiTrust's and Google Books' page images, 397 and 404) and, for the weeks
 # ---- no copy covers, the wires and papers of the release day (AP, UPI, the New York Times, the Daily Labor Report; 404) carry it back to
-# ---- 2 August 1975, with seven weeks of 1976-81 filled from the current series and marked. s2/first_prints_early_1975_2002.csv is that early
+# ---- 2 August 1975. The weeks no copy holds carry the press of the release day or the next release's own restatement of the week (404,
+# ---- E66c4: the Wall Street Journal's abstracts of the release, AP, UPI, the Journal of Commerce, the Financial Post, CQ's copies of the
+# ---- release; 22 May 1976 and 30 March 1985 alone on the current series, marked), and every row is dated at the week's own release day
+# ---- (E66c3: the week plus the year's median lag of the rows that carry their own day). s2/first_prints_early_1975_2002.csv is that early
 # ---- table, static; it is put in front of 45's live file at every build (cache/national_first_prints_1985_live.csv, rewritten only when either
 # ---- changes) and every reader of 45's national file reads the merged file through the substitute door. The rule does not change. On the record
 # ---- E66 moved one label (the 2001 opening of 15 March 2001 is made by U as well as I, the same day); E66c moves four events of 1979-82 against
 # ---- the 1985 table (404/doc/PREREG-press-first-prints-e66c-2026-09-25.md; adopted by Anthony, "(c), then (b)"): the 1980 peak is called on
 # ---- 7 September 1979 by U, dated April 1979, instead of 5 November 1979 by W, dated August 1979; the 1980 trough closes on 9 July 1980 instead
 # ---- of 24 July; the 1981 peak is called on 2 June 1981 instead of 28 May (V, dated May 1981, both); the 1982 trough closes on 15 November 1982
-# ---- instead of 4 November. The revision drill's exposure ends in 1975. BHS_FIRSTPRINTS_OFF=1 reads 45 alone, for a cmpstate.
+# ---- instead of 4 November. E66c3 (25 September, 13:56Z) moved one replay event (the 1990 peak call, 23 February 1990 by Y for 16 May
+# ---- 1990 by W; the walked chronology unchanged); E66c4 (25 September) moved none. The revision drill's exposure ends in 1975.
+# ---- BHS_FIRSTPRINTS_OFF=1 reads 45 alone, for a cmpstate.
 FIRSTPRINTS={'active':False}
 try:
     import pandas as _pd66
