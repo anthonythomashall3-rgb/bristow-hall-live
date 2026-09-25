@@ -1,5 +1,5 @@
 {
- "built_at": "2026-09-25T00:19:41",
+ "built_at": "2026-09-25T03:05:05",
  "standing": {
   "state": "closed",
   "since": "2024-09-26",
@@ -26,7 +26,7 @@
    "states_accelerating": [],
    "unit": "states of 51 whose 13-week average insured rate is >= 0.20 pp above a year earlier",
    "vintage": "ETA 539 c8/c18 by c2, administrative, unrevised",
-   "source_file": "/home/runner/work/bristow-hall-update/bristow-hall-update/data/105_bristow_hall_system_2026-09-08/workspace/cache/backstop/ar539.csv"
+   "source_file": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/workspace/cache/backstop/ar539.csv"
   },
   "CFNAI": {
    "reading": 0.01,

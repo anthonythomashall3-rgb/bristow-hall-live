@@ -1,4 +1,8 @@
 {
- "sha": "",
- "what": "the commit whose code last updated the site by itself; empty until the first good run of this repository (it started from a clean history on 24 September 2026)"
+ "sha": "ef8b485acd3a69f7a041747abfcbc25899489dcc",
+ "version": "v3.74",
+ "built_at": "2026-09-24 23:05",
+ "run_id": "36088535570",
+ "recorded_utc": "2026-09-25T03:05:55Z",
+ "what": "the commit whose code last updated the site by itself; ops/run.sh falls back to it if a new version fails"
 }
