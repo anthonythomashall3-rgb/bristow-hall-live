@@ -107,7 +107,7 @@ FETCH = [('the S&P 500 chart feed (bhs_update.py)', 'https://query1.finance.yaho
          ('the LAUS release schedule (s2/state_breadth.py)', 'https://www.bls.gov/schedule/news_release/laus.htm')]
 
 # every address named above: never checked quietly
-KNOWN = ({u for ps in SOURCES.values() for _, u in ps} | {u for _, u in FETCH} | {fb[1] for fb in FALLBACK.values()}
+KNOWN = ({p[1] for ps in SOURCES.values() for p in ps} | {u for _, u in FETCH} | {fb[1] for fb in FALLBACK.values()}
          | {fred(s)[1] for ss in TILES.values() for s in ss})
 
 TOKEN_RE = re.compile(r'^[A-Z][A-Z0-9_]{1,29}$')
@@ -123,7 +123,8 @@ def fred_tokens(ids):
 
 
 def sources_for(ids, build_url=None):
-    """the pages a row's numbers are read from, before the guard: the list above; else each FRED id's page; else the build's"""
+    """the pages a row's numbers are read from, before the guard: the list above; else each FRED id's page; else the build's.
+    An entry of the list may be (name, stable address, {how the release's own address is found}) - see RELEASE ADDRESSES."""
     k = norm(ids)
     if k in SOURCES:
         return list(SOURCES[k])
@@ -134,6 +135,52 @@ def sources_for(ids, build_url=None):
     if toks:
         return [fred(t) for t in toks]
     return [('source', build_url)] if build_url else []
+
+
+# --------------------------------------------------------------------------------------------------- release addresses
+# RELEASE ADDRESSES (collection 411, 25 September 2026; Anthony: "make sure that for the links that change upon updating/new
+# data, we have a system in place for that too at the time of the new data release and at the time of the link change").
+# Every exact page above is a fixed address that always shows the newest data (a FRED or ALFRED series page, a FRED release
+# page, the Department's data.pdf and ar539.csv, which it overwrites at each release, the chart feed's page, the Google
+# Trends query), so none of them changes at a release. A source that publishes each release at an address of its own is
+# written as (name, stable address, spec), the stable address being where to point when the release's own cannot be had:
+#   {'template': 'https://.../report_{through:%Y%m}.pdf'}   the address built from the row's own period (through) or today;
+#   {'index': 'https://.../releases/', 'match': r'href="([^"]*report_\d{6}\.pdf)"', 'take': 'max'}
+#                                                             the newest address the publisher's index page lists.
+# Both are worked out again the moment the row's data changes (the run that reads the release) and at the first run of
+# each day, checked like every other address, and the stable address stands in whenever the release's own does not answer.
+def _ctx_date(s):
+    m = re.match(r'^(\d{4})-(\d{2})(?:-(\d{2}))?', str(s or ''))
+    return dt.date(int(m.group(1)), int(m.group(2)), int(m.group(3) or 1)) if m else None
+
+
+def _index_links(page, match, take='max'):
+    req = urllib.request.Request(page, headers={'User-Agent': UA, 'Accept': 'text/html,*/*;q=0.8'})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        body = r.read(3_000_000).decode('utf-8', 'replace')
+    found = [urllib.parse.urljoin(page, html_unescape(m.group(1) if m.groups() else m.group(0))) for m in re.finditer(match, body)]
+    if not found:
+        return None
+    return {'first': found[0], 'last': found[-1]}.get(take) or max(found)
+
+
+def html_unescape(s):
+    return s.replace('&amp;', '&').replace('&#38;', '&')
+
+
+def resolve_release(pair, ctx):
+    """a (name, stable, spec) entry -> (name, the release's own address or None); a plain pair -> itself"""
+    if len(pair) < 3 or not isinstance(pair[2], dict):
+        return (pair[0], pair[1]), None
+    name, stable, spec = pair[0], pair[1], pair[2]
+    try:
+        if spec.get('template'):
+            return (name, stable), spec['template'].format(**ctx)
+        if spec.get('index'):
+            return (name, stable), _index_links(spec['index'], spec['match'], spec.get('take', 'max'))
+    except Exception:
+        pass
+    return (name, stable), None
 
 
 # ------------------------------------------------------------------------------------------------------------- the guard
@@ -239,13 +286,17 @@ def _today():
         return dt.date.today().isoformat()
 
 
-def check(urls, force=False, fetch_names=None, quiet=()):
-    """checks the addresses not yet checked today (all of them with force); tells the phone of a moved or dead one, once in
-    three days while it lasts. Returns the check table {url: result}."""
+def check(urls, force=False, fetch_names=None, quiet=(), force_urls=()):
+    """checks the addresses not yet checked today (all of them with force), those force_urls names (a row whose data just
+    changed: the run that reads a release checks that row's addresses again), and at every run any address last found
+    moved, gone or silent, so a fix or a return is seen at once. Tells the phone of a moved or dead one, once in three days
+    while it lasts. Returns the check table {url: result}."""
     doc = _jload(CHECK, {})
     tab = doc.get('urls', {})
     day = _today()
-    todo = sorted({u for u in urls if u and u.startswith('http') and (force or (tab.get(u) or {}).get('day') != day)})
+    fu = set(force_urls)
+    todo = sorted({u for u in urls if u and u.startswith('http') and (
+        force or u in fu or (tab.get(u) or {}).get('day') != day or (tab.get(u) or {}).get('status') in ('moved', 'dead', 'unknown'))})
     if todo:
         key = _key()
         try:
@@ -257,15 +308,17 @@ def check(urls, force=False, fetch_names=None, quiet=()):
         for u, r in res.items():
             prev = tab.get(u) or {}
             r['day'] = day
-            if r['status'] == 'unknown' and prev.get('status') in ('ok', 'moved', 'dead', 'blocked'):
-                r['last_known'] = prev.get('status')      # a host that did not answer today keeps yesterday's finding
-                if prev.get('status') == 'moved':
+            if r['status'] == 'unknown' and (prev.get('status') in ('ok', 'moved', 'dead', 'blocked') or prev.get('last_known')):
+                r['last_known'] = prev.get('last_known') or prev.get('status')   # no answer today: the last finding stands
+                if r['last_known'] == 'moved':
                     r['final'] = prev.get('final')
             r['alerted'] = prev.get('alerted')
             if u in quiet and u not in KNOWN:
                 r['quiet'] = True                  # a guess from a new row's ids: checked, never alerted
             tab[u] = r
-        doc['urls'] = tab
+        doc = _jload(CHECK, {}) or doc             # another caller in the same run may have written meanwhile
+        doc.setdefault('urls', {}).update({u: tab[u] for u in res})
+        tab = doc['urls']
         doc['checked_utc'] = dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
         _alert(tab, day, fetch_names or {}, set(quiet))
         _jsave(CHECK, doc)
@@ -322,21 +375,60 @@ def resolve(pairs, tab):
     return uniq
 
 
-def guarded(rows_pairs, force=False, quiet=()):
-    """rows_pairs: {key: [(name, url)]} -> the same, checked and resolved; also checks the fetchers' own addresses.
-    Never raises: on any error the pairs are returned as given."""
+def guarded(rows_pairs, force=False, quiet=(), tokens=None, ctx=None):
+    """rows_pairs: {key: [(name, url) or (name, stable, spec)]} -> {key: [(name, url)]}, checked and resolved; also checks the
+    fetchers' own addresses. tokens: {key: what the row's data is now (its through-date and value)} - a row whose token moved
+    since the last run has just read a release, so its addresses (and a release's own address) are worked out and checked
+    again in this run. ctx: {key: {'through': date}} for release addresses. Never raises: on any error the stable pairs."""
     try:
-        urls = [u for ps in rows_pairs.values() for _, u in ps] + [u for _, u in FETCH]
+        doc = _jload(CHECK, {})
+        day = _today()
+        old_tok = doc.get('row_tokens', {})
+        moved_rows = {k for k in rows_pairs if tokens and k in tokens and old_tok.get(str(k)) != tokens[k]}
+        rel_cache = doc.get('release', {})
+        plain, release_of = {}, {}
+        for k, ps in rows_pairs.items():
+            plain[k] = []
+            for p in ps:
+                (name, stable), _ = resolve_release(p, {})
+                plain[k].append((name, stable))
+                if len(p) >= 3 and isinstance(p[2], dict):
+                    ck = '%s|%s' % (k, name)
+                    c = rel_cache.get(ck) or {}
+                    if k in moved_rows or c.get('day') != day or force:
+                        cx = dict({'today': dt.date.fromisoformat(day)}, **((ctx or {}).get(k) or {}))
+                        _, rel = resolve_release(p, cx)
+                        c = {'day': day, 'url': rel}
+                        rel_cache[ck] = c
+                    if c.get('url'):
+                        release_of[(k, stable)] = c['url']
+        urls = [u for ps in plain.values() for _, u in ps] + list(release_of.values()) + [u for _, u in FETCH]
         urls += [fb[1] for fb in FALLBACK.values()]
-        tab = check(urls, force=force, fetch_names={u: n for n, u in FETCH}, quiet=quiet)
-        out = {k: resolve(ps, tab) for k, ps in rows_pairs.items()}
-        _jsave(STATUS, {'day': _today(), 'rows': {k: [list(p) for p in ps] for k, ps in out.items()},
+        fu = [u for k in moved_rows for _, u in plain[k]] + [u for (k, _s), u in release_of.items() if k in moved_rows]
+        # a release's own address that is not there yet is expected (the release has not come): no alert; the stable stands in
+        tab = check(urls, force=force, fetch_names={u: n for n, u in FETCH}, quiet=list(quiet) + list(release_of.values()), force_urls=fu)
+        out = {}
+        for k, ps in plain.items():
+            cand = []
+            for name, stable in ps:
+                rel = release_of.get((k, stable))
+                if rel and _state(tab.get(rel)) in ('ok', 'blocked', 'moved'):
+                    cand.append((name, rel))        # the release's own address, when it answers
+                else:
+                    cand.append((name, stable))
+            out[k] = resolve(cand, tab)
+        d2 = _jload(CHECK, {})
+        d2['release'] = rel_cache
+        d2.setdefault('row_tokens', {}).update({str(k): v for k, v in (tokens or {}).items()})
+        _jsave(CHECK, d2)
+        _jsave(STATUS, {'day': day, 'rows': {str(k): [list(p) for p in ps] for k, ps in out.items()},
+                        'rows_with_new_data_this_run': sorted(str(k) for k in moved_rows),
                         'fetch': {n: (tab.get(u) or {}).get('status') for n, u in FETCH},
                         'problems': {u: _state(r) for u, r in tab.items() if _state(r) in ('moved', 'dead')}})
         return out
     except Exception as e:
         print('source links: the guard did not run (%s); the addresses stand as written' % type(e).__name__)
-        return rows_pairs
+        return {k: [(p[0], p[1]) for p in ps] for k, ps in rows_pairs.items()}
 
 
 def tile_sources(lab):
@@ -344,16 +436,24 @@ def tile_sources(lab):
 
 
 def row_links(rows, force=False):
-    """rows: {key: (ids, build_url, name_for_build_url)} -> {key: [(name, url)]}, checked and resolved. A row whose every
-    address is gone (a word in its ids taken for a FRED id that FRED does not have, say) keeps the address its build gave."""
-    pairs = {k: sources_for(ids, url) for k, (ids, url, _n) in rows.items()}
+    """rows: {key: (ids, build_url, name_for_build_url[, data_token[, through]])} -> {key: [(name, url)]}, checked and
+    resolved. The key should be the row's ids (it carries the row's data token from run to run). A row whose every address
+    is gone (a word in its ids taken for a FRED id that FRED does not have, say) keeps the address its build gave."""
+    pairs, tokens, ctx = {}, {}, {}
+    for k, v in rows.items():
+        ids, url = v[0], v[1]
+        pairs[k] = sources_for(ids, url)
+        if len(v) > 3 and v[3] is not None:
+            tokens[k] = v[3]
+        if len(v) > 4 and _ctx_date(v[4]):
+            ctx[k] = {'through': _ctx_date(v[4])}
     # a row the list above does not know: its FRED pages are guesses from its ids, checked quietly (no alert for a word that is
     # not a series); the list above is what the phone is told about
-    quiet = [u for k, (ids, _u, _n) in rows.items() if norm(ids) not in SOURCES for _nm, u in pairs[k]]
-    out = guarded(pairs, force=force, quiet=quiet)
-    for k, (ids, url, nm) in rows.items():
-        if not out.get(k) and url:
-            out[k] = [(nm or 'source', url)]
+    quiet = [p[1] for k, v in rows.items() if norm(v[0]) not in SOURCES for p in pairs[k]]
+    out = guarded(pairs, force=force, quiet=quiet, tokens=tokens, ctx=ctx)
+    for k, v in rows.items():
+        if not out.get(k) and v[1]:
+            out[k] = [(v[2] or 'source', v[1])]
     return out
 
 

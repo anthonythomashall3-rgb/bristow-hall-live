@@ -136,7 +136,9 @@ try:
     import importlib.util as _iu_sl
     _sp_sl=_iu_sl.spec_from_file_location('source_links',os.path.join(os.path.dirname(os.path.abspath(__file__)),'source_links.py'))
     _sl=_iu_sl.module_from_spec(_sp_sl); _sp_sl.loader.exec_module(_sl)
-    _TS=_sl.guarded({_t['lab']:_sl.tile_sources(_t['lab']) for _t in T})
+    # the tile's value and period as its data token: the run that reads a release checks that tile's addresses again (411)
+    _TS=_sl.guarded({'tile|'+_t['lab']:_sl.tile_sources(_t['lab']) for _t in T},tokens={'tile|'+_t['lab']:str(_t.get('val'))+'|'+str(_t.get('sub')) for _t in T})
+    _TS={k[5:]:v for k,v in _TS.items()}
 except Exception as _e:
     print(f'home tiles: source links not checked ({type(_e).__name__}); FRED series pages as written')
     _TS={_t['lab']:[('FRED '+s,'https://fred.stlouisfed.org/series/'+s) for s in ([_ID.get(_t['lab'])] if _ID.get(_t['lab']) else [])] for _t in T}

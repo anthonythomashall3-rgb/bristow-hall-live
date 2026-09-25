@@ -17,9 +17,10 @@ state['feeds']=[_fp0.normalize(dict(_f)) for _f in state.get('feeds') or []]
 # the publisher's page stays only where no exact page is known
 try:
     import importlib.util as _iu_sl0; _sp_sl0=_iu_sl0.spec_from_file_location('source_links',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','source_links.py')); _sl0=_iu_sl0.module_from_spec(_sp_sl0); _sp_sl0.loader.exec_module(_sl0)
-    _FL0=_sl0.row_links({i:(f.get('ids') or '',f.get('url'),None) for i,f in enumerate(state['feeds'])})
+    _FK0=['feed|%s'%(f.get('ids') or f.get('name')) for f in state['feeds']]
+    _FL0=_sl0.row_links({_FK0[i]:(f.get('ids') or '',f.get('url'),None,'%s|%s'%(f.get('through'),f.get('value')),f.get('through')) for i,f in enumerate(state['feeds'])})
     for i,f in enumerate(state['feeds']):
-        if _FL0.get(i): f['sources']=[list(p) for p in _FL0[i]]; f['url']=_FL0[i][0][1]
+        if _FL0.get(_FK0[i]): f['sources']=[list(p) for p in _FL0[_FK0[i]]]; f['url']=_FL0[_FK0[i]][0][1]
 except Exception as _e0: print('feed sources not applied (%s): the publisher pages stand' % _e0)
 # R10 (24 September 2026, collection 372): the renderer refuses a state of any schema but the one it renders (s2/schema.py); in the cloud
 # this line is not guarded by `|| true`, so a refusal fails the run and the ops layer holds the site as it was - nothing wrong is published.
@@ -246,9 +247,13 @@ for f in _lf:
 # by its fallback or left off). Until today the row linked the publisher's page (audit-0924), which is not where the numbers come from.
 try:
     import importlib.util as _iu_sl; _sp_sl=_iu_sl.spec_from_file_location('source_links',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','source_links.py')); _sl=_iu_sl.module_from_spec(_sp_sl); _sp_sl.loader.exec_module(_sl)
-    _RL=_sl.row_links({i:(r['ids'],r.get('url'),(_re3.sub(r'\s*&middot;.*$','',r.get('source') or '') or None)) for i,r in enumerate(_rows)})
+    # keyed by the row's ids and name, with its through-date and value as its data token: the run that reads a release checks
+    # that row's addresses again, and works out again any address a release has of its own (s2/source_links.py)
+    _RK=['row|%s|%s'%(r['ids'],r['name']) for r in _rows]
+    _RL=_sl.row_links({_RK[i]:(r['ids'],r.get('url'),(_re3.sub(r'\s*&middot;.*$','',r.get('source') or '') or None),
+                               '%s|%s'%(r.get('through'),r.get('value')),r.get('through')) for i,r in enumerate(_rows)})
     for i,r in enumerate(_rows):
-        if _RL.get(i): r['srcs']=_RL[i]; r['url']=_RL[i][0][1]
+        if _RL.get(_RK[i]): r['srcs']=_RL[_RK[i]]; r['url']=_RL[_RK[i]][0][1]
 except Exception as _e: print('source links not applied (%s): the build\'s addresses stand' % _e)
 def _srcline(r):
     if not r.get('srcs'): return r['source']
