@@ -41,7 +41,7 @@ def dol_press_extend(C45,say,today=None):
     raw=os.path.join(os.path.dirname(C45),'raw','press_live'); os.makedirs(raw,exist_ok=True)
     tmp=os.path.join(raw,'latest.pdf')
     # curl's own user agent: the Department's site answers a browser or custom agent with 403 (10 September 2026); three tries
-    r=subprocess.run(['curl','-sS','-m','60','--retry','3','--retry-delay','5','--retry-all-errors','-o',tmp,URL],capture_output=True,text=True)
+    r=subprocess.run(['curl','-sSL','-m','60','--retry','3','--retry-delay','5','--retry-all-errors','-o',tmp,URL],capture_output=True,text=True)
     ok=r.returncode==0 and os.path.exists(tmp) and os.path.getsize(tmp)>20000 and open(tmp,'rb').read(5)==b'%PDF-'
     if not ok: say(f'DOL release: not fetched ({r.stderr.strip()[:80] or "not a PDF"})'); return False
     row=parse(_text(tmp),today)

@@ -24,16 +24,18 @@ calendar current and the site's "next" days right, and keeps the site updating e
 ## When the site updates
 
 `calendar_build.py` writes `run_slots.json` after every build, and the two starters follow it (the Cloudflare Worker
-`bhr-dispatch` every five minutes; GitHub's own crons as the second line):
+`bhr-dispatch` every minute since 25 September 2026, collection 411; GitHub's own crons as the second line):
 
-- 20 minutes after each timed release the site shows, or 5 minutes after FRED's usual post of it where the tool reads the
+- 5 minutes after each timed release the site shows (20 minutes until 25 September 2026), or 5 minutes after FRED's usual post of it where the tool reads the
   release from FRED and FRED posts later than the agency (`state/fred_posted.json`, FRED's posting clock per release: the 75th
   percentile of its last nine posting days; seeded 23 September 2026 from FRED's archived series pages, collection 358, and
   extended at every run from each release's representative series); releases within 15 minutes of each other are one run;
-- 5:05 PM on NYSE trading days (the S&P 500 close, and with it the day's H.15 post and the day's other afternoon data);
+- 4:20 PM on NYSE trading days (the S&P 500 close from the chart feed, settled by 4:15, and the day's H.15 post, FRED 4:16), and
+  FRED's SP500 post plus eight minutes (about 8:10 PM) for the official close, so a provisional close never stands overnight
+  (collection 411; one run at 5:05 PM until 25 September 2026);
 - 9:05 AM on a day a rule-dated month becomes public, whatever else runs that day;
 - GDPNow on the days of the releases it reads, at FRED's clock (its own slot since 23 September 2026);
-- 30 and 90 minutes after a release that was due and did not come, then at every run until it does;
+- 10, 30 and 90 minutes after a release that was due and did not come, then at every run until it does;
 - and any slot a `conditional_slots` rule asks for while the tool is in that state.
 
 Nothing else. A run that finds nothing new says so in its message; it never publishes anything wrong.

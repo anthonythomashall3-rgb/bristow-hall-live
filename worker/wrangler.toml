@@ -8,8 +8,9 @@ compatibility_date = "2026-09-01"
 workers_dev = true
 
 [triggers]
-# every five minutes; the Worker itself decides whether a release slot has passed since the site's last build
-crons = ["*/5 * * * *"]
+# every minute since 25 September 2026 (collection 411): a slot is started within a minute; the full check (GitHub, the
+# heartbeat) stays on every fifth minute. The Worker itself decides whether a release slot has passed since the site's last build
+crons = ["* * * * *"]
 
 # the heartbeat (last_tick) and which alerts were already sent (21 September 2026)
 [[kv_namespaces]]

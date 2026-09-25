@@ -19,6 +19,9 @@ on:
     - cron: '40 21 * * 1-5'
     - cron: '40 22 * * 1-5'
     - cron: '40 14 * * 0,6'
+    # 25 September 2026 (collection 411): the official S&P 500 close is read each trading evening at FRED's post (about 8:10 PM
+    # New York); 01:30 UTC is 9:30 PM EDT and 8:30 PM EST, after that slot in either season (Tuesday-Saturday UTC = Monday-Friday there)
+    - cron: '30 1 * * 2-6'
   # A PUSH TO MAIN (22 September 2026, collection 306; Anthony: "MAKE SURE THAT THE AUTOUPDATING FUNCTION OF THE WEBSITE IS
   # ALWAYS FOR OUR MOST RECENT/BEST VERSION OF THE TOOL"). A port of a new version, or any fix, goes live the moment it is
   # pushed, and the phone hears whether it worked. The runner's own commits are pushed with GitHub's token, which never
@@ -80,7 +83,7 @@ jobs:
       # release slot (origin=slot) or by the Mac's backup starter (origin=mac; that starter was removed the same day - nothing
       # depends on the Mac) always goes. GitHub's own firings go only
       # when the site still carries a build from before the last slot of site/public/run_slots.json (or, if that cannot
-      # be read, of the weekday times 08:50, 09:35, 10:20 and 17:05, New York time): a firing that
+      # be read, of the weekday times 08:35, 09:45, 10:15, 16:20 and 20:10, New York time, since 411): a firing that
       # arrives hours late, or after the Worker's run, stops here in seconds. This replaces the 20 September rule (the
       # 08:50 double firing and the four-hour catch-ups), which the slot list covers. If the check itself fails, the run goes.
       - name: go only if the site is behind the last release slot
@@ -118,7 +121,7 @@ jobs:
               slots = []
               for k in (-1, 0, 1):
                   d = (now + datetime.timedelta(days=k)).date()
-                  for t in (['08:50', '09:35', '10:20', '17:05'] if d.weekday() < 5 else []):   # only if run_slots.json cannot be read
+                  for t in (['08:35', '09:45', '10:15', '16:20', '20:10'] if d.weekday() < 5 else []):   # only if run_slots.json cannot be read
                       slots.append('%s %s' % (d.isoformat(), t))
           due = max([s for s in slots if s <= NOW], default=None)
           go = due is not None and (built is None or built < due)
@@ -423,8 +426,8 @@ jobs:
       # expiry date, and on that day every deploy would start failing with nothing in the site to explain it. Cloudflare
       # is asked what it knows about this token and the phone is told a month ahead, once a week. Never fails the run,
       # never prints the token.
-      # every run prints what it finds (a route nobody has seen work is not a route); only Monday's close run (the 17:05
-      # slot, or GitHub's 40 21 firing) pushes to the phone (22 September 2026, collection 306: keyed on the 12:45 slot
+      # every run prints what it finds (a route nobody has seen work is not a route); only Monday's close run (the 16:20
+      # slot since 411, or GitHub's 40 21 firing) pushes to the phone (22 September 2026, collection 306: keyed on the 12:45 slot
       # until then, which is gone with the release-driven schedule; the close run is on every trading day)
       - name: the publishing key, and how long it has left
         if: steps.when.outputs.go == 'true' && env.OPS_TEST != '1'
@@ -465,7 +468,7 @@ jobs:
           if msg:
               print(msg)
               # once a week: the first weekday run, on Monday (a warning on every run is a warning nobody reads)
-              if topic and (sched.startswith('40 21') or os.environ.get('SLOT', '').endswith(' 17:05')) and dt.datetime.now(dt.timezone.utc).weekday() == 0:
+              if topic and (sched.startswith('40 21') or os.environ.get('SLOT', '').endswith(' 16:20')) and dt.datetime.now(dt.timezone.utc).weekday() == 0:
                   urllib.request.urlopen(urllib.request.Request('https://ntfy.sh/' + topic, data=msg.encode(),
                       headers={'Title': 'Bristow-Hall: the publishing key', 'Priority': 'high'}), timeout=20).read()
           PY
@@ -484,7 +487,7 @@ jobs:
           SLOT: ${{ inputs.slot }}
         run: |
           # every day at the midday run (v3.69 (22 September 2026, collection 302; the audit: a week is too long to find out; was Mondays only)
-          # counted at the close run of every trading day (the 17:05 slot, or GitHub's 40 21 firing); until 22 September at the
+          # counted at the close run of every trading day (the 16:20 slot since 411, or GitHub's 40 21 firing); until 22 September at the
           # 12:45 slot, which the release-driven schedule no longer has
           # 22 September 2026 (collection 306): counted at EVERY run, failures included - runs that keep failing are exactly the
           # ones that burn minutes (the pre-mortem: the guard used to be skipped on them)
@@ -498,8 +501,8 @@ jobs:
               a = dt.datetime.fromisoformat(a.replace('Z', '+00:00')); b = dt.datetime.fromisoformat(b.replace('Z', '+00:00'))
               total += max(1, -(-(b - a).total_seconds() // 60))     # GitHub bills each job by the minute, rounded up
           print('this month: %d runs, about %d of the 2,000 free minutes' % (len(rows), total))
-          # to the phone at the close run of each day past 1,600 (the 17:05 slot, or GitHub's 40 21 firing), and at every run past 1,900
-          close = os.environ.get('SLOT', '').endswith(' 17:05') or os.environ.get('SCHED', '').startswith('40 21')
+          # to the phone at the close run of each day past 1,600 (the 16:20 slot since 411, or GitHub's 40 21 firing), and at every run past 1,900
+          close = os.environ.get('SLOT', '').endswith(' 16:20') or os.environ.get('SCHED', '').startswith('40 21')
           if os.environ.get('NTFY_TOPIC') and (total >= 1900 or (total >= 1600 and close)):
               msg = ('The site updater has used about %d of the 2,000 free GitHub Actions minutes this month. At 2,000 '
                      'nothing runs until the next billing cycle and the site freezes where it stands. Start fewer runs '
@@ -612,7 +615,7 @@ jobs:
           except Exception as e:
               bad = 'its status page could not be read (%s)' % type(e).__name__
               print(bad)
-          if bad and topic and (slot.endswith(' 17:05') or sched.startswith('40 21') or os.environ.get('GITHUB_EVENT_NAME') == 'schedule'):
+          if bad and topic and (slot.endswith(' 16:20') or sched.startswith('40 21') or os.environ.get('GITHUB_EVENT_NAME') == 'schedule'):
               msg = ('The Cloudflare Worker bhr-dispatch that starts the site update at the release slots is not healthy: %s. '
                      'The GitHub schedule covers the slots meanwhile. Check https://bhr-dispatch.anthonythomashall3.workers.dev' % bad)
               urllib.request.urlopen(urllib.request.Request('https://ntfy.sh/' + topic, data=msg.encode(),

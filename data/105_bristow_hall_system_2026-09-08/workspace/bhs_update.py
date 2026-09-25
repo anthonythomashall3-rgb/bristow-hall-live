@@ -91,7 +91,7 @@ def fred(series,**params):
     q='&'.join(f'{k}={v}' for k,v in params.items())
     url=f'https://api.stlouisfed.org/fred/series/observations?series_id={series}&api_key={KEY}&file_type=json&{q}'
     for _try in range(4):   # v3.55: FRED answers 429 when the standing collector is also drawing on the key; wait and retry
-        r=subprocess.run(['curl','-sS','-m','40',url],capture_output=True,text=True)
+        r=subprocess.run(['curl','-sSL','-m','40',url],capture_output=True,text=True)
         if r.returncode!=0:   # 17 Sep 2026: a run right after the Mac wakes finds no network for a few seconds; wait and retry rather than fail the run
             if _try<3: import time as _t; _t.sleep(15*(_try+1)); continue
             raise RuntimeError(f'curl failed for {series}')
@@ -107,7 +107,7 @@ def alfred_first(series,start='2000-01-01'):
     q=f'output_type=4&realtime_start=1776-07-04&realtime_end=9999-12-31&observation_start={start}'
     url=f'https://api.stlouisfed.org/fred/series/observations?series_id={series}&api_key={KEY}&file_type=json&{q}'
     for _try in range(4):   # v3.55: FRED answers 429 when the standing collector is also drawing on the key; wait and retry
-        r=subprocess.run(['curl','-sS','-m','40',url],capture_output=True,text=True)
+        r=subprocess.run(['curl','-sSL','-m','40',url],capture_output=True,text=True)
         if r.returncode!=0:   # 17 Sep 2026: a run right after the Mac wakes finds no network for a few seconds; wait and retry rather than fail the run
             if _try<3: import time as _t; _t.sleep(15*(_try+1)); continue
             raise RuntimeError(f'curl failed for {series}')
@@ -145,7 +145,7 @@ _META_OK=False; _PULLED={}; _FAILED=set()   # series pulled this run (with the l
 def _fred_json(url,m=40):
     import time as _t
     for _try in range(4):
-        r_=subprocess.run(['curl','-sS','-m',str(m),url],capture_output=True,text=True)
+        r_=subprocess.run(['curl','-sSL','-m',str(m),url],capture_output=True,text=True)
         if r_.returncode!=0:
             if _try<3: _t.sleep(5*(_try+1)); continue
             return None
@@ -400,7 +400,7 @@ def _append_vintages(s):
     tab=pd.read_csv(path,index_col=0); tab.index=pd.to_datetime(tab.index)
     last=pd.Timestamp(tab.columns[-1].split('_')[-1]); start=(last-pd.Timedelta(days=400)).date().isoformat()
     url=f'https://api.stlouisfed.org/fred/series/vintagedates?series_id={s}&api_key={KEY}&file_type=json&realtime_start={start}&realtime_end={today}'
-    r=subprocess.run(['curl','-sS','-m','40',url],capture_output=True,text=True)
+    r=subprocess.run(['curl','-sSL','-m','40',url],capture_output=True,text=True)
     try: vd=json.loads(r.stdout).get('vintage_dates',[])
     except Exception: vd=[]
     new=[d for d in vd if pd.Timestamp(d)>last]
@@ -423,7 +423,7 @@ for s in ['PAYEMS','GDPC1','GDPNOW','INDPRO']:
 # ---- Hiring Lab's GitHub; the file in hand stands when the fetch fails or answers with something that is not the index.
 try:
     _ip='cache/indeed_us_postings.csv'; _tmp=_ip+'.tmp'
-    _r=subprocess.run(['curl','-sS','-m','60','-o',_tmp,'https://raw.githubusercontent.com/hiring-lab/data/master/US/aggregate_job_postings_US.csv'],capture_output=True,text=True)
+    _r=subprocess.run(['curl','-sSL','-m','60','-o',_tmp,'https://raw.githubusercontent.com/hiring-lab/data/master/US/aggregate_job_postings_US.csv'],capture_output=True,text=True)
     _head=open(_tmp,encoding='utf-8',errors='replace').read(200) if os.path.exists(_tmp) else ''
     if _r.returncode==0 and _head.startswith('date,jobcountry,indeed_job_postings_index_SA'):
         os.replace(_tmp,_ip); _ln=open(_ip,encoding='utf-8',errors='replace').read().strip().splitlines(); say(f'indeed postings  {len(_ln)-1} rows, last {_ln[-1].split(",")[0]}')
@@ -500,7 +500,7 @@ from zoneinfo import ZoneInfo
 # only settled closes: today's row is a live price until the market has closed (4:00 ET; the feed settles by 4:15)
 _ny=datetime.datetime.now(ZoneInfo('America/New_York')); _cut=pd.Timestamp(_ny.date() if (_ny.hour,_ny.minute)>=(16,15) else _ny.date()-datetime.timedelta(days=1))
 ys=pd.Series(dtype=float)
-r=subprocess.run(['curl','-sS','-m','40','-A','Mozilla/5.0','https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=3mo&interval=1d'],capture_output=True,text=True)
+r=subprocess.run(['curl','-sSL','-m','40','-A','Mozilla/5.0','https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=3mo&interval=1d'],capture_output=True,text=True)
 try:
     ch=json.loads(r.stdout)['chart']['result'][0]; ts=ch['timestamp']; cl=ch['indicators']['quote'][0]['close']
     ys=pd.Series({pd.Timestamp(datetime.datetime.fromtimestamp(t,datetime.timezone.utc).date()):c for t,c in zip(ts,cl) if c is not None}).sort_index()

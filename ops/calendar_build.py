@@ -22,10 +22,11 @@ What this does, after every build:
     the same month a year earlier (the same weekday, the same week of the month) and marked "expected", and they turn into
     the agency's own days the day FRED lists them. For each row it keeps the schedule that holds the day the build gave.
  2. WHAT IS STILL DUE. A release whose time has passed but whose row has not moved is "waiting" (ops/state/pending.json):
-    it is looked for again 30 and 90 minutes later and then at every scheduled run until it comes; the phone is told.
- 3. THE SCHEDULE (site/public/run_slots.json, which the Cloudflare starter follows): one run 20 minutes after each timed
-    release (FRED posts within minutes; releases that fall together are one run); one run at 5:05 PM on NYSE trading days
-    for the S&P 500 close (and, on the same run, the H.15 week, the FOMC's afternoon, the Google searches); a 9:05 AM run on
+    it is looked for again 10, 30 and 90 minutes later and then at every scheduled run until it comes; the phone is told.
+ 3. THE SCHEDULE (site/public/run_slots.json, which the Cloudflare starter follows): one run 5 minutes after each timed
+    release, or FRED's measured post plus 5 minutes where the tool reads FRED (releases that fall together are one run); one
+    run at 4:20 PM on NYSE trading days for the S&P 500 close and the day's H.15 post, and one at FRED's SP500 post (about
+    8:10 PM) for the official close (collection 411; until 25 September 2026 one run at 5:05 PM); a 9:05 AM run on
     a day a rule-dated month becomes public when nothing else runs that day; the look-agains of step 2; and, only while the
     S&P 500 is near the sudden stop's market line, a 9:05 AM run every day for that day's Google searches (tool.json
     conditional_slots). Nothing else. Slots closer than 15 minutes are one run.
@@ -69,11 +70,20 @@ SER_CACHE = os.path.join(CACHE, 'fred_series_release.json')
 REL_CACHE = os.path.join(CACHE, 'fred_release_dates.json')
 PENDING = os.path.join(OPS, 'state', 'pending.json')
 HORIZON_DAYS = 400
-LAG_MIN = 20            # a release is read 20 minutes after its time
-CLOSE_HM = '17:05'      # the market-close run on NYSE trading days
+# FASTER (audit-0925, 25 September 2026, collection 411; Anthony: "does it fetch fast? It better fetch fast"). Until today a
+# release was read no sooner than 20 minutes after its time and the S&P 500 close at 5:05 PM, an hour after the market closed.
+# Now: 5 minutes after a release the tool reads straight from its publisher (the Department's claims PDF at 8:35), FRED's own
+# measured posting clock plus five minutes where the tool reads FRED (as before, 358), the close at 4:20 PM (the chart feed
+# settles by 4:15 and FRED posts the day's H.15 at 4:16), and the official close, FRED SP500 (posted about 8:02 PM), read the
+# same evening so a provisional close from the feed never stands overnight. A release not in at its run is looked for again
+# 10 minutes later (then 30 and 90), not 30.
+LAG_MIN = 5             # a release is read 5 minutes after its time (FRED-read releases: FRED's measured post plus 5 minutes)
+CLOSE_HM = '16:20'      # the market-close run on NYSE trading days: the chart feed's settled close and the day's H.15 post
+OFFICIAL_CLOSE_RID = 189    # FRED SP500 (S&P Dow Jones Indices' official close): its own run each trading evening
+OFFICIAL_CLOSE_HM = '20:15' # used only while FRED's posting clock for SP500 is unknown
 MERGE_MIN = 15          # slots closer than this are one run
 MIN_FUTURE = 3          # every row always knows at least its next three releases
-RETRY_MIN = (30, 90)    # a release due and not in is looked for again 30 and 90 minutes after it was found missing
+RETRY_MIN = (10, 30, 90)    # a release due and not in is looked for again 10, 30 and 90 minutes after it was found missing
 SLOT_BACK, SLOT_AHEAD = 3, 21
 
 # The clock time, Eastern, of each FRED release a tool reads. FRED's calendar gives the day; the agency gives the hour.
@@ -111,7 +121,7 @@ RULE_NOTE = {'nyse_close': 'the market close', 'daily_next_morning': 'no publish
              'month_end_plus_21': "the rule's 21-day lag",
              'fred_every_day': "FRED's daily post, at its measured clock (every day, weekends included)",
              'utc_day_end': "the day's end in UTC, 8 PM ET in summer and 7 PM in winter (the tool reads Google's days in UTC); Google publishes no hour"}
-# a slot is made only for a release with a publisher's clock: the S&P close is read at 5:05 PM with the day's searches,
+# a slot is made only for a release with a publisher's clock: the S&P close is read at 4:20 PM (411; was 5:05 PM) with the day's searches,
 # the ETA 539 month has its own 9:05 rule, and Google publishes no hour
 RULE_SLOTS = {'nyse_close': False, 'daily_next_morning': False, 'month_end_plus_21': False, 'h15_week': True, 'fomc': True,
               'h15_daily': True, 'fred_every_day': False, 'utc_day_end': False}
@@ -200,6 +210,23 @@ def read_lag(rid, hm):
         return 0
     q = fred_clock(rid, 0.75)
     return max(0, _mins(q) - _mins(hm)) if q else 0
+
+
+def official_close_hm():
+    """the trading evening's run for the official close: FRED's usual SP500 post (its 75th percentile) plus eight minutes,
+    on the next five-minute mark (collection 411); OFFICIAL_CLOSE_HM while the clock is unknown"""
+    q = fred_clock(OFFICIAL_CLOSE_RID, 0.75)
+    if not q:
+        return OFFICIAL_CLOSE_HM
+    m = _mins(q) + 8
+    m = min(23 * 60 + 55, ((m + 4) // 5) * 5)
+    return '%02d:%02d' % (m // 60, m % 60)
+
+
+def fmt_hm(hm):
+    """'20:02' -> '8:02 PM'"""
+    h, m = map(int, hm[:5].split(':'))
+    return '%d:%02d %s' % (h % 12 or 12, m, 'AM' if h < 12 else 'PM')
 
 
 def now_et():
@@ -895,20 +922,20 @@ def schedule(cal, state, pending):
             t = dt.datetime.strptime(x['ny'], '%Y-%m-%d %H:%M').replace(tzinfo=ET)
             if not (lo - dt.timedelta(hours=2) <= t <= hi):
                 continue
-            if t.strftime('%H:%M') >= '14:00' and trading_day(t.date()):
-                continue                                 # an afternoon release on a trading day: the 5:05 PM run reads it
             lag = int(r.get('read_lag_min') or 0)        # FRED's usual post after the agency's hour (358); 0 where not read from FRED
             run_t = t + dt.timedelta(minutes=max(LAG_MIN, lag + 5))
-            if trading_day(t.date()) and run_t.strftime('%H:%M') >= '16:45':
-                continue                                 # FRED's usual post comes near the close: the 5:05 PM run reads it
+            if trading_day(t.date()) and '14:00' <= t.strftime('%H:%M') and run_t.strftime('%H:%M') <= CLOSE_HM:
+                continue                                 # an afternoon release read by the close run (the H.15 at 4:15, FRED 4:16)
             why = '%s (%s ET%s%s)' % (r['short'], t.strftime('%I:%M %p').lstrip('0'),
                                       ('; FRED by about %s' % (t + dt.timedelta(minutes=lag)).strftime('%I:%M %p').lstrip('0')) if lag > LAG_MIN else '',
                                       ', expected' if x.get('expected') else '')
             raw.append((run_t, why))
     d = lo.date()
+    oc = official_close_hm()
     while d <= hi.date():
         if trading_day(d):
-            raw.append((at(d, CLOSE_HM), "the S&P 500 close (with the day's H.15 post and the day's other afternoon data)"))
+            raw.append((at(d, CLOSE_HM), "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"))
+            raw.append((at(d, oc), "the S&P 500 official close (FRED SP500, posted about %s)" % fmt_hm(fred_clock(OFFICIAL_CLOSE_RID) or oc)))
         d += dt.timedelta(days=1)
     # the rule-dated month is read by 9:05 AM on its day, whatever else runs that day (358: the page shows that time, so it
     # must be kept; until 23 September 2026 the run was added only when no other run was due that day, which could leave the
@@ -957,10 +984,11 @@ def write_slots(slots, state):
            'rule': ('a run is started when a slot has passed since built_at and no run is under way, at most three times for '
                     'one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub\'s own schedule '
                     'is the second line; nothing depends on the Mac'),
-           'made_by': ('ops/calendar_build.py (22 September 2026): a run 20 minutes after each release the site shows, the S&P '
-                       '500 close at 5:05 PM on NYSE trading days, a look-again only for a release that is due and not posted; '
-                       'nothing else'),
-           'fallback': 'weekdays 08:50, 09:35, 10:20 and 17:05 (New York time), used only if this list cannot be read',
+           'made_by': ('ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes '
+                       'after each release the site shows (FRED-read releases: FRED\'s measured post plus 5 minutes), the S&P 500 '
+                       'close at 4:20 PM and its official close at FRED\'s evening post on NYSE trading days, a look-again only '
+                       'for a release that is due and not posted (10, 30 and 90 minutes); nothing else'),
+           'fallback': 'weekdays 08:35, 09:45, 10:15, 16:20 and 20:10 (New York time), used only if this list cannot be read',
            'slots': slots}
     jsave(path, doc)
 

@@ -30,7 +30,7 @@ today=datetime.date.today(); since=today-datetime.timedelta(days=7)
 def fred_dates(rid):
     url=('https://api.stlouisfed.org/fred/release/dates?release_id=%d&include_release_dates_with_no_data=true&realtime_start=%s&realtime_end=9999-12-31&sort_order=asc&limit=1000&file_type=json&api_key=%s'
          %(rid,(today-datetime.timedelta(days=400)).isoformat(),K))
-    r=subprocess.run(['curl','-sS','-m','60',url],capture_output=True,text=True)
+    r=subprocess.run(['curl','-sSL','-m','60',url],capture_output=True,text=True)
     if r.returncode!=0: raise SystemExit('curl failed for release %d'%rid)
     j=json.loads(r.stdout)
     if 'release_dates' not in j: raise SystemExit('FRED answered without release_dates for release %d: %s'%(rid,str(j)[:200].replace(K,'***')))

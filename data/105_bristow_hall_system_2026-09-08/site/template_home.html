@@ -113,7 +113,9 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;',
   const rest=(H.tiles||[]).map(t=>'<div class="tile"><div class="lab">'+esc(t.lab)+'</div>'
     +'<div class="val"><b>'+esc(t.val)+'</b></div>'
     +'<div class="sub">'+esc(t.sub)+(t.next?'; next release '+fmtD(t.next):'')+'</div>'
-    +(t.src?'<div class="lnk"><a href="'+esc(t.src)+'" target="_blank" rel="noopener">'+esc(t.link||t.sid||'FRED')+' &#8599;</a></div>':'')
+    // the source only: the name of, and a link to, each page the number is read from (collection 411, 25 September 2026)
+    +((t.srcs&&t.srcs.length)?'<div class="lnk">'+t.srcs.map(s=>'<a href="'+esc(s[1])+'" target="_blank" rel="noopener">'+esc(s[0])+' &#8599;</a>').join(' &middot; ')+'</div>'
+      :(t.src?'<div class="lnk"><a href="'+esc(t.src)+'" target="_blank" rel="noopener">'+esc(t.link||t.sid||'FRED')+' &#8599;</a></div>':''))
     +'</div>').join('');
   document.getElementById('tiles').innerHTML=own+rest;
 })();

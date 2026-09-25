@@ -2,7 +2,10 @@
 """THE PUBLISHER OF EACH FEED THE RULE READS (audit-0924, 24 September 2026; one list since 25 September 2026, ops-0924).
 Anthony: every link to the publisher's own page, exact words only, no explanatory sentences. The data page (bhs_site.py)
 shows these, and the state the site publishes (bhs_state.json) carries the same: the publisher's name, its own page (None:
-the feed's own address, already the publisher's) and the cadence it keeps."""
+the feed's own address, already the publisher's) and the cadence it keeps.
+Since collection 411 (25 September 2026; Anthony: "All data links should be to the exact source") the links the site shows are
+the exact pages the numbers are read from (s2/source_links.py); the publisher's page here is kept only as the address of last
+resort, for a row no exact page is known for, and the cadence is still shown from this list."""
 import re
 
 PUB = {'S&P 500':('S&P Dow Jones Indices, S&P 500','https://www.spglobal.com/spdji/en/indices/equity/sp-500/','Every trading day, 4:00 PM ET'),

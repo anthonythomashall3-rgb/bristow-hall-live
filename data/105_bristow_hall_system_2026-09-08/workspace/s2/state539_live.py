@@ -43,7 +43,7 @@ KEEP={'c3':'ic','c8':'cw','c17':'at','c18':'ce','c19':'iur13','c20':'ar'}
 HDR=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),'cache','ar539_headers.json')   # the headers of the file last read
 def _head():
     """the Department's ETag, Last-Modified and size for the file, by a HEAD request; None when it did not answer"""
-    r=subprocess.run(['curl','-sI','--max-time','30',URL],capture_output=True,text=True)
+    r=subprocess.run(['curl','-sIL','--max-time','30',URL],capture_output=True,text=True)
     if r.returncode!=0: return None
     h={}
     for ln in r.stdout.splitlines():
@@ -74,7 +74,7 @@ def main():
                 print(f"state 539: the Department's file is unchanged since last read (modified {hd.get('last-modified')}); panel stands through {mx.date()}"); return 0
         ok=False; err=''
         for k in range(3):                                  # the Department's file is 13 MB and times out now and then
-            r=subprocess.run(['curl','-sS','--max-time','300','--retry','2','--retry-delay','5','-o',tmp,URL],capture_output=True,text=True)
+            r=subprocess.run(['curl','-sSL','--max-time','300','--retry','2','--retry-delay','5','-o',tmp,URL],capture_output=True,text=True)
             if r.returncode==0 and os.path.exists(tmp) and os.path.getsize(tmp)>1_000_000: ok=True; break
             err=(r.stderr or 'short file').strip()[:80]
             import time as _t; _t.sleep(10*(k+1))

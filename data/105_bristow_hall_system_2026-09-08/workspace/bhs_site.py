@@ -12,6 +12,15 @@ state=json.load(open(os.path.join(SITE,'bhs_state.json')))
 # publisher page and exact cadence (s2/feed_publishers.py), no Yahoo or FRED address where another publishes, no approximate clock
 import importlib.util as _iu_fp0; _sp_fp0=_iu_fp0.spec_from_file_location('feed_publishers',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','feed_publishers.py')); _fp0=_iu_fp0.module_from_spec(_sp_fp0); _sp_fp0.loader.exec_module(_fp0)
 state['feeds']=[_fp0.normalize(dict(_f)) for _f in state.get('feeds') or []]
+# collection 411 (25 Sep 2026; Anthony: "All data links should be to the exact source without any errors ever"): each feed in the
+# published state carries the exact pages its numbers are read from (s2/source_links.py, checked daily), the first as its address;
+# the publisher's page stays only where no exact page is known
+try:
+    import importlib.util as _iu_sl0; _sp_sl0=_iu_sl0.spec_from_file_location('source_links',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','source_links.py')); _sl0=_iu_sl0.module_from_spec(_sp_sl0); _sp_sl0.loader.exec_module(_sl0)
+    _FL0=_sl0.row_links({i:(f.get('ids') or '',f.get('url'),None) for i,f in enumerate(state['feeds'])})
+    for i,f in enumerate(state['feeds']):
+        if _FL0.get(i): f['sources']=[list(p) for p in _FL0[i]]; f['url']=_FL0[i][0][1]
+except Exception as _e0: print('feed sources not applied (%s): the publisher pages stand' % _e0)
 # R10 (24 September 2026, collection 372): the renderer refuses a state of any schema but the one it renders (s2/schema.py); in the cloud
 # this line is not guarded by `|| true`, so a refusal fails the run and the ops layer holds the site as it was - nothing wrong is published.
 import importlib.util as _iu372; _sp372=_iu372.spec_from_file_location('bhs_schema',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','schema.py')); _schema372=_iu372.module_from_spec(_sp372); _sp372.loader.exec_module(_schema372)
@@ -231,6 +240,20 @@ for f in _lf:
     if str(state.get('leg_tier') or '').startswith('retired'):   # v3.58 (20 Sep 2026): the rule has no leg tier; say what these rows are
         _note=((_note+' \u00b7 ') if _note else '')+'read for the retired leg tier (v3.46\u2013v3.56); not used by the rule since v3.57'
     _rows.append(dict(kind='leg',name=_strip_paren(f.get('title') or f['channel']),ids=f['channel'],url=f.get('url'),source=src,value=str(f.get('value') or ''),values=[],units=f.get('units'),through=str(f.get('through') or ''),nxt=str(f.get('next') or ''),refreshed=f.get('refreshed') or '',legs=who,note=_note))
+# THE EXACT SOURCE OF EACH ROW (collection 411, 25 September 2026; Anthony: "All data links should be to the exact source without
+# any errors ever"). The row's name links the first page its numbers are read from, and the line beneath names and links each of
+# them, then the cadence (s2/source_links.py, which checks every address once a day: a moved one is followed, a dead one replaced
+# by its fallback or left off). Until today the row linked the publisher's page (audit-0924), which is not where the numbers come from.
+try:
+    import importlib.util as _iu_sl; _sp_sl=_iu_sl.spec_from_file_location('source_links',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','source_links.py')); _sl=_iu_sl.module_from_spec(_sp_sl); _sp_sl.loader.exec_module(_sl)
+    _RL=_sl.row_links({i:(r['ids'],r.get('url'),(_re3.sub(r'\s*&middot;.*$','',r.get('source') or '') or None)) for i,r in enumerate(_rows)})
+    for i,r in enumerate(_rows):
+        if _RL.get(i): r['srcs']=_RL[i]; r['url']=_RL[i][0][1]
+except Exception as _e: print('source links not applied (%s): the build\'s addresses stand' % _e)
+def _srcline(r):
+    if not r.get('srcs'): return r['source']
+    tail=r['source'].split(' &middot; ',1)[1] if ' &middot; ' in (r['source'] or '') else ''
+    return ' &middot; '.join('<a href="'+_esc(u)+'" target="_blank" rel="noopener">'+_esc(n)+' &#8599;</a>' for n,u in r['srcs'])+((' &middot; '+tail) if tail else '')
 def _pct(v,u):
     # a percent carries its sign on the number (Anthony, 17 September 2026): "1.1%", and the units line keeps only what
     # else the publisher says ("seasonally adjusted"); percentage points and percent changes are not percents of a level
@@ -254,7 +277,7 @@ def _drow(r):
     t1=('<a href="'+_esc(r['url'])+'"'+(' target="_blank" rel="noopener"' if ext else '')+'>'+_esc(r['name'])+' &#8599;</a>') if r.get('url') else _esc(r['name'])
     th=_iso(r['through']); nx=_nxt_iso(r['nxt']); rf=_iso(r['refreshed'])
     return ('<tr data-name="'+_esc(r['name'].lower())+'" data-ids="'+_esc(r['ids'].lower())+'" data-value="'+_esc(r['value'].lower())+'" data-through="'+th+'" data-next="'+nx+'" data-refreshed="'+rf+'" data-legs="'+_esc(r['legs'].lower())+'">'
-            +'<td><b>'+t1+'</b><div class="src">'+r['source']+'</div>'+('<div class="note">'+_esc(r['note'])+'</div>' if r.get('note') else '')+'</td>'
+            +'<td><b>'+t1+'</b><div class="src">'+_srcline(r)+'</div>'+('<div class="note">'+_esc(r['note'])+'</div>' if r.get('note') else '')+'</td>'
             +'<td class="id">'+_esc(r['ids'])+'</td>'
             +'<td class="val">'+_vcell(r)+'</td>'
             +'<td class="num">'+(_fmtp(r['through'],r.get('cad')) if r['through'] else '<span class="na">&mdash;</span>')+'</td>'

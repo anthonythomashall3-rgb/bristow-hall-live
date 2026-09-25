@@ -39,7 +39,7 @@ for line in open(ENV):
 assert KEY and len(KEY)==32, 'no FRED key in local.env'
 def _curl(url,m=20,tries=2):
     for t in range(tries):   # 17 Sep 2026: shorter timeouts and one retry, so a slow FRED edge cannot hold the run for minutes
-        r=subprocess.run(['curl','-sS','-m',str(m),url],capture_output=True,text=True)
+        r=subprocess.run(['curl','-sSL','-m',str(m),url],capture_output=True,text=True)
         if r.returncode==0 and r.stdout.strip(): return r.stdout
     raise RuntimeError('curl failed')
 def fred(series):
@@ -127,11 +127,26 @@ _LINK={'Unemployment rate':'BLS Employment Situation','Nonfarm payrolls':'BLS Em
        'Insured unemployment rate':'Department of Labor, weekly claims','Job openings':'BLS JOLTS',
        'Unemployed per opening':'computed from the BLS Employment Situation and JOLTS','Quits rate':'BLS JOLTS',
        'CPI inflation':'computed from the BLS Consumer Price Index'}
-_SRC={}
+# THE EXACT SOURCE, AND NOTHING ELSE (collection 411, 25 September 2026; Anthony: "on the widgets on the home page, dont include
+# anything but the name of and link to the proper source, the exact page we get the data from"). Every number here is read from
+# FRED (above), so each tile links the FRED series page of each series it is computed from - two for unemployed per opening -
+# named by the series and nothing more; s2/source_links.py checks each address once a day and never lets a dead one through.
+# _LINK above (the publisher's release, "computed from ...") is no longer shown.
+try:
+    import importlib.util as _iu_sl
+    _sp_sl=_iu_sl.spec_from_file_location('source_links',os.path.join(os.path.dirname(os.path.abspath(__file__)),'source_links.py'))
+    _sl=_iu_sl.module_from_spec(_sp_sl); _sp_sl.loader.exec_module(_sl)
+    _TS=_sl.guarded({_t['lab']:_sl.tile_sources(_t['lab']) for _t in T})
+except Exception as _e:
+    print(f'home tiles: source links not checked ({type(_e).__name__}); FRED series pages as written')
+    _TS={_t['lab']:[('FRED '+s,'https://fred.stlouisfed.org/series/'+s) for s in ([_ID.get(_t['lab'])] if _ID.get(_t['lab']) else [])] for _t in T}
 for _t in T:
     _t["sid"]=_ID.get(_t["lab"]); _t["next"]=_NX.get(_t["sid"])
-    _t["link"]=_LINK.get(_t["lab"],_t["sid"])
-    if _t["lab"] in _SRC: _t["src"]=_SRC[_t["lab"]]
+    _srcs=[list(p) for p in (_TS.get(_t["lab"]) or [])]
+    if _srcs:
+        _t["srcs"]=_srcs; _t["src"]=_srcs[0][1]; _t["link"]=_srcs[0][0]
+    else:
+        _t.pop("src",None); _t["link"]=None      # no address that answers: the tile shows no link rather than a dead one
 # the scheduler reads this: a run is due on every day a series the front page shows is published, so the page is
 # current within minutes of the release instead of waiting for the day's close.
 _cal=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),'cache','tiles_release_dates.csv')

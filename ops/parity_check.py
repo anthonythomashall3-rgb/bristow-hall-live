@@ -98,7 +98,7 @@ def norm(thr):
 
 def reference(rid, read_at, posted, to=None):
     """the publication the read followed: the Department's Thursday 8:30 for claims; the 4:00 PM close of the through day for the
-    S&P 500 (the tool reads Yahoo's close at 5:05 PM, before FRED's 8 PM post); FRED's latest post at or before the read otherwise"""
+    S&P 500 (the tool reads the chart feed's close at 4:20 PM and FRED's official close at its evening post; collection 411); FRED's latest post at or before the read otherwise"""
     if rid == 180:
         return claims_release(read_at)
     if rid == 189 and to:
@@ -144,7 +144,7 @@ def misses(doc, posted, now, present=None):
         since = now
     for rid in sorted(ROW_OF):
         if rid == 189:
-            continue                                   # the S&P close is read at 5:05 PM by the tool's own slot; not a FRED post to miss
+            continue                                   # the S&P close is read at 4:20 PM by the tool's own slot (FRED's post at the evening one); not a FRED post to miss
         if present is not None and not any(ROW_OF[rid].lower() in (i or '').lower() for i in present):
             continue                                   # no row of the state carries this release: it cannot be read or missed
         lp = latest_post(rid, posted, now)

@@ -5,13 +5,14 @@
 //
 // The update is a GitHub Actions run (update.yml in anthonythomashall3-rgb/bristow-hall-live, about three minutes).
 // GitHub's own scheduler could not be relied on to start it: its firings came two to four hours late on 18 and 19
-// September and stopped after 19 September 17:10Z. This Worker runs every five minutes on Cloudflare's Cron Triggers.
+// September and stopped after 19 September 17:10Z. This Worker runs every minute on Cloudflare's Cron Triggers (every five
+// minutes until 25 September 2026; collection 411 - see scheduled() below).
 // It reads the release slots the site publishes (/run_slots.json, written by s2/run_slots.py from the release calendar)
 // and the time of the build the site carries. When a slot has passed since that build and no run is under way, it starts
 // the workflow. A run that ends without bringing the site past the slot is retried after eight minutes, three starts at
 // most for one slot; after that it waits for the next slot. The phone hears of a failed run and of a slot given up, each
 // at most once a day. When run_slots.json cannot be read, or lists no future slot, it uses its own weekday times:
-// 08:50, 09:35, 10:20 and 17:05 on weekdays, New York time. Every check writes a heartbeat (last_tick) that the
+// 08:35, 09:45, 10:15, 16:20 and 20:10 on weekdays, New York time (08:50, 09:35, 10:20 and 17:05 until collection 411). Every check writes a heartbeat (last_tick) that the
 // status page shows and that every workflow run reads: if the Worker stops, the workflow says so. GitHub's own schedule is
 // the second line. Nothing depends on the Mac (Anthony, 21 September 2026: "DONT RELY ON THE MAC AT ALL").
 //
@@ -31,7 +32,7 @@
 
 // the deployed code's version: every workflow run compares it with the repository's copy of this file, so a starter
 // redeployed from an old clone is caught (22 September 2026, collection 306)
-const VERSION = '2026-09-24b (bristow-hall-live)';
+const VERSION = '2026-09-25a (bristow-hall-live)';
 const REPO = 'anthonythomashall3-rgb/bristow-hall-live';
 const WORKFLOW = 'update.yml';
 const SITE = 'https://bhrrealtime.pages.dev';
@@ -40,7 +41,7 @@ const MAX_PER_DAY = 10;                  // starts in one New York day: a fault 
 const RETRY_GAP_MS = 8 * 60000;          // after a run ends without moving the site, wait this long before the next start
 // used only when run_slots.json cannot be read or lists no future slot (22 September 2026: the release-driven schedule is
 // in that file; these are the common release windows, and nothing on weekends)
-const WEEKDAY_TIMES = ['08:50', '09:35', '10:20', '17:05'];
+const WEEKDAY_TIMES = ['08:35', '09:45', '10:15', '16:20', '20:10'];   // collection 411 (was 08:50, 09:35, 10:20, 17:05)
 const SATURDAY_TIMES = [];
 const SLOT_RE = /^\d{4}-\d\d-\d\d \d\d:\d\d$/;
 const ACTIVE = ['queued', 'in_progress', 'pending', 'waiting', 'requested'];
@@ -209,7 +210,7 @@ async function decide(env, now, act) {
   // the site's schedule could not be read: the starter runs on its fallback times and says so, once a day
   if (act && (s.source !== 'run_slots.json' || !s.built))
     await alertOnce(env, `slotlist:${day}`, 86400, "the update starter cannot read the site's schedule",
-      `The Worker could not read ${SITE}/run_slots.json (${s.built ? 'no future slot listed' : 'no build time'}); it starts runs at its fallback times (weekdays 08:50, 09:35, 10:20, 17:05 New York) until the next build publishes the list again.`, now);
+      `The Worker could not read ${SITE}/run_slots.json (${s.built ? 'no future slot listed' : 'no build time'}); it starts runs at its fallback times (weekdays 08:35, 09:45, 10:15, 16:20, 20:10 New York) until the next build publishes the list again.`, now);
   // EVERY FINISHED RUN ON MAIN IS LOOKED AT ONCE, whatever the site shows (22 September 2026, collection 306): a run that could
   // not send its own message is reported here, and a new version's run that GitHub dropped from the queue is started again
   let runs = null;
@@ -320,6 +321,17 @@ async function decide(env, now, act) {
 export default {
   async scheduled(event, env, ctx) {
     const now = new Date(event.scheduledTime);
+    // EVERY MINUTE (25 September 2026, collection 411; Anthony: "does it fetch fast? It better fetch fast"). A slot used to wait up
+    // to five minutes for the next check. Now the Worker wakes every minute, but between the five-minute checks it only reads the
+    // site's schedule and acts only when a slot passed in the last five minutes and the site is still behind it - so a release's
+    // run starts within a minute of its slot, and GitHub is not asked, nor the heartbeat written, more often than before (KV's free
+    // allowance is 1,000 writes a day; the heartbeat stays on the five-minute check).
+    const five = now.getUTCMinutes() % 5 === 0;
+    if (!five) {
+      let s = null;
+      try { s = await siteState(now); } catch (e) { return; }
+      if (!(s.due && (!s.built || s.built < s.due) && now - nyDate(s.due) < 5 * 60000)) return;
+    }
     ctx.waitUntil(decide(env, now, true)
       .catch(async e => {   // v3.67 (22 September 2026, collection 295): a crash of the starter is alerted, once in six hours, not only logged
         const msg = `ERROR ${String(e && e.stack || e).slice(0, 500)}`;
@@ -329,7 +341,8 @@ export default {
       .then(async o => {
         o.tick_utc = new Date().toISOString();
         console.log(JSON.stringify(o));
-        await kvPut(env, 'last_tick', JSON.stringify(o));       // the heartbeat the status page, the Mac and the workflow read
+        if (five || /started a run|started it again/.test(o.decision || ''))
+          await kvPut(env, 'last_tick', JSON.stringify(o));     // the heartbeat the status page, the Mac and the workflow read
       }));
   },
   async fetch(request, env) {
