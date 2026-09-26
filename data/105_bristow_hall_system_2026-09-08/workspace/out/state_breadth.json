@@ -1,8 +1,8 @@
 {
  "cell": {
   "gap": 0.7,
-  "share": 0.4,
-  "rearm": 0.25
+  "share": 0.35,
+  "rearm": 0.15
  },
  "states": 51,
  "through": "2026-08-01",
@@ -12,14 +12,19 @@
  "next_release_source": "BLS schedule (FRED release 112), 10:00 AM ET",
  "fires": [
   [
-   "2001-08-17",
-   "2001-07-01",
-   0.4118
+   "2001-07-20",
+   "2001-06-01",
+   0.3922
   ],
   [
-   "2008-07-18",
-   "2008-06-01",
-   0.5098
+   "2003-10-21",
+   "2003-09-01",
+   0.3725
+  ],
+  [
+   "2008-06-20",
+   "2008-05-01",
+   0.3922
   ],
   [
    "2020-05-22",
@@ -27,9 +32,9 @@
    1.0
   ],
   [
-   "2024-05-17",
-   "2024-04-01",
-   0.4118
+   "2024-03-22",
+   "2024-02-01",
+   0.3725
   ]
  ],
  "cover": 45,
@@ -1215,5 +1220,5 @@
   "note": "every scheduled state month has printed",
   "drill": false
  },
- "note": "the share of states whose own Sahm gap (three-month average unemployment rate above its twelve-month low, on first prints) stands at or above 0.70; the opener fires at 40 per cent of states, with the vacancy condition and the quarter rule applied in the build; it re-arms only once the share has fallen below 0.25 (E31b); a month reporting fewer than 45 states cannot fire"
+ "note": "the share of states whose own Sahm gap (three-month average unemployment rate above its twelve-month low, on first prints) stands at or above 0.70; the opener fires at 35 per cent of states, with the vacancy condition and the quarter rule applied in the build; it re-arms only once the share has fallen below 0.15 (E31b); a month reporting fewer than 45 states cannot fire"
 }

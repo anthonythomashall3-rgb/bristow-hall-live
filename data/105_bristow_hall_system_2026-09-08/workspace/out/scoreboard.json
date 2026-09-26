@@ -10,26 +10,26 @@
    "daters": {
     "Sahm": {
      "call": "2001-07-06",
-     "days_after_tool": 99
+     "days_after_tool": 113
     },
     "SOS_NSA": {
      "call": "2001-04-12",
-     "days_after_tool": 14
+     "days_after_tool": 28
     },
     "LMSI30": {
      "call": "2001-04-26",
-     "days_after_tool": 28
+     "days_after_tool": 42
     },
     "CFNAI": {
      "call": "2001-05-24",
-     "days_after_tool": 56
+     "days_after_tool": 70
     },
     "Michez": {
      "call": "2001-05-10",
-     "days_after_tool": 42
+     "days_after_tool": 56
     }
    },
-   "tool": "2001-03-29",
+   "tool": "2001-03-15",
    "first": "the rule"
   },
   {
@@ -74,26 +74,26 @@
    "daters": {
     "Sahm": {
      "call": "2020-05-08",
-     "days_after_tool": 57
+     "days_after_tool": 53
     },
     "SOS_NSA": {
      "call": "2020-04-09",
-     "days_after_tool": 28
+     "days_after_tool": 24
     },
     "LMSI30": {
      "call": "2020-04-09",
-     "days_after_tool": 28
+     "days_after_tool": 24
     },
     "CFNAI": {
      "call": "2020-04-20",
-     "days_after_tool": 39
+     "days_after_tool": 35
     },
     "Michez": {
      "call": "2020-04-07",
-     "days_after_tool": 26
+     "days_after_tool": 22
     }
    },
-   "tool": "2020-03-12",
+   "tool": "2020-03-16",
    "first": "the rule"
   },
   {
@@ -153,7 +153,7 @@
   "the rule": 4
  },
  "since": "1994-01-01",
- "built_at": "2026-09-26T00:11:49Z",
+ "built_at": "2026-09-26T23:13:14Z",
  "note": "evidence, never a lesson: the outside rules on the programme's real-time data (collection 249, scored in 275), carried forward by the live tier; a call counts for a recession inside [-122, +31] days of the peak and trough months' ends, else it is a false alarm; the jury (three of five within a month) was tested and refused as a lesson source (collection 335)",
  "jury": {
   "rule": "a provisional lesson when at least three of the five non-NBER daters call a peak within one month of one another and the committee has not spoken",

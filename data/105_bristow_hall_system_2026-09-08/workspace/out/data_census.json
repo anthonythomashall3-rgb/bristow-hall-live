@@ -1,7 +1,7 @@
 {
- "built_at": "2026-09-25 20:11",
- "version": "v3.74",
- "census_date": "2026-09-25",
+ "built_at": "2026-09-26 19:13",
+ "version": "v3.76",
+ "census_date": "2026-09-26",
  "feeds": [
   {
    "feed": "Initial claims, continued claims, insured unemployment rate",
@@ -112,8 +112,8 @@
    "series": "DFEDTARU",
    "source": "Federal Reserve, FOMC statement (FRED DFEDTARU, the daily series)",
    "every": "Daily - FRED posts the series every day, weekends included, at about 8:01 AM ET; it moves only at an FOMC decision (eight scheduled meetings a year, the statement at 2:00 PM ET), carried by the next morning's post",
-   "through": "2026-09-25",
-   "next": "2026-09-26",
+   "through": "2026-09-26",
+   "next": "2026-09-27",
    "link": "https://fred.stlouisfed.org/series/DFEDTARU",
    "value": "4.00",
    "backup": "the FOMC statement on federalreserve.gov (the rate carried from the last reading until then)",
@@ -190,36 +190,10 @@
    "series": "Google Trends \"unemployment\"",
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
-   "through": "2026-09-24",
+   "through": "2026-09-25",
    "next": "2026-09-26",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
-   "value": "51",
-   "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
-   "format_check": "the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-fetched window whose overlap deviates over 15 per cent is not appended; pull_log.csv)",
-   "auto": "yes"
-  },
-  {
-   "feed": "Search week: Google searches for \"layoffs\" (the sudden stop's second labour datum)",
-   "series": "Google Trends \"layoffs\"",
-   "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
-   "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
-   "through": "2026-09-24",
-   "next": "2026-09-26",
-   "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=layoffs",
-   "value": "21",
-   "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
-   "format_check": "the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-fetched window whose overlap deviates over 15 per cent is not appended; pull_log.csv)",
-   "auto": "yes"
-  },
-  {
-   "feed": "Search week: Google searches for \"laid off\" (the sudden stop's second labour datum)",
-   "series": "Google Trends \"laid off\"",
-   "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
-   "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
-   "through": "2026-09-24",
-   "next": "2026-09-26",
-   "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=laid%20off",
-   "value": "48",
+   "value": "47",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
    "format_check": "the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-fetched window whose overlap deviates over 15 per cent is not appended; pull_log.csv)",
    "auto": "yes"
@@ -278,7 +252,7 @@
   {
    "channel": "the policy rate (FOMC target range, FRED DFEDTARU)",
    "status": "current",
-   "last": "2026-09-25",
+   "last": "2026-09-26",
    "limit_days": 10,
    "substitute": null
   },

@@ -1,5 +1,5 @@
 {
- "day": "2026-09-25",
+ "day": "2026-09-26",
  "fetch": {
   "the ETA 539 file (s2/state539_live.py, s2/activity_opener.py, s2/backstop.py)": "ok",
   "the Indeed postings index (bhs_update.py)": "ok",
@@ -83,18 +83,6 @@
    [
     "ALFRED GDPNOW",
     "https://alfred.stlouisfed.org/series?seid=GDPNOW"
-   ]
-  ],
-  "row|Google Trends \"laid off\"|Search week: Google searches for \"laid off\"": [
-   [
-    "Google Trends \"laid off\"",
-    "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=laid%20off"
-   ]
-  ],
-  "row|Google Trends \"layoffs\"|Search week: Google searches for \"layoffs\"": [
-   [
-    "Google Trends \"layoffs\"",
-    "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=layoffs"
    ]
   ],
   "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\"": [
@@ -240,5 +228,8 @@
    ]
   ]
  },
- "rows_with_new_data_this_run": []
+ "rows_with_new_data_this_run": [
+  "row|DFEDTARU|Federal funds target range, upper limit",
+  "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\""
+ ]
 }

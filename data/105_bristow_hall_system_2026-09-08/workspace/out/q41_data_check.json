@@ -93,63 +93,63 @@
 {
 "name": "tile: Unemployment rate next release is not in the past",
 "got": "2026-10-02",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Nonfarm payrolls next release is not in the past",
 "got": "2026-10-02",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Payroll growth next release is not in the past",
 "got": "2026-10-02",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Initial claims (week) next release is not in the past",
 "got": "2026-10-01",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Insured unemployment rate next release is not in the past",
 "got": "2026-10-01",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Job openings next release is not in the past",
 "got": "2026-09-29",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Unemployed per opening next release is not in the past",
 "got": "2026-09-29",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Quits rate next release is not in the past",
 "got": "2026-09-29",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: CPI inflation next release is not in the past",
 "got": "2026-10-14",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -204,22 +204,22 @@
 },
 {
 "name": "feed line matches the readings table: Initial claims, continued claims, insure",
-"got": "40",
-"want": "40",
+"got": "60",
+"want": "60",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed is not dated in the future: Initial claims, continued claims, insure",
 "got": "2026-09-19",
-"want": "<= 2026-09-25",
+"want": "<= 2026-09-26",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Initial claims, continued claims, insure",
 "got": "2026-10-01",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -247,14 +247,14 @@
 {
 "name": "feed is not dated in the future: State insured unemployment rates (the br",
 "got": "2026-09-12",
-"want": "<= 2026-09-25",
+"want": "<= 2026-09-26",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: State insured unemployment rates (the br",
 "got": "2026-10-01",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -282,14 +282,14 @@
 {
 "name": "feed is not dated in the future: Unemployment rate, factory hours, nondur",
 "got": "2026-08-01",
-"want": "<= 2026-09-25",
+"want": "<= 2026-09-26",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Unemployment rate, factory hours, nondur",
 "got": "2026-10-02",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -317,14 +317,14 @@
 {
 "name": "feed is not dated in the future: Job openings (the vacancy rate)",
 "got": "2026-07-01",
-"want": "<= 2026-09-25",
+"want": "<= 2026-09-26",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Job openings (the vacancy rate)",
 "got": "2026-09-29",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -352,14 +352,14 @@
 {
 "name": "feed is not dated in the future: Housing starts and building permits",
 "got": "2026-08-01",
-"want": "<= 2026-09-25",
+"want": "<= 2026-09-26",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Housing starts and building permits",
 "got": "2026-10-20",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -387,14 +387,14 @@
 {
 "name": "feed is not dated in the future: Commercial paper and three-month bill ra",
 "got": "2026-09-24",
-"want": "<= 2026-09-25",
+"want": "<= 2026-09-26",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Commercial paper and three-month bill ra",
 "got": "2026-09-28",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -422,14 +422,14 @@
 {
 "name": "feed is not dated in the future: S&P 500 daily close (the market gate of ",
 "got": "2026-09-25",
-"want": "<= 2026-09-25",
+"want": "<= 2026-09-26",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: S&P 500 daily close (the market gate of ",
 "got": "2026-09-28",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -457,7 +457,7 @@
 {
 "name": "feed next release is not in the past: Industrial production, as published (the",
 "got": "2026-10-16",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -484,15 +484,15 @@
 },
 {
 "name": "feed is not dated in the future: Federal funds target range, upper limit ",
-"got": "2026-09-25",
-"want": "<= 2026-09-25",
+"got": "2026-09-26",
+"want": "<= 2026-09-26",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Federal funds target range, upper limit ",
-"got": "2026-09-26",
-"want": ">= 2026-09-25",
+"got": "2026-09-27",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -520,7 +520,7 @@
 {
 "name": "feed next release is not in the past: State continued weeks claimed, ETA 539 (",
 "got": "2026-10-21",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -534,14 +534,14 @@
 {
 "name": "feed is not dated in the future: State unemployment rates, all 51 (the se",
 "got": "2026-08-01",
-"want": "<= 2026-09-25",
+"want": "<= 2026-09-26",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: State unemployment rates, all 51 (the se",
 "got": "2026-10-20",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -555,7 +555,7 @@
 {
 "name": "feed next release is not in the past: Real GDP (the damage grade's output dime",
 "got": "2026-09-30",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -569,7 +569,7 @@
 {
 "name": "feed next release is not in the past: GDPNow (the output dimension's bridge fo",
 "got": "2026-09-30",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -583,7 +583,7 @@
 {
 "name": "feed next release is not in the past: Sahm rule, real time (the comparator on ",
 "got": "2026-10-02",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
@@ -596,8 +596,8 @@
 },
 {
 "name": "feed reading matches the readings table: Search week: Google searches for \"unempl",
-"got": "-19.04",
-"want": "-19.04",
+"got": "-19.265",
+"want": "-19.265",
 "status": "PASS",
 "gate": "soft"
 },
@@ -610,90 +610,20 @@
 },
 {
 "name": "feed is not dated in the future: Search week: Google searches for \"unempl",
-"got": "2026-09-24",
-"want": "<= 2026-09-25",
+"got": "2026-09-25",
+"want": "<= 2026-09-26",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Search week: Google searches for \"unempl",
 "got": "2026-09-26",
-"want": ">= 2026-09-25",
+"want": ">= 2026-09-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "feed has a source link: Search week: Google searches for \"unempl",
-"got": "True",
-"want": "True",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed reading matches the readings table: Search week: Google searches for \"layoff",
-"got": "-3.139",
-"want": "-3.139",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed line matches the readings table: Search week: Google searches for \"layoff",
-"got": "35.0",
-"want": "35.0",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed is not dated in the future: Search week: Google searches for \"layoff",
-"got": "2026-09-24",
-"want": "<= 2026-09-25",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed next release is not in the past: Search week: Google searches for \"layoff",
-"got": "2026-09-26",
-"want": ">= 2026-09-25",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed has a source link: Search week: Google searches for \"layoff",
-"got": "True",
-"want": "True",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed reading matches the readings table: Search week: Google searches for \"laid o",
-"got": "24.345",
-"want": "24.345",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed line matches the readings table: Search week: Google searches for \"laid o",
-"got": "35.0",
-"want": "35.0",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed is not dated in the future: Search week: Google searches for \"laid o",
-"got": "2026-09-24",
-"want": "<= 2026-09-25",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed next release is not in the past: Search week: Google searches for \"laid o",
-"got": "2026-09-26",
-"want": ">= 2026-09-25",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed has a source link: Search week: Google searches for \"laid o",
 "got": "True",
 "want": "True",
 "status": "PASS",
@@ -847,16 +777,16 @@
 "gate": null
 },
 {
-"name": "v3.72: the state breadth fired four times on the first prints, the last on 2024-05-17",
-"got": "['2024-05-17']",
-"want": "['2024-05-17']",
+"name": "v3.76 (E75, cell 0.35 / 0.15): the state breadth's last fire on the first prints is 2024-03-22 (v3.72-v3.75: 2024-05-17 at 0.40 / 0.25)",
+"got": "['2024-03-22']",
+"want": "['2024-03-22']",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "v3.73: the breadth block carries the E31b re-arm 0.25",
-"got": "0.25",
-"want": "0.25",
+"name": "v3.76 (E75): the breadth block carries the re-arm 0.15 (v3.73-v3.75: 0.25)",
+"got": "0.15",
+"want": "0.15",
 "status": "PASS",
 "gate": null
 },
@@ -1023,8 +953,8 @@
 },
 {
 "name": "368: the margins page lists every reading",
-"got": "28",
-"want": "28",
+"got": "26",
+"want": "26",
 "status": "PASS",
 "gate": null
 },
@@ -1093,15 +1023,15 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-09-25 20:11', '2026-09-25 20:11')",
-"want": "('2026-09-25 20:11', '2026-09-25 20:11')",
+"got": "('2026-09-26 19:13', '2026-09-26 19:13')",
+"want": "('2026-09-26 19:13', '2026-09-26 19:13')",
 "status": "PASS",
 "gate": "hard"
 },
 {
 "name": "front-page tiles fetched today",
-"got": "2026-09-25",
-"want": "2026-09-25",
+"got": "2026-09-26",
+"want": "2026-09-26",
 "status": "PASS",
 "gate": null
 },
