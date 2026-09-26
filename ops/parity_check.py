@@ -12,8 +12,9 @@ later than the walk assumes it is known - its publication day. Every run, after 
 Usage:  python3 ops/parity_check.py                 in a run (ledger + misses; never fails the run)
         python3 ops/parity_check.py --report        the lags per release from the ledger
         python3 ops/parity_check.py --history [N]   on a clone with history: rebuild the ledger from the last N committed states
+        python3 ops/parity_check.py --backfill-gdpnow   one-off (441): the GDPNow updates read before the ledger could see them
 """
-import datetime as dt, json, os, subprocess, sys
+import datetime as dt, json, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import calendar_build as cb
 
@@ -53,6 +54,23 @@ def backstop_rows(text):
         return {}
     return {BACKSTOP_IDS[k]: str(v.get('data_through') or '') for k, v in rules.items()
             if k in BACKSTOP_IDS and isinstance(v, dict)}
+
+
+# GDPNow (collection 441, 26 September 2026): the data-page row's through is the quarter being nowcast, so an update inside the
+# quarter never advanced it and every update, read on its day, showed as unread (a false CHECK (parity) each day until the
+# quarter changed). The state's damage status names the vintage the build read ("GDPNow 2026-Q3 5.02% (2026-09-25)"); that
+# day stands in for the row's through, so each update read is a read.
+GDPNOW_RE = re.compile(r'GDPNow \d{4}-Q\d -?[\d.]+% \((\d{4}-\d{2}-\d{2})\)')
+
+
+def gdpnow_row(text):
+    """{'GDPNOW': the vintage day the build read} from the state's damage status; {} when the state names none"""
+    try:
+        s = str(((json.loads(text) or {}).get('damage') or {}).get('status') or '')
+    except Exception:
+        return {}
+    m = GDPNOW_RE.search(s)
+    return {'GDPNOW': m.group(1)} if m else {}
 
 
 def rid_of(ids):
@@ -179,6 +197,7 @@ def run_once(now=None):
     except Exception:
         new_bs = {}
     old_bs = backstop_rows(sh('git', 'show', 'HEAD:' + BACKSTOP_REL))
+    new_bs.update(gdpnow_row(new_text)); old_bs.update(gdpnow_row(old_text))    # 441: GDPNow by the vintage it read
     adv = advances(old_text, new_text, now, posted, old_bs, new_bs) if old_text else []
     known = {(r['ids'], r['to']) for r in doc.get('reads') or []}
     adv = [a for a in adv if (a['ids'], a['to']) not in known]
@@ -201,7 +220,8 @@ def history(n=80):
     reads = []
     for (h0, _), (h1, t1) in zip(log, log[1:]):
         read_at = dt.datetime.fromisoformat(t1).astimezone(UTC)
-        reads += advances(sh('git', 'show', '%s:%s' % (h0, STATE_REL)), sh('git', 'show', '%s:%s' % (h1, STATE_REL)), read_at, posted)
+        t0, t1s = sh('git', 'show', '%s:%s' % (h0, STATE_REL)), sh('git', 'show', '%s:%s' % (h1, STATE_REL))
+        reads += advances(t0, t1s, read_at, posted, gdpnow_row(t0), gdpnow_row(t1s))    # 441: GDPNow by its vintage
     since = dt.datetime.fromisoformat(log[0][1]).astimezone(UTC).strftime('%Y-%m-%dT%H:%MZ') if log else None
     doc = {'reads': reads, 'since': since, 'checked_at': dt.datetime.now(UTC).strftime('%Y-%m-%dT%H:%MZ'), 'history_commits': len(log)}
     doc['open_misses'] = misses(doc, posted, dt.datetime.now(UTC))
@@ -251,9 +271,41 @@ def backfill_backstop(n=80):
           '; '.join(m['name'] for m in doc.get('open_misses') or []) or 'none'))
 
 
+def backfill_gdpnow(n=80):
+    """one-off (collection 441, 26 Sep 2026): write into the ledger the GDPNow updates read before the ledger counted them - the
+    first committed state that names a new vintage is the run that read it (its commit time, as --history uses)"""
+    posted = cb.jload(cb.FRED_POSTED, {}) or {}
+    doc = cb.jload(PARITY, {}) or {}
+    log = [l.split('|') for l in sh('git', 'log', '-n', str(n), '--format=%H|%cI', '--', STATE_REL).splitlines() if '|' in l]
+    log.reverse()
+    known = {(r['ids'], r['to']) for r in doc.get('reads') or []}
+    new = []
+    for (h0, _), (h1, t1) in zip(log, log[1:]):
+        read_at = dt.datetime.fromisoformat(t1).astimezone(UTC)
+        o = gdpnow_row(sh('git', 'show', '%s:%s' % (h0, STATE_REL)))
+        w = gdpnow_row(sh('git', 'show', '%s:%s' % (h1, STATE_REL)))
+        for a in advances('{}', '{}', read_at, posted, o, w):
+            if (a['ids'], a['to']) not in known and a.get('from'):
+                new.append(a); known.add((a['ids'], a['to']))
+    doc['reads'] = sorted((doc.get('reads') or []) + new, key=lambda r: r.get('read_at') or '')
+    now = dt.datetime.now(UTC)
+    try:
+        cur = open(os.path.join(ROOT, STATE_REL), encoding='utf-8').read()
+        bs = backstop_rows(open(os.path.join(ROOT, BACKSTOP_REL), encoding='utf-8').read())
+        doc['open_misses'] = misses(doc, posted, now, set(feeds_of(cur)) | set(bs))
+    except Exception:
+        pass
+    save(doc)
+    print('backfilled %d GDPNow read(s): %s; open misses: %s' % (len(new), '; '.join('%s %s -> %s at %s (posted %s, lag %s min)' % (
+        a['ids'], a['from'], a['to'], a['read_at'], a['posted'], a['lag_min']) for a in new),
+        '; '.join(m['name'] for m in doc.get('open_misses') or []) or 'none'))
+
+
 if __name__ == '__main__':
     if '--backfill-backstop' in sys.argv:
         backfill_backstop()
+    elif '--backfill-gdpnow' in sys.argv:
+        backfill_gdpnow()
     elif '--history' in sys.argv:
         n = int(sys.argv[sys.argv.index('--history') + 1]) if len(sys.argv) > sys.argv.index('--history') + 1 and sys.argv[-1].isdigit() else 80
         d = history(n); report(d)
