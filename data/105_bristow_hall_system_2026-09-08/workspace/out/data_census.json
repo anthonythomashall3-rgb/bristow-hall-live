@@ -1,5 +1,5 @@
 {
- "built_at": "2026-09-25 18:41",
+ "built_at": "2026-09-25 20:11",
  "version": "v3.74",
  "census_date": "2026-09-25",
  "feeds": [
@@ -191,7 +191,7 @@
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
    "through": "2026-09-24",
-   "next": "2026-09-25",
+   "next": "2026-09-26",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
    "value": "51",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
@@ -204,7 +204,7 @@
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
    "through": "2026-09-24",
-   "next": "2026-09-25",
+   "next": "2026-09-26",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=layoffs",
    "value": "21",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
@@ -217,7 +217,7 @@
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
    "through": "2026-09-24",
-   "next": "2026-09-25",
+   "next": "2026-09-26",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=laid%20off",
    "value": "48",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",

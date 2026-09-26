@@ -240,35 +240,5 @@
    ]
   ]
  },
- "rows_with_new_data_this_run": [
-  "row|CCNSA / COVEMP|Insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)",
-  "row|CFNAIMA3|Chicago Fed National Activity Index, three-month average",
-  "row|CPIAUCSL|CPI inflation",
-  "row|DCPF1M, DCPN30, WTB3MS|Commercial paper and three-month bill rates",
-  "row|DFEDTARU|Federal funds target range, upper limit",
-  "row|ETA 539 by state|States with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
-  "row|ETA 539 state insured rates|State insured unemployment rates",
-  "row|ETA 539|State continued weeks claimed, ETA 539",
-  "row|GDPC1|Real GDP",
-  "row|GDPNOW|GDPNow",
-  "row|Google Trends \"laid off\"|Search week: Google searches for \"laid off\"",
-  "row|Google Trends \"layoffs\"|Search week: Google searches for \"layoffs\"",
-  "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\"",
-  "row|HOUST, PERMIT|Housing starts and building permits",
-  "row|ICSA, CCSA, IURSA|Initial claims, continued claims, insured unemployment rate",
-  "row|ICSA|Initial claims",
-  "row|INDPRO|Industrial production, as published",
-  "row|IURSA|Insured unemployment rate",
-  "row|JTSJOL, CLF16OV|Job openings",
-  "row|JTSJOL|Job openings",
-  "row|JTSQUR|Quits rate",
-  "row|LAUS state rates (51)|State unemployment rates, all 51",
-  "row|PAYEMS|Nonfarm payrolls",
-  "row|SAHMREALTIME|Sahm rule, real time",
-  "row|UNRATE, AWHMAN, NDMANEMP, PAYEMS|Unemployment rate, factory hours, nondurable employment",
-  "row|UNRATE, JTSJOL|Michaillat and Saez's rule: the smaller of the unemployment indicator and the vacancy indicator",
-  "row|UNRATE|Unemployment rate",
-  "row|WEI|Weekly Economic Index (Lewis, Mertens and Stock), 13-week mean",
-  "row|^GSPC|S&P 500 daily close"
- ]
+ "rows_with_new_data_this_run": []
 }

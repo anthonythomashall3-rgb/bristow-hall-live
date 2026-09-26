@@ -86,17 +86,17 @@ PASS  feed has a source link: Sahm rule, real time (the comparator on   got=True
 PASS  feed reading matches the readings table: Search week: Google searches for "unempl  got=-19.04  want=-19.04
 PASS  feed line matches the readings table: Search week: Google searches for "unempl  got=35.0  want=35.0
 PASS  feed is not dated in the future: Search week: Google searches for "unempl  got=2026-09-24  want=<= 2026-09-25
-PASS  feed next release is not in the past: Search week: Google searches for "unempl  got=2026-09-25  want=>= 2026-09-25
+PASS  feed next release is not in the past: Search week: Google searches for "unempl  got=2026-09-26  want=>= 2026-09-25
 PASS  feed has a source link: Search week: Google searches for "unempl  got=True  want=True
 PASS  feed reading matches the readings table: Search week: Google searches for "layoff  got=-3.139  want=-3.139
 PASS  feed line matches the readings table: Search week: Google searches for "layoff  got=35.0  want=35.0
 PASS  feed is not dated in the future: Search week: Google searches for "layoff  got=2026-09-24  want=<= 2026-09-25
-PASS  feed next release is not in the past: Search week: Google searches for "layoff  got=2026-09-25  want=>= 2026-09-25
+PASS  feed next release is not in the past: Search week: Google searches for "layoff  got=2026-09-26  want=>= 2026-09-25
 PASS  feed has a source link: Search week: Google searches for "layoff  got=True  want=True
 PASS  feed reading matches the readings table: Search week: Google searches for "laid o  got=24.345  want=24.345
 PASS  feed line matches the readings table: Search week: Google searches for "laid o  got=35.0  want=35.0
 PASS  feed is not dated in the future: Search week: Google searches for "laid o  got=2026-09-24  want=<= 2026-09-25
-PASS  feed next release is not in the past: Search week: Google searches for "laid o  got=2026-09-25  want=>= 2026-09-25
+PASS  feed next release is not in the past: Search week: Google searches for "laid o  got=2026-09-26  want=>= 2026-09-25
 PASS  feed has a source link: Search week: Google searches for "laid o  got=True  want=True
 PASS  headline date = last day of the daily series  got=2026-09-25  want=2026-09-25
 PASS  daily series is in date order  got=True  want=True
@@ -154,7 +154,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-09-12)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-09-25 18:41', '2026-09-25 18:41')  want=('2026-09-25 18:41', '2026-09-25 18:41')
+PASS  public state copies are this build  got=('2026-09-25 20:11', '2026-09-25 20:11')  want=('2026-09-25 20:11', '2026-09-25 20:11')
 PASS  front-page tiles fetched today  got=2026-09-25  want=2026-09-25
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]

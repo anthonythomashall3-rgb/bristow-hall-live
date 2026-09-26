@@ -617,7 +617,7 @@
 },
 {
 "name": "feed next release is not in the past: Search week: Google searches for \"unempl",
-"got": "2026-09-25",
+"got": "2026-09-26",
 "want": ">= 2026-09-25",
 "status": "PASS",
 "gate": null
@@ -652,7 +652,7 @@
 },
 {
 "name": "feed next release is not in the past: Search week: Google searches for \"layoff",
-"got": "2026-09-25",
+"got": "2026-09-26",
 "want": ">= 2026-09-25",
 "status": "PASS",
 "gate": null
@@ -687,7 +687,7 @@
 },
 {
 "name": "feed next release is not in the past: Search week: Google searches for \"laid o",
-"got": "2026-09-25",
+"got": "2026-09-26",
 "want": ">= 2026-09-25",
 "status": "PASS",
 "gate": null
@@ -1093,8 +1093,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-09-25 18:41', '2026-09-25 18:41')",
-"want": "('2026-09-25 18:41', '2026-09-25 18:41')",
+"got": "('2026-09-25 20:11', '2026-09-25 20:11')",
+"want": "('2026-09-25 20:11', '2026-09-25 20:11')",
 "status": "PASS",
 "gate": "hard"
 },
