@@ -20,8 +20,8 @@ if not KEY and os.path.exists(ENV):
         if line.startswith('FRED_API_KEY='): KEY = line.strip().split('=', 1)[1].strip().strip('"').strip("'")
 ST = ['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN',
       'MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
-S_LINE, B_LINE = 0.70, 0.40
-R_LINE = 0.25   # v3.73 (23 September 2026, collection 333; E31b, collection 326): the opener re-arms only once the share has fallen below this, not merely below B_LINE
+S_LINE, B_LINE = 0.70, 0.35   # v3.76 (E75, collections 422, 424, 431): the share line 0.35 (was 0.40)
+R_LINE = 0.15   # v3.76 (E75): the re-arm 0.15 (was 0.25). Before: v3.73 (23 September 2026, collection 333; E31b, collection 326): the opener re-arms only once the share has fallen below this, not merely below B_LINE
 COVER = 45   # a month whose panel is thin cannot fire: the share of a handful of states is not the breadth of the states
 CACHE = os.path.join('cache', 'state_ur_firstprints.csv')
 OUT = os.path.join('out', 'state_breadth.json')

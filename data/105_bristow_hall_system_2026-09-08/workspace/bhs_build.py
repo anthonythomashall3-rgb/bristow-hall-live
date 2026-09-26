@@ -315,7 +315,7 @@ out.close()
 # ---- K published each call five days after the continued-claims week that fired, but a week's continued claims are released a
 # ---- week later, with the next week's initial claims (rel_iu: the Thursday twelve days after the week ends). Every K call is
 # ---- re-dated to rel_iu of its week, so a close by K is never stamped before its data were public.
-_K370=[_p-pd.Timedelta(days=5) for _p,_d in TLH['K']]
+_K370=[_p-pd.Timedelta(days=12) for _p,_d in TLH['K']]   # v3.76 E85 (collection 437): TLH's K is already the week + 12 (fast16.py:51, sweep4.py:7); subtract 12 so rel_iu reads the week that fired
 assert all(_w.weekday()==5 for _w in _K370), 'v3.70: a K call is not dated five days after a Saturday'
 _K370_OLD=list(TLH['K']); TLH=dict(TLH); TLH['K']=sorted((rel_iu(_w),_d) for _w,(_p,_d) in zip(_K370,_K370_OLD))
 print('v3.70: K dated by its release: %d calls; first %s (was %s)'%(len(TLH['K']),(str(TLH['K'][0][0].date()) if TLH['K'] else None),(str(_K370_OLD[0][0].date()) if _K370_OLD else None)))
@@ -391,7 +391,10 @@ print('v3.57: no leg tier; the rule calls with its core alone')
 
 import numpy as np, pandas as pd
 CFG=pickle.load(open(f'cache/{VAR}_carry.pkl','rb'))          # the configuration the walk ended on
-LIVE=VERS.get('live') or os.path.join(os.environ['HOME'],'mnt','Onset Detector Data','105_bristow_hall_system_2026-09-08')
+_LIVE_DEFAULT=os.path.join(os.environ['HOME'],'mnt','Onset Detector Data','105_bristow_hall_system_2026-09-08')
+_IS_LIVE_WS=os.path.realpath(os.getcwd())==os.path.realpath(os.path.join(_LIVE_DEFAULT,'workspace'))   # v3.76 (438): only the live workspace writes the live folder by default
+LIVE=VERS.get('live') or (_LIVE_DEFAULT if _IS_LIVE_WS else os.path.dirname(os.path.realpath(os.getcwd())))
+if not VERS.get('live') and not _IS_LIVE_WS: print('LIVE GUARD (v3.76): not the live workspace; this build writes',LIVE)
 os.makedirs(os.path.join(LIVE,'live'),exist_ok=True)
 today=datetime.date.today()
 # ---- the opening indicator: branch scores over their lines ----
@@ -546,7 +549,7 @@ def armed_ratio_c(ratio,strong,pubfn):
     for t,v in ratio.items():
         if np.isnan(v): out[t]=np.nan; continue
         if armed:
-            if v>=1.0-1e-9 and (v>=strong-1e-9 or cosign(pubfn(t))): out[t]=0.0; armed=False
+            if v>=1.0-1e-9 and (v>=strong-1e-9 or cosign_asof(pubfn(t))): out[t]=0.0; armed=False   # v3.76 (438): the gate's own co-signer
             else: out[t]=v
         else:
             if v<=0: armed=True
@@ -1102,7 +1105,7 @@ for _a,_b in _EPD:
     _DMG_CUM[_a]=(base,B,pd.Series(dict(rows),dtype=float).sort_index(),cum,depth)   # v3.57: an episode opened after the last claims print has no rows yet
 # the damage data, rewritten at every build (weekly with the claims): the live folder and the damage-grade collection
 _dmg_df=pd.DataFrame(_DMG_ROWS)
-for _pth in (os.path.join('out','damage_weekly.csv'),os.path.join(_ROOT,'193_damage_grade_2026-09-17','out','damage_weekly_live.csv')):
+for _pth in ((os.path.join('out','damage_weekly.csv'),os.path.join(_ROOT,'193_damage_grade_2026-09-17','out','damage_weekly_live.csv')) if _IS_LIVE_WS else (os.path.join('out','damage_weekly.csv'),)):   # v3.76 (438): 193 only from the live workspace
     try: os.makedirs(os.path.dirname(_pth),exist_ok=True); _dmg_df.to_csv(_pth,index=False)
     except Exception as _e: print('damage_weekly.csv not written:',_e)
 def _damage(d,call):
@@ -1205,7 +1208,7 @@ def add(side,name,series,line,through=None,nxt=''):
 add('open',f"insured rate, rise above its {p['look']}-week low"+(' (co-signed within 0.2 of the line)' if COS else ''),RAW['U']*p['u45'],p['u45'],nxt=nxt_claims(lastv(RAW['U'])[1],19))
 add('open','insured rate, rise above its 52-week low',RAW['L']*p['low'],p['low'],nxt=nxt_claims(lastv(RAW['L'])[1],19))
 add('open',('initial claims, 4-week mean above its base (the higher of its 52-week low and 85% of its 5-year median), percent' if 'ALPHA' in globals() else 'initial claims, 4-week mean above its 52-week low, percent')+(' (co-signed within 15 of the line)' if COS else ''),RAW['I']*p['ic'],p['ic'],nxt=12)
-if COS: add('open','household co-signer: 3-month average unemployment rate above its 12-month low, as last published (signs a near-line insured-rate or claims proposal)',g.dropna(),COS_THR,nxt=first_fri(today))
+if COS: add('open','household co-signer: 3-month average unemployment rate above its 12-month low, as last published (signs a near-line insured-rate or claims proposal)',g_asof.dropna(),COS_THR,nxt=first_fri(today))   # v3.76 (438): the gap the gate signs with (release-day vintage)
 add('open',f"Sahm gap (three-month average unemployment rate above its twelve-month low, as it stood on the release day; it "
             f"proposes only with the vacancy rate {p['vl']:g} or more off its 4-month high in two of the prior {p['hback']:g} months)",
     RAW['X']*p['sahm'],p['sahm'],nxt=first_fri(today))   # v3.71d (22 September 2026): the vacancy condition and its look-back, from the rule
@@ -1243,6 +1246,20 @@ logp=os.path.join(LIVE,'live','LIVE_LOG_v321.tsv'); new=not os.path.exists(logp)
 with open(logp,'a') as f:
     if new: f.write('run_date\tside\tobject\treading\tline\tat_or_above\tdata_through\n')
     for r in R: f.write(f"{today}\t{r['side']}\t{r['object']}\t{r['reading']}\t{r['line']}\t{'YES' if r['line'] and r['reading']>=r['line'] else 'no'}\t{r['through']}\n")
+try:   # v3.76 (438): the run register - one line per build, so a forward-log block can be traced to the build that wrote it
+    import socket as _so438; _rp438=os.path.join(LIVE,'live','LIVE_LOG_runs.tsv'); _new438=not os.path.exists(_rp438)
+    with open(_rp438,'a') as _f438:
+        if _new438: _f438.write('run_date\tutc\thost\tversion\tworkspace\trows\n')
+        _f438.write('%s\t%s\t%s\t%s\t%s\t%d\n'%(today,datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),_so438.gethostname(),VERSION,os.path.realpath(os.getcwd()),len(R)))
+except Exception as _e438: print('run register not written:',_e438)
+try:   # v3.76 (438): the search archive - the stitched daily series each search reading stood on (last 400 days) and the file's hash
+    if 'GT_TERMS' in globals():
+        _ad438=os.path.join(LIVE,'live','search_archive'); os.makedirs(_ad438,exist_ok=True); _st438=datetime.datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')
+        for _tg438,(_day438,_g7438,_rel438) in GT_TERMS.items():
+            _src438=os.path.join(_C108,'google_trends','live',_tg438+'_stitched_daily.csv') if '_C108' in globals() else None
+            _h438=(_hl0.sha256(open(_src438,'rb').read()).hexdigest() if _src438 and os.path.exists(_src438) else 'n/a')
+            _day438.tail(400).to_csv(os.path.join(_ad438,'%s_%s.csv'%(_st438,_tg438)),header=['%s sha256=%s'%(_tg438,_h438)])
+except Exception as _e438b: print('search archive not written:',_e438b)
 # ---- THE CALENDAR THE PAGE KEEPS: every release the rule reads for the next 150 days, with its time (Eastern), so the
 # page can tell from its own clock which release comes next, which have come out since it was built, and when it
 # updates. Weekly claims Thursdays 8:30 (the Wednesday before Thanksgiving); the H.15 week Fridays 4:15 PM; the dated
@@ -1726,6 +1743,17 @@ state['walked_record']=_wr
 import importlib.util as _iu372; _sp372=_iu372.spec_from_file_location('bhs_schema',os.path.join('s2','schema.py')); _schema372=_iu372.module_from_spec(_sp372); _sp372.loader.exec_module(_schema372)
 _schema372.stamp(state); _pr372=_schema372.check(state)
 if _pr372: raise SystemExit('R10: the state is not schema %d as this build defines it: %s'%(_schema372.SCHEMA_VERSION,'; '.join(_pr372)))
+state.setdefault('notes',{})['objects_precise']=dict(   # v3.76 (collections 432-441): what runs, stated exactly (a data note, not page text)
+    survey_week='the insured rate in the week whose Saturday is nearest the 12th (a tie to the earlier), read against the lowest of the prior 52 monthly readings (four and a third years); from 2 August 1975 the Department\'s printed seasonally adjusted rate (the earliest release of each week), before it the lab\'s weekly construction (preweek.py: printed state counts, the lab\'s seasonal adjustment, the Fieldhouse denominator); a month is not read until its week is out',
+    survey_week_source=('printed from %s (%d weeks replaced, %d added)'%(SURVEY_WEEK_PRINTED['first'],SURVEY_WEEK_PRINTED['replaced'],SURVEY_WEEK_PRINTED['added']) if globals().get('SURVEY_WEEK_PRINTED') else 'NOT PRINTED: the merged first-print table was missing'),
+    state_breadth_rates=('each state\'s insured rate as printed on page 8 of the weekly release, %s to %s (%d state-weeks); FRED\'s current file before and after'%(STATE_RATES_PRINTED['first'],STATE_RATES_PRINTED['last'],STATE_RATES_PRINTED['cells']) if globals().get('STATE_RATES_PRINTED') else 'NOT PRINTED: the page-8 table was missing'),
+    claims_before_2002='the weekly claims and the insured rate as printed, with their release days, from 2 August 1975 (E66); the walk reads the same table (v3.76)',
+    search_terms='the search week reads Google searches for "unemployment" alone (v3.76, E79)',
+    paper_spread='the 13-week mean against the lowest 13-week mean of the 39 weeks ending with the current week',
+    market_gate='the S&P 500 against its highest close of the 20 trading days ending with the close read',
+    closer_c_rate='the insured rate\'s four-week mean is rounded to a tenth before its fall from the 26-week maximum is taken',
+    k_release='a close by K is dated by the release of the continued-claims week that fired (the week + 12 days)',
+    vacancy_before_2010='the vacancy rate before July 2010 is the Petrosky-Nadeau and Zhang reconstruction (help-wanted index, then JOLTS as now published), not a print')
 json.dump(state,open(os.path.join(LIVE,'bhs_state.json'),'w'),allow_nan=False)
 json.dump(state,open('out/bhs_state.json','w'),allow_nan=False)
 _tick('state written')

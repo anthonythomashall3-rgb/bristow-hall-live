@@ -13,7 +13,7 @@ improvement. The nesting is the defect. Here the two are separate grid parameter
 Objective, grid, cache (clean) and everything else are walk 81's.
 Run:  python3 walk94.py 1962 2026 w94"""
 import sys, pickle, os, csv
-SEARCH_TERMS = ['unemp', 'layoffs', 'laidoff']; os.environ['BHS_SEARCH_TERMS'] = ','.join(SEARCH_TERMS)
+SEARCH_TERMS = ['unemp']; os.environ['BHS_SEARCH_TERMS'] = ','.join(SEARCH_TERMS)
 _MARK = "# ---- the walk " + "itself"
 import pandas as pd, numpy as np
 

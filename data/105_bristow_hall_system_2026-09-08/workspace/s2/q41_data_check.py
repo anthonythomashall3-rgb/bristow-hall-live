@@ -142,10 +142,10 @@ chk('v3.71: today\'s vacancy line 0.25 and vacancy look-back 12',[S['lines'].get
 # v3.72 (22 September 2026, collection 311): the state breadth, the second opener
 _sb=S.get('state_breadth') or {}
 chk('v3.72: the state breadth ran and carries its states and month',[bool(_sb),_sb.get('states'),bool(_sb.get('through'))],[True,51,True])
-chk('v3.72: the state breadth fired four times on the first prints, the last on 2024-05-17',[f[0] for f in (_sb.get('fires') or [])][-1:],['2024-05-17'])
+chk('v3.76 (E75, cell 0.35 / 0.15): the state breadth\'s last fire on the first prints is 2024-03-22 (v3.72-v3.75: 2024-05-17 at 0.40 / 0.25)',[f[0] for f in (_sb.get('fires') or [])][-1:],['2024-03-22'])
 # v3.73 (23 September 2026, collection 333): E31b's re-arm in the breadth JSON, the claims switch and the vacancy bridge in the state, the chronology file, the payroll
 # backstop's reading, the grade in three dimensions on every episode with the record's three heights
-chk('v3.73: the breadth block carries the E31b re-arm 0.25',_sb.get('rearm_line'),0.25)
+chk('v3.76 (E75): the breadth block carries the re-arm 0.15 (v3.73-v3.75: 0.25)',_sb.get('rearm_line'),0.15)
 # v3.74 (23 September 2026, collections 334-337): the near-miss log, the state-rate channel row and its substitute block, the scoreboard, the census
 chk('v3.74: the near-miss log is in the state',isinstance((S.get('near_misses') or {}).get('spells'),list) and len(S['near_misses']['spells'])>=20,True)
 chk('v3.74: the state-rate channel row is present with its substitute named',any(c['channel'].startswith('state unemployment rates') and c.get('substitute') is not None or (c['channel'].startswith('state unemployment rates') and c.get('status')=='current') for c in S['channels']),True)

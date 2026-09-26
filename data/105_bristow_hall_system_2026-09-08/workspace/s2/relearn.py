@@ -28,7 +28,7 @@ def _od():
     return None
 SB = os.path.join(_od() or '', '276_core_v6_lab_speed_1960_tiers_2026-09-20', 'sandbox')
 KNOW = os.path.join(_od() or '', '303_the_four_round4_official_recognition_2026-09-22', 'code', 'e20_knowledge.py')
-SHIPPED_MEMO = 'e29'   # the labour walk the shipped diary w7w5 rests on (collections 304, 309, 310)
+SHIPPED_MEMO = 'v376'   # v3.76 (collection 441): the walk on the data as printed with the v3.76 files; before: 'e29'. Was: the labour walk the shipped diary w7w5 rests on (collections 304, 309, 310)
 # the walk's switches, exactly as 310/code/run_e29.sh set them for e29 (E28, E29, E20 knowledge dates, event cuts, the start rule, pre-1970 troughs, E19a/b, E21 close, E22)
 WALK_ENV = dict(BHS_WRAP='walk_fast_e29.py', BHS_E28='1', BHS_E29='1', BHS_E='off', BHS_TIE='thin', BHS_E20='1', BHS_EVENTS='1', BHS_START='1', BHS_PRE70='1', BHS_E19A='1', BHS_E19B='1', BHS_E21='close', BHS_E22='1')
 
@@ -73,7 +73,19 @@ def rewalk(run=False, memo='relearn'):
     env.setdefault('BHS_TURNS_SEED', os.path.join(SB, 'cache', '%s_turns.pkl' % SHIPPED_MEMO))   # the shipped walk's record store: a re-walk rebuilds only the records it lacks
     r = subprocess.run([sys.executable, 'walk_fastest.py', '1948', '2026', memo], cwd=SB, env=env, capture_output=True, text=True)   # the runbook's command (310/code/run_e29.sh); the same interpreter as this script
     print(r.stdout[-1500:]); print(r.stderr[-800:])
-    return compare(memo)
+    rc = compare(memo)
+    return max(rc, guard(memo))   # v3.76 (Gap 11, collections 427, 430, 441): the re-selection guard v2 decides whether the re-walk may proceed
+
+def guard(memo, lesson_day=None):
+    """the re-selection guard v2 on a re-walk against the shipped walk; the lesson day is the last confirmed lesson's day (the ledger), else today"""
+    import importlib.util
+    if lesson_day is None:
+        lesson_day = datetime.date.today().isoformat()
+        try:
+            last = [json.loads(l) for l in open(LEDGER) if l.strip()][-1]; lesson_day = (last.get('confirmed') or lesson_day)[:10]
+        except Exception: pass
+    s = importlib.util.spec_from_file_location('relearn_guard_v2', os.path.join(HERE, 's2', 'relearn_guard_v2.py')); g = importlib.util.module_from_spec(s); s.loader.exec_module(g)
+    return g.guard(memo, lesson_day, shipped=SHIPPED_MEMO)
 
 def compare(memo):
     import pickle
@@ -94,4 +106,5 @@ if __name__ == '__main__':
     elif cmd == 'rewalk': sys.exit(rewalk(run='--run' in sys.argv))
     elif cmd == 'replay': sys.exit(rewalk(run=True, memo=(sys.argv[2] if len(sys.argv) > 2 else 'l3replay')))
     elif cmd == 'compare': sys.exit(compare(sys.argv[2]))
+    elif cmd == 'guard': sys.exit(guard(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None))
     else: print(__doc__)

@@ -12,11 +12,26 @@ frd=pd.read_csv(D+'/IURSA.csv',index_col=0,parse_dates=True).iloc[:,0].dropna()
 # weekly releases IS the as-printed record to April 1983, so it is used to its end and the Department's current
 # file only afterwards.
 IURW=pd.concat([own,frd[frd.index>own.index.max()]]).sort_index()
+# ---- v3.76 (26 September 2026; collections 436, 440, 441 - option (a), the record on the data as printed): the survey week reads the
+# ---- Department's PRINTED seasonally adjusted insured rate from 2 August 1975 (the earliest release of each week, from the merged
+# ---- first-print table the build writes, E66) in place of the lab's weekly construction (preweek.py) and FRED's current file, which
+# ---- stand before 1975 and wherever no print exists.
+import os
+_mt376=[p_ for p_ in ('cache/national_first_prints_1985_live.csv',os.path.join(W.replace('24_bristow_rule_lab/workspace',''),'105_bristow_hall_system_2026-09-08','workspace','cache','national_first_prints_1985_live.csv')) if os.path.exists(p_)]
+SURVEY_WEEK_PRINTED=None
+if _mt376:
+    _fpw=pd.read_csv(_mt376[0]); _fpw['_w']=pd.to_datetime(_fpw['iu_week_ended'],errors='coerce'); _fpw['_r']=pd.to_datetime(_fpw['release_date'],errors='coerce'); _fpw['_v']=pd.to_numeric(_fpw['iur_sa'],errors='coerce')
+    _fpw=_fpw.dropna(subset=['_w','_v']).sort_values(['_w','_r']); _fpw1=_fpw.groupby('_w')['_v'].first()
+    _cw376=IURW.index.intersection(_fpw1.index); IURW.loc[_cw376]=_fpw1.loc[_cw376].values; _xw376=_fpw1.index.difference(IURW.index)
+    IURW=pd.concat([IURW,_fpw1.loc[_xw376]]).sort_index(); SURVEY_WEEK_PRINTED=dict(replaced=int(len(_cw376)),added=int(len(_xw376)),first=str(_fpw1.index.min().date()),last=str(_fpw1.index.max().date()))
+else: print('v3.76 WARNING: the merged first-print table is missing - the survey week reads the lab construction and the current file')
 def survey(s):
     rows={}
     for t,v in s.items():
         m=pd.Timestamp(t.year,t.month,1); d=abs((t-pd.Timestamp(t.year,t.month,12)).days)
         if m not in rows or d<rows[m][0]: rows[m]=(d,v,t)
+    _last=s.index.max()   # v3.76 L1' (collections 433, 438, 441): a month is not read until its week dated the 9th-15th is out or the data pass its 15th
+    for _m in [m for m in rows if not (9<=rows[m][2].day<=15) and _last<=m+pd.Timedelta(days=14)]: del rows[_m]
     idx=sorted(rows); return pd.Series([rows[m][1] for m in idx],index=idx), pd.Series([rows[m][2] for m in idx],index=idx)
 SI,SW=survey(IURW)
 def leg_sv(line,look=52,pub=12,rearm='zero'):
@@ -31,7 +46,7 @@ import glob,os
 _cols={}
 for _f in sorted(glob.glob(D+'/*INSUREDUR.csv')):
     _cols[os.path.basename(_f)[:2]]=pd.read_csv(_f,index_col=0,parse_dates=True).iloc[:,0].dropna()
-ST=pd.DataFrame(_cols).sort_index(); STMN=ST.rolling(52,min_periods=52).min().shift(1)
+ST=pd.DataFrame(_cols).sort_index(); exec(open('s2/state_rates_as_printed.py').read()); STMN=ST.rolling(52,min_periods=52).min().shift(1)   # v3.76: B's states as printed
 BR=(((ST-STMN)>=0.20).sum(axis=1)/ST.notna().sum(axis=1)).dropna()
 def leg_br(share):
     c=[]; armed=True
