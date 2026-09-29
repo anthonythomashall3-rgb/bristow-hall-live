@@ -1,26 +1,7 @@
 {
- "came_in": [
-  {
-   "came_in": "2026-09-29 10:21",
-   "due_ny": "2026-09-29 10:00",
-   "ids": "jtsjol, clf16ov",
-   "short": "JOLTS (job openings)"
-  },
-  {
-   "came_in": "2026-09-29 10:21",
-   "due_ny": "2026-09-29 10:00",
-   "ids": "jtsjol",
-   "short": "JOLTS (job openings)"
-  },
-  {
-   "came_in": "2026-09-29 10:21",
-   "due_ny": "2026-09-29 10:00",
-   "ids": "jtsqur",
-   "short": "JOLTS (job openings)"
-  }
- ],
+ "came_in": [],
  "expired": [],
- "last_check_ny": "2026-09-29 10:16",
+ "last_check_ny": "2026-09-29 10:18",
  "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }

@@ -1,7 +1,7 @@
 {
- "built_at": "2026-09-29 10:20",
+ "built_at": "2026-09-29 10:23",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-09-29T14:20:30Z",
+ "generated_utc": "2026-09-29T14:23:29Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -2840,7 +2840,7 @@
    "name": "job openings",
    "next_expected": false,
    "next_ny": "2026-11-03 10:00",
-   "read_lag_min": 10,
+   "read_lag_min": 11,
    "release_id": 192,
    "short": "JOLTS (job openings)",
    "slots": true,
@@ -3254,7 +3254,7 @@
    "name": "job openings",
    "next_expected": false,
    "next_ny": "2026-11-03 10:00",
-   "read_lag_min": 10,
+   "read_lag_min": 11,
    "release_id": 192,
    "short": "JOLTS (job openings)",
    "slots": true,
@@ -3297,7 +3297,7 @@
    "name": "quits rate",
    "next_expected": false,
    "next_ny": "2026-11-03 10:00",
-   "read_lag_min": 10,
+   "read_lag_min": 11,
    "release_id": 192,
    "short": "JOLTS (job openings)",
    "slots": true,
