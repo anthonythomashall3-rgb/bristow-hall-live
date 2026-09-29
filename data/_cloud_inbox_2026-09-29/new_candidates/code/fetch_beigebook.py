@@ -47,8 +47,18 @@ for y in range(1970, today.year + 1):
         body = re.sub(r'<script.*?</script>|<style.*?</style>', '', t, flags=re.S)
         s = html.unescape(re.sub(r'<[^>]+>', ' ', body)); s = re.sub(r'\s+', ' ', s)
         pd = re.search(r'Beige Book\s+((?:%s) \d{1,2}, \d{4})' % '|'.join(MN), s)
-        i = s.find('National Summary: %s %d' % (MN[m - 1], y))
-        end = s.find('Federal Reserve Bank of Minneapolis', i + 200)
+        # body starts at 'Beige Book <Month D, YYYY>' (page headings read 'National Summary: Month YYYY'
+        # on older pages and 'National Summary | Month YYYY' on pages from late 2025)
+        i = pd.start() if pd else s.find('National Summary: %s %d' % (MN[m - 1], y))
+        # end of body = first 'Federal Reserve Bank of Minneapolis' that is not part of the byline
+        # ('Prepared at/by the Federal Reserve Bank of Minneapolis' truncated 3 editions in the first run)
+        end, k = -1, i + 200
+        while True:
+            k = s.find('Federal Reserve Bank of Minneapolis', k)
+            if k < 0: break
+            if re.search(r'(prepared|compiled)\s+(at|by)\s+the\s*$', s[max(0, k - 30):k], re.I):
+                k += 10; continue
+            end = k; break
         text = s[i:end if end > 0 else None]
         f.write(json.dumps(dict(slug=slug, url=url, status=c, edition=True,
                                 pub_date=pd.group(1) if pd else '', n_chars=len(text), text=text)) + '\n')

@@ -21,10 +21,11 @@ for ln in open(R):
     r = json.loads(ln)
     if not r.get('edition'): continue
     t = r['text']
-    m = re.search(r'Beige Book\s+(\w+ \d{1,2}, \d{4})', t)
+    m = re.search(r'Beige Book\s+(\w+ \d{1,2}\s*, \d{4})', t)      # '16 , 1998' occurs on two pages
     body = t[m.end():] if m else t
-    body = re.split(r'\s(Previous Report|Next Report|Back to Beige Book|Related Links)\b', body)[0].strip()
-    pub = datetime.datetime.strptime(r['pub_date'], '%B %d, %Y').date() if r.get('pub_date') else None
+    body = re.split(r'\s(Previous Report|Next Report|Back to Beige Book|Related Links|LEARN MORE|'
+                    r'Federal Reserve Bank of Minneapolis: Pursuing|Sign up for news)\b', body)[0].strip()
+    pub = datetime.datetime.strptime(re.sub(r'\s+,', ',', m.group(1)), '%B %d, %Y').date() if m else None
     words = re.findall(r"[a-z]+", body.lower())
     rec = dict(slug=r['slug'], edition_month=r['slug'][:7], pub_date=pub, url=r['url'], n_words=len(words),
                n_neg_listed=sum(w in NEG for w in words), n_pos_listed=sum(w in POS for w in words),
@@ -33,4 +34,4 @@ for ln in open(R):
     open(os.path.join(TX, r['slug'] + '.txt'), 'w').write(body)
 d = pd.DataFrame(rows).sort_values('slug')
 d.to_csv(os.path.join(O, 'editions.csv'), index=False)
-print(len(d), d['pub_date'].min(), d['pub_date'].max())
+print(len(d), d['pub_date'].dropna().min(), d['pub_date'].dropna().max(), 'missing pub_date:', d['pub_date'].isna().sum())
