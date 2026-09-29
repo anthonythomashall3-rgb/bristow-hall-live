@@ -1,0 +1,27 @@
+rows 6028; issues 446 (1962-11 .. 1999-12); months 1961-09 .. 1999-11
+permits_authorized_saar_thous: non-null 6024 / 6028
+  status: 3of3=4709; 2of3=1249; split->next_issue=38; split->prev_issue=22; 2of3;isolated->adjacent=4; ocr_doubt=3; 3of3;isolated_deviation=2; missing=1
+starts_total_saar_thous: non-null 6015 / 6028
+  status: 3of3=4586; 2of3=1377; split->prev_issue=22; split->next_issue=19; ocr_doubt=10; 3of3;isolated_deviation=7; 2of3;isolated->adjacent=4; missing=3
+ALFRED HOUST: 445 issues matched to a same-newest-month vintage; 6002 cells; exact match 99.8%; |diff|<=1: 99.8%
+ALFRED PERMIT: 5 issues matched to a same-newest-month vintage; 66 cells; exact match 100.0%; |diff|<=1: 100.0%
+permits_authorized_saar_thous: months 459; median prints/month 13; median distinct values/month 3; isolated deviations 2
+starts_total_saar_thous: months 459; median prints/month 13; median distinct values/month 4; isolated deviations 7
+permits_authorized_saar_thous vs today's Census (log printed/current):
+           n  median_log_ratio  median_abs_log_ratio
+decade                                              
+1960s   1295           -0.0144                0.0270
+1970s   1616           -0.0187                0.0284
+1980s   1581           -0.0056                0.0131
+1990s   1532           -0.0021                0.0098
+  cells with |log ratio|>0.2: 0
+starts_total_saar_thous vs today's Census (log printed/current):
+           n  median_log_ratio  median_abs_log_ratio
+decade                                              
+1960s   1294            0.0114                0.0289
+1970s   1614            0.0057                0.0221
+1980s   1580            0.0009                0.0138
+1990s   1527            0.0016                0.0132
+  cells with |log ratio|>0.2: 1
+issues whose oldest printed row appears lost in OCR (month present in earlier issues): 19 ['1964-11', '1967-05', '1968-09', '1969-12', '1971-02', '1971-07', '1973-11', '1977-12', '1990-05', '1990-08', '1990-10', '1993-10', '1996-02', '1996-04', '1996-07', '1996-10', '1997-03', '1997-06', '1998-04']
+newest-month rows: 446; permits non-null 445
