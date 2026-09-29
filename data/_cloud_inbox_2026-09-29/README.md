@@ -43,7 +43,20 @@ Scratch-HOME rebuilds of the v3.76 bundle only. They say nothing about C6 on T17
   UNRATE's first vintage), the hours pair before 3 November 1961, state breadth before June 1984. Whether C6/T17p9 is the
   same is for the Mac to check.
 
-## 4. Still being collected in the cloud (results will be added here)
+## 4. Pre-1975 weekly claims: audit of the v3.76 chain (check whether C6/T17 inherits any of it)
+
+- Initial claims before 2 Aug 1975 (`ICfp`): FRED's current ICSA (today's seasonal factors back to 1967); nothing before
+  1967-01-07 in the traceable chain. Continued claims 1967-75 (`_CCfp`): current CCSA. Insured rate 1971-75 (`spl`):
+  current IURSA.
+- **Defect: closer Q (`_qleg`, walk38.py:217, re-run in walk39.py:227) reads current ICSA at every date, after 1975 too.**
+- `59/national_iur_realtime_sa_first_prints_1948_1983.csv` is not a print: `pre1971_supply.py` builds it from printed NSA
+  counts (gaps to 6 weeks interpolated), the lab's seasonal adjustment and today's covered employment. The survey-week
+  file `cache/weekly_iur_prewar.csv` (1952-75) is `preweek.py`'s construction; walk9.py:11-13 calls it "as printed" — wrong.
+- What existed in real time: the Department's weekly release printed NSA only (the 1974 volume: "RATE IS NOT SEASONALLY
+  ADJUSTED"); SA figures were printed monthly — Business Conditions Digest series 5 (initial claims) and 45 (insured
+  rate) from 1961, Economic Indicators' monthly SA insured rate. Being parsed now.
+
+## 5. Still being collected in the cloud (results will be added here)
 
 Permits as printed 1960-99 (Economic Indicators, FRASER); UNRATE, MANEMP, AWHMAN, NDMANEMP, PAYEMS as printed 1948-61;
 the Help-Wanted Index as printed (BCD series 46, SCB, press 1996-2004); state insured rates as printed 1984-2002; Google
