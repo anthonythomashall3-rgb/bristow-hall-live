@@ -1,5 +1,5 @@
 {
- "day": "2026-09-28",
+ "day": "2026-09-29",
  "fetch": {
   "the ETA 539 file (s2/state539_live.py, s2/activity_opener.py, s2/backstop.py)": "ok",
   "the Indeed postings index (bhs_update.py)": "ok",
@@ -228,5 +228,11 @@
    ]
   ]
  },
- "rows_with_new_data_this_run": []
+ "rows_with_new_data_this_run": [
+  "row|DFEDTARU|Federal funds target range, upper limit",
+  "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\"",
+  "row|JTSJOL, CLF16OV|Job openings",
+  "row|JTSJOL|Job openings",
+  "row|JTSQUR|Quits rate"
+ ]
 }

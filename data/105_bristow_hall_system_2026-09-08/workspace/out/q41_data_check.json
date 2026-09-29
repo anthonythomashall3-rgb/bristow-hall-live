@@ -50,22 +50,22 @@
 },
 {
 "name": "tile: job openings (thousands -> millions)",
-"got": "7.3 million",
-"want": "7.3 million",
+"got": "7.1 million",
+"want": "7.1 million",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: unemployed per opening reads ONE month",
-"got": "0.95",
-"want": "0.95",
+"got": "0.99",
+"want": "0.99",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: unemployed per opening labels that month",
-"got": "Jul 2026",
-"want": "Jul 2026",
+"got": "Aug 2026",
+"want": "Aug 2026",
 "status": "PASS",
 "gate": null
 },
@@ -93,63 +93,63 @@
 {
 "name": "tile: Unemployment rate next release is not in the past",
 "got": "2026-10-02",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Nonfarm payrolls next release is not in the past",
 "got": "2026-10-02",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Payroll growth next release is not in the past",
 "got": "2026-10-02",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Initial claims (week) next release is not in the past",
 "got": "2026-10-01",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Insured unemployment rate next release is not in the past",
 "got": "2026-10-01",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Job openings next release is not in the past",
 "got": "2026-09-29",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Unemployed per opening next release is not in the past",
 "got": "2026-09-29",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Quits rate next release is not in the past",
 "got": "2026-09-29",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: CPI inflation next release is not in the past",
 "got": "2026-10-14",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -169,7 +169,7 @@
 },
 {
 "name": "units: job openings between 1 and 25 million",
-"got": "7.3",
+"got": "7.1",
 "want": "1-25",
 "status": "PASS",
 "gate": "hard"
@@ -212,14 +212,14 @@
 {
 "name": "feed is not dated in the future: Initial claims, continued claims, insure",
 "got": "2026-09-19",
-"want": "<= 2026-09-28",
+"want": "<= 2026-09-29",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Initial claims, continued claims, insure",
 "got": "2026-10-01",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -247,14 +247,14 @@
 {
 "name": "feed is not dated in the future: State insured unemployment rates (the br",
 "got": "2026-09-12",
-"want": "<= 2026-09-28",
+"want": "<= 2026-09-29",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: State insured unemployment rates (the br",
 "got": "2026-10-01",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -282,14 +282,14 @@
 {
 "name": "feed is not dated in the future: Unemployment rate, factory hours, nondur",
 "got": "2026-08-01",
-"want": "<= 2026-09-28",
+"want": "<= 2026-09-29",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Unemployment rate, factory hours, nondur",
 "got": "2026-10-02",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -302,8 +302,8 @@
 },
 {
 "name": "feed reading matches the readings table: Job openings (the vacancy rate)",
-"got": "-0.063",
-"want": "-0.063",
+"got": "0.073",
+"want": "0.073",
 "status": "PASS",
 "gate": "soft"
 },
@@ -316,15 +316,15 @@
 },
 {
 "name": "feed is not dated in the future: Job openings (the vacancy rate)",
-"got": "2026-07-01",
-"want": "<= 2026-09-28",
+"got": "2026-08-01",
+"want": "<= 2026-09-29",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Job openings (the vacancy rate)",
-"got": "2026-09-29",
-"want": ">= 2026-09-28",
+"got": "2026-11-03",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -352,14 +352,14 @@
 {
 "name": "feed is not dated in the future: Housing starts and building permits",
 "got": "2026-08-01",
-"want": "<= 2026-09-28",
+"want": "<= 2026-09-29",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Housing starts and building permits",
 "got": "2026-10-20",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -387,14 +387,14 @@
 {
 "name": "feed is not dated in the future: Commercial paper and three-month bill ra",
 "got": "2026-09-25",
-"want": "<= 2026-09-28",
+"want": "<= 2026-09-29",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Commercial paper and three-month bill ra",
 "got": "2026-09-29",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -422,14 +422,14 @@
 {
 "name": "feed is not dated in the future: S&P 500 daily close (the market gate of ",
 "got": "2026-09-28",
-"want": "<= 2026-09-28",
+"want": "<= 2026-09-29",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: S&P 500 daily close (the market gate of ",
 "got": "2026-09-29",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -457,7 +457,7 @@
 {
 "name": "feed next release is not in the past: Industrial production, as published (the",
 "got": "2026-10-16",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -484,15 +484,15 @@
 },
 {
 "name": "feed is not dated in the future: Federal funds target range, upper limit ",
-"got": "2026-09-28",
-"want": "<= 2026-09-28",
+"got": "2026-09-29",
+"want": "<= 2026-09-29",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Federal funds target range, upper limit ",
-"got": "2026-09-29",
-"want": ">= 2026-09-28",
+"got": "2026-09-30",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -520,7 +520,7 @@
 {
 "name": "feed next release is not in the past: State continued weeks claimed, ETA 539 (",
 "got": "2026-10-21",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -534,14 +534,14 @@
 {
 "name": "feed is not dated in the future: State unemployment rates, all 51 (the se",
 "got": "2026-08-01",
-"want": "<= 2026-09-28",
+"want": "<= 2026-09-29",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: State unemployment rates, all 51 (the se",
 "got": "2026-10-20",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -555,7 +555,7 @@
 {
 "name": "feed next release is not in the past: Real GDP (the damage grade's output dime",
 "got": "2026-09-30",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -569,7 +569,7 @@
 {
 "name": "feed next release is not in the past: GDPNow (the output dimension's bridge fo",
 "got": "2026-09-30",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -583,7 +583,7 @@
 {
 "name": "feed next release is not in the past: Sahm rule, real time (the comparator on ",
 "got": "2026-10-02",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -596,8 +596,8 @@
 },
 {
 "name": "feed reading matches the readings table: Search week: Google searches for \"unempl",
-"got": "-16.471",
-"want": "-16.471",
+"got": "-11.396",
+"want": "-11.396",
 "status": "PASS",
 "gate": "soft"
 },
@@ -610,15 +610,15 @@
 },
 {
 "name": "feed is not dated in the future: Search week: Google searches for \"unempl",
-"got": "2026-09-27",
-"want": "<= 2026-09-28",
+"got": "2026-09-28",
+"want": "<= 2026-09-29",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Search week: Google searches for \"unempl",
 "got": "2026-09-29",
-"want": ">= 2026-09-28",
+"want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
@@ -631,8 +631,8 @@
 },
 {
 "name": "headline date = last day of the daily series",
-"got": "2026-09-28",
-"want": "2026-09-28",
+"got": "2026-09-29",
+"want": "2026-09-29",
 "status": "PASS",
 "gate": "soft"
 },
@@ -1023,15 +1023,15 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-09-28 20:11', '2026-09-28 20:11')",
-"want": "('2026-09-28 20:11', '2026-09-28 20:11')",
+"got": "('2026-09-29 10:20', '2026-09-29 10:20')",
+"want": "('2026-09-29 10:20', '2026-09-29 10:20')",
 "status": "PASS",
 "gate": "hard"
 },
 {
 "name": "front-page tiles fetched today",
-"got": "2026-09-28",
-"want": "2026-09-28",
+"got": "2026-09-29",
+"want": "2026-09-29",
 "status": "PASS",
 "gate": null
 },
