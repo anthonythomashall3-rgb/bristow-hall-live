@@ -1,0 +1,36 @@
+FIRST PRINTS: months 530 range 1955-02 2006-06
+                    n    first     last
+src  base                              
+BCD  1957-59=100   85  1958-11  1970-12
+     1957=100      60  1959-01  1963-12
+     1967=100     231  1955-02  1990-02
+NEEI 1987=100      62  1999-11  2006-06
+NEWS 1967=100       1  1992-11  1992-11
+     1987=100      24  1997-04  2005-03
+SCB  1967=100      67  1990-03  1995-10
+
+First print vs Barnichon, by base (ratio level, corr of log changes):
+  1957-59=100  n=  85 1958-11..1970-12 ratio median=2.837 IQR=[2.756,2.900] corr(dlog)=0.696 corr(level)=0.987
+     months with ratio >8% off median: 2 1958-11:94, 1968-07:185
+  1957=100     n=  60 1959-01..1963-12 ratio median=2.613 IQR=[2.554,2.651] corr(dlog)=0.603 corr(level)=0.950
+     months with ratio >8% off median: 0 
+  1967=100     n= 299 1955-02..1995-10 ratio median=1.517 IQR=[1.475,1.549] corr(dlog)=0.768 corr(level)=0.989
+     months with ratio >8% off median: 3 1955-02:55, 1976-01:77, 1994-01:106
+  1987=100     n=  86 1997-04..2006-06 ratio median=0.618 IQR=[0.488,0.736] corr(dlog)=0.824 corr(level)=0.600
+     months with ratio >8% off median: 70 1997-04:86, 1998-03:93, 1998-04:91, 1998-05:91, 1998-07:89, 1999-07:85, 1999-11:85, 1999-12:86, 2000-01:89, 2000-02:88, 2000-03:88, 2000-04:89, 2000-05:82, 2000-06:80, 2000-07:82
+
+Overlap SCB C-pages vs BCD (same month, closest publication dates):
+  n=13, identical=11, max abs diff=1.0
+
+Overlap NEEI vs news reports (news value vs NEEI first print of that month):
+  n=29, identical=23; diffs: {'2000-01': {'neei_first': 90.0, 'news': 89.0}, '2000-02': {'neei_first': 90.0, 'news': 88.0}, '2001-12': {'neei_first': 46.0, 'news': 47.0}, '2003-02': {'neei_first': 40.0, 'news': 41.0}, '2003-04': {'neei_first': 36.0, 'news': 37.0}, '2004-01': {'neei_first': 38.0, 'news': 39.0}}
+
+Revisions (first vs last print within the same base):
+  ('BCD', '1957-59=100'): months printed >1 time=125, share revised=0.31, mean |rev|=1.94
+  ('BCD', '1957=100'): months printed >1 time=57, share revised=0.12, mean |rev|=0.18
+  ('BCD', '1967=100'): months printed >1 time=253, share revised=0.50, mean |rev|=1.68
+  ('NEEI', '1987=100'): months printed >1 time=60, share revised=0.15, mean |rev|=0.27
+  ('NEWS', '1987=100'): months printed >1 time=1, share revised=0.00, mean |rev|=0.00
+  ('SCB', '1967=100'): months printed >1 time=77, share revised=0.56, mean |rev|=1.88
+
+OCR doubtful share by source: {'BCD': 0.163, 'NEEI': 0.0, 'NEWS': 0.0, 'SCB': 0.004}
