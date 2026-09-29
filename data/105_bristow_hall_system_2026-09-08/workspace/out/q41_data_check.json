@@ -127,21 +127,21 @@
 },
 {
 "name": "tile: Job openings next release is not in the past",
-"got": "2026-09-29",
+"got": "2026-11-03",
 "want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Unemployed per opening next release is not in the past",
-"got": "2026-09-29",
+"got": "2026-11-03",
 "want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Quits rate next release is not in the past",
-"got": "2026-09-29",
+"got": "2026-11-03",
 "want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
@@ -393,7 +393,7 @@
 },
 {
 "name": "feed next release is not in the past: Commercial paper and three-month bill ra",
-"got": "2026-09-29",
+"got": "2026-09-30",
 "want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
@@ -407,8 +407,8 @@
 },
 {
 "name": "feed reading matches the readings table: S&P 500 daily close (the market gate of ",
-"got": "1.043",
-"want": "1.043",
+"got": "1.209",
+"want": "1.209",
 "status": "PASS",
 "gate": "soft"
 },
@@ -421,14 +421,14 @@
 },
 {
 "name": "feed is not dated in the future: S&P 500 daily close (the market gate of ",
-"got": "2026-09-28",
+"got": "2026-09-29",
 "want": "<= 2026-09-29",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: S&P 500 daily close (the market gate of ",
-"got": "2026-09-29",
+"got": "2026-09-30",
 "want": ">= 2026-09-29",
 "status": "PASS",
 "gate": null
@@ -1023,8 +1023,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-09-29 10:23', '2026-09-29 10:23')",
-"want": "('2026-09-29 10:23', '2026-09-29 10:23')",
+"got": "('2026-09-29 16:22', '2026-09-29 16:22')",
+"want": "('2026-09-29 16:22', '2026-09-29 16:22')",
 "status": "PASS",
 "gate": "hard"
 },

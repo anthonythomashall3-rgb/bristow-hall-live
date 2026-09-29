@@ -1,5 +1,5 @@
 {
- "built_at": "2026-09-29 10:23",
+ "built_at": "2026-09-29 16:22",
  "version": "v3.76",
  "census_date": "2026-09-29",
  "feeds": [
@@ -74,7 +74,7 @@
    "source": "Federal Reserve, H.15 selected interest rates",
    "every": "Daily - the Board posts the H.15 every business day at 4:15 PM ET, carrying the previous business day's rates (the bill rate is a weekly series)",
    "through": "2026-09-25",
-   "next": "2026-09-29",
+   "next": "2026-09-30",
    "link": "https://www.federalreserve.gov/releases/h15/",
    "value": "3.99; 3.97; 4.05",
    "backup": "FRED DCPN30, DCPF1M and DTB3 (the Federal Reserve is not shut in a shutdown)",
@@ -86,10 +86,10 @@
    "series": "^GSPC",
    "source": "Yahoo Finance close at the 5:05 PM ET run, corrected to the official close on FRED (SP500), which FRED posts the same evening, about 8 PM ET",
    "every": "Every trading day - read at the 5:05 PM ET run",
-   "through": "2026-09-28",
-   "next": "2026-09-29",
+   "through": "2026-09-29",
+   "next": "2026-09-30",
    "link": "https://finance.yahoo.com/quote/%5EGSPC/",
-   "value": "7,683.69",
+   "value": "7,670.84",
    "backup": "the official FRED SP500 close when the chart feed fails (two independent quotes)",
    "format_check": "q41: reading matches the readings table; two sources compared",
    "auto": "yes"
@@ -238,7 +238,7 @@
   {
    "channel": "S&P 500 close",
    "status": "current",
-   "last": "2026-09-28",
+   "last": "2026-09-29",
    "limit_days": 5,
    "substitute": null
   },
