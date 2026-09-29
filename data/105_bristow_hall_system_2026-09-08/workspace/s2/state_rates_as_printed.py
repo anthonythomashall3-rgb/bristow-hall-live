@@ -10,15 +10,6 @@ STATE_RATES_PRINTED = None
 if os.path.exists(_p376):
     _d376 = pd.read_csv(_p376)
     _d376['_iu'] = pd.to_datetime(_d376['iu_week_ended'], errors='coerce'); _d376['_rel'] = pd.to_datetime(_d376['wk'], errors='coerce'); _d376['_v'] = pd.to_numeric(_d376['iur'], errors='coerce')
-    # 2020-2026 AS PRINTED (29 September 2026, cloud session). STAGED: only with BHS_ASPRINTED_NEXT=1 (the switch for the next walk).
-    # From May 2020 the Department's page 8 prints its weeks without the year ("INSURED UNEMPLOYMENT FOR WEEK ENDED MAY 4"), the
-    # parser left the week blank, and the 17,066 printed state-weeks of 2 May 2020 - 22 August 2026 (322 releases) fell to FRED's
-    # current file here. The insured week is the release file's claims week less seven days: all 321 pages read again from
-    # oui.doleta.gov/unemploy/page8/ say so in their own headers, and 17,009 of 17,009 rates on them equal the table's (the other
-    # 57 are states marked * on the page, and 0223.html, a misnamed copy of 120223.html, identical, which is dropped).
-    if os.environ.get('BHS_ASPRINTED_NEXT') == '1':
-        _b376 = _d376['_iu'].isna() & _d376['_rel'].notna()
-        _d376.loc[_b376, '_iu'] = _d376.loc[_b376, '_rel'] - pd.Timedelta(days=7)
     _d376 = _d376.dropna(subset=['_iu', '_v']).sort_values(['state', '_iu', '_rel']).drop_duplicates(['state', '_iu'], keep='first')
     _d376['_st'] = _d376['state'].map(_N376)
     if _d376['_st'].isna().any(): raise SystemExit('v3.76: a state in 45/state_first_prints_clean.csv has no FRED code: %s' % sorted(_d376.loc[_d376['_st'].isna(), 'state'].unique()))

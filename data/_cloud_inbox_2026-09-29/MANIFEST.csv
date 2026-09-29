@@ -1,0 +1,3 @@
+source,url,series,frequency,first_obs,last_obs,n_obs,pct_repeated_values
+"BLS JOLTS news releases, Table 1 (history .txt to 2008, archives .htm after)",https://www.bls.gov/bls/news-release/jolts.htm,"JOLTS job openings, total nonfarm, SA, thousands, as printed (all prints; first print per month)",M,2003-02-01,2010-06-01,539,0.0
+"DOL Regular State Data (page 8) archive, via collection 45 rows (dated here)",https://oui.doleta.gov/unemploy/page8/<yyyy>/<mmddyy>.html,"state insured unemployment rate (state programs), percent, as printed, 53 states/territories",W,2020-04-25,2026-08-15,17013,50.0

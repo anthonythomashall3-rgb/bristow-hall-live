@@ -7,25 +7,26 @@ vintages of JTSJOL start on 11 August 2010. The months between are in the Bureau
 still on bls.gov: Table 1 of each release prints total nonfarm job openings, seasonally adjusted, for the month a year
 before and the last six months. This script reads those tables and writes one row per printed value.
 
-  cache/jolts_asprinted_2004_2010.csv   release, month, level (thousands, SA), rate, prelim (1 = the release's own month)
+  jolts_asprinted_2004_2010/jolts_asprinted_2004_2010.csv   release, month, level (thousands, SA), rate, prelim (1 = the release's own month)
 
 The first seasonally adjusted release is 15 April 2004 (February 2004): before it JOLTS was published not seasonally
 adjusted (from 30 July 2002; the Bureau: "comparisons between consecutive months should not be used"), so no vacancy
 object of the rule's kind can be read from JOLTS before February 2004. The release of 11 August 2010 is ALFRED's first
 vintage; its printed months match ALFRED to the thousand (checked at every run of this script).
 
-s2/asof_objects.py turns the rows into one vintage per release day (each month at its latest print on or before that
-day; a month the releases had not yet printed on that day carries its first print - the months February to August 2003
-for the first releases only) and reads the vacancy gap on them from February 2004.
+NOT WIRED INTO ANY TOOL. code/staged_wiring_for_v376_NOT_APPLIED.diff shows one way (written against v3.76, collection 105,
+and withdrawn from it: the handoff's rule is that 105 is never written): one vintage per release day, each month at its
+latest print on or before that day, a month not yet printed carrying its first print, the vacancy gap read on them from
+February 2004. Check against the Mac's vacancy as printed (collections 522/523) before any use.
 
-Usage: python3 s2/jolts_asprinted.py [--fetch]    (--fetch reads the releases from bls.gov into cache/jolts_releases/;
+Usage: python3 code/jolts_asprinted.py [--fetch]    (--fetch reads the releases from bls.gov into jolts_asprinted_2004_2010/raw/;
 without it the cached texts are parsed). Standard library only.
 """
 import csv, datetime as dt, html, os, re, sys, time, urllib.request
 
-HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-RAW = os.path.join(HERE, 'cache', 'jolts_releases')
-OUT = os.path.join(HERE, 'cache', 'jolts_asprinted_2004_2010.csv')
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # the inbox folder
+RAW = os.path.join(HERE, 'jolts_asprinted_2004_2010', 'raw')
+OUT = os.path.join(HERE, 'jolts_asprinted_2004_2010', 'jolts_asprinted_2004_2010.csv')
 INDEX = 'https://www.bls.gov/bls/news-release/jolts.htm'
 LAST = '20100811'   # ALFRED's first vintage of JTSJOL; later releases are ALFRED's
 UA = os.environ.get('BLS_UA', '')   # bls.gov answers 403 to a request without a contact in its User-Agent; --fetch needs BLS_UA set
@@ -87,7 +88,7 @@ def parse():
 
 def check_alfred(rows):
     """The last release read is ALFRED's first vintage: every month it prints must match ALFRED's value."""
-    root = os.path.realpath(os.path.join(HERE, '..', '..'))
+    root = os.path.realpath(os.path.join(HERE, '..'))   # the data root (Onset Detector Data)
     p = os.path.join(root, 'onset-detector-new-2026-08-23', '27_realtime_vintages', 'alfred_all_vintages', 'JTSJOL_all_vintages.csv')
     if not os.path.exists(p): return 'ALFRED vintage table not found; not checked'
     r = list(csv.reader(open(p))); col = r[0].index('JTSJOL_' + LAST)

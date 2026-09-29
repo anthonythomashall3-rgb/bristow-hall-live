@@ -1,0 +1,92 @@
+diff --git a/data/105_bristow_hall_system_2026-09-08/workspace/bhs_build.py b/data/105_bristow_hall_system_2026-09-08/workspace/bhs_build.py
+index 92129f3..e9cdb31 100644
+--- a/data/105_bristow_hall_system_2026-09-08/workspace/bhs_build.py
++++ b/data/105_bristow_hall_system_2026-09-08/workspace/bhs_build.py
+@@ -67,8 +67,8 @@ def _bhs_fingerprint():
+     pats=[os.path.join(_L,'data','fred_weekly','*.csv'),os.path.join(_L,'vac','*.csv'),
+           os.path.join(_R,'onset-detector-new-2026-08-23','27_realtime_vintages','alfred_all_vintages','*_all_vintages.csv'),
+           os.path.join(_R,'186_realtime_channels_2026-09-15','vintages','*.csv'),os.path.join(_R,'45_dol_first_prints_2026-09','*.csv'),
+-          os.path.join(_R,'37_*','*.csv'),'cache/objects.pkl','cache/alfred_first_*.csv','cache/relcal_*.csv','cache/surveys/*.csv','cache/SAHMREALTIME.csv','s2/first_prints_early_1975_2002.csv']   # E66, E66c: the early first prints are an input
+-    h=_hl0.md5()
++          os.path.join(_R,'37_*','*.csv'),'cache/objects.pkl','cache/alfred_first_*.csv','cache/relcal_*.csv','cache/surveys/*.csv','cache/SAHMREALTIME.csv','s2/first_prints_early_1975_2002.csv','cache/jolts_asprinted_*.csv']   # E66, E66c: the early first prints are an input
++    h=_hl0.md5(); h.update(('BHS_ASPRINTED_NEXT=%s'%os.environ.get('BHS_ASPRINTED_NEXT','')).encode())   # the staged as-printed data (29 September 2026): a different key
+     for pat in pats:
+         for f in sorted(_gl0.glob(pat)):
+             h.update(f.encode())
+@@ -1753,7 +1753,7 @@ state.setdefault('notes',{})['objects_precise']=dict(   # v3.76 (collections 432
+     market_gate='the S&P 500 against its highest close of the 20 trading days ending with the close read',
+     closer_c_rate='the insured rate\'s four-week mean is rounded to a tenth before its fall from the 26-week maximum is taken',
+     k_release='a close by K is dated by the release of the continued-claims week that fired (the week + 12 days)',
+-    vacancy_before_2010='the vacancy rate before July 2010 is the Petrosky-Nadeau and Zhang reconstruction (help-wanted index, then JOLTS as now published), not a print')
++    vacancy_before_2010=('the vacancy rate from February 2004 to June 2010 is JOLTS as printed in the Bureau\'s news releases (one vintage per release from 15 April 2004, the first seasonally adjusted table); before February 2004 it is the Petrosky-Nadeau and Zhang reconstruction (help-wanted index, then JOLTS as now published), not a print' if globals().get('_JCUT') is not None else 'the vacancy rate before July 2010 is the Petrosky-Nadeau and Zhang reconstruction (help-wanted index, then JOLTS as now published), not a print'))
+ json.dump(state,open(os.path.join(LIVE,'bhs_state.json'),'w'),allow_nan=False)
+ json.dump(state,open('out/bhs_state.json','w'),allow_nan=False)
+ _tick('state written')
+diff --git a/data/105_bristow_hall_system_2026-09-08/workspace/s2/asof_objects.py b/data/105_bristow_hall_system_2026-09-08/workspace/s2/asof_objects.py
+index e63cb47..5a19357 100644
+--- a/data/105_bristow_hall_system_2026-09-08/workspace/s2/asof_objects.py
++++ b/data/105_bristow_hall_system_2026-09-08/workspace/s2/asof_objects.py
+@@ -17,6 +17,26 @@ def load_vintages(path):
+ VINT={s_:load_vintages(_AL+s_+'_all_vintages.csv') for s_ in ['HOUST','UNRATE','AWHMAN','NDMANEMP']}
+ _JV=_AL+'JTSJOL_all_vintages.csv' if _os.path.exists(_AL+'JTSJOL_all_vintages.csv') else _VINTDIR+'JTSJOL_all_vintages.csv'
+ if _os.path.exists(_JV): VINT['JTSJOL']=load_vintages(_JV)
++# JOLTS AS PRINTED, 2004-2010 (29 September 2026, cloud session; s2/jolts_asprinted.py). STAGED: read only when
++# BHS_ASPRINTED_NEXT=1, the switch for the as-printed data gathered for the next walk; the live build is unchanged until
++# that walk is run and the switch is set. One vintage per news release from 15 April 2004 (the first seasonally adjusted
++# table) to 13 July 2010, the day before ALFRED's first. Each month stands at its latest print on or before the release day;
++# a month not yet printed that day carries its first print (February to August 2003, for the first releases only - the
++# year-ago column reaches them later). The vacancy gap is read on these from February 2004 (_JCUT); before it JOLTS was
++# not seasonally adjusted and the level file stands, as before. Tested at the walk-end lines (the frozen record, the
++# standing and the near misses unchanged) and on the vl x hback and vl x sahm axes of the walk's grid (65 of 78 records
++# unchanged; the 13 at vl 0.12 call 2007 on 24 December, not 18 December).
++_JCUT=None
++_JAP='cache/jolts_asprinted_2004_2010.csv'
++if _os.environ.get('BHS_ASPRINTED_NEXT')=='1' and 'JTSJOL' in VINT and _os.path.exists(_JAP):
++    _ja=pd.read_csv(_JAP,parse_dates=['release','month']).sort_values(['release','month'])
++    _ja=_ja[_ja.release<min(VINT['JTSJOL'])]
++    _jfirst=_ja.groupby('month')['level'].first()
++    for _r in sorted(_ja.release.unique()):
++        _seen=_ja[_ja.release<=_r].groupby('month')['level'].last()
++        _s=_jfirst[_jfirst.index<=_seen.index.max()].astype(float).copy(); _s.update(_seen.astype(float))
++        VINT['JTSJOL'][pd.Timestamp(_r)]=_s.sort_index()
++    _JCUT=pd.Timestamp('2004-02-01')
+ def first_days(M):
+     seen={}
+     for vd in sorted(M):
+@@ -63,14 +83,14 @@ if 'JTSJOL' in VINT:
+     def vgap2_asof(k,back):
+         out={}
+         for m,d in FD['JTSJOL'].items():
+-            if m<pd.Timestamp('2010-07-01'): continue
++            if m<(_JCUT if _JCUT is not None else pd.Timestamp('2010-07-01')): continue
+             d=pd.Timestamp(d); js=[v for v in _vdj if v<=d]
+             if not js: continue
+             so=_MJ[js[-1]]; vr_=(so/_CFf.reindex(so.index)*100).dropna()
+             v=pd.concat([V0_FP[V0_FP.index<vr_.index.min()],vr_]).sort_index()
+             mm=v.rolling(k).mean(); gg=(mm.shift(1).rolling(back).max()-mm)
+             if m in gg.index and not np.isnan(gg[m]): out[m]=float(gg[m])
+-        base=vgap2(k,back); base=base[base.index<pd.Timestamp('2010-07-01')]
++        base=vgap2(k,back); base=base[base.index<(_JCUT if _JCUT is not None else pd.Timestamp('2010-07-01'))]
+         return pd.concat([base,pd.Series(out).sort_index()]).sort_index()
+ else:
+     def vgap2_asof(k,back): return vgap2(k,back)
+diff --git a/data/105_bristow_hall_system_2026-09-08/workspace/s2/state_rates_as_printed.py b/data/105_bristow_hall_system_2026-09-08/workspace/s2/state_rates_as_printed.py
+index 8070eb3..a4521d9 100644
+--- a/data/105_bristow_hall_system_2026-09-08/workspace/s2/state_rates_as_printed.py
++++ b/data/105_bristow_hall_system_2026-09-08/workspace/s2/state_rates_as_printed.py
+@@ -10,6 +10,15 @@ STATE_RATES_PRINTED = None
+ if os.path.exists(_p376):
+     _d376 = pd.read_csv(_p376)
+     _d376['_iu'] = pd.to_datetime(_d376['iu_week_ended'], errors='coerce'); _d376['_rel'] = pd.to_datetime(_d376['wk'], errors='coerce'); _d376['_v'] = pd.to_numeric(_d376['iur'], errors='coerce')
++    # 2020-2026 AS PRINTED (29 September 2026, cloud session). STAGED: only with BHS_ASPRINTED_NEXT=1 (the switch for the next walk).
++    # From May 2020 the Department's page 8 prints its weeks without the year ("INSURED UNEMPLOYMENT FOR WEEK ENDED MAY 4"), the
++    # parser left the week blank, and the 17,066 printed state-weeks of 2 May 2020 - 22 August 2026 (322 releases) fell to FRED's
++    # current file here. The insured week is the release file's claims week less seven days: all 321 pages read again from
++    # oui.doleta.gov/unemploy/page8/ say so in their own headers, and 17,009 of 17,009 rates on them equal the table's (the other
++    # 57 are states marked * on the page, and 0223.html, a misnamed copy of 120223.html, identical, which is dropped).
++    if os.environ.get('BHS_ASPRINTED_NEXT') == '1':
++        _b376 = _d376['_iu'].isna() & _d376['_rel'].notna()
++        _d376.loc[_b376, '_iu'] = _d376.loc[_b376, '_rel'] - pd.Timedelta(days=7)
+     _d376 = _d376.dropna(subset=['_iu', '_v']).sort_values(['state', '_iu', '_rel']).drop_duplicates(['state', '_iu'], keep='first')
+     _d376['_st'] = _d376['state'].map(_N376)
+     if _d376['_st'].isna().any(): raise SystemExit('v3.76: a state in 45/state_first_prints_clean.csv has no FRED code: %s' % sorted(_d376.loc[_d376['_st'].isna(), 'state'].unique()))

@@ -67,8 +67,8 @@ def _bhs_fingerprint():
     pats=[os.path.join(_L,'data','fred_weekly','*.csv'),os.path.join(_L,'vac','*.csv'),
           os.path.join(_R,'onset-detector-new-2026-08-23','27_realtime_vintages','alfred_all_vintages','*_all_vintages.csv'),
           os.path.join(_R,'186_realtime_channels_2026-09-15','vintages','*.csv'),os.path.join(_R,'45_dol_first_prints_2026-09','*.csv'),
-          os.path.join(_R,'37_*','*.csv'),'cache/objects.pkl','cache/alfred_first_*.csv','cache/relcal_*.csv','cache/surveys/*.csv','cache/SAHMREALTIME.csv','s2/first_prints_early_1975_2002.csv','cache/jolts_asprinted_*.csv']   # E66, E66c: the early first prints are an input
-    h=_hl0.md5(); h.update(('BHS_ASPRINTED_NEXT=%s'%os.environ.get('BHS_ASPRINTED_NEXT','')).encode())   # the staged as-printed data (29 September 2026): a different key
+          os.path.join(_R,'37_*','*.csv'),'cache/objects.pkl','cache/alfred_first_*.csv','cache/relcal_*.csv','cache/surveys/*.csv','cache/SAHMREALTIME.csv','s2/first_prints_early_1975_2002.csv']   # E66, E66c: the early first prints are an input
+    h=_hl0.md5()
     for pat in pats:
         for f in sorted(_gl0.glob(pat)):
             h.update(f.encode())
@@ -1753,7 +1753,7 @@ state.setdefault('notes',{})['objects_precise']=dict(   # v3.76 (collections 432
     market_gate='the S&P 500 against its highest close of the 20 trading days ending with the close read',
     closer_c_rate='the insured rate\'s four-week mean is rounded to a tenth before its fall from the 26-week maximum is taken',
     k_release='a close by K is dated by the release of the continued-claims week that fired (the week + 12 days)',
-    vacancy_before_2010=('the vacancy rate from February 2004 to June 2010 is JOLTS as printed in the Bureau\'s news releases (one vintage per release from 15 April 2004, the first seasonally adjusted table); before February 2004 it is the Petrosky-Nadeau and Zhang reconstruction (help-wanted index, then JOLTS as now published), not a print' if globals().get('_JCUT') is not None else 'the vacancy rate before July 2010 is the Petrosky-Nadeau and Zhang reconstruction (help-wanted index, then JOLTS as now published), not a print'))
+    vacancy_before_2010='the vacancy rate before July 2010 is the Petrosky-Nadeau and Zhang reconstruction (help-wanted index, then JOLTS as now published), not a print')
 json.dump(state,open(os.path.join(LIVE,'bhs_state.json'),'w'),allow_nan=False)
 json.dump(state,open('out/bhs_state.json','w'),allow_nan=False)
 _tick('state written')

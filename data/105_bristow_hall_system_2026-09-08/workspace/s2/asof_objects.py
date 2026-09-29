@@ -17,26 +17,6 @@ def load_vintages(path):
 VINT={s_:load_vintages(_AL+s_+'_all_vintages.csv') for s_ in ['HOUST','UNRATE','AWHMAN','NDMANEMP']}
 _JV=_AL+'JTSJOL_all_vintages.csv' if _os.path.exists(_AL+'JTSJOL_all_vintages.csv') else _VINTDIR+'JTSJOL_all_vintages.csv'
 if _os.path.exists(_JV): VINT['JTSJOL']=load_vintages(_JV)
-# JOLTS AS PRINTED, 2004-2010 (29 September 2026, cloud session; s2/jolts_asprinted.py). STAGED: read only when
-# BHS_ASPRINTED_NEXT=1, the switch for the as-printed data gathered for the next walk; the live build is unchanged until
-# that walk is run and the switch is set. One vintage per news release from 15 April 2004 (the first seasonally adjusted
-# table) to 13 July 2010, the day before ALFRED's first. Each month stands at its latest print on or before the release day;
-# a month not yet printed that day carries its first print (February to August 2003, for the first releases only - the
-# year-ago column reaches them later). The vacancy gap is read on these from February 2004 (_JCUT); before it JOLTS was
-# not seasonally adjusted and the level file stands, as before. Tested at the walk-end lines (the frozen record, the
-# standing and the near misses unchanged) and on the vl x hback and vl x sahm axes of the walk's grid (65 of 78 records
-# unchanged; the 13 at vl 0.12 call 2007 on 24 December, not 18 December).
-_JCUT=None
-_JAP='cache/jolts_asprinted_2004_2010.csv'
-if _os.environ.get('BHS_ASPRINTED_NEXT')=='1' and 'JTSJOL' in VINT and _os.path.exists(_JAP):
-    _ja=pd.read_csv(_JAP,parse_dates=['release','month']).sort_values(['release','month'])
-    _ja=_ja[_ja.release<min(VINT['JTSJOL'])]
-    _jfirst=_ja.groupby('month')['level'].first()
-    for _r in sorted(_ja.release.unique()):
-        _seen=_ja[_ja.release<=_r].groupby('month')['level'].last()
-        _s=_jfirst[_jfirst.index<=_seen.index.max()].astype(float).copy(); _s.update(_seen.astype(float))
-        VINT['JTSJOL'][pd.Timestamp(_r)]=_s.sort_index()
-    _JCUT=pd.Timestamp('2004-02-01')
 def first_days(M):
     seen={}
     for vd in sorted(M):
@@ -83,14 +63,14 @@ if 'JTSJOL' in VINT:
     def vgap2_asof(k,back):
         out={}
         for m,d in FD['JTSJOL'].items():
-            if m<(_JCUT if _JCUT is not None else pd.Timestamp('2010-07-01')): continue
+            if m<pd.Timestamp('2010-07-01'): continue
             d=pd.Timestamp(d); js=[v for v in _vdj if v<=d]
             if not js: continue
             so=_MJ[js[-1]]; vr_=(so/_CFf.reindex(so.index)*100).dropna()
             v=pd.concat([V0_FP[V0_FP.index<vr_.index.min()],vr_]).sort_index()
             mm=v.rolling(k).mean(); gg=(mm.shift(1).rolling(back).max()-mm)
             if m in gg.index and not np.isnan(gg[m]): out[m]=float(gg[m])
-        base=vgap2(k,back); base=base[base.index<(_JCUT if _JCUT is not None else pd.Timestamp('2010-07-01'))]
+        base=vgap2(k,back); base=base[base.index<pd.Timestamp('2010-07-01')]
         return pd.concat([base,pd.Series(out).sort_index()]).sort_index()
 else:
     def vgap2_asof(k,back): return vgap2(k,back)
