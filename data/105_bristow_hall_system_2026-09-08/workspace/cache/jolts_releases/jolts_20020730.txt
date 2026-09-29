@@ -1,0 +1,924 @@
+Technical information:  (202) 691-5870     USDL 02-412
+               http://www.bls.gov/jlt/
+                                           For release:  10:00 A.M. EDT
+Media contact:          (202) 691-5902     Tuesday, July 30, 2002
+
+
+NEW MONTHLY DATA SERIES ON JOB OPENINGS AND LABOR TURNOVER ANNOUNCED BY BLS
+
+
+   New data on job openings and labor turnover were announced today by the
+Bureau of Labor Statistics of the U.S. Department of Labor.  These series
+include estimates of the number and rate of job openings, hires, and sepa-
+rations for the nation, by industry and geographic region.  Job openings 
+are a measure of unmet labor demand and can be compared with unemployment, 
+which measures unused labor supply.
+   
+   Job openings refer to the number on the last business day of the month,
+and the number of hires and separations are for the entire month.  The
+sample of 16,000 business establishments covers both the private sector and
+government.  Estimates from the Job Openings and Labor Turnover Survey
+(JOLTS) are not seasonally adjusted, and experience suggests that there is
+a seasonal pattern to job openings, hires, and separations.  Thus, compari-
+sons of JOLTS estimates should be based on the same month in different years 
+(for example, May 2002 to May 2001), and comparisons between consecutive 
+months should not be used as an indicator of trend.  In addition, BLS consi-
+ders the JOLTS estimates to be developmental.  See the Background section and 
+the Technical Note for additional information.
+   
+   This first release of JOLTS estimates covers the period from May 2001
+to May 2002 and shows that:
+   
+   --The number and rate of job openings in May 2002 were substantially
+lower than a year earlier.  On the last business day of May 2002, there
+were 3.5 million job openings, 2.6 percent of the number of total filled
+and unfilled positions (employment plus job openings) in the United States.
+This was down significantly from 4.3 million openings, or a job openings
+rate of 3.2 percent, in May 2001.  (See tables 1 and 2.)  Over the same
+period, the total U.S. unemployment rate (not seasonally adjusted) rose 
+to 5.5 percent from 4.1 percent a year earlier. 
+
+   --Over the year ended in May 2002, the largest decline in job openings
+occurred in construction, where the rate fell from 3.4 percent to 1.9
+percent.  Large declines also occurred in retail trade, services, and
+mining.  Job openings held relatively steady compared with a year ago in
+manufacturing and government.  (See table 1.)
+   
+   --The pace of hiring also declined compared with a year ago.  The hires
+rate, or the number of hires during the month divided by employment, was
+3.7 percent in May 2002, down significantly from 4.3 percent a year earlier.  
+(See table 3.)  Hires are any additions to the payroll during the month.  The 
+hires rate was lower in most industry divisions in May 2002 than in May 2001.  
+(Hires and separations estimates prior to March 2002 are not strictly compa-
+rable with estimates for later periods.  See the Background section and the 
+Technical Note for additional information.)
+   
+   --The total separations, or turnover, rate (the number of separations
+during the month divided by employment) was 3.1 percent in May 2002, down
+significantly from 3.7 percent a year ago.  (See table 5.)  Separations are
+terminations of employment that occur at any time during the month.  Total
+separations includes quits (voluntary separations), layoffs and discharges
+(involuntary separations), and other separations (including retirements).
+The quits rate, which can serve as a barometer of workers' ability to
+change jobs, was down significantly, falling to 1.8 percent in May 2002
+from 2.2 percent in May 2001.  (See table 7.)  The rates of layoffs and
+discharges and other separations were little changed over the year.  (See
+tables 9 and 11.)
+   
+   --Hires and separations estimates help show dynamic flows in the labor
+market that net changes in the employment level do not.  Over the year
+ended in May 2002, nonfarm payroll employment declined by 1.4 million.  In
+the same period, 52.3 million hires and 52.9 million separations occurred
+at U.S. businesses.  (Procedures for collecting hires and separations data
+were revised in March 2002 to address possible underreporting.  See the fol-
+lowing Background Section and the Technical Note for additional information.)  
+Retail trade and services reported the largest number of hires and separations.
+   
+                                  - 2 -
+
+Background
+   
+   The Bureau of Labor Statistics has collected job openings and turnover
+data in the past, but not in a way that covered all industries and the
+entire nation on an ongoing basis.  The new survey collects monthly job
+openings and labor turnover data from a random sample of 16,000 nonfarm
+business establishments, including factories, offices, and stores, as well
+as federal, state, and local government entities in the 50 states and the
+District of Columbia.
+   
+   The data elements collected monthly from each cooperating establishment
+are employment for the pay period that includes the 12th of the month; job
+openings on the last business day of the month; and hires, quits, layoffs
+and discharges, and other separations for the entire month.  The measure of
+job openings is a one-day snapshot at the end of the month, while the hires
+and separations measures represent flows of workers into and out of jobs
+over the course of the full calendar month.
+   
+   In responding to the survey, employers are asked to report only those
+job openings for which 1) a specific position exists, 2) work could start
+within 30 days, and 3) the employer is actively recruiting from outside of
+the establishment to fill the position.  Hires are any additions to the
+payroll, and separations are any separations from the payroll, including
+quits, layoffs and discharges, and other separations (retirements or
+transfers to other locations).  For hires and separations, firms are asked
+to exclude employees returning from or going on strike; employees of tempo-
+rary help agencies, leasing companies, outside contractors, or consultants; 
+and employees changing jobs within the establishment.  Data on employees of 
+temporary help agencies, leasing companies, outside contractors, and consul-
+tants are reported by employers in those industries.
+   
+   Job openings, hires, and separations levels and rates are available for
+the nation; for the total private sector and nine private industry divi-
+sions based on the Standard Industrial Classification (SIC) system; and
+for the total public sector, with breakouts for the federal government and
+for state and local government combined.  Levels and rates also are published 
+for four geographic regions: the Northeast, South, Midwest, and West.  (See at-
+tached tables.)  JOLTS industry estimates are scheduled to be converted to the 
+North American Industry Classification System (NAICS) in 2003.
+   
+                                  - 3 -
+
+   The estimates from the JOLTS program are considered developmental and
+caution should be exercised in drawing conclusions from them.  The sample
+of establishments selected for the survey was not fully initiated until
+January 2002, and therefore JOLTS estimates for January 2002 forward are
+based on more survey responses.  In March 2002, BLS procedures for
+collecting hires and separations data were revised to address possible
+underreporting.  As a result, JOLTS hires and separations estimates for
+months prior to March 2002 may not be strictly comparable with estimates
+for March 2002 and later.
+
+Uses of the Data
+   
+   As the monthly JOLTS time series grow longer, their value in assessing
+the business cycle, the difficulty that employers have in hiring workers,
+and the extent of the mismatch between the unused supply of available
+workers and the unmet demand for labor by employers will increase.  Of
+particular interest will be the study of the complex relationship between
+job openings and unemployment.  While these two measures are expected to
+move in opposite directions over the course of the business cycle, their
+relative levels and movements depend on the efficiency of the labor market
+in matching workers and jobs.
+   
+   Along with the job openings rate, trends in hires and separations may
+broadly identify which aggregate industries face the tightest labor
+markets.  Quits rates may provide clues about workers' views of the labor
+market or their success in finding better jobs.  In addition, businesses
+will be able to compare their own turnover rate to the national, regional,
+and major industry division rates.
+   
+   Hires and separations estimates cannot completely explain net changes
+in payroll employment.  Research shows that some reporters systematically
+underreport separations relative to hires due to a number of factors,
+including the nature of their payroll systems and practices.  The shortfall
+appears to be about 2 percent or less over a 12-month period.  Other
+reasons why it is problematic to compare changes in payroll employment with
+hires and separations, especially over short-term periods, are:  1) the
+reference period for payroll employment is the pay period including the
+12th of the month, while the reference period for hires and separations is
+the calendar month; and 2) payroll employment can vary from month to month
+simply because part-time and on-call workers may not always work during the
+pay period including the 12th of the month.
+   
+Future Releases
+   
+   BLS plans to update the job openings, hires, and separations series
+from the JOLTS survey on its website during the last week of each month.
+Estimates for June 2002 are scheduled for release August 30, 2002.  In
+future months, please refer to the BLS Web site at http://www.bls.gov/jlt/
+for updates of the JOLTS series.
+   
+For More Information
+   
+   For additional information, please see the Technical Note or the 
+JOLTS Web site at http://www.bls.gov/jlt/.  Additional information about 
+JOLTS also may be obtained by e-mailing Joltsinfo@bls.gov or by calling 
+(202) 691-5870.
+ 
+ 
+ 
+ 
+
+Technical Note
+
+   The statistics for the Job Openings and Labor Turnover Survey (JOLTS) are 
+compiled by the U.S. Bureau of Labor Statistics from data collected monthly 
+from a sample of business establishments.
+   
+Collection
+   
+   Each month, data are collected in a survey of business establishments for 
+total employment, job openings, hires, quits, layoffs and discharges, and 
+other separations.  Data collection methods include computer-assisted tele-
+phone interviewing, touchtone data entry, fax, and mail.
+   
+Coverage
+   
+   The JOLTS sample includes randomly selected nonfarm establishments such as 
+factories, offices, and stores, as well as federal, state, and local govern-
+ment entities in the 50 states and the District of Columbia.
+   
+Concepts
+   
+   Industry classification.  The industry classifications in this release are 
+in accordance with the 1987 Standard Industrial Classification (SIC) Manual.  
+In order to ensure the highest possible quality of data, State Employment 
+Security Agencies verify with employers and update, if necessary, the industry
+code, location, and ownership classification of all establishments on a 3-year 
+cycle.  Changes in establishment classification codes resulting from the veri-
+fication process are always introduced with the data reported for the first 
+month of the year.
+   
+   Employment.  Employment includes persons on the payroll who worked or re-
+ceived pay for the pay period that includes the 12th day of the reference 
+month.  Full-time, part-time, permanent, temporary, short-term, salaried, and 
+hourly employees are included, as are employees on paid vacations or other 
+paid leave.  Persons on leave without pay or on strike for the entire pay
+period, or who are proprietors or partners of unincorporated businesses or un-
+paid family workers, are not counted as employed.
+   
+   Job openings.  Establishments submit job openings information for the last 
+business day of the reference month.  A job opening requires that 1) a speci-
+fic position exists, 2) work could start within 30 days, and 3) the employer 
+is actively recruiting from outside of the establishment to fill the position.  
+Included are full-time, part-time, permanent, temporary, and short-term
+openings.  Active recruiting means that the establishment is engaged in 
+current efforts to fill the job opening, such as advertising in newspapers 
+or on the Internet, posting help-wanted signs, accepting applications, or 
+using other similar methods.
+   
+   Excluded are jobs to be filled only by internal transfers, promotions, de-
+motions, or recall from layoffs.  Also excluded are jobs with start dates 
+more than 30 days in the future and jobs for which employees have been hired 
+but have not yet reported for work.  The job openings rate is computed by 
+dividing the number of job openings by the sum of employment and job openings 
+and multiplying that quotient by 100.
+   
+   Hires.  A hire is reported if it occurred any time during the reference 
+month.  Hires are the total number of additions to the payroll during the 
+month, including both new and rehired employees, on-call or intermittent em-
+ployees who returned to work after having been formally separated, transfers 
+from other locations, and employees recalled to the location after a layoff
+lasting more than 7 days.  The hires rate is computed by dividing the number 
+of hires by employment and multiplying that quotient by 100.
+   
+   Separations.  Separations are terminations of employment occurring any time 
+during the reference month and are reported by type of separation--quits, lay-
+offs and discharges, and other separations.  Quits are voluntary separations.  
+Layoffs and discharges are involuntary separations initiated by the employer
+and include layoffs with no intent to rehire or formal layoffs lasting or ex-
+pected to last more than 7 days, discharges for cause, and terminations of 
+seasonal employees.  Other separations include retirements, transfers to other 
+locations, deaths, and separations due to disability.  Separations do not in-
+clude transfers within the location or employees on strike.
+   
+   The separations rate is computed by dividing the number of separations by 
+employment and multiplying that quotient by 100.  The quits, layoffs and dis-
+charges, and other separations rates are computed using a similar method.
+   
+Sample methodology
+   
+   The 16,000 establishments in JOLTS are drawn from a universe of approxi-
+mately eight million establishments compiled as part of the operations of the 
+Covered Employment and Wages, or ES-202, program.  This program includes all 
+employers subject to state Unemployment Insurance (UI) laws and federal 
+agencies subject to Unemployment Compensation for Federal Employees (UCFE).
+   
+   The sample design is based on a probability sample of firms, and BLS con-
+ducts sample validation procedures to ensure the suitability of the establish-
+ments selected.
+   
+   The sampling frame is stratified by ownership, census region, major indus-
+try division, and size class.  Large firms fall into the sample with virtual 
+certainty.  The sample is rotated so that most establishments participate in 
+the survey for 18 consecutive months.  JOLTS total employment estimates are 
+controlled to the employment estimates of the Current Employment Statistics 
+(CES) survey.  A ratio of CES to JOLTS employment is used to adjust the
+levels for all other JOLTS data elements.  Rates are then computed from the 
+adjusted levels.
+   
+Using developmental data
+   
+   The JOLTS data series on job openings, hires, and separations are consi-
+dered developmental.  The full sample is divided into 18 panels, with one 
+panel enrolled each month.  All 18 panels were not completely enrolled in the 
+survey until early 2002.  The data collected up until that point are from less 
+than the full sample.  Therefore, estimates from earlier months should be used 
+with caution, as fewer sampled units were reporting data at that time.
+   
+   In March 2002, BLS procedures for collecting hires and separations data 
+were revised to address possible underreporting.  As a result, JOLTS hires 
+and separations estimates for months prior to March 2002 may not be comparable 
+with estimates for March 2002 and later.
+   
+   The estimates are not seasonally adjusted, and month-to-month changes in 
+the estimates are subject to strong seasonal variation.
+   
+Reliability of the estimates
+   
+   JOLTS estimates are subject to both sampling and nonsampling error.  When 
+a sample rather than the entire population is surveyed, there is a chance that 
+the sample estimates may differ from the "true" population values they repre-
+sent.  The exact difference, or sampling error, varies depending on the parti-
+cular sample selected, and this variability is measured by the standard error 
+of the estimate.  There is a 90-percent chance, or level of confidence, that 
+an estimate based on a sample will differ by no more than 1.6 standard errors 
+from the "true" population value because of sampling error.  BLS analyses are 
+generally conducted at the 90-percent level of confidence.  Estimates of sam-
+pling errors are available upon request.
+   
+   In general, estimates involving many establishments have lower standard 
+errors (relative to the size of the estimate) than estimates that are based 
+on observations from fewer establishments.  The precision of estimates also 
+is improved when the data are cumulated over time such as for quarterly and 
+annual averages.
+   
+   The JOLTS estimates also are affected by nonsampling error.  Nonsampling 
+errors can occur for many reasons, including the failure to include a segment 
+of the population, the inability to obtain data from all units in the sample, 
+the inability or unwillingness of respondents to provide data on a timely 
+basis, mistakes made by respondents, and errors made in the collection or 
+processing of the data.
+   
+   JOLTS hires and separations estimates cannot be used to exactly explain 
+net changes in payroll employment.  Research has found that some reporters 
+systematically underreport separations relative to hires due to a number of 
+factors, including the nature of their payroll systems and practices.  The 
+shortfall appears to be about 2 percent or less over a 12-month period.  Other 
+reasons why it is problematic to compare changes in payroll employment with 
+JOLTS hires and separations, especially over short-term periods, are:  1) the 
+reference period for payroll employment is the pay period including the 12th 
+of the month, while the reference period for hires and separations is the
+calendar month; and 2) payroll employment can vary from month to month simply 
+because part-time and on-call workers may not always work during the pay 
+period including the 12th of the month.
+   
+   To improve the employment estimates, JOLTS employment estimates are con-
+trolled to the Current Employment Statistics employment estimates.  The sample-
+based estimates from the CES program are adjusted once a year (on a lagged 
+basis) to universe counts of payroll employment obtained from administrative 
+records of the unemployment insurance program.  The difference between the 
+March sample-based employment estimates and the March universe counts is known 
+as a benchmark revision and serves as a rough proxy for total CES survey error.  
+Over the past decade, the benchmark revision for total nonfarm employment has 
+averaged 0.3 percent, ranging from zero to 0.7 percent.  This annual benchmark 
+revision will affect the JOLTS program once a year through the employment 
+adjustment process.
+   
+Other information
+   
+   Information in this release will be made available to sensory impaired 
+individuals upon request.  Voice phone: 202-691-5200; TDD message referral 
+phone: 1-800-877-8339.
+Table 1. Job openings rates(1) by industry and census region
+ 
+(Percent)
+      
+
+      Industry and census region          May   June  July  Aug.  Sept. Oct.  Nov.  Dec.  Jan.  Feb.  Mar.  Apr.  May
+                                          2001  2001  2001  2001  2001  2001  2001  2001  2002  2002  2002  2002  2002
+ 
+Total....................................  3.2   3.0   2.9   2.8   2.7   2.5   2.2   2.1   2.2   2.3   2.4   2.4   2.6
+ 
+                 INDUSTRY 
+ 
+ Total private...........................  3.3   3.0   2.9   2.9   2.8   2.5   2.2   2.1   2.3   2.4   2.5   2.5   2.6
+  Mining.................................  1.5   2.0   1.7   1.6   1.4   1.4    .8   1.5   1.4   1.2    .6    .9    .8
+  Construction...........................  3.4   2.5   2.6   1.8   1.8   1.8   1.3   1.0   1.3   1.3   1.7   1.7   1.9
+  Manufacturing..........................  1.5   1.7   1.6   1.5   1.5   1.3   1.1   1.0   1.2   1.3   1.4   1.5   1.6
+   Durable goods.........................  1.5   1.7   1.6   1.6   1.4   1.1    .9    .9   1.1   1.3   1.3   1.4   1.6
+   Nondurable goods......................  1.5   1.6   1.7   1.5   1.7   1.5   1.3   1.1   1.4   1.4   1.4   1.6   1.8
+  Transportation and public utilities....  2.2   2.2   2.2   2.1   1.8   2.3   1.9   1.4   1.7   1.6   1.7   2.0   1.9
+  Wholesale trade........................  2.1   2.4   1.7   1.6   1.6   1.2   1.2   1.0   1.6   1.6   2.0   1.7   1.7
+  Retail trade...........................  3.6   3.0   3.1   3.2   3.2   2.8   2.4   2.0   1.9   2.1   2.4   2.3   2.4
+  Finance, insurance, and real estate....  2.9   2.9   2.4   2.4   2.5   1.9   2.2   2.4   2.3   2.4   2.6   2.5   2.4
+  Services...............................  4.3   3.9   3.8   3.9   3.7   3.3   3.1   3.1   3.2   3.3   3.3   3.4   3.5
+ 
+ Government..............................  2.5   2.7   2.8   2.6   2.1   2.1   2.1   1.9   2.0   2.0   2.0   2.2   2.4
+  Federal................................  2.3   2.4   1.5   1.6   1.6   1.5   2.0   1.7   1.4   2.0   2.2   2.0   2.4
+  State and local........................  2.5   2.8   3.0   2.8   2.2   2.2   2.2   2.0   2.1   2.0   2.0   2.2   2.4
+ 
+              CENSUS REGION 
+ 
+  Northeast..............................  3.2   2.8   2.7   2.7   2.7   2.2   2.1   2.1   1.9   1.9   2.1   2.1   2.3
+  South..................................  3.1   2.9   2.8   2.8   2.7   2.5   2.3   2.2   2.5   2.6   2.5   2.6   2.9
+  Midwest................................  3.0   2.9   2.9   3.0   2.7   2.4   2.1   2.0   1.9   2.1   2.2   2.3   2.1
+  West...................................  3.3   3.3   3.1   2.9   2.6   2.6   2.3   2.0   2.3   2.4   2.6   2.6   2.6
+ 
+ 
+   1 The job openings rate is the number of job openings on the last business day of the month as a percent of total
+employment plus job openings.
+   NOTE:  The States (including the District of Columbia) that comprise the census regions are: Northeast: Connecticut,
+Maine, Massachusetts, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, and Vermont; South: Alabama, 
+Arkansas, Delaware, District of Columbia, Florida, Georgia, Kentucky, Louisiana, Maryland, Mississippi, North 
+Carolina, Oklahoma, South Carolina, Tennessee, Texas, Virginia, and West Virginia; Midwest: Illinois, Indiana, Iowa,
+Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, and Wisconsin; West: Alaska, 
+Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New Mexico, Oregon, Utah, Washington, and Wyoming.
+ 
+ 
+ 
+ 
+
+Table 2. Job openings levels(1) by industry and census region
+ 
+(In thousands)
+ 
+      
+      Industry and census region           May    June   July   Aug.   Sept.  Oct.   Nov.   Dec.   Jan.   Feb.   Mar.   Apr.   May
+                                           2001   2001   2001   2001   2001   2001   2001   2001   2002   2002   2002   2002   2002
+ 
+Total.................................... 4,339  4,055  3,908  3,853  3,652  3,332  3,014  2,820  2,915  3,030  3,188  3,258  3,455
+ 
+                 INDUSTRY 
+ 
+ Total private........................... 3,792  3,463  3,330  3,321  3,194  2,867  2,544  2,396  2,488  2,595  2,739  2,779  2,930
+  Mining.................................     9     12     10     10      8      8      5      9      8      7      3      5      4
+  Construction...........................   240    177    189    131    125    129     91     69     83     81    106    110    126
+  Manufacturing..........................   275    304    296    274    269    227    183    167    205    226    233    249    278
+   Durable goods.........................   169    190    172    168    150    119     94     92    110    132    134    142    157
+   Nondurable goods......................   106    114    124    106    119    108     88     75     95     94     99    107    121
+  Transportation and public utilities....   160    163    156    155    128    164    132    102    116    107    120    137    132
+  Wholesale trade........................   143    167    120    108    107     84     84     69    105    109    139    113    115
+  Retail trade...........................   891    724    755    779    790    683    575    484    448    481    558    547    576
+  Finance, insurance, and real estate....   230    231    188    193    202    150    177    189    182    191    209    195    189
+  Services............................... 1,845  1,686  1,616  1,670  1,564  1,422  1,298  1,308  1,341  1,394  1,371  1,424  1,508
+ 
+ Government..............................   547    592    578    532    458    465    470    424    427    434    449    479    525
+  Federal................................    61     64     40     43     42     40     54     46     37     54     59     52     65
+  State and local........................   486    528    538    490    416    425    416    378    389    381    390    426    460
+ 
+              CENSUS REGION 
+ 
+  Northeast..............................   854    744    695    703    692    582    556    542    478    484    527    542    604
+  South.................................. 1,511  1,388  1,346  1,316  1,308  1,192  1,090  1,053  1,156  1,207  1,190  1,245  1,389
+  Midwest................................ 1,005    949    949    977    892    786    694    643    612    649    713    727    692
+  West...................................   969    974    917    858    760    771    674    582    668    690    759    744    769
+ 
+ 
+   1 Job openings are the number of job openings on the last business day of the month.
+   NOTE:  The States (including the District of Columbia) that comprise the census regions are: Northeast: Connecticut, Maine,
+Massachusetts, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, and Vermont; South: Alabama, Arkansas, Delaware,
+District of Columbia, Florida, Georgia, Kentucky, Louisiana, Maryland, Mississippi, North Carolina, Oklahoma, South Carolina,
+Tennessee, Texas, Virginia, and West Virginia; Midwest: Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska,
+North Dakota, Ohio, South Dakota, and Wisconsin; West: Alaska, Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New
+Mexico, Oregon, Utah, Washington, and Wyoming.
+ 
+ 
+ 
+ 
+
+Table 3. Hires rates(1) by industry and census region
+ 
+(Percent)
+ 
+      
+      Industry and census region          May   June  July  Aug.  Sept. Oct.  Nov.  Dec.  Jan.  Feb.  Mar.  Apr.  May
+                                          2001  2001  2001  2001  2001  2001  2001  2001  2002  2002  2002  2002  2002
+ 
+Total....................................  4.3   4.4   3.6   4.0   3.6   3.4   3.0   2.3   2.7   2.8   2.9   3.3   3.7
+ 
+                 INDUSTRY 
+ 
+ Total private...........................  4.8   4.9   3.9   4.1   3.9   3.8   3.4   2.6   3.0   3.1   3.3   3.7   4.1
+  Mining.................................  5.2   4.9   3.5   3.4   2.8   1.9   1.5   1.8   5.2   2.1   3.6   2.6   5.8
+  Construction...........................  7.4   7.1   5.5   5.1   4.8   5.3   4.3   3.2   4.9   4.7   5.2   6.5   6.4
+  Manufacturing..........................  2.2   2.2   2.0   2.4   1.9   2.1   1.6   1.3   1.8   2.0   2.0   2.4   2.8
+   Durable goods.........................  1.7   2.0   1.8   2.2   1.6   1.7   1.3    .9   1.7   2.0   2.2   2.3   2.6
+   Nondurable goods......................  2.9   2.6   2.3   2.7   2.3   2.6   2.0   1.9   1.9   1.9   1.9   2.4   3.0
+  Transportation and public utilities....  4.1   3.0   3.5   2.5   3.3   2.2   2.8   1.8   2.1   2.1   2.1   3.1   2.5
+  Wholesale trade........................  3.5   3.3   2.6   2.7   2.6   2.2   1.9   1.5   2.0   1.8   2.2   2.3   2.7
+  Retail trade...........................  6.8   6.2   5.5   6.2   6.4   6.3   5.5   4.1   3.6   3.9   4.4   4.9   5.7
+  Finance, insurance, and real estate....  2.6   2.4   2.2   2.4   2.1   2.2   2.1   1.5   1.7   2.1   2.0   2.0   2.7
+  Services...............................  5.0   5.9   4.1   4.4   4.0   3.7   3.3   2.7   3.4   3.4   3.6   3.7   4.2
+ 
+ Government..............................  1.7   2.1   2.0   3.0   2.1   1.5   1.2   1.0   1.4   1.1   1.0   1.1   1.5
+  Federal................................  2.4   2.4   1.9   1.5   1.0   1.3   1.6   1.4   1.2   1.3   1.1   1.1   1.6
+  State and local........................  1.7   2.0   2.0   3.3   2.3   1.5   1.2    .9   1.4   1.0   1.0   1.1   1.5
+ 
+              CENSUS REGION 
+ 
+  Northeast..............................  4.1   4.2   3.0   3.0   3.4   3.0   2.6   2.0   2.1   1.8   2.1   2.5   3.2
+  South..................................  4.4   5.1   3.8   4.6   3.7   3.6   3.3   2.5   3.2   3.4   3.5   3.5   4.0
+  Midwest................................  4.6   4.2   3.5   4.2   4.1   3.4   2.9   2.2   2.3   2.5   2.6   3.5   3.8
+  West...................................  4.0   3.8   4.0   3.5   3.3   3.6   3.0   2.5   3.0   2.8   3.0   3.3   3.5
+ 
+ 
+   1 The hires rate is the number of hires during the entire month as a percent of total employment.
+   NOTE:  The States (including the District of Columbia) that comprise the census regions are: Northeast: Connecticut,
+Maine, Massachusetts, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, and Vermont; South: Alabama, 
+Arkansas, Delaware, District of Columbia, Florida, Georgia, Kentucky, Louisiana, Maryland, Mississippi, North 
+Carolina, Oklahoma, South Carolina, Tennessee, Texas, Virginia, and West Virginia; Midwest: Illinois, Indiana, Iowa,
+Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, and Wisconsin; West: Alaska, 
+Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New Mexico, Oregon, Utah, Washington, and Wyoming.
+ 
+ 
+ 
+ 
+
+Table 4. Hires levels(1) by industry and census region
+ 
+(In thousands)
+ 
+      
+      Industry and census region           May    June   July   Aug.   Sept.  Oct.   Nov.   Dec.   Jan.   Feb.   Mar.   Apr.   May
+                                           2001   2001   2001   2001   2001   2001   2001   2001   2002   2002   2002   2002   2002
+ 
+Total.................................... 5,682  5,900  4,772  5,223  4,808  4,530  3,992  3,068  3,529  3,574  3,806  4,270  4,864
+ 
+                 INDUSTRY 
+ 
+ Total private........................... 5,311  5,468  4,382  4,621  4,368  4,220  3,728  2,862  3,234  3,345  3,584  4,026  4,530
+  Mining.................................    30     28     20     20     16     11      8     10     29     12     20     15     33
+  Construction...........................   504    493    386    357    330    361    292    212    303    286    321    414    422
+  Manufacturing..........................   393    394    357    420    328    365    271    224    297    336    342    397    463
+   Durable goods.........................   186    211    194    229    166    180    133     92    166    205    216    232    262
+   Nondurable goods......................   207    183    163    191    163    185    138    131    131    131    126    165    202
+  Transportation and public utilities....   294    215    249    179    235    158    192    123    142    145    139    210    169
+  Wholesale trade........................   239    228    180    184    175    147    125     98    132    120    146    153    183
+  Retail trade........................... 1,595  1,468  1,312  1,469  1,497  1,490  1,320    972    821    893  1,002  1,142  1,326
+  Finance, insurance, and real estate....   200    184    168    187    159    173    166    119    134    159    153    157    206
+  Services............................... 2,056  2,458  1,709  1,805  1,627  1,514  1,354  1,104  1,378  1,395  1,463  1,538  1,727
+ 
+ Government..............................   371    432    390    603    440    310    265    206    295    229    222    244    334
+  Federal................................    62     65     50     41     27     35     43     37     31     33     28     28     41
+  State and local........................   309    367    340    562    413    276    222    169    263    196    194    216    293
+ 
+              CENSUS REGION 
+ 
+  Northeast.............................. 1,039  1,086    760    768    862    752    668    508    523    456    528    622    821
+  South.................................. 2,036  2,382  1,750  2,125  1,700  1,660  1,531  1,150  1,466  1,549  1,607  1,597  1,863
+  Midwest................................ 1,476  1,342  1,118  1,331  1,295  1,095    926    709    718    782    821  1,108  1,193
+  West................................... 1,131  1,090  1,143  1,000    950  1,023    867    700    822    787    849    943    987
+ 
+ 
+   1 Hires are the number of hires during the entire month.
+   NOTE:  The States (including the District of Columbia) that comprise the census regions are: Northeast: Connecticut, Maine,
+Massachusetts, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, and Vermont; South: Alabama, Arkansas, Delaware,
+District of Columbia, Florida, Georgia, Kentucky, Louisiana, Maryland, Mississippi, North Carolina, Oklahoma, South Carolina,
+Tennessee, Texas, Virginia, and West Virginia; Midwest: Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska,
+North Dakota, Ohio, South Dakota, and Wisconsin; West: Alaska, Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New
+Mexico, Oregon, Utah, Washington, and Wyoming.
+ 
+ 
+ 
+ 
+
+Table 5. Total separations rates(1) by industry and census region
+ 
+(Percent)
+ 
+      
+      Industry and census region          May   June  July  Aug.  Sept. Oct.  Nov.  Dec.  Jan.  Feb.  Mar.  Apr.  May
+                                          2001  2001  2001  2001  2001  2001  2001  2001  2002  2002  2002  2002  2002
+ 
+Total....................................  3.7   3.4   3.9   4.6   4.1   3.6   3.0   3.2   3.1   2.6   2.7   2.9   3.1
+ 
+                 INDUSTRY 
+ 
+ Total private...........................  4.2   3.7   4.4   5.0   4.5   4.1   3.5   3.7   3.5   3.0   3.1   3.3   3.4
+  Mining.................................  3.0   4.3   3.4   3.8   3.4   3.3   3.2   3.0   3.7   3.3   3.9   2.7   2.3
+  Construction...........................  5.8   5.5   5.4   6.0   6.8   6.1   7.0   7.3   5.0   5.5   5.3   4.6   4.8
+  Manufacturing..........................  3.5   3.3   3.5   3.3   3.0   3.4   2.5   3.2   2.6   2.5   2.5   2.6   2.8
+   Durable goods.........................  3.8   3.5   3.2   3.2   2.9   3.3   2.5   3.1   2.7   2.3   2.5   2.6   2.9
+   Nondurable goods......................  3.1   2.9   4.1   3.5   3.1   3.5   2.5   3.4   2.5   2.7   2.7   2.6   2.7
+  Transportation and public utilities....  2.9   3.4   4.3   3.0   3.4   3.4   3.2   2.8   3.1   2.7   2.2   2.5   2.1
+  Wholesale trade........................  3.5   2.5   3.7   3.6   2.5   2.5   2.5   2.4   2.1   2.2   2.1   2.7   2.5
+  Retail trade...........................  6.2   4.6   4.9   6.0   6.2   5.2   4.4   5.0   5.2   4.0   4.2   4.4   4.8
+  Finance, insurance, and real estate....  2.4   2.3   2.3   2.8   2.1   2.2   2.4   1.8   2.2   1.5   2.1   1.9   2.6
+  Services...............................  3.7   3.6   4.8   5.9   4.9   4.1   3.1   3.2   3.1   2.6   2.8   3.3   3.2
+ 
+ Government..............................  1.3   1.9   1.5   2.4   1.4   1.2    .8   1.0   1.0    .8    .9   1.0   1.3
+  Federal................................  1.4   1.3   1.5   1.7   1.4   1.5   1.3   2.0   1.6   1.1   1.3   1.2   1.2
+  State and local........................  1.3   2.0   1.5   2.5   1.5   1.1    .8    .8    .9    .8    .8    .9   1.3
+ 
+              CENSUS REGION 
+ 
+  Northeast..............................  2.8   2.6   3.4   4.7   3.7   3.1   2.5   2.8   2.6   2.1   2.1   2.5   2.5
+  South..................................  3.8   3.7   4.8   4.5   4.2   3.7   3.1   3.4   3.3   2.9   3.0   3.2   3.4
+  Midwest................................  4.4   3.9   3.3   4.8   4.1   3.7   3.1   3.4   3.0   2.3   2.6   2.5   2.9
+  West...................................  3.8   3.3   3.8   4.4   4.1   3.8   3.4   3.1   3.2   2.8   2.9   3.2   3.2
+ 
+ 
+   1 The separations rate is the number of total separations during the entire month as a percent of total employment.
+   NOTE:  The States (including the District of Columbia) that comprise the census regions are: Northeast: Connecticut,
+Maine, Massachusetts, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, and Vermont; South: Alabama, 
+Arkansas, Delaware, District of Columbia, Florida, Georgia, Kentucky, Louisiana, Maryland, Mississippi, North 
+Carolina, Oklahoma, South Carolina, Tennessee, Texas, Virginia, and West Virginia; Midwest: Illinois, Indiana, Iowa,
+Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, and Wisconsin; West: Alaska, 
+Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New Mexico, Oregon, Utah, Washington, and Wyoming.
+Table 6. Total separations levels(1) by industry and census region
+ 
+(In thousands)
+ 
+      
+      Industry and census region           May    June   July   Aug.   Sept.  Oct.   Nov.   Dec.   Jan.   Feb.   Mar.   Apr.   May
+                                           2001   2001   2001   2001   2001   2001   2001   2001   2002   2002   2002   2002   2002
+ 
+Total.................................... 4,962  4,570  5,194  6,067  5,356  4,748  4,014  4,265  3,944  3,366  3,514  3,791  4,037
+ 
+                 INDUSTRY 
+ 
+ Total private........................... 4,680  4,170  4,903  5,592  5,055  4,498  3,832  4,059  3,741  3,186  3,320  3,584  3,754
+  Mining.................................    17     25     20     22     19     19     18     17     21     18     21     15     13
+  Construction...........................   394    381    382    420    469    419    474    480    311    335    330    293    315
+  Manufacturing..........................   625    588    624    588    520    589    432    552    434    415    427    431    468
+   Durable goods.........................   408    380    334    341    301    343    257    320    266    232    246    256    285
+   Nondurable goods......................   218    208    289    247    218    246    175    233    168    183    181    175    183
+  Transportation and public utilities....   210    243    307    211    238    240    221    197    208    185    148    169    146
+  Wholesale trade........................   241    170    251    242    172    168    166    164    141    147    137    178    164
+  Retail trade........................... 1,467  1,099  1,152  1,433  1,465  1,224  1,054  1,209  1,206    914    959  1,008  1,120
+  Finance, insurance, and real estate....   187    182    178    222    162    171    183    143    171    118    165    144    200
+  Services............................... 1,540  1,481  1,989  2,455  2,011  1,669  1,284  1,297  1,249  1,053  1,134  1,345  1,327
+ 
+ Government..............................   281    401    291    475    301    250    182    207    203    180    195    206    283
+  Federal................................    37     35     40     44     36     40     34     51     41     27     35     30     31
+  State and local........................   245    366    251    431    265    210    148    156    162    153    160    176    252
+ 
+              CENSUS REGION 
+ 
+  Northeast..............................   710    682    863  1,181    942    787    642    716    631    531    517    618    621
+  South.................................. 1,769  1,706  2,199  2,102  1,936  1,706  1,431  1,586  1,487  1,337  1,381  1,471  1,590
+  Midwest................................ 1,402  1,247  1,059  1,534  1,312  1,170    975  1,085    936    722    793    792    915
+  West................................... 1,081    936  1,073  1,250  1,166  1,085    966    879    890    776    824    909    911
+ 
+ 
+   1 Total separations are the number of total separations during the entire month.
+   NOTE:  The States (including the District of Columbia) that comprise the census regions are: Northeast: Connecticut, Maine,
+Massachusetts, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, and Vermont; South: Alabama, Arkansas, Delaware,
+District of Columbia, Florida, Georgia, Kentucky, Louisiana, Maryland, Mississippi, North Carolina, Oklahoma, South Carolina,
+Tennessee, Texas, Virginia, and West Virginia; Midwest: Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska,
+North Dakota, Ohio, South Dakota, and Wisconsin; West: Alaska, Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New
+Mexico, Oregon, Utah, Washington, and Wyoming.
+ 
+ 
+ 
+ 
+
+Table 7. Quits rates(1) by industry and census region
+ 
+(Percent)
+ 
+      
+      Industry and census region          May   June  July  Aug.  Sept. Oct.  Nov.  Dec.  Jan.  Feb.  Mar.  Apr.  May
+                                          2001  2001  2001  2001  2001  2001  2001  2001  2002  2002  2002  2002  2002
+ 
+Total....................................  2.2   2.0   2.5   2.7   2.2   1.9   1.5   1.4   1.6   1.4   1.5   1.7   1.8
+ 
+                 INDUSTRY 
+ 
+ Total private...........................  2.5   2.3   2.8   3.0   2.5   2.2   1.7   1.6   1.8   1.6   1.7   1.9   2.0
+  Mining.................................  1.9   2.7   2.0   2.2   1.8   1.6   1.1    .4   1.3   1.4    .8    .8   1.1
+  Construction...........................  2.4   2.7   2.9   2.5   2.6   2.1   1.8   1.4   1.7   1.9   2.0   2.0   1.9
+  Manufacturing..........................  1.3   1.4   1.2   1.6   1.2   1.2    .8    .7    .9   1.0   1.1   1.2   1.3
+   Durable goods.........................  1.1   1.5   1.2   1.4   1.2    .9    .7    .6    .8   1.0    .9   1.1   1.3
+   Nondurable goods......................  1.6   1.3   1.3   1.9   1.4   1.6   1.0    .9   1.0   1.0   1.2   1.3   1.3
+  Transportation and public utilities....  1.8   1.5   2.3   1.9   2.0   1.6   1.1   1.2   1.5   1.1    .9   1.3   1.3
+  Wholesale trade........................  1.8   1.4   1.7   2.1   1.5   1.1   1.2   1.1   1.2   1.1   1.2   1.5   1.3
+  Retail trade...........................  4.7   3.6   4.0   4.6   4.5   3.9   3.0   2.9   2.9   2.7   3.0   3.1   3.4
+  Finance, insurance, and real estate....  1.3   1.5   1.7   1.9   1.2   1.2   1.0    .9   1.2    .9   1.3   1.3   1.5
+  Services...............................  2.2   2.2   3.2   3.3   2.4   2.1   1.6   1.6   1.8   1.5   1.6   1.8   2.0
+ 
+ Government..............................   .8    .9    .8   1.2    .7    .5    .5    .5    .5    .5    .5    .5    .6
+  Federal................................   .8    .8    .8   1.0    .5    .6    .8    .7    .8    .6    .7    .5    .6
+  State and local........................   .8   1.0    .8   1.2    .7    .4    .5    .4    .5    .5    .5    .5    .6
+ 
+              CENSUS REGION 
+ 
+  Northeast..............................  1.5   1.6   1.8   2.5   1.9   1.7   1.2   1.2   1.2   1.1   1.1   1.2   1.4
+  South..................................  2.5   2.3   3.3   2.8   2.4   2.1   1.7   1.6   1.7   1.7   1.8   2.0   2.0
+  Midwest................................  2.3   2.2   2.1   3.0   2.2   1.8   1.4   1.5   1.6   1.2   1.4   1.4   1.7
+  West...................................  2.4   1.9   2.2   2.5   2.1   1.8   1.5   1.4   1.6   1.6   1.6   1.8   1.9
+ 
+ 
+   1 The quits rate is the number of quits during the entire month as a percent of total employment.
+   NOTE:  The States (including the District of Columbia) that comprise the census regions are: Northeast: Connecticut,
+Maine, Massachusetts, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, and Vermont; South: Alabama, 
+Arkansas, Delaware, District of Columbia, Florida, Georgia, Kentucky, Louisiana, Maryland, Mississippi, North 
+Carolina, Oklahoma, South Carolina, Tennessee, Texas, Virginia, and West Virginia; Midwest: Illinois, Indiana, Iowa,
+Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, and Wisconsin; West: Alaska, 
+Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New Mexico, Oregon, Utah, Washington, and Wyoming.
+
+Table 8. Quits levels(1) by industry and census region
+ 
+(In thousands)
+ 
+      
+      Industry and census region           May    June   July   Aug.   Sept.  Oct.   Nov.   Dec.   Jan.   Feb.   Mar.   Apr.   May
+                                           2001   2001   2001   2001   2001   2001   2001   2001   2002   2002   2002   2002   2002
+ 
+Total.................................... 2,956  2,727  3,274  3,585  2,910  2,497  1,982  1,906  2,026  1,844  1,989  2,167  2,383
+ 
+                 INDUSTRY 
+ 
+ Total private........................... 2,787  2,529  3,119  3,357  2,770  2,401  1,874  1,805  1,920  1,743  1,881  2,063  2,247
+  Mining.................................    11     15     12     13     10      9      6      2      7      8      5      4      6
+  Construction...........................   162    185    207    173    180    145    118     88    104    118    122    127    125
+  Manufacturing..........................   231    252    217    287    218    202    137    125    149    171    177    198    211
+   Durable goods.........................   115    157    127    149    121     93     69     61     82    100     94    109    125
+   Nondurable goods......................   115     95     90    138     97    109     67     64     68     71     83     88     86
+  Transportation and public utilities....   128    106    163    133    143    112     79     84     99     77     61     87     87
+  Wholesale trade........................   124     95    116    145    102     71     80     77     82     72     82     97     89
+  Retail trade........................... 1,109    857    939  1,103  1,050    908    725    705    670    615    676    723    790
+  Finance, insurance, and real estate....   100    118    130    150     96     94     80     68     91     69    103     98    118
+  Services...............................   922    899  1,335  1,354    971    860    649    655    716    614    656    729    822
+ 
+ Government..............................   169    198    154    228    140     96    108    101    106    101    108    104    136
+  Federal................................    20     20     22     27     14     14     21     19     19     15     19     13     15
+  State and local........................   148    178    132    202    126     82     87     82     87     86     89     91    121
+ 
+              CENSUS REGION 
+ 
+  Northeast..............................   395    415    460    625    495    433    312    301    294    273    261    297    359
+  South.................................. 1,155  1,057  1,528  1,302  1,128    971    788    744    786    762    827    908    943
+  Midwest................................   726    720    673    950    685    585    443    469    503    372    451    446    530
+  West...................................   679    535    612    708    602    509    439    392    444    438    449    516    551
+ 
+ 
+   1 Quits are the number of quits during the entire month.
+   NOTE:  The States (including the District of Columbia) that comprise the census regions are: Northeast: Connecticut, Maine,
+Massachusetts, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, and Vermont; South: Alabama, Arkansas, Delaware,
+District of Columbia, Florida, Georgia, Kentucky, Louisiana, Maryland, Mississippi, North Carolina, Oklahoma, South Carolina,
+Tennessee, Texas, Virginia, and West Virginia; Midwest: Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska,
+North Dakota, Ohio, South Dakota, and Wisconsin; West: Alaska, Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New
+Mexico, Oregon, Utah, Washington, and Wyoming.
+ 
+ 
+ 
+ 
+
+
+Table 9. Layoffs and discharges rates(1) by industry and census region
+ 
+(Percent)
+ 
+      
+      Industry and census region          May   June  July  Aug.  Sept. Oct.  Nov.  Dec.  Jan.  Feb.  Mar.  Apr.  May
+                                          2001  2001  2001  2001  2001  2001  2001  2001  2002  2002  2002  2002  2002
+ 
+Total....................................  1.2   1.1   1.1   1.5   1.5   1.4   1.4   1.5   1.2   1.0   1.0   1.0   1.0
+ 
+                 INDUSTRY 
+ 
+ Total private...........................  1.4   1.2   1.2   1.6   1.7   1.6   1.6   1.8   1.4   1.1   1.1   1.2   1.2
+  Mining.................................  1.0   1.2   1.2   1.3   1.0   1.2   1.8   2.5   1.4   1.7   1.7   1.6    .8
+  Construction...........................  3.0   2.6   2.1   2.9   3.8   3.7   5.0   5.8   3.2   3.4   3.1   2.4   2.6
+  Manufacturing..........................  1.9   1.5   1.9   1.3   1.5   1.9   1.6   2.2   1.4   1.3   1.3   1.1   1.2
+   Durable goods.........................  2.4   1.6   1.4   1.3   1.4   2.2   1.7   2.3   1.5   1.1   1.3   1.2   1.3
+   Nondurable goods......................  1.3   1.4   2.6   1.2   1.6   1.5   1.4   2.2   1.2   1.5   1.2   1.0   1.2
+  Transportation and public utilities....   .9   1.5   1.2    .9   1.1   1.4   1.7   1.3   1.3   1.4   1.1   1.0    .6
+  Wholesale trade........................  1.4    .9   1.8   1.2    .9   1.2   1.2   1.1    .7    .8    .7   1.1   1.0
+  Retail trade...........................  1.2    .9    .7   1.2   1.5   1.1   1.3   1.8   2.1   1.1   1.1    .9   1.2
+  Finance, insurance, and real estate....   .8    .4    .4    .5    .7    .8   1.1    .6    .7    .6    .4    .4    .9
+  Services...............................  1.2   1.1   1.1   2.2   2.1   1.7   1.3   1.3   1.1    .8   1.0   1.2   1.0
+ 
+ Government..............................   .3    .6    .3   1.0    .5    .5    .2    .3    .2    .2    .2    .3    .4
+  Federal................................   .2    .3    .3    .2    .5    .3    .2    .6    .4    .1    .3    .4    .3
+  State and local........................   .3    .6    .3   1.1    .5    .5    .2    .2    .2    .2    .2    .3    .4
+ 
+              CENSUS REGION 
+ 
+  Northeast..............................  1.0    .8   1.1   1.9   1.4   1.2   1.0   1.4   1.2    .8    .8   1.0    .9
+  South..................................  1.0   1.1   1.0   1.4   1.4   1.3   1.2   1.5   1.3   1.0   1.0   1.0   1.2
+  Midwest................................  1.6   1.3    .8   1.4   1.6   1.6   1.5   1.7   1.2    .9    .9    .9    .9
+  West...................................  1.2   1.1   1.4   1.5   1.6   1.7   1.7   1.5   1.3   1.1   1.1   1.2   1.0
+ 
+ 
+   1 The layoffs and discharges rate is the number of layoffs and discharges during the entire month as a percent 
+of total employment. 
+   NOTE:  The States (including the District of Columbia) that comprise the census regions are: Northeast: Connecticut,
+Maine, Massachusetts, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, and Vermont; South: Alabama, 
+Arkansas, Delaware, District of Columbia, Florida, Georgia, Kentucky, Louisiana, Maryland, Mississippi, North 
+Carolina, Oklahoma, South Carolina, Tennessee, Texas, Virginia, and West Virginia; Midwest: Illinois, Indiana, Iowa,
+Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, and Wisconsin; West: Alaska, 
+Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New Mexico, Oregon, Utah, Washington, and Wyoming.
+
+ 
+ 
+ 
+ 
+
+Table 10. Layoffs and discharges levels(1) by industry and census region
+ 
+(In thousands)
+ 
+      
+      Industry and census region           May    June   July   Aug.   Sept.  Oct.   Nov.   Dec.   Jan.   Feb.   Mar.   Apr.   May
+                                           2001   2001   2001   2001   2001   2001   2001   2001   2002   2002   2002   2002   2002
+ 
+Total.................................... 1,600  1,454  1,435  1,981  2,014  1,911  1,786  2,005  1,590  1,242  1,247  1,324  1,350
+ 
+                 INDUSTRY 
+ 
+ Total private........................... 1,541  1,334  1,369  1,788  1,906  1,815  1,743  1,944  1,542  1,205  1,204  1,259  1,266
+  Mining.................................     5      7      7      8      6      7     10     14      8     10      9      9      5
+  Construction...........................   200    178    148    204    265    254    336    381    197    208    195    155    174
+  Manufacturing..........................   344    275    332    222    256    330    270    384    235    212    214    191    208
+   Durable goods.........................   253    176    146    138    146    227    173    232    153    113    132    122    126
+   Nondurable goods......................    91     99    186     84    110    103     97    152     82     99     82     69     81
+  Transportation and public utilities....    63    109     88     62     79     97    117     92     89     94     72     71     43
+  Wholesale trade........................    96     63    121     82     58     80     82     77     50     50     48     71     67
+  Retail trade...........................   292    204    176    279    343    265    299    429    476    248    245    219    280
+  Finance, insurance, and real estate....    61     33     34     37     51     64     82     44     50     44     31     34     71
+  Services...............................   479    464    463    893    849    716    548    524    435    341    391    510    419
+ 
+ Government..............................    59    120     66    193    107     96     43     61     48     37     42     65     84
+  Federal................................     6      7      7      6     13      8      5     16      9      3      8     11      8
+  State and local........................    53    112     59    188     94     88     38     45     39     34     34     53     76
+ 
+              CENSUS REGION 
+ 
+  Northeast..............................   244    212    293    477    367    297    267    356    288    206    197    258    222
+  South..................................   479    497    479    626    657    616    561    708    584    461    465    458    537
+  Midwest................................   520    428    262    451    521    520    479    525    365    279    277    278    296
+  West...................................   357    317    401    427    469    477    478    415    354    296    308    329    295
+ 
+ 
+   1 Layoffs and discharges are the number of layoffs and discharges during the entire month.
+   NOTE:  The States (including the District of Columbia) that comprise the census regions are: Northeast: Connecticut, Maine,
+Massachusetts, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, and Vermont; South: Alabama, Arkansas, Delaware,
+District of Columbia, Florida, Georgia, Kentucky, Louisiana, Maryland, Mississippi, North Carolina, Oklahoma, South Carolina,
+Tennessee, Texas, Virginia, and West Virginia; Midwest: Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska,
+North Dakota, Ohio, South Dakota, and Wisconsin; West: Alaska, Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New
+Mexico, Oregon, Utah, Washington, and Wyoming.
+ 
+ 
+ 
+ 
+
+Table 11. Other separations rates(1) by industry and census region
+ 
+(Percent)
+ 
+      
+      Industry and census region          May   June  July  Aug.  Sept. Oct.  Nov.  Dec.  Jan.  Feb.  Mar.  Apr.  May
+                                          2001  2001  2001  2001  2001  2001  2001  2001  2002  2002  2002  2002  2002
+ 
+Total....................................  0.3   0.3   0.4   0.4   0.3   0.3   0.2   0.3   0.3   0.2   0.2   0.2   0.2
+ 
+                 INDUSTRY 
+ 
+ Total private...........................   .3    .3    .4    .4    .3    .3    .2    .3    .3    .2    .2    .2    .2
+  Mining.................................   .1    .5    .2    .3    .6    .5    .4    .1   1.0    .2   1.4    .3    .3
+  Construction...........................   .5    .3    .4    .6    .3    .3    .3    .2    .2    .2    .2    .2    .3
+  Manufacturing..........................   .3    .3    .4    .4    .3    .3    .1    .3    .3    .2    .2    .3    .3
+   Durable goods.........................   .4    .4    .6    .5    .3    .2    .1    .3    .3    .2    .2    .3    .3
+   Nondurable goods......................   .2    .2    .2    .3    .2    .5    .1    .2    .3    .2    .2    .3    .2
+  Transportation and public utilities....   .3    .4    .8    .2    .2    .4    .4    .3    .3    .2    .2    .2    .2
+  Wholesale trade........................   .3    .2    .2    .2    .2    .2    .1    .2    .1    .4    .1    .2    .1
+  Retail trade...........................   .3    .2    .2    .2    .3    .2    .1    .3    .3    .2    .2    .3    .2
+  Finance, insurance, and real estate....   .3    .4    .2    .4    .2    .2    .3    .4    .4    .1    .4    .2    .1
+  Services...............................   .3    .3    .5    .5    .5    .2    .2    .3    .2    .2    .2    .3    .2
+ 
+ Government..............................   .3    .4    .4    .3    .3    .3    .1    .2    .2    .2    .2    .2    .3
+  Federal................................   .4    .3    .4    .4    .3    .7    .3    .6    .5    .4    .3    .2    .3
+  State and local........................   .2    .4    .3    .2    .2    .2    .1    .2    .2    .2    .2    .2    .3
+ 
+              CENSUS REGION 
+ 
+  Northeast..............................   .3    .2    .4    .3    .3    .2    .2    .2    .2    .2    .2    .3    .2
+  South..................................   .3    .3    .4    .4    .3    .3    .2    .3    .3    .3    .2    .2    .2
+  Midwest................................   .5    .3    .4    .4    .3    .2    .2    .3    .2    .2    .2    .2    .3
+  West...................................   .2    .3    .2    .4    .3    .3    .2    .3    .3    .2    .2    .2    .2
+ 
+ 
+   1 The other separations rate is the number of other separations during the entire month as a percent of total 
+employment.
+   NOTE:  The States (including the District of Columbia) that comprise the census regions are: Northeast: Connecticut,
+Maine, Massachusetts, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, and Vermont; South: Alabama, 
+Arkansas, Delaware, District of Columbia, Florida, Georgia, Kentucky, Louisiana, Maryland, Mississippi, North 
+Carolina, Oklahoma, South Carolina, Tennessee, Texas, Virginia, and West Virginia; Midwest: Illinois, Indiana, Iowa,
+Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio, South Dakota, and Wisconsin; West: Alaska, 
+Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New Mexico, Oregon, Utah, Washington, and Wyoming.
+ 
+ 
+ 
+ 
+
+Table 12. Other separations levels(1) by industry and census region
+ 
+(In thousands)
+ 
+       
+       Industry and census region          May    June   July   Aug.   Sept.  Oct.   Nov.   Dec.   Jan.   Feb.   Mar.   Apr.   May
+                                           2001   2001   2001   2001   2001   2001   2001   2001   2002   2002   2002   2002   2002
+ 
+Total....................................   407    389    485    500    432    340    246    354    328    280    278    300    304
+ 
+                 INDUSTRY 
+ 
+ Total private...........................   353    307    414    447    379    282    215    310    280    237    234    262    241
+  Mining.................................     1      3      1      2      3      3      2      1      5      1      8      2      2
+  Construction...........................    31     18     27     43     24     19     19     10     10     10     14     11     17
+  Manufacturing..........................    51     61     75     79     46     58     26     44     49     32     36     43     50
+   Durable goods.........................    39     47     61     54     34     23     15     27     32     19     20     25     34
+   Nondurable goods......................    12     14     13     25     12     35     10     16     18     13     16     18     16
+  Transportation and public utilities....    18     27     55     16     16     31     26     21     20     15     14     12     16
+  Wholesale trade........................    21     11     13     15     12     16      4     10     10     25      7     10      8
+  Retail trade...........................    66     38     37     51     71     50     30     75     59     51     38     66     50
+  Finance, insurance, and real estate....    26     31     14     35     15     13     22     31     29      5     31     12     11
+  Services...............................   140    117    191    208    190     92     86    119     98     98     87    107     87
+ 
+ Government..............................    53     83     71     53     53     58     31     45     48     42     44     38     64
+  Federal................................    11      7     11     11      9     18      8     16     12      9      7      6      8
+  State and local........................    43     76     59     42     44     40     23     29     36     33     37     32     55
+ 
+              CENSUS REGION 
+ 
+  Northeast..............................    71     55    109     79     81     58     63     59     49     53     59     63     41
+  South..................................   135    152    192    174    151    119     81    133    118    114     89    104    110
+  Midwest................................   155     99    123    133    106     65     52     90     68     71     65     68     89
+  West...................................    45     84     60    114     95     99     49     72     92     42     66     64     64
+ 
+ 
+   1 Other separations are the number of other separations during the entire month.
+   NOTE:  The States (including the District of Columbia) that comprise the census regions are: Northeast: Connecticut, Maine,
+Massachusetts, New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, and Vermont; South: Alabama, Arkansas, Delaware,
+District of Columbia, Florida, Georgia, Kentucky, Louisiana, Maryland, Mississippi, North Carolina, Oklahoma, South Carolina,
+Tennessee, Texas, Virginia, and West Virginia; Midwest: Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska,
+North Dakota, Ohio, South Dakota, and Wisconsin; West: Alaska, Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New
+Mexico, Oregon, Utah, Washington, and Wyoming.
+ 
+ 
+ 
+ 
+

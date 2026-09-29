@@ -1,0 +1,979 @@
+Technical information:      (202) 691-5870          USDL 08-0044
+                   http://www.bls.gov/jlt/
+                                                    For release:  10:00 A.M. EST
+Media contact:                    691-5902          Thursday, January 10, 2008
+
+
+
+              JOB OPENINGS AND LABOR TURNOVER:  NOVEMBER 2007
+
+   On the last business day of November, there were 4.0 million job openings in
+the United States, and the job openings rate was 2.8 percent, the Bureau of Labor
+Statistics of the U.S. Department of Labor reported today.  The job openings,
+hires, and total separations rates were all essentially unchanged in November.
+This release includes estimates of the number and rate of job openings, hires,
+and separations for the total nonfarm sector by industry and geographic region.
+
+   Although the month-to-month changes in job openings, hires, and turnover data
+are often small, some over-the-year changes are significant.  From November 2006
+to November 2007, the job openings, hires, quits, and total separations rates
+all fell significantly for total nonfarm and total private employment.  (See
+tables 5, 6, 7, and 8.)
+
+Job Openings
+
+   In November, the job openings rate remained at 2.8 percent.  Job openings
+include only those jobs open on the last business day of the month.  Over the
+month, the job openings rate rose in retail trade and fell in accommodation and
+food services.  The job openings rate did not change significantly in any region
+in November.  As occurs nearly every month, the seasonally adjusted job openings
+rate was highest in November in the accommodation and food services industry
+(4.0 percent).  (See table 1.)
+
+   Over the year, the job openings rate rose significantly only in federal gov-
+ernment (to 1.4 percent).  The rate fell over the year in natural resources and
+mining (1.0 percent), durable goods manufacturing (1.7 percent), information
+(2.6 percent), arts, entertainment, and recreation (2.7 percent), and state and
+local government (1.9 percent).  Regionally, the job openings rate fell over the
+year in the Northeast (2.2 percent) and in the West (2.7 percent).  (See table 5.)
+
+Hires
+
+   The hires rate was little changed at 3.4 percent in November.  Hires are any
+additions to the payroll during the month.  In November, the hires rate decreased
+in retail trade, in accommodation and food services, and in the West region.  The
+hires rate did not increase significantly in November in any industry or region.
+As occurs nearly every month, the seasonally adjusted hires rate was highest in 
+November in accommodation and food services (6.0 percent).  (See table 2.)
+
+   From November 2006 to November 2007, the hires rate decreased over the year
+in retail trade (to 4.9 percent), information (1.5 percent), the South region
+(3.3 percent), and the West region (3.1 per-cent).  The hires rate did not
+increase significantly in any industry or region over the year.  (See table 6.)
+
+
+                                   - 2 -
+
+
+Table A.  Job openings, hires, and total separations by industry, seasonally
+adjusted
+------------------------------------------------------------------------------------
+                     |    Job openings    |       Hires        | Total separations  
+                     |--------------------------------------------------------------
+     Industry        | Nov. | Oct. | Nov. | Nov. | Oct. | Nov. | Nov. | Oct. | Nov. 
+                     | 2006 | 2007 | 2007p| 2006 | 2007 | 2007p| 2006 | 2007 | 2007p
+---------------------|--------------------------------------------------------------
+                     |                     Levels (in thousands)                    
+                     |--------------------------------------------------------------
+Total (1)............|4,200 |4,059 |4,021 |4,994 |4,870 |4,650 |4,844 |4,639 |4,541
+                     |      |      |      |      |      |      |      |      |     
+  Total private (1)..|3,735 |3,597 |3,571 |4,665 |4,507 |4,277 |4,543 |4,376 |4,259
+    Construction.....|  106 |  155 |  142 |  395 |  334 |  351 |  413 |  359 |  338
+    Manufacturing....|  328 |  304 |  305 |  363 |  407 |  367 |  360 |  408 |  393
+    Trade, trans-    |      |      |      |      |      |      |      |      |     
+     portation, and  |      |      |      |      |      |      |      |      |     
+     utilities (2)...|  671 |  598 |  639 |1,012 |1,034 |  913 |1,020 |1,007 |  980
+     Retail trade....|  417 |  298 |  357 |  737 |  709 |  628 |  719 |  703 |  697
+    Professional     |      |      |      |      |      |      |      |      |     
+     and business    |      |      |      |      |      |      |      |      |     
+     services........|  705 |  730 |  724 |1,010 |  840 |  894 |  974 |  888 |  843
+    Education and    |      |      |      |      |      |      |      |      |     
+     health ser-     |      |      |      |      |      |      |      |      |     
+     vices...........|  713 |  701 |  715 |  492 |  514 |  523 |  430 |  428 |  423
+    Leisure and      |      |      |      |      |      |      |      |      |     
+     hospitality (3).|  625 |  653 |  560 |  903 |  916 |  836 |  838 |  803 |  809
+     Accommodation   |      |      |      |      |      |      |      |      |     
+      and food       |      |      |      |      |      |      |      |      |     
+      services.......|  528 |  590 |  488 |  748 |  796 |  702 |  721 |  686 |  682
+  Government (4).....|  463 |  465 |  453 |  348 |  377 |  359 |  305 |  289 |  287
+    State and local  |      |      |      |      |      |      |      |      |     
+     government......|  427 |  414 |  407 |  303 |  313 |  290 |  256 |  237 |  238
+                     |-------------------------------------------------------------
+                     |                       Rates (percent)
+                     |-------------------------------------------------------------
+Total (1)............|  3.0 |  2.8 |  2.8 |  3.6 |  3.5 |  3.4 |  3.5 |  3.4 |  3.3
+                     |      |      |      |      |      |      |      |      |     
+  Total private (1)..|  3.1 |  3.0 |  3.0 |  4.1 |  3.9 |  3.7 |  4.0 |  3.8 |  3.7
+    Construction.....|  1.4 |  2.0 |  1.8 |  5.1 |  4.4 |  4.6 |  5.4 |  4.7 |  4.5
+    Manufacturing....|  2.3 |  2.1 |  2.1 |  2.6 |  2.9 |  2.6 |  2.5 |  2.9 |  2.8
+    Trade, trans-    |      |      |      |      |      |      |      |      |     
+     portation, and  |      |      |      |      |      |      |      |      |     
+     utilities (2)...|  2.5 |  2.2 |  2.4 |  3.8 |  3.9 |  3.4 |  3.9 |  3.8 |  3.7
+     Retail trade....|  2.7 |  1.9 |  2.3 |  4.8 |  4.6 |  4.1 |  4.7 |  4.6 |  4.5
+    Professional     |      |      |      |      |      |      |      |      |     
+     and business    |      |      |      |      |      |      |      |      |     
+     services........|  3.8 |  3.9 |  3.9 |  5.7 |  4.7 |  5.0 |  5.5 |  4.9 |  4.7
+    Education and    |      |      |      |      |      |      |      |      |     
+     health ser-     |      |      |      |      |      |      |      |      |     
+     vices...........|  3.8 |  3.6 |  3.7 |  2.7 |  2.8 |  2.8 |  2.4 |  2.3 |  2.3
+    Leisure and      |      |      |      |      |      |      |      |      |     
+     hospitality (3).|  4.5 |  4.6 |  3.9 |  6.8 |  6.7 |  6.1 |  6.3 |  5.9 |  5.9
+     Accommodation   |      |      |      |      |      |      |      |      |     
+      and food       |      |      |      |      |      |      |      |      |     
+      services.......|  4.4 |  4.8 |  4.0 |  6.6 |  6.8 |  6.0 |  6.3 |  5.9 |  5.8
+  Government (4).....|  2.0 |  2.0 |  2.0 |  1.6 |  1.7 |  1.6 |  1.4 |  1.3 |  1.3
+    State and local  |      |      |      |      |      |      |      |      |     
+     government......|  2.2 |  2.1 |  2.0 |  1.6 |  1.6 |  1.5 |  1.3 |  1.2 |  1.2
+-----------------------------------------------------------------------------------
+   1 Includes natural resources and mining, information, financial activities, and
+other services, not shown separately.
+   2 Includes wholesale trade and transportation, warehousing, and utilities, not
+shown separately.
+   3 Includes arts, entertainment, and recreation, not shown separately.
+   4 Includes federal government, not shown separately.
+   p = preliminary.
+
+
+
+                                   - 3 -
+
+
+Separations
+
+   The total separations, or turnover, rate was essentially unchanged at 3.3 per-
+cent in November.  Separations are terminations of employment that occur at any
+time during the month.  Over the month, the separations rate did not change sig-
+nificantly in any industry or region.  (See table 3.)  From November 2006 to
+November 2007, the total separations rate decreased in construction (to 4.6 per-
+cent), in federal government (0.8 percent), and in the South region (2.9 percent).
+The separations rate did not increase significantly in any industry or region over
+the year. (See tables 7.)
+
+   Total separations include quits (voluntary separations), layoffs and discharges
+(involuntary separations), and other separations (including retirements).  The
+quits rate, which can serve as a barometer of workers’ ability to change jobs, fell
+slightly from 1.9 percent in October to 1.8 percent in November.  The quits rate
+fell over the month in professional and business services, and in the South and
+West regions.  As has occurred every month since the series began in December 2000,
+the seasonally adjusted quits rate was highest in November in the accommodation and
+food services industry (4.3 percent).  (See table 4.)
+
+   Over the year, the quits rate did not rise significantly in any industry but did
+fall in several industries, including wholesale trade (to 0.8 percent), retail trade
+(2.4 percent), professional and business services (2.0 percent), and federal govern-
+ment (0.3 percent).  Geographically, the quits rate fell over the year in 3 of the
+4 regions--Northeast (1.2 percent), South (1.6 percent), and West (1.6 percent). 
+(See table 8.)
+
+   The other two components of total separations--layoffs and discharges, and other
+separations--are not seasonally adjusted.  For November, the layoffs and discharges 
+rate (1.3 percent) and level (1.8 million) were little changed from a year earlier.
+The layoffs and discharges rate in November 2007 was highest in arts, entertainment,
+and recreation (6.0 percent).  (See table 9.)  The other separations rate (0.2 per-
+cent) and level (252,000) were essentially unchanged over the year. (See table 10.)
+
+Flows in the Labor Market
+
+   Several industries consistently have high rates of both hires and separations.
+These include construction; retail trade; professional and business services;
+arts, entertainment, and recreation; and accommodation and food services.  In the
+12 months ending in November 2007, these 5 industries produced 33.6 million hires
+and 32.1 million separations.  Thus, these five industries accounted for 58 percent
+of total nonfarm hires and 59 percent of total nonfarm separations while comprising
+only 39 percent of total nonfarm employment.
+
+
+                                   - 4 -
+
+
+For More Information
+
+   For additional information, please read the Technical Note or visit the JOLTS Web
+site at http://www.bls.gov/jlt/.  Additional information about JOLTS also may be
+obtained by e-mailing Joltsinfo@bls.gov or by calling (202) 691-5870.
+
+                          _____________________________
+
+   The Job Openings and Labor Turnover release for December 2007 is scheduled to be
+issued on Tuesday, February 12.
+
+
+
+    ----------------------------------------------------------------------- 
+   |                                                                       |
+   |                  Upcoming Changes to Job Openings                     |
+   |                      and Labor Turnover Data                          |
+   |                                                                       |
+   |    With the release of January 2008 data on March 12, 2008, the Job   |
+   | Openings and Labor Turnover Survey (JOLTS) will revise the basis for  |
+   | industry classification from the 2002 North American Industry Classi- |
+   | fication System (NAICS) to the 2007 North American Industry Classifi- |
+   | cation System.  The new classification reflects minor definitional    |
+   | changes within manufacturing, telecommunications, financial activi-   |
+   | ties, and professional, scientific, and technical services.  None of  |
+   | the changes will impact published JOLTS data.                         |
+   |                                                                       |
+   |    For more information on the 2007 NAICS, see http://www.census.     |
+   | gov/epcd/www/naics.html.                                              |
+   |                                                                       |
+    -----------------------------------------------------------------------
+
+
+
+
+
+                                  - 5 -
+
+
+Technical Note
+
+
+   The data for the Job Openings and Labor Turnover Survey (JOLTS) are
+collected and compiled monthly from a sample of business establishments
+by the Bureau of Labor Statistics (BLS).
+
+Collection
+
+   Each month, data are collected in a survey of business establishments
+for total employment, job openings, hires, quits, layoffs and discharges,
+and other separations.  Data collection methods include computer-assisted
+telephone interviewing, touchtone data entry, fax, and mail.
+
+Coverage
+
+   The JOLTS program covers all private nonfarm establishments such as
+factories, offices, and stores, as well as federal, state, and local
+government entities in the 50 states and the District of Columbia.
+
+Concepts
+
+   Industry classification.  The industry classifications in this release
+are in accordance with the 2002 version of the North American Industry
+Classification System (NAICS).  In order to ensure the highest possible
+quality of data, State Workforce Agencies verify with employers and up-
+date, if necessary, the industry code, location, and ownership classi-
+fication of all establishments on a 3-year cycle.  Changes in establish-
+ment characteristics resulting from the verification process are always
+introduced into the JOLTS sampling frame with the data reported for the
+first month of the year.
+
+   Employment.  Employment includes persons on the payroll who worked or
+received pay for the pay period that includes the 12th day of the refer-
+ence month.  Full-time, part-time, permanent, short-term, seasonal, sala-
+ried, and hourly employees are included, as are employees on paid vaca-
+tions or other paid leave.  Proprietors or partners of unincorporated
+businesses, unpaid family workers, or persons on leave without pay or on 
+strike for the entire pay period, are not counted as employed.  Employees
+of temporary help agencies, employee leasing companies, outside contrac-
+tors, and consultants are counted by their employer of record, not by the
+establishment where they are working.
+
+   Job openings.  Establishments submit job openings information for the
+last business day of the reference month.  A job opening requires that:
+1) a specific position exists and there is work available for that posi-
+tion, 2) work could start within 30 days regardless of whether a suitable
+candidate is found, and 3) the employer is actively recruiting from out-
+side the establishment to fill the position.  Included are full-time,
+part-time, permanent, short-term, and seasonal openings.  Active re-
+cruiting means that the establishment is taking steps to fill a position
+by advertising in newspapers or on the Internet, posting help-wanted
+signs, accepting applications, or using other similar methods.
+
+  Jobs to be filled only by internal transfers, promotions, demotions,
+or recall from layoffs are excluded.  Also excluded are jobs with start
+dates more than 30 days in the future, jobs for which employees have
+been hired but have not yet reported for work, and jobs to be filled by
+employees of temporary help agencies, employee leasing companies, out-
+side contractors, or consultants.  The job openings rate is computed by
+dividing the number of job openings by the sum of employment and job
+openings and multiplying that quotient by 100.
+
+
+                                  - 6 -
+
+   Hires.  Hires are the total number of additions to the payroll ocur-
+ring at any time during the reference month, including both new and
+rehired employees, full-time and part-time, permanent, short-term and 
+seasonal employees, employees recalled to the location after a layoff
+lasting more than 7 days, on-call or intermittent employees who returned
+to work after having been formally separated, and transfers from other
+locations.  The hires count does not include transfers or promotions 
+within the reporting site, employees returning from strike, employees of
+temporary help agencies or employee leasing companies, outside contrac-
+tors, or consultants.  The hires rate is computed by dividing the number
+of hires by employment and multiplying that quotient by 100.
+
+   Separations.  Separations are the total number of terminations of
+employment occurring at any time during the reference month, and are
+reported by type of separation--quits, layoffs and discharges, and 
+other separations.  Quits are voluntary separations by employees (ex-
+cept for retirements, which are reported as other separations).  Lay-
+offs and discharges are involuntary separations initiated by the em-
+ployer and include layoffs with no intent to rehire, formal layoffs
+lasting or expected to last more than 7 days, discharges resulting
+from mergers, downsizing, or closings, firings or other discharges
+for cause, terminations of permanent or short-term employees, and
+terminations of seasonal employees.  Other separations include re-
+tirements, transfers to other locations, deaths, and separations
+due to disability.  Separations do not include transfers within the
+same location or employees on strike.
+
+   The separations rate is computed by dividing the number of separa-
+tions by employment and multiplying that quotient by 100.  The quits,
+layoffs and discharges, and other separations rates are computed simi-
+larly, dividing the number by employment and multiplying by 100.
+
+   Annual estimates.  Annual estimates of rates and levels of hires,
+quits, layoffs and discharges, other separations, and total separations
+are released with the January news release each year.
+
+   The JOLTS annual level estimates for hires, quits, layoffs and dis-
+charges, other separations, and total separations are the sum of the
+12 published monthly levels.  The annual rate estimates are computed by
+dividing the annual level by the Current Employment Statistics (CES)
+annual average employment level, and multiplying that quotient by 100.
+This figure will be approximately equal to the sum of the 12 monthly
+rates.  Note that both the JOLTS and CES annual levels are rounded to
+the nearest thousand before the annual estimates are calculated.  Con-
+sistent with BLS practices, annual estimates will be published only for
+not seasonally adjusted data.
+
+   Annual estimates are not calculated for job openings because job
+openings are a stock, or point-in-time, measurement for the last busi-
+ness day of each month.  Only jobs still open on the last day of the
+month are counted.  For the same reason job openings cannot be cumulated
+throughout each month, annual figures for job openings cannot be created
+by summing the monthly estimates.  Hires and separations are flow mea-
+sures and are cumulated over the month with a total reported for the
+month.  Therefore, the annual figures can be created by summing the
+monthly estimates.
+
+
+                                  - 7 -
+
+Sample methodology
+
+   The JOLTS sample design is a random sample of 16,000 nonfarm business
+establishments, including factories, offices, and stores, as well as
+federal, state, and local governments in the 50 states and the District
+of Columbia.  The establishments are drawn from a universe of over
+eight million establishments compiled as part of the operations of the
+Quarterly Census of Employment and Wages, or QCEW, program.  This program
+includes all employers subject to state Unemployment Insurance (UI) laws
+and federal agencies subject to Unemployment Compensation for Federal
+Employees (UCFE).
+
+   The sampling frame is stratified by ownership, region, industry sector,
+and size class.  Large firms fall into the sample with virtual certainty.
+JOLTS total employment estimates are controlled to the employment esti-
+mates of the Current Employment Statistics (CES) survey.  A ratio of CES 
+to JOLTS employment is used to adjust the levels for all other JOLTS data
+elements.  Rates are then computed from the adjusted levels.
+
+Using JOLTS data
+
+   The JOLTS data series on job openings, hires, and separations are rel-
+atively new.  The full sample is divided into panels, with one panel en-
+rolled each month.  A full complement of panels for the original data
+series based on the 1987 Standard Industrial Classification (SIC) system
+was not completely enrolled in the survey until January 2002.  The sup-
+plemental panels of establishments needed to create NAICS estimates were
+not completely enrolled until May 2003.  The data collected up until
+those points are from less than a full sample.  Therefore, estimates from
+earlier months should be used with caution, as fewer sampled units were
+reporting data at that time.
+
+   In March 2002, BLS procedures for collecting hires and separations data
+were revised to address possible underreporting.  As a result, JOLTS hires
+and separations estimates for months prior to March 2002 may not be compar-
+able with estimates for March 2002 and later.
+
+   The federal government reorganization that involved transferring approx-
+imately 180,000 employees to the new Department of Homeland Security is not
+reflected in the JOLTS hires and separations estimates for the federal gov-
+ernment.  The Office of Personnel Management's record shows these transfers
+were completed in March 2003.  The inclusion of transfers in the JOLTS defi-
+nitions of hires and separations is intended to cover ongoing movements of
+workers between establishments.  The Department of Homeland Security reor-
+ganization was a massive one-time event, and the inclusion of these inter-
+governmental transfers would distort the federal government time series.
+
+Seasonal adjustment
+
+   BLS seasonally adjusts several JOLTS series using the X-12-ARIMA seasonal
+adjustment program.  Seasonal adjustment is the process of estimating and
+removing periodic fluctuations caused by events such as weather, holidays,
+and the beginning and ending of the school year.  Seasonal adjustment makes
+it easier to observe fundamental changes in the level of the series, par-
+ticularly those associated with general economic expansions and contrac-
+tions.  A concurrent seasonal adjustment methodology is used in which new
+seasonal adjustment factors are calculated each month, using all relevant
+data, up to and including the data for the current month.
+
+
+                                  - 8 -
+
+  Prior to the January  2007 benchmark release in March 2007, seasonal ajust-
+ment of the JOLTS series was conducted using the stable seasonal filter option
+since there were not enough data observations available for the standard use
+of moving averages as seasonal filters.  Although the seasonal adjustment of
+the JOLTS series is conducted with fewer data observations than is customary,
+the number of observations is now above the minimum required by  X-12-ARIMA to
+use the normal seasonal filters.  Therefore, the standard use of moving aver-
+ages as seasonal filter is now in place for JOLTS seasonal adjustment.  JOLTS
+seasonal adjustment now includes both additive and multiplicative seasonal
+adjustment models  and REGARIMA (regression  with autocorrelated errors)
+modeling to improve the  seasonal adjustment factors at the beginning and end
+of the series and to detect and adjust for outliers in the series.  Due to 
+the improved diagnostics, three  additional industries are now seasonally
+adjusted: retail trade, accommodations and food services, and state and local
+government.  It is expected that more series may be seasonally adjusted when
+more data are available.
+
+Reliability of the estimates
+
+   JOLTS estimates are subject to both sampling and nonsampling error.  When
+a sample rather than the entire population is surveyed, there is a chance
+that the sample estimates may differ from the "true" population values they
+represent.  The exact difference, or sampling error, varies depending on the
+particular sample selected, and this variability is measured by the standard
+error of the estimate.  BLS analysis is generally conducted at the 90-percent
+level of confidence.  That means that there is a 90-percent chance, or level
+of confidence, that an estimate based on a sample will differ by no more than
+1.6 standard errors from the "true" population value because of sampling
+error.  Estimates of sampling errors are available upon request.
+
+   The JOLTS estimates also are affected by nonsampling error.  Nonsampling
+error can occur for many reasons, including the failure to include a seg-
+ment of the population, the inability to obtain data from all units in the
+sample, the inability or unwillingness of respondents to provide data on a
+timely basis, mistakes made by respondents, errors made in the collection
+or processing of the data, and errors from the employment benchmark data
+used in estimation.
+
+   JOLTS hires and separations estimates cannot be used to exactly explain net
+changes in nonfarm payroll employment.  Some reasons why it is problematic to 
+compare changes in payroll employment with JOLTS hires and separations, espe-
+cially on a monthly basis, are:  1) the reference period for payroll employment
+is the pay period including the 12th of the month, while the reference period
+for hires and separations is the calendar month; and 2) payroll employment can
+vary from month to month simply because part-time and on-call workers may not
+always work during the pay period that includes the 12th of the month.  Addi-
+tionally, research has found that some reporters systematically underreport
+separations relative to hires due to a number of factors, including the nature
+of their payroll systems and practices.  The shortfall appears to be about
+2 percent or less over a 12-month period.
+
+Other information
+
+   Information in this release will be made available to sensory impaired
+individuals upon request.  Voice phone: 202-691-5200; TDD message referral
+phone: 1-800-877-8339.
+
+
+
+
+
+Table 1.  Job openings levels (1) and rates (2) by industry and region, seasonally adjusted
+
+                                                      Levels (3) (in thousands)                              Rates
+
+           Industry and region                Nov.   June   July   Aug.   Sept.  Oct.   Nov.   Nov.  June  July  Aug.  Sept. Oct.  Nov.
+                                              2006   2007   2007   2007   2007   2007   2007p  2006  2007  2007  2007  2007  2007  2007p
+
+Total (4)..................................  4,200  4,280  4,186  4,168  4,119  4,059  4,021    3.0   3.0   2.9   2.9   2.9   2.8   2.8
+
+                INDUSTRY
+
+ Total private (4).........................  3,735  3,810  3,711  3,709  3,664  3,597  3,571    3.1   3.2   3.1   3.1   3.1   3.0   3.0
+  Construction.............................    106    139    167    149    138    155    142    1.4   1.8   2.1   1.9   1.8   2.0   1.8
+  Manufacturing............................    328    344    340    328    319    304    305    2.3   2.4   2.4   2.3   2.2   2.1   2.1
+  Trade, transportation, and utilities (5).    671    676    684    703    691    598    639    2.5   2.5   2.5   2.6   2.5   2.2   2.4
+   Retail trade............................    417    409    399    380    367    298    357    2.7   2.6   2.5   2.4   2.3   1.9   2.3
+  Professional and business services.......    705    763    693    676    661    730    724    3.8   4.1   3.7   3.6   3.5   3.9   3.9
+  Education and health services............    713    711    717    700    720    701    715    3.8   3.7   3.7   3.6   3.7   3.6   3.7
+  Leisure and hospitality (6)..............    625    568    547    585    653    653    560    4.5   4.0   3.9   4.1   4.6   4.6   3.9
+   Accommodation and food services.........    528    497    497    518    587    590    488    4.4   4.1   4.1   4.3   4.8   4.8   4.0
+ Government (7)............................    463    465    475    449    455    465    453    2.0   2.0   2.1   2.0   2.0   2.0   2.0
+  State and local government...............    427    424    430    410    408    414    407    2.2   2.1   2.2   2.1   2.0   2.1   2.0
+
+                 REGION (8)
+
+  Northeast................................    772    732    741    682    611    664    619    2.9   2.8   2.8   2.6   2.3   2.5   2.3
+  South....................................  1,572  1,635  1,612  1,690  1,651  1,641  1,639    3.1   3.2   3.2   3.3   3.2   3.2   3.2
+  Midwest..................................    770    805    754    778    828    742    792    2.4   2.5   2.3   2.4   2.5   2.3   2.4
+  West.....................................  1,034  1,106  1,120  1,024  1,048  1,019    950    3.3   3.5   3.5   3.2   3.3   3.2   3.0
+
+   1 Job openings are the number of job openings on the last business day of the month.
+   2 The job openings rate is the number of job openings on the last business day of the month as a percent of total employment plus
+job openings.
+   3 Detail will not necessarily add to totals because of the independent seasonal adjustment of the various series.
+   4 Includes natural resources and mining, information, financial activities, and other services, not shown separately.
+   5 Includes wholesale trade and transportation, warehousing, and utilities, not shown separately.
+   6 Includes arts, entertainment, and recreation, not shown separately.
+   7 Includes federal government, not shown separately.
+   8 The States (including the District of Columbia) that comprise the regions are: Northeast: Connecticut, Maine, Massachusetts,
+New Hampshire, New Jersey, New York, Pennsylvania, Rhode Island, and Vermont; South: Alabama, Arkansas, Delaware, District of
+Columbia, Florida, Georgia, Kentucky, Louisiana, Maryland, Mississippi, North Carolina, Oklahoma, South Carolina, Tennessee, Texas,
+Virginia, and West Virginia; Midwest: Illinois, Indiana, Iowa, Kansas, Michigan, Minnesota, Missouri, Nebraska, North Dakota, Ohio,
+South Dakota, and Wisconsin; West: Alaska, Arizona, California, Colorado, Hawaii, Idaho, Montana, Nevada, New Mexico, Oregon, Utah,
+Washington, and Wyoming.
+   p = preliminary.
+
+
+
+
+
+Table 2.  Hires levels (1) and rates (2) by industry and region, seasonally adjusted
+
+                                                      Levels (3) (in thousands)                              Rates
+
+           Industry and region                Nov.   June   July   Aug.   Sept.  Oct.   Nov.   Nov.  June  July  Aug.  Sept. Oct.  Nov.
+                                              2006   2007   2007   2007   2007   2007   2007p  2006  2007  2007  2007  2007  2007  2007p
+
+Total (4)..................................  4,994  4,741  4,802  4,836  4,714  4,870  4,650    3.6   3.4   3.5   3.5   3.4   3.5   3.4
+
+                INDUSTRY
+
+ Total private (4).........................  4,665  4,335  4,443  4,369  4,355  4,507  4,277    4.1   3.7   3.8   3.8   3.8   3.9   3.7
+  Construction.............................    395    358    408    371    336    334    351    5.1   4.7   5.3   4.9   4.4   4.4   4.6
+  Manufacturing............................    363    355    359    349    365    407    367    2.6   2.5   2.6   2.5   2.6   2.9   2.6
+  Trade, transportation, and utilities (5).  1,012    910    924    922    994  1,034    913    3.8   3.4   3.5   3.5   3.7   3.9   3.4
+   Retail trade............................    737    605    613    666    709    709    628    4.8   3.9   4.0   4.3   4.6   4.6   4.1
+  Professional and business services.......  1,010    865    879    797    800    840    894    5.7   4.8   4.9   4.4   4.5   4.7   5.0
+  Education and health services............    492    493    502    501    448    514    523    2.7   2.7   2.7   2.7   2.4   2.8   2.8
+  Leisure and hospitality (6)..............    903    854    874    901    906    916    836    6.8   6.3   6.4   6.6   6.6   6.7   6.1
+   Accommodation and food services.........    748    736    748    758    749    796    702    6.6   6.4   6.5   6.5   6.4   6.8   6.0
+ Government (7)............................    348    395    385    396    370    377    359    1.6   1.8   1.7   1.8   1.7   1.7   1.6
+  State and local government...............    303    312    293    314    296    313    290    1.6   1.6   1.5   1.6   1.5   1.6   1.5
+
+                 REGION (8)
+
+  Northeast................................    713    684    750    761    689    672    721    2.8   2.6   2.9   2.9   2.7   2.6   2.8
+  South....................................  1,979  1,842  1,898  1,841  1,848  1,925  1,824    4.0   3.7   3.8   3.7   3.7   3.9   3.7
+  Midwest..................................  1,061  1,082  1,039  1,081  1,125  1,084  1,067    3.4   3.4   3.3   3.4   3.5   3.4   3.3
+  West.....................................  1,249  1,117  1,135  1,148  1,068  1,211  1,008    4.1   3.6   3.7   3.7   3.5   3.9   3.3
+
+   1 Hires are the number of hires during the entire month.
+   2 The hires rate is the number of hires during the entire month as a percent of total employment. 
+   3 Detail will not necessarily add to totals because of the independent seasonal adjustment of the various series.
+   4 Includes natural resources and mining, information, financial activities, and other services, not shown separately.
+   5 Includes wholesale trade and transportation, warehousing, and utilities, not shown separately.
+   6 Includes arts, entertainment, and recreation, not shown separately.
+   7 Includes federal government, not shown separately.
+   8 See footnote 8, table 1.
+   p = preliminary.
+
+
+
+
+
+Table 3.  Total separations levels (1) and rates (2) by industry and region, seasonally adjusted
+
+                                                      Levels (3) (in thousands)                              Rates
+
+           Industry and region                Nov.   June   July   Aug.   Sept.  Oct.   Nov.   Nov.  June  July  Aug.  Sept. Oct.  Nov.
+                                              2006   2007   2007   2007   2007   2007   2007p  2006  2007  2007  2007  2007  2007  2007p
+
+Total (4)..................................  4,844  4,543  4,507  4,446  4,430  4,639  4,541    3.5   3.3   3.3   3.2   3.2   3.4   3.3
+
+                INDUSTRY
+
+ Total private (4).........................  4,543  4,234  4,173  4,120  4,146  4,376  4,259    4.0   3.7   3.6   3.6   3.6   3.8   3.7
+  Construction.............................    413    363    384    371    364    359    338    5.4   4.7   5.0   4.9   4.8   4.7   4.5
+  Manufacturing............................    360    382    379    380    379    408    393    2.5   2.7   2.7   2.7   2.7   2.9   2.8
+  Trade, transportation, and utilities (5).  1,020    974    987    926    954  1,007    980    3.9   3.7   3.7   3.5   3.6   3.8   3.7
+   Retail trade............................    719    688    687    652    676    703    697    4.7   4.5   4.5   4.2   4.4   4.6   4.5
+  Professional and business services.......    974    728    733    742    832    888    843    5.5   4.1   4.1   4.1   4.6   4.9   4.7
+  Education and health services............    430    473    414    430    411    428    423    2.4   2.6   2.2   2.3   2.2   2.3   2.3
+  Leisure and hospitality (6)..............    838    850    837    808    723    803    809    6.3   6.3   6.2   6.0   5.3   5.9   5.9
+   Accommodation and food services.........    721    730    735    703    627    686    682    6.3   6.3   6.3   6.1   5.4   5.9   5.8
+ Government (7)............................    305    310    323    322    289    289    287    1.4   1.4   1.5   1.4   1.3   1.3   1.3
+  State and local government...............    256    239    254    255    213    237    238    1.3   1.2   1.3   1.3   1.1   1.2   1.2
+
+
+                 REGION (8)
+
+  Northeast................................    707    634    622    667    631    680    749    2.8   2.5   2.4   2.6   2.4   2.6   2.9
+  South....................................  2,011  1,699  1,744  1,710  1,760  1,802  1,710    4.1   3.4   3.5   3.5   3.6   3.6   3.4
+  Midwest..................................    985  1,033  1,014  1,038    998    992  1,017    3.1   3.2   3.2   3.3   3.1   3.1   3.2
+  West.....................................  1,079  1,191  1,149  1,053  1,018  1,160  1,065    3.5   3.9   3.7   3.4   3.3   3.8   3.4
+
+
+   1 Total separations are the number of total separations during the entire month.
+   2 The total separations rate is the number of total separations during the entire month as a percent of total employment. 
+   3 Detail will not necessarily add to totals because of the independent seasonal adjustment of the various series.
+   4 Includes natural resources and mining, information, financial activities, and other services, not shown separately.
+   5 Includes wholesale trade and transportation, warehousing, and utilities, not shown separately.
+   6 Includes arts, entertainment, and recreation, not shown separately.
+   7 Includes federal government, not shown separately.
+   8 See footnote 8, table 1.
+   p = preliminary.
+
+
+
+
+
+Table 4.  Quits levels (1) and rates (2) by industry and region, seasonally adjusted
+
+                                                      Levels (3) (in thousands)                              Rates
+
+           Industry and region              Nov.   June   July   Aug.   Sept.  Oct.   Nov.   Nov.  June  July  Aug.  Sept. Oct.  Nov.
+                                            2006   2007   2007   2007   2007   2007   2007p  2006  2007  2007  2007  2007  2007  2007p
+
+Total (4)..................................  2,774  2,627  2,640  2,539  2,450  2,682  2,457    2.0   1.9   1.9   1.8   1.8   1.9   1.8
+
+                INDUSTRY
+
+ Total private (4).........................  2,625  2,475  2,493  2,391  2,308  2,534  2,317    2.3   2.1   2.2   2.1   2.0   2.2   2.0
+  Construction.............................    144    129    176    145    135    137    113    1.9   1.7   2.3   1.9   1.8   1.8   1.5
+  Manufacturing............................    211    195    186    202    189    208    189    1.5   1.4   1.3   1.4   1.4   1.5   1.4
+  Trade, transportation, and utilities (5).    661    618    572    545    559    607    547    2.5   2.3   2.2   2.1   2.1   2.3   2.1
+   Retail trade............................    472    448    427    401    412    443    407    3.1   2.9   2.8   2.6   2.7   2.9   2.6
+  Professional and business services.......    486    411    418    395    420    482    412    2.7   2.3   2.3   2.2   2.3   2.7   2.3
+  Education and health services............    278    271    276    270    253    260    265    1.5   1.5   1.5   1.5   1.4   1.4   1.4
+  Leisure and hospitality (6)..............    565    595    597    557    410    558    553    4.2   4.4   4.4   4.1   3.0   4.1   4.0
+   Accommodation and food services.........    520    540    552    505    363    514    508    4.6   4.7   4.8   4.4   3.1   4.4   4.3
+ Government (7)............................    147    152    148    148    146    147    145     .7    .7    .7    .7    .7    .7    .6
+  State and local government...............    125    123    125    126    123    129    129     .6    .6    .6    .6    .6    .7    .7
+
+                 REGION (8)
+
+  Northeast................................    409    380    314    313    306    340    340    1.6   1.5   1.2   1.2   1.2   1.3   1.3
+  South....................................  1,167  1,049  1,097  1,070  1,012  1,121    974    2.4   2.1   2.2   2.2   2.0   2.3   2.0
+  Midwest..................................    543    555    553    564    543    542    542    1.7   1.7   1.7   1.8   1.7   1.7   1.7
+  West.....................................    645    648    669    598    582    697    576    2.1   2.1   2.2   1.9   1.9   2.3   1.9
+
+   1 Quits are the number of quits during the entire month.
+   2 The quits rate is the number of quits during the entire month as a percent of total employment. 
+   3 Detail will not necessarily add to totals because of the independent seasonal adjustment of the various series.
+   4 Includes natural resources and mining, information, financial activities, and other services, not shown separately.
+   5 Includes wholesale trade and transportation, warehousing, and utilities, not shown separately.
+   6 Includes arts, entertainment, and recreation, not shown separately.
+   7 Includes federal government, not shown separately.
+   8 See footnote 8, table 1.
+   p = preliminary.
+
+
+
+
+
+Table 5.  Job openings levels (1) and rates (2) by industry and region, not seasonally adjusted
+
+                                                    Levels (in thousands)                  Rates
+
+              Industry and region                  Nov.     Oct.     Nov.          Nov.     Oct.     Nov.
+                                                   2006     2007     2007p         2006     2007     2007p
+
+Total...........................................  3,834    4,102    3,667           2.7      2.9      2.6
+
+                   INDUSTRY
+
+ Total private..................................  3,401    3,647    3,248           2.9      3.0      2.7
+  Natural resources and mining..................     18        9        7           2.4      1.2      1.0
+  Construction..................................     89      136      115           1.1      1.7      1.5
+  Manufacturing.................................    284      293      264           2.0      2.1      1.9
+   Durable goods................................    187      169      157           2.0      1.9      1.7
+   Nondurable goods.............................     97      124      107           1.8      2.4      2.0
+  Trade, transportation, and utilities..........    635      690      600           2.3      2.5      2.2
+   Wholesale trade..............................    107      154      111           1.8      2.5      1.8
+   Retail trade.................................    393      392      344           2.4      2.5      2.1
+   Transportation, warehousing, and utilities...    135      144      145           2.6      2.7      2.7
+  Information...................................    153       86       82           4.8      2.7      2.6
+  Financial activities..........................    224      229      212           2.6      2.6      2.5
+   Finance and insurance........................    179      179      172           2.8      2.8      2.7
+   Real estate and rental and leasing...........     45       50       40           2.0      2.2      1.8
+  Professional and business services............    653      741      685           3.5      3.9      3.6
+  Education and health services.................    661      688      672           3.5      3.5      3.4
+   Educational services.........................     55       65       63           1.7      2.0      1.9
+   Health care and social assistance............    605      623      610           3.9      3.9      3.8
+  Leisure and hospitality.......................    543      616      485           4.0      4.3      3.5
+   Arts, entertainment, and recreation..........     76       69       52           4.0      3.4      2.7
+   Accommodation and food services.............     467      547      432           4.0      4.5      3.6
+  Other services................................    142      159      126           2.6      2.8      2.3
+
+ Government.....................................    433      455      419           1.9      2.0      1.8
+  Federal.......................................     29       47       38           1.0      1.7      1.4
+  State and local...............................    404      408      381           2.0      2.0      1.9
+
+                    REGION (3)
+
+  Northeast.....................................    747      724      598           2.8      2.7      2.2
+  South.........................................  1,446    1,612    1,486           2.8      3.1      2.9
+  Midwest.......................................    681      743      706           2.1      2.3      2.1
+  West..........................................    960    1,022      877           3.0      3.2      2.7
+
+   1 Job openings are the number of job openings on the last business day of the month.
+   2 The job openings rate is the number of job openings on the last business day of the month as a
+percent of total employment plus job openings.
+   3 See footnote 8, table 1.
+   p = preliminary.
+
+
+
+
+
+Table 6.  Hires levels (1) and rates (2) by industry and region, not seasonally adjusted
+
+                                                    Levels (in thousands)                  Rates
+
+              Industry and region                  Nov.     Oct.     Nov.          Nov.     Oct.     Nov.
+                                                   2006     2007     2007p         2006     2007     2007p
+
+Total...........................................  4,569    4,931    4,203           3.3      3.5      3.0
+
+                   INDUSTRY
+
+ Total private..................................  4,294    4,584    3,941           3.7      3.9      3.4
+  Natural resources and mining..................     16       18       22           2.3      2.4      3.0
+  Construction..................................    307      295      271           4.0      3.8      3.6
+  Manufacturing.................................    295      375      299           2.1      2.7      2.1
+   Durable goods................................    172      211      175           1.9      2.4      2.0
+   Nondurable goods.............................    123      164      125           2.4      3.2      2.4
+  Trade, transportation, and utilities..........  1,179    1,165    1,024           4.4      4.4      3.8
+   Wholesale trade..............................    100      174      131           1.7      2.9      2.2
+   Retail trade.................................    931      850      771           5.9      5.5      4.9
+   Transportation, warehousing, and utilities...    149      142      122           2.9      2.8      2.4
+  Information...................................     74       57       47           2.4      1.8      1.5
+  Financial activities..........................    197      235      176           2.3      2.8      2.1
+   Finance and insurance........................    123      173      108           2.0      2.8      1.7
+   Real estate and rental and leasing...........     74       62       68           3.4      2.8      3.1
+  Professional and business services............    930      860      840           5.2      4.7      4.6
+  Education and health services.................    411      534      447           2.3      2.8      2.4
+   Educational services.........................     37       67       47           1.2      2.1      1.4
+   Health care and social assistance............    374      467      400           2.5      3.0      2.6
+  Leisure and hospitality.......................    767      874      706           5.9      6.4      5.3
+   Arts, entertainment, and recreation..........    120       97      107           6.6      5.0      5.8
+   Accommodation and food services.............     647      777      599           5.7      6.7      5.2
+  Other services................................    120      172      108           2.2      3.2      2.0
+
+ Government.....................................    275      346      262           1.2      1.5      1.1
+  Federal.......................................     40       40       46           1.5      1.5      1.7
+  State and local...............................    235      307      216           1.2      1.5      1.1
+
+                    REGION (3)
+
+  Northeast.....................................    636      672      649           2.5      2.6      2.5
+  South.........................................  1,793    1,956    1,649           3.6      3.9      3.3
+  Midwest.......................................    951    1,059      946           3.0      3.3      2.9
+  West..........................................  1,188    1,243      960           3.8      4.0      3.1
+
+   1 Hires are the number of hires during the entire month.
+   2 The hires rate is the number of hires during the entire month as a percent of total employment. 
+   3 See footnote 8, table 1.
+   p = preliminary.
+
+
+
+
+
+Table 7.  Total separations levels (1) and rates (2) by industry and region, not seasonally adjusted
+
+                                                    Levels (in thousands)                  Rates
+
+              Industry and region                  Nov.     Oct.     Nov.          Nov.     Oct.     Nov.
+                                                   2006     2007     2007p         2006     2007     2007p
+
+Total...........................................  4,411    4,673    4,150           3.2      3.4      3.0
+
+                   INDUSTRY
+
+ Total private..................................  4,198    4,449    3,956           3.6      3.8      3.4
+  Natural resources and mining..................     16       18       24           2.3      2.4      3.2
+  Construction..................................    447      378      352           5.7      4.9      4.6
+  Manufacturing.................................    322      417      348           2.3      3.0      2.5
+   Durable goods................................    196      240      204           2.2      2.7      2.3
+   Nondurable goods.............................    127      177      144           2.4      3.4      2.8
+  Trade, transportation, and utilities..........    954      962      928           3.6      3.6      3.4
+   Wholesale trade..............................    137      164      112           2.3      2.7      1.9
+   Retail trade.................................    668      660      657           4.2      4.3      4.2
+   Transportation, warehousing, and utilities...    148      138      160           2.9      2.7      3.1
+  Information...................................     74       55       57           2.4      1.8      1.8
+  Financial activities..........................    194      234      173           2.3      2.8      2.1
+   Finance and insurance........................    106      159       90           1.7      2.6      1.4
+   Real estate and rental and leasing...........     88       75       83           4.0      3.4      3.8
+  Professional and business services............    907      916      845           5.1      5.0      4.7
+  Education and health services.................    348      384      342           1.9      2.0      1.8
+   Educational services.........................     36       35       43           1.2      1.1      1.3
+   Health care and social assistance............    312      349      299           2.1      2.2      1.9
+  Leisure and hospitality.......................    806      933      782           6.2      6.9      5.8
+   Arts, entertainment, and recreation..........    130      148      148           7.2      7.6      8.0
+   Accommodation and food services.............     675      785      633           6.0      6.7      5.5
+  Other services................................    131      153      105           2.4      2.8      1.9
+
+ Government.....................................    213      224      194            .9      1.0       .9
+  Federal.......................................     31       26       23           1.1      1.0       .8
+  State and local...............................    182      198      172            .9      1.0       .9
+
+                    REGION (3)
+
+  Northeast.....................................    635      702      688           2.5      2.7      2.6
+  South.........................................  1,778    1,837    1,454           3.6      3.7      2.9
+  Midwest.......................................    992      951    1,030           3.1      3.0      3.2
+  West..........................................  1,005    1,183      978           3.3      3.8      3.1
+
+   1 Total separations are the number of total separations during the entire month.
+   2 The total separations rate is the number of total separations during the entire month as a percent
+of total employment.
+   3 See footnote 8, table 1.
+   p = preliminary.
+
+
+
+
+
+Table 8.  Quits levels (1) and rates (2) by industry and region, not seasonally adjusted
+
+                                                    Levels (in thousands)                  Rates
+
+              Industry and region                  Nov.     Oct.     Nov.          Nov.     Oct.     Nov.
+                                                   2006     2007     2007p         2006     2007     2007p
+
+Total...........................................  2,408    2,626    2,100           1.7      1.9      1.5
+
+                   INDUSTRY
+
+ Total private..................................  2,302    2,506    1,997           2.0      2.1      1.7
+  Natural resources and mining..................      9        9       12           1.2      1.2      1.6
+  Construction..................................    122      147       91           1.6      1.9      1.2
+  Manufacturing.................................    164      211      148           1.2      1.5      1.1
+   Durable goods................................     95      115       80           1.1      1.3       .9
+   Nondurable goods.............................     69       95       68           1.3      1.9      1.3
+  Trade, transportation, and utilities..........    604      581      488           2.3      2.2      1.8
+   Wholesale trade..............................     86       87       51           1.4      1.4       .8
+   Retail trade.................................    441      430      374           2.8      2.8      2.4
+   Transportation, warehousing, and utilities...     77       64       63           1.5      1.2      1.2
+  Information...................................     46       33       37           1.5      1.1      1.2
+  Financial activities..........................    116      131       88           1.4      1.6      1.0
+   Finance and insurance........................     74       99       64           1.2      1.6      1.0
+   Real estate and rental and leasing...........     42       32       24           1.9      1.4      1.1
+  Professional and business services............    422      455      355           2.4      2.5      2.0
+  Education and health services.................    237      242      224           1.3      1.3      1.2
+   Educational services.........................     18       21       24            .6       .7       .7
+   Health care and social assistance............    218      221      200           1.4      1.4      1.3
+  Leisure and hospitality.......................    511      588      490           3.9      4.3      3.6
+   Arts, entertainment, and recreation..........     38       48       34           2.1      2.4      1.8
+   Accommodation and food services.............     472      540      456           4.2      4.6      3.9
+  Other services................................     72      109       64           1.3      2.0      1.2
+
+ Government.....................................    106      120      103            .5       .5       .5
+  Federal.......................................     15       10        8            .5       .4       .3
+  State and local...............................     91      110       95            .5       .6       .5
+
+                    REGION (3)
+
+  Northeast.....................................    355      340      309           1.4      1.3      1.2
+  South.........................................    999    1,119      818           2.0      2.2      1.6
+  Midwest.......................................    486      513      484           1.5      1.6      1.5
+  West..........................................    567      653      489           1.8      2.1      1.6
+
+   1 Quits are the number of quits during the entire month.
+   2 The quits rate is the number of quits during the entire month as a percent of total employment.
+   3 See footnote 8, table 1.
+   p = preliminary.
+
+
+
+
+
+Table 9.  Layoffs and discharges levels (1) and rates (2) by industry and region, not seasonally adjusted
+
+                                                    Levels (in thousands)                  Rates
+
+              Industry and region                  Nov.     Oct.     Nov.          Nov.     Oct.     Nov.
+                                                   2006     2007     2007p         2006     2007     2007p
+
+Total...........................................  1,719    1,796    1,798           1.2      1.3      1.3
+
+                   INDUSTRY
+
+ Total private..................................  1,646    1,723    1,739           1.4      1.5      1.5
+  Natural resources and mining..................      5        7       10            .8       .9      1.4
+  Construction..................................    294      217      243           3.8      2.8      3.2
+  Manufacturing.................................    135      185      175           1.0      1.3      1.3
+   Durable goods................................     87      114      111           1.0      1.3      1.3
+   Nondurable goods.............................     47       72       64            .9      1.4      1.3
+  Trade, transportation, and utilities..........    289      324      380           1.1      1.2      1.4
+   Wholesale trade..............................     44       72       52            .7      1.2       .9
+   Retail trade.................................    184      196      241           1.2      1.3      1.5
+   Transportation, warehousing, and utilities...     61       55       87           1.2      1.1      1.7
+  Information...................................     22       13       15            .7       .4       .5
+  Financial activities..........................     69       88       73            .8      1.0       .9
+   Finance and insurance........................     24       50       21            .4       .8       .3
+   Real estate and rental and leasing...........     45       38       53           2.1      1.7      2.4
+  Professional and business services............    422      424      448           2.4      2.3      2.5
+  Education and health services.................     81      107       92            .4       .6       .5
+   Educational services.........................     13       12       16            .4       .4       .5
+   Health care and social assistance............     68       95       76            .4       .6       .5
+  Leisure and hospitality.......................    281      324      270           2.1      2.4      2.0
+   Arts, entertainment, and recreation..........     89       97      112           4.9      5.0      6.0
+   Accommodation and food services.............     192      227      159           1.7      1.9      1.4
+  Other services................................     49       34       32            .9       .6       .6
+
+ Government.....................................     72       73       59            .3       .3       .3
+  Federal.......................................      8        9        8            .3       .3       .3
+  State and local...............................     64       64       51            .3       .3       .3
+
+                    REGION (3)
+
+  Northeast.....................................    214      307      327            .8      1.2      1.3
+  South.........................................    688      621      553           1.4      1.2      1.1
+  Midwest.......................................    445      387      494           1.4      1.2      1.5
+  West..........................................    371      481      424           1.2      1.5      1.4
+
+   1 Layoffs and discharges are the number of layoffs and discharges during the entire month.
+   2 The layoffs and discharges rate is the number of layoffs and discharges during the entire month as a
+percent of total employment.
+   3 See footnote 8, table 1.
+   p = preliminary.
+
+
+
+
+
+Table 10.  Other separations levels (1) and rates (2) by industry and region, not seasonally adjusted
+
+                                                    Levels (in thousands)                  Rates
+
+              Industry and region                  Nov.     Oct.     Nov.          Nov.     Oct.     Nov.
+                                                   2006     2007     2007p         2006     2007     2007p
+
+Total...........................................    285      251      252           0.2      0.2      0.2
+
+                   INDUSTRY
+
+ Total private..................................    250      220      221            .2       .2       .2
+  Natural resources and mining..................      2        2        2            .3       .3       .2
+  Construction..................................     30       13       18            .4       .2       .2
+  Manufacturing.................................     23       21       25            .2       .1       .2
+   Durable goods................................     13       11       14            .1       .1       .2
+   Nondurable goods.............................     10       10       12            .2       .2       .2
+  Trade, transportation, and utilities..........     61       57       60            .2       .2       .2
+   Wholesale trade..............................      7        4        9            .1       .1       .2
+   Retail trade.................................     44       33       41            .3       .2       .3
+   Transportation, warehousing, and utilities...     10       20       10            .2       .4       .2
+  Information...................................      6        9        5            .2       .3       .2
+  Financial activities..........................      9       16       12            .1       .2       .1
+   Finance and insurance........................      8       10        5            .1       .2       .1
+   Real estate and rental and leasing...........      1        6        7           (4)       .3       .3
+  Professional and business services............     64       36       42            .4       .2       .2
+  Education and health services.................     30       35       26            .2       .2       .1
+   Educational services.........................      5        2        3            .1       .1       .1
+   Health care and social assistance............     26       32       23            .2       .2       .1
+  Leisure and hospitality.......................     14       21       21            .1       .2       .2
+   Arts, entertainment, and recreation..........      3        3        3            .2       .1       .1
+   Accommodation and food services.............      11       19       19            .1       .2       .2
+  Other services................................     11       11        9            .2       .2       .2
+
+ Government.....................................     35       31       32            .2       .1       .1
+  Federal.......................................      8        7        6            .3       .3       .2
+  State and local...............................     27       24       26            .1       .1       .1
+
+                    REGION (3)
+
+  Northeast.....................................     66       55       52            .3       .2       .2
+  South.........................................     91       96       83            .2       .2       .2
+  Midwest.......................................     61       51       53            .2       .2       .2
+  West..........................................     67       49       65            .2       .2       .2
+
+   1 Other separations are the number of other separations during the entire month.
+   2 The other separations rate is the number of other separations during the entire month as a percent
+of total employment.
+   3 See footnote 8, table 1.
+   4 Data round to zero.
+   p = preliminary.
+
+
+
+
+
