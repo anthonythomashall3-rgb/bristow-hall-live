@@ -1,0 +1,502 @@
+issue,table,unit,mapping,info
+1948-05,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1948-05,EMP,thousands,"{'PAY': 0, 'MFG': 1}","{'era': 'A', 'ncols': 5, 'expected_cols': 5, 'sa_mfg': False, 'anchor': 'template'}"
+1948-05,HRS,hours,{'HRS_MFG': 0},{'sa': False}
+1948-06,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1948-06,EMP,thousands,"{'PAY': 0, 'MFG': 1}","{'era': 'A', 'ncols': 5, 'expected_cols': 5, 'sa_mfg': False, 'anchor': 'template'}"
+1948-06,HRS,hours,{'HRS_MFG': 0},{'sa': False}
+1948-07,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1948-07,EMP,thousands,"{'PAY': 0, 'MFG': 1}","{'era': 'A', 'ncols': 5, 'expected_cols': 5, 'sa_mfg': False, 'anchor': 'template'}"
+1948-07,HRS,hours,{'HRS_MFG': 0},{'sa': False}
+1948-08,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1948-08,EMP,thousands,"{'PAY': 0, 'MFG': 1}","{'era': 'A', 'ncols': 5, 'expected_cols': 5, 'sa_mfg': False, 'anchor': 'template'}"
+1948-08,HRS,hours,{'HRS_MFG': 0},{'sa': False}
+1948-09,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1948-09,EMP,thousands,"{'PAY': 0, 'MFG': 1}","{'era': 'A', 'ncols': 5, 'expected_cols': 5, 'sa_mfg': False, 'anchor': 'template'}"
+1948-09,HRS,hours,{'HRS_MFG': 0},{'sa': False}
+1948-10,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1948-10,EMP,thousands,"{'PAY': 0, 'MFG': 1}","{'era': 'A', 'ncols': 5, 'expected_cols': 5, 'sa_mfg': False, 'anchor': 'template'}"
+1948-10,HRS,hours,{'HRS_MFG': 0},{'sa': False}
+1948-11,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1948-11,EMP,thousands,"{'PAY': 0, 'MFG': 1}","{'era': 'A', 'ncols': 5, 'expected_cols': 5, 'sa_mfg': False, 'anchor': 'template'}"
+1948-11,HRS,hours,{'HRS_MFG': 0},{'sa': False}
+1948-12,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1948-12,EMP,thousands,"{'DUR': 0, 'NDUR': 1}","{'era': 'B', 'ncols': 8, 'expected_cols': 8, 'sa_mfg': False, 'anchor': 'template', 'derive_mfg': [0, 1], 'derive_pay': [0, 1, 2, 3, 4, 5, 6, 7]}"
+1948-12,HRS,hours,{'HRS_MFG': 0},{'sa': False}
+1949-01,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1949-01,EMP,thousands,"{'DUR': 0, 'NDUR': 1}","{'era': 'B', 'ncols': 8, 'expected_cols': 8, 'sa_mfg': False, 'anchor': 'template', 'derive_mfg': [0, 1], 'derive_pay': [0, 1, 2, 3, 4, 5, 6, 7]}"
+1949-01,HRS,hours,{'HRS_MFG': 0},{'sa': False}
+1949-02,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1949-02,EMP,thousands,"{'DUR': 0, 'NDUR': 1}","{'era': 'B', 'ncols': 7, 'expected_cols': 8, 'sa_mfg': False, 'anchor': 'template', 'derive_mfg': [0, 1]}"
+1949-02,HRS,hours,{'HRS_MFG': 0},{'sa': False}
+1949-03,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1949-03,EMP,thousands,"{'DUR': 0, 'NDUR': 1}","{'era': 'B', 'ncols': 8, 'expected_cols': 8, 'sa_mfg': False, 'anchor': 'template', 'derive_mfg': [0, 1], 'derive_pay': [0, 1, 2, 3, 4, 5, 6, 7]}"
+1949-03,HRS,hours,{'HRS_MFG': 0},{'sa': False}
+1949-04,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1949-04,EMP,thousands,"{'DUR': 0, 'NDUR': 1}","{'era': 'B', 'ncols': 8, 'expected_cols': 8, 'sa_mfg': False, 'anchor': 'template', 'derive_mfg': [0, 1], 'derive_pay': [0, 1, 2, 3, 4, 5, 6, 7]}"
+1949-04,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1949-05,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1949-05,EMP,thousands,"{'DUR': 0, 'NDUR': 1}","{'era': 'B', 'ncols': 8, 'expected_cols': 8, 'sa_mfg': False, 'anchor': 'template', 'derive_mfg': [0, 1], 'derive_pay': [0, 1, 2, 3, 4, 5, 6, 7]}"
+1949-05,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1949-06,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1949-06,EMP,thousands,"{'DUR': 0, 'NDUR': 1}","{'era': 'B', 'ncols': 8, 'expected_cols': 8, 'sa_mfg': False, 'anchor': 'template', 'derive_mfg': [0, 1], 'derive_pay': [0, 1, 2, 3, 4, 5, 6, 7]}"
+1949-06,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1949-07,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1949-07,EMP,thousands,"{'DUR': 0, 'NDUR': 1}","{'era': 'B', 'ncols': 8, 'expected_cols': 8, 'sa_mfg': False, 'anchor': 'template', 'derive_mfg': [0, 1], 'derive_pay': [0, 1, 2, 3, 4, 5, 6, 7]}"
+1949-07,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1949-08,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1949-08,EMP,thousands,"{'DUR': 0, 'NDUR': 1}","{'era': 'B', 'ncols': 8, 'expected_cols': 8, 'sa_mfg': False, 'anchor': 'template', 'derive_mfg': [0, 1], 'derive_pay': [0, 1, 2, 3, 4, 5, 6, 7]}"
+1949-08,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1949-09,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1949-09,EMP,thousands,"{'DUR': 0, 'NDUR': 1}","{'era': 'B', 'ncols': 8, 'expected_cols': 8, 'sa_mfg': False, 'anchor': 'template', 'derive_mfg': [0, 1], 'derive_pay': [0, 1, 2, 3, 4, 5, 6, 7]}"
+1949-09,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1949-10,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1949-10,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1949-10,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1949-11,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1949-11,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1949-11,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1949-12,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1949-12,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1949-12,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1950-01,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2}",{}
+1950-01,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1950-01,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1950-02,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2, 'UR': 6}",{}
+1950-02,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1950-02,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1950-03,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2, 'UR': 6}",{}
+1950-03,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1950-03,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1950-04,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2, 'UR': 6}",{}
+1950-04,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1950-04,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1950-05,LF,thousands,"{'TLF': 0, 'AF': 4, 'EMP': 1, 'UNEMP': 5, 'AGR': 3, 'NAG': 2, 'UR': 6}",{}
+1950-05,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1950-05,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1950-06,LF,thousands,"{'CLF': 2, 'EMP': 3, 'UNEMP': 6, 'AGR': 4, 'NAG': 5, 'UR': 7}",{}
+1950-06,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1950-06,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1950-07,LF,thousands,"{'CLF': 2, 'EMP': 3, 'UNEMP': 6, 'AGR': 4, 'NAG': 5, 'UR': 7}",{}
+1950-07,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1950-07,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1950-08,LF,thousands,"{'CLF': 2, 'EMP': 3, 'UNEMP': 6, 'AGR': 4, 'NAG': 5, 'UR': 7}",{}
+1950-08,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1950-08,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1950-09,LF,thousands,"{'CLF': 2, 'EMP': 3, 'UNEMP': 6, 'AGR': 4, 'NAG': 5, 'UR': 7}",{}
+1950-09,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1950-09,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1950-10,LF,thousands,"{'CLF': 2, 'EMP': 3, 'UNEMP': 6, 'AGR': 4, 'NAG': 5, 'UR': 7}",{}
+1950-10,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1950-10,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1950-11,LF,thousands,"{'CLF': 2, 'EMP': 3, 'UNEMP': 6, 'AGR': 4, 'NAG': 5, 'UR': 7}",{}
+1950-11,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1950-11,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1950-12,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1950-12,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1950-12,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1951-01,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1951-01,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1951-01,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1951-02,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1951-02,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1951-02,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1951-03,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1951-03,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1951-03,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1951-04,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1951-04,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1951-04,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1951-05,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1951-05,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1951-05,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1951-06,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1951-06,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1951-06,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1951-07,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1951-07,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1951-07,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1951-08,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1951-08,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1951-08,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1951-09,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1951-09,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1951-09,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1951-10,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1951-10,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1951-10,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1951-11,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1951-11,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1951-11,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1951-12,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1951-12,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1951-12,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1952-01,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1952-01,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1952-01,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1952-02,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1952-02,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1952-02,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1952-03,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1952-03,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1952-03,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1952-04,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1952-04,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1952-04,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1952-05,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1952-05,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1952-05,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1952-06,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1952-06,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1952-06,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1952-07,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1952-07,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1952-07,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1952-08,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1952-08,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1952-08,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1952-09,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1952-09,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1952-09,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1952-10,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1952-10,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1952-10,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1952-11,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1952-11,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1952-11,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1952-12,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1952-12,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1952-12,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1953-01,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1953-01,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1953-01,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1953-02,LF,thousands,"{'CLF': 0, 'EMP': 1, 'UNEMP': 4, 'AGR': 2, 'NAG': 3, 'UR': 5}",{}
+1953-02,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1953-02,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1953-03,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1953-03,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1953-03,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1953-04,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1953-04,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1953-04,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1953-05,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1953-05,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1953-05,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1953-06,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1953-06,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1953-06,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1953-07,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1953-07,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1953-07,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1953-08,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1953-08,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1953-08,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1953-09,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1953-09,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1953-09,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1953-10,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1953-10,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1953-10,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1953-11,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1953-11,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1953-11,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1953-12,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1953-12,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1953-12,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1954-01,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1954-01,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1954-01,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1954-02,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1954-02,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1954-02,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1954-03,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1954-03,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1954-03,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1954-04,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1954-04,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1954-04,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1954-05,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1954-05,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1954-05,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1954-06,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1954-06,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1954-06,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1954-07,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1954-07,EMP,thousands,"{'MFG': 0, 'DUR': 1, 'NDUR': 2}","{'era': 'C', 'ncols': 9, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 0, 'derive_pay': [0, 3, 4, 5, 6, 7, 8]}"
+1954-07,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1954-08,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1954-08,EMP,thousands,"{'MFG': 1, 'DUR': 2, 'NDUR': 3, 'PAY': 0}","{'era': 'C', 'ncols': 10, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 1}"
+1954-08,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1954-09,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1954-09,EMP,thousands,"{'MFG': 1, 'DUR': 2, 'NDUR': 3, 'PAY': 0}","{'era': 'C', 'ncols': 10, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 1}"
+1954-09,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1954-10,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1954-10,EMP,thousands,"{'MFG': 1, 'DUR': 2, 'NDUR': 3, 'PAY': 0}","{'era': 'C', 'ncols': 10, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 1}"
+1954-10,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1954-11,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1954-11,EMP,thousands,"{'MFG': 1, 'DUR': 2, 'NDUR': 3, 'PAY': 0}","{'era': 'C', 'ncols': 10, 'expected_cols': 9, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 1}"
+1954-11,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1954-12,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1954-12,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1954-12,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1955-01,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1955-01,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1955-01,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1955-02,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1955-02,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1955-02,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1955-03,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1955-03,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1955-03,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1955-04,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1955-04,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1955-04,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1955-05,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1955-05,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1955-05,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1955-06,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1955-06,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1955-06,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1955-07,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1955-07,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1955-07,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1955-08,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1955-08,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1955-08,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1955-09,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1955-09,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1955-09,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1955-10,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1955-10,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1955-10,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1955-11,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1955-11,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1955-11,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1955-12,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1955-12,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1955-12,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1956-01,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1956-01,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1956-01,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1956-02,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1956-02,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1956-02,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1956-03,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1956-03,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1956-03,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1956-04,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1956-04,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1956-04,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1956-05,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1956-05,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1956-05,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1956-06,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1956-06,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1956-06,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1956-07,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1956-07,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1956-07,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1956-08,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1956-08,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1956-08,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1956-09,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1956-09,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1956-09,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1956-10,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1956-10,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1956-10,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1956-11,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1956-11,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1956-11,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1956-12,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1956-12,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1956-12,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1957-01,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1957-01,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1957-01,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1957-02,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 6, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 7}",{}
+1957-02,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1957-02,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1957-03,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1957-03,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1957-03,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1957-04,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1957-04,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1957-04,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1957-05,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1957-05,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1957-05,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1957-06,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6}",{}
+1957-06,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY_SA': 0, 'PAY': 1}","{'era': 'D', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': False, 'anchor': 'identity', 'left_cols': 2}"
+1957-06,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1957-07,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1957-07,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1957-07,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1957-08,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1957-08,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1957-08,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1957-09,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1957-09,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1957-09,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1957-10,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1957-10,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1957-10,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1957-11,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1957-11,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1957-11,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1957-12,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1957-12,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1957-12,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1958-01,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1958-01,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1958-01,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1958-02,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1958-02,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1958-02,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1958-03,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1958-03,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1958-03,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1958-04,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1958-04,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1958-04,HRS,hours,{'HRS_MFG': 0},{'sa': False}
+1958-05,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1958-05,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1958-05,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1958-06,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1958-06,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1958-06,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1958-07,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1958-07,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1958-07,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1958-08,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1958-08,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1958-08,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1958-09,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1958-09,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1958-09,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1958-10,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1958-10,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1958-10,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1958-11,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1958-11,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1958-11,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1958-12,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1958-12,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1958-12,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1959-01,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1959-01,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1959-01,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1959-02,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1959-02,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1959-02,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1959-03,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1959-03,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1959-03,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1959-04,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1959-04,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1959-04,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1959-05,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1959-05,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1959-05,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1959-06,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1959-06,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1959-06,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1959-07,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1959-07,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1959-07,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1959-08,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1959-08,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1959-08,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1959-09,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1959-09,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1959-09,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1959-10,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1959-10,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1959-10,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1959-11,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1959-11,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1959-11,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1959-12,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1959-12,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1959-12,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1960-01,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1960-01,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1960-01,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1960-02,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1960-02,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'F', 'ncols': 9, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1960-02,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1960-03,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1960-03,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'F', 'ncols': 9, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1960-03,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1960-04,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1960-04,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1960-04,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1960-05,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1960-05,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1960-05,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1960-06,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1960-06,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1960-06,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1960-07,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1960-07,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1960-07,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1960-08,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1960-08,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1960-08,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1960-09,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1960-09,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1960-09,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1960-10,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 5, 'AGR': 3, 'NAG': 4, 'TLF': 0, 'UR': 6, 'UR_SA': 7}",{}
+1960-10,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1960-10,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': False}
+1960-11,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 9, 'AGR_SA': 7, 'NAG_SA': 8, 'UR': 10, 'UR_SA': 11}",{}
+1960-11,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1960-11,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1960-12,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 8, 'UR': 9, 'UR_SA': 10}",{}
+1960-12,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1960-12,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1961-01,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 9, 'AGR_SA': 7, 'NAG_SA': 8, 'UR': 10, 'UR_SA': 11}",{}
+1961-01,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1961-01,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1961-02,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 9, 'AGR_SA': 7, 'NAG_SA': 8, 'UR': 10, 'UR_SA': 11}",{}
+1961-02,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1961-02,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1961-03,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 9, 'AGR_SA': 7, 'NAG_SA': 8, 'UR': 10, 'UR_SA': 11}",{}
+1961-03,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1961-03,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1961-04,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 9, 'AGR_SA': 7, 'NAG_SA': 8, 'UR': 10, 'UR_SA': 11}",{}
+1961-04,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1961-04,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1961-05,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 9, 'AGR_SA': 7, 'NAG_SA': 8, 'UR': 10, 'UR_SA': 11}",{}
+1961-05,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1961-05,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1961-06,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 9, 'AGR_SA': 7, 'NAG_SA': 8, 'UR': 10, 'UR_SA': 11}",{}
+1961-06,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1961-06,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1961-07,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 9, 'AGR_SA': 7, 'NAG_SA': 8, 'UR': 10, 'UR_SA': 11}",{}
+1961-07,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1961-07,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1961-08,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 8, 'UR': 9, 'UR_SA': 10}",{}
+1961-08,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1961-08,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1961-09,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 9, 'AGR_SA': 7, 'NAG_SA': 8, 'UR': 10, 'UR_SA': 11}",{}
+1961-09,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1961-09,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1961-10,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 9, 'AGR_SA': 7, 'NAG_SA': 8, 'UR': 10, 'UR_SA': 11}",{}
+1961-10,EMP,thousands,"{'MFG': 3, 'DUR': 4, 'NDUR': 5, 'PAY': 0, 'PAY_SA': 1, 'PAY_SA_XAKHI': 2}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 3}"
+1961-10,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1961-11,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 9, 'AGR_SA': 7, 'NAG_SA': 8, 'UR': 10, 'UR_SA': 11}",{}
+1961-11,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1961-11,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1961-12,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 9, 'AGR_SA': 7, 'NAG_SA': 8, 'UR': 10, 'UR_SA': 11}",{}
+1961-12,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1961-12,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1962-01,LF,millions,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'TLF': 0, 'CLF_SA': 5, 'EMP_SA': 6, 'UNEMP_SA': 8, 'UR': 9, 'UR_SA': 10}",{}
+1962-01,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'F', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1962-01,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1962-02,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'UR': 10, 'UR_SA': 11}",{}
+1962-02,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1962-02,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
+1962-03,LF,thousands,"{'CLF': 1, 'EMP': 2, 'UNEMP': 4, 'NAG': 3, 'TLF': 0, 'UR': 10, 'UR_SA': 11}",{}
+1962-03,EMP,thousands,"{'MFG': 2, 'DUR': 3, 'NDUR': 4, 'PAY': 0, 'PAY_SA': 1}","{'era': 'E', 'ncols': 10, 'expected_cols': 10, 'sa_mfg': True, 'anchor': 'identity', 'left_cols': 2}"
+1962-03,HRS,hours,"{'HRS_MFG': 0, 'HRS_DUR': 1, 'HRS_NDUR': 2}",{'sa': True}
