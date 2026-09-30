@@ -1,6 +1,6 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
- "checked_at": "2026-09-30T13:00Z",
+ "checked_at": "2026-09-30T16:09Z",
  "open_misses": [],
  "reads": [
   {
@@ -292,6 +292,16 @@
    "read_at": "2026-09-30T13:00Z",
    "release": null,
    "to": "2026-09-29"
+  },
+  {
+   "from": "2026-09-25",
+   "ids": "GDPNOW",
+   "lag_min": 96,
+   "name": "GDPNow",
+   "posted": "2026-09-30 10:33 ET",
+   "read_at": "2026-09-30T16:09Z",
+   "release": 386,
+   "to": "2026-09-30"
   }
  ],
  "since": "2026-09-23T23:12Z"

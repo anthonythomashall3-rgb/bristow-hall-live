@@ -1,14 +1,14 @@
 {
  "came_in": [
   {
-   "came_in": "2026-09-30 09:00",
-   "due_ny": "2026-09-30 08:30",
-   "ids": "gdpc1",
-   "short": "GDP (BEA)"
+   "came_in": "2026-09-30 12:09",
+   "due_ny": "2026-09-30 12:01",
+   "ids": "gdpnow",
+   "short": "GDPNow"
   }
  ],
  "expired": [],
- "last_check_ny": "2026-09-30 08:55",
+ "last_check_ny": "2026-09-30 12:04",
  "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }

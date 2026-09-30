@@ -1,7 +1,7 @@
 {
- "built_at": "2026-09-30 08:59",
+ "built_at": "2026-09-30 12:09",
  "fallback": "weekdays 08:35, 09:45, 10:15, 16:20 and 20:10 (New York time), used only if this list cannot be read",
- "generated_utc": "2026-09-30T13:00:18Z",
+ "generated_utc": "2026-09-30T16:09:11Z",
  "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes after each release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close at 4:20 PM and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
  "slots": [
@@ -44,7 +44,7 @@
    "ny": "2026-09-30 08:55",
    "utc": "2026-09-30T12:55:00Z",
    "why": [
-    "GDP (BEA) (8:30 AM ET; FRED by about 8:51 AM)"
+    "GDP (BEA) (8:30 AM ET; FRED by about 8:52 AM)"
    ]
   },
   {
@@ -390,6 +390,13 @@
    "utc": "2026-10-21T00:10:00Z",
    "why": [
     "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
+   ]
+  },
+  {
+   "ny": "2026-10-21 09:05",
+   "utc": "2026-10-21T13:05:00Z",
+   "why": [
+    "state breadth (the ETA 539 month) becomes public (the rule's 21-day lag)"
    ]
   }
  ],
