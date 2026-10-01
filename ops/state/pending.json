@@ -1,14 +1,14 @@
 {
  "came_in": [
   {
-   "came_in": "2026-10-01 11:48",
-   "due_ny": "2026-10-01 11:30",
-   "ids": "wei",
-   "short": "weekly economic index (lewis, mertens an"
+   "came_in": "2026-10-01 12:08",
+   "due_ny": "2026-10-01 12:01",
+   "ids": "gdpnow",
+   "short": "GDPNow"
   }
  ],
  "expired": [],
- "last_check_ny": "2026-10-01 11:43",
+ "last_check_ny": "2026-10-01 12:03",
  "pending": [
   {
    "due_ny": "2026-10-01 08:30",

@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-01 11:47",
+ "built_at": "2026-10-01 12:07",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-10-01T15:48:03Z",
+ "generated_utc": "2026-10-01T16:08:11Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -2305,7 +2305,7 @@
    "agrees_with_build": true,
    "build_next": "2026-10-08",
    "confirmed_through": "2026-12-31",
-   "fred_clock": null,
+   "fred_clock": "11:39",
    "freq": "weekly",
    "ids": "wei",
    "link": "https://fred.stlouisfed.org/series/WEI",
@@ -3448,7 +3448,7 @@
    "link": "https://alfred.stlouisfed.org/series?seid=GDPNOW",
    "name": "gdpnow",
    "next_expected": false,
-   "next_ny": "2026-10-01 12:01",
+   "next_ny": "2026-10-06 12:01",
    "read_lag_min": 0,
    "release_id": 386,
    "short": "GDPNow",
