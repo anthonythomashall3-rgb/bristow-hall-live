@@ -1,19 +1,21 @@
-FRED change check: 112 series tracked; 21 changed since last pulled (0 updated since 10:46 CT): BORROW, CASACBW027NBOG, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3, EPUMONETARY, M1SL ...
+FRED change check: 112 series tracked; 24 changed since last pulled (every release asked (the list since the last check ran long)): BORROW, CASACBW027NBOG, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3, EPUMONETARY, GS1 ...
 first prints: collection 45 already carries every week ALFRED has (through 2026-09-26, released 2026-10-01)
 DOL release of 2026-10-01: week ending 2026-09-26 already in collection 45
-state 539: the Department's file is unchanged since last read (modified Wed, 30 Sep 2026 19:50:55 GMT); panel stands through 2026-09-12
+r: [Errno 2] No such file or directory: '/home/runner/Projects/Onset Detector Data/37_dol_eta5159_2026-09/raw/ar539.csv'
 state first prints: nothing new (insured unemployment through 2026-09-19; 3 press release(s) on file)
 home tiles: unchanged | 9 readings through Aug 2026 (unemployment rate), Sep 26, 2026 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-10-08, IURSA 2026-10-08, JTSJOL 2026-11-03, JTSQUR 2026-11-03, PAYEMS 2026-10-02, UNRATE 2026-10-02; saved to collection 109
+DCPN30         2026-09-29 -> 2026-09-30  (6998 obs)
 PAYEMS         no new vintage since 2026-09-04 (through 2026-08-01)
 GDPC1          no new vintage since 2026-09-30 (through 2026-04-01)
-GDPNOW         1 vintage(s) appended, the last 2026-10-01: data through 2026-07-01
+GDPNOW         no new vintage since 2026-10-01 (through 2026-07-01)
 indeed postings  4858 rows, last 2026-09-25
 relcal_HOUST: unchanged (through 2026-08)
 relcal_UNRATE: unchanged (through 2026-08)
 relcal_JTSJOL: unchanged (through 2026-08)
 vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
-S&P 500: nothing new (through 2026-09-30)
+S&P 500: 1 day(s) appended, through 2026-10-01 (0 official, 1 from the feed)
 Sahm gap: unchanged (through 2026-08-01)
 insured rate base: unchanged (through 2026-09-19)
 ---- the damage index's unemployment rate ----
-left as they stand: 76 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
+left as they stand: 75 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
+FRED stamps: 1 series recorded as pulled
