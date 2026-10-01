@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-01 08:52",
+ "built_at": "2026-10-01 09:12",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-10-01T12:52:46Z",
+ "generated_utc": "2026-10-01T13:12:46Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -3018,11 +3018,6 @@
    "time_known": true,
    "time_note": "the rule's 21-day lag",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-09-21 09:05",
-     "utc": "2026-09-21T13:05:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-10-21 09:05",
