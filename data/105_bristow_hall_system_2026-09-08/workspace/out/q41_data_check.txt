@@ -14,8 +14,8 @@ PASS  tile: CPI labels the latest month  got=year over year, Aug 2026  want=year
 PASS  tile: Unemployment rate next release is not in the past  got=2026-10-02  want=>= 2026-10-01
 PASS  tile: Nonfarm payrolls next release is not in the past  got=2026-10-02  want=>= 2026-10-01
 PASS  tile: Payroll growth next release is not in the past  got=2026-10-02  want=>= 2026-10-01
-PASS  tile: Initial claims (week) next release is not in the past  got=2026-10-01  want=>= 2026-10-01
-PASS  tile: Insured unemployment rate next release is not in the past  got=2026-10-01  want=>= 2026-10-01
+PASS  tile: Initial claims (week) next release is not in the past  got=2026-10-08  want=>= 2026-10-01
+PASS  tile: Insured unemployment rate next release is not in the past  got=2026-10-08  want=>= 2026-10-01
 PASS  tile: Job openings next release is not in the past  got=2026-11-03  want=>= 2026-10-01
 PASS  tile: Unemployed per opening next release is not in the past  got=2026-11-03  want=>= 2026-10-01
 PASS  tile: Quits rate next release is not in the past  got=2026-11-03  want=>= 2026-10-01
@@ -129,7 +129,7 @@ PASS  v3.68: the concurrence branch ran this build  got=True  want=True
 PASS  data page: every armed leg has a status  got=[]  want=[]
 PASS  data page: no leg-tier channels (the tier retired in v3.57, its channels removed in v3.59)  got=0  want=0
 PASS  data page: the backstop tier's five inputs listed (335: Michez; 366: the Weekly Economic Index, both shadow readings)  got=5  want=5
-PASS  366: the WEI shadow reading is the 13-week mean of the cached FRED series  got=(2.86, 0.0, True)  want=(2.86, 0.0, True)
+PASS  366: the WEI shadow reading is the 13-week mean of the cached FRED series  got=(2.91, 0.0, True)  want=(2.91, 0.0, True)
 PASS  366: the WEI row carries a next day (Thursday)  got=True  want=True
 PASS  data page: every leg channel carries a day in hand through  got=[]  want=[]
 PASS  data page: every leg channel is read by a leg  got=[]  want=[]
@@ -144,7 +144,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-09-19)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-10-01 10:12', '2026-10-01 10:12')  want=('2026-10-01 10:12', '2026-10-01 10:12')
+PASS  public state copies are this build  got=('2026-10-01 11:47', '2026-10-01 11:47')  want=('2026-10-01 11:47', '2026-10-01 11:47')
 PASS  front-page tiles fetched today  got=2026-10-01  want=2026-10-01
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]

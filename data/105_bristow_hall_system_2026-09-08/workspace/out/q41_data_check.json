@@ -113,14 +113,14 @@
 },
 {
 "name": "tile: Initial claims (week) next release is not in the past",
-"got": "2026-10-01",
+"got": "2026-10-08",
 "want": ">= 2026-10-01",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Insured unemployment rate next release is not in the past",
-"got": "2026-10-01",
+"got": "2026-10-08",
 "want": ">= 2026-10-01",
 "status": "PASS",
 "gate": null
@@ -918,8 +918,8 @@
 },
 {
 "name": "366: the WEI shadow reading is the 13-week mean of the cached FRED series",
-"got": "(2.86, 0.0, True)",
-"want": "(2.86, 0.0, True)",
+"got": "(2.91, 0.0, True)",
+"want": "(2.91, 0.0, True)",
 "status": "PASS",
 "gate": null
 },
@@ -1023,8 +1023,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-10-01 10:12', '2026-10-01 10:12')",
-"want": "('2026-10-01 10:12', '2026-10-01 10:12')",
+"got": "('2026-10-01 11:47', '2026-10-01 11:47')",
+"want": "('2026-10-01 11:47', '2026-10-01 11:47')",
 "status": "PASS",
 "gate": "hard"
 },

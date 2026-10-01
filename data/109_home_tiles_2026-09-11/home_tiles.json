@@ -52,7 +52,7 @@
    "sub": "week ending Sep 26, 2026",
    "src": "https://fred.stlouisfed.org/series/ICSA",
    "sid": "ICSA",
-   "next": "2026-10-01",
+   "next": "2026-10-08",
    "srcs": [
     [
      "FRED ICSA",
@@ -67,7 +67,7 @@
    "sub": "week ending Sep 19, 2026",
    "src": "https://fred.stlouisfed.org/series/IURSA",
    "sid": "IURSA",
-   "next": "2026-10-01",
+   "next": "2026-10-08",
    "srcs": [
     [
      "FRED IURSA",
