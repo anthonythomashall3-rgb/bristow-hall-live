@@ -1,17 +1,17 @@
 {
- "built_at": "2026-09-30 20:11",
+ "built_at": "2026-10-01 08:40",
  "version": "v3.76",
- "census_date": "2026-09-30",
+ "census_date": "2026-10-01",
  "feeds": [
   {
    "feed": "Initial claims, continued claims, insured unemployment rate",
    "series": "ICSA, CCSA, IURSA",
    "source": "Department of Labor (the UI claims news release; ALFRED vintages after it; the first prints back to August 1975 from the release archive, the bound news releases and volumes, the captures of the Internet Archive, the closing table of the release and the press: collections 45, 399, 396, 382, 397 and 404)",
    "every": "Weekly - Thursday 8:30 AM ET (Wednesday before a Thursday holiday)",
-   "through": "2026-09-19",
-   "next": "2026-10-01",
+   "through": "2026-09-26",
+   "next": "2026-10-08",
    "link": "https://www.dol.gov/ui/data.pdf",
-   "value": "197,000; 1,719,000; 1.1",
+   "value": "197,000; 1,701,000; 1.1",
    "backup": "the states' ETA 539 weekly file with the Bureau's seasonal factors (s2/claims_substitute.py, exact where tested; collection 329)",
    "format_check": "q41 feed checks; the claims loader asserts the release week columns (45)",
    "auto": "yes"
@@ -22,7 +22,7 @@
    "source": "Department of Labor (page 8 of the weekly release; the advance state table of the release PDF while the archive catches up)",
    "every": "Weekly - Thursday 8:30 AM ET, one week behind initial claims",
    "through": "2026-09-12",
-   "next": "2026-10-01",
+   "next": "2026-10-08",
    "link": "https://oui.doleta.gov/unemploy/claims.asp",
    "value": "5.7%",
    "backup": "the advance state table of the weekly release PDF while the archive catches up",
@@ -112,8 +112,8 @@
    "series": "DFEDTARU",
    "source": "Federal Reserve, FOMC statement (FRED DFEDTARU, the daily series)",
    "every": "Daily - FRED posts the series every day, weekends included, at about 8:01 AM ET; it moves only at an FOMC decision (eight scheduled meetings a year, the statement at 2:00 PM ET), carried by the next morning's post",
-   "through": "2026-09-30",
-   "next": "2026-10-01",
+   "through": "2026-10-01",
+   "next": "2026-10-02",
    "link": "https://fred.stlouisfed.org/series/DFEDTARU",
    "value": "4.00",
    "backup": "the FOMC statement on federalreserve.gov (the rate carried from the last reading until then)",
@@ -190,7 +190,7 @@
    "series": "Google Trends \"unemployment\"",
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
-   "through": "2026-09-29",
+   "through": "2026-09-30",
    "next": "2026-10-01",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
    "value": "65",
@@ -203,14 +203,14 @@
   {
    "channel": "initial and continued claims, insured unemployment rate (DOL weekly)",
    "status": "current",
-   "last": "2026-09-19",
+   "last": "2026-09-26",
    "limit_days": 13,
    "substitute": null
   },
   {
    "channel": "insured unemployment rate as the proposers read it",
    "status": "current",
-   "last": "2026-09-12",
+   "last": "2026-09-19",
    "limit_days": 20,
    "substitute": null
   },
@@ -252,7 +252,7 @@
   {
    "channel": "the policy rate (FOMC target range, FRED DFEDTARU)",
    "status": "current",
-   "last": "2026-09-30",
+   "last": "2026-10-01",
    "limit_days": 10,
    "substitute": null
   },

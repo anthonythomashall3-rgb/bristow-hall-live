@@ -1,8 +1,8 @@
 {
- "sha": "0c374b344eddcedadf559158e126255d0b33f6cd",
+ "sha": "cb223f1b42b7e74f8593021b85a7ed35b53adc7d",
  "version": "v3.76",
- "built_at": "2026-09-30 20:11",
- "run_id": "36794813346",
- "recorded_utc": "2026-10-01T00:12:40Z",
+ "built_at": "2026-10-01 08:40",
+ "run_id": "36862796374",
+ "recorded_utc": "2026-10-01T12:41:49Z",
  "what": "the commit whose code last updated the site by itself; ops/run.sh falls back to it if a new version fails"
 }
