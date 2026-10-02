@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-02T13:49:06",
+ "built_at": "2026-10-02T20:22:39",
  "standing": {
   "state": "closed",
   "since": "2024-09-26",
@@ -45,7 +45,7 @@
    "since": "2026-04-03",
    "data_through": "2026-09-01",
    "published": "2026-10-02",
-   "next": "2026-11-03",
+   "next": "2026-11-06",
    "unemployment_indicator": 0.0,
    "vacancy_indicator": 0.174,
    "unit": "points: the smaller of the unemployment indicator (Sahm form, first prints) and the vacancy indicator (12-month high of the 3-month mean vacancy rate over its value), line 0.29",

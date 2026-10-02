@@ -92,21 +92,21 @@
 },
 {
 "name": "tile: Unemployment rate next release is not in the past",
-"got": "2026-10-02",
+"got": "2026-11-06",
 "want": ">= 2026-10-02",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Nonfarm payrolls next release is not in the past",
-"got": "2026-10-02",
+"got": "2026-11-06",
 "want": ">= 2026-10-02",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Payroll growth next release is not in the past",
-"got": "2026-10-02",
+"got": "2026-11-06",
 "want": ">= 2026-10-02",
 "status": "PASS",
 "gate": null
@@ -386,14 +386,14 @@
 },
 {
 "name": "feed is not dated in the future: Commercial paper and three-month bill ra",
-"got": "2026-09-30",
+"got": "2026-10-01",
 "want": "<= 2026-10-02",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Commercial paper and three-month bill ra",
-"got": "2026-10-02",
+"got": "2026-10-05",
 "want": ">= 2026-10-02",
 "status": "PASS",
 "gate": null
@@ -407,8 +407,8 @@
 },
 {
 "name": "feed reading matches the readings table: S&P 500 daily close (the market gate of ",
-"got": "1.265",
-"want": "1.265",
+"got": "0.541",
+"want": "0.541",
 "status": "PASS",
 "gate": "soft"
 },
@@ -421,14 +421,14 @@
 },
 {
 "name": "feed is not dated in the future: S&P 500 daily close (the market gate of ",
-"got": "2026-10-01",
+"got": "2026-10-02",
 "want": "<= 2026-10-02",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: S&P 500 daily close (the market gate of ",
-"got": "2026-10-02",
+"got": "2026-10-05",
 "want": ">= 2026-10-02",
 "status": "PASS",
 "gate": null
@@ -1023,8 +1023,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-10-02 09:49', '2026-10-02 09:49')",
-"want": "('2026-10-02 09:49', '2026-10-02 09:49')",
+"got": "('2026-10-02 16:22', '2026-10-02 16:22')",
+"want": "('2026-10-02 16:22', '2026-10-02 16:22')",
 "status": "PASS",
 "gate": "hard"
 },

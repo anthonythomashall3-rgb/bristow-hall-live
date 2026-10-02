@@ -1,25 +1,17 @@
-FRED change check: 112 series tracked; 32 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, AWHMAN, BORROW, CASACBW027NBOG, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3 ...
-home tiles: CHANGED — Unemployment rate 4.1% -> 4.2%; Nonfarm payrolls 159.1 million -> 159.0 million; Payroll growth +71,000 a month -> +51,000 a month | 9 readings through Sep 2026 (unemployment rate), Sep 26, 2026 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-10-08, IURSA 2026-10-08, JTSJOL 2026-11-03, JTSQUR 2026-11-03, PAYEMS 2026-10-02, UNRATE 2026-10-02; saved to collection 109
-SAHMREALTIME    through 2026-09: 0.00
-UNRATE         vintage UNRATE_20261002 appended: data through 2026-09-01 (was 2026-08-01); published 2026-10-02
-AWHMAN         vintage AWHMAN_20261002 appended: data through 2026-09-01 (was 2026-08-01); published 2026-10-02
-NDMANEMP       vintage NDMANEMP_20261002 appended: data through 2026-09-01 (was 2026-08-01); published 2026-10-02
-CLF16OV        vintage CLF16OV_20261002 appended: data through 2026-09-01 (was 2026-08-01); published 2026-10-02
-PAYEMS         1 vintage(s) appended, the last 2026-10-02: data through 2026-09-01
+FRED change check: 112 series tracked; 28 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, BORROW, CASACBW027NBOG, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3, EPUMONETARY ...
+home tiles: unchanged | 9 readings through Sep 2026 (unemployment rate), Sep 26, 2026 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-10-08, IURSA 2026-10-08, JTSJOL 2026-11-03, JTSQUR 2026-11-03, PAYEMS 2026-11-06, UNRATE 2026-11-06; saved to collection 109
+DCPN30         2026-09-30 -> 2026-10-01  (6999 obs)
+PAYEMS         no new vintage since 2026-10-02 (through 2026-09-01)
 GDPC1          no new vintage since 2026-09-30 (through 2026-04-01)
 GDPNOW         no new vintage since 2026-10-01 (through 2026-07-01)
 indeed postings  4858 rows, last 2026-09-25
-alfred_first_CLF16OV: 787 months, through 2026-09 (released 2026-10-02)
 relcal_HOUST: unchanged (through 2026-08)
-relcal_UNRATE: 944 months, through 2026-09 (released 2026-10-02)
+relcal_UNRATE: unchanged (through 2026-09)
 relcal_JTSJOL: unchanged (through 2026-08)
-CLF16OV        2026-08-01 -> 2026-09-01  (944 obs)
 vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
-S&P 500: nothing new (through 2026-10-01)
-Sahm gap: extended to 2026-09-01 (history kept from 1949-03-01)
+S&P 500: 1 day(s) appended, through 2026-10-02 (0 official, 1 from the feed)
+Sahm gap: unchanged (through 2026-09-01)
 insured rate base: unchanged (through 2026-09-19)
 ---- the damage index's unemployment rate ----
-UNRATE         2026-08-01 -> 2026-09-01  (944 obs)
-UNRATE firstprint: +1 month(s), through 2026-09 (released 2026-10-02)
-left as they stand: 71 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
-FRED stamps: 5 series recorded as pulled
+left as they stand: 79 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
+FRED stamps: 1 series recorded as pulled

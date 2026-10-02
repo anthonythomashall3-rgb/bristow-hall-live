@@ -7,7 +7,7 @@
    "sub": "Sep 2026",
    "src": "https://fred.stlouisfed.org/series/UNRATE",
    "sid": "UNRATE",
-   "next": "2026-10-02",
+   "next": "2026-11-06",
    "srcs": [
     [
      "FRED UNRATE",
@@ -22,7 +22,7 @@
    "sub": "Sep 2026",
    "src": "https://fred.stlouisfed.org/series/PAYEMS",
    "sid": "PAYEMS",
-   "next": "2026-10-02",
+   "next": "2026-11-06",
    "srcs": [
     [
      "FRED PAYEMS",
@@ -37,7 +37,7 @@
    "sub": "3-month average, Sep 2026",
    "src": "https://fred.stlouisfed.org/series/PAYEMS",
    "sid": "PAYEMS",
-   "next": "2026-10-02",
+   "next": "2026-11-06",
    "srcs": [
     [
      "FRED PAYEMS",

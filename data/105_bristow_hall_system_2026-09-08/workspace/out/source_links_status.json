@@ -229,12 +229,7 @@
   ]
  },
  "rows_with_new_data_this_run": [
-  "row|HOUST, PERMIT|Housing starts and building permits",
-  "row|JTSJOL, CLF16OV|Job openings",
-  "row|PAYEMS|Nonfarm payrolls",
-  "row|SAHMREALTIME|Sahm rule, real time",
-  "row|UNRATE, AWHMAN, NDMANEMP, PAYEMS|Unemployment rate, factory hours, nondurable employment",
-  "row|UNRATE, JTSJOL|Michaillat and Saez's rule: the smaller of the unemployment indicator and the vacancy indicator",
-  "row|UNRATE|Unemployment rate"
+  "row|DCPF1M, DCPN30, WTB3MS|Commercial paper and three-month bill rates",
+  "row|^GSPC|S&P 500 daily close"
  ]
 }
