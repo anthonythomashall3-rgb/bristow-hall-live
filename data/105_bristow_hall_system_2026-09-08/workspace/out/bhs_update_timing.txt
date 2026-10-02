@@ -1,21 +1,19 @@
-    4.8s  FRED change check: 112 series tracked; 24 changed since last pulled (every release asked (the list since the last check ran long)): BORROW, CASACBW027NBOG, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3, EPUMONETARY, GS1 ...
-    6.0s  first prints: collection 45 already carries every week ALFRED has (through 2026-09-26, released 2026-10-01)
-    6.2s  DOL release of 2026-10-01: week ending 2026-09-26 already in collection 45
-    7.7s  r: [Errno 2] No such file or directory: '/home/runner/Projects/Onset Detector Data/37_dol_eta5159_2026-09/raw/ar539.csv'
-    8.2s  state first prints: nothing new (insured unemployment through 2026-09-19; 3 press release(s) on file)
-    9.3s  home tiles: unchanged | 9 readings through Aug 2026 (unemployment rate), Sep 26, 2026 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-10-08, IURSA 2026-10-08, JTSJOL 2026-11-03, JTSQUR 2026-11-03, PAYEMS 2026-10-02, UNRATE 2026-10-02; saved to collection 109
-    9.8s  DCPN30         2026-09-29 -> 2026-09-30  (6998 obs)
-   10.1s  PAYEMS         no new vintage since 2026-09-04 (through 2026-08-01)
-   10.4s  GDPC1          no new vintage since 2026-09-30 (through 2026-04-01)
-   10.6s  GDPNOW         no new vintage since 2026-10-01 (through 2026-07-01)
-   10.8s  indeed postings  4858 rows, last 2026-09-25
-   10.9s  relcal_HOUST: unchanged (through 2026-08)
-   11.0s  relcal_UNRATE: unchanged (through 2026-08)
-   11.0s  relcal_JTSJOL: unchanged (through 2026-08)
-   11.0s  vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
-   11.5s  S&P 500: 1 day(s) appended, through 2026-10-01 (0 official, 1 from the feed)
-   12.4s  Sahm gap: unchanged (through 2026-08-01)
-   12.4s  insured rate base: unchanged (through 2026-09-19)
-   12.4s  ---- the damage index's unemployment rate ----
-   12.4s  left as they stand: 75 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
-   12.4s  FRED stamps: 1 series recorded as pulled
+    6.7s  FRED change check: 112 series tracked; 23 changed since last pulled (every release asked (the list since the last check ran long)): BORROW, CASACBW027NBOG, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3, EPUMONETARY, GS1 ...
+    8.5s  first prints: collection 45 already carries every week ALFRED has (through 2026-09-26, released 2026-10-01)
+    8.7s  DOL release of 2026-10-01: week ending 2026-09-26 already in collection 45
+   10.5s  state 539: nothing new (panel and the Department both through 2026-09-19)
+   10.8s  state first prints: nothing new (insured unemployment through 2026-09-19; 3 press release(s) on file)
+   11.9s  home tiles: unchanged | 9 readings through Aug 2026 (unemployment rate), Sep 26, 2026 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-10-08, IURSA 2026-10-08, JTSJOL 2026-11-03, JTSQUR 2026-11-03, PAYEMS 2026-10-02, UNRATE 2026-10-02; saved to collection 109
+   12.1s  PAYEMS         no new vintage since 2026-09-04 (through 2026-08-01)
+   12.7s  GDPC1          no new vintage since 2026-09-30 (through 2026-04-01)
+   13.3s  GDPNOW         no new vintage since 2026-10-01 (through 2026-07-01)
+   13.5s  indeed postings  4858 rows, last 2026-09-25
+   13.5s  relcal_HOUST: unchanged (through 2026-08)
+   13.5s  relcal_UNRATE: unchanged (through 2026-08)
+   13.6s  relcal_JTSJOL: unchanged (through 2026-08)
+   13.6s  vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
+   14.0s  S&P 500: nothing new (through 2026-10-01)
+   14.5s  Sahm gap: unchanged (through 2026-08-01)
+   14.5s  insured rate base: unchanged (through 2026-09-19)
+   14.5s  ---- the damage index's unemployment rate ----
+   14.5s  left as they stand: 76 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
