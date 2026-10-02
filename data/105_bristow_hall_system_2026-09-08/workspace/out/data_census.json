@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-01 20:11",
+ "built_at": "2026-10-02 08:55",
  "version": "v3.76",
- "census_date": "2026-10-01",
+ "census_date": "2026-10-02",
  "feeds": [
   {
    "feed": "Initial claims, continued claims, insured unemployment rate",
@@ -21,10 +21,10 @@
    "series": "ETA 539 state insured rates",
    "source": "Department of Labor (page 8 of the weekly release; the advance state table of the release PDF while the archive catches up)",
    "every": "Weekly - Thursday 8:30 AM ET, one week behind initial claims",
-   "through": "2026-09-12",
+   "through": "2026-09-19",
    "next": "2026-10-08",
    "link": "https://oui.doleta.gov/unemploy/claims.asp",
-   "value": "5.7%",
+   "value": "5.8%",
    "backup": "the advance state table of the weekly release PDF while the archive catches up",
    "format_check": "the page-8 parse validated against the advance table",
    "auto": "yes"
@@ -35,7 +35,7 @@
    "source": "Bureau of Labor Statistics, Employment Situation",
    "every": "Monthly - usually the first Friday, 8:30 AM ET",
    "through": "2026-08-01",
-   "next": "2026-10-02",
+   "next": "2026-11-06",
    "link": "https://www.bls.gov/news.release/empsit.toc.htm",
    "value": "4.1; 41.7; 4,747; 159,075",
    "backup": "the Chicago Fed real-time unemployment forecast; ADP private payrolls (LSEG first prints) - declared, not automated",
@@ -112,8 +112,8 @@
    "series": "DFEDTARU",
    "source": "Federal Reserve, FOMC statement (FRED DFEDTARU, the daily series)",
    "every": "Daily - FRED posts the series every day, weekends included, at about 8:01 AM ET; it moves only at an FOMC decision (eight scheduled meetings a year, the statement at 2:00 PM ET), carried by the next morning's post",
-   "through": "2026-10-01",
-   "next": "2026-10-02",
+   "through": "2026-10-02",
+   "next": "2026-10-03",
    "link": "https://fred.stlouisfed.org/series/DFEDTARU",
    "value": "4.00",
    "backup": "the FOMC statement on federalreserve.gov (the rate carried from the last reading until then)",
@@ -178,7 +178,7 @@
    "source": "FRED SAHMREALTIME",
    "every": "Monthly - FRED posts it on the morning of the employment report, after the Bureau's 8:30 AM ET release",
    "through": "2026-08",
-   "next": "2026-10-02",
+   "next": "2026-11-06",
    "link": "https://fred.stlouisfed.org/series/SAHMREALTIME",
    "value": "-0.07",
    "backup": "computed from the unemployment rate first prints if FRED SAHMREALTIME lapses",
@@ -190,10 +190,10 @@
    "series": "Google Trends \"unemployment\"",
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
-   "through": "2026-09-30",
+   "through": "2026-10-01",
    "next": "2026-10-02",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
-   "value": "65",
+   "value": "57",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
    "format_check": "the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-fetched window whose overlap deviates over 15 per cent is not appended; pull_log.csv)",
    "auto": "yes"
@@ -252,7 +252,7 @@
   {
    "channel": "the policy rate (FOMC target range, FRED DFEDTARU)",
    "status": "current",
-   "last": "2026-10-01",
+   "last": "2026-10-02",
    "limit_days": 10,
    "substitute": null
   },
