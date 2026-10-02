@@ -229,8 +229,12 @@
   ]
  },
  "rows_with_new_data_this_run": [
-  "row|DFEDTARU|Federal funds target range, upper limit",
-  "row|ETA 539 state insured rates|State insured unemployment rates",
-  "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\""
+  "row|HOUST, PERMIT|Housing starts and building permits",
+  "row|JTSJOL, CLF16OV|Job openings",
+  "row|PAYEMS|Nonfarm payrolls",
+  "row|SAHMREALTIME|Sahm rule, real time",
+  "row|UNRATE, AWHMAN, NDMANEMP, PAYEMS|Unemployment rate, factory hours, nondurable employment",
+  "row|UNRATE, JTSJOL|Michaillat and Saez's rule: the smaller of the unemployment indicator and the vacancy indicator",
+  "row|UNRATE|Unemployment rate"
  ]
 }

@@ -1,29 +1,29 @@
 [
 {
 "name": "tile: unemployment rate",
-"got": "4.1%",
-"want": "4.1%",
+"got": "4.2%",
+"want": "4.2%",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: unemployment rate month",
-"got": "Aug 2026",
-"want": "Aug 2026",
+"got": "Sep 2026",
+"want": "Sep 2026",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: payrolls (thousands -> millions)",
-"got": "159.1 million",
-"want": "159.1 million",
+"got": "159.0 million",
+"want": "159.0 million",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: payroll growth = 3-month average change",
-"got": "+71,000 a month",
-"want": "+71,000 a month",
+"got": "+51,000 a month",
+"want": "+51,000 a month",
 "status": "PASS",
 "gate": null
 },
@@ -155,14 +155,14 @@
 },
 {
 "name": "units: unemployment rate between 1 and 40 per cent",
-"got": "4.1",
+"got": "4.2",
 "want": "1-40",
 "status": "PASS",
 "gate": "hard"
 },
 {
 "name": "units: payrolls between 80 and 300 million",
-"got": "159.1",
+"got": "159.0",
 "want": "80-300",
 "status": "PASS",
 "gate": "hard"
@@ -267,8 +267,8 @@
 },
 {
 "name": "feed reading matches the readings table: Unemployment rate, factory hours, nondur",
-"got": "-0.067",
-"want": "-0.067",
+"got": "0.0",
+"want": "0.0",
 "status": "PASS",
 "gate": "soft"
 },
@@ -281,7 +281,7 @@
 },
 {
 "name": "feed is not dated in the future: Unemployment rate, factory hours, nondur",
-"got": "2026-08-01",
+"got": "2026-09-01",
 "want": "<= 2026-10-02",
 "status": "PASS",
 "gate": "soft"
@@ -337,8 +337,8 @@
 },
 {
 "name": "feed reading matches the readings table: Housing starts and building permits",
-"got": "0.0",
-"want": "0.0",
+"got": "0.25",
+"want": "0.25",
 "status": "PASS",
 "gate": "soft"
 },
@@ -351,7 +351,7 @@
 },
 {
 "name": "feed is not dated in the future: Housing starts and building permits",
-"got": "2026-08-01",
+"got": "2026-09-01",
 "want": "<= 2026-10-02",
 "status": "PASS",
 "gate": "soft"
@@ -631,8 +631,8 @@
 },
 {
 "name": "headline date = last day of the daily series",
-"got": "2026-10-01",
-"want": "2026-10-01",
+"got": "2026-10-02",
+"want": "2026-10-02",
 "status": "PASS",
 "gate": "soft"
 },
@@ -1023,8 +1023,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-10-02 08:55', '2026-10-02 08:55')",
-"want": "('2026-10-02 08:55', '2026-10-02 08:55')",
+"got": "('2026-10-02 09:49', '2026-10-02 09:49')",
+"want": "('2026-10-02 09:49', '2026-10-02 09:49')",
 "status": "PASS",
 "gate": "hard"
 },

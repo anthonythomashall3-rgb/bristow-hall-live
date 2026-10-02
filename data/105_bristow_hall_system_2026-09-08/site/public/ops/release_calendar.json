@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-02 08:55",
+ "built_at": "2026-10-02 09:49",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-10-02T12:55:15Z",
+ "generated_utc": "2026-10-02T13:49:13Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -2807,7 +2807,7 @@
    "short": "the jobs report",
    "slots": true,
    "source": "FRED release 50 (Employment Situation)",
-   "through": "2026-08-01",
+   "through": "2026-09-01",
    "time_known": true,
    "time_note": null,
    "times": [
@@ -2830,6 +2830,216 @@
      "expected": true,
      "ny": "2027-01-08 08:30",
      "utc": "2027-01-08T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-10-20",
+   "confirmed_through": "2026-12-17",
+   "fred_clock": "08:33",
+   "freq": "monthly",
+   "ids": "houst, permit",
+   "link": "https://alfred.stlouisfed.org/series?seid=HOUST",
+   "name": "housing starts and building permits",
+   "next_expected": false,
+   "next_ny": "2026-10-20 08:30",
+   "read_lag_min": 3,
+   "release_id": 27,
+   "short": "housing starts",
+   "slots": true,
+   "source": "FRED release 27 (New Residential Construction)",
+   "through": "2026-09-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-10-20 08:30",
+     "utc": "2026-10-20T12:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-18 08:30",
+     "utc": "2026-11-18T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 08:30",
+     "utc": "2026-12-17T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-11-06",
+   "confirmed_through": "2026-12-04",
+   "fred_clock": "09:32",
+   "freq": "monthly",
+   "ids": "sahmrealtime",
+   "link": "https://fred.stlouisfed.org/series/SAHMREALTIME",
+   "name": "sahm rule, real time",
+   "next_expected": false,
+   "next_ny": "2026-11-06 09:32",
+   "read_lag_min": 10,
+   "release_id": 456,
+   "short": "the Sahm rule (FRED)",
+   "slots": true,
+   "source": "FRED release 456 (Sahm Rule Recession Indicator)",
+   "through": "2026-09-01",
+   "time_known": true,
+   "time_note": "FRED's posting clock, the median of its last nine posts (the Bureau publishes the jobs report at 8:30)",
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-10-02 09:32",
+     "utc": "2026-10-02T13:32:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-06 09:32",
+     "utc": "2026-11-06T14:32:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 09:32",
+     "utc": "2026-12-04T14:32:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 09:32",
+     "utc": "2027-01-08T14:32:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-10-02",
+   "confirmed_through": "2026-12-04",
+   "fred_clock": "09:27",
+   "freq": "monthly",
+   "ids": "unrate",
+   "link": "https://fred.stlouisfed.org/series/UNRATE",
+   "name": "unemployment rate",
+   "next_expected": false,
+   "next_ny": "2026-11-06 08:30",
+   "read_lag_min": 61,
+   "release_id": 50,
+   "short": "the jobs report",
+   "slots": true,
+   "source": "FRED release 50 (Employment Situation)",
+   "through": "2026-09-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-10-02 08:30",
+     "utc": "2026-10-02T12:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-06 08:30",
+     "utc": "2026-11-06T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 08:30",
+     "utc": "2026-12-04T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 08:30",
+     "utc": "2027-01-08T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-10-02",
+   "confirmed_through": "2026-12-04",
+   "fred_clock": "09:27",
+   "freq": "monthly",
+   "ids": "payems",
+   "link": "https://fred.stlouisfed.org/series/PAYEMS",
+   "name": "nonfarm payrolls",
+   "next_expected": false,
+   "next_ny": "2026-11-06 08:30",
+   "read_lag_min": 61,
+   "release_id": 50,
+   "short": "the jobs report",
+   "slots": true,
+   "source": "FRED release 50 (Employment Situation)",
+   "through": "2026-09-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-10-02 08:30",
+     "utc": "2026-10-02T12:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-06 08:30",
+     "utc": "2026-11-06T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 08:30",
+     "utc": "2026-12-04T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 08:30",
+     "utc": "2027-01-08T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-11-03",
+   "confirmed_through": "2026-12-01",
+   "fred_clock": "10:10",
+   "freq": "monthly",
+   "ids": "unrate, jtsjol",
+   "link": "https://alfred.stlouisfed.org/series?seid=UNRATE",
+   "name": "michaillat and saez's rule: the smaller of the unemployment indicator and the vacancy indicator",
+   "next_expected": false,
+   "next_ny": "2026-11-03 10:00",
+   "read_lag_min": 11,
+   "release_id": 192,
+   "short": "JOLTS (job openings)",
+   "slots": true,
+   "source": "FRED release 192 (Job Openings and Labor Turnover Survey)",
+   "through": "2026-09-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-09-29 10:00",
+     "utc": "2026-09-29T14:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-03 10:00",
+     "utc": "2026-11-03T15:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-01 10:00",
+     "utc": "2026-12-01T15:00:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-05 10:00",
+     "utc": "2027-01-05T15:00:00Z"
     }
    ],
    "waiting_since_due": null
@@ -2873,44 +3083,6 @@
      "expected": true,
      "ny": "2027-01-05 10:00",
      "utc": "2027-01-05T15:00:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-10-20",
-   "confirmed_through": "2026-12-17",
-   "fred_clock": "08:33",
-   "freq": "monthly",
-   "ids": "houst, permit",
-   "link": "https://alfred.stlouisfed.org/series?seid=HOUST",
-   "name": "housing starts and building permits",
-   "next_expected": false,
-   "next_ny": "2026-10-20 08:30",
-   "read_lag_min": 3,
-   "release_id": 27,
-   "short": "housing starts",
-   "slots": true,
-   "source": "FRED release 27 (New Residential Construction)",
-   "through": "2026-08-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-20 08:30",
-     "utc": "2026-10-20T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-18 08:30",
-     "utc": "2026-11-18T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 08:30",
-     "utc": "2026-12-17T13:30:00Z"
     }
    ],
    "waiting_since_due": null
@@ -3131,135 +3303,6 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-06",
-   "confirmed_through": "2026-12-04",
-   "fred_clock": "09:32",
-   "freq": "monthly",
-   "ids": "sahmrealtime",
-   "link": "https://fred.stlouisfed.org/series/SAHMREALTIME",
-   "name": "sahm rule, real time",
-   "next_expected": false,
-   "next_ny": "2026-10-02 09:32",
-   "read_lag_min": 10,
-   "release_id": 456,
-   "short": "the Sahm rule (FRED)",
-   "slots": true,
-   "source": "FRED release 456 (Sahm Rule Recession Indicator)",
-   "through": "2026-08-01",
-   "time_known": true,
-   "time_note": "FRED's posting clock, the median of its last nine posts (the Bureau publishes the jobs report at 8:30)",
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-02 09:32",
-     "utc": "2026-10-02T13:32:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-06 09:32",
-     "utc": "2026-11-06T14:32:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-04 09:32",
-     "utc": "2026-12-04T14:32:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-08 09:32",
-     "utc": "2027-01-08T14:32:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-10-02",
-   "confirmed_through": "2026-12-04",
-   "fred_clock": "09:27",
-   "freq": "monthly",
-   "ids": "unrate",
-   "link": "https://fred.stlouisfed.org/series/UNRATE",
-   "name": "unemployment rate",
-   "next_expected": false,
-   "next_ny": "2026-11-06 08:30",
-   "read_lag_min": 61,
-   "release_id": 50,
-   "short": "the jobs report",
-   "slots": true,
-   "source": "FRED release 50 (Employment Situation)",
-   "through": "2026-08-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-02 08:30",
-     "utc": "2026-10-02T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-06 08:30",
-     "utc": "2026-11-06T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-04 08:30",
-     "utc": "2026-12-04T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-08 08:30",
-     "utc": "2027-01-08T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-10-02",
-   "confirmed_through": "2026-12-04",
-   "fred_clock": "09:27",
-   "freq": "monthly",
-   "ids": "payems",
-   "link": "https://fred.stlouisfed.org/series/PAYEMS",
-   "name": "nonfarm payrolls",
-   "next_expected": false,
-   "next_ny": "2026-11-06 08:30",
-   "read_lag_min": 61,
-   "release_id": 50,
-   "short": "the jobs report",
-   "slots": true,
-   "source": "FRED release 50 (Employment Situation)",
-   "through": "2026-08-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-02 08:30",
-     "utc": "2026-10-02T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-06 08:30",
-     "utc": "2026-11-06T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-04 08:30",
-     "utc": "2026-12-04T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-08 08:30",
-     "utc": "2027-01-08T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
    "build_next": "2026-11-03",
    "confirmed_through": "2026-12-01",
    "fred_clock": "10:10",
@@ -3416,49 +3459,6 @@
      "expected": false,
      "ny": "2026-12-21 08:30",
      "utc": "2026-12-21T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-10-02",
-   "confirmed_through": "2026-12-04",
-   "fred_clock": "09:27",
-   "freq": "monthly",
-   "ids": "unrate, jtsjol",
-   "link": "https://alfred.stlouisfed.org/series?seid=UNRATE",
-   "name": "michaillat and saez's rule: the smaller of the unemployment indicator and the vacancy indicator",
-   "next_expected": false,
-   "next_ny": "2026-11-06 08:30",
-   "read_lag_min": 61,
-   "release_id": 50,
-   "short": "the jobs report",
-   "slots": true,
-   "source": "FRED release 50 (Employment Situation)",
-   "through": "2026-08-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-02 08:30",
-     "utc": "2026-10-02T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-06 08:30",
-     "utc": "2026-11-06T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-04 08:30",
-     "utc": "2026-12-04T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-08 08:30",
-     "utc": "2027-01-08T13:30:00Z"
     }
    ],
    "waiting_since_due": null
