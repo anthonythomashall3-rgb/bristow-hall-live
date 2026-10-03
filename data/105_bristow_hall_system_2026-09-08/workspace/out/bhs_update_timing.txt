@@ -1,17 +1,15 @@
-    6.9s  FRED change check: 112 series tracked; 28 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, BORROW, CASACBW027NBOG, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3, EPUMONETARY ...
-    9.9s  home tiles: unchanged | 9 readings through Sep 2026 (unemployment rate), Sep 26, 2026 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-10-08, IURSA 2026-10-08, JTSJOL 2026-11-03, JTSQUR 2026-11-03, PAYEMS 2026-11-06, UNRATE 2026-11-06; saved to collection 109
-   10.4s  DCPN30         2026-09-30 -> 2026-10-01  (6999 obs)
-   11.0s  PAYEMS         no new vintage since 2026-10-02 (through 2026-09-01)
-   11.4s  GDPC1          no new vintage since 2026-09-30 (through 2026-04-01)
-   11.6s  GDPNOW         no new vintage since 2026-10-01 (through 2026-07-01)
-   11.8s  indeed postings  4858 rows, last 2026-09-25
-   11.9s  relcal_HOUST: unchanged (through 2026-08)
-   12.0s  relcal_UNRATE: unchanged (through 2026-09)
-   12.0s  relcal_JTSJOL: unchanged (through 2026-08)
-   12.0s  vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
-   13.7s  S&P 500: 1 day(s) appended, through 2026-10-02 (0 official, 1 from the feed)
-   14.7s  Sahm gap: unchanged (through 2026-09-01)
-   14.7s  insured rate base: unchanged (through 2026-09-19)
-   14.7s  ---- the damage index's unemployment rate ----
-   14.7s  left as they stand: 79 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
-   14.7s  FRED stamps: 1 series recorded as pulled
+    4.9s  FRED change check: 112 series tracked; 27 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, BORROW, CASACBW027NBOG, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3, EPUMONETARY ...
+    6.5s  home tiles: unchanged | 9 readings through Sep 2026 (unemployment rate), Sep 26, 2026 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-10-08, IURSA 2026-10-08, JTSJOL 2026-11-03, JTSQUR 2026-11-03, PAYEMS 2026-11-06, UNRATE 2026-11-06; saved to collection 109
+    7.0s  PAYEMS         no new vintage since 2026-10-02 (through 2026-09-01)
+    7.3s  GDPC1          no new vintage since 2026-09-30 (through 2026-04-01)
+    7.6s  GDPNOW         no new vintage since 2026-10-01 (through 2026-07-01)
+    7.7s  indeed postings  4858 rows, last 2026-09-25
+    7.8s  relcal_HOUST: unchanged (through 2026-08)
+    7.9s  relcal_UNRATE: unchanged (through 2026-09)
+    7.9s  relcal_JTSJOL: unchanged (through 2026-08)
+    7.9s  vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
+    8.6s  S&P 500: nothing new (through 2026-10-02)
+    9.5s  Sahm gap: unchanged (through 2026-09-01)
+    9.5s  insured rate base: unchanged (through 2026-09-19)
+    9.5s  ---- the damage index's unemployment rate ----
+    9.5s  left as they stand: 80 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
