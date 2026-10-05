@@ -1,0 +1,6 @@
+# third-party data (rating agencies, index providers, exchanges) never goes into this public repository; it lives in
+# private/ here and in the private repository bristow-hall-private-data (README of bristow-hall-live)
+private/
+logs/
+__pycache__/
+*.pyc
