@@ -4,3 +4,7 @@ private/
 logs/
 __pycache__/
 *.pyc
+# the loose ALFRED batches and the long vintage tables are rebuilt offline from raw/alfred_packed/<ID>.tar.gz:
+#   tar -xzf raw/alfred_packed/<ID>.tar.gz && python3 collect/alfred_vintages.py --offline <ID>
+raw/alfred/
+panel/vintages/*_vintages.csv

@@ -1,0 +1,83 @@
+{
+ "F1": [
+  {
+   "source": "/home/user/c538/data/external/choi_munro/Claims_Data.xlsx",
+   "what": "Choi-Munro weekly NSA initial claims (digitized DOL reports pre-1967; FRED ICNSA after)",
+   "treatment": "weekly_sa_realtime(min 3, max 7 prior years)",
+   "known": "week end + 12 days",
+   "use": "to week ending 1975-07-26",
+   "vintage_class": "unrevised administrative count, lab real-time SA"
+  },
+  {
+   "source": "data/105.../cache/national_first_prints_1985_live.csv",
+   "what": "DOL first-printed SA initial claims",
+   "known": "release_date",
+   "use": "from week ending 1975-08-02",
+   "vintage_class": "first print"
+  }
+ ],
+ "F2": [
+  {
+   "source": "data/59.../national_iur_realtime_sa_first_prints_1948_1983.csv",
+   "known": "week end + 12 days",
+   "use": "to week ending 1975-07-26",
+   "vintage_class": "lab real-time SA of printed counts (collection 59)"
+  },
+  {
+   "source": "data/105.../cache/national_first_prints_1985_live.csv",
+   "known": "release_date",
+   "use": "from week ending 1975-07-26",
+   "vintage_class": "first print (gaps where no print was found)"
+  }
+ ],
+ "UNRATE": [
+  {
+   "alfred_from": "1960-03-15",
+   "asprinted_sa_from": "1957-07-31",
+   "lab_sa_of_nsa_from": "1950-05-31"
+  }
+ ],
+ "F3": [
+  {
+   "basis_break": "CPS new definitions from 1957-01; lab-SA era ends 1957-02-28; printed-SA era uses months from 1957-01 only (dark until 15 months exist)"
+  }
+ ],
+ "PAYEMS": [
+  {
+   "alfred_from": "1955-05-06",
+   "asprinted_sa_from": "1954-11-30",
+   "lab_sa_of_nsa_from": "1950-03-31"
+  }
+ ],
+ "F4": [
+  {
+   "basis_rule": "lab-SA era until the first printed SA total; printed-SA era on printed SA months only"
+  }
+ ],
+ "F5": [
+  {
+   "source": "panel/vintages/INDPRO_vintages.csv (ALFRED)",
+   "known": "vintage date",
+   "vintage_class": "full vintage history"
+  }
+ ],
+ "F6": [
+  {
+   "source": "private: 24_bristow_rule_lab/workspace/lab/speed2/data/sp500_daily_yahoo.csv",
+   "known": "next day",
+   "vintage_class": "market close, never revised"
+  }
+ ],
+ "F7": [
+  {
+   "source": "private/fred BAA, AAA (monthly, month end + 7 days to 1985) and DBAA, DAAA (daily from 1986, next day)",
+   "vintage_class": "never revised"
+  }
+ ],
+ "F8": [
+  {
+   "source": "raw/fred GS10 - TB3MS (monthly, month end + 7 days, to 1961) and DGS10 - DTB3 (daily from 1962, next day)",
+   "vintage_class": "never revised"
+  }
+ ]
+}

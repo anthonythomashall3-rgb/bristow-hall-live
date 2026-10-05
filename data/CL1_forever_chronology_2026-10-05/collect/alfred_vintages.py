@@ -49,10 +49,16 @@ def vintage_dates(sid):
     return [x.decode() for x in v]
 
 
-def collect(sid):
+def collect(sid, offline=False):
+    """offline: rebuild the tables from raw/alfred/<ID>/ (unpacked from raw/alfred_packed/<ID>.tar.gz) with no network"""
     rawd = os.path.join(HERE, 'raw', 'alfred', sid); os.makedirs(rawd, exist_ok=True)
     outd = os.path.join(HERE, 'panel', 'vintages'); os.makedirs(outd, exist_ok=True)
-    vds = vintage_dates(sid)
+    vf = os.path.join(rawd, 'vintage_dates.txt')
+    if offline:
+        vds = open(vf).read().split()
+    else:
+        vds = vintage_dates(sid)
+        open(vf, 'w').write('\n'.join(vds) + '\n')
     if not vds: raise SystemExit('%s: no vintage dates found' % sid)
     frames = []
     for k in range(0, len(vds), BATCH):
@@ -90,4 +96,5 @@ def collect(sid):
 
 
 if __name__ == '__main__':
-    for s in sys.argv[1:]: collect(s)
+    off = '--offline' in sys.argv
+    for s in [a for a in sys.argv[1:] if not a.startswith('--')]: collect(s, offline=off)
