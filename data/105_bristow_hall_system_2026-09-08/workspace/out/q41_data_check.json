@@ -386,14 +386,14 @@
 },
 {
 "name": "feed is not dated in the future: Commercial paper and three-month bill ra",
-"got": "2026-10-02",
+"got": "2026-10-05",
 "want": "<= 2026-10-06",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Commercial paper and three-month bill ra",
-"got": "2026-10-06",
+"got": "2026-10-07",
 "want": ">= 2026-10-06",
 "status": "PASS",
 "gate": null
@@ -421,14 +421,14 @@
 },
 {
 "name": "feed is not dated in the future: S&P 500 daily close (the market gate of ",
-"got": "2026-10-05",
+"got": "2026-10-06",
 "want": "<= 2026-10-06",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: S&P 500 daily close (the market gate of ",
-"got": "2026-10-06",
+"got": "2026-10-07",
 "want": ">= 2026-10-06",
 "status": "PASS",
 "gate": null
@@ -631,8 +631,8 @@
 },
 {
 "name": "headline date = last day of the daily series",
-"got": "2026-10-05",
-"want": "2026-10-05",
+"got": "2026-10-06",
+"want": "2026-10-06",
 "status": "PASS",
 "gate": "soft"
 },
@@ -1023,8 +1023,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-10-06 13:43', '2026-10-06 13:43')",
-"want": "('2026-10-06 13:43', '2026-10-06 13:43')",
+"got": "('2026-10-06 16:22', '2026-10-06 16:22')",
+"want": "('2026-10-06 16:22', '2026-10-06 16:22')",
 "status": "PASS",
 "gate": "hard"
 },
