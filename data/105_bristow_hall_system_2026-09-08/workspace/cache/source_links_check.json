@@ -1,16 +1,16 @@
 {
- "checked_utc": "2026-10-05T20:36:16Z",
+ "checked_utc": "2026-10-06T16:10:01Z",
  "release": {},
  "row_tokens": {
   "feed|DCPF1M, DCPN30, WTB3MS": "2026-10-02|3.99; 3.92; 4.04",
-  "feed|DFEDTARU": "2026-10-05|4.00",
+  "feed|DFEDTARU": "2026-10-06|4.00",
   "feed|ETA 539": "2026-08|0%",
   "feed|ETA 539 state insured rates": "2026-09-19|5.7%",
   "feed|GDPC1": "2026-04|24,408.0",
   "feed|GDPNOW": "2026-07|3.68",
   "feed|Google Trends \"laid off\"": "2026-09-24|48",
   "feed|Google Trends \"layoffs\"": "2026-09-24|21",
-  "feed|Google Trends \"unemployment\"": "2026-10-04|54",
+  "feed|Google Trends \"unemployment\"": "2026-10-05|82",
   "feed|HOUST, PERMIT": "2026-09-01|1,275; 1,403",
   "feed|ICSA, CCSA, IURSA": "2026-09-26|197,000; 1,701,000; 1.1",
   "feed|INDPRO": "2026-08|103.0682",
@@ -23,7 +23,7 @@
   "row|CFNAIMA3|Chicago Fed National Activity Index, three-month average": "2026-08-01|0.01",
   "row|CPIAUCSL|CPI inflation": "2026-08-01|3.4%",
   "row|DCPF1M, DCPN30, WTB3MS|Commercial paper and three-month bill rates": "2026-10-02|3.99; 3.92; 4.04",
-  "row|DFEDTARU|Federal funds target range, upper limit": "2026-10-05|4.00",
+  "row|DFEDTARU|Federal funds target range, upper limit": "2026-10-06|4.00",
   "row|ETA 539 by state|States with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)": "2026-09-19|0",
   "row|ETA 539 state insured rates|State insured unemployment rates": "2026-09-19|5.7%",
   "row|ETA 539|State continued weeks claimed, ETA 539": "2026-08|0%",
@@ -31,7 +31,7 @@
   "row|GDPNOW|GDPNow": "2026-07|3.68",
   "row|Google Trends \"laid off\"|Search week: Google searches for \"laid off\"": "2026-09-24|48",
   "row|Google Trends \"layoffs\"|Search week: Google searches for \"layoffs\"": "2026-09-24|21",
-  "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\"": "2026-10-04|54",
+  "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\"": "2026-10-05|82",
   "row|HOUST, PERMIT|Housing starts and building permits": "2026-09-01|1,275; 1,403",
   "row|ICSA, CCSA, IURSA|Initial claims, continued claims, insured unemployment rate": "2026-09-26|197,000; 1,701,000; 1.1",
   "row|ICSA|Initial claims": "2026-09-26|197,000",
@@ -62,7 +62,7 @@
   "https://alfred.stlouisfed.org/series?seid=AWHMAN": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -70,7 +70,7 @@
   "https://alfred.stlouisfed.org/series?seid=CCSA": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -78,7 +78,7 @@
   "https://alfred.stlouisfed.org/series?seid=CLF16OV": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -86,7 +86,7 @@
   "https://alfred.stlouisfed.org/series?seid=GDPNOW": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -94,7 +94,7 @@
   "https://alfred.stlouisfed.org/series?seid=HOUST": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -102,7 +102,7 @@
   "https://alfred.stlouisfed.org/series?seid=ICSA": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -110,7 +110,7 @@
   "https://alfred.stlouisfed.org/series?seid=INDPRO": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -118,7 +118,7 @@
   "https://alfred.stlouisfed.org/series?seid=IURSA": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -126,7 +126,7 @@
   "https://alfred.stlouisfed.org/series?seid=JTSJOL": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -134,7 +134,7 @@
   "https://alfred.stlouisfed.org/series?seid=NDMANEMP": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -142,7 +142,7 @@
   "https://alfred.stlouisfed.org/series?seid=PAYEMS": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -150,7 +150,7 @@
   "https://alfred.stlouisfed.org/series?seid=PERMIT": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -158,7 +158,7 @@
   "https://alfred.stlouisfed.org/series?seid=UNRATE": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -166,7 +166,7 @@
   "https://finance.yahoo.com/quote/%5EGSPC/history/": {
    "alerted": null,
    "code": 200,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "hops": [],
    "status": "ok"
@@ -174,7 +174,7 @@
   "https://fred.stlouisfed.org/release?rid=112": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -182,7 +182,7 @@
   "https://fred.stlouisfed.org/release?rid=469": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -190,7 +190,7 @@
   "https://fred.stlouisfed.org/series/CCNSA": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -198,7 +198,7 @@
   "https://fred.stlouisfed.org/series/CFNAIMA3": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -206,7 +206,7 @@
   "https://fred.stlouisfed.org/series/COVEMP": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -214,7 +214,7 @@
   "https://fred.stlouisfed.org/series/CPIAUCSL": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -222,7 +222,7 @@
   "https://fred.stlouisfed.org/series/DCPF1M": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -230,7 +230,7 @@
   "https://fred.stlouisfed.org/series/DCPN30": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -238,7 +238,7 @@
   "https://fred.stlouisfed.org/series/DFEDTARU": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -246,7 +246,7 @@
   "https://fred.stlouisfed.org/series/GDPC1": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -254,7 +254,7 @@
   "https://fred.stlouisfed.org/series/ICSA": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -262,7 +262,7 @@
   "https://fred.stlouisfed.org/series/IURSA": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -270,7 +270,7 @@
   "https://fred.stlouisfed.org/series/JTSJOL": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -278,7 +278,7 @@
   "https://fred.stlouisfed.org/series/JTSQUR": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -286,7 +286,7 @@
   "https://fred.stlouisfed.org/series/PAYEMS": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -294,7 +294,7 @@
   "https://fred.stlouisfed.org/series/SAHMREALTIME": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -302,7 +302,7 @@
   "https://fred.stlouisfed.org/series/SP500": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -310,7 +310,7 @@
   "https://fred.stlouisfed.org/series/UNEMPLOY": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -318,7 +318,7 @@
   "https://fred.stlouisfed.org/series/UNRATE": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -326,7 +326,7 @@
   "https://fred.stlouisfed.org/series/WEI": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -334,7 +334,7 @@
   "https://fred.stlouisfed.org/series/WTB3MS": {
    "alerted": null,
    "code": null,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -342,7 +342,7 @@
   "https://oui.doleta.gov/unemploy/DataDownloads.asp": {
    "alerted": null,
    "code": 200,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "hops": [],
    "status": "ok"
@@ -350,7 +350,7 @@
   "https://oui.doleta.gov/unemploy/claims.asp": {
    "alerted": null,
    "code": 200,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "hops": [],
    "status": "ok"
@@ -358,7 +358,7 @@
   "https://oui.doleta.gov/unemploy/csv/ar539.csv": {
    "alerted": null,
    "code": 206,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "hops": [],
    "status": "ok"
@@ -366,14 +366,14 @@
   "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=5d&interval=1d": {
    "alerted": null,
    "code": 429,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "blocked"
   },
   "https://raw.githubusercontent.com/hiring-lab/data/master/US/aggregate_job_postings_US.csv": {
    "alerted": null,
    "code": 206,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "hops": [],
    "status": "ok"
@@ -397,7 +397,7 @@
   "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment": {
    "alerted": null,
    "code": 429,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "quiet": true,
    "status": "blocked"
@@ -405,21 +405,21 @@
   "https://www.bls.gov/lau/": {
    "alerted": null,
    "code": 403,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "blocked"
   },
   "https://www.bls.gov/schedule/news_release/laus.htm": {
    "alerted": null,
    "code": 403,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "blocked"
   },
   "https://www.dol.gov/ui/data.pdf": {
    "alerted": null,
    "code": 403,
-   "day": "2026-10-05",
+   "day": "2026-10-06",
    "final": null,
    "status": "blocked"
   }
