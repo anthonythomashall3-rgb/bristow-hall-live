@@ -1,33 +1,28 @@
 {
- "built_at": "2026-10-06 20:11",
+ "built_at": "2026-10-07 17:23",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-10-07T00:12:11Z",
+ "generated_utc": "2026-10-07T21:24:16Z",
  "rows": [
   {
    "agrees_with_build": true,
-   "build_next": "2026-10-07",
-   "confirmed_through": "2027-01-26",
+   "build_next": "2026-10-08",
+   "confirmed_through": "2027-01-27",
    "fred_clock": null,
    "freq": "daily",
    "ids": "^gspc",
    "link": "https://finance.yahoo.com/quote/%5EGSPC/history/",
    "name": "s&p 500 daily close",
    "next_expected": false,
-   "next_ny": "2026-10-07 16:00",
+   "next_ny": "2026-10-08 16:00",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the S&P 500 close",
    "slots": false,
    "source": "rule: nyse_close",
-   "through": "2026-10-06",
+   "through": "2026-10-07",
    "time_known": true,
    "time_note": "the market close",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-09-29 16:00",
-     "utc": "2026-09-29T20:00:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-09-30 16:00",
@@ -432,35 +427,35 @@
      "expected": false,
      "ny": "2027-01-26 16:00",
      "utc": "2027-01-26T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-27 16:00",
+     "utc": "2027-01-27T21:00:00Z"
     }
    ],
    "waiting_since_due": null
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-10-07",
-   "confirmed_through": "2027-01-31",
+   "build_next": "2026-10-08",
+   "confirmed_through": "2027-02-01",
    "fred_clock": null,
    "freq": "daily",
    "ids": "dfedtaru",
    "link": "https://fred.stlouisfed.org/series/DFEDTARU",
    "name": "federal funds target range, upper limit",
    "next_expected": false,
-   "next_ny": "2026-10-07 08:01",
+   "next_ny": "2026-10-08 08:01",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the fed funds target (FRED, daily)",
    "slots": false,
    "source": "rule: fred_every_day",
-   "through": "2026-10-06",
+   "through": "2026-10-07",
    "time_known": true,
    "time_note": "FRED's daily post, at its measured clock (every day, weekends included)",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-04 08:01",
-     "utc": "2026-10-04T12:01:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-10-05 08:01",
@@ -1055,35 +1050,35 @@
      "expected": false,
      "ny": "2027-01-31 08:01",
      "utc": "2027-01-31T13:01:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-01 08:01",
+     "utc": "2027-02-01T13:01:00Z"
     }
    ],
    "waiting_since_due": null
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-10-07",
-   "confirmed_through": "2027-01-26",
+   "build_next": "2026-10-08",
+   "confirmed_through": "2027-01-27",
    "fred_clock": null,
    "freq": "daily",
    "ids": "dcpf1m, dcpn30, wtb3ms",
    "link": "https://fred.stlouisfed.org/series/DCPF1M",
    "name": "commercial paper and three-month bill rates",
    "next_expected": false,
-   "next_ny": "2026-10-07 16:15",
+   "next_ny": "2026-10-08 16:15",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the H.15 rates (daily post)",
    "slots": true,
    "source": "rule: h15_daily",
-   "through": "2026-10-05",
+   "through": "2026-10-06",
    "time_known": true,
    "time_note": null,
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-09-29 16:15",
-     "utc": "2026-09-29T20:15:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-09-30 16:15",
@@ -1478,6 +1473,11 @@
      "expected": false,
      "ny": "2027-01-26 16:15",
      "utc": "2027-01-26T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-27 16:15",
+     "utc": "2027-01-27T21:15:00Z"
     }
    ],
    "waiting_since_due": null
@@ -1485,7 +1485,7 @@
   {
    "agrees_with_build": true,
    "build_next": "2026-10-07",
-   "confirmed_through": "2027-01-31",
+   "confirmed_through": "2027-02-01",
    "fred_clock": null,
    "freq": "daily",
    "ids": "google trends \"unemployment\"",
@@ -1498,15 +1498,10 @@
    "short": "Google searches",
    "slots": false,
    "source": "rule: utc_day_end",
-   "through": "2026-10-05",
+   "through": "2026-10-06",
    "time_known": true,
    "time_note": "the day's end in UTC, 8 PM ET in summer and 7 PM in winter (the tool reads Google's days in UTC); Google publishes no hour",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-04 20:00",
-     "utc": "2026-10-05T00:00:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-10-05 20:00",
@@ -2101,6 +2096,11 @@
      "expected": false,
      "ny": "2027-01-31 19:00",
      "utc": "2027-02-01T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-01 19:00",
+     "utc": "2027-02-02T00:00:00Z"
     }
    ],
    "waiting_since_due": null

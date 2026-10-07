@@ -10,21 +10,21 @@
   "bar_days_after_close": 183,
   "breadth_public_days_after_month": 21
  },
- "asof": "2026-10-06",
+ "asof": "2026-10-07",
  "reading": {
   "production_fall12": -0.0002,
   "production_distance": 0.0202,
   "production_vintage": "2026-09-18",
   "production_level": 103.0682,
   "production_last_month": "2026-08",
-  "market_drawdown": 0.0,
-  "market_distance": 0.1,
-  "market_close": 7818.93,
-  "market_close_date": "2026-10-06",
+  "market_drawdown": 0.0022,
+  "market_distance": 0.0978,
+  "market_close": 7801.77,
+  "market_close_date": "2026-10-07",
   "policy_rate": 4.0,
   "policy_low_365": 3.75,
   "policy_rise": 0.25,
-  "policy_date": "2026-10-06",
+  "policy_date": "2026-10-07",
   "tightening": true,
   "breadth_month": "2026-08",
   "breadth_published": "2026-09-21",
@@ -63,7 +63,7 @@
  ],
  "vintages": 1223,
  "vintages_added_this_run": 0,
- "policy_days_added_this_run": 0,
+ "policy_days_added_this_run": 1,
  "breadth_months_added_this_run": 0,
  "g17_dates": [
   "2026-10-16",
@@ -76,7 +76,7 @@
  "channels": {
   "production": {
    "status": "current",
-   "age_days": 18,
+   "age_days": 19,
    "limit_days": 45,
    "substitute": null
   },
@@ -94,7 +94,7 @@
   },
   "breadth": {
    "status": "current",
-   "age_days": 36,
+   "age_days": 37,
    "limit_days": 56,
    "substitute": null
   }

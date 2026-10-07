@@ -1,9 +1,9 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
- "checked_at": "2026-10-07T00:12Z",
+ "checked_at": "2026-10-07T21:24Z",
  "open_misses": [
   {
-   "hours": 155.3,
+   "hours": 176.5,
    "name": "GDP",
    "posted": "2026-09-30 08:53 ET",
    "release": 53
@@ -568,6 +568,46 @@
    "posted": "2026-10-06 16:00 ET",
    "read_at": "2026-10-06T20:22Z",
    "release": 189,
+   "to": "2026-10-06"
+  },
+  {
+   "from": "2026-10-05",
+   "ids": "DCPF1M, DCPN30, WTB3MS",
+   "lag_min": 68,
+   "name": "H.15 rates",
+   "posted": "2026-10-07 16:16 ET",
+   "read_at": "2026-10-07T21:24Z",
+   "release": 18,
+   "to": "2026-10-06"
+  },
+  {
+   "from": "2026-10-06",
+   "ids": "^GSPC",
+   "lag_min": 84,
+   "name": "the S&P 500 close",
+   "posted": "2026-10-07 16:00 ET",
+   "read_at": "2026-10-07T21:24Z",
+   "release": 189,
+   "to": "2026-10-07"
+  },
+  {
+   "from": "2026-10-06",
+   "ids": "DFEDTARU",
+   "lag_min": 563,
+   "name": "the fed funds target",
+   "posted": "2026-10-07 08:01 ET",
+   "read_at": "2026-10-07T21:24Z",
+   "release": 101,
+   "to": "2026-10-07"
+  },
+  {
+   "from": "2026-10-05",
+   "ids": "Google Trends \"unemployment\"",
+   "lag_min": null,
+   "name": null,
+   "posted": null,
+   "read_at": "2026-10-07T21:24Z",
+   "release": null,
    "to": "2026-10-06"
   }
  ],
