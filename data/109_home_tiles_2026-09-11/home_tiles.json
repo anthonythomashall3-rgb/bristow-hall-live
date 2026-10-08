@@ -1,5 +1,5 @@
 {
- "built": "2026-10-07",
+ "built": "2026-10-08",
  "tiles": [
   {
    "lab": "Unemployment rate",
@@ -49,7 +49,7 @@
   {
    "lab": "Initial claims (week)",
    "val": "197,000",
-   "sub": "week ending Sep 26, 2026",
+   "sub": "week ending Oct 3, 2026",
    "src": "https://fred.stlouisfed.org/series/ICSA",
    "sid": "ICSA",
    "next": "2026-10-08",
@@ -64,7 +64,7 @@
   {
    "lab": "Insured unemployment rate",
    "val": "1.1%",
-   "sub": "week ending Sep 19, 2026",
+   "sub": "week ending Sep 26, 2026",
    "src": "https://fred.stlouisfed.org/series/IURSA",
    "sid": "IURSA",
    "next": "2026-10-08",
