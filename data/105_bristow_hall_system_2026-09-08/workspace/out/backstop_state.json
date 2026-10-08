@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-08T16:07:48",
+ "built_at": "2026-10-08T20:22:24",
  "standing": {
   "state": "closed",
   "since": "2024-09-26",
@@ -21,7 +21,7 @@
    "line": 30,
    "on": false,
    "since": "2021-04-10",
-   "data_through": "2026-09-19",
+   "data_through": "2026-09-26",
    "reporting": 51,
    "states_accelerating": [],
    "unit": "states of 51 whose 13-week average insured rate is >= 0.20 pp above a year earlier",
@@ -79,7 +79,7 @@
   "weeks_on": 0,
   "gate_passed": false,
   "would_open_on": null,
-  "data_through": "2026-10-01",
+  "data_through": "2026-10-08",
   "calls": [
    "1970-04-23",
    "1974-07-25",
