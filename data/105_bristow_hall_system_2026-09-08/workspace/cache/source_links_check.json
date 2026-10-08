@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-10-08T12:40:13Z",
+ "checked_utc": "2026-10-08T15:47:29Z",
  "release": {},
  "row_tokens": {
   "feed|DCPF1M, DCPN30, WTB3MS": "2026-10-06|3.94; 3.95; 4.04",
@@ -46,7 +46,7 @@
   "row|UNRATE, AWHMAN, NDMANEMP, PAYEMS|Unemployment rate, factory hours, nondurable employment": "2026-09-01|4.2; 42.0; 4,754; 159,044",
   "row|UNRATE, JTSJOL|Michaillat and Saez's rule: the smaller of the unemployment indicator and the vacancy indicator": "2026-09-01|0.0",
   "row|UNRATE|Unemployment rate": "2026-09-01|4.2%",
-  "row|WEI|Weekly Economic Index (Lewis, Mertens and Stock), 13-week mean": "2026-09-26|2.91",
+  "row|WEI|Weekly Economic Index (Lewis, Mertens and Stock), 13-week mean": "2026-10-03|2.88",
   "row|^GSPC|S&P 500 daily close": "2026-10-07|7,801.77",
   "tile|CPI inflation": "3.4%|year over year, Aug 2026",
   "tile|Initial claims (week)": "197,000|week ending Oct 3, 2026",
