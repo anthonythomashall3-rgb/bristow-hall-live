@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-08 11:47",
+ "built_at": "2026-10-08 12:07",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-10-08T15:47:43Z",
+ "generated_utc": "2026-10-08T16:08:03Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -3438,7 +3438,7 @@
    "link": "https://alfred.stlouisfed.org/series?seid=GDPNOW",
    "name": "gdpnow",
    "next_expected": false,
-   "next_ny": "2026-10-08 12:01",
+   "next_ny": "2026-10-15 12:01",
    "read_lag_min": 1,
    "release_id": 386,
    "short": "GDPNow",
@@ -3554,7 +3554,7 @@
      "utc": "2026-12-23T17:01:00Z"
     }
    ],
-   "waiting_since_due": "2026-10-06 12:01"
+   "waiting_since_due": null
   },
   {
    "agrees_with_build": true,
