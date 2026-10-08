@@ -617,7 +617,7 @@
 },
 {
 "name": "feed next release is not in the past: Search week: Google searches for \"unempl",
-"got": "2026-10-07",
+"got": "2026-10-08",
 "want": ">= 2026-10-07",
 "status": "PASS",
 "gate": null
@@ -1023,8 +1023,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-10-07 17:23', '2026-10-07 17:23')",
-"want": "('2026-10-07 17:23', '2026-10-07 17:23')",
+"got": "('2026-10-07 20:12', '2026-10-07 20:12')",
+"want": "('2026-10-07 20:12', '2026-10-07 20:12')",
 "status": "PASS",
 "gate": "hard"
 },

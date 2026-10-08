@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-07 17:23",
+ "built_at": "2026-10-07 20:12",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-10-07T21:24:16Z",
+ "generated_utc": "2026-10-08T00:12:54Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -1484,7 +1484,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-10-07",
+   "build_next": "2026-10-08",
    "confirmed_through": "2027-02-01",
    "fred_clock": null,
    "freq": "daily",
@@ -1492,7 +1492,7 @@
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
    "name": "search week: google searches for \"unemployment\"",
    "next_expected": false,
-   "next_ny": "2026-10-07 20:00",
+   "next_ny": "2026-10-08 20:00",
    "read_lag_min": 0,
    "release_id": null,
    "short": "Google searches",

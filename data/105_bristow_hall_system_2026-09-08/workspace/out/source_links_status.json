@@ -228,10 +228,5 @@
    ]
   ]
  },
- "rows_with_new_data_this_run": [
-  "row|DCPF1M, DCPN30, WTB3MS|Commercial paper and three-month bill rates",
-  "row|DFEDTARU|Federal funds target range, upper limit",
-  "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\"",
-  "row|^GSPC|S&P 500 daily close"
- ]
+ "rows_with_new_data_this_run": []
 }
