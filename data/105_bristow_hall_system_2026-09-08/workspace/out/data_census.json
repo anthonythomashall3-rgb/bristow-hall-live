@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-09 08:58",
+ "built_at": "2026-10-09 16:23",
  "version": "v3.76",
  "census_date": "2026-10-09",
  "feeds": [
@@ -73,10 +73,10 @@
    "series": "DCPF1M, DCPN30, WTB3MS",
    "source": "Federal Reserve, H.15 selected interest rates",
    "every": "Daily - the Board posts the H.15 every business day at 4:15 PM ET, carrying the previous business day's rates (the bill rate is a weekly series)",
-   "through": "2026-10-07",
-   "next": "2026-10-09",
+   "through": "2026-10-08",
+   "next": "2026-10-13",
    "link": "https://www.federalreserve.gov/releases/h15/",
-   "value": "3.94; 3.94; 4.04",
+   "value": "3.94; 3.95; 4.04",
    "backup": "FRED DCPN30, DCPF1M and DTB3 (the Federal Reserve is not shut in a shutdown)",
    "format_check": "q41: the paper rates and their last printed day",
    "auto": "yes"
@@ -86,10 +86,10 @@
    "series": "^GSPC",
    "source": "Yahoo Finance close at the 5:05 PM ET run, corrected to the official close on FRED (SP500), which FRED posts the same evening, about 8 PM ET",
    "every": "Every trading day - read at the 5:05 PM ET run",
-   "through": "2026-10-08",
-   "next": "2026-10-09",
+   "through": "2026-10-09",
+   "next": "2026-10-12",
    "link": "https://finance.yahoo.com/quote/%5EGSPC/",
-   "value": "7,765.36",
+   "value": "7,811.54",
    "backup": "the official FRED SP500 close when the chart feed fails (two independent quotes)",
    "format_check": "q41: reading matches the readings table; two sources compared",
    "auto": "yes"
@@ -190,10 +190,10 @@
    "series": "Google Trends \"unemployment\"",
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
-   "through": "2026-10-07",
+   "through": "2026-10-08",
    "next": "2026-10-09",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
-   "value": "68",
+   "value": "59",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
    "format_check": "the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-fetched window whose overlap deviates over 15 per cent is not appended; pull_log.csv)",
    "auto": "yes"
@@ -238,7 +238,7 @@
   {
    "channel": "S&P 500 close",
    "status": "current",
-   "last": "2026-10-08",
+   "last": "2026-10-09",
    "limit_days": 5,
    "substitute": null
   },
