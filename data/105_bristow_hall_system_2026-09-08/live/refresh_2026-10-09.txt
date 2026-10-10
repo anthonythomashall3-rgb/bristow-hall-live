@@ -1,12 +1,5 @@
-FRED change check: 112 series tracked; 30 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, BBKMCOIX, BORROW, CASACBW027NBOG, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3 ...
-search week (unemp): 1 day(s) appended, through 2026-10-08 (scale 0.090 on 249 overlap days)
-search week (unemp): Google's 90-day view through 2026-10-08 = 59
-search week (layoffs): 1 day(s) appended, through 2026-10-08 (scale 1.238 on 249 overlap days)
-search week (layoffs): Google's 90-day view through 2026-10-08 = 29
-search week (laidoff): 1 day(s) appended, through 2026-10-08 (scale 0.140 on 249 overlap days)
-search week (laidoff): Google's 90-day view through 2026-10-08 = 66
+FRED change check: 112 series tracked; 29 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, BBKMCOIX, BORROW, CASACBW027NBOG, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3 ...
 home tiles: unchanged | 9 readings through Sep 2026 (unemployment rate), Oct 3, 2026 (claims); next releases CPIAUCSL 2026-10-14, ICSA 2026-10-15, IURSA 2026-10-15, JTSJOL 2026-11-03, JTSQUR 2026-11-03, PAYEMS 2026-11-06, UNRATE 2026-11-06; saved to collection 109
-DCPN30         2026-10-07 -> 2026-10-08  (7004 obs)
 PAYEMS         no new vintage since 2026-10-02 (through 2026-09-01)
 GDPC1          no new vintage since 2026-09-30 (through 2026-04-01)
 GDPNOW         no new vintage since 2026-10-08 (through 2026-07-01)
@@ -15,9 +8,8 @@ relcal_HOUST: unchanged (through 2026-08)
 relcal_UNRATE: unchanged (through 2026-09)
 relcal_JTSJOL: unchanged (through 2026-08)
 vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
-S&P 500: 1 day(s) appended, through 2026-10-09 (0 official, 1 from the feed)
+S&P 500: nothing new (through 2026-10-09)
 Sahm gap: unchanged (through 2026-09-01)
 insured rate base: unchanged (through 2026-09-26)
 ---- the damage index's unemployment rate ----
-left as they stand: 78 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
-FRED stamps: 1 series recorded as pulled
+left as they stand: 80 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)

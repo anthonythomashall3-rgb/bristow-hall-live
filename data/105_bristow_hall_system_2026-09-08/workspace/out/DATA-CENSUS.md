@@ -1,4 +1,4 @@
-# The data census - 2026-10-09 (the tool v3.76, built 2026-10-09 16:23)
+# The data census - 2026-10-09 (the tool v3.76, built 2026-10-09 20:12)
 
 Every input the live tool reads: the publisher and route, the backup or substitute, the schedule, what is in hand, and the guard on its format. Gaps are listed at the end.
 
@@ -18,7 +18,7 @@ Every input the live tool reads: the publisher and route, the backup or substitu
 | Real GDP (the damage grade's output dimension) | GDPC1 | Bureau of Economic Analysis, Gross Domestic Product news release (FRED GDPC1, th | Quarterly - the advance estimate about four weeks after the  | 2026-04 | 2026-10-29 | GDPNow for the unprinted quarter; the BEA release text | damage_dimensions.py: the vintage table read by column name; q41 v3.73 checks |
 | GDPNow (the output dimension's bridge for the quarter not yet printed) | GDPNOW | Federal Reserve Bank of Atlanta, GDPNow (FRED GDPNOW, every update as a vintage) | Several times a month, on the days of the releases it reads  | 2026-07 | 2026-10-15 | the Atlanta Fed page; the last printed quarter carried | the vintage appender names each vintage by its FRED date |
 | Sahm rule, real time (the comparator on the speed panel) | SAHMREALTIME | FRED SAHMREALTIME | Monthly - FRED posts it on the morning of the employment rep | 2026-09 | 2026-11-06 | computed from the unemployment rate first prints if FRED SAHMREALTIME lapses | q41: the speed panel |
-| Search week: Google searches for "unemployment" (the sudden stop's sec | Google Trends "unemployment" | Google Trends, United States, daily index stitched onto one scale and extended e | Daily - a day's index is complete when the day ends in UTC ( | 2026-10-08 | 2026-10-09 | the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2) | the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-f |
+| Search week: Google searches for "unemployment" (the sudden stop's sec | Google Trends "unemployment" | Google Trends, United States, daily index stitched onto one scale and extended e | Daily - a day's index is complete when the day ends in UTC ( | 2026-10-08 | 2026-10-10 | the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2) | the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-f |
 
 ## The channels (E5: current, stale, substitute, dark)
 
