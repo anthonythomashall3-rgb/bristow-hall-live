@@ -1,5 +1,5 @@
 {
- "built": "2026-10-13",
+ "built": "2026-10-14",
  "tiles": [
   {
    "lab": "Unemployment rate",
@@ -127,8 +127,8 @@
   },
   {
    "lab": "CPI inflation",
-   "val": "3.4%",
-   "sub": "year over year, Aug 2026",
+   "val": "3.7%",
+   "sub": "year over year, Sep 2026",
    "src": "https://fred.stlouisfed.org/series/CPIAUCSL",
    "sid": "CPIAUCSL",
    "next": "2026-10-14",
