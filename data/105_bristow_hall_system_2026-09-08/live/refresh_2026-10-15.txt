@@ -1,4 +1,4 @@
-FRED change check: 112 series tracked; 33 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, BBKMCOIX, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME ...
+FRED change check: 112 series tracked; 33 changed since last pulled (0 updated since 10:46 CT): AWOTMAN, BBKMCOIX, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME ...
 first prints: collection 45 already carries every week ALFRED has (through 2026-10-10, released 2026-10-15)
 DOL release of 2026-10-15: week ending 2026-10-10 already in collection 45
 state 539: the Department's file is unchanged since last read (modified Wed, 14 Oct 2026 19:50:58 GMT); panel stands through 2026-09-26
@@ -6,7 +6,7 @@ state first prints: nothing new (insured unemployment through 2026-10-03; 5 pres
 home tiles: unchanged | 9 readings through Sep 2026 (unemployment rate), Oct 10, 2026 (claims); next releases CPIAUCSL 2026-11-10, ICSA 2026-10-22, IURSA 2026-10-22, JTSJOL 2026-11-03, JTSQUR 2026-11-03, PAYEMS 2026-11-06, UNRATE 2026-11-06; saved to collection 109
 PAYEMS         no new vintage since 2026-10-02 (through 2026-09-01)
 GDPC1          no new vintage since 2026-09-30 (through 2026-04-01)
-GDPNOW         no new vintage since 2026-10-08 (through 2026-07-01)
+GDPNOW         1 vintage(s) appended, the last 2026-10-15: data through 2026-07-01
 indeed postings  4886 rows, last 2026-10-09
 relcal_HOUST: unchanged (through 2026-08)
 relcal_UNRATE: unchanged (through 2026-09)
