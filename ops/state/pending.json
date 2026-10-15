@@ -1,24 +1,25 @@
 {
  "came_in": [
   {
-   "came_in": "2026-10-15 12:09",
-   "due_ny": "2026-10-15 12:01",
-   "ids": "gdpnow",
-   "short": "GDPNow"
-  }
- ],
- "expired": [],
- "last_check_ny": "2026-10-15 12:04",
- "pending": [
-  {
+   "came_in": "2026-10-15 16:23",
    "due_ny": "2026-10-15 08:30",
    "expected_day": false,
    "ids": "eta 539 by state",
    "short": "weekly claims",
    "since_ny": "2026-10-15 08:40",
    "through_before": "2026-09-26",
+   "through_now": "2026-10-03",
    "value_before": "0"
+  },
+  {
+   "came_in": "2026-10-15 16:23",
+   "due_ny": "2026-10-15 16:00",
+   "ids": "^gspc",
+   "short": "the S&P 500 close"
   }
  ],
+ "expired": [],
+ "last_check_ny": "2026-10-15 16:18",
+ "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }

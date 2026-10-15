@@ -229,6 +229,8 @@
   ]
  },
  "rows_with_new_data_this_run": [
-  "row|GDPNOW|GDPNow"
+  "row|DCPF1M, DCPN30, WTB3MS|Commercial paper and three-month bill rates",
+  "row|ETA 539 by state|States with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
+  "row|^GSPC|S&P 500 daily close"
  ]
 }
