@@ -1,19 +1,19 @@
-    0.2s  FRED change check: 112 series tracked; 31 changed since last pulled (5 updated since 07:51 CT): AWOTMAN, BBKMCOIX, BORROW, CASACBW027NBOG, CCNSA, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME, DTB3 ...
-    1.2s  first prints: collection 45 already carries every week ALFRED has (through 2026-10-10, released 2026-10-15)
-    1.5s  DOL release of 2026-10-15: week ending 2026-10-10 already in collection 45
-    2.1s  state 539: the Department's file is unchanged since last read (modified Wed, 14 Oct 2026 19:50:58 GMT); panel stands through 2026-09-26
-    2.6s  state first prints: nothing new (insured unemployment through 2026-10-03; 5 press release(s) on file)
-    3.7s  home tiles: unchanged | 9 readings through Sep 2026 (unemployment rate), Oct 10, 2026 (claims); next releases CPIAUCSL 2026-11-10, ICSA 2026-10-15, IURSA 2026-10-15, JTSJOL 2026-11-03, JTSQUR 2026-11-03, PAYEMS 2026-11-06, UNRATE 2026-11-06; saved to collection 109
-    4.0s  PAYEMS         no new vintage since 2026-10-02 (through 2026-09-01)
-    4.2s  GDPC1          no new vintage since 2026-09-30 (through 2026-04-01)
-    4.4s  GDPNOW         no new vintage since 2026-10-08 (through 2026-07-01)
-    4.7s  indeed postings  4886 rows, last 2026-10-09
-    4.8s  relcal_HOUST: unchanged (through 2026-08)
-    4.9s  relcal_UNRATE: unchanged (through 2026-09)
-    4.9s  relcal_JTSJOL: unchanged (through 2026-08)
-    4.9s  vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
-    5.4s  S&P 500: nothing new (through 2026-10-14)
-    6.2s  Sahm gap: unchanged (through 2026-09-01)
-    6.2s  insured rate base: unchanged (through 2026-10-03)
-    6.2s  ---- the damage index's unemployment rate ----
-    6.2s  left as they stand: 76 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
+    1.9s  FRED change check: 112 series tracked; 32 changed since last pulled (2 updated since 08:11 CT): AWOTMAN, BBKMCOIX, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS, DFF, DPRIME ...
+    2.8s  first prints: collection 45 already carries every week ALFRED has (through 2026-10-10, released 2026-10-15)
+    3.1s  DOL release of 2026-10-15: week ending 2026-10-10 already in collection 45
+    3.7s  state 539: the Department's file is unchanged since last read (modified Wed, 14 Oct 2026 19:50:58 GMT); panel stands through 2026-09-26
+    4.3s  state first prints: nothing new (insured unemployment through 2026-10-03; 5 press release(s) on file)
+    5.4s  home tiles: unchanged | 9 readings through Sep 2026 (unemployment rate), Oct 10, 2026 (claims); next releases CPIAUCSL 2026-11-10, ICSA 2026-10-15, IURSA 2026-10-15, JTSJOL 2026-11-03, JTSQUR 2026-11-03, PAYEMS 2026-11-06, UNRATE 2026-11-06; saved to collection 109
+    5.9s  PAYEMS         no new vintage since 2026-10-02 (through 2026-09-01)
+    6.2s  GDPC1          no new vintage since 2026-09-30 (through 2026-04-01)
+    6.5s  GDPNOW         no new vintage since 2026-10-08 (through 2026-07-01)
+    6.9s  indeed postings  4886 rows, last 2026-10-09
+    7.0s  relcal_HOUST: unchanged (through 2026-08)
+    7.1s  relcal_UNRATE: unchanged (through 2026-09)
+    7.1s  relcal_JTSJOL: unchanged (through 2026-08)
+    7.1s  vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
+    7.7s  S&P 500: nothing new (through 2026-10-14)
+    8.6s  Sahm gap: unchanged (through 2026-09-01)
+    8.6s  insured rate base: unchanged (through 2026-10-03)
+    8.6s  ---- the damage index's unemployment rate ----
+    8.6s  left as they stand: 76 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
