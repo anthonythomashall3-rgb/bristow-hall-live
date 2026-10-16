@@ -1,6 +1,6 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
- "checked_at": "2026-10-16T00:12Z",
+ "checked_at": "2026-10-16T12:57Z",
  "open_misses": [],
  "reads": [
   {
@@ -901,6 +901,36 @@
    "posted": "2026-10-15 16:00 ET",
    "read_at": "2026-10-15T20:23Z",
    "release": 189,
+   "to": "2026-10-15"
+  },
+  {
+   "from": "2026-09-26",
+   "ids": "ETA 539 state insured rates",
+   "lag_min": null,
+   "name": null,
+   "posted": null,
+   "read_at": "2026-10-16T12:57Z",
+   "release": null,
+   "to": "2026-10-03"
+  },
+  {
+   "from": "2026-10-15",
+   "ids": "DFEDTARU",
+   "lag_min": 56,
+   "name": "the fed funds target",
+   "posted": "2026-10-16 08:01 ET",
+   "read_at": "2026-10-16T12:57Z",
+   "release": 101,
+   "to": "2026-10-16"
+  },
+  {
+   "from": "2026-10-14",
+   "ids": "Google Trends \"unemployment\"",
+   "lag_min": null,
+   "name": null,
+   "posted": null,
+   "read_at": "2026-10-16T12:57Z",
+   "release": null,
    "to": "2026-10-15"
   }
  ],
