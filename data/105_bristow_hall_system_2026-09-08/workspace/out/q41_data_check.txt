@@ -61,7 +61,7 @@ PASS  feed line matches the readings table: S&P 500 daily close (the market gate
 PASS  feed is not dated in the future: S&P 500 daily close (the market gate of   got=2026-10-15  want=<= 2026-10-16
 PASS  feed next release is not in the past: S&P 500 daily close (the market gate of   got=2026-10-16  want=>= 2026-10-16
 PASS  feed has a source link: S&P 500 daily close (the market gate of   got=True  want=True
-PASS  feed reading matches the readings table: Industrial production, as published (the  got=-0.02  want=-0.02
+PASS  feed reading matches the readings table: Industrial production, as published (the  got=-0.66  want=-0.66
 PASS  feed line matches the readings table: Industrial production, as published (the  got=2.0  want=2.0
 PASS  feed next release is not in the past: Industrial production, as published (the  got=2026-10-16  want=>= 2026-10-16
 PASS  feed has a source link: Industrial production, as published (the  got=True  want=True
@@ -144,7 +144,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-03)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-10-16 08:56', '2026-10-16 08:56')  want=('2026-10-16 08:56', '2026-10-16 08:56')
+PASS  public state copies are this build  got=('2026-10-16 09:27', '2026-10-16 09:27')  want=('2026-10-16 09:27', '2026-10-16 09:27')
 PASS  front-page tiles fetched today  got=2026-10-16  want=2026-10-16
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]

@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-16 08:56",
+ "built_at": "2026-10-16 09:27",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-10-16T12:57:09Z",
+ "generated_utc": "2026-10-16T13:27:46Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -2799,6 +2799,99 @@
   },
   {
    "agrees_with_build": true,
+   "build_next": "2026-10-16",
+   "confirmed_through": "2027-11-17",
+   "fred_clock": "09:21",
+   "freq": "monthly",
+   "ids": "indpro",
+   "link": "https://alfred.stlouisfed.org/series?seid=INDPRO",
+   "name": "industrial production, as published",
+   "next_expected": false,
+   "next_ny": "2026-11-17 09:15",
+   "read_lag_min": 6,
+   "release_id": 13,
+   "short": "industrial production (G.17)",
+   "slots": true,
+   "source": "FRED release 13 (G.17 Industrial Production and Capacity Utilization)",
+   "through": "2026-09-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-10-16 09:15",
+     "utc": "2026-10-16T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-17 09:15",
+     "utc": "2026-11-17T14:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-16 09:15",
+     "utc": "2026-12-16T14:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-15 09:15",
+     "utc": "2027-01-15T14:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-17 09:15",
+     "utc": "2027-02-17T14:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-03-15 09:15",
+     "utc": "2027-03-15T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-04-15 09:15",
+     "utc": "2027-04-15T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-05-17 09:15",
+     "utc": "2027-05-17T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-06-16 09:15",
+     "utc": "2027-06-16T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-07-16 09:15",
+     "utc": "2027-07-16T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-08-17 09:15",
+     "utc": "2027-08-17T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-09-16 09:15",
+     "utc": "2027-09-16T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-10-18 09:15",
+     "utc": "2027-10-18T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-11-17 09:15",
+     "utc": "2027-11-17T14:15:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
    "build_next": "2026-11-06",
    "confirmed_through": "2026-12-04",
    "fred_clock": "09:36",
@@ -3026,99 +3119,6 @@
      "expected": true,
      "ny": "2027-01-05 10:00",
      "utc": "2027-01-05T15:00:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-10-16",
-   "confirmed_through": "2027-11-17",
-   "fred_clock": "09:21",
-   "freq": "monthly",
-   "ids": "indpro",
-   "link": "https://alfred.stlouisfed.org/series?seid=INDPRO",
-   "name": "industrial production, as published",
-   "next_expected": false,
-   "next_ny": "2026-10-16 09:15",
-   "read_lag_min": 6,
-   "release_id": 13,
-   "short": "industrial production (G.17)",
-   "slots": true,
-   "source": "FRED release 13 (G.17 Industrial Production and Capacity Utilization)",
-   "through": "2026-08-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-16 09:15",
-     "utc": "2026-10-16T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-17 09:15",
-     "utc": "2026-11-17T14:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-16 09:15",
-     "utc": "2026-12-16T14:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-15 09:15",
-     "utc": "2027-01-15T14:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-17 09:15",
-     "utc": "2027-02-17T14:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-03-15 09:15",
-     "utc": "2027-03-15T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-04-15 09:15",
-     "utc": "2027-04-15T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-05-17 09:15",
-     "utc": "2027-05-17T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-06-16 09:15",
-     "utc": "2027-06-16T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-07-16 09:15",
-     "utc": "2027-07-16T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-08-17 09:15",
-     "utc": "2027-08-17T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-09-16 09:15",
-     "utc": "2027-09-16T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-10-18 09:15",
-     "utc": "2027-10-18T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-11-17 09:15",
-     "utc": "2027-11-17T14:15:00Z"
     }
    ],
    "waiting_since_due": null

@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-16 08:56",
+ "built_at": "2026-10-16 09:27",
  "version": "v3.76",
  "census_date": "2026-10-16",
  "feeds": [
@@ -99,10 +99,10 @@
    "series": "INDPRO",
    "source": "Federal Reserve, G.17 Industrial Production and Capacity Utilization (each month as first published: ALFRED vintages)",
    "every": "Monthly - about the 16th, 9:15 AM ET",
-   "through": "2026-08",
+   "through": "2026-09",
    "next": "2026-10-16",
    "link": "https://www.federalreserve.gov/releases/g17/current/",
-   "value": "103.0682",
+   "value": "103.9506",
    "backup": "the FRED current file of INDPRO (flagged: revised values), then the G.17 release text",
    "format_check": "activity_opener.py: the vintage history appended and checked",
    "auto": "yes"
@@ -245,7 +245,7 @@
   {
    "channel": "industrial production as published (Federal Reserve G.17)",
    "status": "current",
-   "last": "2026-09-18",
+   "last": "2026-10-16",
    "limit_days": 45,
    "substitute": null
   },

@@ -12,11 +12,11 @@
  },
  "asof": "2026-10-16",
  "reading": {
-  "production_fall12": -0.0002,
-  "production_distance": 0.0202,
-  "production_vintage": "2026-09-18",
-  "production_level": 103.0682,
-  "production_last_month": "2026-08",
+  "production_fall12": -0.0066,
+  "production_distance": 0.0266,
+  "production_vintage": "2026-10-16",
+  "production_level": 103.9506,
+  "production_last_month": "2026-09",
   "market_drawdown": 0.0096,
   "market_distance": 0.0904,
   "market_close": 7744.06,
@@ -61,9 +61,9 @@
   "1974-03-15",
   "1981-11-13"
  ],
- "vintages": 1223,
- "vintages_added_this_run": 0,
- "policy_days_added_this_run": 1,
+ "vintages": 1224,
+ "vintages_added_this_run": 1,
+ "policy_days_added_this_run": 0,
  "breadth_months_added_this_run": 0,
  "g17_dates": [
   "2026-10-16",
@@ -76,7 +76,7 @@
  "channels": {
   "production": {
    "status": "current",
-   "age_days": 28,
+   "age_days": 0,
    "limit_days": 45,
    "substitute": null
   },

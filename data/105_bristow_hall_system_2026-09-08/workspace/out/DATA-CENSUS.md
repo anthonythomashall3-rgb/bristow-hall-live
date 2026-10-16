@@ -1,4 +1,4 @@
-# The data census - 2026-10-16 (the tool v3.76, built 2026-10-16 08:56)
+# The data census - 2026-10-16 (the tool v3.76, built 2026-10-16 09:27)
 
 Every input the live tool reads: the publisher and route, the backup or substitute, the schedule, what is in hand, and the guard on its format. Gaps are listed at the end.
 
@@ -11,7 +11,7 @@ Every input the live tool reads: the publisher and route, the backup or substitu
 | Housing starts and building permits | HOUST, PERMIT | Census Bureau, New Residential Construction | Monthly - about the 17th, 8:30 AM ET | 2026-09-01 | 2026-10-20 | building permits beside starts (the pair reads either); the Census calendar | q41 feed checks |
 | Commercial paper and three-month bill rates (the spread) | DCPF1M, DCPN30, WTB3MS | Federal Reserve, H.15 selected interest rates | Daily - the Board posts the H.15 every business day at 4:15  | 2026-10-14 | 2026-10-16 | FRED DCPN30, DCPF1M and DTB3 (the Federal Reserve is not shut in a shutdown) | q41: the paper rates and their last printed day |
 | S&P 500 daily close (the market gate of the sudden stop, the activity  | ^GSPC | Yahoo Finance close at the 5:05 PM ET run, corrected to the official close on FR | Every trading day - read at the 5:05 PM ET run | 2026-10-15 | 2026-10-16 | the official FRED SP500 close when the chart feed fails (two independent quotes) | q41: reading matches the readings table; two sources compared |
-| Industrial production, as published (the activity opener) | INDPRO | Federal Reserve, G.17 Industrial Production and Capacity Utilization (each month | Monthly - about the 16th, 9:15 AM ET | 2026-08 | 2026-10-16 | the FRED current file of INDPRO (flagged: revised values), then the G.17 release text | activity_opener.py: the vintage history appended and checked |
+| Industrial production, as published (the activity opener) | INDPRO | Federal Reserve, G.17 Industrial Production and Capacity Utilization (each month | Monthly - about the 16th, 9:15 AM ET | 2026-09 | 2026-10-16 | the FRED current file of INDPRO (flagged: revised values), then the G.17 release text | activity_opener.py: the vintage history appended and checked |
 | Federal funds target range, upper limit (the activity opener's tighten | DFEDTARU | Federal Reserve, FOMC statement (FRED DFEDTARU, the daily series) | Daily - FRED posts the series every day, weekends included,  | 2026-10-16 | 2026-10-17 | the FOMC statement on federalreserve.gov (the rate carried from the last reading until then) | activity_opener.py: the FOMC calendar end alert (watchdog) |
 | State continued weeks claimed, ETA 539 (the activity opener's breadth  | ETA 539 | Department of Labor, ETA 539 weekly state claims (continued weeks claimed, by st | Monthly - each month is read 21 days after it ends, from the | 2026-08 | 2026-10-21 | the ETA 5159 monthly report (slower), then the last month read | state539_live.py: the 539 file columns asserted |
 | State unemployment rates, all 51 (the second opener) | LAUS state rates (51) | Bureau of Labor Statistics, Local Area Unemployment Statistics, as first printed | Monthly - with the State Employment and Unemployment release | 2026-08-01 | 2026-10-20 | the states' ETA 539 insured-rate acceleration, at most two months (collection 336) | state_breadth.py: 45-state coverage guard; q41 v3.72 checks |
@@ -30,7 +30,7 @@ Every input the live tool reads: the publisher and route, the backup or substitu
 | job openings (BLS JOLTS) | current | 2026-08-01 | 80 |  |
 | paper and bill rates (Federal Reserve H.15) | current | 2026-10-09 | 12 |  |
 | S&P 500 close | current | 2026-10-15 | 5 |  |
-| industrial production as published (Federal Reserve G.17) | current | 2026-09-18 | 45 |  |
+| industrial production as published (Federal Reserve G.17) | current | 2026-10-16 | 45 |  |
 | the policy rate (FOMC target range, FRED DFEDTARU) | current | 2026-10-16 | 10 |  |
 | state breadth (ETA 539 continued weeks by state, over payrolls) | current | 2026-08 | 56 |  |
 | state unemployment rates, all 51 (BLS LAUS first prints; the second op | current | 2026-08 | 56 |  |
