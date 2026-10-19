@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-16 20:11",
+ "built_at": "2026-10-19 14:19",
  "version": "v3.76",
- "census_date": "2026-10-16",
+ "census_date": "2026-10-19",
  "feeds": [
   {
    "feed": "Initial claims, continued claims, insured unemployment rate",
@@ -24,7 +24,7 @@
    "through": "2026-10-03",
    "next": "2026-10-22",
    "link": "https://oui.doleta.gov/unemploy/claims.asp",
-   "value": "3.8%",
+   "value": "5.7%",
    "backup": "the advance state table of the weekly release PDF while the archive catches up",
    "format_check": "the page-8 parse validated against the advance table",
    "auto": "yes"
@@ -100,7 +100,7 @@
    "source": "Federal Reserve, G.17 Industrial Production and Capacity Utilization (each month as first published: ALFRED vintages)",
    "every": "Monthly - about the 16th, 9:15 AM ET",
    "through": "2026-09",
-   "next": "2026-10-16",
+   "next": "2026-11-17",
    "link": "https://www.federalreserve.gov/releases/g17/current/",
    "value": "103.9506",
    "backup": "the FRED current file of INDPRO (flagged: revised values), then the G.17 release text",
@@ -112,8 +112,8 @@
    "series": "DFEDTARU",
    "source": "Federal Reserve, FOMC statement (FRED DFEDTARU, the daily series)",
    "every": "Daily - FRED posts the series every day, weekends included, at about 8:01 AM ET; it moves only at an FOMC decision (eight scheduled meetings a year, the statement at 2:00 PM ET), carried by the next morning's post",
-   "through": "2026-10-16",
-   "next": "2026-10-17",
+   "through": "2026-10-19",
+   "next": "2026-10-20",
    "link": "https://fred.stlouisfed.org/series/DFEDTARU",
    "value": "4.00",
    "backup": "the FOMC statement on federalreserve.gov (the rate carried from the last reading until then)",
@@ -190,10 +190,10 @@
    "series": "Google Trends \"unemployment\"",
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
-   "through": "2026-10-15",
-   "next": "2026-10-17",
+   "through": "2026-10-18",
+   "next": "2026-10-19",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
-   "value": "67",
+   "value": "63",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
    "format_check": "the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-fetched window whose overlap deviates over 15 per cent is not appended; pull_log.csv)",
    "auto": "yes"
@@ -252,7 +252,7 @@
   {
    "channel": "the policy rate (FOMC target range, FRED DFEDTARU)",
    "status": "current",
-   "last": "2026-10-16",
+   "last": "2026-10-19",
    "limit_days": 10,
    "substitute": null
   },
