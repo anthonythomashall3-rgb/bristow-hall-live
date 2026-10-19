@@ -17,10 +17,10 @@
   "production_vintage": "2026-10-16",
   "production_level": 103.9506,
   "production_last_month": "2026-09",
-  "market_drawdown": 0.0206,
-  "market_distance": 0.0794,
-  "market_close": 7659.44,
-  "market_close_date": "2026-10-16",
+  "market_drawdown": 0.0165,
+  "market_distance": 0.0835,
+  "market_close": 7690.73,
+  "market_close_date": "2026-10-19",
   "policy_rate": 4.0,
   "policy_low_365": 3.75,
   "policy_rise": 0.25,
@@ -81,7 +81,7 @@
   },
   "market": {
    "status": "current",
-   "age_days": 3,
+   "age_days": 0,
    "limit_days": 5,
    "substitute": null
   },
