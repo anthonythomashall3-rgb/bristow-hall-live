@@ -387,7 +387,10 @@ def _monthly_vintage(s):
         say(f'{s:14s} vintage {col} appended: data through {newdate.date()} (was {lastdate.date()}); published {vday}')
     else: say(f'{s:14s} no new print (through {lastdate.date()}, last vintage {lastcol})')
     _PULLED[s]=str(newdate.date())
-for s in ['UNRATE','HOUST','AWHMAN','NDMANEMP','JTSJOL','CLF16OV','PERMIT']:   # PERMIT from v3.27 (walk51): the housing x rate pair reads starts or permits
+for s in ['UNRATE','HOUST','AWHMAN','NDMANEMP','JTSJOL','CLF16OV']:   # PERMIT from v3.27 (walk51): the housing x rate pair reads starts or permits
+    # PERMIT moved to _append_vintages below (19 October 2026, collection 781; 778): the revised permits print about a week after the
+    # advance with no new month, and this routine named that revision by the month's ADVANCE day and dropped the advance column - a
+    # one-week lookahead in the vintage table every month. _append_vintages writes each vintage under the day ALFRED dates it.
     try: _monthly_vintage(s)
     except Exception as e: say(f'{s:14s} vintage NOT refreshed ({e})'); _FAILED.add(s)
 # ---- v3.73 (23 September 2026, collection 333): THE VINTAGE TABLES THE GRADE AND THE PAYROLL CLOSER READ - real GDP, GDPNow, industrial production, payrolls.
@@ -416,7 +419,7 @@ def _append_vintages(s):
     if added:
         tab.index.name='date'; tab.to_csv(path,na_rep=''); say(f'{s:14s} {added} vintage(s) appended, the last {new[-1]}: data through {tab.index[-1].date()}')
     _PULLED[s]=str(tab.index[-1].date())
-for s in ['PAYEMS','GDPC1','GDPNOW','INDPRO']:
+for s in ['PAYEMS','GDPC1','GDPNOW','INDPRO','PERMIT']:   # PERMIT from 781 (moved from _monthly_vintage above)
     try: _append_vintages(s)
     except Exception as e: say(f'{s:14s} vintages NOT refreshed ({e})'); _FAILED.add(s)
 # ---- v3.73 (23 September 2026, collection 333; collection 330): THE INDEED POSTINGS INDEX, the vacancy channel's bridge through a JOLTS-dark spell. Keyless, from the
