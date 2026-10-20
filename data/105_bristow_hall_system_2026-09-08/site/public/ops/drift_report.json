@@ -1,5 +1,5 @@
 {
- "written": "2026-10-20 12:40Z",
+ "written": "2026-10-20 16:09Z",
  "measures": {
   "coverage": {
    "by_year": {
@@ -367,14 +367,14 @@
      "mad": 0.0605
     },
     "2026": {
-     "month": "2026-08",
-     "sd": 0.0425,
+     "month": "2026-09",
+     "sd": 0.0418,
      "mad": 0.0605
     }
    },
    "latest": {
-    "month": "2026-08",
-    "sd": 0.0425,
+    "month": "2026-09",
+    "sd": 0.0418,
     "mad": 0.0605
    },
    "line": 0.3
@@ -382,6 +382,6 @@
  },
  "flags": [],
  "notes": [],
- "summary": "claims coverage 0.262 in 2025 (3 per cent of the years since 1967 were lower; lowest 0.246 in 2022); claims per job loser 0.066 in 2025 (10 per cent of the years since 1967 were lower; lowest 0.050 in 2010); insured/total rate 0.294 in 2025 (2 per cent of the years since 1967 were lower; lowest 0.289 in 2022); state first-print noise 0.060 (robust; line 0.30; sd scale 0.043, 2026-08)",
+ "summary": "claims coverage 0.262 in 2025 (3 per cent of the years since 1967 were lower; lowest 0.246 in 2022); claims per job loser 0.066 in 2025 (10 per cent of the years since 1967 were lower; lowest 0.050 in 2010); insured/total rate 0.294 in 2025 (2 per cent of the years since 1967 were lower; lowest 0.289 in 2022); state first-print noise 0.060 (robust; line 0.30; sd scale 0.042, 2026-09)",
  "year": 2026
 }

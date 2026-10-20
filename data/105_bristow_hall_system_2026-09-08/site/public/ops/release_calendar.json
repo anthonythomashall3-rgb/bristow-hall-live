@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-20 08:39",
+ "built_at": "2026-10-20 12:09",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-10-20T12:39:33Z",
+ "generated_utc": "2026-10-20T16:09:28Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -2867,6 +2867,49 @@
   },
   {
    "agrees_with_build": true,
+   "build_next": "2026-11-20",
+   "confirmed_through": "2026-12-18",
+   "fred_clock": "13:06",
+   "freq": "monthly",
+   "ids": "laus state rates (51)",
+   "link": "https://fred.stlouisfed.org/release?rid=112",
+   "name": "state unemployment rates, all 51",
+   "next_expected": false,
+   "next_ny": "2026-11-20 10:00",
+   "read_lag_min": 391,
+   "release_id": 112,
+   "short": "state unemployment rates, all 51",
+   "slots": true,
+   "source": "FRED release 112",
+   "through": "2026-09-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-10-20 10:00",
+     "utc": "2026-10-20T14:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-20 10:00",
+     "utc": "2026-11-20T15:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 10:00",
+     "utc": "2026-12-18T15:00:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 10:00",
+     "utc": "2027-01-08T15:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
    "build_next": "2026-11-06",
    "confirmed_through": "2026-12-04",
    "fred_clock": "09:36",
@@ -3193,49 +3236,6 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-20",
-   "confirmed_through": "2026-12-18",
-   "fred_clock": "13:06",
-   "freq": "monthly",
-   "ids": "laus state rates (51)",
-   "link": "https://fred.stlouisfed.org/release?rid=112",
-   "name": "state unemployment rates, all 51",
-   "next_expected": false,
-   "next_ny": "2026-10-20 10:00",
-   "read_lag_min": 391,
-   "release_id": 112,
-   "short": "state unemployment rates, all 51",
-   "slots": true,
-   "source": "FRED release 112",
-   "through": "2026-08-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-20 10:00",
-     "utc": "2026-10-20T14:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-20 10:00",
-     "utc": "2026-11-20T15:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-18 10:00",
-     "utc": "2026-12-18T15:00:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-08 10:00",
-     "utc": "2027-01-08T15:00:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
    "build_next": "2026-11-03",
    "confirmed_through": "2026-12-01",
    "fred_clock": "10:10",
@@ -3358,7 +3358,7 @@
    "link": "https://alfred.stlouisfed.org/series?seid=GDPNOW",
    "name": "gdpnow",
    "next_expected": false,
-   "next_ny": "2026-10-20 12:02",
+   "next_ny": "2026-10-27 12:02",
    "read_lag_min": 0,
    "release_id": 386,
    "short": "GDPNow",

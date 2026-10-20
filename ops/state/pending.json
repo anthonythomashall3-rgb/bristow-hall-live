@@ -1,14 +1,14 @@
 {
  "came_in": [
   {
-   "came_in": "2026-10-20 08:40",
-   "due_ny": "2026-10-20 08:30",
-   "ids": "houst, permit",
-   "short": "housing starts"
+   "came_in": "2026-10-20 12:09",
+   "due_ny": "2026-10-20 12:02",
+   "ids": "gdpnow",
+   "short": "GDPNow"
   }
  ],
  "expired": [],
- "last_check_ny": "2026-10-20 08:35",
+ "last_check_ny": "2026-10-20 12:04",
  "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }

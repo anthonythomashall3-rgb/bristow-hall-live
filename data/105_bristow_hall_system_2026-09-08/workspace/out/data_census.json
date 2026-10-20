@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-20 08:39",
+ "built_at": "2026-10-20 12:09",
  "version": "v3.76",
  "census_date": "2026-10-20",
  "feeds": [
@@ -138,7 +138,7 @@
    "series": "LAUS state rates (51)",
    "source": "Bureau of Labor Statistics, Local Area Unemployment Statistics, as first printed (ALFRED initial releases)",
    "every": "Monthly - with the State Employment and Unemployment release, about three weeks after the month, 10:00 AM ET",
-   "through": "2026-08-01",
+   "through": "2026-09-01",
    "next": "2026-11-20",
    "link": "https://www.bls.gov/news.release/laus.htm",
    "value": "12%",
@@ -167,7 +167,7 @@
    "through": "2026-07",
    "next": "2026-10-27",
    "link": "https://www.atlantafed.org/cqer/research/gdpnow",
-   "value": "3.64",
+   "value": "3.50",
    "backup": "the Atlanta Fed page; the last printed quarter carried",
    "format_check": "the vintage appender names each vintage by its FRED date",
    "auto": "yes"
@@ -266,7 +266,7 @@
   {
    "channel": "state unemployment rates, all 51 (BLS LAUS first prints; the second opener)",
    "status": "current",
-   "last": "2026-08",
+   "last": "2026-09",
    "limit_days": 56,
    "substitute": null
   }
