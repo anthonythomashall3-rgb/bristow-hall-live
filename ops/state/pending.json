@@ -1,14 +1,24 @@
 {
  "came_in": [
   {
-   "came_in": "2026-10-20 12:09",
-   "due_ny": "2026-10-20 12:02",
-   "ids": "gdpnow",
-   "short": "GDPNow"
+   "came_in": "2026-10-20 16:37",
+   "due_ny": "2026-10-20 16:00",
+   "ids": "^gspc",
+   "short": "the S&P 500 close"
   }
  ],
  "expired": [],
- "last_check_ny": "2026-10-20 12:04",
- "pending": [],
+ "last_check_ny": "2026-10-20 16:32",
+ "pending": [
+  {
+   "due_ny": "2026-10-20 10:00",
+   "expected_day": false,
+   "ids": "laus state rates (51)",
+   "short": "state unemployment rates, all 51",
+   "since_ny": "2026-10-20 16:37",
+   "through_before": "2026-09-01",
+   "value_before": "12%"
+  }
+ ],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }
