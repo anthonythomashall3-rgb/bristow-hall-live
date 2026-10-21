@@ -944,3 +944,4 @@ month,published,S_0.30,S_0.35,S_0.45,S_0.55,S_0.70,states,source
 2026-06-01,2026-07-21,0.0980392156862745,0.0784313725490196,0.0392156862745098,0.0392156862745098,0.0196078431372549,51,"walked history (collection 288: Fieldhouse et al. to 2024-01, ETA 5159 after; Fieldhouse payrolls)"
 2026-07-01,2026-08-21,0.0,0.0,0.0,0.0,0.0,51,"walked history (collection 288: Fieldhouse et al. to 2024-01, ETA 5159 after; Fieldhouse payrolls)"
 2026-08-01,2026-09-21,0.0,0.0,0.0,0.0,0.0,51,"live: ETA 539 continued weeks (OWN construction), real-time seasonal adjustment, FRED state payrolls"
+2026-09-01,2026-10-21,0.058823529411764705,0.0392156862745098,0.0,0.0,0.0,51,"live: ETA 539 continued weeks (OWN construction), real-time seasonal adjustment, FRED state payrolls"
