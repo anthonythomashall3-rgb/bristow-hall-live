@@ -1,14 +1,7 @@
 {
- "came_in": [
-  {
-   "came_in": "2026-10-22 11:47",
-   "due_ny": "2026-10-22 11:30",
-   "ids": "wei",
-   "short": "weekly economic index (lewis, mertens an"
-  }
- ],
+ "came_in": [],
  "expired": [],
- "last_check_ny": "2026-10-22 11:42",
+ "last_check_ny": "2026-10-22 13:48",
  "pending": [
   {
    "due_ny": "2026-10-20 10:00",
