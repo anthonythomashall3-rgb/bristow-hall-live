@@ -228,5 +228,7 @@
    ]
   ]
  },
- "rows_with_new_data_this_run": []
+ "rows_with_new_data_this_run": [
+  "row|WEI|Weekly Economic Index (Lewis, Mertens and Stock), 13-week mean"
+ ]
 }
