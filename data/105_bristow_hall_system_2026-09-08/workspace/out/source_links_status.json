@@ -228,13 +228,5 @@
    ]
   ]
  },
- "rows_with_new_data_this_run": [
-  "row|CCNSA / COVEMP|Insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)",
-  "row|DCPF1M, DCPN30, WTB3MS|Commercial paper and three-month bill rates",
-  "row|DFEDTARU|Federal funds target range, upper limit",
-  "row|ICSA, CCSA, IURSA|Initial claims, continued claims, insured unemployment rate",
-  "row|ICSA|Initial claims",
-  "row|IURSA|Insured unemployment rate",
-  "row|^GSPC|S&P 500 daily close"
- ]
+ "rows_with_new_data_this_run": []
 }
