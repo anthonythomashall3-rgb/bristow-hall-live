@@ -989,6 +989,7 @@ def write_slots(slots, state):
     old = jload(path, {}) or {}
     doc = {'built_at': (state or {}).get('built_at') or old.get('built_at'), 'version': (state or {}).get('version') or old.get('version'),
            'zone': 'America/New_York',
+           'refresh_incomplete': (state or {}).get('refresh_incomplete'),   # 818: FRED unreachable on this build; the Worker retries while it stands
            'generated_utc': dt.datetime.now(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
            'rule': ('a run is started when a slot has passed since built_at and no run is under way, at most three times for '
                     'one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub\'s own schedule '
