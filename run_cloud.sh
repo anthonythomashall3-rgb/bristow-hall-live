@@ -8,6 +8,7 @@
 # The Mac's bhs_run.sh also deploys with wrangler and writes the forward ledger; this does neither. Publishing here
 # is committing the built site, which Cloudflare Pages picks up, so no Cloudflare credential lives in a runner.
 set -euo pipefail
+export PYTHONUNBUFFERED=1   # 818: a run stopped at the limit still shows every line it printed (block-buffered pipes lost them on 21 Oct)
 HERE="$(cd "$(dirname "$0")" && pwd)"
 mkdir -p "$HOME/Projects" "$HOME/mnt"
 ln -sfn "$HERE/data" "$HOME/Projects/Onset Detector Data"
@@ -62,6 +63,16 @@ else
   # v3.73 (23 September 2026, collection 333; collection 331): the committee watch, once a day; a dating the chronology file lacks raises a flag, moves nothing; never fails the run
   if [ "$(cat cache/chronology_watch_on 2>/dev/null)" != "$(date +%F)" ]; then python3 s2/chronology_watch.py && date +%F > cache/chronology_watch_on || true; fi
   python3 bhs_build.py
+  # 818 (22 October 2026): a run through a FRED outage publishes what it has and says so in the state; the Worker reads
+  # refresh_incomplete from run_slots.json and starts the next try itself (every 30 minutes) until a run refreshes in full
+  python3 - <<'INCOMPLETE' || true
+import json, os
+p='out/bhs_state.json'; st=json.load(open(p)); fu='cache/fred_unreachable.json'
+if os.path.exists(fu):
+    st['refresh_incomplete']=json.load(open(fu)); print('REFRESH INCOMPLETE:', st['refresh_incomplete'].get('fred'), st['refresh_incomplete'].get('why'), len(st['refresh_incomplete'].get('series_not_refreshed') or []), 'series stand as on file')
+else: st.pop('refresh_incomplete', None)
+json.dump(st, open(p,'w'))
+INCOMPLETE
 fi
 # THE CALL ALERT (20 September 2026, collection 257; ask 42): a build whose standing differs from the LAST PUBLISHED state
 # (../site/public/bhs_state.json, committed by the previous run) is the event the system exists for; alerted here, on every

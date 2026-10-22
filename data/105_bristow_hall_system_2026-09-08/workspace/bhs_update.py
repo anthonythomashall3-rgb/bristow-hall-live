@@ -87,18 +87,46 @@ def say(*a):
     if _TIMING:   # 17 September 2026: every line stamped with the seconds since the run began, so the slow steps show
         try: _TIMING.write('%7.1fs  %s\n'%(_time0.time()-_T0,t)); _TIMING.flush()
         except Exception: pass
+# ---- 818 (22 October 2026): FRED DOWN MAY NOT STOP THE SITE. On 21 October FRED answered every call with a non-JSON
+# ---- page from 4:20 PM to past 9 PM ET; each call then waited out four tries (30+60+90 s), the change check asked every
+# ---- release, and the run hit ops/run.sh's 15-minute limit three times: the site stood still all evening. Now: a call
+# ---- that gets no JSON or no connection is retried once (10 s), and after FRED_TRIP such failures in a row the breaker
+# ---- trips: every further FRED call this run is skipped at once, every series stands as on file (named in _FAILED, so
+# ---- the next run pulls it again), the day's full-refresh mark is NOT written, the state carries refresh_incomplete and
+# ---- the Worker starts the next try itself. The run completes in its usual minutes and the site publishes.
+_FRED_DOWN={'fails':0,'tripped':False,'at':None,'why':''}
+FRED_TRIP=int(os.environ.get('BHS_FRED_TRIP','3'))
+def _fred_guard(what):
+    if _FRED_DOWN['tripped']: raise RuntimeError(f'FRED unreachable this run (breaker tripped {_FRED_DOWN["at"]}); {what} stands as on file')
+def _fred_fail(why):
+    _FRED_DOWN['fails']+=1; _FRED_DOWN['why']=why
+    if _FRED_DOWN['fails']>=FRED_TRIP and not _FRED_DOWN['tripped']:
+        _FRED_DOWN['tripped']=True; _FRED_DOWN['at']=datetime.datetime.now().strftime('%H:%M:%S')
+        say(f'FRED UNREACHABLE: {FRED_TRIP} calls in a row failed ({why}); the breaker is tripped - every further FRED call this run is skipped and every series stands as on file; the next run pulls them again')
+def _fred_ok(): _FRED_DOWN['fails']=0
+def _fred_call(url,m=40,what=''):
+    """one FRED call under the breaker: JSON back, or None after a short retry. Counts toward the trip."""
+    import time as _t
+    _fred_guard(what)
+    for _try in range(4):
+        r=subprocess.run(['curl','-sSL','-m',str(m),url],capture_output=True,text=True)
+        if r.returncode!=0:   # no connection or a hung fetch: once more after 10 s, then the breaker counts it
+            if _try<1: _t.sleep(10); continue
+            _fred_fail(f'curl rc {r.returncode}'); return None
+        try: d=json.loads(r.stdout)
+        except Exception:     # Akamai's Access Denied page, a maintenance page, an empty body: not a 429 to wait out
+            if _try<1: _t.sleep(10); continue
+            _fred_fail('FRED answered without JSON'); return None
+        if 'error_code' in d and str(d.get('error_code')) in ('429','403'):   # the key's rate limit: the long waits stay (v3.55)
+            if _try<2: _t.sleep(20*(_try+1)); continue   # 818: 20 s, then 40 s, then the breaker counts it (an outage of 429s must trip within minutes)
+            _fred_fail(f'FRED {d.get("error_code")}'); return None
+        _fred_ok(); return d
+    return None
 def fred(series,**params):
     q='&'.join(f'{k}={v}' for k,v in params.items())
     url=f'https://api.stlouisfed.org/fred/series/observations?series_id={series}&api_key={KEY}&file_type=json&{q}'
-    for _try in range(4):   # v3.55: FRED answers 429 when the standing collector is also drawing on the key; wait and retry
-        r=subprocess.run(['curl','-sSL','-m','40',url],capture_output=True,text=True)
-        if r.returncode!=0:   # 17 Sep 2026: a run right after the Mac wakes finds no network for a few seconds; wait and retry rather than fail the run
-            if _try<3: import time as _t; _t.sleep(15*(_try+1)); continue
-            raise RuntimeError(f'curl failed for {series}')
-        try: d=json.loads(r.stdout)
-        except Exception: d={'error_code':'403','error_message':'FRED answered without JSON (edge block?)'}   # Akamai's Access Denied page, seen 17 Sep 2026
-        if 'observations' in d or str(d.get('error_code')) not in ('429','403'): break
-        import time as _t; _t.sleep(30*(_try+1))
+    d=_fred_call(url,40,series)   # 818: under the breaker (the v3.55 429 waits live inside it)
+    if d is None: raise RuntimeError(f'FRED did not answer for {series} ({_FRED_DOWN["why"]})')
     if 'observations' not in d: raise RuntimeError(f'FRED error for {series}: {str(d)[:80].replace(KEY,"***")}')
     s=pd.Series({o['date']:(np.nan if o['value']=='.' else float(o['value'])) for o in d['observations']})
     s.index=pd.to_datetime(s.index); return s.sort_index()
@@ -106,15 +134,8 @@ def alfred_first(series,start='2000-01-01'):
     """ALFRED's initial release of every observation from `start`: value and the day it was released"""
     q=f'output_type=4&realtime_start=1776-07-04&realtime_end=9999-12-31&observation_start={start}'
     url=f'https://api.stlouisfed.org/fred/series/observations?series_id={series}&api_key={KEY}&file_type=json&{q}'
-    for _try in range(4):   # v3.55: FRED answers 429 when the standing collector is also drawing on the key; wait and retry
-        r=subprocess.run(['curl','-sSL','-m','40',url],capture_output=True,text=True)
-        if r.returncode!=0:   # 17 Sep 2026: a run right after the Mac wakes finds no network for a few seconds; wait and retry rather than fail the run
-            if _try<3: import time as _t; _t.sleep(15*(_try+1)); continue
-            raise RuntimeError(f'curl failed for {series}')
-        try: d=json.loads(r.stdout)
-        except Exception: d={'error_code':'403','error_message':'FRED answered without JSON (edge block?)'}   # Akamai's Access Denied page, seen 17 Sep 2026
-        if 'observations' in d or str(d.get('error_code')) not in ('429','403'): break
-        import time as _t; _t.sleep(30*(_try+1))
+    d=_fred_call(url,40,series)   # 818: under the breaker
+    if d is None: raise RuntimeError(f'ALFRED did not answer for {series} ({_FRED_DOWN["why"]})')
     if 'observations' not in d: raise RuntimeError(f'ALFRED error for {series}: {str(d)[:80].replace(KEY,"***")}')
     obs=[o for o in d['observations'] if o['value']!='.']
     return pd.DataFrame({'first':[float(o['value']) for o in obs],'release':[o['realtime_start'] for o in obs]},index=pd.to_datetime([o['date'] for o in obs])).sort_index()
@@ -143,18 +164,10 @@ except Exception: _META={}
 _KNOWN=_META.setdefault('known',{}); _SEEN=_META.setdefault('seen',{}); _BIG=_META.setdefault('big',{}); _RIDS=_META.setdefault('rid',{})
 _META_OK=False; _PULLED={}; _FAILED=set()   # series pulled this run (with the last observation now on file) and series whose pull failed
 def _fred_json(url,m=40):
-    import time as _t
-    for _try in range(4):
-        r_=subprocess.run(['curl','-sSL','-m',str(m),url],capture_output=True,text=True)
-        if r_.returncode!=0:
-            if _try<3: _t.sleep(5*(_try+1)); continue
-            return None
-        try: d_=json.loads(r_.stdout)
-        except Exception: d_={'error_code':'403'}
-        if 'error_code' not in d_: return d_
-        if str(d_.get('error_code')) not in ('429','403'): return None
-        _t.sleep(20*(_try+1))
-    return None
+    try: d_=_fred_call(url,m,'change check')   # 818: under the breaker; a tripped breaker answers None at once
+    except RuntimeError: return None
+    if d_ is None or 'error_code' in d_: return None
+    return d_
 def _tracked():
     """series -> release id for every FRED series this refresh pulls: the leg channels from cache/leg_release_dates.json,
     the 53 state insured rates by one call each, once"""
@@ -577,7 +590,13 @@ try:   # the stamps of the series pulled whole this run (their file now holds FR
 except Exception as _e: say(f'FRED stamps not saved: {_e}')
 try: json.dump(DAYSTART,open(_DS_PATH,'w'))
 except Exception as _e: say(f'day-start snapshot not written: {_e}')
-if FULL: open(FULL_MARK,'w').write(datetime.datetime.now().isoformat(timespec='seconds')); say('full refresh: every series pulled (the day\'s first run)')
+_FU=os.path.join('cache','fred_unreachable.json')   # 818: read by run_cloud.sh into the state (refresh_incomplete); the Worker retries while it stands
+if _FRED_DOWN['tripped']:
+    json.dump(dict(fred='unreachable',at=datetime.datetime.now().isoformat(timespec='seconds'),why=_FRED_DOWN['why'],series_not_refreshed=sorted(_FAILED)),open(_FU,'w'))
+    say(f'full refresh NOT marked done: FRED was unreachable ({_FRED_DOWN["why"]}); {len(_FAILED)} series stand as on file and the next run pulls everything again')
+else:
+    if os.path.exists(_FU): os.remove(_FU)
+    if FULL: open(FULL_MARK,'w').write(datetime.datetime.now().isoformat(timespec='seconds')); say('full refresh: every series pulled (the day\'s first run)')
 open(os.path.join(COL,'live',f'refresh_{today}.txt'),'w').write('\n'.join(REPORT)+'\n')
 if '--no-build' not in sys.argv:
     r=subprocess.run([sys.executable,'bhs_build.py'],capture_output=True,text=True)

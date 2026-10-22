@@ -91,7 +91,7 @@ def main():
     st = json.load(open(STATE))
     built = st.get('built_at')
     datetime.datetime.strptime(built, '%Y-%m-%d %H:%M')     # the dispatchers compare this string; it must be exact
-    doc = dict(built_at=built, version=st.get('version'), zone='America/New_York',
+    doc = dict(built_at=built, version=st.get('version'), zone='America/New_York', refresh_incomplete=st.get('refresh_incomplete'),   # 818
                generated_utc=datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
                rule=('a run is started when a slot has passed since built_at and no run is under way, at most three times for '
                      'one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub\'s own schedule '

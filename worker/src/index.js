@@ -39,6 +39,8 @@ const SITE = 'https://bhrrealtime.pages.dev';
 const MAX_PER_SLOT = 3;                  // starts for one slot, then wait for the next slot
 const MAX_PER_DAY = 10;                  // starts in one New York day: a fault that repeats must not burn the month's Actions minutes
 const RETRY_GAP_MS = 8 * 60000;          // after a run ends without moving the site, wait this long before the next start
+const INCOMPLETE_GAP_MS = 30 * 60000;    // 818: a build that published through a FRED outage (refresh_incomplete) is tried again this often
+const MAX_INCOMPLETE_PER_DAY = 20;       // 818: starts after incomplete builds in one New York day (the repository is public: Actions minutes are free)
 // used only when run_slots.json cannot be read or lists no future slot (22 September 2026: the release-driven schedule is
 // in that file; these are the common release windows, and nothing on weekends)
 const WEEKDAY_TIMES = ['08:35', '09:45', '10:15', '16:20', '20:10'];   // collection 411 (was 08:50, 09:35, 10:20, 17:05)
@@ -95,12 +97,13 @@ function fallbackSlots(now) {
 }
 
 async function siteState(now) {
-  let slots = null, built = null, source = 'run_slots.json';
+  let slots = null, built = null, source = 'run_slots.json', incomplete = null;
   try {
     const r = await fetch(`${SITE}/run_slots.json?t=${now.getTime()}`, { headers: HDR });
     const j = JSON.parse(await r.text());            // an unknown path answers 200 with the home page: parse, never trust r.ok
     if (Array.isArray(j.slots)) slots = j.slots.map(s => s && s.ny).filter(s => SLOT_RE.test(s || ''));
     if (SLOT_RE.test(j.built_at || '')) built = j.built_at;
+    if (j.refresh_incomplete && j.refresh_incomplete.fred) incomplete = j.refresh_incomplete;   // 818
   } catch (e) { /* read below */ }
   if (!built) {
     try {
@@ -114,7 +117,7 @@ async function siteState(now) {
   slots = [...new Set(slots)].sort();
   const passed = slots.filter(s => s <= nowNY);
   return { now: nowNY, built, due: passed.length ? passed[passed.length - 1] : null,
-           next: slots.find(s => s > nowNY) || null, source };
+           next: slots.find(s => s > nowNY) || null, source, incomplete };
 }
 
 function gh(env, path, init = {}) {
@@ -256,7 +259,24 @@ async function decide(env, now, act) {
     }
   }
   if (!s.due) { out.decision = 'no slot has passed in the listed window'; return out; }
-  if (s.built && s.built >= s.due) { out.decision = `current: the site carries the build of ${s.built}, after the ${s.due} slot`; return out; }
+  if (s.built && s.built >= s.due && !s.incomplete) { out.decision = `current: the site carries the build of ${s.built}, after the ${s.due} slot`; return out; }
+  if (s.built && s.built >= s.due && s.incomplete) {   // 818: the build published, but FRED was unreachable: try again every 30 minutes
+    if (!env.GH_TOKEN || !act) { out.decision = `incomplete: the build of ${s.built} could not reach FRED; ${act ? 'no GitHub token' : 'the next five-minute check starts a run'}`; return out; }
+    if (runs === null) { out.decision = 'incomplete: the list of runs could not be read'; return out; }
+    const active = runs.find(x => x.status === 'queued' || x.status === 'in_progress');
+    if (active) { out.decision = `incomplete: a run is under way (${active.status})`; return out; }
+    const last = runs.find(x => x.event !== 'schedule' || x.conclusion !== 'success');
+    if (last && now - new Date(last.updated_at) < INCOMPLETE_GAP_MS) { out.decision = `incomplete: the build of ${s.built} could not reach FRED; the next start is due after ${ny(new Date(new Date(last.updated_at).getTime() + INCOMPLETE_GAP_MS))}`; return out; }
+    const n = parseInt(await kvGet(env, `incstarts:${day}`) || '0', 10);
+    if (n >= MAX_INCOMPLETE_PER_DAY) { out.decision = `incomplete: ${n} retries today already; the next slot tries again`; return out; }
+    const d = await gh(env, `/repos/${REPO}/actions/workflows/${WORKFLOW}/dispatches`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ref: 'main', inputs: { mode: 'full', origin: 'slot', slot: s.due } }),
+    });
+    if (d.status === 204) { await kvPut(env, `incstarts:${day}`, String(n + 1), 2 * 86400); out.decision = `incomplete: the build of ${s.built} could not reach FRED; started retry ${n + 1} of ${MAX_INCOMPLETE_PER_DAY} for today`; }
+    else out.decision = `incomplete: GitHub refused to start the retry: ${d.status}`;
+    return out;
+  }
   const behind = `behind: the site carries the build of ${s.built || '(unreadable)'}, before the ${s.due} slot`;
   const dm = deadman(s, now);
   if (dm) {
