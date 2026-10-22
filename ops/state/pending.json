@@ -1,7 +1,38 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-10-22 08:41",
+   "due_ny": "2026-10-21 16:00",
+   "ids": "^gspc",
+   "short": "the S&P 500 close"
+  },
+  {
+   "came_in": "2026-10-22 08:41",
+   "due_ny": "2026-10-22 08:30",
+   "ids": "icsa, ccsa, iursa",
+   "short": "weekly claims"
+  },
+  {
+   "came_in": "2026-10-22 08:41",
+   "due_ny": "2026-10-22 08:30",
+   "ids": "icsa",
+   "short": "weekly claims"
+  },
+  {
+   "came_in": "2026-10-22 08:41",
+   "due_ny": "2026-10-22 08:30",
+   "ids": "iursa",
+   "short": "weekly claims"
+  },
+  {
+   "came_in": "2026-10-22 08:41",
+   "due_ny": "2026-10-22 08:30",
+   "ids": "ccnsa / covemp",
+   "short": "weekly claims"
+  }
+ ],
  "expired": [],
- "last_check_ny": "2026-10-21 09:06",
+ "last_check_ny": "2026-10-22 08:36",
  "pending": [
   {
    "due_ny": "2026-10-20 10:00",
@@ -11,6 +42,15 @@
    "since_ny": "2026-10-20 16:37",
    "through_before": "2026-09-01",
    "value_before": "12%"
+  },
+  {
+   "due_ny": "2026-10-22 08:30",
+   "expected_day": false,
+   "ids": "eta 539 by state",
+   "short": "weekly claims",
+   "since_ny": "2026-10-22 08:41",
+   "through_before": "2026-10-03",
+   "value_before": "0"
   }
  ],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"

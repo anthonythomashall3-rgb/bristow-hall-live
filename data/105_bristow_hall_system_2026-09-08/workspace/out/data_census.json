@@ -1,17 +1,17 @@
 {
- "built_at": "2026-10-21 09:10",
+ "built_at": "2026-10-22 08:40",
  "version": "v3.76",
- "census_date": "2026-10-21",
+ "census_date": "2026-10-22",
  "feeds": [
   {
    "feed": "Initial claims, continued claims, insured unemployment rate",
    "series": "ICSA, CCSA, IURSA",
    "source": "Department of Labor (the UI claims news release; ALFRED vintages after it; the first prints back to August 1975 from the release archive, the bound news releases and volumes, the captures of the Internet Archive, the closing table of the release and the press: collections 45, 399, 396, 382, 397 and 404)",
    "every": "Weekly - Thursday 8:30 AM ET (Wednesday before a Thursday holiday)",
-   "through": "2026-10-10",
-   "next": "2026-10-22",
+   "through": "2026-10-17",
+   "next": "2026-10-29",
    "link": "https://www.dol.gov/ui/data.pdf",
-   "value": "199,000; 1,710,000; 1.1",
+   "value": "194,000; 1,728,000; 1.1",
    "backup": "the states' ETA 539 weekly file with the Bureau's seasonal factors (s2/claims_substitute.py, exact where tested; collection 329)",
    "format_check": "q41 feed checks; the claims loader asserts the release week columns (45)",
    "auto": "yes"
@@ -22,7 +22,7 @@
    "source": "Department of Labor (page 8 of the weekly release; the advance state table of the release PDF while the archive catches up)",
    "every": "Weekly - Thursday 8:30 AM ET, one week behind initial claims",
    "through": "2026-10-03",
-   "next": "2026-10-22",
+   "next": "2026-10-29",
    "link": "https://oui.doleta.gov/unemploy/claims.asp",
    "value": "5.7%",
    "backup": "the advance state table of the weekly release PDF while the archive catches up",
@@ -73,10 +73,10 @@
    "series": "DCPF1M, DCPN30, WTB3MS",
    "source": "Federal Reserve, H.15 selected interest rates",
    "every": "Daily - the Board posts the H.15 every business day at 4:15 PM ET, carrying the previous business day's rates (the bill rate is a weekly series)",
-   "through": "2026-10-19",
-   "next": "2026-10-21",
+   "through": "2026-10-20",
+   "next": "2026-10-22",
    "link": "https://www.federalreserve.gov/releases/h15/",
-   "value": "3.94; 3.98; 4.09",
+   "value": "3.94; 3.97; 4.09",
    "backup": "FRED DCPN30, DCPF1M and DTB3 (the Federal Reserve is not shut in a shutdown)",
    "format_check": "q41: the paper rates and their last printed day",
    "auto": "yes"
@@ -86,10 +86,10 @@
    "series": "^GSPC",
    "source": "Yahoo Finance close at the 5:05 PM ET run, corrected to the official close on FRED (SP500), which FRED posts the same evening, about 8 PM ET",
    "every": "Every trading day - read at the 5:05 PM ET run",
-   "through": "2026-10-20",
-   "next": "2026-10-21",
+   "through": "2026-10-21",
+   "next": "2026-10-22",
    "link": "https://finance.yahoo.com/quote/%5EGSPC/",
-   "value": "7,712.57",
+   "value": "7,757.17",
    "backup": "the official FRED SP500 close when the chart feed fails (two independent quotes)",
    "format_check": "q41: reading matches the readings table; two sources compared",
    "auto": "yes"
@@ -112,8 +112,8 @@
    "series": "DFEDTARU",
    "source": "Federal Reserve, FOMC statement (FRED DFEDTARU, the daily series)",
    "every": "Daily - FRED posts the series every day, weekends included, at about 8:01 AM ET; it moves only at an FOMC decision (eight scheduled meetings a year, the statement at 2:00 PM ET), carried by the next morning's post",
-   "through": "2026-10-21",
-   "next": "2026-10-22",
+   "through": "2026-10-22",
+   "next": "2026-10-23",
    "link": "https://fred.stlouisfed.org/series/DFEDTARU",
    "value": "4.00",
    "backup": "the FOMC statement on federalreserve.gov (the rate carried from the last reading until then)",
@@ -191,7 +191,7 @@
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
    "through": "2026-10-20",
-   "next": "2026-10-21",
+   "next": "2026-10-22",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
    "value": "77",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
@@ -203,14 +203,14 @@
   {
    "channel": "initial and continued claims, insured unemployment rate (DOL weekly)",
    "status": "current",
-   "last": "2026-10-10",
+   "last": "2026-10-17",
    "limit_days": 13,
    "substitute": null
   },
   {
    "channel": "insured unemployment rate as the proposers read it",
    "status": "current",
-   "last": "2026-10-03",
+   "last": "2026-10-10",
    "limit_days": 20,
    "substitute": null
   },
@@ -238,7 +238,7 @@
   {
    "channel": "S&P 500 close",
    "status": "current",
-   "last": "2026-10-20",
+   "last": "2026-10-21",
    "limit_days": 5,
    "substitute": null
   },
@@ -252,7 +252,7 @@
   {
    "channel": "the policy rate (FOMC target range, FRED DFEDTARU)",
    "status": "current",
-   "last": "2026-10-21",
+   "last": "2026-10-22",
    "limit_days": 10,
    "substitute": null
   },

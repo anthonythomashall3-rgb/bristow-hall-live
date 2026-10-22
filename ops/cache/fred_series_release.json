@@ -1,36 +1,36 @@
 {
  "AWHMAN": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Employment Situation",
   "release_id": 50
  },
  "CCNSA": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Unemployment Insurance Weekly Claims Report",
   "release_id": 180
  },
  "CCSA": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Unemployment Insurance Weekly Claims Report",
   "release_id": 180
  },
  "CFNAIMA3": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Chicago Fed National Activity Index",
   "release_id": 219
  },
  "CLF16OV": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Employment Situation",
   "release_id": 50
  },
  "COVEMP": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Unemployment Insurance Weekly Claims Report",
   "release_id": 180
  },
  "CPIAUCSL": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Consumer Price Index",
   "release_id": 10
  },
@@ -45,32 +45,32 @@
   "release_id": 386
  },
  "HOUST": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "New Residential Construction",
   "release_id": 27
  },
  "ICSA": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Unemployment Insurance Weekly Claims Report",
   "release_id": 180
  },
  "INDPRO": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "G.17 Industrial Production and Capacity Utilization",
   "release_id": 13
  },
  "IURSA": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Unemployment Insurance Weekly Claims Report",
   "release_id": 180
  },
  "JTSJOL": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Job Openings and Labor Turnover Survey",
   "release_id": 192
  },
  "JTSQUR": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Job Openings and Labor Turnover Survey",
   "release_id": 192
  },
@@ -87,17 +87,17 @@
   "release_id": null
  },
  "NDMANEMP": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Employment Situation",
   "release_id": 50
  },
  "PAYEMS": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Employment Situation",
   "release_id": 50
  },
  "PERMIT": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "New Residential Construction",
   "release_id": 27
  },
@@ -108,7 +108,7 @@
   "release_id": null
  },
  "SAHMREALTIME": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Sahm Rule Recession Indicator",
   "release_id": 456
  },
@@ -119,7 +119,7 @@
   "release_id": null
  },
  "UNRATE": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-10-22",
   "name": "Employment Situation",
   "release_id": 50
  },

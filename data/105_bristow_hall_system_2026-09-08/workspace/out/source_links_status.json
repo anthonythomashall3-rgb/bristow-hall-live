@@ -1,5 +1,5 @@
 {
- "day": "2026-10-21",
+ "day": "2026-10-22",
  "fetch": {
   "the ETA 539 file (s2/state539_live.py, s2/activity_opener.py, s2/backstop.py)": "ok",
   "the Indeed postings index (bhs_update.py)": "ok",
@@ -229,8 +229,12 @@
   ]
  },
  "rows_with_new_data_this_run": [
+  "row|CCNSA / COVEMP|Insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)",
+  "row|DCPF1M, DCPN30, WTB3MS|Commercial paper and three-month bill rates",
   "row|DFEDTARU|Federal funds target range, upper limit",
-  "row|ETA 539|State continued weeks claimed, ETA 539",
-  "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\""
+  "row|ICSA, CCSA, IURSA|Initial claims, continued claims, insured unemployment rate",
+  "row|ICSA|Initial claims",
+  "row|IURSA|Insured unemployment rate",
+  "row|^GSPC|S&P 500 daily close"
  ]
 }

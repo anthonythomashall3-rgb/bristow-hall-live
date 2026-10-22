@@ -10,21 +10,21 @@
   "bar_days_after_close": 183,
   "breadth_public_days_after_month": 21
  },
- "asof": "2026-10-21",
+ "asof": "2026-10-22",
  "reading": {
   "production_fall12": -0.0066,
   "production_distance": 0.0266,
   "production_vintage": "2026-10-16",
   "production_level": 103.9506,
   "production_last_month": "2026-09",
-  "market_drawdown": 0.0137,
-  "market_distance": 0.0863,
-  "market_close": 7712.57,
-  "market_close_date": "2026-10-20",
+  "market_drawdown": 0.0079,
+  "market_distance": 0.0921,
+  "market_close": 7757.17,
+  "market_close_date": "2026-10-21",
   "policy_rate": 4.0,
   "policy_low_365": 3.75,
   "policy_rise": 0.25,
-  "policy_date": "2026-10-21",
+  "policy_date": "2026-10-22",
   "tightening": true,
   "breadth_month": "2026-09",
   "breadth_published": "2026-10-21",
@@ -64,7 +64,7 @@
  "vintages": 1224,
  "vintages_added_this_run": 0,
  "policy_days_added_this_run": 1,
- "breadth_months_added_this_run": 1,
+ "breadth_months_added_this_run": 0,
  "g17_dates": [
   "2026-11-17",
   "2026-12-16"
@@ -75,7 +75,7 @@
  "channels": {
   "production": {
    "status": "current",
-   "age_days": 5,
+   "age_days": 6,
    "limit_days": 45,
    "substitute": null
   },
@@ -93,15 +93,13 @@
   },
   "breadth": {
    "status": "current",
-   "age_days": 21,
+   "age_days": 22,
    "limit_days": 56,
    "substitute": null
   }
  },
  "notes": [
-  "breadth: continued weeks appended for 2026-09",
-  "state payrolls re-read from FRED (51 states), through 2026-09",
-  "breadth: 2026-09 published, 0% of 51 states 0.45 over their 12-month low"
+  "breadth: 2026-10 is public on 2026-11-21"
  ],
  "collection": "289_core_v7w_live_port_2026-09-21 (rule: 288 RECORD-core-v7-walk-1948-breadth; opener walk: 279 walk C, 288 walk D)",
  "next_production_release": "2026-11-17"
