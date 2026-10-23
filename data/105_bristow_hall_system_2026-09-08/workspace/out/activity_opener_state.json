@@ -10,7 +10,7 @@
   "bar_days_after_close": 183,
   "breadth_public_days_after_month": 21
  },
- "asof": "2026-10-22",
+ "asof": "2026-10-23",
  "reading": {
   "production_fall12": -0.0066,
   "production_distance": 0.0266,
@@ -75,25 +75,25 @@
  "channels": {
   "production": {
    "status": "current",
-   "age_days": 6,
+   "age_days": 7,
    "limit_days": 45,
    "substitute": null
   },
   "market": {
    "status": "current",
-   "age_days": 0,
+   "age_days": 1,
    "limit_days": 5,
    "substitute": null
   },
   "policy": {
    "status": "current",
-   "age_days": 0,
+   "age_days": 1,
    "limit_days": 10,
    "substitute": null
   },
   "breadth": {
    "status": "current",
-   "age_days": 22,
+   "age_days": 23,
    "limit_days": 56,
    "substitute": null
   }

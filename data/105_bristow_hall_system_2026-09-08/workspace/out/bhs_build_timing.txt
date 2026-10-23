@@ -3,7 +3,7 @@
    25.5s  build_v (pending)
    26.4s  concurrence branch
    26.4s  build_v (backstop opener)
-   26.8s  closing series
+   26.7s  closing series
    37.8s  daily series
    38.2s  readings
    38.4s  feeds
