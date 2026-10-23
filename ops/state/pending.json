@@ -1,7 +1,14 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-10-23 08:54",
+   "due_ny": "2026-10-22 08:30",
+   "ids": "eta 539 state insured rates",
+   "short": "weekly claims"
+  }
+ ],
  "expired": [],
- "last_check_ny": "2026-10-23 06:45",
+ "last_check_ny": "2026-10-23 08:49",
  "pending": [
   {
    "due_ny": "2026-10-20 10:00",

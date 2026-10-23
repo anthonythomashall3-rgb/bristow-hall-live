@@ -24,7 +24,7 @@
   "policy_rate": 4.0,
   "policy_low_365": 3.75,
   "policy_rise": 0.25,
-  "policy_date": "2026-10-22",
+  "policy_date": "2026-10-23",
   "tightening": true,
   "breadth_month": "2026-09",
   "breadth_published": "2026-10-21",
@@ -63,7 +63,7 @@
  ],
  "vintages": 1224,
  "vintages_added_this_run": 0,
- "policy_days_added_this_run": 0,
+ "policy_days_added_this_run": 1,
  "breadth_months_added_this_run": 0,
  "g17_dates": [
   "2026-11-17",
@@ -87,7 +87,7 @@
   },
   "policy": {
    "status": "current",
-   "age_days": 1,
+   "age_days": 0,
    "limit_days": 10,
    "substitute": null
   },

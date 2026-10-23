@@ -31,9 +31,9 @@ PASS  feed line matches the readings table: Initial claims, continued claims, in
 PASS  feed is not dated in the future: Initial claims, continued claims, insure  got=2026-10-17  want=<= 2026-10-23
 PASS  feed next release is not in the past: Initial claims, continued claims, insure  got=2026-10-29  want=>= 2026-10-23
 PASS  feed has a source link: Initial claims, continued claims, insure  got=True  want=True
-PASS  feed reading matches the readings table: State insured unemployment rates (the br  got=0.057  want=0.057
+PASS  feed reading matches the readings table: State insured unemployment rates (the br  got=0.059  want=0.059
 PASS  feed line matches the readings table: State insured unemployment rates (the br  got=0.6  want=0.6
-PASS  feed is not dated in the future: State insured unemployment rates (the br  got=2026-10-03  want=<= 2026-10-23
+PASS  feed is not dated in the future: State insured unemployment rates (the br  got=2026-10-10  want=<= 2026-10-23
 PASS  feed next release is not in the past: State insured unemployment rates (the br  got=2026-10-29  want=>= 2026-10-23
 PASS  feed has a source link: State insured unemployment rates (the br  got=True  want=True
 PASS  feed reading matches the readings table: Unemployment rate, factory hours, nondur  got=0.0  want=0.0
@@ -67,15 +67,15 @@ PASS  feed next release is not in the past: Industrial production, as published 
 PASS  feed has a source link: Industrial production, as published (the  got=True  want=True
 PASS  feed reading matches the readings table: Federal funds target range, upper limit   got=0.25  want=0.25
 PASS  feed line matches the readings table: Federal funds target range, upper limit   got=0.1  want=0.1
-PASS  feed is not dated in the future: Federal funds target range, upper limit   got=2026-10-22  want=<= 2026-10-23
-PASS  feed next release is not in the past: Federal funds target range, upper limit   got=2026-10-23  want=>= 2026-10-23
+PASS  feed is not dated in the future: Federal funds target range, upper limit   got=2026-10-23  want=<= 2026-10-23
+PASS  feed next release is not in the past: Federal funds target range, upper limit   got=2026-10-24  want=>= 2026-10-23
 PASS  feed has a source link: Federal funds target range, upper limit   got=True  want=True
 PASS  feed reading matches the readings table: State continued weeks claimed, ETA 539 (  got=0.0  want=0.0
 PASS  feed line matches the readings table: State continued weeks claimed, ETA 539 (  got=0.33  want=0.33
 PASS  feed next release is not in the past: State continued weeks claimed, ETA 539 (  got=2026-11-21  want=>= 2026-10-23
 PASS  feed has a source link: State continued weeks claimed, ETA 539 (  got=True  want=True
 PASS  feed is not dated in the future: State unemployment rates, all 51 (the se  got=2026-09-01  want=<= 2026-10-23
-PASS  feed next release is not in the past: State unemployment rates, all 51 (the se  got=2026-11-20  want=>= 2026-10-23
+PASS  feed next release is not in the past: State unemployment rates, all 51 (the se  got=2026-11-21  want=>= 2026-10-23
 PASS  feed has a source link: State unemployment rates, all 51 (the se  got=True  want=True
 PASS  feed next release is not in the past: Real GDP (the damage grade's output dime  got=2026-10-29  want=>= 2026-10-23
 PASS  feed has a source link: Real GDP (the damage grade's output dime  got=True  want=True
@@ -144,7 +144,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-10)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-10-23 06:49', '2026-10-23 06:49')  want=('2026-10-23 06:49', '2026-10-23 06:49')
+PASS  public state copies are this build  got=('2026-10-23 08:54', '2026-10-23 08:54')  want=('2026-10-23 08:54', '2026-10-23 08:54')
 PASS  front-page tiles fetched today  got=2026-10-23  want=2026-10-23
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]

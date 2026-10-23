@@ -8,8 +8,8 @@
  "through": "2026-09-01",
  "published": "2026-10-20",
  "latest_share": 0.1176,
- "next_release": "2026-11-20",
- "next_release_source": "BLS schedule (FRED release 112), 10:00 AM ET",
+ "next_release": "2026-11-21",
+ "next_release_source": "about this date, not read from the schedule",
  "fires": [
   [
    "2001-07-20",

@@ -232,8 +232,8 @@
 },
 {
 "name": "feed reading matches the readings table: State insured unemployment rates (the br",
-"got": "0.057",
-"want": "0.057",
+"got": "0.059",
+"want": "0.059",
 "status": "PASS",
 "gate": "soft"
 },
@@ -246,7 +246,7 @@
 },
 {
 "name": "feed is not dated in the future: State insured unemployment rates (the br",
-"got": "2026-10-03",
+"got": "2026-10-10",
 "want": "<= 2026-10-23",
 "status": "PASS",
 "gate": "soft"
@@ -484,14 +484,14 @@
 },
 {
 "name": "feed is not dated in the future: Federal funds target range, upper limit ",
-"got": "2026-10-22",
+"got": "2026-10-23",
 "want": "<= 2026-10-23",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Federal funds target range, upper limit ",
-"got": "2026-10-23",
+"got": "2026-10-24",
 "want": ">= 2026-10-23",
 "status": "PASS",
 "gate": null
@@ -540,7 +540,7 @@
 },
 {
 "name": "feed next release is not in the past: State unemployment rates, all 51 (the se",
-"got": "2026-11-20",
+"got": "2026-11-21",
 "want": ">= 2026-10-23",
 "status": "PASS",
 "gate": null
@@ -1023,8 +1023,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-10-23 06:49', '2026-10-23 06:49')",
-"want": "('2026-10-23 06:49', '2026-10-23 06:49')",
+"got": "('2026-10-23 08:54', '2026-10-23 08:54')",
+"want": "('2026-10-23 08:54', '2026-10-23 08:54')",
 "status": "PASS",
 "gate": "hard"
 },
