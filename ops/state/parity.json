@@ -1,6 +1,6 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
- "checked_at": "2026-10-24T00:01Z",
+ "checked_at": "2026-10-24T00:31Z",
  "open_misses": [],
  "reads": [
   {
@@ -1218,11 +1218,11 @@
    "ids": "HOUST, PERMIT",
    "lag_min": 8,
    "name": "housing starts",
+   "note": "832: the 20 Oct 08:41 ET run read the September print (1,275; 1,403 -> 1,221; 1,400; repo commit 0ceb54a) with the through unchanged because the pre-781 updater had labelled August as September",
    "posted": "2026-10-20 08:33 ET",
    "read_at": "2026-10-20T12:41Z",
    "release": 27,
-   "to": "2026-09-01",
-   "note": "832: the 20 Oct 08:41 ET run read the September print (1,275; 1,403 -> 1,221; 1,400; repo commit 0ceb54a) with the through unchanged because the pre-781 updater had labelled August as September"
+   "to": "2026-09-01"
   }
  ],
  "since": "2026-09-23T23:12Z"
