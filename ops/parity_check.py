@@ -46,6 +46,16 @@ def feeds_of(text):
     return {(f.get('ids') or f.get('name') or ''): str(f.get('through') or '') for f in st.get('feeds') or []}
 
 
+def values_of(text):
+    """{row ids: the row's shown value}: a print read with the through unchanged (a revision; a month the row had mislabelled
+    before 781's fix of 19 October 2026) still shows as a value change (832, 23 October 2026)"""
+    try:
+        st = json.loads(text)
+    except Exception:
+        return {}
+    return {(f.get('ids') or f.get('name') or ''): str(f.get('value') or '') for f in st.get('feeds') or []}
+
+
 def backstop_rows(text):
     """{row ids: data_through} for the backstop rules that are FRED releases (WEI 465, CFNAI 219)"""
     try:
@@ -133,8 +143,15 @@ def advances(old_text, new_text, read_at, posted, old_extra=None, new_extra=None
     old.update(old_extra or {})
     new.update(new_extra or {})
     out = []
+    oldv, newv = values_of(old_text), values_of(new_text)
     for ids, thr in new.items():
         o = old.get(ids, '')
+        if thr and o and norm(thr) == norm(o) and newv.get(ids) and oldv.get(ids) and newv[ids] != oldv[ids]:
+            rid = rid_of(ids); ref = reference(rid, read_at, posted, thr) if rid else None     # 832: a read that changed the value only
+            out.append({'ids': ids, 'from': o, 'to': thr, 'read_at': read_at.astimezone(UTC).strftime('%Y-%m-%dT%H:%MZ'),
+                        'release': rid, 'name': NAMES.get(rid), 'posted': ref.strftime('%Y-%m-%d %H:%M ET') if ref else None,
+                        'lag_min': int((read_at - ref).total_seconds() // 60) if ref else None, 'note': 'value changed, through unchanged'})
+            continue
         if thr and norm(thr) > norm(o):
             rid = rid_of(ids) if o else None           # a row that first appears (a port added it) is not a read of a print
             ref = reference(rid, read_at, posted, thr) if rid else None

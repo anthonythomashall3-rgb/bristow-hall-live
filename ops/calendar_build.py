@@ -974,7 +974,7 @@ def schedule(cal, state, pending):
     raw.sort(key=lambda x: x[0])
     groups = []                                          # [first time, run time, reasons]
     for t, w in raw:
-        t = t.replace(minute=(t.minute // 5) * 5, second=0, microsecond=0)
+        t = t.replace(second=0, microsecond=0)            # to the minute (to 5 minutes until 23 October 2026: the Worker ticks every minute, 411)
         if groups and (t - groups[-1][0]).total_seconds() <= MERGE_MIN * 60 and t.date() == groups[-1][0].date():
             groups[-1][1] = max(t, groups[-1][1])            # the run waits for the latest release of its group
             groups[-1][2].append(w)
