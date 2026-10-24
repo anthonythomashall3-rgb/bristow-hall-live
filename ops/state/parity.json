@@ -1,9 +1,9 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
- "checked_at": "2026-10-23T12:54Z",
+ "checked_at": "2026-10-24T00:01Z",
  "open_misses": [
   {
-   "hours": 72.4,
+   "hours": 83.5,
    "name": "housing starts",
    "posted": "2026-10-20 08:33 ET",
    "release": 27
@@ -1198,6 +1198,26 @@
    "posted": "2026-10-23 08:01 ET",
    "read_at": "2026-10-23T12:54Z",
    "release": 101,
+   "to": "2026-10-23"
+  },
+  {
+   "from": "2026-10-21",
+   "ids": "DCPF1M, DCPN30, WTB3MS",
+   "lag_min": 225,
+   "name": "H.15 rates",
+   "posted": "2026-10-23 16:16 ET",
+   "read_at": "2026-10-24T00:01Z",
+   "release": 18,
+   "to": "2026-10-22"
+  },
+  {
+   "from": "2026-10-22",
+   "ids": "^GSPC",
+   "lag_min": 241,
+   "name": "the S&P 500 close",
+   "posted": "2026-10-23 16:00 ET",
+   "read_at": "2026-10-24T00:01Z",
+   "release": 189,
    "to": "2026-10-23"
   }
  ],

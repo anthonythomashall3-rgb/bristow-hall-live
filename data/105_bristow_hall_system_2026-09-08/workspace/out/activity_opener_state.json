@@ -17,10 +17,10 @@
   "production_vintage": "2026-10-16",
   "production_level": 103.9506,
   "production_last_month": "2026-09",
-  "market_drawdown": 0.0201,
-  "market_distance": 0.0799,
-  "market_close": 7663.43,
-  "market_close_date": "2026-10-22",
+  "market_drawdown": 0.0253,
+  "market_distance": 0.0747,
+  "market_close": 7623.68,
+  "market_close_date": "2026-10-23",
   "policy_rate": 4.0,
   "policy_low_365": 3.75,
   "policy_rise": 0.25,
@@ -63,7 +63,7 @@
  ],
  "vintages": 1224,
  "vintages_added_this_run": 0,
- "policy_days_added_this_run": 1,
+ "policy_days_added_this_run": 0,
  "breadth_months_added_this_run": 0,
  "g17_dates": [
   "2026-11-17",
@@ -81,7 +81,7 @@
   },
   "market": {
    "status": "current",
-   "age_days": 1,
+   "age_days": 0,
    "limit_days": 5,
    "substitute": null
   },
