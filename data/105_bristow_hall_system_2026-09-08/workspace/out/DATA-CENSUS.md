@@ -1,4 +1,4 @@
-# The data census - 2026-10-26 (the tool v3.76, built 2026-10-26 08:36)
+# The data census - 2026-10-26 (the tool v3.76, built 2026-10-26 15:34)
 
 Every input the live tool reads: the publisher and route, the backup or substitute, the schedule, what is in hand, and the guard on its format. Gaps are listed at the end.
 

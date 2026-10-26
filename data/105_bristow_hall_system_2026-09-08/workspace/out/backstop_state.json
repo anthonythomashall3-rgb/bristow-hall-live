@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-26T12:37:01",
+ "built_at": "2026-10-26T19:34:22",
  "standing": {
   "state": "closed",
   "since": "2024-09-26",
@@ -36,7 +36,7 @@
    "data_through": "2026-09-01",
    "unit": "CFNAI three-month average",
    "vintage": "current (the Chicago Fed revises the index)",
-   "next": "2026-10-26"
+   "next": "2026-11-23"
   },
   "Michez": {
    "reading": 0.0,

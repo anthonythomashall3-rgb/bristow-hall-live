@@ -232,8 +232,8 @@
 },
 {
 "name": "feed reading matches the readings table: State insured unemployment rates (the br",
-"got": "0.059",
-"want": "0.059",
+"got": "0.075",
+"want": "0.075",
 "status": "PASS",
 "gate": "soft"
 },
@@ -1023,8 +1023,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-10-26 08:36', '2026-10-26 08:36')",
-"want": "('2026-10-26 08:36', '2026-10-26 08:36')",
+"got": "('2026-10-26 15:34', '2026-10-26 15:34')",
+"want": "('2026-10-26 15:34', '2026-10-26 15:34')",
 "status": "PASS",
 "gate": "hard"
 },

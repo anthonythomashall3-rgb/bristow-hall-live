@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-26 08:36",
+ "built_at": "2026-10-26 15:34",
  "version": "v3.76",
  "census_date": "2026-10-26",
  "feeds": [
@@ -24,7 +24,7 @@
    "through": "2026-10-10",
    "next": "2026-10-29",
    "link": "https://oui.doleta.gov/unemploy/claims.asp",
-   "value": "5.9%",
+   "value": "7.5%",
    "backup": "the advance state table of the weekly release PDF while the archive catches up",
    "format_check": "the page-8 parse validated against the advance table",
    "auto": "yes"
