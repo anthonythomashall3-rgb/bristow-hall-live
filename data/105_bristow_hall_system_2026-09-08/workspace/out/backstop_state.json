@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-24T18:08:12",
+ "built_at": "2026-10-26T12:37:01",
  "standing": {
   "state": "closed",
   "since": "2024-09-26",
@@ -29,11 +29,11 @@
    "source_file": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/workspace/cache/backstop/ar539.csv"
   },
   "CFNAI": {
-   "reading": 0.01,
+   "reading": 0.03,
    "line": -0.7,
    "on": false,
    "since": "2020-07-01",
-   "data_through": "2026-08-01",
+   "data_through": "2026-09-01",
    "unit": "CFNAI three-month average",
    "vintage": "current (the Chicago Fed revises the index)",
    "next": "2026-10-26"
@@ -79,7 +79,7 @@
   "weeks_on": 0,
   "gate_passed": false,
   "would_open_on": null,
-  "data_through": "2026-10-22",
+  "data_through": "2026-10-24",
   "calls": [
    "1970-04-23",
    "1974-07-25",
