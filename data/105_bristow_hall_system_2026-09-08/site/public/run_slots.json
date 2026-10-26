@@ -1,18 +1,11 @@
 {
- "built_at": "2026-10-26 15:34",
+ "built_at": "2026-10-26 16:45",
  "fallback": "weekdays 08:35, 09:45, 10:15, 16:20 and 20:10 (New York time), used only if this list cannot be read",
- "generated_utc": "2026-10-26T19:34:33Z",
+ "generated_utc": "2026-10-26T20:45:52Z",
  "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes after each release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close at 4:20 PM and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
  "refresh_incomplete": null,
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
  "slots": [
-  {
-   "ny": "2026-10-23 16:20",
-   "utc": "2026-10-23T20:20:00Z",
-   "why": [
-    "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
-   ]
-  },
   {
    "ny": "2026-10-23 20:10",
    "utc": "2026-10-24T00:10:00Z",
@@ -25,20 +18,6 @@
    "utc": "2026-10-26T12:40:00Z",
    "why": [
     "the Chicago Fed index (8:30 AM ET)"
-   ]
-  },
-  {
-   "ny": "2026-10-26 15:44",
-   "utc": "2026-10-26T19:44:00Z",
-   "why": [
-    "look again: the Chicago Fed index (due 08:30, not yet posted)"
-   ]
-  },
-  {
-   "ny": "2026-10-26 16:04",
-   "utc": "2026-10-26T20:04:00Z",
-   "why": [
-    "look again: the Chicago Fed index (due 08:30, not yet posted)"
    ]
   },
   {
@@ -390,6 +369,13 @@
    "utc": "2026-11-14T01:10:00Z",
    "why": [
     "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
+   ]
+  },
+  {
+   "ny": "2026-11-16 16:20",
+   "utc": "2026-11-16T21:20:00Z",
+   "why": [
+    "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
    ]
   }
  ],

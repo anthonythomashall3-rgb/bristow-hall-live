@@ -1,16 +1,16 @@
-    0.5s  FRED change check: 112 series tracked; 41 changed since last pulled (4 updated since 07:35 CT): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
-    0.9s  ILINSUREDUR    2026-10-03 -> 2026-10-10  (2125 obs)
-    1.2s  KSINSUREDUR    2026-10-03 -> 2026-10-10  (2123 obs)
-    2.5s  home tiles: unchanged | 9 readings through Sep 2026 (unemployment rate), Oct 17, 2026 (claims); next releases CPIAUCSL 2026-11-10, ICSA 2026-10-29, IURSA 2026-10-29, JTSJOL 2026-11-03, JTSQUR 2026-11-03, PAYEMS 2026-11-06, UNRATE 2026-11-06; saved to collection 109
-    2.8s  PAYEMS         no new vintage since 2026-10-02 (through 2026-09-01)
+    0.3s  FRED change check: 112 series tracked; 41 changed since last pulled (5 updated since 14:31 CT): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
+    1.8s  home tiles: unchanged | 9 readings through Sep 2026 (unemployment rate), Oct 17, 2026 (claims); next releases CPIAUCSL 2026-11-10, ICSA 2026-10-29, IURSA 2026-10-29, JTSJOL 2026-11-03, JTSQUR 2026-11-03, PAYEMS 2026-11-06, UNRATE 2026-11-06; saved to collection 109
+    2.1s  WTB3MS         2026-10-16 -> 2026-10-23  (3799 obs)
+    2.6s  DCPN30         2026-10-22 -> 2026-10-23  (7014 obs)
+    2.9s  PAYEMS         no new vintage since 2026-10-02 (through 2026-09-01)
     3.1s  GDPC1          no new vintage since 2026-09-30 (through 2026-04-01)
     3.4s  GDPNOW         no new vintage since 2026-10-20 (through 2026-07-01)
-    3.5s  indeed postings  4900 rows, last 2026-10-16
+    3.6s  indeed postings  4900 rows, last 2026-10-16
     3.6s  relcal_HOUST: unchanged (through 2026-09)
     3.7s  relcal_UNRATE: unchanged (through 2026-09)
     3.7s  relcal_JTSJOL: unchanged (through 2026-08)
     3.7s  vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
-    4.1s  S&P 500: nothing new (through 2026-10-23)
+    4.1s  S&P 500: 1 day(s) appended, through 2026-10-26 (0 official, 1 from the feed)
     5.0s  Sahm gap: unchanged (through 2026-09-01)
     5.0s  insured rate base: unchanged (through 2026-10-10)
     5.0s  ---- the damage index's unemployment rate ----
