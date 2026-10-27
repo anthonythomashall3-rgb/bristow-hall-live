@@ -229,8 +229,6 @@
   ]
  },
  "rows_with_new_data_this_run": [
-  "row|DFEDTARU|Federal funds target range, upper limit",
-  "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\"",
-  "row|HOUST, PERMIT|Housing starts and building permits"
+  "row|GDPNOW|GDPNow"
  ]
 }
