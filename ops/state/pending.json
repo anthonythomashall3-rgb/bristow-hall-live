@@ -1,14 +1,7 @@
 {
- "came_in": [
-  {
-   "came_in": "2026-10-26 16:45",
-   "due_ny": "2026-10-26 16:00",
-   "ids": "^gspc",
-   "short": "the S&P 500 close"
-  }
- ],
+ "came_in": [],
  "expired": [],
- "last_check_ny": "2026-10-26 16:40",
+ "last_check_ny": "2026-10-26 20:44",
  "pending": [
   {
    "due_ny": "2026-10-20 10:00",
