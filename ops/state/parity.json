@@ -1,6 +1,6 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
- "checked_at": "2026-10-28T16:10Z",
+ "checked_at": "2026-10-28T20:22Z",
  "open_misses": [],
  "reads": [
   {
@@ -1372,6 +1372,26 @@
    "posted": "2026-10-28 10:46 ET",
    "read_at": "2026-10-28T16:10Z",
    "release": 386,
+   "to": "2026-10-28"
+  },
+  {
+   "from": "2026-10-26",
+   "ids": "DCPF1M, DCPN30, WTB3MS",
+   "lag_min": 6,
+   "name": "H.15 rates",
+   "posted": "2026-10-28 16:16 ET",
+   "read_at": "2026-10-28T20:22Z",
+   "release": 18,
+   "to": "2026-10-27"
+  },
+  {
+   "from": "2026-10-27",
+   "ids": "^GSPC",
+   "lag_min": 22,
+   "name": "the S&P 500 close",
+   "posted": "2026-10-28 16:00 ET",
+   "read_at": "2026-10-28T20:22Z",
+   "release": 189,
    "to": "2026-10-28"
   }
  ],
