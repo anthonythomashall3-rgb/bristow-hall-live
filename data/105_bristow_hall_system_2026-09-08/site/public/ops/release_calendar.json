@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-29 08:50",
+ "built_at": "2026-10-29 09:12",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-10-29T12:50:30Z",
+ "generated_utc": "2026-10-29T13:12:39Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -2414,6 +2414,84 @@
   },
   {
    "agrees_with_build": true,
+   "build_next": "2026-11-05",
+   "confirmed_through": "2026-12-31",
+   "fred_clock": "08:34",
+   "freq": "weekly",
+   "ids": "eta 539 by state",
+   "link": "https://oui.doleta.gov/unemploy/csv/ar539.csv",
+   "name": "states with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
+   "next_expected": false,
+   "next_ny": "2026-11-05 08:30",
+   "read_lag_min": 0,
+   "release_id": 180,
+   "short": "weekly claims",
+   "slots": true,
+   "source": "FRED release 180",
+   "through": "2026-10-17",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-10-22 08:30",
+     "utc": "2026-10-22T12:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-29 08:30",
+     "utc": "2026-10-29T12:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-05 08:30",
+     "utc": "2026-11-05T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-12 08:30",
+     "utc": "2026-11-12T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-19 08:30",
+     "utc": "2026-11-19T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 08:30",
+     "utc": "2026-11-25T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-03 08:30",
+     "utc": "2026-12-03T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-10 08:30",
+     "utc": "2026-12-10T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 08:30",
+     "utc": "2026-12-17T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-24 08:30",
+     "utc": "2026-12-24T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-31 08:30",
+     "utc": "2026-12-31T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
    "build_next": "2026-10-29",
    "confirmed_through": "2026-12-31",
    "fred_clock": "11:39",
@@ -2567,84 +2645,6 @@
     }
    ],
    "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-11-05",
-   "confirmed_through": "2026-12-31",
-   "fred_clock": "08:34",
-   "freq": "weekly",
-   "ids": "eta 539 by state",
-   "link": "https://oui.doleta.gov/unemploy/csv/ar539.csv",
-   "name": "states with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
-   "next_expected": false,
-   "next_ny": "2026-11-05 08:30",
-   "read_lag_min": 0,
-   "release_id": 180,
-   "short": "weekly claims",
-   "slots": true,
-   "source": "FRED release 180",
-   "through": "2026-10-10",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-22 08:30",
-     "utc": "2026-10-22T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-29 08:30",
-     "utc": "2026-10-29T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-05 08:30",
-     "utc": "2026-11-05T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-12 08:30",
-     "utc": "2026-11-12T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-19 08:30",
-     "utc": "2026-11-19T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 08:30",
-     "utc": "2026-11-25T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-03 08:30",
-     "utc": "2026-12-03T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-10 08:30",
-     "utc": "2026-12-10T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 08:30",
-     "utc": "2026-12-17T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-24 08:30",
-     "utc": "2026-12-24T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-31 08:30",
-     "utc": "2026-12-31T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": "2026-10-29 08:30"
   },
   {
    "agrees_with_build": true,
@@ -3300,6 +3300,49 @@
   },
   {
    "agrees_with_build": true,
+   "build_next": "2026-11-25",
+   "confirmed_through": "2026-12-23",
+   "fred_clock": "08:49",
+   "freq": "monthly",
+   "ids": "gdpc1",
+   "link": "https://fred.stlouisfed.org/series/GDPC1",
+   "name": "real gdp",
+   "next_expected": false,
+   "next_ny": "2026-11-25 08:30",
+   "read_lag_min": 22,
+   "release_id": 53,
+   "short": "GDP (BEA)",
+   "slots": true,
+   "source": "FRED release 53 (Gross Domestic Product)",
+   "through": "2026-07-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-10-29 08:30",
+     "utc": "2026-10-29T12:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 08:30",
+     "utc": "2026-11-25T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 08:30",
+     "utc": "2026-12-23T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-28 08:30",
+     "utc": "2027-01-28T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
    "build_next": "2026-11-02",
    "confirmed_through": "2026-12-23",
    "fred_clock": "12:02",
@@ -3397,49 +3440,6 @@
      "expected": false,
      "ny": "2026-12-23 12:02",
      "utc": "2026-12-23T17:02:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-11-25",
-   "confirmed_through": "2026-12-23",
-   "fred_clock": "08:49",
-   "freq": "monthly",
-   "ids": "gdpc1",
-   "link": "https://fred.stlouisfed.org/series/GDPC1",
-   "name": "real gdp",
-   "next_expected": false,
-   "next_ny": "2026-11-25 08:30",
-   "read_lag_min": 22,
-   "release_id": 53,
-   "short": "GDP (BEA)",
-   "slots": true,
-   "source": "FRED release 53 (Gross Domestic Product)",
-   "through": "2026-04-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-29 08:30",
-     "utc": "2026-10-29T12:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 08:30",
-     "utc": "2026-11-25T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-23 08:30",
-     "utc": "2026-12-23T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-28 08:30",
-     "utc": "2027-01-28T13:30:00Z"
     }
    ],
    "waiting_since_due": null

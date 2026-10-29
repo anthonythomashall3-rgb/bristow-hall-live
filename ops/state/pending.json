@@ -1,5 +1,23 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-10-29 09:12",
+   "due_ny": "2026-10-29 08:30",
+   "expected_day": false,
+   "ids": "eta 539 by state",
+   "short": "weekly claims",
+   "since_ny": "2026-10-29 08:38",
+   "through_before": "2026-10-10",
+   "through_now": "2026-10-17",
+   "value_before": "0"
+  },
+  {
+   "came_in": "2026-10-29 09:12",
+   "due_ny": "2026-10-29 08:30",
+   "ids": "gdpc1",
+   "short": "GDP (BEA)"
+  }
+ ],
  "expired": [
   {
    "due_ny": "2026-10-20 10:00",
@@ -12,7 +30,7 @@
    "value_before": "12%"
   }
  ],
- "last_check_ny": "2026-10-29 08:45",
+ "last_check_ny": "2026-10-29 09:07",
  "pending": [
   {
    "due_ny": "2026-10-26 08:30",
@@ -22,15 +40,6 @@
    "since_ny": "2026-10-26 15:34",
    "through_before": "2026-09-01",
    "value_before": "0.03"
-  },
-  {
-   "due_ny": "2026-10-29 08:30",
-   "expected_day": false,
-   "ids": "eta 539 by state",
-   "short": "weekly claims",
-   "since_ny": "2026-10-29 08:38",
-   "through_before": "2026-10-10",
-   "value_before": "0"
   }
  ],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"

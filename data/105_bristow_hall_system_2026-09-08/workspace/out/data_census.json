@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-29 08:50",
+ "built_at": "2026-10-29 09:12",
  "version": "v3.76",
  "census_date": "2026-10-29",
  "feeds": [
@@ -151,10 +151,10 @@
    "series": "GDPC1",
    "source": "Bureau of Economic Analysis, Gross Domestic Product news release (FRED GDPC1, the latest vintage)",
    "every": "Quarterly - the advance estimate about four weeks after the quarter, revised in each of the next two months; 8:30 AM ET",
-   "through": "2026-04",
+   "through": "2026-07",
    "next": "2026-11-25",
    "link": "https://www.bea.gov/data/gdp/gross-domestic-product",
-   "value": "24,408.0",
+   "value": "24,611.1",
    "backup": "GDPNow for the unprinted quarter; the BEA release text",
    "format_check": "damage_dimensions.py: the vintage table read by column name; q41 v3.73 checks",
    "auto": "yes"
