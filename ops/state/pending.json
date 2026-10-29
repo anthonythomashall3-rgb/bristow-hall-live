@@ -1,21 +1,10 @@
 {
  "came_in": [
   {
-   "came_in": "2026-10-29 09:12",
-   "due_ny": "2026-10-29 08:30",
-   "expected_day": false,
-   "ids": "eta 539 by state",
-   "short": "weekly claims",
-   "since_ny": "2026-10-29 08:38",
-   "through_before": "2026-10-10",
-   "through_now": "2026-10-17",
-   "value_before": "0"
-  },
-  {
-   "came_in": "2026-10-29 09:12",
-   "due_ny": "2026-10-29 08:30",
-   "ids": "gdpc1",
-   "short": "GDP (BEA)"
+   "came_in": "2026-10-29 11:47",
+   "due_ny": "2026-10-29 11:30",
+   "ids": "wei",
+   "short": "weekly economic index (lewis, mertens an"
   }
  ],
  "expired": [
@@ -30,7 +19,7 @@
    "value_before": "12%"
   }
  ],
- "last_check_ny": "2026-10-29 09:07",
+ "last_check_ny": "2026-10-29 11:42",
  "pending": [
   {
    "due_ny": "2026-10-26 08:30",

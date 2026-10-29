@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-29 09:12",
+ "built_at": "2026-10-29 11:47",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-10-29T13:12:39Z",
+ "generated_utc": "2026-10-29T15:47:47Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -2180,7 +2180,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-10-29",
+   "build_next": "2026-11-05",
    "confirmed_through": "2026-12-31",
    "fred_clock": "08:34",
    "freq": "weekly",
@@ -2258,7 +2258,85 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-10-29",
+   "build_next": "2026-11-05",
+   "confirmed_through": "2026-12-31",
+   "fred_clock": "11:39",
+   "freq": "weekly",
+   "ids": "wei",
+   "link": "https://fred.stlouisfed.org/series/WEI",
+   "name": "weekly economic index (lewis, mertens and stock), 13-week mean",
+   "next_expected": false,
+   "next_ny": "2026-11-05 11:30",
+   "read_lag_min": 10,
+   "release_id": 465,
+   "short": "weekly economic index (lewis, mertens an",
+   "slots": true,
+   "source": "FRED release 465 (Weekly Economic Index (Lewis-Mertens-Stock))",
+   "through": "2026-10-24",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-10-22 11:30",
+     "utc": "2026-10-22T15:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-29 11:30",
+     "utc": "2026-10-29T15:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-05 11:30",
+     "utc": "2026-11-05T16:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-12 11:30",
+     "utc": "2026-11-12T16:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-19 11:30",
+     "utc": "2026-11-19T16:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 11:30",
+     "utc": "2026-11-25T16:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-03 11:30",
+     "utc": "2026-12-03T16:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-10 11:30",
+     "utc": "2026-12-10T16:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 11:30",
+     "utc": "2026-12-17T16:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-24 11:30",
+     "utc": "2026-12-24T16:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-31 11:30",
+     "utc": "2026-12-31T16:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-11-05",
    "confirmed_through": "2026-12-31",
    "fred_clock": "08:34",
    "freq": "weekly",
@@ -2492,84 +2570,6 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-10-29",
-   "confirmed_through": "2026-12-31",
-   "fred_clock": "11:39",
-   "freq": "weekly",
-   "ids": "wei",
-   "link": "https://fred.stlouisfed.org/series/WEI",
-   "name": "weekly economic index (lewis, mertens and stock), 13-week mean",
-   "next_expected": false,
-   "next_ny": "2026-10-29 11:30",
-   "read_lag_min": 10,
-   "release_id": 465,
-   "short": "weekly economic index (lewis, mertens an",
-   "slots": true,
-   "source": "FRED release 465 (Weekly Economic Index (Lewis-Mertens-Stock))",
-   "through": "2026-10-17",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-22 11:30",
-     "utc": "2026-10-22T15:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-29 11:30",
-     "utc": "2026-10-29T15:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-05 11:30",
-     "utc": "2026-11-05T16:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-12 11:30",
-     "utc": "2026-11-12T16:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-19 11:30",
-     "utc": "2026-11-19T16:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 11:30",
-     "utc": "2026-11-25T16:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-03 11:30",
-     "utc": "2026-12-03T16:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-10 11:30",
-     "utc": "2026-12-10T16:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 11:30",
-     "utc": "2026-12-17T16:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-24 11:30",
-     "utc": "2026-12-24T16:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-31 11:30",
-     "utc": "2026-12-31T16:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
    "build_next": "2026-11-05",
    "confirmed_through": "2026-12-31",
    "fred_clock": "08:34",
@@ -2642,6 +2642,109 @@
      "expected": false,
      "ny": "2026-12-31 08:30",
      "utc": "2026-12-31T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-11-02",
+   "confirmed_through": "2026-12-23",
+   "fred_clock": "12:02",
+   "freq": "weekly",
+   "ids": "gdpnow",
+   "link": "https://alfred.stlouisfed.org/series?seid=GDPNOW",
+   "name": "gdpnow",
+   "next_expected": false,
+   "next_ny": "2026-10-29 12:02",
+   "read_lag_min": 0,
+   "release_id": 386,
+   "short": "GDPNow",
+   "slots": true,
+   "source": "FRED release 386 (GDPNow)",
+   "through": "2026-10-01",
+   "time_known": true,
+   "time_note": "FRED's posting clock, the median of its last nine posts (the Atlanta Fed publishes no hour)",
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-10-20 12:02",
+     "utc": "2026-10-20T16:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-27 12:02",
+     "utc": "2026-10-27T16:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-28 12:02",
+     "utc": "2026-10-28T16:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-29 12:02",
+     "utc": "2026-10-29T16:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-02 12:02",
+     "utc": "2026-11-02T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-04 12:02",
+     "utc": "2026-11-04T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-09 12:02",
+     "utc": "2026-11-09T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-17 12:02",
+     "utc": "2026-11-17T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-18 12:02",
+     "utc": "2026-11-18T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 12:02",
+     "utc": "2026-11-25T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-01 12:02",
+     "utc": "2026-12-01T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-08 12:02",
+     "utc": "2026-12-08T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-09 12:02",
+     "utc": "2026-12-09T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-16 12:02",
+     "utc": "2026-12-16T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 12:02",
+     "utc": "2026-12-17T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 12:02",
+     "utc": "2026-12-23T17:02:00Z"
     }
    ],
    "waiting_since_due": null
@@ -3302,14 +3405,14 @@
    "agrees_with_build": true,
    "build_next": "2026-11-25",
    "confirmed_through": "2026-12-23",
-   "fred_clock": "08:49",
+   "fred_clock": "08:51",
    "freq": "monthly",
    "ids": "gdpc1",
    "link": "https://fred.stlouisfed.org/series/GDPC1",
    "name": "real gdp",
    "next_expected": false,
    "next_ny": "2026-11-25 08:30",
-   "read_lag_min": 22,
+   "read_lag_min": 23,
    "release_id": 53,
    "short": "GDP (BEA)",
    "slots": true,
@@ -3337,109 +3440,6 @@
      "expected": true,
      "ny": "2027-01-28 08:30",
      "utc": "2027-01-28T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-11-02",
-   "confirmed_through": "2026-12-23",
-   "fred_clock": "12:02",
-   "freq": "weekly",
-   "ids": "gdpnow",
-   "link": "https://alfred.stlouisfed.org/series?seid=GDPNOW",
-   "name": "gdpnow",
-   "next_expected": false,
-   "next_ny": "2026-10-29 12:02",
-   "read_lag_min": 0,
-   "release_id": 386,
-   "short": "GDPNow",
-   "slots": true,
-   "source": "FRED release 386 (GDPNow)",
-   "through": "2026-07-01",
-   "time_known": true,
-   "time_note": "FRED's posting clock, the median of its last nine posts (the Atlanta Fed publishes no hour)",
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-20 12:02",
-     "utc": "2026-10-20T16:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-27 12:02",
-     "utc": "2026-10-27T16:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-28 12:02",
-     "utc": "2026-10-28T16:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-29 12:02",
-     "utc": "2026-10-29T16:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-02 12:02",
-     "utc": "2026-11-02T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-04 12:02",
-     "utc": "2026-11-04T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-09 12:02",
-     "utc": "2026-11-09T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-17 12:02",
-     "utc": "2026-11-17T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-18 12:02",
-     "utc": "2026-11-18T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 12:02",
-     "utc": "2026-11-25T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-01 12:02",
-     "utc": "2026-12-01T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-08 12:02",
-     "utc": "2026-12-08T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-09 12:02",
-     "utc": "2026-12-09T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-16 12:02",
-     "utc": "2026-12-16T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 12:02",
-     "utc": "2026-12-17T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-23 12:02",
-     "utc": "2026-12-23T17:02:00Z"
     }
    ],
    "waiting_since_due": null

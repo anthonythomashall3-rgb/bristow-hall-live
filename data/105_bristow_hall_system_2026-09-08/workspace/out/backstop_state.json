@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-29T13:12:23",
+ "built_at": "2026-10-29T15:47:32",
  "standing": {
   "state": "closed",
   "since": "2024-09-26",
@@ -53,14 +53,14 @@
    "shadow_only": true
   },
   "WEI": {
-   "reading": 2.94,
+   "reading": 2.98,
    "line": 0.0,
    "on": false,
    "since": "2021-03-11",
-   "data_through": "2026-10-17",
-   "latest_week": 3.33,
-   "next": "2026-10-29",
-   "unit": "13-week mean of the index (scaled to four-quarter GDP growth, percent), line 0; the latest week 3.33",
+   "data_through": "2026-10-24",
+   "latest_week": 2.98,
+   "next": "2026-11-05",
+   "unit": "13-week mean of the index (scaled to four-quarter GDP growth, percent), line 0; the latest week 2.98",
    "vintage": "current (the Dallas Fed revises the index weekly; ALFRED vintages held from 16 April 2020)",
    "shadow_only": true
   }
