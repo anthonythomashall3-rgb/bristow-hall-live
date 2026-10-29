@@ -1,12 +1,12 @@
 {
- "built_at": "2026-10-28 20:11",
+ "built_at": "2026-10-29 05:47",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-10-29T00:11:48Z",
+ "generated_utc": "2026-10-29T09:48:02Z",
  "rows": [
   {
    "agrees_with_build": true,
    "build_next": "2026-10-29",
-   "confirmed_through": "2027-02-17",
+   "confirmed_through": "2027-02-18",
    "fred_clock": null,
    "freq": "daily",
    "ids": "^gspc",
@@ -23,11 +23,6 @@
    "time_known": true,
    "time_note": "the market close",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-21 16:00",
-     "utc": "2026-10-21T20:00:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-10-22 16:00",
@@ -427,6 +422,11 @@
      "expected": false,
      "ny": "2027-02-17 16:00",
      "utc": "2027-02-17T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-18 16:00",
+     "utc": "2027-02-18T21:00:00Z"
     }
    ],
    "waiting_since_due": null
@@ -434,7 +434,7 @@
   {
    "agrees_with_build": true,
    "build_next": "2026-10-29",
-   "confirmed_through": "2027-02-22",
+   "confirmed_through": "2027-02-23",
    "fred_clock": null,
    "freq": "daily",
    "ids": "dfedtaru",
@@ -451,11 +451,6 @@
    "time_known": true,
    "time_note": "FRED's daily post, at its measured clock (every day, weekends included)",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-26 08:01",
-     "utc": "2026-10-26T12:01:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-10-27 08:01",
@@ -1050,6 +1045,11 @@
      "expected": false,
      "ny": "2027-02-22 08:01",
      "utc": "2027-02-22T13:01:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-23 08:01",
+     "utc": "2027-02-23T13:01:00Z"
     }
    ],
    "waiting_since_due": null
@@ -1057,430 +1057,7 @@
   {
    "agrees_with_build": true,
    "build_next": "2026-10-29",
-   "confirmed_through": "2027-02-17",
-   "fred_clock": null,
-   "freq": "daily",
-   "ids": "dcpf1m, dcpn30, wtb3ms",
-   "link": "https://fred.stlouisfed.org/series/DCPF1M",
-   "name": "commercial paper and three-month bill rates",
-   "next_expected": false,
-   "next_ny": "2026-10-29 16:15",
-   "read_lag_min": 0,
-   "release_id": null,
-   "short": "the H.15 rates (daily post)",
-   "slots": true,
-   "source": "rule: h15_daily",
-   "through": "2026-10-27",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-21 16:15",
-     "utc": "2026-10-21T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-22 16:15",
-     "utc": "2026-10-22T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-23 16:15",
-     "utc": "2026-10-23T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-26 16:15",
-     "utc": "2026-10-26T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-27 16:15",
-     "utc": "2026-10-27T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-28 16:15",
-     "utc": "2026-10-28T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-29 16:15",
-     "utc": "2026-10-29T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-10-30 16:15",
-     "utc": "2026-10-30T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-02 16:15",
-     "utc": "2026-11-02T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-03 16:15",
-     "utc": "2026-11-03T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-04 16:15",
-     "utc": "2026-11-04T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-05 16:15",
-     "utc": "2026-11-05T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-06 16:15",
-     "utc": "2026-11-06T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-09 16:15",
-     "utc": "2026-11-09T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-10 16:15",
-     "utc": "2026-11-10T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-12 16:15",
-     "utc": "2026-11-12T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-13 16:15",
-     "utc": "2026-11-13T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-16 16:15",
-     "utc": "2026-11-16T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-17 16:15",
-     "utc": "2026-11-17T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-18 16:15",
-     "utc": "2026-11-18T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-19 16:15",
-     "utc": "2026-11-19T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-20 16:15",
-     "utc": "2026-11-20T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-23 16:15",
-     "utc": "2026-11-23T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-24 16:15",
-     "utc": "2026-11-24T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 16:15",
-     "utc": "2026-11-25T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-27 16:15",
-     "utc": "2026-11-27T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-30 16:15",
-     "utc": "2026-11-30T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-01 16:15",
-     "utc": "2026-12-01T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-02 16:15",
-     "utc": "2026-12-02T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-03 16:15",
-     "utc": "2026-12-03T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-04 16:15",
-     "utc": "2026-12-04T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-07 16:15",
-     "utc": "2026-12-07T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-08 16:15",
-     "utc": "2026-12-08T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-09 16:15",
-     "utc": "2026-12-09T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-10 16:15",
-     "utc": "2026-12-10T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-11 16:15",
-     "utc": "2026-12-11T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-14 16:15",
-     "utc": "2026-12-14T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-15 16:15",
-     "utc": "2026-12-15T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-16 16:15",
-     "utc": "2026-12-16T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 16:15",
-     "utc": "2026-12-17T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-18 16:15",
-     "utc": "2026-12-18T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-21 16:15",
-     "utc": "2026-12-21T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-22 16:15",
-     "utc": "2026-12-22T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-23 16:15",
-     "utc": "2026-12-23T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-24 16:15",
-     "utc": "2026-12-24T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-28 16:15",
-     "utc": "2026-12-28T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-29 16:15",
-     "utc": "2026-12-29T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-30 16:15",
-     "utc": "2026-12-30T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-31 16:15",
-     "utc": "2026-12-31T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-04 16:15",
-     "utc": "2027-01-04T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-05 16:15",
-     "utc": "2027-01-05T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-06 16:15",
-     "utc": "2027-01-06T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-07 16:15",
-     "utc": "2027-01-07T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-08 16:15",
-     "utc": "2027-01-08T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-11 16:15",
-     "utc": "2027-01-11T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-12 16:15",
-     "utc": "2027-01-12T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-13 16:15",
-     "utc": "2027-01-13T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-14 16:15",
-     "utc": "2027-01-14T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-15 16:15",
-     "utc": "2027-01-15T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-19 16:15",
-     "utc": "2027-01-19T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-20 16:15",
-     "utc": "2027-01-20T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-21 16:15",
-     "utc": "2027-01-21T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-22 16:15",
-     "utc": "2027-01-22T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-25 16:15",
-     "utc": "2027-01-25T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-26 16:15",
-     "utc": "2027-01-26T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-27 16:15",
-     "utc": "2027-01-27T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-28 16:15",
-     "utc": "2027-01-28T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-29 16:15",
-     "utc": "2027-01-29T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-01 16:15",
-     "utc": "2027-02-01T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-02 16:15",
-     "utc": "2027-02-02T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-03 16:15",
-     "utc": "2027-02-03T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-04 16:15",
-     "utc": "2027-02-04T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-05 16:15",
-     "utc": "2027-02-05T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-08 16:15",
-     "utc": "2027-02-08T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-09 16:15",
-     "utc": "2027-02-09T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-10 16:15",
-     "utc": "2027-02-10T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-11 16:15",
-     "utc": "2027-02-11T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-12 16:15",
-     "utc": "2027-02-12T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-16 16:15",
-     "utc": "2027-02-16T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-17 16:15",
-     "utc": "2027-02-17T21:15:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-10-29",
-   "confirmed_through": "2027-02-22",
+   "confirmed_through": "2027-02-23",
    "fred_clock": null,
    "freq": "daily",
    "ids": "google trends \"unemployment\"",
@@ -1493,15 +1070,10 @@
    "short": "Google searches",
    "slots": false,
    "source": "rule: utc_day_end",
-   "through": "2026-10-27",
+   "through": "2026-10-28",
    "time_known": true,
    "time_note": "the day's end in UTC, 8 PM ET in summer and 7 PM in winter (the tool reads Google's days in UTC); Google publishes no hour",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-26 20:00",
-     "utc": "2026-10-27T00:00:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-10-27 20:00",
@@ -2096,6 +1668,434 @@
      "expected": false,
      "ny": "2027-02-22 19:00",
      "utc": "2027-02-23T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-23 19:00",
+     "utc": "2027-02-24T00:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-10-29",
+   "confirmed_through": "2027-02-18",
+   "fred_clock": null,
+   "freq": "daily",
+   "ids": "dcpf1m, dcpn30, wtb3ms",
+   "link": "https://fred.stlouisfed.org/series/DCPF1M",
+   "name": "commercial paper and three-month bill rates",
+   "next_expected": false,
+   "next_ny": "2026-10-29 16:15",
+   "read_lag_min": 0,
+   "release_id": null,
+   "short": "the H.15 rates (daily post)",
+   "slots": true,
+   "source": "rule: h15_daily",
+   "through": "2026-10-27",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-10-22 16:15",
+     "utc": "2026-10-22T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-23 16:15",
+     "utc": "2026-10-23T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-26 16:15",
+     "utc": "2026-10-26T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-27 16:15",
+     "utc": "2026-10-27T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-28 16:15",
+     "utc": "2026-10-28T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-29 16:15",
+     "utc": "2026-10-29T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-10-30 16:15",
+     "utc": "2026-10-30T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-02 16:15",
+     "utc": "2026-11-02T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-03 16:15",
+     "utc": "2026-11-03T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-04 16:15",
+     "utc": "2026-11-04T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-05 16:15",
+     "utc": "2026-11-05T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-06 16:15",
+     "utc": "2026-11-06T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-09 16:15",
+     "utc": "2026-11-09T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-10 16:15",
+     "utc": "2026-11-10T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-12 16:15",
+     "utc": "2026-11-12T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-13 16:15",
+     "utc": "2026-11-13T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-16 16:15",
+     "utc": "2026-11-16T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-17 16:15",
+     "utc": "2026-11-17T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-18 16:15",
+     "utc": "2026-11-18T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-19 16:15",
+     "utc": "2026-11-19T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-20 16:15",
+     "utc": "2026-11-20T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-23 16:15",
+     "utc": "2026-11-23T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-24 16:15",
+     "utc": "2026-11-24T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 16:15",
+     "utc": "2026-11-25T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-27 16:15",
+     "utc": "2026-11-27T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-30 16:15",
+     "utc": "2026-11-30T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-01 16:15",
+     "utc": "2026-12-01T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-02 16:15",
+     "utc": "2026-12-02T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-03 16:15",
+     "utc": "2026-12-03T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 16:15",
+     "utc": "2026-12-04T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-07 16:15",
+     "utc": "2026-12-07T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-08 16:15",
+     "utc": "2026-12-08T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-09 16:15",
+     "utc": "2026-12-09T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-10 16:15",
+     "utc": "2026-12-10T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-11 16:15",
+     "utc": "2026-12-11T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-14 16:15",
+     "utc": "2026-12-14T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-15 16:15",
+     "utc": "2026-12-15T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-16 16:15",
+     "utc": "2026-12-16T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 16:15",
+     "utc": "2026-12-17T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 16:15",
+     "utc": "2026-12-18T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-21 16:15",
+     "utc": "2026-12-21T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-22 16:15",
+     "utc": "2026-12-22T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 16:15",
+     "utc": "2026-12-23T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-24 16:15",
+     "utc": "2026-12-24T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-28 16:15",
+     "utc": "2026-12-28T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-29 16:15",
+     "utc": "2026-12-29T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-30 16:15",
+     "utc": "2026-12-30T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-31 16:15",
+     "utc": "2026-12-31T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-04 16:15",
+     "utc": "2027-01-04T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-05 16:15",
+     "utc": "2027-01-05T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-06 16:15",
+     "utc": "2027-01-06T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-07 16:15",
+     "utc": "2027-01-07T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-08 16:15",
+     "utc": "2027-01-08T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-11 16:15",
+     "utc": "2027-01-11T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-12 16:15",
+     "utc": "2027-01-12T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-13 16:15",
+     "utc": "2027-01-13T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-14 16:15",
+     "utc": "2027-01-14T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-15 16:15",
+     "utc": "2027-01-15T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-19 16:15",
+     "utc": "2027-01-19T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-20 16:15",
+     "utc": "2027-01-20T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-21 16:15",
+     "utc": "2027-01-21T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-22 16:15",
+     "utc": "2027-01-22T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-25 16:15",
+     "utc": "2027-01-25T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-26 16:15",
+     "utc": "2027-01-26T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-27 16:15",
+     "utc": "2027-01-27T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-28 16:15",
+     "utc": "2027-01-28T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-29 16:15",
+     "utc": "2027-01-29T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-01 16:15",
+     "utc": "2027-02-01T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-02 16:15",
+     "utc": "2027-02-02T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-03 16:15",
+     "utc": "2027-02-03T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-04 16:15",
+     "utc": "2027-02-04T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-05 16:15",
+     "utc": "2027-02-05T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-08 16:15",
+     "utc": "2027-02-08T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-09 16:15",
+     "utc": "2027-02-09T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-10 16:15",
+     "utc": "2027-02-10T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-11 16:15",
+     "utc": "2027-02-11T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-12 16:15",
+     "utc": "2027-02-12T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-16 16:15",
+     "utc": "2027-02-16T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-17 16:15",
+     "utc": "2027-02-17T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-18 16:15",
+     "utc": "2027-02-18T21:15:00Z"
     }
    ],
    "waiting_since_due": null
@@ -3300,7 +3300,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-10-29",
+   "build_next": "2026-11-02",
    "confirmed_through": "2026-12-23",
    "fred_clock": "12:02",
    "freq": "weekly",
@@ -3403,7 +3403,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-10-29",
+   "build_next": "2026-11-25",
    "confirmed_through": "2026-12-23",
    "fred_clock": "08:49",
    "freq": "monthly",
@@ -3435,6 +3435,11 @@
      "expected": false,
      "ny": "2026-12-23 08:30",
      "utc": "2026-12-23T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-28 08:30",
+     "utc": "2027-01-28T13:30:00Z"
     }
    ],
    "waiting_since_due": null

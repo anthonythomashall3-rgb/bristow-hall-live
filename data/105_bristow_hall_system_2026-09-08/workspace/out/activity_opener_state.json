@@ -10,7 +10,7 @@
   "bar_days_after_close": 183,
   "breadth_public_days_after_month": 21
  },
- "asof": "2026-10-28",
+ "asof": "2026-10-29",
  "reading": {
   "production_fall12": -0.0066,
   "production_distance": 0.0266,
@@ -69,31 +69,31 @@
   "2026-11-17",
   "2026-12-16"
  ],
- "next_fomc": "2026-10-28",
+ "next_fomc": "2026-12-09",
  "next_fomc_estimated": false,
  "next_breadth_publication": "2026-11-21",
  "channels": {
   "production": {
    "status": "current",
-   "age_days": 12,
+   "age_days": 13,
    "limit_days": 45,
    "substitute": null
   },
   "market": {
    "status": "current",
-   "age_days": 0,
+   "age_days": 1,
    "limit_days": 5,
    "substitute": null
   },
   "policy": {
    "status": "current",
-   "age_days": 0,
+   "age_days": 1,
    "limit_days": 10,
    "substitute": null
   },
   "breadth": {
    "status": "current",
-   "age_days": 28,
+   "age_days": 29,
    "limit_days": 56,
    "substitute": null
   }
