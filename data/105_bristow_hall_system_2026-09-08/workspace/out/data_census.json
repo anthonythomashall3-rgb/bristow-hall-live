@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-30 04:05",
+ "built_at": "2026-10-30 08:53",
  "version": "v3.76",
  "census_date": "2026-10-30",
  "feeds": [
@@ -21,10 +21,10 @@
    "series": "ETA 539 state insured rates",
    "source": "Department of Labor (page 8 of the weekly release; the advance state table of the release PDF while the archive catches up)",
    "every": "Weekly - Thursday 8:30 AM ET, one week behind initial claims",
-   "through": "2026-10-10",
+   "through": "2026-10-17",
    "next": "2026-11-05",
    "link": "https://oui.doleta.gov/unemploy/claims.asp",
-   "value": "7.5%",
+   "value": "9.6%",
    "backup": "the advance state table of the weekly release PDF while the archive catches up",
    "format_check": "the page-8 parse validated against the advance table",
    "auto": "yes"
@@ -112,8 +112,8 @@
    "series": "DFEDTARU",
    "source": "Federal Reserve, FOMC statement (FRED DFEDTARU, the daily series)",
    "every": "Daily - FRED posts the series every day, weekends included, at about 8:01 AM ET; it moves only at an FOMC decision (eight scheduled meetings a year, the statement at 2:00 PM ET), carried by the next morning's post",
-   "through": "2026-10-29",
-   "next": "2026-10-30",
+   "through": "2026-10-30",
+   "next": "2026-10-31",
    "link": "https://fred.stlouisfed.org/series/DFEDTARU",
    "value": "4.00",
    "backup": "the FOMC statement on federalreserve.gov (the rate carried from the last reading until then)",
@@ -252,7 +252,7 @@
   {
    "channel": "the policy rate (FOMC target range, FRED DFEDTARU)",
    "status": "current",
-   "last": "2026-10-29",
+   "last": "2026-10-30",
    "limit_days": 10,
    "substitute": null
   },
