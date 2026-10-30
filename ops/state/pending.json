@@ -1,10 +1,10 @@
 {
  "came_in": [
   {
-   "came_in": "2026-10-30 08:53",
-   "due_ny": "2026-10-29 08:30",
-   "ids": "eta 539 state insured rates",
-   "short": "weekly claims"
+   "came_in": "2026-10-30 16:22",
+   "due_ny": "2026-10-30 16:00",
+   "ids": "^gspc",
+   "short": "the S&P 500 close"
   }
  ],
  "expired": [
@@ -19,7 +19,7 @@
    "value_before": "12%"
   }
  ],
- "last_check_ny": "2026-10-30 08:48",
+ "last_check_ny": "2026-10-30 16:17",
  "pending": [
   {
    "due_ny": "2026-10-26 08:30",
