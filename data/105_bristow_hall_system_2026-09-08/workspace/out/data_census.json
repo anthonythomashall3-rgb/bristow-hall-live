@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-29 20:11",
+ "built_at": "2026-10-30 04:05",
  "version": "v3.76",
- "census_date": "2026-10-29",
+ "census_date": "2026-10-30",
  "feeds": [
   {
    "feed": "Initial claims, continued claims, insured unemployment rate",
@@ -190,10 +190,10 @@
    "series": "Google Trends \"unemployment\"",
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
-   "through": "2026-10-28",
+   "through": "2026-10-29",
    "next": "2026-10-30",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
-   "value": "75",
+   "value": "66",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
    "format_check": "the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-fetched window whose overlap deviates over 15 per cent is not appended; pull_log.csv)",
    "auto": "yes"
