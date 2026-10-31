@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-10-30T20:21:47Z",
+ "checked_utc": "2026-10-31T00:11:48Z",
  "release": {},
  "row_tokens": {
   "feed|DCPF1M, DCPN30, WTB3MS": "2026-10-29|3.94; 3.95; 4.07",
@@ -224,8 +224,7 @@
    "code": null,
    "day": "2026-10-30",
    "final": null,
-   "last_known": "ok",
-   "status": "unknown",
+   "status": "ok",
    "via": "FRED API"
   },
   "https://fred.stlouisfed.org/series/DCPN30": {
@@ -233,8 +232,7 @@
    "code": null,
    "day": "2026-10-30",
    "final": null,
-   "last_known": "ok",
-   "status": "unknown",
+   "status": "ok",
    "via": "FRED API"
   },
   "https://fred.stlouisfed.org/series/DFEDTARU": {
@@ -306,8 +304,7 @@
    "code": null,
    "day": "2026-10-30",
    "final": null,
-   "last_known": "ok",
-   "status": "unknown",
+   "status": "ok",
    "via": "FRED API"
   },
   "https://fred.stlouisfed.org/series/UNEMPLOY": {
@@ -339,8 +336,7 @@
    "code": null,
    "day": "2026-10-30",
    "final": null,
-   "last_known": "ok",
-   "status": "unknown",
+   "status": "ok",
    "via": "FRED API"
   },
   "https://oui.doleta.gov/unemploy/DataDownloads.asp": {
