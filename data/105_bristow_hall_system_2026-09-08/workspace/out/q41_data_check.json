@@ -232,8 +232,8 @@
 },
 {
 "name": "feed reading matches the readings table: State insured unemployment rates (the br",
-"got": "0.096",
-"want": "0.096",
+"got": "0.094",
+"want": "0.094",
 "status": "PASS",
 "gate": "soft"
 },
@@ -484,14 +484,14 @@
 },
 {
 "name": "feed is not dated in the future: Federal funds target range, upper limit ",
-"got": "2026-11-01",
+"got": "2026-11-02",
 "want": "<= 2026-11-02",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Federal funds target range, upper limit ",
-"got": "2026-11-02",
+"got": "2026-11-03",
 "want": ">= 2026-11-02",
 "status": "PASS",
 "gate": null
@@ -1023,8 +1023,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-02 05:09', '2026-11-02 05:09')",
-"want": "('2026-11-02 05:09', '2026-11-02 05:09')",
+"got": "('2026-11-02 12:10', '2026-11-02 12:10')",
+"want": "('2026-11-02 12:10', '2026-11-02 12:10')",
 "status": "PASS",
 "gate": "hard"
 },

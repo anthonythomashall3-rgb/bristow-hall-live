@@ -1,5 +1,23 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-11-02 12:10",
+   "due_ny": "2026-10-29 12:02",
+   "expected_day": false,
+   "ids": "gdpnow",
+   "short": "GDPNow",
+   "since_ny": "2026-10-29 12:09",
+   "through_before": "2026-10-01",
+   "through_now": "2026-10-01",
+   "value_before": "3.22"
+  },
+  {
+   "came_in": "2026-11-02 12:10",
+   "due_ny": "2026-11-02 12:02",
+   "ids": "gdpnow",
+   "short": "GDPNow"
+  }
+ ],
  "expired": [
   {
    "due_ny": "2026-10-20 10:00",
@@ -12,7 +30,7 @@
    "value_before": "12%"
   }
  ],
- "last_check_ny": "2026-11-02 05:05",
+ "last_check_ny": "2026-11-02 12:05",
  "pending": [
   {
    "due_ny": "2026-10-26 08:30",
@@ -22,15 +40,6 @@
    "since_ny": "2026-10-26 15:34",
    "through_before": "2026-09-01",
    "value_before": "0.03"
-  },
-  {
-   "due_ny": "2026-10-29 12:02",
-   "expected_day": false,
-   "ids": "gdpnow",
-   "short": "GDPNow",
-   "since_ny": "2026-10-29 12:09",
-   "through_before": "2026-10-01",
-   "value_before": "3.22"
   }
  ],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"

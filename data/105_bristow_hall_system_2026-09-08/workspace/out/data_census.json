@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-02 05:09",
+ "built_at": "2026-11-02 12:10",
  "version": "v3.76",
  "census_date": "2026-11-02",
  "feeds": [
@@ -24,7 +24,7 @@
    "through": "2026-10-17",
    "next": "2026-11-05",
    "link": "https://oui.doleta.gov/unemploy/claims.asp",
-   "value": "9.6%",
+   "value": "9.4%",
    "backup": "the advance state table of the weekly release PDF while the archive catches up",
    "format_check": "the page-8 parse validated against the advance table",
    "auto": "yes"
@@ -112,8 +112,8 @@
    "series": "DFEDTARU",
    "source": "Federal Reserve, FOMC statement (FRED DFEDTARU, the daily series)",
    "every": "Daily - FRED posts the series every day, weekends included, at about 8:01 AM ET; it moves only at an FOMC decision (eight scheduled meetings a year, the statement at 2:00 PM ET), carried by the next morning's post",
-   "through": "2026-11-01",
-   "next": "2026-11-02",
+   "through": "2026-11-02",
+   "next": "2026-11-03",
    "link": "https://fred.stlouisfed.org/series/DFEDTARU",
    "value": "4.00",
    "backup": "the FOMC statement on federalreserve.gov (the rate carried from the last reading until then)",
@@ -167,7 +167,7 @@
    "through": "2026-10",
    "next": "2026-11-04",
    "link": "https://www.atlantafed.org/cqer/research/gdpnow",
-   "value": "3.22",
+   "value": "3.74",
    "backup": "the Atlanta Fed page; the last printed quarter carried",
    "format_check": "the vintage appender names each vintage by its FRED date",
    "auto": "yes"
@@ -252,7 +252,7 @@
   {
    "channel": "the policy rate (FOMC target range, FRED DFEDTARU)",
    "status": "current",
-   "last": "2026-11-01",
+   "last": "2026-11-02",
    "limit_days": 10,
    "substitute": null
   },

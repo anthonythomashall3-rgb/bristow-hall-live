@@ -1,11 +1,11 @@
 {
- "built_at": "2026-11-02 05:09",
+ "built_at": "2026-11-02 12:10",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-02T10:09:46Z",
+ "generated_utc": "2026-11-02T17:10:49Z",
  "rows": [
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-02",
+   "build_next": "2026-11-03",
    "confirmed_through": "2027-02-27",
    "fred_clock": null,
    "freq": "daily",
@@ -13,13 +13,13 @@
    "link": "https://fred.stlouisfed.org/series/DFEDTARU",
    "name": "federal funds target range, upper limit",
    "next_expected": false,
-   "next_ny": "2026-11-02 08:01",
+   "next_ny": "2026-11-03 08:01",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the fed funds target (FRED, daily)",
    "slots": false,
    "source": "rule: fred_every_day",
-   "through": "2026-11-01",
+   "through": "2026-11-02",
    "time_known": true,
    "time_note": "FRED's daily post, at its measured clock (every day, weekends included)",
    "times": [
@@ -2621,7 +2621,7 @@
    "link": "https://alfred.stlouisfed.org/series?seid=GDPNOW",
    "name": "gdpnow",
    "next_expected": false,
-   "next_ny": "2026-11-02 12:02",
+   "next_ny": "2026-11-04 12:02",
    "read_lag_min": 0,
    "release_id": 386,
    "short": "GDPNow",
@@ -2707,7 +2707,7 @@
      "utc": "2026-12-23T17:02:00Z"
     }
    ],
-   "waiting_since_due": "2026-10-29 12:02"
+   "waiting_since_due": null
   },
   {
    "agrees_with_build": true,
