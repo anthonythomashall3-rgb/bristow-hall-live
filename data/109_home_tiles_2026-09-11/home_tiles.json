@@ -82,7 +82,7 @@
    "sub": "Sep 2026",
    "src": "https://fred.stlouisfed.org/series/JTSJOL",
    "sid": "JTSJOL",
-   "next": "2026-11-03",
+   "next": "2026-12-01",
    "srcs": [
     [
      "FRED JTSJOL",
@@ -97,7 +97,7 @@
    "sub": "Sep 2026",
    "src": "https://fred.stlouisfed.org/series/UNEMPLOY",
    "sid": "JTSJOL",
-   "next": "2026-11-03",
+   "next": "2026-12-01",
    "srcs": [
     [
      "FRED UNEMPLOY",
@@ -116,7 +116,7 @@
    "sub": "Sep 2026",
    "src": "https://fred.stlouisfed.org/series/JTSQUR",
    "sid": "JTSQUR",
-   "next": "2026-11-03",
+   "next": "2026-12-01",
    "srcs": [
     [
      "FRED JTSQUR",
