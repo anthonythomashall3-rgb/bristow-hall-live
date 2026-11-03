@@ -1,6 +1,6 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
- "checked_at": "2026-11-03T01:12Z",
+ "checked_at": "2026-11-03T15:21Z",
  "open_misses": [],
  "reads": [
   {
@@ -1582,6 +1582,36 @@
    "posted": "2026-11-02 16:00 ET",
    "read_at": "2026-11-02T21:22Z",
    "release": 189,
+   "to": "2026-11-02"
+  },
+  {
+   "from": "2026-08-01",
+   "ids": "JTSJOL, CLF16OV",
+   "lag_min": 11,
+   "name": "JOLTS",
+   "posted": "2026-11-03 10:10 ET",
+   "read_at": "2026-11-03T15:21Z",
+   "release": 192,
+   "to": "2026-09-01"
+  },
+  {
+   "from": "2026-11-02",
+   "ids": "DFEDTARU",
+   "lag_min": 140,
+   "name": "the fed funds target",
+   "posted": "2026-11-03 08:01 ET",
+   "read_at": "2026-11-03T15:21Z",
+   "release": 101,
+   "to": "2026-11-03"
+  },
+  {
+   "from": "2026-11-01",
+   "ids": "Google Trends \"unemployment\"",
+   "lag_min": null,
+   "name": null,
+   "posted": null,
+   "read_at": "2026-11-03T15:21Z",
+   "release": null,
    "to": "2026-11-02"
   }
  ],

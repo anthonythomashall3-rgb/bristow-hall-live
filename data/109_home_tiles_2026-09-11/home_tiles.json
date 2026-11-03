@@ -1,5 +1,5 @@
 {
- "built": "2026-11-02",
+ "built": "2026-11-03",
  "tiles": [
   {
    "lab": "Unemployment rate",
@@ -78,8 +78,8 @@
   },
   {
    "lab": "Job openings",
-   "val": "7.1 million",
-   "sub": "Aug 2026",
+   "val": "7.5 million",
+   "sub": "Sep 2026",
    "src": "https://fred.stlouisfed.org/series/JTSJOL",
    "sid": "JTSJOL",
    "next": "2026-11-03",
@@ -93,8 +93,8 @@
   },
   {
    "lab": "Unemployed per opening",
-   "val": "0.99",
-   "sub": "Aug 2026",
+   "val": "0.94",
+   "sub": "Sep 2026",
    "src": "https://fred.stlouisfed.org/series/UNEMPLOY",
    "sid": "JTSJOL",
    "next": "2026-11-03",
@@ -112,8 +112,8 @@
   },
   {
    "lab": "Quits rate",
-   "val": "1.9%",
-   "sub": "Aug 2026",
+   "val": "2.1%",
+   "sub": "Sep 2026",
    "src": "https://fred.stlouisfed.org/series/JTSQUR",
    "sid": "JTSQUR",
    "next": "2026-11-03",
