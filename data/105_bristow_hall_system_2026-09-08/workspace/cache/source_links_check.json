@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-11-04T13:39:48Z",
+ "checked_utc": "2026-11-04T17:09:42Z",
  "release": {},
  "row_tokens": {
   "feed|DCPF1M, DCPN30, WTB3MS": "2026-11-02|3.94; 3.99; 4.02",
@@ -7,7 +7,7 @@
   "feed|ETA 539": "2026-09|0%",
   "feed|ETA 539 state insured rates": "2026-10-17|9.4%",
   "feed|GDPC1": "2026-07|24,611.1",
-  "feed|GDPNOW": "2026-10|3.74",
+  "feed|GDPNOW": "2026-10|3.44",
   "feed|Google Trends \"laid off\"": "2026-09-24|48",
   "feed|Google Trends \"layoffs\"": "2026-09-24|21",
   "feed|Google Trends \"unemployment\"": "2026-11-03|71",
@@ -28,7 +28,7 @@
   "row|ETA 539 state insured rates|State insured unemployment rates": "2026-10-17|9.4%",
   "row|ETA 539|State continued weeks claimed, ETA 539": "2026-09|0%",
   "row|GDPC1|Real GDP": "2026-07|24,611.1",
-  "row|GDPNOW|GDPNow": "2026-10|3.74",
+  "row|GDPNOW|GDPNow": "2026-10|3.44",
   "row|Google Trends \"laid off\"|Search week: Google searches for \"laid off\"": "2026-09-24|48",
   "row|Google Trends \"layoffs\"|Search week: Google searches for \"layoffs\"": "2026-09-24|21",
   "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\"": "2026-11-03|71",
