@@ -1,5 +1,30 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-11-05 08:40",
+   "due_ny": "2026-11-05 08:30",
+   "ids": "icsa, ccsa, iursa",
+   "short": "weekly claims"
+  },
+  {
+   "came_in": "2026-11-05 08:40",
+   "due_ny": "2026-11-05 08:30",
+   "ids": "icsa",
+   "short": "weekly claims"
+  },
+  {
+   "came_in": "2026-11-05 08:40",
+   "due_ny": "2026-11-05 08:30",
+   "ids": "iursa",
+   "short": "weekly claims"
+  },
+  {
+   "came_in": "2026-11-05 08:40",
+   "due_ny": "2026-11-05 08:30",
+   "ids": "ccnsa / covemp",
+   "short": "weekly claims"
+  }
+ ],
  "expired": [
   {
    "due_ny": "2026-10-20 10:00",
@@ -22,7 +47,17 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-04 20:07",
- "pending": [],
+ "last_check_ny": "2026-11-05 08:35",
+ "pending": [
+  {
+   "due_ny": "2026-11-05 08:30",
+   "expected_day": false,
+   "ids": "eta 539 by state",
+   "short": "weekly claims",
+   "since_ny": "2026-11-05 08:40",
+   "through_before": "2026-10-17",
+   "value_before": "0"
+  }
+ ],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }
