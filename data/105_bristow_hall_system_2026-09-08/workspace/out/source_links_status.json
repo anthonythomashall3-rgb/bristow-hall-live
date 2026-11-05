@@ -228,12 +228,5 @@
    ]
   ]
  },
- "rows_with_new_data_this_run": [
-  "row|CCNSA / COVEMP|Insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)",
-  "row|DFEDTARU|Federal funds target range, upper limit",
-  "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\"",
-  "row|ICSA, CCSA, IURSA|Initial claims, continued claims, insured unemployment rate",
-  "row|ICSA|Initial claims",
-  "row|IURSA|Insured unemployment rate"
- ]
+ "rows_with_new_data_this_run": []
 }
