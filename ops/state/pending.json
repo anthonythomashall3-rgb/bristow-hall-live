@@ -1,10 +1,21 @@
 {
  "came_in": [
   {
-   "came_in": "2026-11-05 11:47",
-   "due_ny": "2026-11-05 11:30",
-   "ids": "wei",
-   "short": "weekly economic index (lewis, mertens an"
+   "came_in": "2026-11-05 16:22",
+   "due_ny": "2026-11-05 08:30",
+   "expected_day": false,
+   "ids": "eta 539 by state",
+   "short": "weekly claims",
+   "since_ny": "2026-11-05 08:40",
+   "through_before": "2026-10-17",
+   "through_now": "2026-10-24",
+   "value_before": "0"
+  },
+  {
+   "came_in": "2026-11-05 16:22",
+   "due_ny": "2026-11-05 16:00",
+   "ids": "^gspc",
+   "short": "the S&P 500 close"
   }
  ],
  "expired": [
@@ -29,17 +40,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-05 11:42",
- "pending": [
-  {
-   "due_ny": "2026-11-05 08:30",
-   "expected_day": false,
-   "ids": "eta 539 by state",
-   "short": "weekly claims",
-   "since_ny": "2026-11-05 08:40",
-   "through_before": "2026-10-17",
-   "value_before": "0"
-  }
- ],
+ "last_check_ny": "2026-11-05 16:17",
+ "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }
