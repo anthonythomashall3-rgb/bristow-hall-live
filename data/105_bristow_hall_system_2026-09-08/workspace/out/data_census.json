@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-05 16:21",
+ "built_at": "2026-11-06 03:16",
  "version": "v3.76",
- "census_date": "2026-11-05",
+ "census_date": "2026-11-06",
  "feeds": [
   {
    "feed": "Initial claims, continued claims, insured unemployment rate",
@@ -35,7 +35,7 @@
    "source": "Bureau of Labor Statistics, Employment Situation",
    "every": "Monthly - usually the first Friday, 8:30 AM ET",
    "through": "2026-09-01",
-   "next": "2026-11-06",
+   "next": "2026-12-04",
    "link": "https://www.bls.gov/news.release/empsit.toc.htm",
    "value": "4.2; 42.0; 4,754; 159,044",
    "backup": "the Chicago Fed real-time unemployment forecast; ADP private payrolls (LSEG first prints) - declared, not automated",
@@ -178,7 +178,7 @@
    "source": "FRED SAHMREALTIME",
    "every": "Monthly - FRED posts it on the morning of the employment report, after the Bureau's 8:30 AM ET release",
    "through": "2026-09",
-   "next": "2026-11-06",
+   "next": "2026-12-04",
    "link": "https://fred.stlouisfed.org/series/SAHMREALTIME",
    "value": "0.00",
    "backup": "computed from the unemployment rate first prints if FRED SAHMREALTIME lapses",
@@ -190,10 +190,10 @@
    "series": "Google Trends \"unemployment\"",
    "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
    "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
-   "through": "2026-11-04",
-   "next": "2026-11-05",
+   "through": "2026-11-05",
+   "next": "2026-11-06",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
-   "value": "63",
+   "value": "68",
    "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
    "format_check": "the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-fetched window whose overlap deviates over 15 per cent is not appended; pull_log.csv)",
    "auto": "yes"
