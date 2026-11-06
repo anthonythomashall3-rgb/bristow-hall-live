@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-06 10:19",
+ "built_at": "2026-11-06 11:21",
  "version": "v3.76",
  "census_date": "2026-11-06",
  "feeds": [
@@ -34,10 +34,10 @@
    "series": "UNRATE, AWHMAN, NDMANEMP, PAYEMS",
    "source": "Bureau of Labor Statistics, Employment Situation",
    "every": "Monthly - usually the first Friday, 8:30 AM ET",
-   "through": "2026-09-01",
+   "through": "2026-10-01",
    "next": "2026-12-04",
    "link": "https://www.bls.gov/news.release/empsit.toc.htm",
-   "value": "4.2; 42.0; 4,754; 159,044",
+   "value": "4.1; 41.8; 4,753; 159,293",
    "backup": "the Chicago Fed real-time unemployment forecast; ADP private payrolls (LSEG first prints) - declared, not automated",
    "format_check": "q41: the tile and the readings recomputed from the fetched files",
    "auto": "yes"
@@ -50,7 +50,7 @@
    "through": "2026-09-01",
    "next": "2026-12-01",
    "link": "https://www.bls.gov/jlt/",
-   "value": "7,523; 170,262",
+   "value": "7,523; 170,683",
    "backup": "the Indeed Hiring Lab postings index, at most two months (s2/vacancy_bridge.py; collection 330)",
    "format_check": "walk39 asserts the vacancy first prints are not stale (>150 rows, within 8 months)",
    "auto": "yes"
@@ -60,7 +60,7 @@
    "series": "HOUST, PERMIT",
    "source": "Census Bureau, New Residential Construction",
    "every": "Monthly - about the 17th, 8:30 AM ET",
-   "through": "2026-09-01",
+   "through": "2026-10-01",
    "next": "2026-11-18",
    "link": "https://www.census.gov/construction/nrc/index.html",
    "value": "1,221; 1,398",
@@ -139,7 +139,7 @@
    "source": "Bureau of Labor Statistics, Local Area Unemployment Statistics, as first printed (ALFRED initial releases)",
    "every": "Monthly - with the State Employment and Unemployment release, about three weeks after the month, 10:00 AM ET",
    "through": "2026-09-01",
-   "next": "2026-11-20",
+   "next": "2026-12-21",
    "link": "https://www.bls.gov/news.release/laus.htm",
    "value": "12%",
    "backup": "the states' ETA 539 insured-rate acceleration, at most two months (collection 336)",
@@ -177,7 +177,7 @@
    "series": "SAHMREALTIME",
    "source": "FRED SAHMREALTIME",
    "every": "Monthly - FRED posts it on the morning of the employment report, after the Bureau's 8:30 AM ET release",
-   "through": "2026-09",
+   "through": "2026-10",
    "next": "2026-12-04",
    "link": "https://fred.stlouisfed.org/series/SAHMREALTIME",
    "value": "0.00",
@@ -217,7 +217,7 @@
   {
    "channel": "unemployment rate, factory hours, nondurable jobs (BLS Employment Situation)",
    "status": "current",
-   "last": "2026-09-01",
+   "last": "2026-10-01",
    "limit_days": 45,
    "substitute": null
   },

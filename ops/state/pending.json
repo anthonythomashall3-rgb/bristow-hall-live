@@ -1,5 +1,61 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-11-06 11:21",
+   "due_ny": "2026-11-06 08:30",
+   "expected_day": false,
+   "ids": "unrate, awhman, ndmanemp, payems",
+   "short": "the jobs report",
+   "since_ny": "2026-11-06 09:48",
+   "through_before": "2026-09-01",
+   "through_now": "2026-10-01",
+   "value_before": "4.2; 42.0; 4,754; 159,044"
+  },
+  {
+   "came_in": "2026-11-06 11:21",
+   "due_ny": "2026-11-06 08:30",
+   "expected_day": false,
+   "ids": "unrate",
+   "short": "the jobs report",
+   "since_ny": "2026-11-06 09:48",
+   "through_before": "2026-09-01",
+   "through_now": "2026-10-01",
+   "value_before": "4.2%"
+  },
+  {
+   "came_in": "2026-11-06 11:21",
+   "due_ny": "2026-11-06 08:30",
+   "expected_day": false,
+   "ids": "payems",
+   "short": "the jobs report",
+   "since_ny": "2026-11-06 09:48",
+   "through_before": "2026-09-01",
+   "through_now": "2026-10-01",
+   "value_before": "159.0 million"
+  },
+  {
+   "came_in": "2026-11-06 11:21",
+   "due_ny": "2026-11-06 08:30",
+   "expected_day": false,
+   "ids": "unrate, jtsjol",
+   "short": "the jobs report",
+   "since_ny": "2026-11-06 09:48",
+   "through_before": "2026-09-01",
+   "through_now": "2026-10-01",
+   "value_before": "0.0"
+  },
+  {
+   "came_in": "2026-11-06 11:21",
+   "due_ny": "2026-11-06 09:36",
+   "expected_day": false,
+   "ids": "sahmrealtime",
+   "short": "the Sahm rule (FRED)",
+   "since_ny": "2026-11-06 09:48",
+   "through_before": "2026-09-01",
+   "through_now": "2026-10-01",
+   "value_before": "0.00"
+  }
+ ],
  "expired": [
   {
    "due_ny": "2026-10-20 10:00",
@@ -22,53 +78,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-06 10:15",
- "pending": [
-  {
-   "due_ny": "2026-11-06 08:30",
-   "expected_day": false,
-   "ids": "unrate, awhman, ndmanemp, payems",
-   "short": "the jobs report",
-   "since_ny": "2026-11-06 09:48",
-   "through_before": "2026-09-01",
-   "value_before": "4.2; 42.0; 4,754; 159,044"
-  },
-  {
-   "due_ny": "2026-11-06 08:30",
-   "expected_day": false,
-   "ids": "unrate",
-   "short": "the jobs report",
-   "since_ny": "2026-11-06 09:48",
-   "through_before": "2026-09-01",
-   "value_before": "4.2%"
-  },
-  {
-   "due_ny": "2026-11-06 08:30",
-   "expected_day": false,
-   "ids": "payems",
-   "short": "the jobs report",
-   "since_ny": "2026-11-06 09:48",
-   "through_before": "2026-09-01",
-   "value_before": "159.0 million"
-  },
-  {
-   "due_ny": "2026-11-06 08:30",
-   "expected_day": false,
-   "ids": "unrate, jtsjol",
-   "short": "the jobs report",
-   "since_ny": "2026-11-06 09:48",
-   "through_before": "2026-09-01",
-   "value_before": "0.0"
-  },
-  {
-   "due_ny": "2026-11-06 09:36",
-   "expected_day": false,
-   "ids": "sahmrealtime",
-   "short": "the Sahm rule (FRED)",
-   "since_ny": "2026-11-06 09:48",
-   "through_before": "2026-09-01",
-   "value_before": "0.00"
-  }
- ],
+ "last_check_ny": "2026-11-06 11:16",
+ "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }

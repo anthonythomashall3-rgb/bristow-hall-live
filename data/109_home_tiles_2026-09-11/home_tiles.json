@@ -3,11 +3,11 @@
  "tiles": [
   {
    "lab": "Unemployment rate",
-   "val": "4.2%",
-   "sub": "Sep 2026",
+   "val": "4.1%",
+   "sub": "Oct 2026",
    "src": "https://fred.stlouisfed.org/series/UNRATE",
    "sid": "UNRATE",
-   "next": "2026-11-06",
+   "next": "2026-12-04",
    "srcs": [
     [
      "FRED UNRATE",
@@ -18,11 +18,11 @@
   },
   {
    "lab": "Nonfarm payrolls",
-   "val": "159.0 million",
-   "sub": "Sep 2026",
+   "val": "159.3 million",
+   "sub": "Oct 2026",
    "src": "https://fred.stlouisfed.org/series/PAYEMS",
    "sid": "PAYEMS",
-   "next": "2026-11-06",
+   "next": "2026-12-04",
    "srcs": [
     [
      "FRED PAYEMS",
@@ -33,11 +33,11 @@
   },
   {
    "lab": "Payroll growth",
-   "val": "+51,000 a month",
-   "sub": "3-month average, Sep 2026",
+   "val": "+137,000 a month",
+   "sub": "3-month average, Oct 2026",
    "src": "https://fred.stlouisfed.org/series/PAYEMS",
    "sid": "PAYEMS",
-   "next": "2026-11-06",
+   "next": "2026-12-04",
    "srcs": [
     [
      "FRED PAYEMS",
