@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-06 11:21",
+ "built_at": "2026-11-06 15:11",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-06T16:21:22Z",
+ "generated_utc": "2026-11-06T20:12:05Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -2615,7 +2615,7 @@
    "agrees_with_build": true,
    "build_next": "2026-12-04",
    "confirmed_through": "2026-12-04",
-   "fred_clock": "09:27",
+   "fred_clock": "09:30",
    "freq": "monthly",
    "ids": "unrate, awhman, ndmanemp, payems",
    "link": "https://alfred.stlouisfed.org/series?seid=UNRATE",
@@ -2712,11 +2712,6 @@
    "time_known": true,
    "time_note": "FRED's posting clock, the median of its last nine posts (the Atlanta Fed publishes no hour)",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-27 12:02",
-     "utc": "2026-10-27T16:02:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-10-28 12:02",
@@ -2837,7 +2832,7 @@
    "agrees_with_build": true,
    "build_next": "2026-12-04",
    "confirmed_through": "2026-12-04",
-   "fred_clock": "09:27",
+   "fred_clock": "09:30",
    "freq": "monthly",
    "ids": "unrate",
    "link": "https://fred.stlouisfed.org/series/UNRATE",
@@ -2880,7 +2875,7 @@
    "agrees_with_build": true,
    "build_next": "2026-12-04",
    "confirmed_through": "2026-12-04",
-   "fred_clock": "09:27",
+   "fred_clock": "09:30",
    "freq": "monthly",
    "ids": "payems",
    "link": "https://fred.stlouisfed.org/series/PAYEMS",
@@ -2923,7 +2918,7 @@
    "agrees_with_build": true,
    "build_next": "2026-12-04",
    "confirmed_through": "2026-12-04",
-   "fred_clock": "09:27",
+   "fred_clock": "09:30",
    "freq": "monthly",
    "ids": "unrate, jtsjol",
    "link": "https://alfred.stlouisfed.org/series?seid=UNRATE",
@@ -3182,8 +3177,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": false,
-   "build_next": "2026-12-21",
+   "agrees_with_build": true,
+   "build_next": "2026-11-20",
    "confirmed_through": "2026-12-18",
    "fred_clock": "13:06",
    "freq": "monthly",

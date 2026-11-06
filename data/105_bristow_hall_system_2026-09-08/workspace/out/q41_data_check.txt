@@ -75,7 +75,7 @@ PASS  feed line matches the readings table: State continued weeks claimed, ETA 5
 PASS  feed next release is not in the past: State continued weeks claimed, ETA 539 (  got=2026-11-21  want=>= 2026-11-06
 PASS  feed has a source link: State continued weeks claimed, ETA 539 (  got=True  want=True
 PASS  feed is not dated in the future: State unemployment rates, all 51 (the se  got=2026-09-01  want=<= 2026-11-06
-PASS  feed next release is not in the past: State unemployment rates, all 51 (the se  got=2026-12-21  want=>= 2026-11-06
+PASS  feed next release is not in the past: State unemployment rates, all 51 (the se  got=2026-11-20  want=>= 2026-11-06
 PASS  feed has a source link: State unemployment rates, all 51 (the se  got=True  want=True
 PASS  feed next release is not in the past: Real GDP (the damage grade's output dime  got=2026-11-25  want=>= 2026-11-06
 PASS  feed has a source link: Real GDP (the damage grade's output dime  got=True  want=True
@@ -144,7 +144,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-24)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-11-06 11:21', '2026-11-06 11:21')  want=('2026-11-06 11:21', '2026-11-06 11:21')
+PASS  public state copies are this build  got=('2026-11-06 15:11', '2026-11-06 15:11')  want=('2026-11-06 15:11', '2026-11-06 15:11')
 PASS  front-page tiles fetched today  got=2026-11-06  want=2026-11-06
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]

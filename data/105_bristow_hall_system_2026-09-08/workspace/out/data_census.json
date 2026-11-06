@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-06 11:21",
+ "built_at": "2026-11-06 15:11",
  "version": "v3.76",
  "census_date": "2026-11-06",
  "feeds": [
@@ -139,7 +139,7 @@
    "source": "Bureau of Labor Statistics, Local Area Unemployment Statistics, as first printed (ALFRED initial releases)",
    "every": "Monthly - with the State Employment and Unemployment release, about three weeks after the month, 10:00 AM ET",
    "through": "2026-09-01",
-   "next": "2026-12-21",
+   "next": "2026-11-20",
    "link": "https://www.bls.gov/news.release/laus.htm",
    "value": "12%",
    "backup": "the states' ETA 539 insured-rate acceleration, at most two months (collection 336)",

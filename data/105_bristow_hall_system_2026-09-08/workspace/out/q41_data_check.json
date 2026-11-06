@@ -540,7 +540,7 @@
 },
 {
 "name": "feed next release is not in the past: State unemployment rates, all 51 (the se",
-"got": "2026-12-21",
+"got": "2026-11-20",
 "want": ">= 2026-11-06",
 "status": "PASS",
 "gate": null
@@ -1023,8 +1023,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-06 11:21', '2026-11-06 11:21')",
-"want": "('2026-11-06 11:21', '2026-11-06 11:21')",
+"got": "('2026-11-06 15:11', '2026-11-06 15:11')",
+"want": "('2026-11-06 15:11', '2026-11-06 15:11')",
 "status": "PASS",
 "gate": "hard"
 },
