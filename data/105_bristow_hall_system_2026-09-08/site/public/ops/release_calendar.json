@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-06 16:21",
+ "built_at": "2026-11-07 03:09",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-06T21:22:02Z",
+ "generated_utc": "2026-11-07T08:09:23Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -23,11 +23,6 @@
    "time_known": true,
    "time_note": "the market close",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-30 16:00",
-     "utc": "2026-10-30T20:00:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-02 16:00",
@@ -434,7 +429,7 @@
   {
    "agrees_with_build": true,
    "build_next": "2026-11-07",
-   "confirmed_through": "2027-03-03",
+   "confirmed_through": "2027-03-04",
    "fred_clock": null,
    "freq": "daily",
    "ids": "dfedtaru",
@@ -451,11 +446,6 @@
    "time_known": true,
    "time_note": "FRED's daily post, at its measured clock (every day, weekends included)",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-04 08:01",
-     "utc": "2026-11-04T13:01:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-05 08:01",
@@ -1050,35 +1040,35 @@
      "expected": false,
      "ny": "2027-03-03 08:01",
      "utc": "2027-03-03T13:01:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-03-04 08:01",
+     "utc": "2027-03-04T13:01:00Z"
     }
    ],
    "waiting_since_due": null
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-06",
-   "confirmed_through": "2027-03-03",
+   "build_next": "2026-11-07",
+   "confirmed_through": "2027-03-04",
    "fred_clock": null,
    "freq": "daily",
    "ids": "google trends \"unemployment\"",
    "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
    "name": "search week: google searches for \"unemployment\"",
    "next_expected": false,
-   "next_ny": "2026-11-06 19:00",
+   "next_ny": "2026-11-07 19:00",
    "read_lag_min": 0,
    "release_id": null,
    "short": "Google searches",
    "slots": false,
    "source": "rule: utc_day_end",
-   "through": "2026-11-05",
+   "through": "2026-11-06",
    "time_known": true,
    "time_note": "the day's end in UTC, 8 PM ET in summer and 7 PM in winter (the tool reads Google's days in UTC); Google publishes no hour",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-04 19:00",
-     "utc": "2026-11-05T00:00:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-05 19:00",
@@ -1673,6 +1663,11 @@
      "expected": false,
      "ny": "2027-03-03 19:00",
      "utc": "2027-03-04T00:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-03-04 19:00",
+     "utc": "2027-03-05T00:00:00Z"
     }
    ],
    "waiting_since_due": null
@@ -1693,15 +1688,10 @@
    "short": "the H.15 rates (daily post)",
    "slots": true,
    "source": "rule: h15_daily",
-   "through": "2026-11-04",
+   "through": "2026-11-05",
    "time_known": true,
    "time_note": null,
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-30 16:15",
-     "utc": "2026-10-30T20:15:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-02 16:15",

@@ -1,7 +1,7 @@
 {
- "day": "2026-11-06",
+ "day": "2026-11-07",
  "fetch": {
-  "the ETA 539 file (s2/state539_live.py, s2/activity_opener.py, s2/backstop.py)": "ok",
+  "the ETA 539 file (s2/state539_live.py, s2/activity_opener.py, s2/backstop.py)": "unknown",
   "the Indeed postings index (bhs_update.py)": "ok",
   "the LAUS release schedule (s2/state_breadth.py)": "blocked",
   "the S&P 500 chart feed (bhs_update.py)": "blocked",
@@ -229,6 +229,7 @@
   ]
  },
  "rows_with_new_data_this_run": [
-  "row|^GSPC|S&P 500 daily close"
+  "row|DCPF1M, DCPN30, WTB3MS|Commercial paper and three-month bill rates",
+  "row|Google Trends \"unemployment\"|Search week: Google searches for \"unemployment\""
  ]
 }
