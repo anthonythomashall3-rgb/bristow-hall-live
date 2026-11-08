@@ -723,3 +723,22 @@ jobs:
           OPS_SLOT: ${{ inputs.slot }}
           OPS_COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: python3 ops/notify.py
+
+      # THE OUTSIDE DEAD-MAN SWITCH (8 November 2026, collection 1022; Anthony: "how do we ensure that this always works"). A ping
+      # to a healthchecks.io check after every run on main: healthchecks.io, which is neither GitHub nor Cloudflare, alerts
+      # Anthony itself when no ping arrives for a day - the one case nothing here could report (GitHub and Cloudflare both
+      # down, or the account's minutes gone). A failed or held run pings /fail, so the check also shows the last outcome.
+      # Inert until the repository secret HEALTHCHECK_URL holds the check's ping address.
+      - name: the outside dead-man switch (healthchecks.io)
+        if: always() && github.ref_name == 'main' && env.OPS_TEST != '1'
+        continue-on-error: true
+        env:
+          HC: ${{ secrets.HEALTHCHECK_URL }}
+          JOB_STATUS: ${{ job.status }}
+          OUT_GATE: ${{ steps.gate.outcome }}
+          GO: ${{ steps.when.outputs.go }}
+        run: |
+          if [ -z "$HC" ]; then echo "no HEALTHCHECK_URL secret: the dead-man switch is not armed"; exit 0; fi
+          if [ "$GO" != "true" ]; then echo "nothing to do this firing: ping as alive"; curl -fsS -m 15 --retry 3 "$HC" -o /dev/null && echo pinged; exit 0; fi
+          if [ "$JOB_STATUS" = "success" ] && [ "$OUT_GATE" = "success" ]; then curl -fsS -m 15 --retry 3 "$HC" -o /dev/null && echo "pinged: run ok";
+          else curl -fsS -m 15 --retry 3 "$HC/fail" -o /dev/null && echo "pinged /fail: job $JOB_STATUS, gate $OUT_GATE"; fi

@@ -381,6 +381,8 @@ def main():
         why = 'new code pushed (%s)' % (E('OPS_COMMIT_MSG', '').splitlines() or [''])[0][:60]
     elif origin == 'push-recovery':
         why = "new code (its first run was dropped from GitHub's queue)"
+    elif origin == 'queue-recovery':
+        why = "a run stuck in GitHub's queue, started again by the Worker (1022)"
     elif origin == 'slot' and slot:
         why = 'for ' + (slot_reason(slots_old, slot, now) or ('the %s slot' % slot[11:]))
     elif event == 'schedule':

@@ -37,7 +37,7 @@
 
 // the deployed code's version: every workflow run compares it with the repository's copy of this file, so a starter
 // redeployed from an old clone is caught (22 September 2026, collection 306)
-const VERSION = '2026-11-08a (bristow-hall-live; C1021 starter)';   // 1022: the starter for the C1021 version of the tool
+const VERSION = '2026-11-08b (bristow-hall-live; C1021 starter; queue-stall recovery)';   // 1022: the starter for the C1021 version of the tool
 const REPO = 'anthonythomashall3-rgb/bristow-hall-live';
 const WORKFLOW = 'update.yml';
 const SITE = 'https://bhrrealtime.pages.dev';
@@ -52,6 +52,7 @@ const WEEKDAY_TIMES = ['08:35', '09:35', '10:20', '16:35'];   // C1021 (1022): c
 const SATURDAY_TIMES = [];
 const SLOT_RE = /^\d{4}-\d\d-\d\d \d\d:\d\d$/;
 const ACTIVE = ['queued', 'in_progress', 'pending', 'waiting', 'requested'];
+const QUEUE_STALL_MS = 20 * 60000;          // 1022: a run still 'queued' (no runner) after this long is cancelled and started again by hand
 const STUCK_MS = 55 * 60000;              // longer than the job's own 50-minute limit: queued for a runner, or GitHub itself stuck
 const GATE_STEP = 'check what was built before letting it out';     // the checks: a run that failed here was HELD
 const NOTIFY_STEP = 'tell Anthony how the update went';   // the workflow step that sends each run's own message
@@ -256,6 +257,29 @@ async function decide(env, now, act) {
             // refused: the next tick tries again, and the slot logic below still runs (and alerts if a slot cannot be started)
             out.restart_refused = `a new version's run was dropped from GitHub's queue; starting it again was refused (${d0.status})`;
           }
+        }
+      }
+      // A RUN GITHUB LEAVES QUEUED (8 November 2026, collection 1022: the C1021 push runs sat 'queued' for 1 h 40 min while a
+      // by-hand dispatch started at once). A run queued (not yet running) for more than QUEUE_STALL_MS is cancelled once and
+      // started again by hand; the phone hears. One recovery per run, at most 3 a day; a recovery that also stalls is only told.
+      const queued = runs.find(x => x.status === 'queued');
+      if (queued && now - new Date(queued.created_at) > QUEUE_STALL_MS && !(await kvGet(env, `qstall:${queued.id}`))) {
+        const nq = parseInt(await kvGet(env, `qstalls:${day}`) || '0', 10);
+        const mins = Math.round((now - new Date(queued.created_at)) / 60000);
+        if (nq < 3 && !['queue-recovery'].includes(queued.display_title || '')) {
+          const c = await gh(env, `/repos/${REPO}/actions/runs/${queued.id}/cancel`, { method: 'POST' });
+          const d1 = await gh(env, `/repos/${REPO}/actions/workflows/${WORKFLOW}/dispatches`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ref: 'main', inputs: { mode: 'full', origin: 'queue-recovery', slot: '' } }) });
+          await kvPut(env, `qstall:${queued.id}`, now.toISOString(), 7 * 86400);
+          await kvPut(env, `qstalls:${day}`, String(nq + 1), 2 * 86400);
+          await alertOnce(env, `qstall-told:${queued.id}`, 86400, "an update run was stuck in GitHub's queue",
+            `Run ${queued.id} (${queued.event}) had waited ${mins} minutes for a GitHub runner. The Worker ${c.status === 202 ? 'cancelled it' : 'could not cancel it (' + c.status + ')'} and ${d1.status === 204 ? 'started a fresh run by hand' : 'could not start a fresh run (' + d1.status + ')'}. Runs: https://github.com/${REPO}/actions`, now);
+          if (d1.status === 204) { out.decision = `a run waited ${mins} minutes in GitHub's queue; cancelled it and started a fresh one`; return out; }
+        } else {
+          await kvPut(env, `qstall:${queued.id}`, 'told only', 7 * 86400);
+          await alertOnce(env, `qstall-told:${queued.id}`, 86400, "an update run is stuck in GitHub's queue",
+            `Run ${queued.id} has waited ${mins} minutes for a GitHub runner${nq >= 3 ? ' (3 recoveries today already; not retried)' : ''}. GitHub's status: https://www.githubstatus.com . Runs: https://github.com/${REPO}/actions`, now);
         }
       }
     } else {
