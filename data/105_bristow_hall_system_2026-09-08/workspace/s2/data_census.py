@@ -23,13 +23,24 @@ BACKUPS = {   # the backup route or substitute for each feed, as declared in the
     'Real GDP': 'GDPNow for the unprinted quarter; the BEA release text',
     'GDPNow': 'the Atlanta Fed page; the last printed quarter carried',
     'Search week': 'the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)',
+    # C1021 (1022, 8 November 2026): the starter's feeds
+    'Unemployment rate, payrolls, the unemployed count': "ALFRED's vintage tables appended each release (bhs_update); the last vintage in hand stands until the next; a missing table stops the run (c1021.py)",
+    "Moody's Baa": 'the FRED monthly series cached (cache/c1021/BAA.csv, private); the cache stands when FRED is unreachable',
+    'Effective federal funds rate': 'the FRED monthly series cached (cache/c1021/FEDFUNDS.csv); the cache stands when FRED is unreachable',
+    '10-year and 1-year Treasury yields': 'the FRED monthly series cached (cache/c1021/GS10.csv, GS1.csv); the cache stands when FRED is unreachable',
+    'Initial claims and continued claims': "45's first prints (the Department's release) merged with ALFRED's ICNSA/CCNSA initial releases (cache/c1021/claims_nsa_first_prints.csv); the newest weeks from FRED, labelled FILL",
+    'Industrial production (the production pillar)': "ALFRED's INDPRO vintage table appended each G.17 (bhs_update)",
 }
 FORMAT_CHECKS = {   # where a changed format fails the build or is caught (q41, the loaders' own assertions)
     'Initial claims': 'q41 feed checks; the claims loader asserts the release week columns (45)', 'Job openings': 'walk39 asserts the vacancy first prints are not stale (>150 rows, within 8 months)',
     'Unemployment rate, factory': 'q41: the tile and the readings recomputed from the fetched files', 'State unemployment rates': 'state_breadth.py: 45-state coverage guard; q41 v3.72 checks',
     'S&P 500': 'q41: reading matches the readings table; two sources compared', 'Commercial paper': 'q41: the paper rates and their last printed day',
     'Real GDP': 'damage_dimensions.py: the vintage table read by column name; q41 v3.73 checks', 'GDPNow': 'the vintage appender names each vintage by its FRED date',
-    'Industrial production': 'activity_opener.py: the vintage history appended and checked', 'Housing starts': 'q41 feed checks', 'Federal funds target': 'activity_opener.py: the FOMC calendar end alert (watchdog)',
+    'Industrial production': 'c1021.py: the newest G.17 print within its ALFRED vintage; the vintage history appended and checked (bhs_update)', 'Housing starts': 'q41 feed checks', 'Federal funds target': 'activity_opener.py: the FOMC calendar end alert (watchdog)',
+    'Unemployment rate, payrolls, the unemployed count': 'c1021.py: each vintage read by its dated column; q41 C1021 checks (the thirteen opens, the starter ran today)',
+    "Moody's Baa": 'c1021.py: fredgraph csv parsed by header, a bad parse stops the run; q41 feed checks', 'Effective federal funds rate': 'c1021.py: fredgraph csv parsed by header; q41 feed checks',
+    '10-year and 1-year Treasury yields': 'c1021.py: fredgraph csv parsed by header; q41 feed checks', 'Initial claims and continued claims': 'q41 feed checks and the 378 bad-print gate; c1021.py asserts the week columns',
+    'Industrial production (the production pillar)': 'c1021.py: the newest G.17 print within its vintage; q41 feed checks',
     'State continued weeks': 'state539_live.py: the 539 file columns asserted', 'State insured': 'the page-8 parse validated against the advance table', 'Sahm rule': 'q41: the speed panel', 'Search week': "the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-fetched window whose overlap deviates over 15 per cent is not appended; pull_log.csv)",
 }
 def main():
