@@ -196,357 +196,238 @@
 "gate": "hard"
 },
 {
-"name": "feed reading matches the readings table: Initial claims, continued claims, insure",
-"got": "-1.02",
-"want": "-1.02",
+"name": "feed reading matches the readings table: Initial claims and continued claims, sea",
+"got": "-9.4",
+"want": "-9.4",
 "status": "PASS",
 "gate": "soft"
 },
 {
-"name": "feed line matches the readings table: Initial claims, continued claims, insure",
-"got": "60",
-"want": "60",
+"name": "feed line matches the readings table: Initial claims and continued claims, sea",
+"got": "0",
+"want": "0",
 "status": "PASS",
 "gate": "soft"
 },
 {
-"name": "feed is not dated in the future: Initial claims, continued claims, insure",
+"name": "feed is not dated in the future: Initial claims and continued claims, sea",
 "got": "2026-10-31",
 "want": "<= 2026-11-08",
 "status": "PASS",
 "gate": "soft"
 },
 {
-"name": "feed next release is not in the past: Initial claims, continued claims, insure",
+"name": "feed next release is not in the past: Initial claims and continued claims, sea",
 "got": "2026-11-12",
 "want": ">= 2026-11-08",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "feed has a source link: Initial claims, continued claims, insure",
+"name": "feed has a source link: Initial claims and continued claims, sea",
 "got": "True",
 "want": "True",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "feed reading matches the readings table: State insured unemployment rates (the br",
-"got": "0.098",
-"want": "0.098",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed line matches the readings table: State insured unemployment rates (the br",
-"got": "0.6",
-"want": "0.6",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed is not dated in the future: State insured unemployment rates (the br",
-"got": "2026-10-24",
-"want": "<= 2026-11-08",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed next release is not in the past: State insured unemployment rates (the br",
-"got": "2026-11-12",
-"want": ">= 2026-11-08",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed has a source link: State insured unemployment rates (the br",
-"got": "True",
-"want": "True",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed reading matches the readings table: Unemployment rate, factory hours, nondur",
+"name": "feed reading matches the readings table: Unemployment rate, payrolls, the unemplo",
 "got": "0.0",
 "want": "0.0",
 "status": "PASS",
 "gate": "soft"
 },
 {
-"name": "feed line matches the readings table: Unemployment rate, factory hours, nondur",
-"got": "0.3667",
-"want": "0.3667",
+"name": "feed line matches the readings table: Unemployment rate, payrolls, the unemplo",
+"got": "0.3",
+"want": "0.3",
 "status": "PASS",
 "gate": "soft"
 },
 {
-"name": "feed is not dated in the future: Unemployment rate, factory hours, nondur",
-"got": "2026-10-01",
-"want": "<= 2026-11-08",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed next release is not in the past: Unemployment rate, factory hours, nondur",
+"name": "feed next release is not in the past: Unemployment rate, payrolls, the unemplo",
 "got": "2026-12-04",
 "want": ">= 2026-11-08",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "feed has a source link: Unemployment rate, factory hours, nondur",
+"name": "feed has a source link: Unemployment rate, payrolls, the unemplo",
 "got": "True",
 "want": "True",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "feed reading matches the readings table: Job openings (the vacancy rate)",
-"got": "0.06",
-"want": "0.06",
+"name": "feed reading matches the readings table: Job openings (the help-wanted pillar: op",
+"got": "19.76",
+"want": "19.76",
 "status": "PASS",
 "gate": "soft"
 },
 {
-"name": "feed line matches the readings table: Job openings (the vacancy rate)",
-"got": "0.25",
-"want": "0.25",
+"name": "feed line matches the readings table: Job openings (the help-wanted pillar: op",
+"got": "0",
+"want": "0",
 "status": "PASS",
 "gate": "soft"
 },
 {
-"name": "feed is not dated in the future: Job openings (the vacancy rate)",
-"got": "2026-09-01",
-"want": "<= 2026-11-08",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed next release is not in the past: Job openings (the vacancy rate)",
+"name": "feed next release is not in the past: Job openings (the help-wanted pillar: op",
 "got": "2026-12-01",
 "want": ">= 2026-11-08",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "feed has a source link: Job openings (the vacancy rate)",
+"name": "feed has a source link: Job openings (the help-wanted pillar: op",
 "got": "True",
 "want": "True",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "feed reading matches the readings table: Housing starts and building permits",
-"got": "0.0",
-"want": "0.0",
+"name": "feed reading matches the readings table: Industrial production (the production pi",
+"got": "0.66",
+"want": "0.66",
 "status": "PASS",
 "gate": "soft"
 },
 {
-"name": "feed line matches the readings table: Housing starts and building permits",
-"got": "1.0",
-"want": "1.0",
+"name": "feed line matches the readings table: Industrial production (the production pi",
+"got": "0",
+"want": "0",
 "status": "PASS",
 "gate": "soft"
 },
 {
-"name": "feed is not dated in the future: Housing starts and building permits",
-"got": "2026-10-01",
-"want": "<= 2026-11-08",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed next release is not in the past: Housing starts and building permits",
-"got": "2026-11-18",
-"want": ">= 2026-11-08",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed has a source link: Housing starts and building permits",
-"got": "True",
-"want": "True",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed reading matches the readings table: Commercial paper and three-month bill ra",
-"got": "0.0",
-"want": "0.0",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed line matches the readings table: Commercial paper and three-month bill ra",
-"got": "0.9",
-"want": "0.9",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed is not dated in the future: Commercial paper and three-month bill ra",
-"got": "2026-11-05",
-"want": "<= 2026-11-08",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed next release is not in the past: Commercial paper and three-month bill ra",
-"got": "2026-11-09",
-"want": ">= 2026-11-08",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed has a source link: Commercial paper and three-month bill ra",
-"got": "True",
-"want": "True",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed reading matches the readings table: S&P 500 daily close (the market gate of ",
-"got": "5.513",
-"want": "5.513",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed line matches the readings table: S&P 500 daily close (the market gate of ",
-"got": "20.0",
-"want": "20.0",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed is not dated in the future: S&P 500 daily close (the market gate of ",
-"got": "2026-11-06",
-"want": "<= 2026-11-08",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed next release is not in the past: S&P 500 daily close (the market gate of ",
-"got": "2026-11-09",
-"want": ">= 2026-11-08",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed has a source link: S&P 500 daily close (the market gate of ",
-"got": "True",
-"want": "True",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed reading matches the readings table: Industrial production, as published (the",
-"got": "-0.66",
-"want": "-0.66",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed line matches the readings table: Industrial production, as published (the",
-"got": "2.0",
-"want": "2.0",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed next release is not in the past: Industrial production, as published (the",
+"name": "feed next release is not in the past: Industrial production (the production pi",
 "got": "2026-11-17",
 "want": ">= 2026-11-08",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "feed has a source link: Industrial production, as published (the",
+"name": "feed has a source link: Industrial production (the production pi",
 "got": "True",
 "want": "True",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "feed reading matches the readings table: Federal funds target range, upper limit ",
-"got": "0.25",
-"want": "0.25",
+"name": "feed reading matches the readings table: Moody's Baa corporate bond yield, monthl",
+"got": "0.85",
+"want": "0.85",
 "status": "PASS",
 "gate": "soft"
 },
 {
-"name": "feed line matches the readings table: Federal funds target range, upper limit ",
-"got": "0.1",
-"want": "0.1",
+"name": "feed line matches the readings table: Moody's Baa corporate bond yield, monthl",
+"got": "0",
+"want": "0",
 "status": "PASS",
 "gate": "soft"
 },
 {
-"name": "feed is not dated in the future: Federal funds target range, upper limit ",
-"got": "2026-11-07",
+"name": "feed next release is not in the past: Moody's Baa corporate bond yield, monthl",
+"got": "2026-12-07",
+"want": ">= 2026-11-08",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "feed has a source link: Moody's Baa corporate bond yield, monthl",
+"got": "True",
+"want": "True",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "feed reading matches the readings table: Effective federal funds rate, monthly av",
+"got": "0.13",
+"want": "0.13",
+"status": "PASS",
+"gate": "soft"
+},
+{
+"name": "feed line matches the readings table: Effective federal funds rate, monthly av",
+"got": "1.5",
+"want": "1.5",
+"status": "PASS",
+"gate": "soft"
+},
+{
+"name": "feed next release is not in the past: Effective federal funds rate, monthly av",
+"got": "2026-12-01",
+"want": ">= 2026-11-08",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "feed has a source link: Effective federal funds rate, monthly av",
+"got": "True",
+"want": "True",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "feed reading matches the readings table: 10-year and 1-year Treasury yields, mont",
+"got": "0.67",
+"want": "0.67",
+"status": "PASS",
+"gate": "soft"
+},
+{
+"name": "feed line matches the readings table: 10-year and 1-year Treasury yields, mont",
+"got": "0",
+"want": "0",
+"status": "PASS",
+"gate": "soft"
+},
+{
+"name": "feed next release is not in the past: 10-year and 1-year Treasury yields, mont",
+"got": "2026-12-01",
+"want": ">= 2026-11-08",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "feed has a source link: 10-year and 1-year Treasury yields, mont",
+"got": "True",
+"want": "True",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "feed reading matches the readings table: S&P 500 daily close (the market pillar: ",
+"got": "9.63",
+"want": "9.63",
+"status": "PASS",
+"gate": "soft"
+},
+{
+"name": "feed line matches the readings table: S&P 500 daily close (the market pillar: ",
+"got": "0",
+"want": "0",
+"status": "PASS",
+"gate": "soft"
+},
+{
+"name": "feed is not dated in the future: S&P 500 daily close (the market pillar: ",
+"got": "2026-11-06",
 "want": "<= 2026-11-08",
 "status": "PASS",
 "gate": "soft"
 },
 {
-"name": "feed next release is not in the past: Federal funds target range, upper limit ",
-"got": "2026-11-08",
+"name": "feed next release is not in the past: S&P 500 daily close (the market pillar: ",
+"got": "2026-11-09",
 "want": ">= 2026-11-08",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "feed has a source link: Federal funds target range, upper limit ",
-"got": "True",
-"want": "True",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed reading matches the readings table: State continued weeks claimed, ETA 539 (",
-"got": "0.0",
-"want": "0.0",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed line matches the readings table: State continued weeks claimed, ETA 539 (",
-"got": "0.33",
-"want": "0.33",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed next release is not in the past: State continued weeks claimed, ETA 539 (",
-"got": "2026-11-21",
-"want": ">= 2026-11-08",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed has a source link: State continued weeks claimed, ETA 539 (",
-"got": "True",
-"want": "True",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed is not dated in the future: State unemployment rates, all 51 (the se",
-"got": "2026-09-01",
-"want": "<= 2026-11-08",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed next release is not in the past: State unemployment rates, all 51 (the se",
-"got": "2026-11-20",
-"want": ">= 2026-11-08",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed has a source link: State unemployment rates, all 51 (the se",
+"name": "feed has a source link: S&P 500 daily close (the market pillar: ",
 "got": "True",
 "want": "True",
 "status": "PASS",
@@ -595,44 +476,9 @@
 "gate": null
 },
 {
-"name": "feed reading matches the readings table: Search week: Google searches for \"unempl",
-"got": "-5.052",
-"want": "-5.052",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed line matches the readings table: Search week: Google searches for \"unempl",
-"got": "35.0",
-"want": "35.0",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed is not dated in the future: Search week: Google searches for \"unempl",
-"got": "2026-11-07",
-"want": "<= 2026-11-08",
-"status": "PASS",
-"gate": "soft"
-},
-{
-"name": "feed next release is not in the past: Search week: Google searches for \"unempl",
-"got": "2026-11-08",
-"want": ">= 2026-11-08",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "feed has a source link: Search week: Google searches for \"unempl",
-"got": "True",
-"want": "True",
-"status": "PASS",
-"gate": null
-},
-{
 "name": "headline date = last day of the daily series",
-"got": "2026-11-06",
-"want": "2026-11-06",
+"got": "2026-11-08",
+"want": "2026-11-08",
 "status": "PASS",
 "gate": "soft"
 },
@@ -673,8 +519,8 @@
 },
 {
 "name": "speed panel: calls before the end of the peak month",
-"got": "10",
-"want": "10",
+"got": "8",
+"want": "8",
 "status": "PASS",
 "gate": "soft"
 },
@@ -693,9 +539,51 @@
 "gate": "soft"
 },
 {
-"name": "activity opener: all four legs read this build",
+"name": "C1021: the thirteen opens are the record's (RECORD-1021)",
+"got": "['1948-12-31', '1953-10-13', '1957-04-30', '1960-06-13', '1969-10-11', '1973-08-01', '1979-11-01', '1981-06-01', '1990-06-01', '2001-04-06', '2007-11-02', '2020-04-03', '2024-01-05']",
+"want": "['1948-12-31', '1953-10-13', '1957-04-30', '1960-06-13', '1969-10-11', '1973-08-01', '1979-11-01', '1981-06-01', '1990-06-01', '2001-04-06', '2007-11-02', '2020-04-03', '2024-01-05']",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "C1021: the thirteen closes are v3.76's, unchanged",
+"got": "['1949-10-28', '1954-06-03', '1958-05-23', '1961-01-30', '1970-12-24', '1975-05-01', '1980-07-09', '1982-11-15', '1991-04-25', '2001-11-21', '2009-06-18', '2020-05-07', '2024-09-26']",
+"want": "['1949-10-28', '1954-06-03', '1958-05-23', '1961-01-30', '1970-12-24', '1975-05-01', '1980-07-09', '1982-11-15', '1991-04-25', '2001-11-21', '2009-06-18', '2020-05-07', '2024-09-26']",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "C1021: every open names its door",
 "got": "[]",
 "want": "[]",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "C1021: the state says version C1021",
+"got": "C1021",
+"want": "C1021",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "C1021: the starter ran today (out/c1021_state.json)",
+"got": "2026-11-08",
+"want": "2026-11-08",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "C1021: the v3.76 starter's blocks have left the state",
+"got": "[]",
+"want": "[]",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "C1021: the record's three heights with the C1021 opens (2007-09 5.8, 2020 5.3, 2024 1.8)",
+"got": "[5.8, 5.3, 1.8]",
+"want": "[5.8, 5.3, 1.8]",
 "status": "PASS",
 "gate": null
 },
@@ -721,91 +609,7 @@
 "gate": "soft"
 },
 {
-"name": "v3.68: 1960 opened 1960-04-25 by the concurrence branch",
-"got": "[('1960-04-25', 'concurrence branch: a labour proposal with the activity picture')]",
-"want": "[('1960-04-25', 'concurrence branch: a labour proposal with the activity picture')]",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.71: 1948-49 closed 1949-10-28 by the activity closer (E26, the jobs condition)",
-"got": "[('1948-09-27', '1949-10-28', 'activity closer')]",
-"want": "[('1948-09-27', '1949-10-28', 'activity closer')]",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.71: 1953-54 closed 1954-06-03 by the labour core closer",
-"got": "[('1953-08-31', '1954-06-03', 'labour core: closer')]",
-"want": "[('1953-08-31', '1954-06-03', 'labour core: closer')]",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.71: 1957-58 closed 1958-05-23 by the labour core closer (C, the strong flow)",
-"got": "[('1957-08-26', '1958-05-23', 'labour core: closer')]",
-"want": "[('1957-08-26', '1958-05-23', 'labour core: closer')]",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.71: 1960-61 closed 1961-01-30 by the labour core closer",
-"got": "[('1960-04-25', '1961-01-30', 'labour core: closer')]",
-"want": "[('1960-04-25', '1961-01-30', 'labour core: closer')]",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.71: 1973 opened 1973-09-17 and 1973-75 closed 1975-05-01",
-"got": "[('1973-09-17', '1975-05-01', 'labour core: closer')]",
-"want": "[('1973-09-17', '1975-05-01', 'labour core: closer')]",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.71: today's vacancy line 0.25 and vacancy look-back 12",
-"got": "[0.25, 12]",
-"want": "[0.25, 12]",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.72: the state breadth ran and carries its states and month",
-"got": "[True, 51, True]",
-"want": "[True, 51, True]",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.76 (E75, cell 0.35 / 0.15): the state breadth's last fire on the first prints is 2024-03-22 (v3.72-v3.75: 2024-05-17 at 0.40 / 0.25)",
-"got": "['2024-03-22']",
-"want": "['2024-03-22']",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.76 (E75): the breadth block carries the re-arm 0.15 (v3.73-v3.75: 0.25)",
-"got": "0.15",
-"want": "0.15",
-"status": "PASS",
-"gate": null
-},
-{
 "name": "v3.74: the near-miss log is in the state",
-"got": "True",
-"want": "True",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.74: the state-rate channel row is present with its substitute named",
-"got": "True",
-"want": "True",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.74: the breadth JSON carries the substitute block",
 "got": "True",
 "want": "True",
 "status": "PASS",
@@ -826,30 +630,9 @@
 "gate": null
 },
 {
-"name": "v3.73: the claims substitute is in the state and idle while the release is current",
-"got": "True",
-"want": "True",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.73: the vacancy bridge is in the state",
-"got": "True",
-"want": "True",
-"status": "PASS",
-"gate": null
-},
-{
 "name": "v3.73: the chronology file parses with thirteen entries",
 "got": "13",
 "want": "13",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.73: the payroll backstop closer was read",
-"got": "True",
-"want": "True",
 "status": "PASS",
 "gate": null
 },
@@ -864,34 +647,6 @@
 "name": "v3.73: every episode carries its three dimensions",
 "got": "[]",
 "want": "[]",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.73: the record's three heights (2007-09 5.8, 2020 5.5, 2024 1.3)",
-"got": "[5.8, 5.5, 1.3]",
-"want": "[5.8, 5.5, 1.3]",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.72: the 2024 episode still opens 2024-05-03 by the labour core",
-"got": "[('2024-05-03', 'labour core: Sahm gap with falling vacancies')]",
-"want": "[('2024-05-03', 'labour core: Sahm gap with falling vacancies')]",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.68: the concurrence branch and its walked diary are in the state",
-"got": "['1957-10-10', '1960-04-25', '1970-01-21', '1970-01-29', '1970-02-10', '1970-04-23', '1974-02-21', '1974-10-31', '1980-04-15', '1980-05-08', '1981-11-12', '1981-11-19']",
-"want": "['1957-10-10', '1960-04-25', '1970-01-21', '1970-01-29', '1970-02-10', '1970-04-23', '1974-02-21', '1974-10-31', '1980-04-15', '1980-05-08', '1981-11-12', '1981-11-19']",
-"status": "PASS",
-"gate": null
-},
-{
-"name": "v3.68: the concurrence branch ran this build",
-"got": "True",
-"want": "True",
 "status": "PASS",
 "gate": null
 },
@@ -953,8 +708,8 @@
 },
 {
 "name": "368: the margins page lists every reading",
-"got": "26",
-"want": "26",
+"got": "18",
+"want": "18",
 "status": "PASS",
 "gate": null
 },
@@ -1023,8 +778,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-08 03:06', '2026-11-08 03:06')",
-"want": "('2026-11-08 03:06', '2026-11-08 03:06')",
+"got": "('2026-11-08 11:38', '2026-11-08 11:38')",
+"want": "('2026-11-08 11:38', '2026-11-08 11:38')",
 "status": "PASS",
 "gate": "hard"
 },
@@ -1107,7 +862,7 @@
 },
 {
 "name": "notes: the Notes are a short summary (Anthony, 24 September 2026: as short as the Sahm indicator notes)",
-"got": "126",
+"got": "135",
 "want": "at most 140 words",
 "status": "PASS",
 "gate": null

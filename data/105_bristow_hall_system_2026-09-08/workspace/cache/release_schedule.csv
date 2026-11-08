@@ -1,8 +1,8 @@
 series,reference_month,release_date,source
-GDPC1,2026-07-01,2026-12-23,"FRED release calendar, release_id 53, fetched 2026-11-07"
+GDPC1,2026-07-01,2026-12-23,"FRED release calendar, release_id 53, fetched 2026-11-08"
 GDPC1,2026-07-01,2026-11-25,"FRED release calendar, release_id 53, fetched 2026-11-08"
 GDPC1,2026-07-01,2026-12-23,"FRED release calendar, release_id 53, fetched 2026-11-08"
-GDPNOW,2026-10-01,2026-12-23,"FRED release calendar, release_id 386, fetched 2026-11-07"
+GDPNOW,2026-10-01,2026-12-23,"FRED release calendar, release_id 386, fetched 2026-11-08"
 GDPNOW,2026-10-01,2026-11-02,"FRED release calendar, release_id 386, fetched 2026-11-08"
 GDPNOW,2026-10-01,2026-11-04,"FRED release calendar, release_id 386, fetched 2026-11-08"
 GDPNOW,2026-10-01,2026-11-09,"FRED release calendar, release_id 386, fetched 2026-11-08"
@@ -19,6 +19,8 @@ HOUST,2026-08-01,2026-09-17,"Census New Residential Construction July 2026 relea
 HOUST,2026-09-01,2026-10-20,Census economic indicator calendar census.gov/economic-indicators/calendar-listview.html (read 8 September 2026)
 HOUST,2026-10-01,2026-11-18,Census economic indicator calendar (read 8 September 2026)
 HOUST,2026-11-01,2026-12-17,Census economic indicator calendar (read 8 September 2026)
+INDPRO,2026-10-01,2026-11-17,"FRED release calendar, release_id 13, fetched 2026-11-08"
+INDPRO,2026-11-01,2026-12-16,"FRED release calendar, release_id 13, fetched 2026-11-08"
 JTSJOL,2026-07-01,2026-09-01,BLS news release USDL (JOLTS July 2026; released Tuesday 1 September 2026 10:00 ET)
 JTSJOL,2026-08-01,2026-09-29,"BLS JOLTS July 2026 news release: ""scheduled to be published on Tuesday September 29 2026"""
 JTSJOL,2026-09-01,2026-11-03,BLS release schedule bls.gov/schedule/news_release/jolts.htm (read 8 September 2026)

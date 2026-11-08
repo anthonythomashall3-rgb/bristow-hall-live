@@ -1,88 +1,101 @@
 {
- "built_at": "2026-11-08 03:06",
- "version": "v3.76",
+ "built_at": "2026-11-08 11:38",
+ "version": "C1021",
  "census_date": "2026-11-08",
  "feeds": [
   {
-   "feed": "Initial claims, continued claims, insured unemployment rate",
-   "series": "ICSA, CCSA, IURSA",
+   "feed": "Initial claims and continued claims, seasonally adjusted and not (the route's insured-unemployment pillar, the count door's claims condition, the closer)",
+   "series": "ICSA, CCSA, ICNSA, CCNSA",
    "source": "Department of Labor (the UI claims news release; ALFRED vintages after it; the first prints back to August 1975 from the release archive, the bound news releases and volumes, the captures of the Internet Archive, the closing table of the release and the press: collections 45, 399, 396, 382, 397 and 404)",
    "every": "Weekly - Thursday 8:30 AM ET (Wednesday before a Thursday holiday)",
    "through": "2026-10-31",
    "next": "2026-11-12",
    "link": "https://www.dol.gov/ui/data.pdf",
-   "value": "189,000; 1,718,000; 1.1",
+   "value": "189,000; 1,718,000; 170,626; 5,780,893",
    "backup": "the states' ETA 539 weekly file with the Bureau's seasonal factors (s2/claims_substitute.py, exact where tested; collection 329)",
    "format_check": "q41 feed checks; the claims loader asserts the release week columns (45)",
    "auto": "yes"
   },
   {
-   "feed": "State insured unemployment rates (the breadth object)",
-   "series": "ETA 539 state insured rates",
-   "source": "Department of Labor (page 8 of the weekly release; the advance state table of the release PDF while the archive catches up)",
-   "every": "Weekly - Thursday 8:30 AM ET, one week behind initial claims",
-   "through": "2026-10-24",
-   "next": "2026-11-12",
-   "link": "https://oui.doleta.gov/unemploy/claims.asp",
-   "value": "9.8%",
-   "backup": "the advance state table of the weekly release PDF while the archive catches up",
-   "format_check": "the page-8 parse validated against the advance table",
-   "auto": "yes"
-  },
-  {
-   "feed": "Unemployment rate, factory hours, nondurable employment",
-   "series": "UNRATE, AWHMAN, NDMANEMP, PAYEMS",
-   "source": "Bureau of Labor Statistics, Employment Situation",
+   "feed": "Unemployment rate, payrolls, the unemployed count, job losers (the household pillar, the payroll pillar, the count door, the job-losers door)",
+   "series": "UNRATE, PAYEMS, UNEMPLOY, LNS13023621",
+   "source": "Bureau of Labor Statistics, Employment Situation (each month as first printed: ALFRED vintages UNRATE, PAYEMS, UNEMPLOY, LNS13023621)",
    "every": "Monthly - usually the first Friday, 8:30 AM ET",
-   "through": "2026-10-01",
+   "through": "2026-10",
    "next": "2026-12-04",
    "link": "https://www.bls.gov/news.release/empsit.toc.htm",
-   "value": "4.1; 41.8; 4,753; 159,293",
-   "backup": "the Chicago Fed real-time unemployment forecast; ADP private payrolls (LSEG first prints) - declared, not automated",
-   "format_check": "q41: the tile and the readings recomputed from the fetched files",
+   "value": "4.1; 159,293; 7,068; 3,166",
+   "backup": "ALFRED's vintage tables appended each release (bhs_update); the last vintage in hand stands until the next; a missing table stops the run (c1021.py)",
+   "format_check": "c1021.py: each vintage read by its dated column; q41 C1021 checks (the thirteen opens, the starter ran today)",
    "auto": "yes"
   },
   {
-   "feed": "Job openings (the vacancy rate)",
-   "series": "JTSJOL, CLF16OV",
-   "source": "Bureau of Labor Statistics, JOLTS",
+   "feed": "Job openings (the help-wanted pillar: openings growing slower than claims)",
+   "series": "JTSJOL",
+   "source": "Bureau of Labor Statistics, JOLTS (ALFRED JTSJOL, each month as first printed)",
    "every": "Monthly - about five weeks after the month, 10:00 AM ET",
-   "through": "2026-09-01",
+   "through": "2026-09",
    "next": "2026-12-01",
    "link": "https://www.bls.gov/jlt/",
-   "value": "7,523; 170,683",
+   "value": "7,523",
    "backup": "the Indeed Hiring Lab postings index, at most two months (s2/vacancy_bridge.py; collection 330)",
    "format_check": "walk39 asserts the vacancy first prints are not stale (>150 rows, within 8 months)",
    "auto": "yes"
   },
   {
-   "feed": "Housing starts and building permits",
-   "series": "HOUST, PERMIT",
-   "source": "Census Bureau, New Residential Construction",
-   "every": "Monthly - about the 17th, 8:30 AM ET",
-   "through": "2026-10-01",
-   "next": "2026-11-18",
-   "link": "https://www.census.gov/construction/nrc/index.html",
-   "value": "1,221; 1,398",
-   "backup": "building permits beside starts (the pair reads either); the Census calendar",
-   "format_check": "q41 feed checks",
+   "feed": "Industrial production (the production pillar)",
+   "series": "INDPRO",
+   "source": "Federal Reserve, G.17 Industrial Production and Capacity Utilization (ALFRED INDPRO, each month as first printed)",
+   "every": "Monthly - about the 16th, 9:15 AM ET",
+   "through": "2026-09",
+   "next": "2026-11-17",
+   "link": "https://www.federalreserve.gov/releases/g17/current/",
+   "value": "103.9506",
+   "backup": "the FRED current file of INDPRO (flagged: revised values), then the G.17 release text",
+   "format_check": "c1021.py: the newest G.17 print within its ALFRED vintage; the vintage history appended and checked (bhs_update)",
    "auto": "yes"
   },
   {
-   "feed": "Commercial paper and three-month bill rates (the spread)",
-   "series": "DCPF1M, DCPN30, WTB3MS",
-   "source": "Federal Reserve, H.15 selected interest rates",
-   "every": "Daily - the Board posts the H.15 every business day at 4:15 PM ET, carrying the previous business day's rates (the bill rate is a weekly series)",
-   "through": "2026-11-05",
-   "next": "2026-11-09",
-   "link": "https://www.federalreserve.gov/releases/h15/",
-   "value": "3.94; 3.98; 4.02",
-   "backup": "FRED DCPN30, DCPF1M and DTB3 (the Federal Reserve is not shut in a shutdown)",
-   "format_check": "q41: the paper rates and their last printed day",
+   "feed": "Moody's Baa corporate bond yield, monthly average (the credit pillar)",
+   "series": "BAA",
+   "source": "Federal Reserve H.15 via FRED (BAA); read the 7th of the month after",
+   "every": "Monthly - the month's average, posted by FRED on the first business day of the next month; read the 7th",
+   "through": "2026-10",
+   "next": "2026-12-07",
+   "link": "https://fred.stlouisfed.org/series/BAA",
+   "value": "6.59",
+   "backup": "the FRED monthly series cached (cache/c1021/BAA.csv, private); the cache stands when FRED is unreachable",
+   "format_check": "c1021.py: fredgraph csv parsed by header, a bad parse stops the run; q41 feed checks",
    "auto": "yes"
   },
   {
-   "feed": "S&P 500 daily close (the market gate of the sudden stop, the activity opener and the concurrence branch, and a confirmation of the claims closer)",
+   "feed": "Effective federal funds rate, monthly average (the fed-shock door)",
+   "series": "FEDFUNDS",
+   "source": "Federal Reserve H.15 via FRED (FEDFUNDS)",
+   "every": "Monthly - the month's average, known the day after month end",
+   "through": "2026-10",
+   "next": "2026-12-01",
+   "link": "https://fred.stlouisfed.org/series/FEDFUNDS",
+   "value": "3.88",
+   "backup": "the FRED monthly series cached (cache/c1021/FEDFUNDS.csv); the cache stands when FRED is unreachable",
+   "format_check": "c1021.py: fredgraph csv parsed by header; q41 feed checks",
+   "auto": "yes"
+  },
+  {
+   "feed": "10-year and 1-year Treasury yields, monthly averages (the job-losers door's witness: the spread negative in any of the prior 12 months)",
+   "series": "GS10, GS1",
+   "source": "Federal Reserve H.15 via FRED (GS10, GS1)",
+   "every": "Monthly - the month's averages, known the day after month end",
+   "through": "2026-10",
+   "next": "2026-12-01",
+   "link": "https://fred.stlouisfed.org/series/GS10",
+   "value": "5.13; 4.46",
+   "backup": "the FRED monthly series cached (cache/c1021/GS10.csv, GS1.csv); the cache stands when FRED is unreachable",
+   "format_check": "c1021.py: fredgraph csv parsed by header; q41 feed checks",
+   "auto": "yes"
+  },
+  {
+   "feed": "S&P 500 daily close (the market pillar: below its close a year earlier; a confirmation of the claims closer)",
    "series": "^GSPC",
    "source": "Yahoo Finance close at the 5:05 PM ET run, corrected to the official close on FRED (SP500), which FRED posts the same evening, about 8 PM ET",
    "every": "Every trading day - read at the 5:05 PM ET run",
@@ -92,58 +105,6 @@
    "value": "7,376.86",
    "backup": "the official FRED SP500 close when the chart feed fails (two independent quotes)",
    "format_check": "q41: reading matches the readings table; two sources compared",
-   "auto": "yes"
-  },
-  {
-   "feed": "Industrial production, as published (the activity opener)",
-   "series": "INDPRO",
-   "source": "Federal Reserve, G.17 Industrial Production and Capacity Utilization (each month as first published: ALFRED vintages)",
-   "every": "Monthly - about the 16th, 9:15 AM ET",
-   "through": "2026-09",
-   "next": "2026-11-17",
-   "link": "https://www.federalreserve.gov/releases/g17/current/",
-   "value": "103.9506",
-   "backup": "the FRED current file of INDPRO (flagged: revised values), then the G.17 release text",
-   "format_check": "activity_opener.py: the vintage history appended and checked",
-   "auto": "yes"
-  },
-  {
-   "feed": "Federal funds target range, upper limit (the activity opener's tightening condition)",
-   "series": "DFEDTARU",
-   "source": "Federal Reserve, FOMC statement (FRED DFEDTARU, the daily series)",
-   "every": "Daily - FRED posts the series every day, weekends included, at about 8:01 AM ET; it moves only at an FOMC decision (eight scheduled meetings a year, the statement at 2:00 PM ET), carried by the next morning's post",
-   "through": "2026-11-07",
-   "next": "2026-11-08",
-   "link": "https://fred.stlouisfed.org/series/DFEDTARU",
-   "value": "4.00",
-   "backup": "the FOMC statement on federalreserve.gov (the rate carried from the last reading until then)",
-   "format_check": "activity_opener.py: the FOMC calendar end alert (watchdog)",
-   "auto": "yes"
-  },
-  {
-   "feed": "State continued weeks claimed, ETA 539 (the activity opener's breadth gate)",
-   "series": "ETA 539",
-   "source": "Department of Labor, ETA 539 weekly state claims (continued weeks claimed, by state), over state payroll employment (BLS, from FRED)",
-   "every": "Monthly - each month is read 21 days after it ends, from the Department's weekly file",
-   "through": "2026-09",
-   "next": "2026-11-21",
-   "link": "https://oui.doleta.gov/unemploy/claims.asp",
-   "value": "0%",
-   "backup": "the ETA 5159 monthly report (slower), then the last month read",
-   "format_check": "state539_live.py: the 539 file columns asserted",
-   "auto": "yes"
-  },
-  {
-   "feed": "State unemployment rates, all 51 (the second opener)",
-   "series": "LAUS state rates (51)",
-   "source": "Bureau of Labor Statistics, Local Area Unemployment Statistics, as first printed (ALFRED initial releases)",
-   "every": "Monthly - with the State Employment and Unemployment release, about three weeks after the month, 10:00 AM ET",
-   "through": "2026-09-01",
-   "next": "2026-11-20",
-   "link": "https://www.bls.gov/news.release/laus.htm",
-   "value": "12%",
-   "backup": "the states' ETA 539 insured-rate acceleration, at most two months (collection 336)",
-   "format_check": "state_breadth.py: 45-state coverage guard; q41 v3.72 checks",
    "auto": "yes"
   },
   {
@@ -184,19 +145,6 @@
    "backup": "computed from the unemployment rate first prints if FRED SAHMREALTIME lapses",
    "format_check": "q41: the speed panel",
    "auto": "yes"
-  },
-  {
-   "feed": "Search week: Google searches for \"unemployment\" (the sudden stop's second labour datum)",
-   "series": "Google Trends \"unemployment\"",
-   "source": "Google Trends, United States, daily index stitched onto one scale and extended each day",
-   "every": "Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",
-   "through": "2026-11-07",
-   "next": "2026-11-08",
-   "link": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=unemployment",
-   "value": "38",
-   "backup": "the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)",
-   "format_check": "the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-fetched window whose overlap deviates over 15 per cent is not appended; pull_log.csv)",
-   "auto": "yes"
   }
  ],
  "channels": [
@@ -208,31 +156,52 @@
    "substitute": null
   },
   {
-   "channel": "insured unemployment rate as the proposers read it",
+   "channel": "industrial production, the newest G.17 print (the production pillar)",
    "status": "current",
-   "last": "2026-10-24",
-   "limit_days": 20,
+   "last": "2026-10-16",
+   "limit_days": 45,
    "substitute": null
   },
   {
-   "channel": "unemployment rate, factory hours, nondurable jobs (BLS Employment Situation)",
+   "channel": "Moody's Baa yield, monthly average (the credit pillar)",
+   "status": "current",
+   "last": "2026-10",
+   "limit_days": 45,
+   "substitute": null
+  },
+  {
+   "channel": "the effective federal funds rate, monthly average (the fed-shock door)",
+   "status": "current",
+   "last": "2026-10",
+   "limit_days": 40,
+   "substitute": null
+  },
+  {
+   "channel": "the 10-year and 1-year Treasury yields, monthly averages (the job-losers witness)",
+   "status": "current",
+   "last": "2026-10",
+   "limit_days": 40,
+   "substitute": null
+  },
+  {
+   "channel": "the unemployed count and job losers, first prints (the count door, the job-losers door)",
+   "status": "current",
+   "last": "2026-10",
+   "limit_days": 45,
+   "substitute": null
+  },
+  {
+   "channel": "unemployment rate and payrolls, the newest Employment Situation vintage (the household and payroll pillars)",
    "status": "current",
    "last": "2026-10-01",
    "limit_days": 45,
    "substitute": null
   },
   {
-   "channel": "job openings (BLS JOLTS)",
+   "channel": "job openings (BLS JOLTS; the help-wanted pillar)",
    "status": "current",
    "last": "2026-09-01",
    "limit_days": 80,
-   "substitute": null
-  },
-  {
-   "channel": "paper and bill rates (Federal Reserve H.15)",
-   "status": "current",
-   "last": "2026-10-30",
-   "limit_days": 12,
    "substitute": null
   },
   {
@@ -240,34 +209,6 @@
    "status": "current",
    "last": "2026-11-06",
    "limit_days": 5,
-   "substitute": null
-  },
-  {
-   "channel": "industrial production as published (Federal Reserve G.17)",
-   "status": "current",
-   "last": "2026-10-16",
-   "limit_days": 45,
-   "substitute": null
-  },
-  {
-   "channel": "the policy rate (FOMC target range, FRED DFEDTARU)",
-   "status": "current",
-   "last": "2026-11-07",
-   "limit_days": 10,
-   "substitute": null
-  },
-  {
-   "channel": "state breadth (ETA 539 continued weeks by state, over payrolls)",
-   "status": "current",
-   "last": "2026-09",
-   "limit_days": 56,
-   "substitute": null
-  },
-  {
-   "channel": "state unemployment rates, all 51 (BLS LAUS first prints; the second opener)",
-   "status": "current",
-   "last": "2026-09",
-   "limit_days": 56,
    "substitute": null
   }
  ],

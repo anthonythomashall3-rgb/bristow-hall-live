@@ -1,0 +1,342 @@
+{
+ "tool": "C1021",
+ "built": "2026-11-08 16:36:22Z",
+ "grid": {
+  "day0": "2012-01-01",
+  "days": 5426
+ },
+ "record_cut": "2024-07-01",
+ "today": {
+  "day": "2026-11-08",
+  "reading": 0.1429,
+  "route": {
+   "on": false,
+   "share": 0.143,
+   "pillars": {
+    "I4": false,
+    "HW": false,
+    "SY": false,
+    "IP": false,
+    "BAA": true,
+    "HH": false,
+    "P": false
+   }
+  },
+  "count_door": {
+   "on": false,
+   "share": 0.0,
+   "conditions": {
+    "CNT": false,
+    "CHI": false,
+    "SY": false
+   }
+  },
+  "fs_door": {
+   "on": false,
+   "ratio": 0.087
+  },
+  "jl_door": {
+   "on": false,
+   "ratio": 0.0,
+   "armed_witness": false
+  }
+ },
+ "values": {
+  "SY": {
+   "sp_last": 7376.85986328125,
+   "sp_last_day": "2026-11-06",
+   "yoy_pct": 9.63,
+   "last_day_below_year_ago": "2025-04-08",
+   "days_since": 579
+  },
+  "BAA": {
+   "month": "2026-10",
+   "value": 6.59,
+   "low12": 5.74,
+   "pp_above_low": 0.85
+  },
+  "IP": {
+   "vintage": "2026-10-16",
+   "month": "2026-09",
+   "value": 103.9506,
+   "high12": 103.2664,
+   "pct_below_high": 0.66
+  },
+  "P": {
+   "vintage": "2026-11-06",
+   "month": "2026-10",
+   "value": 159293.0,
+   "high12": 159128.0,
+   "thousands_below_high": -165.0,
+   "below_last_month": false
+  },
+  "HH": {
+   "vintage": "2026-11-06",
+   "month": "2026-10",
+   "ur": 4.1,
+   "two_month_rise": 0.0,
+   "line": 0.3,
+   "line_with_payrolls": 0.2
+  },
+  "CNT": {
+   "month": "2026-10",
+   "first_print": 7068.0,
+   "known": "2026-11-06",
+   "max_prior_12_first_prints": 7831.0
+  },
+  "I4": {
+   "week": "2026-10-24",
+   "yoy_log_pts_4wk": -9.4,
+   "fills": []
+  },
+  "HW": {
+   "jolts_month": "2026-09",
+   "jolts_yoy_pct": 4.94,
+   "claims_4wk_yoy_log_pts": -14.82,
+   "week": "2026-10-31",
+   "fills": []
+  },
+  "CHI": {
+   "ic_week": "2026-10-31",
+   "ic_rtsa_4wk": 195245.0,
+   "iu_week": "2026-10-24",
+   "iu_rtsa_4wk": 1734654.0,
+   "ratio_to_365d_max": 0.8565
+  },
+  "FS": {
+   "month": "2026-10",
+   "rate": 3.88,
+   "rise_pp": 0.13,
+   "line": 1.5
+  },
+  "JL": {
+   "month": "2026-09",
+   "known": "2026-10-02",
+   "yoy_log_pts": -9.67,
+   "line": 15.0,
+   "curve_inverted_in_prior_12_months": false,
+   "spread_last": {
+    "month": "2026-10",
+    "gs10_minus_gs1": 0.67
+   }
+  }
+ },
+ "sources": {
+  "SY": "/home/runner/Projects/Onset Detector Data/24_bristow_rule_lab/workspace/lab/speed2/data/sp500_daily_yahoo.csv",
+  "BAA": "FRED BAA (H.15 monthly average)",
+  "IP": "ALFRED INDPRO vintages (G.17)",
+  "P": "ALFRED PAYEMS vintages (Employment Situation)",
+  "HH": "ALFRED UNRATE vintages (Employment Situation)",
+  "CNT": "ALFRED UNEMPLOY vintages: each month as first printed",
+  "I4": "DOL weekly claims release: insured unemployment NSA as first printed (45 + E66; ALFRED CCNSA initial releases)",
+  "HW": "ALFRED JTSJOL (JOLTS openings) against DOL initial claims NSA first prints",
+  "CHI": "DOL weekly claims first prints (NSA), seasonally adjusted in real time (298 rtsa), initial or insured",
+  "FS": "FRED FEDFUNDS (H.15 monthly average)",
+  "JL": "ALFRED LNS13023621 (job losers, Employment Situation) with FRED GS10 - GS1"
+ },
+ "calls": [
+  {
+   "day": "1948-12-31",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "1953-10-13",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "1957-04-30",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "1957-07-16",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "1958-04-12",
+   "door": "door",
+   "basis": "record"
+  },
+  {
+   "day": "1960-06-13",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "1960-11-10",
+   "door": "door",
+   "basis": "record"
+  },
+  {
+   "day": "1969-10-11",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "1970-03-06",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "1973-08-01",
+   "door": "FS",
+   "basis": "record"
+  },
+  {
+   "day": "1974-02-01",
+   "door": "door",
+   "basis": "record"
+  },
+  {
+   "day": "1974-04-05",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "1974-07-05",
+   "door": "door",
+   "basis": "record"
+  },
+  {
+   "day": "1974-08-02",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "1974-09-19",
+   "door": "door",
+   "basis": "record"
+  },
+  {
+   "day": "1974-10-04",
+   "door": "JL",
+   "basis": "record"
+  },
+  {
+   "day": "1979-11-01",
+   "door": "FS",
+   "basis": "record"
+  },
+  {
+   "day": "1979-11-08",
+   "door": "door",
+   "basis": "record"
+  },
+  {
+   "day": "1980-03-07",
+   "door": "JL",
+   "basis": "record"
+  },
+  {
+   "day": "1980-04-01",
+   "door": "FS",
+   "basis": "record"
+  },
+  {
+   "day": "1980-04-04",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "1980-11-01",
+   "door": "FS",
+   "basis": "record"
+  },
+  {
+   "day": "1980-12-01",
+   "door": "FS",
+   "basis": "record"
+  },
+  {
+   "day": "1981-01-01",
+   "door": "FS",
+   "basis": "record"
+  },
+  {
+   "day": "1981-06-01",
+   "door": "FS",
+   "basis": "record"
+  },
+  {
+   "day": "1981-11-06",
+   "door": "door",
+   "basis": "record"
+  },
+  {
+   "day": "1982-03-01",
+   "door": "FS",
+   "basis": "record"
+  },
+  {
+   "day": "1990-06-01",
+   "door": "JL",
+   "basis": "record"
+  },
+  {
+   "day": "1990-08-06",
+   "door": "door",
+   "basis": "record"
+  },
+  {
+   "day": "1990-12-25",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "2001-04-06",
+   "door": "JL",
+   "basis": "record"
+  },
+  {
+   "day": "2001-05-07",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "2007-11-02",
+   "door": "JL",
+   "basis": "record"
+  },
+  {
+   "day": "2008-01-04",
+   "door": "door",
+   "basis": "record"
+  },
+  {
+   "day": "2008-02-01",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "2020-04-03",
+   "door": "JL",
+   "basis": "record"
+  },
+  {
+   "day": "2020-04-07",
+   "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "2024-01-05",
+   "door": "JL",
+   "basis": "record"
+  }
+ ],
+ "live_calls": [],
+ "pillar_last_on": {
+  "I4": "2026-01-28",
+  "HW": "2026-04-29",
+  "SY": "2025-05-02",
+  "IP": "2026-05-14",
+  "BAA": "2026-11-08",
+  "HH": "2024-10-03",
+  "P": "2026-09-03",
+  "CNT": "2026-01-08",
+  "CHI": "2025-12-10"
+ },
+ "log": []
+}

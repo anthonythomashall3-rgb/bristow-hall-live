@@ -1,39 +1,34 @@
-# The data census - 2026-11-08 (the tool v3.76, built 2026-11-08 03:06)
+# The data census - 2026-11-08 (the tool C1021, built 2026-11-08 11:38)
 
 Every input the live tool reads: the publisher and route, the backup or substitute, the schedule, what is in hand, and the guard on its format. Gaps are listed at the end.
 
 | feed | series | source | every | in hand through | next | backup or substitute | format guard |
 |---|---|---|---|---|---|---|---|
-| Initial claims, continued claims, insured unemployment rate | ICSA, CCSA, IURSA | Department of Labor (the UI claims news release; ALFRED vintages after it; the f | Weekly - Thursday 8:30 AM ET (Wednesday before a Thursday ho | 2026-10-31 | 2026-11-12 | the states' ETA 539 weekly file with the Bureau's seasonal factors (s2/claims_substitute.py, exact where teste | q41 feed checks; the claims loader asserts the release week columns (45) |
-| State insured unemployment rates (the breadth object) | ETA 539 state insured rates | Department of Labor (page 8 of the weekly release; the advance state table of th | Weekly - Thursday 8:30 AM ET, one week behind initial claims | 2026-10-24 | 2026-11-12 | the advance state table of the weekly release PDF while the archive catches up | the page-8 parse validated against the advance table |
-| Unemployment rate, factory hours, nondurable employment | UNRATE, AWHMAN, NDMANEMP, PAYEMS | Bureau of Labor Statistics, Employment Situation | Monthly - usually the first Friday, 8:30 AM ET | 2026-10-01 | 2026-12-04 | the Chicago Fed real-time unemployment forecast; ADP private payrolls (LSEG first prints) - declared, not auto | q41: the tile and the readings recomputed from the fetched files |
-| Job openings (the vacancy rate) | JTSJOL, CLF16OV | Bureau of Labor Statistics, JOLTS | Monthly - about five weeks after the month, 10:00 AM ET | 2026-09-01 | 2026-12-01 | the Indeed Hiring Lab postings index, at most two months (s2/vacancy_bridge.py; collection 330) | walk39 asserts the vacancy first prints are not stale (>150 rows, within 8 months) |
-| Housing starts and building permits | HOUST, PERMIT | Census Bureau, New Residential Construction | Monthly - about the 17th, 8:30 AM ET | 2026-10-01 | 2026-11-18 | building permits beside starts (the pair reads either); the Census calendar | q41 feed checks |
-| Commercial paper and three-month bill rates (the spread) | DCPF1M, DCPN30, WTB3MS | Federal Reserve, H.15 selected interest rates | Daily - the Board posts the H.15 every business day at 4:15  | 2026-11-05 | 2026-11-09 | FRED DCPN30, DCPF1M and DTB3 (the Federal Reserve is not shut in a shutdown) | q41: the paper rates and their last printed day |
-| S&P 500 daily close (the market gate of the sudden stop, the activity  | ^GSPC | Yahoo Finance close at the 5:05 PM ET run, corrected to the official close on FR | Every trading day - read at the 5:05 PM ET run | 2026-11-06 | 2026-11-09 | the official FRED SP500 close when the chart feed fails (two independent quotes) | q41: reading matches the readings table; two sources compared |
-| Industrial production, as published (the activity opener) | INDPRO | Federal Reserve, G.17 Industrial Production and Capacity Utilization (each month | Monthly - about the 16th, 9:15 AM ET | 2026-09 | 2026-11-17 | the FRED current file of INDPRO (flagged: revised values), then the G.17 release text | activity_opener.py: the vintage history appended and checked |
-| Federal funds target range, upper limit (the activity opener's tighten | DFEDTARU | Federal Reserve, FOMC statement (FRED DFEDTARU, the daily series) | Daily - FRED posts the series every day, weekends included,  | 2026-11-07 | 2026-11-08 | the FOMC statement on federalreserve.gov (the rate carried from the last reading until then) | activity_opener.py: the FOMC calendar end alert (watchdog) |
-| State continued weeks claimed, ETA 539 (the activity opener's breadth  | ETA 539 | Department of Labor, ETA 539 weekly state claims (continued weeks claimed, by st | Monthly - each month is read 21 days after it ends, from the | 2026-09 | 2026-11-21 | the ETA 5159 monthly report (slower), then the last month read | state539_live.py: the 539 file columns asserted |
-| State unemployment rates, all 51 (the second opener) | LAUS state rates (51) | Bureau of Labor Statistics, Local Area Unemployment Statistics, as first printed | Monthly - with the State Employment and Unemployment release | 2026-09-01 | 2026-11-20 | the states' ETA 539 insured-rate acceleration, at most two months (collection 336) | state_breadth.py: 45-state coverage guard; q41 v3.72 checks |
+| Initial claims and continued claims, seasonally adjusted and not (the  | ICSA, CCSA, ICNSA, CCNSA | Department of Labor (the UI claims news release; ALFRED vintages after it; the f | Weekly - Thursday 8:30 AM ET (Wednesday before a Thursday ho | 2026-10-31 | 2026-11-12 | the states' ETA 539 weekly file with the Bureau's seasonal factors (s2/claims_substitute.py, exact where teste | q41 feed checks; the claims loader asserts the release week columns (45) |
+| Unemployment rate, payrolls, the unemployed count, job losers (the hou | UNRATE, PAYEMS, UNEMPLOY, LNS13023621 | Bureau of Labor Statistics, Employment Situation (each month as first printed: A | Monthly - usually the first Friday, 8:30 AM ET | 2026-10 | 2026-12-04 | ALFRED's vintage tables appended each release (bhs_update); the last vintage in hand stands until the next; a  | c1021.py: each vintage read by its dated column; q41 C1021 checks (the thirteen opens, the |
+| Job openings (the help-wanted pillar: openings growing slower than cla | JTSJOL | Bureau of Labor Statistics, JOLTS (ALFRED JTSJOL, each month as first printed) | Monthly - about five weeks after the month, 10:00 AM ET | 2026-09 | 2026-12-01 | the Indeed Hiring Lab postings index, at most two months (s2/vacancy_bridge.py; collection 330) | walk39 asserts the vacancy first prints are not stale (>150 rows, within 8 months) |
+| Industrial production (the production pillar) | INDPRO | Federal Reserve, G.17 Industrial Production and Capacity Utilization (ALFRED IND | Monthly - about the 16th, 9:15 AM ET | 2026-09 | 2026-11-17 | the FRED current file of INDPRO (flagged: revised values), then the G.17 release text | c1021.py: the newest G.17 print within its ALFRED vintage; the vintage history appended an |
+| Moody's Baa corporate bond yield, monthly average (the credit pillar) | BAA | Federal Reserve H.15 via FRED (BAA); read the 7th of the month after | Monthly - the month's average, posted by FRED on the first b | 2026-10 | 2026-12-07 | the FRED monthly series cached (cache/c1021/BAA.csv, private); the cache stands when FRED is unreachable | c1021.py: fredgraph csv parsed by header, a bad parse stops the run; q41 feed checks |
+| Effective federal funds rate, monthly average (the fed-shock door) | FEDFUNDS | Federal Reserve H.15 via FRED (FEDFUNDS) | Monthly - the month's average, known the day after month end | 2026-10 | 2026-12-01 | the FRED monthly series cached (cache/c1021/FEDFUNDS.csv); the cache stands when FRED is unreachable | c1021.py: fredgraph csv parsed by header; q41 feed checks |
+| 10-year and 1-year Treasury yields, monthly averages (the job-losers d | GS10, GS1 | Federal Reserve H.15 via FRED (GS10, GS1) | Monthly - the month's averages, known the day after month en | 2026-10 | 2026-12-01 | the FRED monthly series cached (cache/c1021/GS10.csv, GS1.csv); the cache stands when FRED is unreachable | c1021.py: fredgraph csv parsed by header; q41 feed checks |
+| S&P 500 daily close (the market pillar: below its close a year earlier | ^GSPC | Yahoo Finance close at the 5:05 PM ET run, corrected to the official close on FR | Every trading day - read at the 5:05 PM ET run | 2026-11-06 | 2026-11-09 | the official FRED SP500 close when the chart feed fails (two independent quotes) | q41: reading matches the readings table; two sources compared |
 | Real GDP (the damage grade's output dimension) | GDPC1 | Bureau of Economic Analysis, Gross Domestic Product news release (FRED GDPC1, th | Quarterly - the advance estimate about four weeks after the  | 2026-07 | 2026-11-25 | GDPNow for the unprinted quarter; the BEA release text | damage_dimensions.py: the vintage table read by column name; q41 v3.73 checks |
 | GDPNow (the output dimension's bridge for the quarter not yet printed) | GDPNOW | Federal Reserve Bank of Atlanta, GDPNow (FRED GDPNOW, every update as a vintage) | Several times a month, on the days of the releases it reads  | 2026-10 | 2026-11-09 | the Atlanta Fed page; the last printed quarter carried | the vintage appender names each vintage by its FRED date |
 | Sahm rule, real time (the comparator on the speed panel) | SAHMREALTIME | FRED SAHMREALTIME | Monthly - FRED posts it on the morning of the employment rep | 2026-10 | 2026-12-04 | computed from the unemployment rate first prints if FRED SAHMREALTIME lapses | q41: the speed panel |
-| Search week: Google searches for "unemployment" (the sudden stop's sec | Google Trends "unemployment" | Google Trends, United States, daily index stitched onto one scale and extended e | Daily - a day's index is complete when the day ends in UTC ( | 2026-11-07 | 2026-11-08 | the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2) | the collector's anchored window and the R2 shape guard (108/scripts/trends_live.py: a re-f |
 
 ## The channels (E5: current, stale, substitute, dark)
 
 | channel | status | last | limit (days) | substitute |
 |---|---|---|---|---|
 | initial and continued claims, insured unemployment rate (DOL weekly) | current | 2026-10-31 | 13 |  |
-| insured unemployment rate as the proposers read it | current | 2026-10-24 | 20 |  |
-| unemployment rate, factory hours, nondurable jobs (BLS Employment Situ | current | 2026-10-01 | 45 |  |
-| job openings (BLS JOLTS) | current | 2026-09-01 | 80 |  |
-| paper and bill rates (Federal Reserve H.15) | current | 2026-10-30 | 12 |  |
+| industrial production, the newest G.17 print (the production pillar) | current | 2026-10-16 | 45 |  |
+| Moody's Baa yield, monthly average (the credit pillar) | current | 2026-10 | 45 |  |
+| the effective federal funds rate, monthly average (the fed-shock door) | current | 2026-10 | 40 |  |
+| the 10-year and 1-year Treasury yields, monthly averages (the job-lose | current | 2026-10 | 40 |  |
+| the unemployed count and job losers, first prints (the count door, the | current | 2026-10 | 45 |  |
+| unemployment rate and payrolls, the newest Employment Situation vintag | current | 2026-10-01 | 45 |  |
+| job openings (BLS JOLTS; the help-wanted pillar) | current | 2026-09-01 | 80 |  |
 | S&P 500 close | current | 2026-11-06 | 5 |  |
-| industrial production as published (Federal Reserve G.17) | current | 2026-10-16 | 45 |  |
-| the policy rate (FOMC target range, FRED DFEDTARU) | current | 2026-11-07 | 10 |  |
-| state breadth (ETA 539 continued weeks by state, over payrolls) | current | 2026-09 | 56 |  |
-| state unemployment rates, all 51 (BLS LAUS first prints; the second op | current | 2026-09 | 56 |  |
 
 ## Gaps
 
