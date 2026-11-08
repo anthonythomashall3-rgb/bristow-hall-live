@@ -448,6 +448,13 @@
 "gate": null
 },
 {
+"name": "feed is not dated in the future: GDPNow (the output dimension's bridge fo",
+"got": "2026-11-04",
+"want": "<= 2026-11-08",
+"status": "PASS",
+"gate": "soft"
+},
+{
 "name": "feed next release is not in the past: GDPNow (the output dimension's bridge fo",
 "got": "2026-11-09",
 "want": ">= 2026-11-08",
@@ -778,8 +785,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-08 11:38', '2026-11-08 11:38')",
-"want": "('2026-11-08 11:38', '2026-11-08 11:38')",
+"got": "('2026-11-08 12:14', '2026-11-08 12:14')",
+"want": "('2026-11-08 12:14', '2026-11-08 12:14')",
 "status": "PASS",
 "gate": "hard"
 },
