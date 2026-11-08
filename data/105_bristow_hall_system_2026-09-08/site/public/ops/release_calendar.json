@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-08 11:38",
+ "built_at": "2026-11-08 12:36",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-08T16:38:43Z",
+ "generated_utc": "2026-11-08T17:37:01Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -428,12 +428,95 @@
   },
   {
    "agrees_with_build": true,
+   "build_next": "2026-11-09",
+   "confirmed_through": "2026-12-23",
+   "fred_clock": "12:02",
+   "freq": "weekly",
+   "ids": "gdpnow",
+   "link": "https://alfred.stlouisfed.org/series?seid=GDPNOW",
+   "name": "gdpnow",
+   "next_expected": false,
+   "next_ny": "2026-11-09 12:02",
+   "read_lag_min": 0,
+   "release_id": 386,
+   "short": "GDPNow",
+   "slots": true,
+   "source": "FRED release 386 (GDPNow)",
+   "through": "2026-11-04",
+   "time_known": true,
+   "time_note": "FRED's posting clock, the median of its last nine posts (the Atlanta Fed publishes no hour)",
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-02 12:02",
+     "utc": "2026-11-02T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-04 12:02",
+     "utc": "2026-11-04T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-09 12:02",
+     "utc": "2026-11-09T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-17 12:02",
+     "utc": "2026-11-17T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-18 12:02",
+     "utc": "2026-11-18T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 12:02",
+     "utc": "2026-11-25T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-01 12:02",
+     "utc": "2026-12-01T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-08 12:02",
+     "utc": "2026-12-08T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-09 12:02",
+     "utc": "2026-12-09T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-16 12:02",
+     "utc": "2026-12-16T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 12:02",
+     "utc": "2026-12-17T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 12:02",
+     "utc": "2026-12-23T17:02:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
    "build_next": "2026-11-12",
    "confirmed_through": "2026-12-31",
    "fred_clock": "08:34",
    "freq": "weekly",
    "ids": "icsa, ccsa, icnsa, ccnsa",
-   "link": "https://fred.stlouisfed.org/series/ICSA",
+   "link": "https://www.dol.gov/ui/data.pdf",
    "name": "initial claims and continued claims, seasonally adjusted and not",
    "next_expected": false,
    "next_ny": "2026-11-12 08:30",
@@ -490,6 +573,371 @@
      "expected": false,
      "ny": "2026-12-31 08:30",
      "utc": "2026-12-31T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-12-04",
+   "confirmed_through": "2026-12-04",
+   "fred_clock": "09:30",
+   "freq": "monthly",
+   "ids": "unrate, payems, unemploy, lns13023621",
+   "link": "https://alfred.stlouisfed.org/series?seid=UNRATE",
+   "name": "unemployment rate, payrolls, the unemployed count, job losers",
+   "next_expected": false,
+   "next_ny": "2026-12-04 08:30",
+   "read_lag_min": 61,
+   "release_id": 50,
+   "short": "the jobs report",
+   "slots": true,
+   "source": "FRED release 50 (Employment Situation)",
+   "through": "2026-10-31",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-06 08:30",
+     "utc": "2026-11-06T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 08:30",
+     "utc": "2026-12-04T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 08:30",
+     "utc": "2027-01-08T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-12 08:30",
+     "utc": "2027-02-12T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-12-07",
+   "confirmed_through": "2027-12-07",
+   "fred_clock": null,
+   "freq": "monthly",
+   "ids": "baa",
+   "link": "https://fred.stlouisfed.org/series/BAA",
+   "name": "moody's baa corporate bond yield, monthly average",
+   "next_expected": false,
+   "next_ny": "2026-11-09 16:15",
+   "read_lag_min": 0,
+   "release_id": null,
+   "short": "the Baa monthly average (read the 7th)",
+   "slots": true,
+   "source": "rule: rule_day7",
+   "through": "2026-10-31",
+   "time_known": true,
+   "time_note": "the rule reads the month's Baa average on the 7th of the next month (the first business day on or after it); FRED posts it earlier",
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-09 16:15",
+     "utc": "2026-11-09T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-07 16:15",
+     "utc": "2026-12-07T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-07 16:15",
+     "utc": "2027-01-07T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-08 16:15",
+     "utc": "2027-02-08T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-03-08 16:15",
+     "utc": "2027-03-08T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-04-07 16:15",
+     "utc": "2027-04-07T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-05-07 16:15",
+     "utc": "2027-05-07T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-06-07 16:15",
+     "utc": "2027-06-07T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-07-07 16:15",
+     "utc": "2027-07-07T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-08-09 16:15",
+     "utc": "2027-08-09T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-09-07 16:15",
+     "utc": "2027-09-07T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-10-07 16:15",
+     "utc": "2027-10-07T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-11-08 16:15",
+     "utc": "2027-11-08T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-12-07 16:15",
+     "utc": "2027-12-07T21:15:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-12-01",
+   "confirmed_through": "2027-12-01",
+   "fred_clock": null,
+   "freq": "monthly",
+   "ids": "fedfunds",
+   "link": "https://fred.stlouisfed.org/series/FEDFUNDS",
+   "name": "effective federal funds rate, monthly average",
+   "next_expected": false,
+   "next_ny": "2026-12-01 16:15",
+   "read_lag_min": 0,
+   "release_id": null,
+   "short": "the month-end averages (funds rate, Treasury yields)",
+   "slots": true,
+   "source": "rule: month_avg_next_bday",
+   "through": "2026-10-31",
+   "time_known": true,
+   "time_note": "the month's average is complete on the first business day after month end (FRED's H.15 monthly post, 4:15 PM ET)",
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-02 16:15",
+     "utc": "2026-11-02T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-01 16:15",
+     "utc": "2026-12-01T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-04 16:15",
+     "utc": "2027-01-04T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-01 16:15",
+     "utc": "2027-02-01T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-03-01 16:15",
+     "utc": "2027-03-01T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-04-01 16:15",
+     "utc": "2027-04-01T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-05-03 16:15",
+     "utc": "2027-05-03T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-06-01 16:15",
+     "utc": "2027-06-01T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-07-01 16:15",
+     "utc": "2027-07-01T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-08-02 16:15",
+     "utc": "2027-08-02T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-09-01 16:15",
+     "utc": "2027-09-01T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-10-01 16:15",
+     "utc": "2027-10-01T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-11-01 16:15",
+     "utc": "2027-11-01T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-12-01 16:15",
+     "utc": "2027-12-01T21:15:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-12-01",
+   "confirmed_through": "2027-12-01",
+   "fred_clock": null,
+   "freq": "monthly",
+   "ids": "gs10, gs1",
+   "link": "https://fred.stlouisfed.org/series/GS10",
+   "name": "10-year and 1-year treasury yields, monthly averages",
+   "next_expected": false,
+   "next_ny": "2026-12-01 16:15",
+   "read_lag_min": 0,
+   "release_id": null,
+   "short": "the month-end averages (funds rate, Treasury yields)",
+   "slots": true,
+   "source": "rule: month_avg_next_bday",
+   "through": "2026-10-31",
+   "time_known": true,
+   "time_note": "the month's average is complete on the first business day after month end (FRED's H.15 monthly post, 4:15 PM ET)",
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-02 16:15",
+     "utc": "2026-11-02T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-01 16:15",
+     "utc": "2026-12-01T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-04 16:15",
+     "utc": "2027-01-04T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-01 16:15",
+     "utc": "2027-02-01T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-03-01 16:15",
+     "utc": "2027-03-01T21:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-04-01 16:15",
+     "utc": "2027-04-01T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-05-03 16:15",
+     "utc": "2027-05-03T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-06-01 16:15",
+     "utc": "2027-06-01T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-07-01 16:15",
+     "utc": "2027-07-01T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-08-02 16:15",
+     "utc": "2027-08-02T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-09-01 16:15",
+     "utc": "2027-09-01T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-10-01 16:15",
+     "utc": "2027-10-01T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-11-01 16:15",
+     "utc": "2027-11-01T20:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-12-01 16:15",
+     "utc": "2027-12-01T21:15:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-12-04",
+   "confirmed_through": "2026-12-04",
+   "fred_clock": "09:36",
+   "freq": "monthly",
+   "ids": "sahmrealtime",
+   "link": "https://fred.stlouisfed.org/series/SAHMREALTIME",
+   "name": "sahm rule, real time",
+   "next_expected": false,
+   "next_ny": "2026-12-04 09:36",
+   "read_lag_min": 6,
+   "release_id": 456,
+   "short": "the Sahm rule (FRED)",
+   "slots": true,
+   "source": "FRED release 456 (Sahm Rule Recession Indicator)",
+   "through": "2026-10-31",
+   "time_known": true,
+   "time_note": "FRED's posting clock, the median of its last nine posts (the Bureau publishes the jobs report at 8:30)",
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-06 09:36",
+     "utc": "2026-11-06T14:36:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 09:36",
+     "utc": "2026-12-04T14:36:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 09:36",
+     "utc": "2027-01-08T14:36:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-12 09:36",
+     "utc": "2027-02-12T14:36:00Z"
     }
    ],
    "waiting_since_due": null
@@ -840,459 +1288,6 @@
    "confirmed_through": "2026-12-04",
    "fred_clock": "09:30",
    "freq": "monthly",
-   "ids": "unrate, payems, unemploy, lns13023621",
-   "link": "https://fred.stlouisfed.org/series/UNRATE",
-   "name": "unemployment rate, payrolls, the unemployed count, job losers",
-   "next_expected": false,
-   "next_ny": "2026-12-04 08:30",
-   "read_lag_min": 61,
-   "release_id": 50,
-   "short": "the jobs report",
-   "slots": true,
-   "source": "FRED release 50 (Employment Situation)",
-   "through": "2026-10-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-06 08:30",
-     "utc": "2026-11-06T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-04 08:30",
-     "utc": "2026-12-04T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-08 08:30",
-     "utc": "2027-01-08T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-02-12 08:30",
-     "utc": "2027-02-12T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-12-07",
-   "confirmed_through": "2027-12-07",
-   "fred_clock": null,
-   "freq": "monthly",
-   "ids": "baa",
-   "link": "https://fred.stlouisfed.org/series/BAA",
-   "name": "moody's baa corporate bond yield, monthly average",
-   "next_expected": false,
-   "next_ny": "2026-11-09 16:15",
-   "read_lag_min": 0,
-   "release_id": null,
-   "short": "the Baa monthly average (read the 7th)",
-   "slots": true,
-   "source": "rule: rule_day7",
-   "through": "2026-10-01",
-   "time_known": true,
-   "time_note": "the rule reads the month's Baa average on the 7th of the next month (the first business day on or after it); FRED posts it earlier",
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-09 16:15",
-     "utc": "2026-11-09T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-07 16:15",
-     "utc": "2026-12-07T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-07 16:15",
-     "utc": "2027-01-07T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-08 16:15",
-     "utc": "2027-02-08T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-03-08 16:15",
-     "utc": "2027-03-08T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-04-07 16:15",
-     "utc": "2027-04-07T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-05-07 16:15",
-     "utc": "2027-05-07T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-06-07 16:15",
-     "utc": "2027-06-07T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-07-07 16:15",
-     "utc": "2027-07-07T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-08-09 16:15",
-     "utc": "2027-08-09T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-09-07 16:15",
-     "utc": "2027-09-07T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-10-07 16:15",
-     "utc": "2027-10-07T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-11-08 16:15",
-     "utc": "2027-11-08T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-12-07 16:15",
-     "utc": "2027-12-07T21:15:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-12-01",
-   "confirmed_through": "2027-12-01",
-   "fred_clock": null,
-   "freq": "monthly",
-   "ids": "fedfunds",
-   "link": "https://fred.stlouisfed.org/series/FEDFUNDS",
-   "name": "effective federal funds rate, monthly average",
-   "next_expected": false,
-   "next_ny": "2026-12-01 16:15",
-   "read_lag_min": 0,
-   "release_id": null,
-   "short": "the month-end averages (funds rate, Treasury yields)",
-   "slots": true,
-   "source": "rule: month_avg_next_bday",
-   "through": "2026-10-01",
-   "time_known": true,
-   "time_note": "the month's average is complete on the first business day after month end (FRED's H.15 monthly post, 4:15 PM ET)",
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-02 16:15",
-     "utc": "2026-11-02T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-01 16:15",
-     "utc": "2026-12-01T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-04 16:15",
-     "utc": "2027-01-04T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-01 16:15",
-     "utc": "2027-02-01T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-03-01 16:15",
-     "utc": "2027-03-01T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-04-01 16:15",
-     "utc": "2027-04-01T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-05-03 16:15",
-     "utc": "2027-05-03T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-06-01 16:15",
-     "utc": "2027-06-01T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-07-01 16:15",
-     "utc": "2027-07-01T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-08-02 16:15",
-     "utc": "2027-08-02T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-09-01 16:15",
-     "utc": "2027-09-01T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-10-01 16:15",
-     "utc": "2027-10-01T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-11-01 16:15",
-     "utc": "2027-11-01T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-12-01 16:15",
-     "utc": "2027-12-01T21:15:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-12-01",
-   "confirmed_through": "2027-12-01",
-   "fred_clock": null,
-   "freq": "monthly",
-   "ids": "gs10, gs1",
-   "link": "https://fred.stlouisfed.org/series/GS10",
-   "name": "10-year and 1-year treasury yields, monthly averages",
-   "next_expected": false,
-   "next_ny": "2026-12-01 16:15",
-   "read_lag_min": 0,
-   "release_id": null,
-   "short": "the month-end averages (funds rate, Treasury yields)",
-   "slots": true,
-   "source": "rule: month_avg_next_bday",
-   "through": "2026-10-01",
-   "time_known": true,
-   "time_note": "the month's average is complete on the first business day after month end (FRED's H.15 monthly post, 4:15 PM ET)",
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-02 16:15",
-     "utc": "2026-11-02T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-01 16:15",
-     "utc": "2026-12-01T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-04 16:15",
-     "utc": "2027-01-04T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-01 16:15",
-     "utc": "2027-02-01T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-03-01 16:15",
-     "utc": "2027-03-01T21:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-04-01 16:15",
-     "utc": "2027-04-01T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-05-03 16:15",
-     "utc": "2027-05-03T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-06-01 16:15",
-     "utc": "2027-06-01T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-07-01 16:15",
-     "utc": "2027-07-01T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-08-02 16:15",
-     "utc": "2027-08-02T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-09-01 16:15",
-     "utc": "2027-09-01T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-10-01 16:15",
-     "utc": "2027-10-01T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-11-01 16:15",
-     "utc": "2027-11-01T20:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-12-01 16:15",
-     "utc": "2027-12-01T21:15:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-11-09",
-   "confirmed_through": "2026-12-23",
-   "fred_clock": "12:02",
-   "freq": "weekly",
-   "ids": "gdpnow",
-   "link": "https://alfred.stlouisfed.org/series?seid=GDPNOW",
-   "name": "gdpnow",
-   "next_expected": false,
-   "next_ny": "2026-11-09 12:02",
-   "read_lag_min": 0,
-   "release_id": 386,
-   "short": "GDPNow",
-   "slots": true,
-   "source": "FRED release 386 (GDPNow)",
-   "through": "2026-10-01",
-   "time_known": true,
-   "time_note": "FRED's posting clock, the median of its last nine posts (the Atlanta Fed publishes no hour)",
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-10-29 12:02",
-     "utc": "2026-10-29T16:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-02 12:02",
-     "utc": "2026-11-02T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-04 12:02",
-     "utc": "2026-11-04T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-09 12:02",
-     "utc": "2026-11-09T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-17 12:02",
-     "utc": "2026-11-17T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-18 12:02",
-     "utc": "2026-11-18T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 12:02",
-     "utc": "2026-11-25T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-01 12:02",
-     "utc": "2026-12-01T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-08 12:02",
-     "utc": "2026-12-08T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-09 12:02",
-     "utc": "2026-12-09T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-16 12:02",
-     "utc": "2026-12-16T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 12:02",
-     "utc": "2026-12-17T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-23 12:02",
-     "utc": "2026-12-23T17:02:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-12-04",
-   "confirmed_through": "2026-12-04",
-   "fred_clock": "09:36",
-   "freq": "monthly",
-   "ids": "sahmrealtime",
-   "link": "https://fred.stlouisfed.org/series/SAHMREALTIME",
-   "name": "sahm rule, real time",
-   "next_expected": false,
-   "next_ny": "2026-12-04 09:36",
-   "read_lag_min": 6,
-   "release_id": 456,
-   "short": "the Sahm rule (FRED)",
-   "slots": true,
-   "source": "FRED release 456 (Sahm Rule Recession Indicator)",
-   "through": "2026-10-01",
-   "time_known": true,
-   "time_note": "FRED's posting clock, the median of its last nine posts (the Bureau publishes the jobs report at 8:30)",
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-06 09:36",
-     "utc": "2026-11-06T14:36:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-04 09:36",
-     "utc": "2026-12-04T14:36:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-08 09:36",
-     "utc": "2027-01-08T14:36:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-02-12 09:36",
-     "utc": "2027-02-12T14:36:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-12-04",
-   "confirmed_through": "2026-12-04",
-   "fred_clock": "09:30",
-   "freq": "monthly",
    "ids": "unrate",
    "link": "https://fred.stlouisfed.org/series/UNRATE",
    "name": "unemployment rate",
@@ -1423,7 +1418,7 @@
    "fred_clock": "10:10",
    "freq": "monthly",
    "ids": "jtsjol",
-   "link": "https://fred.stlouisfed.org/series/JTSJOL",
+   "link": "https://alfred.stlouisfed.org/series?seid=JTSJOL",
    "name": "job openings",
    "next_expected": false,
    "next_ny": "2026-12-01 10:00",
@@ -1432,7 +1427,7 @@
    "short": "JOLTS (job openings)",
    "slots": true,
    "source": "FRED release 192 (Job Openings and Labor Turnover Survey)",
-   "through": "2026-09-01",
+   "through": "2026-09-30",
    "time_known": true,
    "time_note": null,
    "times": [
@@ -1475,7 +1470,7 @@
    "short": "industrial production (G.17)",
    "slots": true,
    "source": "FRED release 13 (G.17 Industrial Production and Capacity Utilization)",
-   "through": "2026-09-01",
+   "through": "2026-09-30",
    "time_known": true,
    "time_note": null,
    "times": [
@@ -1682,7 +1677,7 @@
    "short": "GDP (BEA)",
    "slots": true,
    "source": "FRED release 53 (Gross Domestic Product)",
-   "through": "2026-07-01",
+   "through": "2026-07-31",
    "time_known": true,
    "time_note": null,
    "times": [

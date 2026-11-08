@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-08 11:38",
+ "built_at": "2026-11-08 12:36",
  "version": "C1021",
  "census_date": "2026-11-08",
  "feeds": [
@@ -125,7 +125,7 @@
    "series": "GDPNOW",
    "source": "Federal Reserve Bank of Atlanta, GDPNow (FRED GDPNOW, every update as a vintage)",
    "every": "Several times a month, on the days of the releases it reads (FRED carries each update between about 10:30 AM and 1 PM ET); the Atlanta Fed posts its schedule",
-   "through": "2026-10",
+   "through": "2026-11-04",
    "next": "2026-11-09",
    "link": "https://www.atlantafed.org/cqer/research/gdpnow",
    "value": "3.44",
