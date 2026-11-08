@@ -13,6 +13,9 @@ on:
     # cover the release windows in both EDT and EST (after 8:30, 9:15 and 10:00, and after the close), and one on each
     # weekend day covers a rule-dated weekend day or a crisis morning. Until 22 September there were ten weekday firings,
     # several placed for sources the tool no longer reads (the OFR index at midday, the EIA weekly, the mortgage survey).
+    # C1021 (8 November 2026, collection 1022): the starter is C1021; its releases are the weekly claims (8:30), the Employment
+    # Situation (8:30), the G.17 (9:15), JOLTS (10:00), the S&P 500 close and the month-end averages (FEDFUNDS, GS10, GS1; Baa the 7th).
+    # The same five weekday checks cover them; the weekend check stays as the second line for a crisis morning.
     - cron: '40 13 * * 1-5'
     - cron: '40 14 * * 1-5'
     - cron: '40 15 * * 1-5'
@@ -121,7 +124,7 @@ jobs:
               slots = []
               for k in (-1, 0, 1):
                   d = (now + datetime.timedelta(days=k)).date()
-                  for t in (['08:35', '09:45', '10:15', '16:20', '20:10'] if d.weekday() < 5 else []):   # only if run_slots.json cannot be read
+                  for t in (['08:35', '09:35', '10:20', '16:35'] if d.weekday() < 5 else []):   # only if run_slots.json cannot be read; C1021's windows (1022)
                       slots.append('%s %s' % (d.isoformat(), t))
           due = max([s for s in slots if s <= NOW], default=None)
           go = due is not None and (built is None or built < due)

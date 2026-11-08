@@ -1,4 +1,9 @@
 // bhr-dispatch - starts the Bristow-Hall site's update right after each data release.
+// C1021 (8 November 2026, collection 1022; Anthony: "replace the old github worker that is responsible for live-updating with the
+// new github worker that is for version c1021"): the slots this Worker starts are C1021's releases - weekly claims (Thursday
+// 8:30), the Employment Situation (8:30), JOLTS (10:00), the G.17 (9:15), the S&P 500 close (4:00) and the month-end averages
+// (FEDFUNDS, GS10, GS1 the first business day after month end; Baa read the 7th), all from /run_slots.json. The v3.76 starter's
+// slots (the H.15 week, Google's day, the FOMC statement, the ETA 539 month) are gone with it.
 // (v3.60, 21 September 2026, collection 278; Anthony: "MAKE SURE THAT THERE ARE NO ERRORS IN THE LIVE UPDATING FUNCTION
 // ... AND THAT OUR LIVE UPDATING IS SCHEDULED ON DATA RELEASE DATES AND TIMES"; "MAKE SURE THERE ARE NEVER ANY ERRORS
 // AGAIN WITH THE GITHUB AND THE AUTO UPDATING")
@@ -32,7 +37,7 @@
 
 // the deployed code's version: every workflow run compares it with the repository's copy of this file, so a starter
 // redeployed from an old clone is caught (22 September 2026, collection 306)
-const VERSION = '2026-09-25a (bristow-hall-live)';
+const VERSION = '2026-11-08a (bristow-hall-live; C1021 starter)';   // 1022: the starter for the C1021 version of the tool
 const REPO = 'anthonythomashall3-rgb/bristow-hall-live';
 const WORKFLOW = 'update.yml';
 const SITE = 'https://bhrrealtime.pages.dev';
@@ -43,7 +48,7 @@ const INCOMPLETE_GAP_MS = 30 * 60000;    // 818: a build that published through 
 const MAX_INCOMPLETE_PER_DAY = 20;       // 818: starts after incomplete builds in one New York day (the repository is public: Actions minutes are free)
 // used only when run_slots.json cannot be read or lists no future slot (22 September 2026: the release-driven schedule is
 // in that file; these are the common release windows, and nothing on weekends)
-const WEEKDAY_TIMES = ['08:35', '09:45', '10:15', '16:20', '20:10'];   // collection 411 (was 08:50, 09:35, 10:20, 17:05)
+const WEEKDAY_TIMES = ['08:35', '09:35', '10:20', '16:35'];   // C1021 (1022): claims/jobs 8:30, G.17 9:15, JOLTS 10:00, the close and the month-end averages 4:00-4:15 (was 08:35, 09:45, 10:15, 16:20, 20:10)
 const SATURDAY_TIMES = [];
 const SLOT_RE = /^\d{4}-\d\d-\d\d \d\d:\d\d$/;
 const ACTIVE = ['queued', 'in_progress', 'pending', 'waiting', 'requested'];

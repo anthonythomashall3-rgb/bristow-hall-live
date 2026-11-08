@@ -44,6 +44,8 @@ MODE="${BHS_MODE:-full}"    # full | build | site (20 September 2026; Anthony: "
 MARK="cache/calendar_fetched_on"
 # v3.73 (23 September 2026, collection 333): the grade reads GDP and GDPNow; a schedule without their rows is re-fetched today whatever the mark says
 grep -q "^GDPC1," cache/release_schedule.csv 2>/dev/null || rm -f "$MARK"
+# C1021 (1022): the G.17 (INDPRO, release 13) is on the schedule; a schedule without its rows is re-fetched today
+grep -q "^INDPRO," cache/release_schedule.csv 2>/dev/null || rm -f "$MARK"
 if [ "$MODE" != "site" ] && [ "$(cat "$MARK" 2>/dev/null)" != "$(date +%F)" ]; then
   if python3 bhs_calendar_fetch.py > out/calendar_fetch.out 2>&1; then date +%F > "$MARK"; echo "calendar: $(head -1 out/calendar_fetch.out)"
   else echo "calendar fetch failed; the calendar in hand stands: $(tail -1 out/calendar_fetch.out)"; fi
@@ -54,12 +56,11 @@ if [ "$MODE" = "site" ]; then
   echo "site mode: pages re-rendered from the committed state built $(python3 -c "import json;print(json.load(open('out/bhs_state.json'))['built_at'])")"
 else
   if [ "$MODE" = "full" ]; then python3 bhs_update.py --no-build; else echo "build mode: no update; the data as committed"; fi
-  # THE BACKSTOP OPENER'S CALLS (20 September 2026, collection 256): before the build, so bhs_build.py can read them; never fails the run
-  python3 s2/backstop.py || true
-  # THE ACTIVITY OPENER (v3.60, Core v6, 21 September 2026, collection 278): its calls and reading, before the build; never fails the run
-  python3 s2/activity_opener.py || true
-  # v3.72 (22 September 2026, collection 311; E31): THE SECOND OPENER's states - the 51 first prints and the breadth - before the build; never fails the run
-  python3 s2/state_breadth.py || true
+  # C1021 (1022, 8 November 2026; Anthony: "all auto-updating functions of v3.76 starter are removed and replaced with C1021"):
+  # the v3.76 starter's pre-build jobs (s2/backstop.py as an opener, s2/activity_opener.py, s2/state_breadth.py) no longer run.
+  # THE C1021 STARTER (s2/c1021.py): the pillars, the calls and today's reading from first prints and vintages, before the build.
+  # It MUST succeed: a starter that cannot read its inputs stops the run rather than publish a page without the alarm.
+  python3 s2/c1021.py
   # v3.73 (23 September 2026, collection 333; collection 331): the committee watch, once a day; a dating the chronology file lacks raises a flag, moves nothing; never fails the run
   if [ "$(cat cache/chronology_watch_on 2>/dev/null)" != "$(date +%F)" ]; then python3 s2/chronology_watch.py && date +%F > cache/chronology_watch_on || true; fi
   python3 bhs_build.py

@@ -120,11 +120,13 @@ TIME_NOTE = {456: "FRED's posting clock, the median of its last nine posts (the 
 RULE_NOTE = {'nyse_close': 'the market close', 'daily_next_morning': 'no published hour; read next morning',
              'month_end_plus_21': "the rule's 21-day lag",
              'fred_every_day': "FRED's daily post, at its measured clock (every day, weekends included)",
-             'utc_day_end': "the day's end in UTC, 8 PM ET in summer and 7 PM in winter (the tool reads Google's days in UTC); Google publishes no hour"}
+             'utc_day_end': "the day's end in UTC, 8 PM ET in summer and 7 PM in winter (the tool reads Google's days in UTC); Google publishes no hour",
+             'month_avg_next_bday': "the month's average is complete on the first business day after month end (FRED's H.15 monthly post, 4:15 PM ET)",
+             'rule_day7': "the rule reads the month's Baa average on the 7th of the next month (the first business day on or after it); FRED posts it earlier"}
 # a slot is made only for a release with a publisher's clock: the S&P close is read at 4:20 PM (411; was 5:05 PM) with the day's searches,
 # the ETA 539 month has its own 9:05 rule, and Google publishes no hour
 RULE_SLOTS = {'nyse_close': False, 'daily_next_morning': False, 'month_end_plus_21': False, 'h15_week': True, 'fomc': True,
-              'h15_daily': True, 'fred_every_day': False, 'utc_day_end': False}
+              'h15_daily': True, 'fred_every_day': False, 'utc_day_end': False, 'month_avg_next_bday': True, 'rule_day7': True}
 FIRST_IN_MONTH = {27}          # New Residential Construction: the construction report (FRED also lists the sales day)
 SHORT = {10: 'CPI', 13: 'industrial production (G.17)', 18: 'H.15 rates', 27: 'housing starts', 50: 'the jobs report', 53: 'GDP (BEA)', 386: 'GDPNow',
          101: 'the FOMC statement', 180: 'weekly claims', 192: 'JOLTS (job openings)', 219: 'the Chicago Fed index',
@@ -132,7 +134,7 @@ SHORT = {10: 'CPI', 13: 'industrial production (G.17)', 18: 'H.15 rates', 27: 'h
 RULE_SHORT = {'h15_week': 'the H.15 week (paper and bill rates)', 'fomc': 'the FOMC statement', 'nyse_close': 'the S&P 500 close',
               'daily_next_morning': 'Google searches', 'month_end_plus_21': 'state breadth (the ETA 539 month)',
               'h15_daily': 'the H.15 rates (daily post)', 'fred_every_day': 'the fed funds target (FRED, daily)',
-              'utc_day_end': 'Google searches'}
+              'utc_day_end': 'Google searches', 'month_avg_next_bday': 'the month-end averages (funds rate, Treasury yields)', 'rule_day7': 'the Baa monthly average (read the 7th)'}
 
 # FRED'S OWN POSTING CLOCK (23 September 2026, collection 358; Anthony: "MAKE SURE THAT ALL THE NEXT RELEASE DAYS ARE ACCURATE AND
 # EVERYTHING THAT HAS TO DO WITH THE DATA IS ACCURATE"). The live tool reads FRED, and FRED posts some releases well after the
@@ -393,6 +395,16 @@ def rule_times(rule, today):
     if rule == 'utc_day_end':
         return [((dt.datetime(d.year, d.month, d.day, tzinfo=UTC) + dt.timedelta(days=1)).astimezone(ET), False)
                 for d in days(today - dt.timedelta(days=2), 120)], True, 'daily'
+    if rule in ('month_avg_next_bday', 'rule_day7'):   # C1021 (1022): monthly averages - FEDFUNDS, GS10, GS1 complete the first business day after month end; Baa read the 7th
+        out, d = [], dt.date(today.year, today.month, 1) - dt.timedelta(days=62)
+        for _ in range(16):
+            end = dt.date(d.year + (d.month == 12), d.month % 12 + 1, 1) - dt.timedelta(days=1)
+            x = end + dt.timedelta(days=1 if rule == 'month_avg_next_bday' else 7)
+            while not business_day(x):
+                x += dt.timedelta(days=1)
+            out.append((at(x, '16:15'), False))
+            d = end + dt.timedelta(days=1)
+        return out, True, 'monthly'
     if rule == 'month_end_plus_21':    # a month is read 21 days after it ends (the tool's own rule), by the 9:05 AM run at the latest
         out, d = [], dt.date(today.year, today.month, 1) - dt.timedelta(days=62)
         for _ in range(16):

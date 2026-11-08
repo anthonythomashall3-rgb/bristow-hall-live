@@ -727,7 +727,32 @@ def _ao_next():
     while _c.weekday()>=5: _c=_c+pd.Timedelta(days=1)
     return _c.date().isoformat()
 _tb=_t
-if _BS_CALLS or _AO_CALLS or _CB_CALLS:   # v3.68: the concurrence branch's leg Y beside b and P
+# ---- C1021 (8 November 2026, collection 1022; Anthony 05:45 PT: "remove v3.76 as the starter ... make C1021 the new starter"): THE STARTER.
+# ---- s2/c1021.py (run before this build) writes out/c1021_state.json: the record's call pool (1021 harness, frozen) and the live tail from the
+# ---- bundle's own data. Its calls are the only opener; the walk's branches, the backstop, the activity opener, the concurrence branch and the
+# ---- state breadth open nothing. The closers are v3.76's as build_v builds them; a new call opens only outside an episode and more than 183
+# ---- days after a close (the union's refractory). A call is dated to its own month (the alarm month; the chart's shading follows the reference
+# ---- chronology as before). The damage grade is untouched.
+C1021=None; C1021_CALLS=[]
+try:
+    C1021=json.load(open('out/c1021_state.json')); C1021_CALLS=[(pd.Timestamp(c['day']),pd.Timestamp(c['day'][:7]+'-01')) for c in C1021['calls']]
+    assert C1021.get('tool')=='C1021' and len(C1021_CALLS)>=38, 'c1021_state.json is not C1021 (%s calls)'%len(C1021_CALLS)
+except Exception as _e1022: raise SystemExit('C1021: the starter state was not read (%r); run s2/c1021.py before the build'%(_e1022,))
+def build_c1021(p):
+    TL=dict(TLH); TL['R']=RC[p['rst']]; TL['T']=TC[p['tst']]; TL['Q']=QC[p['qst']]
+    if p.get('cD') is not None: TL['C']=CMENU[(p['cD'],p['cn'],p['cs'])]
+    # v3.76's closes as the walked diary made them (cache/w7w8_prog.pkl: the activity closer A of 1949, the labour closers at the lines of each cut)
+    # join the frozen closers, each under its own letter, so an episode C1021 opens ends where v3.76 ended it when that close falls inside it
+    try:
+        _pgc=pickle.load(open(f'cache/{VAR}_prog.pkl','rb'))
+        for _pub,_kind,_dated,_leg in sorted(_pgc['log'],key=lambda z:z[0]):
+            if _kind=='CLOSE': TL.setdefault(_leg,[]); TL[_leg]=list(TL[_leg])+[(pd.Timestamp(_pub),pd.Timestamp(_dated))]
+    except Exception as _e: print('C1021: the walked diary\'s closes were not read (%r); the frozen closers alone'%(_e,))
+    with contextlib.redirect_stdout(io.StringIO()): return B.american_chronology({'C':C1021_CALLS},TL,min_gap_days=183)
+_tb=build_c1021(p); _BS_CALLS=[]; _AO_CALLS=[]; _CB_CALLS=[]; SB_OPENER=[]
+print('C1021: %d calls in the pool (%d live since %s); chronology: %s'%(len(C1021_CALLS),len(C1021.get('live_calls') or []),C1021.get('record_cut'),[(x['kind'],x['published'].date().isoformat(),x['leg']) for x in _tb if x['kind'] in ('peak','trough')][-6:]))
+_tick('build_c1021')
+if False:   # v3.76's openers (backstop b, activity P, concurrence Y) never enter a C1021 build
     _BS_ON=True
     try:
         with contextlib.redirect_stdout(io.StringIO()): _rb,_tb=build_v(p)
@@ -780,7 +805,7 @@ CLOSE=pd.Series(cs,index=_CW).clip(lower=0); CLOSE_RAW=CLOSE.copy()
 # read only while the frozen rule has an episode open (a close cannot be proposed when nothing is open)
 CLOSE=pd.Series([v if any(a<=t<=b for a,b in FROZEN) else np.nan for t,v in CLOSE.items()],index=CLOSE.index)
 # ---- the chronology from the causal walk ----
-pg=pickle.load(open(f'cache/{VAR}_prog.pkl','rb')); LOG=sorted(pg['log'],key=lambda z:z[0])
+pg=pickle.load(open(f'cache/{VAR}_prog.pkl','rb')); LOG=[]   # C1021 (1022): the diary is C1021's own record from 1948 (every event of _tb below); the walk's diary is not read
 # ---- THE BACKSTOP OPENER IN THE DIARY (collection 256): when the walked rule stands closed, a gated backstop call after
 # ---- the diary's last entry opens an episode tagged b, followed to its close by the frozen rule's closers. Nothing before
 # ---- the diary's last entry is touched, and a frozen-rule open by any other leg after it takes precedence over b.
@@ -814,8 +839,7 @@ for x in _after:
     if x['leg']=='Y': CB_EVENTS.append(_ev)   # v3.68: the concurrence branch (collections 300 and 301)
     if x['leg']=='N': SB_EVENTS.append(_ev)   # v3.72 (22 September 2026, collection 311): the state breadth
 LOG=sorted(LOG,key=lambda z:z[0])
-if NEW_EVENTS: print('THE DIARY CONTINUED by the frozen rule:',[(e[0].date().isoformat(),e[1],e[3]) for e in NEW_EVENTS])
-else: print('the diary stands as walked; no event after', _lp.date().isoformat())
+print('C1021: the record: %d events, the last %s'%(len(NEW_EVENTS),[(e[0].date().isoformat(),e[1],e[3]) for e in NEW_EVENTS][-4:])); NEW_EVENTS=[]   # C1021 (1022): nothing is 'continued'; the record is the record
 epis=[]; cur=None
 for pub,kind,dt,leg in LOG:
     if kind=='OPEN': cur={'open_pub':pub.date().isoformat(),'open_month':dt.strftime('%Y-%m'),'open_leg':leg,'close_pub':None,'close_month':None,'close_leg':None}   # v3.57: an OPEN episode carries its close keys as None (the build crashed on an open standing before)
@@ -853,6 +877,19 @@ def _ep_inside(m):
     for e in EP:
         if e['open_month']<=ms and (e['close_month'] is None or ms<=e['close_month']): return e
     return None
+# ---- C1021 (1022): THE READING. Each day the strongest door's share of its conditions (route: 7; count door: 3; the fed-shock and job-losers
+# ---- doors by their ratio to the line), 1.00 on a day a door fires; the record to the cut from the harness's arrays (s2/c1021_reading_record.csv),
+# ---- the live grid from s2/c1021.py (cache/c1021/reading_daily.csv). Monthly = the month's highest day. Inside an episode the line is held at
+# ---- least at 1.00 (and carries the damage grade below); outside at most 0.99.
+_c1r=pd.read_csv('s2/c1021_reading_record.csv',parse_dates=['day']).set_index('day'); _c1l=pd.read_csv('cache/c1021/reading_daily.csv',parse_dates=['day']).set_index('day')
+_c1cut=pd.Timestamp(C1021['record_cut']); _c1l=_c1l[_c1l.index>=_c1cut]
+_c1l['branch']=np.where(_c1l['route_share']>=1,'route',np.where(_c1l['door_share']>=1,'door',np.where(_c1l['jl_ratio']>=1,'JL',np.where(_c1l['fs_ratio']>=1,'FS',np.where(_c1l[['route_share','door_share','fs_ratio','jl_ratio']].idxmax(axis=1)=='route_share','route',np.where(_c1l[['route_share','door_share','fs_ratio','jl_ratio']].idxmax(axis=1)=='door_share','door',np.where(_c1l[['route_share','door_share','fs_ratio','jl_ratio']].idxmax(axis=1)=='fs_ratio','FS','JL')))))))
+C1021_DAILY=pd.concat([_c1r[['reading','branch']],_c1l[['reading','branch']]]).sort_index(); C1021_DAILY=C1021_DAILY[~C1021_DAILY.index.duplicated(keep='last')]
+_c1m=C1021_DAILY['reading'].resample('MS').max(); _c1b=C1021_DAILY['branch'].groupby(C1021_DAILY.index.to_period('M')).agg(lambda x: x.iloc[int(np.argmax(C1021_DAILY['reading'].loc[x.index].values))]); _c1b.index=_c1b.index.to_timestamp()
+OPEN=pd.DataFrame({'indicator':_c1m,'branch':_c1b.reindex(_c1m.index).fillna('route')}).dropna(subset=['indicator']); OPEN=OPEN[OPEN.index<=pd.Timestamp(today).replace(day=1)]
+OPEN['raw']=OPEN['indicator'].copy(); OPEN['indicator']=[max(v,1.0) if _inside(t) else min(v,0.99) for t,v in OPEN['indicator'].items()]; OPEN['called']=[_inside(t) for t in OPEN.index]
+OPENU=OPEN.copy()
+print('C1021 reading: %d days (%s -> %s), %d months; latest %s'%(len(C1021_DAILY),C1021_DAILY.index[0].date(),C1021_DAILY.index[-1].date(),len(OPEN),', '.join('%s %.2f %s'%(t.strftime('%Y-%m'),v,b) for t,v,b in zip(OPEN.index[-4:],OPEN['raw'][-4:],OPEN['branch'][-4:]))))
 ONE=[]; PH=[]; RD=[]; BR_=[]
 for t in OPEN.index:
     e=_ep_inside(t)
@@ -1022,16 +1059,20 @@ if DAYS:
         if _c.get('hash')==_dr_hash(_c['D']): _dr_keep=_c['D']; _dr_rows=_c['rows']
     except Exception: _dr_keep=None
 DV=[]; DR=[]; DP=[]; DB=[]; DD=[]; _dr_new={}; _n_reused=0
+_c1chg=C1021_DAILY['reading'].diff().fillna(1.0)!=0
+DAYS=sorted(set(C1021_DAILY.index[_c1chg.values].tolist())|{pd.Timestamp(e[k]) for e in epis for k in ('open_pub','close_pub') if e.get(k)}|{C1021_DAILY.index[-1]}); DAYS=[d for d in DAYS if pd.Timestamp('1948-01-01')<=d<=pd.Timestamp(today)]
+_dr_keep=None   # C1021 (1022): the daily line is C1021's reading; nothing is reused from the v3.76 reading cache
 for d in DAYS:
     ins=_inside_day(d)
     if _dr_keep is not None and d<=_dr_keep and d in _dr_rows and _dr_rows[d][0]==ins: r,who=_dr_rows[d][1],_dr_rows[d][2]; _n_reused+=1
-    else: r,who=_reading(PROP_R if ins else PROP_A,d)
-    if _D_new is not None and d<=_D_new: _dr_new[d]=(ins,r,who)
+    else:
+        _c1row=C1021_DAILY[C1021_DAILY.index<=d]; r=float(_c1row['reading'].iloc[-1]) if len(_c1row) else np.nan; who=str(_c1row['branch'].iloc[-1]) if len(_c1row) else ''   # C1021 (1022)
+    if False and _D_new is not None and d<=_D_new: _dr_new[d]=(ins,r,who)
     if np.isnan(r): continue
     r=float(max(0.0,r))
     DD.append(d); DR.append(r); DB.append(who); DP.append('open' if ins else '')
     DV.append(float(max(1.0,r)) if ins else float(min(0.99,r)))
-if _D_new is not None:
+if False and _D_new is not None:   # C1021 (1022): no v3.76 daily cache is written
     try: _pk0.dump({'D':_D_new,'hash':_dr_hash(_D_new),'rows':_dr_new},open(_DRP+'.tmp','wb')); os.replace(_DRP+'.tmp',_DRP)
     except Exception: pass
 print('daily readings: %d days, %d reused%s'%(len(DAYS),_n_reused,(' (kept through %s)'%_dr_keep.date()) if _dr_keep is not None else ' (no kept readings matched: every day read)'))
@@ -1205,37 +1246,60 @@ def add(side,name,series,line,through=None,nxt=''):
     if isinstance(nxt,int): nxt=nxt_claims(dt,nxt)
     elif nxt=='survey': nxt=nxt_survey(dt)
     R.append(dict(side=side,object=name,reading=round(v,4),line=line,ratio=round(v/line,3) if line else None,through=through or dt,next=nxt))
-add('open',f"insured rate, rise above its {p['look']}-week low"+(' (co-signed within 0.2 of the line)' if COS else ''),RAW['U']*p['u45'],p['u45'],nxt=nxt_claims(lastv(RAW['U'])[1],19))
-add('open','insured rate, rise above its 52-week low',RAW['L']*p['low'],p['low'],nxt=nxt_claims(lastv(RAW['L'])[1],19))
-add('open',('initial claims, 4-week mean above its base (the higher of its 52-week low and 85% of its 5-year median), percent' if 'ALPHA' in globals() else 'initial claims, 4-week mean above its 52-week low, percent')+(' (co-signed within 15 of the line)' if COS else ''),RAW['I']*p['ic'],p['ic'],nxt=12)
-if COS: add('open','household co-signer: 3-month average unemployment rate above its 12-month low, as last published (signs a near-line insured-rate or claims proposal)',g_asof.dropna(),COS_THR,nxt=first_fri(today))   # v3.76 (438): the gap the gate signs with (release-day vintage)
-add('open',f"Sahm gap (three-month average unemployment rate above its twelve-month low, as it stood on the release day; it "
-            f"proposes only with the vacancy rate {p['vl']:g} or more off its 4-month high in two of the prior {p['hback']:g} months)",
-    RAW['X']*p['sahm'],p['sahm'],nxt=first_fri(today))   # v3.71d (22 September 2026): the vacancy condition and its look-back, from the rule
-add('open',f'sudden stop: one week of initial claims above the claims base, percent (fires with the S&P 500 {KC[1]} percent under its 20-day high)',gKr*KC[0],float(KC[0]),nxt=12)
-_TNAME={'unemp':'"unemployment"','layoffs':'"layoffs"','laidoff':'"laid off"'}
-for _tag,(_tdd,_tgg,_trel) in (GT_TERMS.items() if 'GT_TERMS' in globals() else ([('unemp',(GT_DAY,GT7,GT_REL))] if 'GT_REL' in globals() else [])):
-    add('open',f'sudden stop: the search week - 7-day mean of Google searches for {_TNAME.get(_tag,_tag)} above its base, percent (fires with the S&P 500 20 percent under its 20-day high at that day\'s close; known the next morning; the earliest term fires)',_trel.dropna(),float(KC[0]),nxt='daily')
-_crd=((1-_SPX/_SPX.rolling(20,min_periods=10).max())*100).dropna()     # the market gate at the latest close (the search week reads the day's close; the claims week the close before its release)
-add('open',f'sudden stop: S&P 500 below its high of the prior twenty trading days, percent, at the latest close (the claims week reads the close before its release, the search week the day\'s close)',_crd,float(KC[1]),nxt='daily')
-# v3.63 (Core v7-W, collection 289): the activity opener's four objects, as s2/activity_opener.py read them for this build
-if _AO_ST.get('reading'):
-    _aor=_AO_ST['reading']; _aol=_AO_ST.get('lines') or {}
-    add('open','activity opener: industrial production as published, below its high of the prior twelve months, log points (one of four conditions, with the S&P 500 %g percent below its 250-day high, the policy rate %g point above its 365-day low and state breadth at %g percent; the cell and gate the causal walk from 1948 chose)'%(100*_aol.get('market',0.10),_aol.get('tightening',0.10),100*_aol.get('breadth_share',0.33)),pd.Series([100*_aor['production_fall12']],index=[pd.Timestamp(_aor['production_vintage'])]),100*_aol.get('production',0.02),nxt=_ao_next())
-    add('open','activity opener: S&P 500 below its high of the prior 250 trading days, log percent, at the latest close',pd.Series([100*_aor['market_drawdown']],index=[pd.Timestamp(_aor['market_close_date'])]),100*_aol.get('market',0.10),nxt='daily')
-    if 'policy_rise' in _aor:
-        add('open','activity opener: the policy rate above its low of the prior 365 days, points (the FOMC target range\'s upper limit, FRED DFEDTARU)',pd.Series([float(_aor['policy_rise'])],index=[pd.Timestamp(_aor['policy_date'])]),_aol.get('tightening',0.10),nxt=_AO_ST.get('next_fomc') or '')
-    if 'breadth_share' in _aor:
-        add('open','activity opener: state breadth, the share of states with the insured-rate proxy 0.45 point above its twelve-month low, in the latest month public (the gate)',pd.Series([float(_aor['breadth_share'])],index=[pd.Timestamp(_aor['breadth_month']+'-01')]),_aol.get('breadth_share',0.33),through=_aor['breadth_month'],nxt=_AO_ST.get('next_breadth_publication') or '')
-if gW is not None: add('open',f"survey-week insured rate, rise above its 52-week low (branch W, line {p['wline']})",RAW['W']*p['wline'],p['wline'],nxt='survey')
-if gV is not None: add('open',f"survey-week insured rate, rise above its 52-week low (branch V, line {p['wline2']})",RAW['V']*p['wline2'],p['wline2'],nxt='survey')
-if gB is not None: add('open','state breadth, share of states with the insured rate 0.20 above its 52-week low',RAW['B']*p['bshare'],p['bshare'],nxt=19)
-add('confirm','vacancy rate, 4-month mean below its 4-month maximum (openings as they stood on the JOLTS release day)',cV*p['vl'],p['vl'],nxt='JOLTS, next release')
-add('confirm','hours pair (factory hours 2% off their 12-month high and nondurable jobs -1.2% over 3 months, as they stood on the release day; 1 = both)',cH,1.0,nxt=first_fri(today))
-add('confirm',('housing x rate pair (starts or building permits 29 log points below their 12-month high, and the unemployment rate 0.4 above its 18-month low, each as it stood on its release day; 1 = both halves at their lines)' if 'mkpair_either_asof' in globals() else 'housing x rate pair (starts and the unemployment rate, each as it stood on its release day; 1 = both halves at their lines)'),cP*p['hline'],p['hline'],nxt='housing starts, next release')
-add('confirm',f"starts x vacancy pair (starts {p['starts']:g} log points below their 12-month high and the vacancy rate {p['vl']:g} off its "
-                f"4-month high; 1 = both)",cSV,1.0,nxt='housing starts, next release')   # v3.71d (22 September 2026): the lines are the rule's, not constants
-add('confirm','paper spread (the wider of AA financial and AA nonfinancial 30-day paper over the 3-month bill), 13-week mean above its 39-week low, points',cS*p['spr'],p['spr'],nxt='H.15 week, next posting')
+_CV=C1021['values']; _nxj=first_fri(today)
+def _c1sched(series):   # the published schedule (cache/release_schedule.csv) when it reaches past today
+    try:
+        c=pd.read_csv('cache/release_schedule.csv'); c=c[c['series']==series]; d=pd.to_datetime(c['release_date'],errors='coerce').dropna(); d=d[d>pd.Timestamp(today)]
+        return d.min().date().isoformat() if len(d) else None
+    except Exception: return None
+def _nxg17():   # the G.17's next release day: the published schedule, else the first weekday on or after the 16th
+    return _c1sched('INDPRO') or _ao_next()
+def _c1row(name,val,line,through,nxt,kind):
+    R.append(dict(side='open',object=name,reading=(None if val is None else round(float(val),4)),line=line,ratio=(None if (val is None or not line) else round(float(val)/line,3)),through=through,next=nxt,next_kind=kind))
+_c1row('route: insured unemployment (not seasonally adjusted, 4-week sum) above the same weeks a year earlier, log points (on at 0; first prints, known on the release day)',_CV['I4'].get('yoy_log_pts_4wk'),0,_CV['I4'].get('week'),nxt_claims(_CV['I4'].get('week'),12),'claims')
+_c1row('route: job openings (JOLTS) growing slower than initial claims - openings year-on-year less claims 4-week NSA year-on-year, points (on below 0; passes while no openings print stands)',(None if _CV['HW'].get('jolts_yoy_pct') is None or _CV['HW'].get('claims_4wk_yoy_log_pts') is None else _CV['HW']['jolts_yoy_pct']-_CV['HW']['claims_4wk_yoy_log_pts']),0,_CV['HW'].get('jolts_month'),'JOLTS, next release','jolts')
+_c1row('route: S&P 500 against its close 365 days earlier, percent (on when below a year ago on any of the last 25 days)',_CV['SY'].get('yoy_pct'),0,_CV['SY'].get('sp_last_day'),'daily','daily')
+_c1row('route: industrial production, the newest G.17 print, against its high of the prior 12 months, percent (on below 0)',_CV['IP'].get('pct_below_high'),0,_CV['IP'].get('month'),_nxg17(),'g17')
+_c1row("route: Moody's Baa yield, monthly average, above its low of the prior 12 months, points (on above 0; known the 7th of the next month)",_CV['BAA'].get('pp_above_low'),0,_CV['BAA'].get('month'),(pd.Timestamp(_CV['BAA']['month']+'-01')+pd.DateOffset(months=2)).replace(day=7).date().isoformat(),'month')
+_c1row('route: unemployment rate, the two-month average against its level three months earlier, points (on at 0.3; at 0.2 with payrolls below their high; the newest Employment Situation vintage)',_CV['HH'].get('two_month_rise'),0.3,_CV['HH'].get('month'),_nxj,'jobs')
+_c1row('route: payrolls, the newest print, below their high of the prior 12 months, thousands (on above 0 with the month down on the last)',_CV['P'].get('thousands_below_high'),0,_CV['P'].get('month'),_nxj,'jobs')
+_c1row("count door: the unemployed count's first print against the highest of the prior 12 months' first prints, thousands (on at 0 or above)",(None if _CV['CNT'].get('max_prior_12_first_prints') is None else _CV['CNT']['first_print']-_CV['CNT']['max_prior_12_first_prints']),0,_CV['CNT'].get('month'),_nxj,'jobs')
+_c1row('count door: initial or insured claims, seasonally adjusted in real time, 4-week mean against its highest print of the prior 365 days, ratio (on at 1)',_CV['CHI'].get('ratio_to_365d_max'),1.0,_CV['CHI'].get('ic_week'),nxt_claims(_CV['CHI'].get('ic_week'),5),'claims')
+_c1row('fed-shock door: the effective federal funds rate, monthly average, rise over the previous month, points (on at 1.5; known the day after month end)',_CV['FS'].get('rise_pp'),1.5,_CV['FS'].get('month'),(pd.Timestamp(_CV['FS']['month']+'-01')+pd.DateOffset(months=2)).replace(day=1).date().isoformat(),'month')
+_c1row('job-losers door: unemployed job losers, the first print against a year earlier, log points (on at 15 while the 10-year minus 1-year Treasury spread was negative in any of the prior 12 months)',_CV['JL'].get('yoy_log_pts'),15.0,_CV['JL'].get('month'),_nxj,'jobs')
+_c1row("job-losers door's witness: the 10-year minus 1-year Treasury spread, monthly average, points (the door is armed while negative in any of the prior 12 months)",(_CV['JL'].get('spread_last') or {}).get('gs10_minus_gs1'),0,(_CV['JL'].get('spread_last') or {}).get('month'),(pd.Timestamp((_CV['JL'].get('spread_last') or {}).get('month','2026-01')+'-01')+pd.DateOffset(months=2)).replace(day=1).date().isoformat(),'month')
+if False:   # C1021 (1022): v3.76's opener and confirmer rows
+    add('open',f"insured rate, rise above its {p['look']}-week low"+(' (co-signed within 0.2 of the line)' if COS else ''),RAW['U']*p['u45'],p['u45'],nxt=nxt_claims(lastv(RAW['U'])[1],19))
+    add('open','insured rate, rise above its 52-week low',RAW['L']*p['low'],p['low'],nxt=nxt_claims(lastv(RAW['L'])[1],19))
+    add('open',('initial claims, 4-week mean above its base (the higher of its 52-week low and 85% of its 5-year median), percent' if 'ALPHA' in globals() else 'initial claims, 4-week mean above its 52-week low, percent')+(' (co-signed within 15 of the line)' if COS else ''),RAW['I']*p['ic'],p['ic'],nxt=12)
+    if COS: add('open','household co-signer: 3-month average unemployment rate above its 12-month low, as last published (signs a near-line insured-rate or claims proposal)',g_asof.dropna(),COS_THR,nxt=first_fri(today))   # v3.76 (438): the gap the gate signs with (release-day vintage)
+    add('open',f"Sahm gap (three-month average unemployment rate above its twelve-month low, as it stood on the release day; it "
+                f"proposes only with the vacancy rate {p['vl']:g} or more off its 4-month high in two of the prior {p['hback']:g} months)",
+        RAW['X']*p['sahm'],p['sahm'],nxt=first_fri(today))   # v3.71d (22 September 2026): the vacancy condition and its look-back, from the rule
+    add('open',f'sudden stop: one week of initial claims above the claims base, percent (fires with the S&P 500 {KC[1]} percent under its 20-day high)',gKr*KC[0],float(KC[0]),nxt=12)
+    _TNAME={'unemp':'"unemployment"','layoffs':'"layoffs"','laidoff':'"laid off"'}
+    for _tag,(_tdd,_tgg,_trel) in (GT_TERMS.items() if 'GT_TERMS' in globals() else ([('unemp',(GT_DAY,GT7,GT_REL))] if 'GT_REL' in globals() else [])):
+        add('open',f'sudden stop: the search week - 7-day mean of Google searches for {_TNAME.get(_tag,_tag)} above its base, percent (fires with the S&P 500 20 percent under its 20-day high at that day\'s close; known the next morning; the earliest term fires)',_trel.dropna(),float(KC[0]),nxt='daily')
+    _crd=((1-_SPX/_SPX.rolling(20,min_periods=10).max())*100).dropna()     # the market gate at the latest close (the search week reads the day's close; the claims week the close before its release)
+    add('open',f'sudden stop: S&P 500 below its high of the prior twenty trading days, percent, at the latest close (the claims week reads the close before its release, the search week the day\'s close)',_crd,float(KC[1]),nxt='daily')
+    # v3.63 (Core v7-W, collection 289): the activity opener's four objects, as s2/activity_opener.py read them for this build
+    if _AO_ST.get('reading'):
+        _aor=_AO_ST['reading']; _aol=_AO_ST.get('lines') or {}
+        add('open','activity opener: industrial production as published, below its high of the prior twelve months, log points (one of four conditions, with the S&P 500 %g percent below its 250-day high, the policy rate %g point above its 365-day low and state breadth at %g percent; the cell and gate the causal walk from 1948 chose)'%(100*_aol.get('market',0.10),_aol.get('tightening',0.10),100*_aol.get('breadth_share',0.33)),pd.Series([100*_aor['production_fall12']],index=[pd.Timestamp(_aor['production_vintage'])]),100*_aol.get('production',0.02),nxt=_ao_next())
+        add('open','activity opener: S&P 500 below its high of the prior 250 trading days, log percent, at the latest close',pd.Series([100*_aor['market_drawdown']],index=[pd.Timestamp(_aor['market_close_date'])]),100*_aol.get('market',0.10),nxt='daily')
+        if 'policy_rise' in _aor:
+            add('open','activity opener: the policy rate above its low of the prior 365 days, points (the FOMC target range\'s upper limit, FRED DFEDTARU)',pd.Series([float(_aor['policy_rise'])],index=[pd.Timestamp(_aor['policy_date'])]),_aol.get('tightening',0.10),nxt=_AO_ST.get('next_fomc') or '')
+        if 'breadth_share' in _aor:
+            add('open','activity opener: state breadth, the share of states with the insured-rate proxy 0.45 point above its twelve-month low, in the latest month public (the gate)',pd.Series([float(_aor['breadth_share'])],index=[pd.Timestamp(_aor['breadth_month']+'-01')]),_aol.get('breadth_share',0.33),through=_aor['breadth_month'],nxt=_AO_ST.get('next_breadth_publication') or '')
+    if gW is not None: add('open',f"survey-week insured rate, rise above its 52-week low (branch W, line {p['wline']})",RAW['W']*p['wline'],p['wline'],nxt='survey')
+    if gV is not None: add('open',f"survey-week insured rate, rise above its 52-week low (branch V, line {p['wline2']})",RAW['V']*p['wline2'],p['wline2'],nxt='survey')
+    if gB is not None: add('open','state breadth, share of states with the insured rate 0.20 above its 52-week low',RAW['B']*p['bshare'],p['bshare'],nxt=19)
+    add('confirm','vacancy rate, 4-month mean below its 4-month maximum (openings as they stood on the JOLTS release day)',cV*p['vl'],p['vl'],nxt='JOLTS, next release')
+    add('confirm','hours pair (factory hours 2% off their 12-month high and nondurable jobs -1.2% over 3 months, as they stood on the release day; 1 = both)',cH,1.0,nxt=first_fri(today))
+    add('confirm',('housing x rate pair (starts or building permits 29 log points below their 12-month high, and the unemployment rate 0.4 above its 18-month low, each as it stood on its release day; 1 = both halves at their lines)' if 'mkpair_either_asof' in globals() else 'housing x rate pair (starts and the unemployment rate, each as it stood on its release day; 1 = both halves at their lines)'),cP*p['hline'],p['hline'],nxt='housing starts, next release')
+    add('confirm',f"starts x vacancy pair (starts {p['starts']:g} log points below their 12-month high and the vacancy rate {p['vl']:g} off its "
+                    f"4-month high; 1 = both)",cSV,1.0,nxt='housing starts, next release')   # v3.71d (22 September 2026): the lines are the rule's, not constants
+    add('confirm','paper spread (the wider of AA financial and AA nonfinancial 30-day paper over the 3-month bill), 13-week mean above its 39-week low, points',cS*p['spr'],p['spr'],nxt='H.15 week, next posting')
 add('close','initial claims 3-week mean, drop from its 26-week maximum, log points',pd.Series(_FI['drop'].values,index=_CW),float(D_),nxt=12)
 add('close','run of falling weeks',pd.Series(_FI['run'].values,index=_CW).astype(float),3.0,nxt=12)
 add('close','hump above the 52-week minimum, log points',pd.Series(_FI['amp'].values,index=_CW),20.0,nxt=12)
@@ -1295,6 +1359,11 @@ NEXT.append(dict(date=_h or _usual(lastv(MX)[1],2,17),what='Housing starts, Cens
 _e=_sched('UNRATE')
 if _e: NEXT[1]['date']=_e
 NEXT.append(dict(date=next((c['date'] for c in CAL if c['kind']=='h15'),'weekly'),what='H.15 week (commercial paper and bill rates), Federal Reserve, 4:15 PM ET on the first business day after the week'))
+NEXT=[n for n in NEXT if not n['what'].startswith(('Housing starts','H.15 week'))]   # C1021 (1022): starts and the paper spread are no longer read
+NEXT[1]['what']='Employment Situation (unemployment rate, payrolls, the unemployed count, job losers), BLS, 8:30 ET'
+NEXT.append(dict(date=_nxg17(),what='G.17 Industrial Production (the route\'s production pillar), Federal Reserve, 9:15 ET'))
+NEXT.append(dict(date=(pd.Timestamp(_CV['BAA']['month']+'-01')+pd.DateOffset(months=2)).replace(day=7).date().isoformat(),what='Baa yield, monthly average (FRED BAA), read the 7th of the next month'))
+NEXT.append(dict(date=(pd.Timestamp(_CV['FS']['month']+'-01')+pd.DateOffset(months=2)).replace(day=1).date().isoformat(),what='Federal funds effective rate, monthly average (FRED FEDFUNDS), and the 10-year and 1-year Treasury yields (GS10, GS1): the month\'s average known the day after month end'))
 NEXT.sort(key=lambda z:(0,z['date']) if len(z['date'])==10 else (1,z['date']))
 
 # ---- v3.71b (22 September 2026, collection 310): the H.15 and S&P 500 rows' texts made exact ----
@@ -1374,7 +1443,18 @@ _TSRC={'unemp':'"unemployment"','layoffs':'"layoffs"','laidoff':'"laid off"'}
 _TQ={'unemp':'unemployment','layoffs':'layoffs','laidoff':'laid%20off'}
 for _tg,(_a,_b,_r) in (GT_TERMS.items() if 'GT_TERMS' in globals() else []):
     FEEDS.append(dict(name=f'Search week: Google searches for {_TSRC.get(_tg,_tg)} (the sudden stop\'s second labour datum)',source='Google Trends, United States, daily index stitched onto one scale and extended each day',every="Daily - a day's index is complete when the day ends in UTC (8 PM ET in summer, 7 PM in winter), weekends included; read at every weekday close",through=_fthr(_r),next=_utc_day_end_next(),auto='yes',url='https://trends.google.com/trends/explore?date=today%203-m&geo=US&q='+_TQ.get(_tg,_tg),value=_fval(_r,'{:+.1f}',' per cent, the 7-day mean over its base (the line is 35)')))
-_FEED_IDS=[('Initial claims','ICSA, CCSA, IURSA'),('State insured','ETA 539 state insured rates'),('Unemployment rate, factory','UNRATE, AWHMAN, NDMANEMP, PAYEMS'),('Job openings','JTSJOL, CLF16OV'),
+FEEDS=[f for f in FEEDS if f['name'].startswith(('Initial claims','S&P 500','Real GDP','GDPNow','Sahm rule'))]   # C1021 (1022): the claims (route, count door, the closers), the market (route, count door, the closer's confirmation), the grade's two, the comparator
+for _f in FEEDS:
+    if _f['name'].startswith('Initial claims'): _f['name']='Initial claims and continued claims, seasonally adjusted and not (the route\'s insured-unemployment pillar, the count door\'s claims condition, the closer)'; _f['value']=_fval(ICfp,'{:,.0f}',' initial claims, week ending '+str(_fthr(ICfp)))
+    if _f['name'].startswith('S&P 500'): _f['name']='S&P 500 daily close (the market pillar: below its close a year earlier; a confirmation of the claims closer)'
+FEEDS[1:1]=[
+ dict(name='Unemployment rate, payrolls, the unemployed count, job losers (the household pillar, the payroll pillar, the count door, the job-losers door)',source='Bureau of Labor Statistics, Employment Situation (each month as first printed: ALFRED vintages UNRATE, PAYEMS, UNEMPLOY, LNS13023621)',every='Monthly - usually the first Friday, 8:30 AM ET',through=_CV['HH'].get('month'),next=_nxj,url='https://www.bls.gov/news.release/empsit.toc.htm',value=None,auto='yes'),
+ dict(name='Job openings (the help-wanted pillar: openings growing slower than claims)',source='Bureau of Labor Statistics, JOLTS (ALFRED JTSJOL, each month as first printed)',every='Monthly - about five weeks after the month, 10:00 AM ET',through=_CV['HW'].get('jolts_month'),next=_nxt('JOLTS'),url='https://www.bls.gov/jlt/',value=None,auto='yes'),
+ dict(name='Industrial production (the production pillar)',source='Federal Reserve, G.17 Industrial Production and Capacity Utilization (ALFRED INDPRO, each month as first printed)',every='Monthly - about the 16th, 9:15 AM ET',through=_CV['IP'].get('month'),next=_nxg17(),url='https://www.federalreserve.gov/releases/g17/current/',value=None,auto='yes'),
+ dict(name="Moody's Baa corporate bond yield, monthly average (the credit pillar)",source='Federal Reserve H.15 via FRED (BAA); read the 7th of the month after',every='Monthly - the month\'s average, posted by FRED on the first business day of the next month; read the 7th',through=_CV['BAA'].get('month'),next=(pd.Timestamp(_CV['BAA']['month']+'-01')+pd.DateOffset(months=2)).replace(day=7).date().isoformat(),url='https://fred.stlouisfed.org/series/BAA',value=None,auto='yes'),
+ dict(name='Effective federal funds rate, monthly average (the fed-shock door)',source='Federal Reserve H.15 via FRED (FEDFUNDS)',every='Monthly - the month\'s average, known the day after month end',through=_CV['FS'].get('month'),next=(pd.Timestamp(_CV['FS']['month']+'-01')+pd.DateOffset(months=2)).replace(day=1).date().isoformat(),url='https://fred.stlouisfed.org/series/FEDFUNDS',value=None,auto='yes'),
+ dict(name="10-year and 1-year Treasury yields, monthly averages (the job-losers door's witness: the spread negative in any of the prior 12 months)",source='Federal Reserve H.15 via FRED (GS10, GS1)',every='Monthly - the month\'s averages, known the day after month end',through=(_CV['JL'].get('spread_last') or {}).get('month'),next=(pd.Timestamp((_CV['JL'].get('spread_last') or {}).get('month','2026-01')+'-01')+pd.DateOffset(months=2)).replace(day=1).date().isoformat(),url='https://fred.stlouisfed.org/series/GS10',value=None,auto='yes')]
+_FEED_IDS=[('Initial claims','ICSA, CCSA, ICNSA, CCNSA'),('Unemployment rate, payrolls','UNRATE, PAYEMS, UNEMPLOY, LNS13023621'),('Job openings (the help','JTSJOL'),('Industrial production (the production','INDPRO'),("Moody's Baa",'BAA'),('Effective federal funds','FEDFUNDS'),('10-year and 1-year','GS10, GS1'),('State insured','ETA 539 state insured rates'),('Unemployment rate, factory','UNRATE, AWHMAN, NDMANEMP, PAYEMS'),('Job openings','JTSJOL, CLF16OV'),
            ('Housing starts','HOUST, PERMIT'),('Commercial paper','DCPF1M, DCPN30, WTB3MS'),('S&P 500','^GSPC'),('Sahm rule','SAHMREALTIME'),('Industrial production','INDPRO'),('Federal funds target','DFEDTARU'),('State continued weeks','ETA 539'),('State unemployment rates','LAUS state rates (51)'),('Real GDP','GDPC1'),('GDPNow','GDPNOW')]   # GDPC1, GDPNOW, PAYEMS: v3.73
 from zoneinfo import ZoneInfo as _ZI0
 _now_et=datetime.datetime.now(_ZI0('America/New_York'))
@@ -1403,21 +1483,25 @@ def _last_vint(sid):
 _RAWF={'ICSA':(lambda: _last_num(os.path.join(_D0,'ICSA.csv')),'{:,.0f}'),'CCSA':(lambda: _last_num(os.path.join(_D0,'CCSA.csv')),'{:,.0f}'),'IURSA':(lambda: _last_num(os.path.join(_D0,'IURSA.csv')),'{:.1f}'),
  'UNRATE':(lambda: _last_vint('UNRATE'),'{:.1f}'),'AWHMAN':(lambda: _last_vint('AWHMAN'),'{:.1f}'),'NDMANEMP':(lambda: _last_vint('NDMANEMP'),'{:,.0f}'),
  'PAYEMS':(lambda: _last_vint('PAYEMS'),'{:,.0f}'),'GDPC1':(lambda: _last_vint('GDPC1'),'{:,.1f}'),'GDPNOW':(lambda: _last_vint('GDPNOW'),'{:.2f}'),   # v3.73
+ 'UNEMPLOY':(lambda: _last_vint('UNEMPLOY'),'{:,.0f}'),'LNS13023621':(lambda: _last_vint('LNS13023621'),'{:,.0f}'),'ICNSA':(lambda: float(pd.read_csv(FIRSTPRINTS['file'] if FIRSTPRINTS.get('active') else os.path.join(_ROOT,'45_dol_first_prints_2026-09','national_first_prints.csv'),dtype=str)['icnsa'].replace('',np.nan).dropna().iloc[-1]),'{:,.0f}'),
+ 'CCNSA':(lambda: float(pd.read_csv(FIRSTPRINTS['file'] if FIRSTPRINTS.get('active') else os.path.join(_ROOT,'45_dol_first_prints_2026-09','national_first_prints.csv'),dtype=str)['iunsa'].replace('',np.nan).dropna().iloc[-1]),'{:,.0f}'),'INDPRO':(lambda: float(_CV['IP']['value']),'{:.4f}'),
+ 'BAA':(lambda: float(_CV['BAA']['value']),'{:.2f}'),'FEDFUNDS':(lambda: float(_CV['FS']['rate']),'{:.2f}'),'GS10':(lambda: float(pd.read_csv('cache/c1021/GS10.csv').iloc[-1,1]),'{:.2f}'),'GS1':(lambda: float(pd.read_csv('cache/c1021/GS1.csv').iloc[-1,1]),'{:.2f}'),   # C1021 (1022)
  'JTSJOL':(lambda: _last_vint('JTSJOL'),'{:,.0f}'),'CLF16OV':(lambda: _last_vint('CLF16OV'),'{:,.0f}'),'HOUST':(lambda: _last_vint('HOUST'),'{:,.0f}'),'PERMIT':(lambda: _last_vint('PERMIT'),'{:,.0f}'),
  'DCPF1M':(lambda: _last_num(os.path.join(_C25,'fred_daily','DCPF1M.csv')),'{:.2f}'),'DCPN30':(lambda: _last_num(os.path.join(_C25,'fred_daily','DCPN30.csv')),'{:.2f}'),'WTB3MS':(lambda: _last_num(os.path.join(_C25,'fred_weekly','WTB3MS.csv')),'{:.2f}'),
- '^GSPC':(lambda: lastv(_SPX)[0],'{:,.2f}'),'SAHMREALTIME':(lambda: _last_num('cache/SAHMREALTIME.csv'),'{:.2f}'),'INDPRO':(lambda: float((_AO_ST.get('reading') or {})['production_level']),'{:.4f}'),'DFEDTARU':(lambda: float((_AO_ST.get('reading') or {})['policy_rate']),'{:.2f}')}
+ '^GSPC':(lambda: lastv(_SPX)[0],'{:,.2f}'),'SAHMREALTIME':(lambda: _last_num('cache/SAHMREALTIME.csv'),'{:.2f}')}
 # the units, as the publisher states them (Anthony, 17 September 2026: "make sure the proper units are displayed for each datum")
 _UNITS_FEED={'ICSA':'claims, seasonally adjusted','CCSA':'claims, seasonally adjusted','IURSA':'percent, seasonally adjusted','UNRATE':'percent, seasonally adjusted','AWHMAN':'hours per week, seasonally adjusted',
  'NDMANEMP':'thousands of persons, seasonally adjusted','JTSJOL':'thousands of openings, seasonally adjusted','CLF16OV':'thousands of persons, seasonally adjusted','HOUST':'thousands of units, seasonally adjusted annual rate',
  'PERMIT':'thousands of units, seasonally adjusted annual rate','DCPF1M':'percent','DCPN30':'percent','WTB3MS':'percent','^GSPC':'index points','SAHMREALTIME':'percentage points','INDPRO':'index, 2017=100, seasonally adjusted','DFEDTARU':'percent',
- 'PAYEMS':'thousands of persons, seasonally adjusted','GDPC1':'billions of chained 2017 dollars, seasonally adjusted annual rate','GDPNOW':'percent change from the prior quarter, seasonally adjusted annual rate'}   # v3.73
+ 'PAYEMS':'thousands of persons, seasonally adjusted','GDPC1':'billions of chained 2017 dollars, seasonally adjusted annual rate','GDPNOW':'percent change from the prior quarter, seasonally adjusted annual rate',
+ 'UNEMPLOY':'thousands of persons, seasonally adjusted','LNS13023621':'thousands of persons, seasonally adjusted (job losers and persons who completed temporary jobs)','ICNSA':'claims, not seasonally adjusted','CCNSA':'claims, not seasonally adjusted','BAA':'percent','FEDFUNDS':'percent','GS10':'percent','GS1':'percent'}   # C1021 (1022)
 # audit-0924 (24 Sep 2026): the period of each series' latest value, printed beside its units when it is not the row's
 _WKY={'ICSA','CCSA','IURSA'}; _QTR={'GDPC1','GDPNOW'}
 def _series_last_date(x_):
     try:
         if x_ in _WKY:
             q_=pd.read_csv(os.path.join(_D0,x_+'.csv')); ok_=pd.to_numeric(q_.iloc[:,1],errors='coerce').notna(); return pd.Timestamp(q_[ok_].iloc[-1,0])
-        if x_ in ('UNRATE','AWHMAN','NDMANEMP','PAYEMS','GDPC1','GDPNOW','JTSJOL','CLF16OV','HOUST','PERMIT'):
+        if x_ in ('UNRATE','AWHMAN','NDMANEMP','PAYEMS','GDPC1','GDPNOW','JTSJOL','CLF16OV','HOUST','PERMIT','UNEMPLOY','LNS13023621','INDPRO'):
             t_=pd.read_csv(os.path.join(_AL0,x_+'_all_vintages.csv'),index_col=0); v_=pd.to_numeric(t_[t_.columns[-1]],errors='coerce').dropna(); return pd.Timestamp(v_.index[-1])
     except Exception: return None
     return None
@@ -1481,6 +1565,7 @@ for _f in FEEDS:
 # the readings table carries the same next-release days (they are computed after the readings, so patched here);
 # each row also says what kind of release moves it, so the page can roll the date forward by its own clock
 for r in R:
+    if r.get('next_kind') and r['next']!='JOLTS, next release': continue   # C1021 (1022): the door rows carry their own kind
     if r['next']=='JOLTS, next release': r['next']=next(n['date'] for n in NEXT if n['what'].startswith('JOLTS')); r['next_kind']='jolts'
     elif r['next']=='housing starts, next release': r['next']=next(n['date'] for n in NEXT if n['what'].startswith('Housing')); r['next_kind']='starts'
     elif r['next']=='daily': r['next_kind']='daily'
@@ -1488,7 +1573,8 @@ for r in R:
     elif r['next']==first_fri(today): r['next_kind']='jobs'
     else: r['next_kind']='claims'
 # the data inventory: each feed also carries the rule's own object, at the reading the readings table shows
-_FOBJ=[('Initial claims','initial claims, 4-week mean above its base'),
+_FOBJ=[('Initial claims','route: insured unemployment'),('Unemployment rate, payrolls','route: unemployment rate'),('Job openings (the help','route: job openings'),('Industrial production (the production','route: industrial production'),("Moody's Baa","route: Moody's Baa"),('Effective federal funds','fed-shock door'),('10-year and 1-year',"job-losers door's witness"),('S&P 500 daily close','route: S&P 500')]
+_FOBJ_OLD=[('Initial claims','initial claims, 4-week mean above its base'),
        ('State insured','state breadth, share of states'),
        ('Unemployment rate, factory hours','Sahm gap (three-month average'),
        ('Job openings','vacancy rate, 4-month mean'),   # v3.71e (22 September 2026): the object's own words, not the bare word
@@ -1655,15 +1741,15 @@ _th=state.get('through') or {}
 # rate a week more, the jobs report 41 (a December report on 10 January), JOLTS about 71, the H.15 week 10 (11 after a
 # Monday holiday), the close 4 over a long weekend, G.17 about 35. Past the limit a channel is stale; past twice, dark.
 _CH=[('initial and continued claims, insured unemployment rate (DOL weekly)',_th.get('claims'),13,'the states\' own ETA 539 weekly claims (published through federal shutdowns)',False),
-     ('insured unemployment rate as the proposers read it',_th.get('insured_rate'),20,'the states\' ETA 539 insured rates',False),
-     ('unemployment rate, factory hours, nondurable jobs (BLS Employment Situation)',_th.get('unemployment_rate'),45,'the Chicago Fed real-time unemployment forecast; ADP private payrolls (LSEG first prints)',True),
-     ('job openings (BLS JOLTS)',_th.get('vacancy'),80,'the Indeed Hiring Lab postings index',True),
-     ('paper and bill rates (Federal Reserve H.15)',_th.get('spread'),12,'FRED DCPN30, DCPF1M and DTB3 (the Federal Reserve is not shut in a shutdown)',False),
+     ('industrial production, the newest G.17 print (the production pillar)',_CV['IP'].get('vintage'),45,'the FRED current file of INDPRO (flagged: revised values)',False),
+     ("Moody's Baa yield, monthly average (the credit pillar)",_CV['BAA'].get('month'),45,'the daily DBAA series on FRED, averaged',True),
+     ('the effective federal funds rate, monthly average (the fed-shock door)',_CV['FS'].get('month'),40,'the daily DFF series on FRED, averaged',True),
+     ('the 10-year and 1-year Treasury yields, monthly averages (the job-losers witness)',(_CV['JL'].get('spread_last') or {}).get('month'),40,'the daily DGS10 and DGS1 series on FRED, averaged',True),
+     ('the unemployed count and job losers, first prints (the count door, the job-losers door)',_CV['CNT'].get('month'),45,'the Employment Situation PDF on bls.gov read by hand until ALFRED posts the vintage',True),
+     ('unemployment rate and payrolls, the newest Employment Situation vintage (the household and payroll pillars)',_th.get('unemployment_rate'),45,'the Chicago Fed real-time unemployment forecast; ADP private payrolls (LSEG first prints)',True),
+     ('job openings (BLS JOLTS; the help-wanted pillar)',_th.get('vacancy'),80,'the pillar passes while no openings print stands (HWNAN, the record\'s own rule)',True),
      ('S&P 500 close',_th.get('sp500'),5,'the official FRED SP500 close',False),
-     ('industrial production as published (Federal Reserve G.17)',(_AO_ST.get('reading') or {}).get('production_vintage'),45,'the FRED current file of INDPRO (flagged: revised values)',False),
-     ('the policy rate (FOMC target range, FRED DFEDTARU)',(_AO_ST.get('reading') or {}).get('policy_date'),10,'the FOMC statement on federalreserve.gov (the rate carried from the last reading until then)',False),
-     ('state breadth (ETA 539 continued weeks by state, over payrolls)',(_AO_ST.get('reading') or {}).get('breadth_month'),56,'the ETA 5159 monthly report (slower), then the last month read',True),   # v3.63
-     ('state unemployment rates, all 51 (BLS LAUS first prints; the second opener)',(SB_ST.get('through') or '')[:7] or None,56,'the states\' ETA 539 insured-rate acceleration, the share over 0.60 for the Sahm-gap share over 0.40 (collection 336; at most two months)',True)]   # collection 336
+     ]   # C1021 (1022): the policy-rate, state-breadth and state-rate channels of v3.76's openers are gone
 state['channels']=[]
 for _n,_l,_lim,_s,_mo in _CH:
     _a=_ch_age(_l,_mo) if _l else None
@@ -1738,6 +1824,58 @@ state['walk']=('Core v7-W, walked from 1948: the activity opener and the activit
 _wr=state.get('walked_record') or {}
 _wr['collections']='288 (the walk), 289 (the port), 291 (the walked closer), 292 (legs to core: tested, nothing added), 300 (the concurrence branch; K on the extended claims), 301 (the port, v3.68), 303 (official-recognition knowledge dates; the documented claims calendar; the port, v3.70), 304 (round 5: ties on closes and robustness, E22cb), 309 (the activity closer\'s jobs condition, E26), 310 (the tie in C\'s drop and the strong flow, E28 and E29; the port, v3.71), 311 (the second route to a 2024-type call: E31), 312 and 313 (the states\' first prints, 1994-2026; the port, v3.72)'
 state['walked_record']=_wr
+# ---- C1021 STATE TEXT (1022, 8 November 2026; Anthony: "make C1021 the new starter and it replaces ALL functions of the v3.76 starter
+# ---- on the website ... all things on the page must be updated to reflect version c1021"). The starter is C1021 (s2/c1021.py); the
+# ---- closers and the damage grade are v3.76's, untouched. The v3.76 starter's own blocks leave the state; the schema keeps walked_record.
+_C1DOOR={c['day']:c['door'] for c in (C1021.get('calls') or [])}
+_C1NAME={'route':'C1021 route: insured unemployment, help-wanted, market, production, credit, household and payroll pillars all on',
+         'door':'C1021 count door: the unemployed count at a 12-month high of first prints, claims seasonally adjusted in real time at a 365-day high, the market below a year earlier',
+         'FS':'C1021 fed-shock door: the federal funds rate up 1.5 points in a month',
+         'JL':'C1021 job-losers door: job losers up 15 log points on the year after an inverted curve'}
+def _c1br(day,fallback='C1021 starter'):
+    d=_C1DOOR.get(str(day)[:10]); return _C1NAME.get(d,'C1021 starter: '+str(d)) if d else fallback
+_BRANCH['C']='C1021 starter'
+for _lst in (state.get('episodes') or [], state.get('chronology') or []):
+    for _e in _lst:
+        if not isinstance(_e,dict): continue
+        if _e.get('open_pub'): _e['open_branch']=_c1br(_e['open_pub'])
+        if _e.get('close_pub'): _e['close_branch']='v3.76 labour closer'
+        if _e.get('kind')=='peak' or _e.get('type')=='peak': _e['branch']=_c1br(_e.get('date'))
+_s=state.get('standing') or {}
+if _s.get('state')=='open': _s['branch']=_c1br(_s.get('since'))
+elif _s.get('state')=='closed': _s['branch']='v3.76 labour closer'
+state['standing']=_s
+for _k in ('backstop_opener','activity_opener','concurrence_branch','state_breadth','claims_substitute','vacancy_bridge','payroll_backstop','diary_continued','leg_tier'):   # chronology_watch stays: the committee watch is not the starter's
+    state.pop(_k,None)   # sahm_other stays: the template hard-reads it (the Sahm comparator)
+state['version']='C1021'
+state['core']=('C1021: one starter, four ways in, all read on the release day from first prints. The route: seven pillars on the same day - insured '
+               'unemployment (NSA, 4-week sum) above a year earlier; job openings growing slower than initial claims (passes when no openings print stands); '
+               'the S&P 500 below its close a year earlier on any of the last 25 days; industrial production below its 12-month high; the Baa yield above '
+               'its 12-month low; the unemployment rate\'s two-month average 0.3 above the two months before (0.2 with payrolls falling); payrolls below '
+               'their 12-month high and below last month. The count door: the unemployed count\'s first print at a 12-month high of first prints, claims '
+               '(seasonally adjusted in real time) at a 365-day high of prints, the market below a year earlier. The fed-shock door: the funds rate up 1.5 '
+               'points in a month. The job-losers door: job losers up 15 log points on the year, after the 10-year minus 1-year spread was negative in any '
+               'of the prior 12 months. A call opens an episode when none stands and more than 183 days have passed since the last close. The closers '
+               'and the damage grade are v3.76\'s, unchanged.')
+state['walk']=('C1021 (collections 1016-1022, November 2026): the route and the count door walked blind from 1948 on first prints and release days '
+               '(1948-60 on the documented BLS and DOL release days, collections 962 and 1020); the fed-shock door from 1954 and the job-losers door from '
+               '1967 (the series begin there). 13 of 13 recessions since 1948 called (2024 by the job-losers door on 5 January 2024), no false alarm; '
+               'the plateau, noise, quiet-world and 78-world batteries 0 false alarms (RECORD-1021). Record cut 2024-07-01: every call after it is live.')
+state['realtime_note']=('C1021 (8 November 2026, collection 1022): the starter replaces the v3.76 labour core, activity opener, concurrence branch, state '
+                        'breadth and backstop on this page; their auto-updates are retired. The record shown is the record the site would have shown on the '
+                        'day, from first prints: 1948 +31, 1953 +74, 1957 -123, 1960 +44, 1969 -81, 1973 -121, 1980 -91, 1981 -60, 1990 -60, 2001 +6, '
+                        '2007 -59, 2020 +34, 2024 -55 days to the end of the peak month; zero false alarms. The closers (the labour closer and its '
+                        'confirmations) and the three-dimension damage grade are v3.76\'s (collections 310 and 327), read unchanged.')
+state['notes']=dict(vintage=('every monthly pillar - the unemployment rate, payrolls, the unemployed count, job losers, job openings, industrial '
+                             'production - is read within the vintage that stood on the day (ALFRED); weekly claims from the Department of Labor\'s '
+                             'first prints; the Baa yield, the funds rate and the Treasury yields are monthly averages known the day after month end '
+                             '(Baa read the 7th); the S&P 500 is never revised'),
+                    arithmetic='every pillar is a sign: on at or above its line; a reading equal to its line is at the line',
+                    doors='the route needs all seven pillars on the same release day; each door is its own call; any one opens the episode',
+                    closers='v3.76\'s labour closer and its confirmations, unchanged (collection 310)',
+                    damage='v3.76\'s three-dimension damage grade, unchanged (collection 327)')
+state['walked_record']=dict(first_cut=1948,record_cut=C1021.get('record_cut'),calls_in_record=len(C1021.get('calls') or []),live_calls=C1021.get('live_calls'),
+                            collections='1016 (C1016P), 1019 (C1019 = +FS), 1021 (C1021 = +JL), 1022 (the port)',note='every call dated to its own release day; no call is retrospective')
 # ---- R10 (24 September 2026, collection 372): the state's schema version, stamped and checked before the state is written; a port that
 # ---- drops a key the page or the ops readers need stops here, with the list, not on the reader's screen. s2/schema.py is the one place.
 import importlib.util as _iu372; _sp372=_iu372.spec_from_file_location('bhs_schema',os.path.join('s2','schema.py')); _schema372=_iu372.module_from_spec(_sp372); _sp372.loader.exec_module(_schema372)

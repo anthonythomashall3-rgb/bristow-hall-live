@@ -432,9 +432,30 @@ def _append_vintages(s):
     if added:
         tab.index.name='date'; tab.to_csv(path,na_rep=''); say(f'{s:14s} {added} vintage(s) appended, the last {new[-1]}: data through {tab.index[-1].date()}')
     _PULLED[s]=str(tab.index[-1].date())
-for s in ['PAYEMS','GDPC1','GDPNOW','INDPRO','PERMIT']:   # PERMIT from 781 (moved from _monthly_vintage above)
+for s in ['PAYEMS','GDPC1','GDPNOW','INDPRO','PERMIT','UNEMPLOY','LNS13023621','UNRATE','JTSJOL']:   # UNEMPLOY/LNS13023621 for C1021 (1022)   # PERMIT from 781 (moved from _monthly_vintage above)
     try: _append_vintages(s)
     except Exception as e: say(f'{s:14s} vintages NOT refreshed ({e})'); _FAILED.add(s)
+# ---- C1021 (1022, 8 November 2026): the NSA claims FIRST PRINTS the starter's I4 and HW pillars read, straight from ALFRED's
+# ---- initial releases of ICNSA (initial) and CCNSA (insured), appended to cache/c1021/claims_nsa_first_prints.csv. A week already
+# ---- in the file is never rewritten; a failed fetch leaves the file in hand (c1021.py then fills the newest weeks from FRED, labelled).
+try:
+    _cp='cache/c1021/claims_nsa_first_prints.csv'; os.makedirs('cache/c1021',exist_ok=True)
+    _cur=pd.read_csv(_cp) if os.path.exists(_cp) else pd.DataFrame(columns=['release_date','ic_week_ended','icnsa','iu_week_ended','iunsa'])
+    _add=[]
+    for _ser,_wk,_val in (('ICNSA','ic_week_ended','icnsa'),('CCNSA','iu_week_ended','iunsa')):
+        _have=set(pd.to_datetime(_cur[_wk],errors='coerce').dropna().dt.strftime('%Y-%m-%d'))
+        _last=max(_have) if _have else '1999-12-01'
+        _a=alfred_first(_ser,start=str((pd.Timestamp(_last)-pd.Timedelta(days=60)).date()))
+        for _d,_r in _a.iterrows():
+            _k=_d.strftime('%Y-%m-%d')
+            if _k in _have: continue
+            _row={'release_date':_r['release'],'ic_week_ended':'','icnsa':'','iu_week_ended':'','iunsa':''}; _row[_wk]=_k; _row[_val]=_r['first']; _add.append(_row)
+    if _add:
+        backup(_cp); _cur=pd.concat([_cur,pd.DataFrame(_add)],ignore_index=True)
+        _cur['_o']=pd.to_datetime(_cur['release_date'],errors='coerce'); _cur=_cur.sort_values('_o').drop(columns=['_o'])
+        _cur.to_csv(_cp,index=False); say(f'c1021 claims NSA first prints: {len(_add)} week(s) appended (ICNSA/CCNSA initial releases)')
+    else: say('c1021 claims NSA first prints: unchanged')
+except Exception as e: say(f'c1021 claims NSA first prints NOT refreshed ({e})'); _FAILED.add('CLAIMS_NSA_FIRST')
 # ---- v3.73 (23 September 2026, collection 333; collection 330): THE INDEED POSTINGS INDEX, the vacancy channel's bridge through a JOLTS-dark spell. Keyless, from the
 # ---- Hiring Lab's GitHub; the file in hand stands when the fetch fails or answers with something that is not the index.
 try:

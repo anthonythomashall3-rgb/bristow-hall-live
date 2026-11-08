@@ -112,14 +112,22 @@ WHAT={'claims':'Weekly claims (initial claims, continued claims, insured unemplo
       'JTSJOL':'JOLTS (job openings), BLS','HOUST':'Housing starts (New Residential Construction), Census',
       'h15':'H.15 selected interest rates for the week just ended (commercial paper and bill rates), Federal Reserve'}
 KIND={'claims':'claims','UNRATE':'jobs','JTSJOL':'jolts','HOUST':'starts','h15':'h15','g17':'production'}
-WHAT['g17']='G.17 Industrial Production and Capacity Utilization (industrial production, as the activity opener reads it), Federal Reserve'   # v3.60 (collection 278)
+WHAT['g17']='G.17 Industrial Production and Capacity Utilization (the route\'s production pillar), Federal Reserve'   # C1021 (1022)
+WHAT['UNRATE']='Employment Situation (unemployment rate, payrolls, the unemployed count, job losers), BLS'   # C1021 (1022)
+WHAT.pop('h15',None); WHAT.pop('HOUST',None)   # C1021 (1022): the H.15 week and housing starts are not read by C1021; off the page's calendar
+WHAT['month']='Month-end averages: the effective federal funds rate (the fed-shock door) and the 10-year and 1-year Treasury yields (the job-losers door\'s witness), FRED, the first weekday after month end'
+WHAT['baa']='Moody\'s Baa yield, monthly average (the route\'s credit pillar), FRED, read the 7th of the month'
+TIMES['month']='16:15'; TIMES['baa']='16:15'; KIND['month']='month'; KIND['baa']='baa'; NAMES['month']='month-end averages (FRED, 4:15 PM ET)'; NAMES['baa']='Baa monthly average (FRED, 4:15 PM ET)'
 NAMES['g17']='G.17 industrial production (Federal Reserve, 9:15 ET)'
 # ask 59 (24 Sep 2026, ops-0924): v3.73 put GDPC1 and GDPNOW on the calendar without release times, and every run of this scheduler
 # stopped at KeyError 'GDPNOW'. GDPC1 (BEA, 8:30 ET) gets its time; a series with no set time (GDPNOW posts when the
 # Atlanta Fed reruns its model; the hourly refresh reads it) is skipped by the job's slots instead of crashing them.
 TIMES['GDPC1']='08:30'; NAMES['GDPC1']='GDP (BEA, 8:30 ET)'
 def _g17_days():
-    # the release days s2/activity_opener.py read from FRED's calendar (release 13); none when the file is absent
+    # C1021 (1022): the G.17 release days from cache/release_schedule.csv (INDPRO, FRED release 13, fetched by bhs_calendar_fetch.py);
+    # the retired activity opener's file is read only if the schedule has none
+    out={d for d,ss in dated().items() if 'INDPRO' in ss}
+    if out: return out
     try:
         import json as _j
         return {datetime.date.fromisoformat(d) for d in _j.load(open(os.path.join(HERE,'out','activity_opener_state.json'))).get('g17_dates',[])}
@@ -141,9 +149,11 @@ def events(day):
         earlier=[day-datetime.timedelta(days=i) for i in range(1,day.weekday()+1)]
         if all(e in federal_holidays(e.year) for e in earlier): out.append(('h15',False))
     ds=dated(); dt=dated_through()
-    for s in sorted(ds.get(day,())): out.append((s,False))
+    for s in sorted(ds.get(day,())):
+        if s in ('INDPRO','HOUST'): continue   # C1021 (1022): INDPRO is the g17 event below; housing starts are not read by C1021
+        out.append((s,False))
     if dt is None or day>dt:
-        for kind in ('UNRATE','HOUST','JTSJOL'):
+        for kind in ('UNRATE','JTSJOL'):   # C1021 (1022): housing starts are not read
             for back in (1,2,3):
                 y,m=day.year,day.month
                 for _ in range(back):
@@ -162,6 +172,10 @@ def events(day):
     out.append(('hourly',False))
     # the EIA weekly petroleum report, Wednesday 10:30 ET
     if day.weekday()==2: out.append(('eiaw',False))
+    # C1021 (1022): the month's averages (FEDFUNDS, GS10, GS1) are complete on the first weekday after month end; Baa is read the 7th
+    if day.day<=3 and day.weekday()<5 and all((day-datetime.timedelta(days=i)).weekday()>=5 or (day-datetime.timedelta(days=i)).month!=day.month for i in range(1,day.day)): out.append(('month',False))
+    if day.day==7 or (day.day in (8,9) and all((day-datetime.timedelta(days=i)).weekday()>=5 for i in range(1,day.day-6))):
+        if day.weekday()<5: out.append(('baa',False))
     # v3.60 (Core v6): G.17 industrial production, 9:15 ET, on the days FRED's release calendar gives
     if day in _g17_days(): out.append(('g17',False))
     return out

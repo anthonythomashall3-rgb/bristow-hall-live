@@ -41,6 +41,7 @@ def prev_month(d):
     f=d.replace(day=1)-datetime.timedelta(days=1); return f.replace(day=1)
 def ref_month(kind,d):
     if kind in ('UNRATE','HOUST'): return prev_month(d)
+    if kind=='INDPRO': return prev_month(d)   # C1021 (1022): the G.17's reference month is the month before the release
     if kind in ('GDPC1','GDPNOW'):   # v3.73: the reference quarter's first month - the quarter before the day's quarter (GDPNow: the current quarter once the advance estimate is out)
         q=datetime.date(d.year,3*((d.month-1)//3)+1,1)
         if kind=='GDPNOW' and not (d.month%3==1 and d.day<=29): return q
@@ -59,7 +60,7 @@ if os.path.exists(SCHED):
         if r.get('source','').startswith('FRED') and datetime.date.fromisoformat(r['release_date'])<since: continue   # past FRED rows: the vintage record has them
         existing[(r['series'],r['reference_month'])]=r
 added=0; report=[]
-for kind,rid in (('UNRATE',50),('JTSJOL',192),('HOUST',27),('GDPC1',53),('GDPNOW',386)):   # v3.73 feeds (23 September 2026, collection 333): GDP (release 53) and GDPNow (386), every scheduled day kept
+for kind,rid in (('UNRATE',50),('JTSJOL',192),('HOUST',27),('GDPC1',53),('GDPNOW',386),('INDPRO',13)):   # INDPRO (G.17, release 13): C1021's production pillar (1022)   # v3.73 feeds (23 September 2026, collection 333): GDP (release 53) and GDPNow (386), every scheduled day kept
     ds=fred_dates(rid); fut=[d for d in ds if d>=since]
     report.append('%s: FRED lists %d dates, %d from a week ago on, last %s'%(kind,len(ds),len(fut),ds[-1].isoformat() if ds else 'none'))
     for d in fut:

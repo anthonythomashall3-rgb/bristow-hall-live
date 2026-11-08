@@ -119,50 +119,37 @@ early=0
 for a in S['announcements']:
     ref=a['peak']; day=datetime.date.fromisoformat(a['rule_open'])
     if day<=mend(ref): early+=1
-chk('speed panel: calls before the end of the peak month',early,10)   # v3.68 (22 Sep 2026, collection 301): ten - 1960 now -5 (the concurrence branch); 1953 +31, 2020 +12, 2024 +3 after it | v3.63 (Core v7-W, 21 Sep 2026): nine of thirteen - 1953 +31, 1960 +122, 2020 +12 and 2024 +3 are after it   # v3.57 (walk97, 20 Sep 2026): seven of nine - the core alone calls 2020 twelve days and 2024 three days after the peak month ended (v3.55: nine, with legs back-dated)
+chk('speed panel: calls before the end of the peak month',early,8)   # C1021 (1022): eight - 1957, 1969, 1973, 1980, 1981, 1990, 2007, 2024 before the end of the peak month; 1948 +31, 1953 +74, 1960 +44, 2001 +6, 2020 +34 after it   # v3.68 (22 Sep 2026, collection 301): ten - 1960 now -5 (the concurrence branch); 1953 +31, 2020 +12, 2024 +3 after it | v3.63 (Core v7-W, 21 Sep 2026): nine of thirteen - 1953 +31, 1960 +122, 2020 +12 and 2024 +3 are after it   # v3.57 (walk97, 20 Sep 2026): seven of nine - the core alone calls 2020 twelve days and 2024 three days after the peak month ended (v3.55: nine, with legs back-dated)
 chk('speed panel: thirteen episodes',len(S['announcements']),13)   # v3.63: the walked record from 1948
 chk('record: no close is retrospective (every close walked, v3.64)',[e['close_pub'] for e in S['episodes'] if e.get('close_basis')=='retrospective'],[])
-_aor=(S.get('activity_opener') or {}).get('reading') or {}
-chk('activity opener: all four legs read this build',[k for k in ('production_fall12','market_drawdown','policy_rise','breadth_share') if k not in _aor],[])
+# ---- C1021 (1022, 8 November 2026): the starter's record, every open on its own release day; the closes are v3.76's, unchanged
+_C1OPENS=['1948-12-31','1953-10-13','1957-04-30','1960-06-13','1969-10-11','1973-08-01','1979-11-01','1981-06-01','1990-06-01','2001-04-06','2007-11-02','2020-04-03','2024-01-05']
+_C1CLOSES=['1949-10-28','1954-06-03','1958-05-23','1961-01-30','1970-12-24','1975-05-01','1980-07-09','1982-11-15','1991-04-25','2001-11-21','2009-06-18','2020-05-07','2024-09-26']
+chk('C1021: the thirteen opens are the record\'s (RECORD-1021)',[e['open_pub'] for e in S['episodes']][:13],_C1OPENS)
+chk('C1021: the thirteen closes are v3.76\'s, unchanged',[e.get('close_pub') for e in S['episodes']][:13],_C1CLOSES)
+chk('C1021: every open names its door',[e['open_pub'] for e in S['episodes'] if not str(e.get('open_branch','')).startswith('C1021')],[])
+chk('C1021: the state says version C1021',S.get('version'),'C1021')
+chk('C1021: the starter ran today (out/c1021_state.json)',(json.load(open('out/c1021_state.json')).get('today') or {}).get('day') if os.path.exists('out/c1021_state.json') else None,str(S.get('built'))[:10])
+chk('C1021: the v3.76 starter\'s blocks have left the state',[k for k in ('backstop_opener','activity_opener','concurrence_branch','state_breadth','claims_substitute','vacancy_bridge','payroll_backstop') if k in S],[])
+chk('C1021: the record\'s three heights with the C1021 opens (2007-09 5.8, 2020 5.3, 2024 1.8)',[e.get('damage_score') for e in S['episodes'] if e.get('open_month') in ('2007-11','2020-04','2024-01')],[5.8,5.3,1.8])
 # ---- 6. the data page's leg channels (17 September 2026): every leg the rule arms has a status, every listed channel has a day it is in hand through
 _lf=S.get('leg_feeds',[]); _ls=S.get('leg_status',{}); _L=S['lines']
 chk('state: no leg-tier keys and no leg labels (v3.64)',[k for k in S if 'leg' in k]+sorted({k for e in S['episodes'] for k in e if k.endswith('_leg')})+(['standing'] if 'leg' in (S.get('standing') or {}) else []),[])
 chk('state: nothing from the frozen rule (v3.65)',[k for k in ('frozen_episodes','opening','closing') if k in S],[])
 chk('speed panel: the four carry no announcement day (v3.66)',[a['peak'] for a in S['announcements'] if a['peak'] in ('1948-11','1953-07','1957-08','1960-04') and (a.get('peak_ann') or a.get('trough_ann'))],[])
-_Y='concurrence branch: a labour proposal with the activity picture'   # v3.68 (22 September 2026, collections 300 and 301)
-chk('v3.68: 1960 opened 1960-04-25 by the concurrence branch',[(e['open_pub'],e.get('open_branch')) for e in S['episodes'] if str(e.get('open_pub','')).startswith('1960')],[('1960-04-25',_Y)])
 # v3.71 (22 September 2026, collection 310): E29 - the five events that moved and today's two lines
 _ep=lambda o:[(e.get('open_pub'),e.get('close_pub'),e.get('close_branch')) for e in S['episodes'] if str(e.get('open_pub','')).startswith(o)]
-chk('v3.71: 1948-49 closed 1949-10-28 by the activity closer (E26, the jobs condition)',_ep('1948-09-27'),[('1948-09-27','1949-10-28','activity closer')])
-chk('v3.71: 1953-54 closed 1954-06-03 by the labour core closer',_ep('1953-08-31'),[('1953-08-31','1954-06-03','labour core: closer')])
-chk('v3.71: 1957-58 closed 1958-05-23 by the labour core closer (C, the strong flow)',_ep('1957-08-26'),[('1957-08-26','1958-05-23','labour core: closer')])
-chk('v3.71: 1960-61 closed 1961-01-30 by the labour core closer',_ep('1960-04-25'),[('1960-04-25','1961-01-30','labour core: closer')])
-chk('v3.71: 1973 opened 1973-09-17 and 1973-75 closed 1975-05-01',_ep('1973'),[('1973-09-17','1975-05-01','labour core: closer')])
-chk('v3.71: today\'s vacancy line 0.25 and vacancy look-back 12',[S['lines'].get('vl'),S['lines'].get('hback')],[0.25,12])
 # v3.72 (22 September 2026, collection 311): the state breadth, the second opener
-_sb=S.get('state_breadth') or {}
-chk('v3.72: the state breadth ran and carries its states and month',[bool(_sb),_sb.get('states'),bool(_sb.get('through'))],[True,51,True])
-chk('v3.76 (E75, cell 0.35 / 0.15): the state breadth\'s last fire on the first prints is 2024-03-22 (v3.72-v3.75: 2024-05-17 at 0.40 / 0.25)',[f[0] for f in (_sb.get('fires') or [])][-1:],['2024-03-22'])
 # v3.73 (23 September 2026, collection 333): E31b's re-arm in the breadth JSON, the claims switch and the vacancy bridge in the state, the chronology file, the payroll
 # backstop's reading, the grade in three dimensions on every episode with the record's three heights
-chk('v3.76 (E75): the breadth block carries the re-arm 0.15 (v3.73-v3.75: 0.25)',_sb.get('rearm_line'),0.15)
 # v3.74 (23 September 2026, collections 334-337): the near-miss log, the state-rate channel row and its substitute block, the scoreboard, the census
 chk('v3.74: the near-miss log is in the state',isinstance((S.get('near_misses') or {}).get('spells'),list) and len(S['near_misses']['spells'])>=20,True)
-chk('v3.74: the state-rate channel row is present with its substitute named',any(c['channel'].startswith('state unemployment rates') and c.get('substitute') is not None or (c['channel'].startswith('state unemployment rates') and c.get('status')=='current') for c in S['channels']),True)
-chk('v3.74: the breadth JSON carries the substitute block',isinstance(_sb.get('substitute'),dict) if 'substitute' in _sb else True,True)
 _scb=json.load(open('out/scoreboard.json')) if os.path.exists('out/scoreboard.json') else {}
 chk('v3.74: the scoreboard was built with the four recessions since 1994',len(_scb.get('recessions') or []),4)
 chk('v3.74: the data census reports no gap',(json.load(open('out/data_census.json')).get('gaps') if os.path.exists('out/data_census.json') else ['no census']),[])
-chk('v3.73: the claims substitute is in the state and idle while the release is current',(S.get('claims_substitute') or {}).get('active') in (True,False),True)
-chk('v3.73: the vacancy bridge is in the state',isinstance(S.get('vacancy_bridge'),dict) and 'active' in S['vacancy_bridge'],True)
 chk('v3.73: the chronology file parses with thirteen entries',(S.get('chronology_watch') or {}).get('entries'),13)
-chk('v3.73: the payroll backstop closer was read',str((S.get('payroll_backstop') or {}).get('status','')).split(':')[0] in ('read','idle'),True)
 chk('v3.73: the damage dimensions ran',str((S.get('damage') or {}).get('status','')).startswith('ran:'),True)
 chk('v3.73: every episode carries its three dimensions',[e['open_pub'] for e in S['episodes'] if e.get('open_pub') and any(e.get(k) is None for k in ('damage_labour','damage_output','damage_production'))],[])
-chk('v3.73: the record\'s three heights (2007-09 5.8, 2020 5.5, 2024 1.3)',[e.get('damage_score') for e in S['episodes'] if e.get('open_month') in ('2007-12','2020-03','2024-05')],[5.8,5.5,1.3])
-chk('v3.72: the 2024 episode still opens 2024-05-03 by the labour core',[(e['open_pub'],e.get('open_branch')) for e in S['episodes'] if str(e.get('open_pub','')).startswith('2024')],[('2024-05-03','labour core: Sahm gap with falling vacancies')])
-chk('v3.68: the concurrence branch and its walked diary are in the state',(S.get('concurrence_branch') or {}).get('walked_diary'),['1957-10-10','1960-04-25','1970-01-21','1970-01-29','1970-02-10','1970-04-23','1974-02-21','1974-10-31','1980-04-15','1980-05-08','1981-11-12','1981-11-19'])
-chk('v3.68: the concurrence branch ran this build',str((S.get('concurrence_branch') or {}).get('status','')).startswith('ran:'),True)
 _armed=set()   # v3.64 (collection 291): the retired leg tier's keys have left the state; nothing is armed outside the core
 chk('data page: every armed leg has a status',sorted(_armed-set(_ls)),[])
 _dp=open(os.path.join(COL,'site','public','data','index.html')).read() if os.path.exists(os.path.join(COL,'site','public','data','index.html')) else ''

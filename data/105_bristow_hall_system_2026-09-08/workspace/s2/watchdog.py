@@ -20,33 +20,36 @@ def load(p):
 
 def main():
     st = load(os.path.join('out', 'bhs_state.json')) or {}
-    ao = load(os.path.join('out', 'activity_opener_state.json')) or {}
+    # C1021 (1022, 8 November 2026): the v3.76 starter's watch (activity opener, breadth month, FOMC list) is retired with it.
+    # The C1021 starter's watch: did s2/c1021.py run today, and does any pillar read dark or stale.
+    c1 = load(os.path.join('out', 'c1021_state.json')) or {}
     problems = []   # (key, level, message)
     for c in st.get('channels') or []:
         if c.get('status') != 'current':
             problems.append(('chan:' + c.get('channel', '?'), 'CHANNEL STALE', '%s: last %s, %s days old, limit %s days, status %s%s' % (
                 c.get('channel'), c.get('last'), c.get('age_days'), c.get('limit_days'), c.get('status'),
                 (', substitute ' + str(c['substitute'])) if c.get('substitute') else '')))
-    for k, c in (ao.get('channels') or {}).items():
-        if (c or {}).get('status') != 'current':
-            problems.append(('aochan:' + k, 'CHANNEL STALE', 'activity opener %s: %s days old, limit %s days, status %s' % (k, c.get('age_days'), c.get('limit_days'), c.get('status'))))
-    if ao.get('asof') != TODAY.isoformat():
-        problems.append(('ao:asof', 'OPENER DID NOT RUN', 'the activity opener\'s reading is as of %s, not today (%s): the build reused its last outputs' % (ao.get('asof'), TODAY)))
-    nb = ao.get('next_breadth_publication')
-    if nb:
+    _td = c1.get('today'); _td = _td.get('day') if isinstance(_td, dict) else _td
+    if str(_td or '')[:10] != TODAY.isoformat():
+        problems.append(('c1021:today', 'STARTER DID NOT RUN', 'the C1021 starter\'s reading is as of %s, not today (%s): the build reused its last outputs' % (_td, TODAY)))
+    if st.get('version') != 'C1021':
+        problems.append(('c1021:version', 'VERSION', 'the published state says version %s, not C1021' % st.get('version')))
+    # each pillar's newest datum and how old it may be (days from the week-ending day, the trading day or the month's end)
+    _key = {'SY': ('sp_last_day', 6), 'I4': ('week', 20), 'HW': ('week', 13), 'CHI': ('ic_week', 13), 'IP': ('month', 50), 'BAA': ('month', 40),
+            'HH': ('month', 40), 'P': ('month', 40), 'CNT': ('month', 40), 'FS': ('month', 35), 'JL': ('month', 75)}
+    for k, (f, lim) in _key.items():
+        v = (c1.get('values') or {}).get(k) or {}
+        thr = v.get(f)
+        if not thr: problems.append(('c1021:' + k, 'PILLAR DARK', 'C1021 pillar %s has no %s in the starter\'s state' % (k, f))); continue
         try:
-            late = (TODAY - datetime.date.fromisoformat(nb)).days
-            if late > 10: problems.append(('ao:breadth', 'BREADTH MONTH OVERDUE', 'the breadth month due %s is %d days late: fewer than 45 states have every report week in the ETA 539 file' % (nb, late)))
+            t = str(thr)
+            if len(t) == 7: y, m = int(t[:4]), int(t[5:]); t = (datetime.date(y + (m == 12), 1 if m == 12 else m + 1, 1) - datetime.timedelta(days=1))
+            else: t = datetime.date.fromisoformat(t[:10])
+            age = (TODAY - t).days
+            if age > lim: problems.append(('c1021:' + k, 'PILLAR STALE', 'C1021 pillar %s reads through %s, %d days old (limit %d)' % (k, thr, age, lim)))
         except Exception: pass
-    if ao.get('next_fomc_estimated'):
-        problems.append(('ao:fomc_est', 'FOMC DATE ESTIMATED', 'the next FOMC decision day (%s) is an estimate: add the Federal Reserve\'s calendar to FOMC in s2/activity_opener.py' % ao.get('next_fomc')))
-    try:
-        src = open(os.path.join('s2', 'activity_opener.py')).read()
-        m = re.search(r"^FOMC = \[(.*?)\]", src, re.S | re.M)
-        last = max(re.findall(r"'(\d{4}-\d{2}-\d{2})'", m.group(1))) if m else None
-        if last and (datetime.date.fromisoformat(last) - TODAY).days <= 120:
-            problems.append(('fomc:end', 'FOMC LIST ENDS', 'the FOMC decision days in s2/activity_opener.py end on %s: add the next year\'s from federalreserve.gov/monetarypolicy/fomccalendars.htm' % last))
-    except Exception: pass
+    if c1.get('live_calls'):
+        problems.append(('c1021:live', 'LIVE CALL', 'the C1021 starter has made a live call: %s' % c1.get('live_calls')))
     sent = load(SENT_F) or {}
     now = TODAY.isoformat(); out = 0
     for key, level, msg in problems:

@@ -1,6 +1,6 @@
 {
  "_what": "Where the LIVE tool keeps what the update machinery (ops/) reads. When a new version or a new tool goes live, change these paths if they move, and nothing else in ops/ needs to change. See ops/README.md, 'The contract'.",
- "tool": "Bristow-Hall Rule, v3.x line (collection 105)",
+ "tool": "Bristow-Hall Rule, C1021 starter with the v3.76 closers and damage grade (collection 105; port 1022)",
  "entry": "run_cloud.sh",
  "workspace": "data/105_bristow_hall_system_2026-09-08/workspace",
  "site_public": "data/105_bristow_hall_system_2026-09-08/site/public",
@@ -11,35 +11,55 @@
  "run_log": "run.log",
  "site_url": "https://bhrrealtime.pages.dev",
  "indicator_url": "https://bhrrealtime.pages.dev/detector/",
- "indicator_name": "Bristow-Hall Rule recession indicator",
+ "indicator_name": "Bristow-Hall Rule (C1021) recession indicator",
  "indicator_unit": "1.00 = recession",
- "restore_before_retry": ["data/105_bristow_hall_system_2026-09-08/site", "data/105_bristow_hall_system_2026-09-08/bhs_state.json"],
- "code_globs": ["*.py", "*.sh", "requirements.txt"],
- "version_files": ["data/105_bristow_hall_system_2026-09-08/workspace/cache/bhs_version.json",
-                   "data/105_bristow_hall_system_2026-09-08/site/template.html",
-                   "data/105_bristow_hall_system_2026-09-08/site/template_home.html"],
+ "restore_before_retry": [
+  "data/105_bristow_hall_system_2026-09-08/site",
+  "data/105_bristow_hall_system_2026-09-08/bhs_state.json"
+ ],
+ "code_globs": [
+  "*.py",
+  "*.sh",
+  "requirements.txt"
+ ],
+ "version_files": [
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/bhs_version.json",
+  "data/105_bristow_hall_system_2026-09-08/site/template.html",
+  "data/105_bristow_hall_system_2026-09-08/site/template_home.html"
+ ],
  "_version_files": "Files besides code that make a version what it is. When the last good version has to run (ops/run.sh), every file a person's commit changed since it (and no run wrote) is put back with its code; these are used only if that history cannot be read.",
  "calendar_rules": {
-  "dcpf1m, dcpn30, wtb3ms": "h15_daily",
   "^gspc": "nyse_close",
-  "google trends*": "utc_day_end",
-  "eta 539": "month_end_plus_21",
-  "eta 539 state insured rates": "fred:180",
   "eta 539 by state": "fred:180",
-  "dfedtaru": "fred_every_day",
-  "laus state rates (51)": "fred:112"
+  "fedfunds": "month_avg_next_bday",
+  "gs10, gs1": "month_avg_next_bday",
+  "baa": "rule_day7"
  },
- "_calendar_rules": "23 September 2026 (collection 358): the H.15 row is posted every business day (h15_daily, 4:15 PM ET), DFEDTARU every day at FRED's measured clock (fred_every_day, 8:01 AM ET; an FOMC decision reaches it the next morning), the Google rows at the end of the UTC day the tool reads (utc_day_end); before, the H.15 week, the FOMC days and 9:00 the next morning. The rules h15_week, fomc and daily_next_morning remain available.",
- "calendar_read_lag_min": {"eta 539 state insured rates": 1455, "wei": 10},
+ "_calendar_rules": "8 November 2026 (1022, C1021): the rows the C1021 starter reads - FRED-scheduled releases need no rule (claims 180, Employment Situation 50, JOLTS 192, G.17 13, GDP 53); the S&P 500 at the NYSE close; the month-end averages (FEDFUNDS, GS10, GS1) on the first business day after month end at 4:15 PM ET; the Baa average read the 7th (rule_day7). The v3.76 starter rows (H.15 daily, Google, ETA 539 month, DFEDTARU, LAUS) left the page with it. The rules h15_week, h15_daily, fomc, daily_next_morning, utc_day_end, month_end_plus_21 and fred_every_day remain available.",
+ "calendar_read_lag_min": {
+  "wei": 10
+ },
  "_calendar_read_lag_min": "24 September 2026 (seagate-0924): minutes after the release's time before a row is due, where the tool reads a later post than the release. The state insured rates come from FRED's state release (469), posted the Friday morning after the Department's Thursday 8:30 release (FRED's stamp on 18 September 2026: 8:39 AM ET), so the row is due Friday 8:45 AM ET; the day shown stays Thursday. 25 September 2026 (ops-0924): the WEI is shown at the Dallas Fed's 11:30 AM ET and read 10 minutes later, after FRED's post (11:39 both Thursdays read).",
- "conditional_slots": [
-  {"reading_contains": "sudden stop: S&P 500 below its high of the prior twenty trading days",
-   "ratio_at_least": 0.75, "every_day_at": ["09:05"],
-   "why": "the day's Google searches, read the morning they are known, while the S&P 500 is near the sudden stop's market line"}
+ "conditional_slots": [],
+ "_conditional_slots": "C1021 (1022): none. The v3.76 sudden-stop rule (a morning run for Google searches while the S&P 500 was near its line) left with that starter; C1021 reads nothing that posts on its own clock between releases.",
+ "fomc_decision_days": [
+  "2026-01-28",
+  "2026-03-18",
+  "2026-04-29",
+  "2026-06-17",
+  "2026-07-29",
+  "2026-09-16",
+  "2026-10-28",
+  "2026-12-09",
+  "2027-01-27",
+  "2027-03-17",
+  "2027-04-28",
+  "2027-06-09",
+  "2027-07-28",
+  "2027-09-15",
+  "2027-10-27",
+  "2027-12-08",
+  "2028-01-26"
  ],
- "_conditional_slots": "Runs that are needed only in a given state: while the S&P 500 stands within a quarter of the sudden stop's line (20 percent below its 20-day high), a day's Google searches can complete a call, so each morning's searches are read that morning, weekends included. Otherwise they are read with the day's close.",
- "fomc_decision_days": ["2026-01-28", "2026-03-18", "2026-04-29", "2026-06-17", "2026-07-29", "2026-09-16", "2026-10-28", "2026-12-09",
-                        "2027-01-27", "2027-03-17", "2027-04-28", "2027-06-09", "2027-07-28", "2027-09-15", "2027-10-27", "2027-12-08",
-                        "2028-01-26"],
  "_fomc_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm, read 22 September 2026 (second day of each meeting; the statement at 2:00 PM ET). The Board publishes the next year's calendar each summer: add it here then. The notification says when the list is about to run out."
 }

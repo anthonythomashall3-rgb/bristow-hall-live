@@ -211,9 +211,9 @@ details{margin-top:22px} summary{cursor:pointer;color:#990000;font-size:15px}
   <p class="kv"><b>Data through:</b> <span id="ver"></span></p>
   <p class="kv"><b>Frequency:</b> <span id="freq2"></span></p>
   <p class="kv"><b>Notes:</b></p>
-  <p>The Bristow-Hall Rule signals a recession&rsquo;s start when a labor measure (insured unemployment, initial claims or the Sahm gap, national or state) crosses its threshold and a demand measure (job openings, hours, housing, credit or stocks) confirms it, or when production and stocks fall, the policy rate rises and unemployment spreads across states. It signals the end when initial claims fall from their peak and a second measure confirms it.</p>
+  <p>The Bristow-Hall Rule (C1021) signals a recession&rsquo;s start when, in the data as first published, seven measures turn together (insured unemployment, job openings against claims, stocks, production, the Baa yield, the unemployment rate, payrolls), or the unemployed count and claims reach 12-month highs with stocks down on the year, or the funds rate jumps 1.5 points in a month, or job losers rise 15 log points on the year after an inverted yield curve. It signals the end when initial claims fall from their peak and a second measure confirms it.<!-- C1021 (1022, 8 November 2026): the starter's notes; the closer sentence is v3.76's --></p>
   <p>The index shows how near a call is (1.00 = recession); during a recession it adds a damage grade (0&ndash;10, log scale; 1929&ndash;33 = 10) from unemployment, real GDP and industrial production.</p>
-  <p>This indicator is based on real-time data: each call uses only data as published that day, with thresholds set only from recessions already dated.<!-- 24 September 2026 (Anthony: "as short as the Sahm Indicator notes section"): 405 words to 126; the record sentence (R15, s2/record_sentence.py) and the six-measure damage consensus left the Notes; the speed panels carry the record --></p>
+  <p>Real-time data only: each call uses the data as published that day.<!-- 24 September 2026 (Anthony: "as short as the Sahm Indicator notes section"): 405 words to 126; the record sentence (R15, s2/record_sentence.py) and the six-measure damage consensus left the Notes; the speed panels carry the record --></p>
   <p class="kv"><b>Citation:</b></p>
   <p id="cite"></p>
 </div>
@@ -286,7 +286,7 @@ const SITE = __SITE__;
   // THE PAGE'S OWN CLOCK. The state carries every release the rule reads for the next 150 days with its time
   // (Eastern). The page reads the current time in Eastern time and says what comes next and what has come out
   // since it was built. Nothing here waits for a rebuild; the numbers on the page do.
-  const CAL=S.calendar||[]; const KIND={claims:'weekly claims',jobs:'jobs report',jolts:'JOLTS',starts:'housing starts',h15:'H.15 week'};
+  const CAL=S.calendar||[]; const KIND={claims:'weekly claims',jobs:'jobs report',jolts:'JOLTS',production:'G.17 industrial production',g17:'G.17 industrial production',month:'month-end averages (funds rate, Treasury yields)',baa:'Baa monthly average',daily:'S&P 500 close',starts:'housing starts',h15:'H.15 week'};   // C1021 (1022)
   function nowET(){ const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date()); const g=k=>p.find(x=>x.type===k).value; return g('year')+'-'+g('month')+'-'+g('day')+' '+(g('hour')==='24'?'00':g('hour'))+':'+g('minute'); }
   const fmtT=t=>{ const h=+t.slice(0,2), m=t.slice(3,5); return (h%12||12)+':'+m+(h<12?' AM':' PM')+' ET'; };
   // the daily inputs (the S&P 500 close and the search day) are read at 4:20 PM ET on every day the NYSE trades
