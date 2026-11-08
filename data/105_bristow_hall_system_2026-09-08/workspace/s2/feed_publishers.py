@@ -22,7 +22,13 @@ PUB = {'S&P 500':('S&P Dow Jones Indices, S&P 500','https://www.spglobal.com/spd
       'Real GDP':('Bureau of Economic Analysis, Gross Domestic Product',None,'Quarterly, 8:30 AM ET'),
       'GDPNow':('Federal Reserve Bank of Atlanta, GDPNow',None,'Several times a month'),
       'Sahm rule':('Federal Reserve Bank of St. Louis, FRED SAHMREALTIME',None,'Monthly'),
-      'Search week':('Google Trends, United States',None,'Daily')}
+      'Search week':('Google Trends, United States',None,'Daily'),
+      # C1021 (1022, 8 November 2026): the starter's feeds
+      'Initial claims and continued claims':('Department of Labor, weekly claims release',None,'Weekly, Thursday 8:30 AM ET'),
+      'Unemployment rate, payrolls':('Bureau of Labor Statistics, Employment Situation',None,'Monthly, 8:30 AM ET'),
+      "Moody's Baa":('Federal Reserve H.15 via FRED, BAA',None,'Monthly, the month\'s average, posted the first business day of the next month, 4:15 PM ET; read the 7th'),
+      'Effective federal funds rate':('Federal Reserve H.15 via FRED, FEDFUNDS',None,'Monthly, the month\'s average, posted the first business day of the next month, 4:15 PM ET'),
+      '10-year and 1-year Treasury yields':('Federal Reserve H.15 via FRED, GS10 and GS1',None,'Monthly, the month\'s averages, posted the first business day of the next month, 4:15 PM ET')}
 
 
 def strip_paren(x):

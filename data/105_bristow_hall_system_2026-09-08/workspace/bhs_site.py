@@ -17,10 +17,12 @@ state['feeds']=[_fp0.normalize(dict(_f)) for _f in state.get('feeds') or []]
 # the publisher's page stays only where no exact page is known
 try:
     import importlib.util as _iu_sl0; _sp_sl0=_iu_sl0.spec_from_file_location('source_links',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','source_links.py')); _sl0=_iu_sl0.module_from_spec(_sp_sl0); _sp_sl0.loader.exec_module(_sl0)
-    _FK0=['feed|%s'%(f.get('ids') or f.get('name')) for f in state['feeds']]
+    _FK0=['feed|%s|%s'%(f.get('ids') or '',f.get('name')) for f in state['feeds']]   # 1022: keyed by ids and name (two rows may share an id and read different pages)
     _FL0=_sl0.row_links({_FK0[i]:(f.get('ids') or '',f.get('url'),None,'%s|%s'%(f.get('through'),f.get('value')),f.get('through')) for i,f in enumerate(state['feeds'])})
     for i,f in enumerate(state['feeds']):
         if _FL0.get(_FK0[i]): f['sources']=[list(p) for p in _FL0[_FK0[i]]]; f['url']=_FL0[_FK0[i]][0][1]
+        if str(f.get('name','')).startswith('Job openings (the help-wanted pillar'):   # C1021 (1022): the pillar reads ALFRED's JTSJOL vintages, not FRED's current series
+            f['sources']=[['ALFRED JTSJOL','https://alfred.stlouisfed.org/series?seid=JTSJOL']]; f['url']=f['sources'][0][1]
 except Exception as _e0: print('feed sources not applied (%s): the publisher pages stand' % _e0)
 # R10 (24 September 2026, collection 372): the renderer refuses a state of any schema but the one it renders (s2/schema.py); in the cloud
 # this line is not guarded by `|| true`, so a refusal fails the run and the ops layer holds the site as it was - nothing wrong is published.
@@ -155,14 +157,20 @@ def _fmtd(d):
         try:
             y,m=str(d).split('-'); return _MON[int(m)-1]+' '+y
         except Exception: return _esc(d)
-def _fmtp(d,cad):
-    # audit-0924: a monthly value is its month, a quarterly one its quarter - not the first day of either
+def _period_end(d,cad):
+    # Anthony (8 Nov 2026): 'in hand through' is an exact day - a monthly value is in hand through the last day of its month, a
+    # quarterly one through the last day of its quarter (audit-0924 showed the month or the quarter; superseded)
+    import calendar as _cal3
+    d=str(d or '')
+    if _re3.match(r'^\d{4}-\d{2}-\d{2}',d) and not (cad in ('monthly','quarterly') and d[8:10]=='01'): return d[:10]   # a monthly row dated the 1st is its month's label
     try:
-        y,m=[int(x) for x in str(d)[:7].split('-')]
-        if cad=='monthly': return _MON[m-1]+' '+str(y)
-        if cad=='quarterly': return '%d:Q%d'%(y,(m-1)//3+1)
-    except Exception: pass
-    return _fmtd(d)
+        y,m=[int(x) for x in d[:7].split('-')]
+        if cad=='quarterly': m=3*((m-1)//3+1)
+        return '%d-%02d-%02d'%(y,m,_cal3.monthrange(y,m)[1])
+    except Exception: return ''
+def _fmtp(d,cad):
+    e=_period_end(d,cad)
+    return _fmtd(e) if e else _fmtd(d)
 def _us(h):
     # audit-0924 (Anthony, 17 Sep 2026: US spelling for everything) - the page text only; the state's own keys are unchanged
     for a_,b_ in (('labour','labor'),('Labour','Labor'),('programme','program'),('Programme','Program'),('colour','color'),('per cent','percent'),('centre','center')):
@@ -183,7 +191,8 @@ def _cad_kind(every):
 def _iso(d):
     d=str(d or '')
     if _re3.match(r'^\d{4}-\d{2}-\d{2}$',d): return d
-    if _re3.match(r'^\d{4}-\d{2}$',d): return d+'-01'
+    if _re3.match(r'^\d{4}-\d{2}$',d):
+        import calendar as _cal3; y,m=int(d[:4]),int(d[5:7]); return '%s-%02d'%(d,_cal3.monthrange(y,m)[1])   # 8 Nov 2026: a month is in hand through its last day
     m=_re3.search(r'(\d{4}-\d{2}-\d{2})',d)
     if m: return m.group(1)
     m=_re3.search(r'([A-Z][a-z]{2}) (\d{1,2}), (\d{4})',d)                    # audit-0924: 'week ending Sep 19, 2026'
@@ -249,7 +258,7 @@ try:
     import importlib.util as _iu_sl; _sp_sl=_iu_sl.spec_from_file_location('source_links',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','source_links.py')); _sl=_iu_sl.module_from_spec(_sp_sl); _sp_sl.loader.exec_module(_sl)
     # keyed by the row's ids and name, with its through-date and value as its data token: the run that reads a release checks
     # that row's addresses again, and works out again any address a release has of its own (s2/source_links.py)
-    _RK=['row|%s|%s'%(r['ids'],r['name']) for r in _rows]
+    _RK=['row|%s|%s|%s'%(r.get('kind'),r['ids'],r['name']) for r in _rows]   # 1022: the kind too - the rule's row and the front page's tile can share an id and read different pages
     _RL=_sl.row_links({_RK[i]:(r['ids'],r.get('url'),(_re3.sub(r'\s*&middot;.*$','',r.get('source') or '') or None),
                                '%s|%s'%(r.get('through'),r.get('value')),r.get('through')) for i,r in enumerate(_rows)})
     for i,r in enumerate(_rows):

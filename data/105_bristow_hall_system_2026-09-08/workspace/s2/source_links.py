@@ -85,6 +85,12 @@ SOURCES = {
     'jtsjol, clf16ov': [alfred('JTSJOL'), alfred('CLF16OV')],
     'gdpnow': [alfred('GDPNOW')],                                     # every GDPNow update is a vintage
     'gdpc1': [fred('GDPC1')],
+    # C1021 (1022, 8 November 2026): the starter's rows - where s2/c1021.py reads each number
+    'icsa, ccsa, icnsa, ccnsa': [DOL_PDF, alfred('ICNSA'), alfred('CCNSA'), alfred('ICSA'), alfred('CCSA')],   # the release day's PDF (45's first prints); ALFRED's initial releases (the NSA appender)
+    'unrate, payems, unemploy, lns13023621': [alfred('UNRATE'), alfred('PAYEMS'), alfred('UNEMPLOY'), alfred('LNS13023621')],   # each month within the vintage that stood on the day
+    'baa': [fred('BAA')],                                             # the monthly average, FRED's series (fredgraph)
+    'fedfunds': [fred('FEDFUNDS')],
+    'gs10, gs1': [fred('GS10'), fred('GS1')],
     # the front page's readings as the data page lists them (s2/home_tiles.py reads FRED's current series)
     'unrate': [fred('UNRATE')], 'payems': [fred('PAYEMS')], 'icsa': [fred('ICSA')], 'iursa': [fred('IURSA')],
     'jtsjol': [fred('JTSJOL')], 'jtsqur': [fred('JTSQUR')], 'cpiaucsl': [fred('CPIAUCSL')], 'unemploy': [fred('UNEMPLOY')],
@@ -443,6 +449,10 @@ def row_links(rows, force=False):
     for k, v in rows.items():
         ids, url = v[0], v[1]
         pairs[k] = sources_for(ids, url)
+        # C1021 (1022, 8 November 2026): the rule's own rows read ALFRED's vintages whatever their ids (the rule's JOLTS row
+        # shares the id JTSJOL with the front page's tile, which reads FRED's current series); bhs_site keys them 'row|rule|...'
+        if str(k).startswith('row|rule|') and norm(ids) in ('jtsjol',):
+            pairs[k] = [alfred(t) for t in fred_tokens(ids)] or pairs[k]
         if len(v) > 3 and v[3] is not None:
             tokens[k] = v[3]
         if len(v) > 4 and _ctx_date(v[4]):

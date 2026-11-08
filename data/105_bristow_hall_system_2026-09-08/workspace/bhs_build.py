@@ -1060,7 +1060,11 @@ if DAYS:
     except Exception: _dr_keep=None
 DV=[]; DR=[]; DP=[]; DB=[]; DD=[]; _dr_new={}; _n_reused=0
 _c1chg=C1021_DAILY['reading'].diff().fillna(1.0)!=0
-DAYS=sorted(set(C1021_DAILY.index[_c1chg.values].tolist())|{pd.Timestamp(e[k]) for e in epis for k in ('open_pub','close_pub') if e.get(k)}|{C1021_DAILY.index[-1]}); DAYS=[d for d in DAYS if pd.Timestamp('1948-01-01')<=d<=pd.Timestamp(today)]
+# Anthony (8 Nov 2026): a point for every day new information reached the rule - every NYSE trading day (the S&P 500 close is read
+# daily; every release day is a weekday the market trades, or is carried by the next close) - plus every day the reading changed and
+# every open and close day. The page draws every point in the window, so zooming in shows them all.
+_c1trade={pd.Timestamp(t).normalize() for t in _SPX.dropna().index} if '_SPX' in globals() else set()
+DAYS=sorted(set(C1021_DAILY.index[_c1chg.values].tolist())|_c1trade|{pd.Timestamp(e[k]) for e in epis for k in ('open_pub','close_pub') if e.get(k)}|{C1021_DAILY.index[-1]}); DAYS=[d for d in DAYS if pd.Timestamp('1948-01-01')<=d<=pd.Timestamp(today) and d in C1021_DAILY.index]
 _dr_keep=None   # C1021 (1022): the daily line is C1021's reading; nothing is reused from the v3.76 reading cache
 for d in DAYS:
     ins=_inside_day(d)
@@ -1255,6 +1259,8 @@ def _c1sched(series):   # the published schedule (cache/release_schedule.csv) wh
 def _nxg17():   # the G.17's next release day: the published schedule, else the first weekday on or after the 16th
     return _c1sched('INDPRO') or _ao_next()
 def _c1row(name,val,line,through,nxt,kind):
+    if isinstance(through,str) and len(through)==7:   # 8 Nov 2026 (Anthony: exact days): a month is in hand through its last day
+        import calendar as _cal1; through='%s-%02d'%(through,_cal1.monthrange(int(through[:4]),int(through[5:7]))[1])
     R.append(dict(side='open',object=name,reading=(None if val is None else round(float(val),4)),line=line,ratio=(None if (val is None or not line) else round(float(val)/line,3)),through=through,next=nxt,next_kind=kind))
 _c1row('route: insured unemployment (not seasonally adjusted, 4-week sum) above the same weeks a year earlier, log points (on at 0; first prints, known on the release day)',_CV['I4'].get('yoy_log_pts_4wk'),0,_CV['I4'].get('week'),nxt_claims(_CV['I4'].get('week'),12),'claims')
 _c1row('route: job openings (JOLTS) growing slower than initial claims - openings year-on-year less claims 4-week NSA year-on-year, points (on below 0; passes while no openings print stands)',(None if _CV['HW'].get('jolts_yoy_pct') is None or _CV['HW'].get('claims_4wk_yoy_log_pts') is None else _CV['HW']['jolts_yoy_pct']-_CV['HW']['claims_4wk_yoy_log_pts']),0,_CV['HW'].get('jolts_month'),'JOLTS, next release','jolts')
@@ -1415,6 +1421,12 @@ def _h15_through():       # the latest date the H.15 row's series are printed th
         except Exception: pass
     return max(ds) if ds else _fthr(cS)
 _tick('feeds')
+def _gdpnow_thr():   # 8 Nov 2026 (Anthony: exact days): a nowcast is in hand through the day of its newest vintage
+    try:
+        _f=os.path.join(_ROOT,'onset-detector-new-2026-08-23','27_realtime_vintages','alfred_all_vintages','GDPNOW_all_vintages.csv')
+        return pd.Timestamp(pd.read_csv(_f,index_col=0,nrows=1).columns[-1].split('_')[-1]).date().isoformat()
+    except Exception:
+        _q=_dim_thr('GDPNOW'); return _q.strftime('%Y-%m') if _q is not None else None
 FEEDS=[
  dict(name='Initial claims, continued claims, insured unemployment rate',source='Department of Labor (the UI claims news release; ALFRED vintages after it; the first prints back to August 1975 from the release archive, the bound news releases and volumes, the captures of the Internet Archive, the closing table of the release and the press: collections 45, 399, 396, 382, 397 and 404)',every='Weekly - Thursday 8:30 AM ET (Wednesday before a Thursday holiday)',through=_fthr(ICfp),next=_nxt('Weekly claims'),url='https://www.dol.gov/ui/data.pdf',value=_fval(ICfp,'{:,.0f}',' initial claims, week ending '+str(_fthr(ICfp))),auto='yes'),
  dict(name='State insured unemployment rates (the breadth object)',source='Department of Labor (page 8 of the weekly release; the advance state table of the release PDF while the archive catches up)',every='Weekly - Thursday 8:30 AM ET, one week behind initial claims',through=_fthr(RAW['B']),next=_nxt('Weekly claims'),url='https://oui.doleta.gov/unemploy/claims.asp',value=None,auto='yes',note=_bnote()),
@@ -1436,7 +1448,7 @@ FEEDS=[
  dict(name='Real GDP (the damage grade\'s output dimension)',source='Bureau of Economic Analysis, Gross Domestic Product news release (FRED GDPC1, the latest vintage)',every='Quarterly - the advance estimate about four weeks after the quarter, revised in each of the next two months; 8:30 AM ET',
       through=(lambda _q: (_q.strftime('%Y-%m') if _q is not None else None))(_dim_thr('GDPC1')),next=_sched('GDPC1'),url='https://www.bea.gov/data/gdp/gross-domestic-product',value=None,auto='yes'),
  dict(name='GDPNow (the output dimension\'s bridge for the quarter not yet printed)',source='Federal Reserve Bank of Atlanta, GDPNow (FRED GDPNOW, every update as a vintage)',every='Several times a month, on the days of the releases it reads (FRED carries each update between about 10:30 AM and 1 PM ET); the Atlanta Fed posts its schedule',
-      through=(lambda _q: (_q.strftime('%Y-%m') if _q is not None else None))(_dim_thr('GDPNOW')),next=_sched('GDPNOW'),url='https://www.atlantafed.org/cqer/research/gdpnow',value=None,auto='yes'),
+      through=_gdpnow_thr(),next=_sched('GDPNOW'),url='https://www.atlantafed.org/cqer/research/gdpnow',value=None,auto='yes'),
  dict(name='Sahm rule, real time (the comparator on the speed panel)',source='FRED SAHMREALTIME',every='Monthly - FRED posts it on the morning of the employment report, after the Bureau\'s 8:30 AM ET release',through=(lambda: (lambda _c: pd.to_datetime(_c.iloc[:,0]).max().strftime('%Y-%m') if len(_c) else None)(pd.read_csv('cache/SAHMREALTIME.csv')) if os.path.exists('cache/SAHMREALTIME.csv') else None)(),next=_nxt('Employment Situation'),url='https://fred.stlouisfed.org/series/SAHMREALTIME',value=(lambda: (lambda _c: '{:.2f}'.format(float(_c.iloc[-1,1]))+' (the rule fires at 0.50)' if len(_c) else None)(__import__('pandas').read_csv('cache/SAHMREALTIME.csv')) if os.path.exists('cache/SAHMREALTIME.csv') else None)(),auto='yes'),
 ]
 _TSRC={'unemp':'"unemployment"','layoffs':'"layoffs"','laidoff':'"laid off"'}
