@@ -1,0 +1,24 @@
+name: deploy the update starter (Worker)
+# 1022 (8 November 2026): deploys worker/ (bhr-dispatch) with the repository's Cloudflare token, by hand only. The Mac's
+# wrangler login is another Cloudflare account (its KV namespace is not found there), so the starter is deployed from here.
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        working-directory: worker
+        run: npx --yes wrangler@4 deploy
+      - name: the deployed version
+        run: |
+          sleep 10
+          curl -s -A bhr-dispatch-gate "https://bhr-dispatch.anthonythomashall3.workers.dev/?t=$(date +%s)" | python3 -c "import sys,json;j=json.load(sys.stdin);print('deployed:',j.get('version'),'| token',j.get('token'),'|',j.get('heartbeat'))"
