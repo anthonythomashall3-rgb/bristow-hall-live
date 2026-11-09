@@ -1,6 +1,6 @@
 {
- "built": "2026-11-09T10:56:46",
- "data": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/workspace/s2/disturbance/out/fred_latest",
+ "built": "2026-11-09T08:58:05",
+ "data": "/home/claude/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/workspace/s2/disturbance/out/fred_latest",
  "composite_last_month": "2026-09",
  "weights": {
   "PAYEMS": 0.2747,
