@@ -1,6 +1,4 @@
-FRED change check: 112 series tracked; 41 changed since last pulled (2 updated since 04:23 CT): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
-KSINSUREDUR    2026-10-17 -> 2026-10-24  (2125 obs)
-WYINSUREDUR    2026-10-17 -> 2026-10-24  (2144 obs)
+FRED change check: 112 series tracked; 39 changed since last pulled (0 updated since 08:51 CT): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
 home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Oct 31, 2026 (claims); next releases CPIAUCSL 2026-11-10, ICSA 2026-11-12, IURSA 2026-11-12, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
 PAYEMS         no new vintage since 2026-11-06 (through 2026-10-01)
 GDPC1          no new vintage since 2026-10-29 (through 2026-07-01)
@@ -17,5 +15,4 @@ S&P 500: nothing new (through 2026-11-06)
 Sahm gap: unchanged (through 2026-10-01)
 insured rate base: unchanged (through 2026-10-24)
 ---- the damage index's unemployment rate ----
-left as they stand: 80 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
-FRED stamps: 2 series recorded as pulled
+left as they stand: 82 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
