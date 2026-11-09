@@ -54,10 +54,10 @@
   "date": "1969-10"
  },
  {
-  "published": "1970-11-12",
+  "published": "1970-12-24",
   "kind": "trough",
   "leg": "Z",
-  "date": "1970-11"
+  "date": "1970-12"
  },
  {
   "published": "1973-08-01",
@@ -114,7 +114,7 @@
   "date": "2001-04"
  },
  {
-  "published": "2001-12-06",
+  "published": "2001-12-28",
   "kind": "trough",
   "leg": "Z",
   "date": "2001-12"
@@ -126,10 +126,10 @@
   "date": "2007-11"
  },
  {
-  "published": "2009-06-25",
+  "published": "2009-07-23",
   "kind": "trough",
   "leg": "Z",
-  "date": "2009-06"
+  "date": "2009-07"
  },
  {
   "published": "2020-04-03",

@@ -77,14 +77,14 @@ PASS  speed panel: calls before the end of the peak month  got=8  want=8
 PASS  speed panel: thirteen episodes  got=13  want=13
 PASS  record: no close is retrospective (every close walked, v3.64)  got=[]  want=[]
 PASS  C1021: the thirteen opens are the record's (RECORD-1021)  got=['1948-12-31', '1953-10-13', '1957-04-30', '1960-06-13', '1969-10-11', '1973-08-01', '1979-11-01', '1981-06-01', '1990-06-01', '2001-04-06', '2007-11-02', '2020-04-03', '2024-01-05']  want=['1948-12-31', '1953-10-13', '1957-04-30', '1960-06-13', '1969-10-11', '1973-08-01', '1979-11-01', '1981-06-01', '1990-06-01', '2001-04-06', '2007-11-02', '2020-04-03', '2024-01-05']
-PASS  E22: the thirteen closes are the harness's (RECORD-1030)  got=['1949-11-02', '1954-05-27', '1958-06-19', '1961-02-24', '1970-11-12', '1975-02-06', '1980-07-22', '1982-12-02', '1991-02-07', '2001-12-06', '2009-06-25', '2020-06-05', '2024-10-01']  want=['1949-11-02', '1954-05-27', '1958-06-19', '1961-02-24', '1970-11-12', '1975-02-06', '1980-07-22', '1982-12-02', '1991-02-07', '2001-12-06', '2009-06-25', '2020-06-05', '2024-10-01']
+PASS  E22: the thirteen closes are the harness's (RECORD-1030/1041)  got=['1949-11-02', '1954-05-27', '1958-06-19', '1961-02-24', '1970-12-24', '1975-02-06', '1980-07-22', '1982-12-02', '1991-02-07', '2001-12-28', '2009-07-23', '2020-06-05', '2024-10-01']  want=['1949-11-02', '1954-05-27', '1958-06-19', '1961-02-24', '1970-12-24', '1975-02-06', '1980-07-22', '1982-12-02', '1991-02-07', '2001-12-28', '2009-07-23', '2020-06-05', '2024-10-01']
 PASS  C1021: every open names its door  got=[]  want=[]
 PASS  C1021+E22: the state says version C1021+E22  got=C1021+E22  want=C1021+E22
 PASS  E22: the ender ran today (out/e22_state.json)  got=2026-11-09  want=2026-11-09
 PASS  E22: every close names its leg  got=[]  want=[]
 PASS  C1021: the starter ran today (out/c1021_state.json)  got=2026-11-09  want=2026-11-09
 PASS  C1021: the v3.76 starter's blocks have left the state  got=[]  want=[]
-PASS  C1021: the record's three heights with the C1021 opens (2007-09 5.8, 2020 5.6, 2024 1.8)  got=[5.8, 5.6, 1.8]  want=[5.8, 5.6, 1.8]
+PASS  C1021: the record's three heights with the C1021 opens (2007-09 5.9, 2020 5.6, 2024 1.8)  got=[5.9, 5.6, 1.8]  want=[5.9, 5.6, 1.8]
 PASS  state: no leg-tier keys and no leg labels (v3.64)  got=[]  want=[]
 PASS  state: nothing from the frozen rule (v3.65)  got=[]  want=[]
 PASS  speed panel: the four carry no announcement day (v3.66)  got=[]  want=[]
@@ -112,7 +112,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-24)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-11-09 14:42', '2026-11-09 14:42')  want=('2026-11-09 14:42', '2026-11-09 14:42')
+PASS  public state copies are this build  got=('2026-11-09 16:00', '2026-11-09 16:00')  want=('2026-11-09 16:00', '2026-11-09 16:00')
 PASS  front-page tiles fetched today  got=2026-11-09  want=2026-11-09
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]
