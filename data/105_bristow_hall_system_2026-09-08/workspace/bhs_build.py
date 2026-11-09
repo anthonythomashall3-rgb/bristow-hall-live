@@ -738,16 +738,17 @@ try:
     C1021=json.load(open('out/c1021_state.json')); C1021_CALLS=[(pd.Timestamp(c['day']),pd.Timestamp(c['day'][:7]+'-01')) for c in C1021['calls']]
     assert C1021.get('tool')=='C1021' and len(C1021_CALLS)>=38, 'c1021_state.json is not C1021 (%s calls)'%len(C1021_CALLS)
 except Exception as _e1022: raise SystemExit('C1021: the starter state was not read (%r); run s2/c1021.py before the build'%(_e1022,))
+# ---- E22 (9 November 2026, collection 1031; Anthony 06:21 PT: "lets port e22"): THE ENDER. s2/e22.py (run after s2/c1021.py) writes
+# ---- out/e22_state.json: C1021's opens and E22's close of each episode (RECORD-1027/1028/1030; the harness's 13 closes reproduced exactly,
+# ---- out/gate_1031.txt). v3.76's closers (the labour closer C and its confirmations, the frozen closers, the walked diary's closes, the payroll
+# ---- backstop) close nothing; the damage grade is untouched. A close is dated to its own fire day's month.
+E22=None; E22_CLOSES=[]
+try:
+    E22=json.load(open('out/e22_state.json')); assert E22.get('tool')=='E22' and len(E22.get('episodes') or [])>=13, 'e22_state.json is not E22'
+    E22_CLOSES=[(pd.Timestamp(e['close']),pd.Timestamp(e['close'][:7]+'-01')) for e in E22['episodes'] if e.get('close')]
+except Exception as _e1031: raise SystemExit('E22: the ender state was not read (%r); run s2/e22.py before the build'%(_e1031,))
 def build_c1021(p):
-    TL=dict(TLH); TL['R']=RC[p['rst']]; TL['T']=TC[p['tst']]; TL['Q']=QC[p['qst']]
-    if p.get('cD') is not None: TL['C']=CMENU[(p['cD'],p['cn'],p['cs'])]
-    # v3.76's closes as the walked diary made them (cache/w7w8_prog.pkl: the activity closer A of 1949, the labour closers at the lines of each cut)
-    # join the frozen closers, each under its own letter, so an episode C1021 opens ends where v3.76 ended it when that close falls inside it
-    try:
-        _pgc=pickle.load(open(f'cache/{VAR}_prog.pkl','rb'))
-        for _pub,_kind,_dated,_leg in sorted(_pgc['log'],key=lambda z:z[0]):
-            if _kind=='CLOSE': TL.setdefault(_leg,[]); TL[_leg]=list(TL[_leg])+[(pd.Timestamp(_pub),pd.Timestamp(_dated))]
-    except Exception as _e: print('C1021: the walked diary\'s closes were not read (%r); the frozen closers alone'%(_e,))
+    TL={'Z':E22_CLOSES}   # E22 (1031): the only closer
     with contextlib.redirect_stdout(io.StringIO()): return B.american_chronology({'C':C1021_CALLS},TL,min_gap_days=183)
 _tb=build_c1021(p); _BS_CALLS=[]; _AO_CALLS=[]; _CB_CALLS=[]; SB_OPENER=[]
 print('C1021: %d calls in the pool (%d live since %s); chronology: %s'%(len(C1021_CALLS),len(C1021.get('live_calls') or []),C1021.get('record_cut'),[(x['kind'],x['published'].date().isoformat(),x['leg']) for x in _tb if x['kind'] in ('peak','trough')][-6:]))
@@ -764,6 +765,7 @@ if False:   # v3.76's openers (backstop b, activity P, concurrence Y) never ente
 # ---- record it never acts first (99 to 770 days after the rule's closes on the ALFRED vintages; never in 2024), so no close moves.
 PB_ST={'status':'idle'}
 try:
+    raise RuntimeError('retired in 1031: E22 is the ender')   # E22 (1031): the payroll backstop closer closes nothing
     import importlib.util as _iu333b
     _spp=_iu333b.spec_from_file_location('payroll_backstop',os.path.join('s2','payroll_backstop.py')); _pb333=_iu333b.module_from_spec(_spp); _spp.loader.exec_module(_pb333)
     _AL333=os.path.join(_ROOT,'onset-detector-new-2026-08-23','27_realtime_vintages','alfred_all_vintages')
@@ -802,6 +804,10 @@ sp_=np.nan_to_num(_Csp,nan=-99); fc_=np.nan_to_num(_Cfc,nan=-99); du_=np.nan_to_
 conf=np.maximum.reduce([sp_/S_,fc_/3.0,du_/3.0,np.minimum.reduce([_FI['drop'].values/15.0,_FI['run'].values/6.0,sp_/10.0])])   # v3.71 (E29): the fourth confirmation, the strong flow
 cs=np.minimum.reduce([_FI['drop'].values/D_,_FI['run'].values/3.0,_FI['amp'].values/20.0,conf])
 CLOSE=pd.Series(cs,index=_CW).clip(lower=0); CLOSE_RAW=CLOSE.copy()
+# E22 (1031): the closing line is E22's reading (s2/e22.py: on each insured-unemployment release day inside an episode, the larger of leg A's and
+# leg S's share of their conditions; 1.00 on the close day). It decides nothing; the close is E22's.
+_e22r=pd.read_csv('cache/e22/closing_daily.csv',parse_dates=['day']).set_index('day')['reading'].astype(float)
+CLOSE_RAW=_e22r[~_e22r.index.duplicated(keep='last')].sort_index(); CLOSE=CLOSE_RAW.copy()
 # read only while the frozen rule has an episode open (a close cannot be proposed when nothing is open)
 CLOSE=pd.Series([v if any(a<=t<=b for a,b in FROZEN) else np.nan for t,v in CLOSE.items()],index=CLOSE.index)
 # ---- the chronology from the causal walk ----
@@ -1306,16 +1312,20 @@ if False:   # C1021 (1022): v3.76's opener and confirmer rows
     add('confirm',f"starts x vacancy pair (starts {p['starts']:g} log points below their 12-month high and the vacancy rate {p['vl']:g} off its "
                     f"4-month high; 1 = both)",cSV,1.0,nxt='housing starts, next release')   # v3.71d (22 September 2026): the lines are the rule's, not constants
     add('confirm','paper spread (the wider of AA financial and AA nonfinancial 30-day paper over the 3-month bill), 13-week mean above its 39-week low, points',cS*p['spr'],p['spr'],nxt='H.15 week, next posting')
-add('close','initial claims 3-week mean, drop from its 26-week maximum, log points',pd.Series(_FI['drop'].values,index=_CW),float(D_),nxt=12)
-add('close','run of falling weeks',pd.Series(_FI['run'].values,index=_CW).astype(float),3.0,nxt=12)
-add('close','hump above the 52-week minimum, log points',pd.Series(_FI['amp'].values,index=_CW),20.0,nxt=12)
-add('close','S&P 500 above its 26-week low on the release day, percent',pd.Series(sp_,index=_CW),float(S_),nxt=12)
-add('close','continued claims 4-week mean below its 26-week maximum, log points',pd.Series(fc_,index=_CW),3.0,nxt=12)
-add('close','insured rate 4-week mean below its 26-week maximum, tenths',pd.Series(du_,index=_CW),3.0,nxt=12)
+# E22 (1031): the ender's rows (v3.76's six closer rows retired). Read from out/e22_state.json; legs A and S act only inside an open episode.
+_EV=E22.get('values') or {}
+def _e22row(name,val,line,through,nxt,kind):
+    R.append(dict(side='close',object=name,reading=(None if val is None else round(float(val),4)),line=line,ratio=(None if (val is None or not line) else round(float(val)/line,3)),through=through,next=nxt,next_kind=kind))
+_e22row('E22 leg A: insured unemployment, 4-week mean of the seasonally adjusted first prints, thousands (inside an episode: primed by 8 straight weekly rises; ends when it falls more than 3 times its median weekly move below its high, its 8-week second difference is negative and the policy rate is below a year earlier)',
+        (None if (_EV.get('iu4') or {}).get('value') is None else _EV['iu4']['value']/1000.0),None,(_EV.get('iu4') or {}).get('week'),nxt_claims((_EV.get('iu4') or {}).get('week'),12),'claims')
+_e22row('E22 legs A and S: the federal funds rate, monthly average, against its level 12 months earlier, points (on below 0; known the first business day after the month)',
+        (_EV.get('rate') or {}).get('diff'),0,(_EV.get('rate') or {}).get('month'),(pd.Timestamp((_EV.get('rate') or {}).get('month','2026-01')+'-01')+pd.DateOffset(months=2)).replace(day=1).date().isoformat(),'month')
+_e22row('E22 leg S: the S&P 500 against its lowest close since the episode opened, ratio (on at 1.20, the bull-market definition, with insured unemployment off its high; read only inside an episode)',
+        (_EV.get('sp') or {}).get('ratio_to_low_since_open'),1.2,(_EV.get('sp') or {}).get('day'),'daily','daily')
 logp=os.path.join(LIVE,'live','LIVE_LOG_v321.tsv'); new=not os.path.exists(logp)
 with open(logp,'a') as f:
     if new: f.write('run_date\tside\tobject\treading\tline\tat_or_above\tdata_through\n')
-    for r in R: f.write(f"{today}\t{r['side']}\t{r['object']}\t{r['reading']}\t{r['line']}\t{'YES' if r['line'] and r['reading']>=r['line'] else 'no'}\t{r['through']}\n")
+    for r in R: f.write(f"{today}\t{r['side']}\t{r['object']}\t{r['reading']}\t{r['line']}\t{'YES' if (r['line'] and r['reading'] is not None and r['reading']>=r['line']) else 'no'}\t{r['through']}\n")   # E22 (1031): a row read only inside an episode has no reading while none stands
 try:   # v3.76 (438): the run register - one line per build, so a forward-log block can be traced to the build that wrote it
     import socket as _so438; _rp438=os.path.join(LIVE,'live','LIVE_LOG_runs.tsv'); _new438=not os.path.exists(_rp438)
     with open(_rp438,'a') as _f438:
@@ -1847,19 +1857,24 @@ _C1NAME={'route':'C1021 route: insured unemployment, help-wanted, market, produc
 def _c1br(day,fallback='C1021 starter'):
     d=_C1DOOR.get(str(day)[:10]); return _C1NAME.get(d,'C1021 starter: '+str(d)) if d else fallback
 _BRANCH['C']='C1021 starter'
+_E22LEG={e['close']:e.get('leg') for e in (E22.get('episodes') or []) if e.get('close')}   # E22 (1031): each close names its leg
+_E22NAME={'A':'E22 ender, leg A: insured unemployment past its peak, decelerating, the policy rate below a year earlier','S':'E22 ender, leg S: the S&P 500 20 per cent off its low, insured unemployment off its high, the policy rate below a year earlier'}
+def _e22br(day):
+    l=_E22LEG.get(str(day)[:10]); return _E22NAME.get(l,'E22 ender')
 for _lst in (state.get('episodes') or [], state.get('chronology') or []):
     for _e in _lst:
         if not isinstance(_e,dict): continue
         if _e.get('open_pub'): _e['open_branch']=_c1br(_e['open_pub'])
-        if _e.get('close_pub'): _e['close_branch']='v3.76 labour closer'
+        if _e.get('close_pub'): _e['close_branch']=_e22br(_e['close_pub'])   # E22 (1031)
         if _e.get('kind')=='peak' or _e.get('type')=='peak': _e['branch']=_c1br(_e.get('date'))
 _s=state.get('standing') or {}
 if _s.get('state')=='open': _s['branch']=_c1br(_s.get('since'))
-elif _s.get('state')=='closed': _s['branch']='v3.76 labour closer'
+elif _s.get('state')=='closed': _s['branch']=_e22br(_s.get('since'))   # E22 (1031)
 state['standing']=_s
 for _k in ('backstop_opener','activity_opener','concurrence_branch','state_breadth','claims_substitute','vacancy_bridge','payroll_backstop','diary_continued','leg_tier'):   # chronology_watch stays: the committee watch is not the starter's
     state.pop(_k,None)   # sahm_other stays: the template hard-reads it (the Sahm comparator)
-state['version']='C1021'
+state['version']='C1021+E22'
+state['ender']=dict(tool='E22',collection='1031',episodes=E22.get('episodes'),values=E22.get('values'),inputs=E22.get('inputs'),built=E22.get('built'))
 state['core']=('C1021: one starter, four ways in, all read on the release day from first prints. The route: seven pillars on the same day - insured '
                'unemployment (NSA, 4-week sum) above a year earlier; job openings growing slower than initial claims (passes when no openings print stands); '
                'the S&P 500 below its close a year earlier on any of the last 25 days; industrial production below its 12-month high; the Baa yield above '
@@ -1867,8 +1882,12 @@ state['core']=('C1021: one starter, four ways in, all read on the release day fr
                'their 12-month high and below last month. The count door: the unemployed count\'s first print at a 12-month high of first prints, claims '
                '(seasonally adjusted in real time) at a 365-day high of prints, the market below a year earlier. The fed-shock door: the funds rate up 1.5 '
                'points in a month. The job-losers door: job losers up 15 log points on the year, after the 10-year minus 1-year spread was negative in any '
-               'of the prior 12 months. A call opens an episode when none stands and more than 183 days have passed since the last close. The closers '
-               'and the damage grade are v3.76\'s, unchanged.')
+               'of the prior 12 months. A call opens an episode when none stands and more than 183 days have passed since the last close. The ender is E22 '
+               '(collection 1031): inside an episode, leg A ends it when insured unemployment (the 4-week mean of the seasonally adjusted first prints), '
+               'after 8 straight weekly rises, falls more than 3 times its median weekly move below its high, its 8-week second difference turns negative '
+               'and the federal funds rate is below its level a year earlier; leg S ends it when the S&P 500 stands 20 per cent above its lowest close since '
+               'the open while insured unemployment is off its high and the funds rate is below a year earlier; the end is the day the first leg fires. '
+               'The damage grade is v3.76\'s, unchanged.')
 state['walk']=('C1021 (collections 1016-1022, November 2026): the route and the count door walked blind from 1948 on first prints and release days '
                '(1948-60 on the documented BLS and DOL release days, collections 962 and 1020); the fed-shock door from 1954 and the job-losers door from '
                '1967 (the series begin there). 13 of 13 recessions since 1948 called (2024 by the job-losers door on 5 January 2024), no false alarm; '
@@ -1876,15 +1895,17 @@ state['walk']=('C1021 (collections 1016-1022, November 2026): the route and the 
 state['realtime_note']=('C1021 (8 November 2026, collection 1022): the starter replaces the v3.76 labour core, activity opener, concurrence branch, state '
                         'breadth and backstop on this page; their auto-updates are retired. The record shown is the record the site would have shown on the '
                         'day, from first prints: 1948 +31, 1953 +74, 1957 -123, 1960 +44, 1969 -81, 1973 -121, 1980 -91, 1981 -60, 1990 -60, 2001 +6, '
-                        '2007 -59, 2020 +34, 2024 -55 days to the end of the peak month; zero false alarms. The closers (the labour closer and its '
-                        'confirmations) and the three-dimension damage grade are v3.76\'s (collections 310 and 327), read unchanged.')
+                        '2007 -59, 2020 +34, 2024 -55 days to the end of the peak month; zero false alarms. E22 (9 November 2026, collection 1031) replaces v3.76\'s '
+                        'closers: its ends, on first prints and release days, are 1949 +2, 1954 -4, 1958 +50, 1961 -4, 1970 -18, 1975 -53, 1980 -9, 1982 +2, '
+                        '1991 -52, 2001 +6, 2009 -5, 2020 +36 days to the end of the trough month (mean absolute miss 20.1 days) and 2024-10-01. The '
+                        'three-dimension damage grade is v3.76\'s (collection 327), read unchanged.')
 state['notes']=dict(vintage=('every monthly pillar - the unemployment rate, payrolls, the unemployed count, job losers, job openings, industrial '
                              'production - is read within the vintage that stood on the day (ALFRED); weekly claims from the Department of Labor\'s '
                              'first prints; the Baa yield, the funds rate and the Treasury yields are monthly averages known the day after month end '
                              '(Baa read the 7th); the S&P 500 is never revised'),
                     arithmetic='every pillar is a sign: on at or above its line; a reading equal to its line is at the line',
                     doors='the route needs all seven pillars on the same release day; each door is its own call; any one opens the episode',
-                    closers='v3.76\'s labour closer and its confirmations, unchanged (collection 310)',
+                    closers='E22 (collection 1031; RECORD-1027/1028/1030): leg A on insured unemployment, leg S on the S&P 500, both under the policy-rate condition; the end is the first leg\'s fire day',
                     damage='v3.76\'s three-dimension damage grade, unchanged (collection 327)')
 state['walked_record']=dict(first_cut=1948,record_cut=C1021.get('record_cut'),calls_in_record=len(C1021.get('calls') or []),live_calls=C1021.get('live_calls'),
                             collections='1016 (C1016P), 1019 (C1019 = +FS), 1021 (C1021 = +JL), 1022 (the port)',note='every call dated to its own release day; no call is retrospective')
@@ -1915,5 +1936,5 @@ print('standing',standing); print('episodes',len(epis),'site episodes',len(EP))
 print('series latest:',', '.join(f"{t:%Y-%m} {v:.2f}{p}" for t,v,p in zip(SERIES.index[-6:],SERIES['value'][-6:],SERIES['phase'][-6:])))
 print('daily series:',len(SERIES_D),'release days',SERIES_D.index[0].date(),'->',SERIES_D.index[-1].date(),'| latest:',', '.join(f"{t:%Y-%m-%d} {v:.2f}{p}" for t,v,p in zip(SERIES_D.index[-6:],SERIES_D['value'][-6:],SERIES_D['phase'][-6:])))
 print('daily >=1 days',int((SERIES_D['value']>=1).sum()),'held 0.99:',[t.strftime('%Y-%m-%d') for t,v in SERIES_D['value'].items() if v==0.99][:12],'held 1.00:',[t.strftime('%Y-%m-%d') for t,v,r in zip(SERIES_D.index,SERIES_D['value'],SERIES_D['reading']) if v==1.0 and r<1][:12])
-for r in R: print(f"{r['side']:8s} {r['object'][:70]:70s} {r['reading']:9.3f} / {r['line']}  through {r['through']}")
+for r in R: print(f"{r['side']:8s} {r['object'][:70]:70s} {(r['reading'] if r['reading'] is not None else float('nan')):9.3f} / {r['line']}  through {r['through']}")
 print('sahm rule, real time:',[(a['peak'],a['sahm_peak']) for a in ANNS],'| other crossings since 1969:',SAHM_OTHER)
