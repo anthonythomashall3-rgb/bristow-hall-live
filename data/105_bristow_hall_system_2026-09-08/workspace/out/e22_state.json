@@ -1,0 +1,183 @@
+{
+ "tool": "E22",
+ "version": "E22 (1031)",
+ "built": "2026-11-09 14:51:45Z",
+ "today": "2026-11-09",
+ "episodes": [
+  {
+   "open": "1948-12-31",
+   "two_prints": false,
+   "legA_fall": "1949-12-29",
+   "legA": "1950-01-12",
+   "legS": "1949-11-02",
+   "close": "1949-11-02",
+   "leg": "S",
+   "primed": true
+  },
+  {
+   "open": "1953-10-13",
+   "two_prints": false,
+   "legA_fall": "1954-07-29",
+   "legA": "1954-07-29",
+   "legS": "1954-05-27",
+   "close": "1954-05-27",
+   "leg": "S",
+   "primed": true
+  },
+  {
+   "open": "1957-04-30",
+   "two_prints": true,
+   "legA_fall": "1958-06-19",
+   "legA": "1958-06-19",
+   "legS": "1958-07-25",
+   "close": "1958-06-19",
+   "leg": "A",
+   "primed": true
+  },
+  {
+   "open": "1960-06-13",
+   "two_prints": true,
+   "legA_fall": "1961-02-02",
+   "legA": "1961-03-09",
+   "legS": "1961-02-24",
+   "close": "1961-02-24",
+   "leg": "S",
+   "primed": true
+  },
+  {
+   "open": "1969-10-11",
+   "two_prints": true,
+   "legA_fall": "1970-12-24",
+   "legA": "1970-12-24",
+   "legS": "1970-11-12",
+   "close": "1970-11-12",
+   "leg": "S",
+   "primed": true
+  },
+  {
+   "open": "1973-08-01",
+   "two_prints": true,
+   "legA_fall": "1974-08-15",
+   "legA": "1975-02-06",
+   "legS": "1975-06-26",
+   "close": "1975-02-06",
+   "leg": "A",
+   "primed": true
+  },
+  {
+   "open": "1979-11-01",
+   "two_prints": true,
+   "legA_fall": "1980-02-19",
+   "legA": "1980-07-29",
+   "legS": "1980-07-22",
+   "close": "1980-07-22",
+   "leg": "S",
+   "primed": true
+  },
+  {
+   "open": "1981-06-01",
+   "two_prints": true,
+   "legA_fall": "1982-12-30",
+   "legA": "1982-12-30",
+   "legS": "1982-12-02",
+   "close": "1982-12-02",
+   "leg": "S",
+   "primed": true
+  },
+  {
+   "open": "1990-06-01",
+   "two_prints": true,
+   "legA_fall": "1991-07-18",
+   "legA": "1991-07-18",
+   "legS": "1991-02-07",
+   "close": "1991-02-07",
+   "leg": "S",
+   "primed": true
+  },
+  {
+   "open": "2001-04-06",
+   "two_prints": true,
+   "legA_fall": "2001-12-28",
+   "legA": "2001-12-28",
+   "legS": "2001-12-06",
+   "close": "2001-12-06",
+   "leg": "S",
+   "primed": true
+  },
+  {
+   "open": "2007-11-02",
+   "two_prints": true,
+   "legA_fall": "2009-07-23",
+   "legA": "2009-07-23",
+   "legS": "2009-06-25",
+   "close": "2009-06-25",
+   "leg": "S",
+   "primed": true
+  },
+  {
+   "open": "2020-04-03",
+   "two_prints": true,
+   "legA_fall": "2020-06-04",
+   "legA": "2020-06-25",
+   "legS": "2020-06-05",
+   "close": "2020-06-05",
+   "leg": "S",
+   "primed": true
+  },
+  {
+   "open": "2024-01-05",
+   "two_prints": true,
+   "legA_fall": null,
+   "legA": null,
+   "legS": "2024-10-01",
+   "close": "2024-10-01",
+   "leg": "S",
+   "primed": true
+  }
+ ],
+ "standing": "closed since 2024-10-01",
+ "inputs": {
+  "iu_newest_week": "2026-10-24",
+  "iu_live_weeks": 6,
+  "rate_month": "2026-10",
+  "rate": 3.88,
+  "rate_below_year_ago": true,
+  "sp_day": "2026-11-06",
+  "sp": 7376.85986328125
+ },
+ "log": [
+  "weekly insured unemployment: frozen chain to 2026-09-12, 6 live weeks after (newest week 2026-10-24, released 2026-11-05)",
+  "policy rate: to 2026-10-01 (3.88), below a year earlier: True",
+  "S&P 500: to 2026-11-06 (7376.86)",
+  "episodes: 1948-12-31 -> 1949-11-02 (S); 1953-10-13 -> 1954-05-27 (S); 1957-04-30 -> 1958-06-19 (A); 1960-06-13 -> 1961-02-24 (S); 1969-10-11 -> 1970-11-12 (S); 1973-08-01 -> 1975-02-06 (A); 1979-11-01 -> 1980-07-22 (S); 1981-06-01 -> 1982-12-02 (S); 1990-06-01 -> 1991-02-07 (S); 2001-04-06 -> 2001-12-06 (S); 2007-11-02 -> 2009-06-25 (S); 2020-04-03 -> 2020-06-05 (S); 2024-01-05 -> 2024-10-01 (S)"
+ ],
+ "current": {
+  "open": "2024-01-05",
+  "two_prints": true,
+  "legA_fall": null,
+  "legA": null,
+  "legS": "2024-10-01",
+  "close": "2024-10-01",
+  "leg": "S",
+  "primed": true
+ },
+ "values": {
+  "iu4": {
+   "value": 1714250.0,
+   "release": "2026-11-05",
+   "week": "2026-10-24"
+  },
+  "rate": {
+   "month": "2026-10",
+   "value": 3.88,
+   "year_earlier": 4.09,
+   "diff": -0.21
+  },
+  "sp": {
+   "day": "2026-11-06",
+   "close": 7376.85986328125,
+   "ratio_to_low_since_open": null
+  },
+  "episode_open": false
+ }
+}

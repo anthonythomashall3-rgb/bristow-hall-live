@@ -6,10 +6,10 @@
   "date": "1948-12"
  },
  {
-  "published": "1949-10-28",
+  "published": "1949-11-02",
   "kind": "trough",
-  "leg": "A",
-  "date": "1949-10"
+  "leg": "Z",
+  "date": "1949-11"
  },
  {
   "published": "1953-10-13",
@@ -18,10 +18,10 @@
   "date": "1953-10"
  },
  {
-  "published": "1954-06-03",
+  "published": "1954-05-27",
   "kind": "trough",
-  "leg": "H",
-  "date": "1954-03"
+  "leg": "Z",
+  "date": "1954-05"
  },
  {
   "published": "1957-04-30",
@@ -30,10 +30,10 @@
   "date": "1957-04"
  },
  {
-  "published": "1958-05-23",
+  "published": "1958-06-19",
   "kind": "trough",
-  "leg": "C",
-  "date": "1958-05"
+  "leg": "Z",
+  "date": "1958-06"
  },
  {
   "published": "1960-06-13",
@@ -42,10 +42,10 @@
   "date": "1960-06"
  },
  {
-  "published": "1961-01-30",
+  "published": "1961-02-24",
   "kind": "trough",
-  "leg": "C",
-  "date": "1961-01"
+  "leg": "Z",
+  "date": "1961-02"
  },
  {
   "published": "1969-10-11",
@@ -54,9 +54,9 @@
   "date": "1969-10"
  },
  {
-  "published": "1970-12-24",
+  "published": "1970-11-12",
   "kind": "trough",
-  "leg": "C",
+  "leg": "Z",
   "date": "1970-11"
  },
  {
@@ -66,10 +66,10 @@
   "date": "1973-08"
  },
  {
-  "published": "1975-05-01",
+  "published": "1975-02-06",
   "kind": "trough",
-  "leg": "C",
-  "date": "1975-03"
+  "leg": "Z",
+  "date": "1975-02"
  },
  {
   "published": "1979-11-01",
@@ -78,9 +78,9 @@
   "date": "1979-11"
  },
  {
-  "published": "1980-07-09",
+  "published": "1980-07-22",
   "kind": "trough",
-  "leg": "C",
+  "leg": "Z",
   "date": "1980-07"
  },
  {
@@ -90,10 +90,10 @@
   "date": "1981-06"
  },
  {
-  "published": "1982-11-15",
+  "published": "1982-12-02",
   "kind": "trough",
-  "leg": "C",
-  "date": "1982-11"
+  "leg": "Z",
+  "date": "1982-12"
  },
  {
   "published": "1990-06-01",
@@ -102,10 +102,10 @@
   "date": "1990-06"
  },
  {
-  "published": "1991-04-25",
+  "published": "1991-02-07",
   "kind": "trough",
-  "leg": "C",
-  "date": "1991-04"
+  "leg": "Z",
+  "date": "1991-02"
  },
  {
   "published": "2001-04-06",
@@ -114,10 +114,10 @@
   "date": "2001-04"
  },
  {
-  "published": "2001-11-21",
+  "published": "2001-12-06",
   "kind": "trough",
-  "leg": "C",
-  "date": "2001-11"
+  "leg": "Z",
+  "date": "2001-12"
  },
  {
   "published": "2007-11-02",
@@ -126,10 +126,10 @@
   "date": "2007-11"
  },
  {
-  "published": "2009-06-18",
+  "published": "2009-06-25",
   "kind": "trough",
-  "leg": "C",
-  "date": "2009-05"
+  "leg": "Z",
+  "date": "2009-06"
  },
  {
   "published": "2020-04-03",
@@ -138,10 +138,10 @@
   "date": "2020-04"
  },
  {
-  "published": "2020-05-07",
+  "published": "2020-06-05",
   "kind": "trough",
-  "leg": "C",
-  "date": "2020-05"
+  "leg": "Z",
+  "date": "2020-06"
  },
  {
   "published": "2024-01-05",
@@ -150,9 +150,9 @@
   "date": "2024-01"
  },
  {
-  "published": "2024-09-26",
+  "published": "2024-10-01",
   "kind": "trough",
-  "leg": "C",
-  "date": "2024-09"
+  "leg": "Z",
+  "date": "2024-10"
  }
 ]
