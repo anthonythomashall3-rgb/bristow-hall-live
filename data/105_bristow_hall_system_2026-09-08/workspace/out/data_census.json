@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-09 16:04",
+ "built_at": "2026-11-09 16:22",
  "version": "C1021+E22",
  "census_date": "2026-11-09",
  "feeds": [
@@ -99,10 +99,10 @@
    "series": "^GSPC",
    "source": "Yahoo Finance close at the 5:05 PM ET run, corrected to the official close on FRED (SP500), which FRED posts the same evening, about 8 PM ET",
    "every": "Every trading day - read at the 5:05 PM ET run",
-   "through": "2026-11-06",
-   "next": "2026-11-09",
+   "through": "2026-11-09",
+   "next": "2026-11-10",
    "link": "https://finance.yahoo.com/quote/%5EGSPC/",
-   "value": "7,376.86",
+   "value": "7,549.94",
    "backup": "the official FRED SP500 close when the chart feed fails (two independent quotes)",
    "format_check": "q41: reading matches the readings table; two sources compared",
    "auto": "yes"
@@ -207,7 +207,7 @@
   {
    "channel": "S&P 500 close",
    "status": "current",
-   "last": "2026-11-06",
+   "last": "2026-11-09",
    "limit_days": 5,
    "substitute": null
   }

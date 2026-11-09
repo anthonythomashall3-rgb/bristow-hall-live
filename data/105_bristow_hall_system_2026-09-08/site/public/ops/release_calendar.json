@@ -1,94 +1,11 @@
 {
- "built_at": "2026-11-09 16:04",
+ "built_at": "2026-11-09 16:22",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-09T21:04:26Z",
+ "generated_utc": "2026-11-09T21:22:54Z",
  "rows": [
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-17",
-   "confirmed_through": "2026-12-23",
-   "fred_clock": "12:02",
-   "freq": "weekly",
-   "ids": "gdpnow",
-   "link": "https://alfred.stlouisfed.org/series?seid=GDPNOW",
-   "name": "gdpnow",
-   "next_expected": false,
-   "next_ny": "2026-11-17 12:02",
-   "read_lag_min": 0,
-   "release_id": 386,
-   "short": "GDPNow",
-   "slots": true,
-   "source": "FRED release 386 (GDPNow)",
-   "through": "2026-11-09",
-   "time_known": true,
-   "time_note": "FRED's posting clock, the median of its last nine posts (the Atlanta Fed publishes no hour)",
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-02 12:02",
-     "utc": "2026-11-02T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-04 12:02",
-     "utc": "2026-11-04T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-09 12:02",
-     "utc": "2026-11-09T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-17 12:02",
-     "utc": "2026-11-17T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-18 12:02",
-     "utc": "2026-11-18T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 12:02",
-     "utc": "2026-11-25T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-01 12:02",
-     "utc": "2026-12-01T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-08 12:02",
-     "utc": "2026-12-08T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-09 12:02",
-     "utc": "2026-12-09T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-16 12:02",
-     "utc": "2026-12-16T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 12:02",
-     "utc": "2026-12-17T17:02:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-23 12:02",
-     "utc": "2026-12-23T17:02:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-11-09",
+   "build_next": "2026-11-10",
    "confirmed_through": "2027-03-01",
    "fred_clock": null,
    "freq": "daily",
@@ -102,7 +19,7 @@
    "short": "the S&P 500 close",
    "slots": false,
    "source": "rule: nyse_close",
-   "through": "2026-11-06",
+   "through": "2026-11-09",
    "time_known": true,
    "time_note": "the market close",
    "times": [
@@ -516,6 +433,89 @@
   },
   {
    "agrees_with_build": true,
+   "build_next": "2026-11-17",
+   "confirmed_through": "2026-12-23",
+   "fred_clock": "12:02",
+   "freq": "weekly",
+   "ids": "gdpnow",
+   "link": "https://alfred.stlouisfed.org/series?seid=GDPNOW",
+   "name": "gdpnow",
+   "next_expected": false,
+   "next_ny": "2026-11-17 12:02",
+   "read_lag_min": 0,
+   "release_id": 386,
+   "short": "GDPNow",
+   "slots": true,
+   "source": "FRED release 386 (GDPNow)",
+   "through": "2026-11-09",
+   "time_known": true,
+   "time_note": "FRED's posting clock, the median of its last nine posts (the Atlanta Fed publishes no hour)",
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-02 12:02",
+     "utc": "2026-11-02T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-04 12:02",
+     "utc": "2026-11-04T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-09 12:02",
+     "utc": "2026-11-09T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-17 12:02",
+     "utc": "2026-11-17T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-18 12:02",
+     "utc": "2026-11-18T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 12:02",
+     "utc": "2026-11-25T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-01 12:02",
+     "utc": "2026-12-01T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-08 12:02",
+     "utc": "2026-12-08T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-09 12:02",
+     "utc": "2026-12-09T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-16 12:02",
+     "utc": "2026-12-16T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 12:02",
+     "utc": "2026-12-17T17:02:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 12:02",
+     "utc": "2026-12-23T17:02:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
    "build_next": "2026-11-12",
    "confirmed_through": "2026-12-31",
    "fred_clock": "08:34",
@@ -635,7 +635,7 @@
    "link": "https://fred.stlouisfed.org/series/BAA",
    "name": "moody's baa corporate bond yield, monthly average",
    "next_expected": false,
-   "next_ny": "2026-11-09 16:15",
+   "next_ny": "2026-12-07 16:15",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the Baa monthly average (read the 7th)",

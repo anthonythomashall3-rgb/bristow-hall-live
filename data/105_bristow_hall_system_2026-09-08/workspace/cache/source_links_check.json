@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-11-09T17:09:55Z",
+ "checked_utc": "2026-11-09T21:22:48Z",
  "release": {},
  "row_tokens": {
   "feed|BAA": "2026-10|6.59",
@@ -35,7 +35,7 @@
   "feed|UNRATE, PAYEMS, UNEMPLOY, LNS13023621": "2026-10|4.1; 159,293; 7,068; 3,166",
   "feed|UNRATE, PAYEMS, UNEMPLOY, LNS13023621|Unemployment rate, payrolls, the unemployed count, job losers (the household pillar, the payroll pillar, the count door, the job-losers door)": "2026-10|4.1; 159,293; 7,068; 3,166",
   "feed|^GSPC": "2026-11-06|7,376.86",
-  "feed|^GSPC|S&P 500 daily close (the market pillar: below its close a year earlier; a confirmation of the claims closer)": "2026-11-06|7,376.86",
+  "feed|^GSPC|S&P 500 daily close (the market pillar: below its close a year earlier; a confirmation of the claims closer)": "2026-11-09|7,549.94",
   "row|BAA|Moody's Baa corporate bond yield, monthly average": "2026-10|6.59",
   "row|CCNSA / COVEMP|Insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)": "2026-10-24|-0.111",
   "row|CFNAIMA3|Chicago Fed National Activity Index, three-month average": "2026-09-01|0.03",
@@ -93,7 +93,7 @@
   "row|rule|JTSJOL|Job openings": "2026-09|7,523",
   "row|rule|SAHMREALTIME|Sahm rule, real time": "2026-10|0.00",
   "row|rule|UNRATE, PAYEMS, UNEMPLOY, LNS13023621|Unemployment rate, payrolls, the unemployed count, job losers": "2026-10|4.1; 159,293; 7,068; 3,166",
-  "row|rule|^GSPC|S&P 500 daily close": "2026-11-06|7,376.86",
+  "row|rule|^GSPC|S&P 500 daily close": "2026-11-09|7,549.94",
   "tile|CPI inflation": "3.7%|year over year, Sep 2026",
   "tile|Initial claims (week)": "189,000|week ending Oct 31, 2026",
   "tile|Insured unemployment rate": "1.1%|week ending Oct 24, 2026",
