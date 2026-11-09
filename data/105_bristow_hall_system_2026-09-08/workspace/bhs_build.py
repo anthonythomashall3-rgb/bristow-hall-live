@@ -1858,7 +1858,7 @@ def _c1br(day,fallback='C1021 starter'):
     d=_C1DOOR.get(str(day)[:10]); return _C1NAME.get(d,'C1021 starter: '+str(d)) if d else fallback
 _BRANCH['C']='C1021 starter'
 _E22LEG={e['close']:e.get('leg') for e in (E22.get('episodes') or []) if e.get('close')}   # E22 (1031): each close names its leg
-_E22NAME={'A':'E22 ender, leg A: insured unemployment past its peak, decelerating, the policy rate below a year earlier','S':'E22 ender, leg S: the S&P 500 20 per cent off its low, insured unemployment off its high, the policy rate below a year earlier'}
+_E22NAME={'A':'E22 ender, leg A: insured unemployment past its peak, decelerating, the policy rate below a year earlier','S':'E22 ender, leg S: the S&P 500 20 per cent off its low, insured unemployment off its high, the policy rate below a year earlier','Q':'E22 ender, leg Q: the S&P 500 20 per cent off its low, insured unemployment off its high and below a quarter earlier'}
 def _e22br(day):
     l=_E22LEG.get(str(day)[:10]); return _E22NAME.get(l,'E22 ender')
 for _lst in (state.get('episodes') or [], state.get('chronology') or []):
@@ -1886,7 +1886,8 @@ state['core']=('C1021: one starter, four ways in, all read on the release day fr
                '(collection 1031): inside an episode, leg A ends it when insured unemployment (the 4-week mean of the seasonally adjusted first prints), '
                'after 8 straight weekly rises, falls more than 3 times its median weekly move below its high, its 8-week second difference turns negative '
                'and the federal funds rate is below its level a year earlier; leg S ends it when the S&P 500 stands 20 per cent above its lowest close since '
-               'the open while insured unemployment is off its high and the funds rate is below a year earlier; the end is the day the first leg fires. '
+               'the open while insured unemployment is off its high and the funds rate is below a year earlier; leg Q (collection 1032) ends a recession the Fed '
+               'does not ease: the same market line with insured unemployment off its high and below its level a quarter earlier; the end is the day the first leg fires. '
                'The damage grade is v3.76\'s, unchanged.')
 state['walk']=('C1021 (collections 1016-1022, November 2026): the route and the count door walked blind from 1948 on first prints and release days '
                '(1948-60 on the documented BLS and DOL release days, collections 962 and 1020); the fed-shock door from 1954 and the job-losers door from '
@@ -1905,7 +1906,7 @@ state['notes']=dict(vintage=('every monthly pillar - the unemployment rate, payr
                              '(Baa read the 7th); the S&P 500 is never revised'),
                     arithmetic='every pillar is a sign: on at or above its line; a reading equal to its line is at the line',
                     doors='the route needs all seven pillars on the same release day; each door is its own call; any one opens the episode',
-                    closers='E22 (collection 1031; RECORD-1027/1028/1030): leg A on insured unemployment, leg S on the S&P 500, both under the policy-rate condition; the end is the first leg\'s fire day',
+                    closers='E22 (collection 1031; RECORD-1027/1028/1030/1032): leg A on insured unemployment and leg S on the S&P 500, both under the policy-rate condition, and leg Q (the S&P 500 with insured unemployment below a quarter earlier, no policy-rate condition); the end is the first leg\'s fire day',
                     damage='v3.76\'s three-dimension damage grade, unchanged (collection 327)')
 state['walked_record']=dict(first_cut=1948,record_cut=C1021.get('record_cut'),calls_in_record=len(C1021.get('calls') or []),live_calls=C1021.get('live_calls'),
                             collections='1016 (C1016P), 1019 (C1019 = +FS), 1021 (C1021 = +JL), 1022 (the port)',note='every call dated to its own release day; no call is retrospective')
