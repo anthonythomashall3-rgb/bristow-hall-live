@@ -13,8 +13,11 @@ After an episode opened by C1021, END on the first day either leg fires:
   not at a new post-priming high, and the policy rate below its level 12 months earlier.
   LEG Q (1032) - the same bull-market line and insured unemployment off its high, with no policy-rate condition but insured unemployment below
   its print a quarter (13 prints) earlier: the end of a recession in which the Fed does not ease.
+  LEG QG (1034) - the same bull-market line and insured unemployment off its high, insured unemployment OR initial claims (4-week mean of the SA
+  first prints) below its print a quarter earlier, but only after insured unemployment has risen by a third over its print on the open day
+  (a recovery follows damage): ends a no-ease recession sooner.
 Chronology: C1021's calls open (out/c1021_state.json); an open needs no open episode and more than 183 days since the last close.
-Inputs: s2/e22_history.csv (chain v4 1946-2026, frozen: week, iu_nsa, iu_rtsa (SA first print), iu_release), then the merged first-print
+Inputs: s2/e22_history.csv (chain v4 1946-2026, frozen: week, iu_nsa, iu_rtsa (SA first print), iu_release, ic_rtsa, ic_release), then the merged first-print
 table cache/national_first_prints_1985_live.csv (+ cache/c1021/claims_nsa_first_prints.csv) for newer weeks; s2/e22_rate_history.csv then
 cache/c1021/FEDFUNDS.csv; the S&P daily file as s2/c1021.py reads it. Writes out/e22_state.json.
 Run from the live workspace after s2/c1021.py: python3 s2/e22.py   (BHS_E22_GATE=1 prints the gate against the harness's record)."""
@@ -24,13 +27,15 @@ ROOT = os.environ.get('BHS_ROOT') or next((r for r in (os.path.expanduser('~/Pro
 W = os.getcwd(); S2 = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(W, 'out'); os.makedirs(OUT, exist_ok=True)
 TODAY = pd.Timestamp(os.environ.get('BHS_TODAY') or dt.date.today())
 K_RUN, K_SIG, H_SIG, L_DEC, BULL, GAP, COV, COV_DAYS = 8, 3, 1, 8, 1.2, 183, 0.8, 548
+QTR, DMG = 13, 1.0 / 3.0   # leg Q/QG: a quarter of weekly prints; QG's damage line (insured unemployment up a third over the open)
 LOG = []; READING = []
 def say(*a):
     s = ' '.join(str(x) for x in a); LOG.append(s); print('e22:', s, flush=True)
 
 # ---------------------------------------------------------------- inputs
 def load_weekly():
-    H = pd.read_csv(os.path.join(S2, 'e22_history.csv'), parse_dates=['week_ending', 'iu_release']).set_index('week_ending').sort_index()
+    H = pd.read_csv(os.path.join(S2, 'e22_history.csv'), parse_dates=['week_ending', 'iu_release', 'ic_release']).set_index('week_ending').sort_index()
+    lastc = H.index[H['ic_rtsa'].notna()].max(); ictail = []
     last = H.index[H['iu_rtsa'].notna()].max(); tail = []
     f = os.path.join(W, 'cache', 'national_first_prints_1985_live.csv')
     f45 = os.path.join(ROOT, '45_dol_first_prints_2026-09', 'national_first_prints.csv')   # the update appends each release here; the build's merged table follows at the build
@@ -51,6 +56,11 @@ def load_weekly():
             wk = r.iuw + pd.Timedelta(days=(5 - r.iuw.weekday()) % 7)
             n = r.iunsa if pd.notna(r.iunsa) else nsa.get(r.iuw, np.nan)
             tail.append(dict(week_ending=wk, iu_nsa=n, iu_rtsa=float(r.iusa), iu_release=r.rel))
+        # 1034: initial claims SA first print (icsa) for weeks after the frozen chain, first release of each week
+        d['icw'] = pd.to_datetime(d['ic_week_ended'], errors='coerce'); d['icsa_'] = pd.to_numeric(d['icsa'], errors='coerce')
+        y = d[d.icsa_.notna() & d.icw.notna() & d.rel.notna()].sort_values('rel').drop_duplicates('icw', keep='first')
+        for r in y[y.icw > lastc].itertuples():
+            ictail.append((r.icw + pd.Timedelta(days=(5 - r.icw.weekday()) % 7), float(r.icsa_), r.rel))
     if tail:
         T = pd.DataFrame(tail).set_index('week_ending'); H = pd.concat([H[H.index <= last], T[~T.index.duplicated(keep='first')]]).sort_index()
     # 1031c (9 Nov 2026, the open-episode drill): the frozen chain's NSA level has holes in its newest weeks (2026-08-08..09-12), and a hole
@@ -64,6 +74,11 @@ def load_weekly():
             wk = wk0 + pd.Timedelta(days=(5 - wk0.weekday()) % 7)
             if wk >= pd.Timestamp('2025-01-01') and wk in H.index and pd.isna(H.at[wk, 'iu_nsa']): H.at[wk, 'iu_nsa'] = v; nfill += 1
     if nfill: say('NSA holes filled from first prints (2025 on): %d weeks' % nfill)
+    for wk, x, rl in ictail:
+        if wk not in H.index: H.loc[wk, 'iu_rtsa'] = np.nan
+        if pd.isna(H.at[wk, 'ic_rtsa']): H.at[wk, 'ic_rtsa'] = x; H.at[wk, 'ic_release'] = rl
+    H = H.sort_index()
+    if ictail: say('initial claims: frozen chain to %s, %d live weeks after' % (lastc.date(), len(ictail)))
     grid = pd.date_range(H.index.min(), H.index.max(), freq='7D')
     H = H.reindex(grid); H.index.name = 'week_ending'
     say('weekly insured unemployment: frozen chain to %s, %d live weeks after (newest week %s, released %s)' % (last.date(), len(tail), H.index[H.iu_rtsa.notna()].max().date(), H.loc[H.iu_rtsa.notna(), 'iu_release'].max().date()))
@@ -92,7 +107,10 @@ def mk(vals, r):
 def paths(X):
     v = X['iu_nsa'].astype(float).values; rel = pd.to_datetime(X['iu_release'], errors='coerce'); sa = X['iu_rtsa'].astype(float).values
     s4 = pd.Series(v).rolling(4).mean(); yy = (s4 / s4.shift(52)).values; a = pd.Series(sa).rolling(4).mean().values
-    return {'IU4': mk(a, rel), 'IUy4': mk(yy, rel)}
+    P = {'IU4': mk(a, rel), 'IUy4': mk(yy, rel)}
+    if 'ic_rtsa' in X.columns:   # 1034: initial claims, 4-week mean of the SA first prints, keyed by release day
+        P['IC4'] = mk(pd.Series(X['ic_rtsa'].astype(float).values).rolling(4).mean().values, pd.to_datetime(X['ic_release'], errors='coerce'))
+    return P
 def prime_idx(path, s0, K=K_RUN):
     prev = None; run = 0
     for i, (kd, x) in enumerate(path):
@@ -183,7 +201,23 @@ def ender(P, SP, witness_ok, s0, cap=None, cov_end=None):
         for d in seg[seg >= lo * BULL].index:
             i = np.searchsorted(kk, np.datetime64(d), side='right') - 1; j = np.searchsorted(ks0, np.datetime64(d), side='right') - 1
             if i >= 0 and vs[i] and j >= 13 and xs0[j] < xs0[j - 13]: legQ = d; break
-    c = [x for x in (legA, legS, legQ) if x is not None]; close = min(c) if c else None
+    # LEG QG (1034, 9 Nov 2026; PREREG-53..56, 1031/out/battery_1035-1038; RECORD-1034): the bull line, insured unemployment off its high,
+    # insured unemployment OR initial claims below a quarter earlier - only after insured unemployment's running high since the open is at least
+    # a third above its print on the open day (no recovery without damage: the gate that stops the harsh-1980 world's Feb-1980 false end).
+    # Record, revisions, noise, severity, arming: identical to legs A/S/Q; no-ease worlds 55.2 -> 34.6 (flat), 71.2 -> 45.4 (rising).
+    legG = None
+    if stt and 'IC4' in P:
+        ks0 = np.array([k for k, _ in P['IU4']], dtype='datetime64[ns]'); xs0 = np.array([x for _, x in P['IU4']])
+        kc = np.array([k for k, _ in P['IC4']], dtype='datetime64[ns]'); xc = np.array([x for _, x in P['IC4']])
+        j0 = int(np.searchsorted(ks0, np.datetime64(s0), side='right')) - 1; base = xs0[j0] if j0 >= 0 else xs0[0]
+        for d in seg[seg >= lo * BULL].index:
+            i = np.searchsorted(kk, np.datetime64(d), side='right') - 1
+            if not (i >= 0 and vs[i]): continue
+            jd = int(np.searchsorted(ks0, np.datetime64(d), side='right')) - 1
+            if jd <= max(j0, 0) or xs0[max(j0 + 1, 0):jd + 1].max() / base < 1 + DMG: continue
+            c_ = int(np.searchsorted(kc, np.datetime64(d), side='right')) - 1
+            if (jd >= QTR and xs0[jd] < xs0[jd - QTR]) or (c_ >= QTR and xc[c_] < xc[c_ - QTR]): legG = d; break
+    c = [x for x in (legA, legS, legQ, legG) if x is not None]; close = min(c) if c else None
     # THE CLOSING READING (descriptive, for the page's chart; it decides nothing): on each insured-unemployment release day from the open to the
     # close (or today), the larger of leg A's share of its four conditions (primed, the significant fall, the deceleration, the policy rate) and
     # leg S's share of its three (the market 20 per cent off its low, insured unemployment off its high, the policy rate); 1.00 on the close day.
@@ -207,8 +241,8 @@ def ender(P, SP, witness_ok, s0, cap=None, cov_end=None):
     READING.extend(rd)
     det = dict(open=str(s0.date()), two_prints=bool(two), legA_fall=None if fire is None else str(pd.Timestamp(fire).date()), legA=None if legA is None else str(pd.Timestamp(legA).date()),
                legS=None if legS is None else str(pd.Timestamp(legS).date()), close=None if close is None else str(pd.Timestamp(close).date()),
-               legQ=None if legQ is None else str(pd.Timestamp(legQ).date()),
-               leg=None if close is None else ('A' if close == legA else ('S' if close == legS else 'Q')), primed=bool(prime_ix(P['IU4'], s0)[0] is not None))
+               legQ=None if legQ is None else str(pd.Timestamp(legQ).date()), legQG=None if legG is None else str(pd.Timestamp(legG).date()),
+               leg=None if close is None else ('A' if close == legA else ('S' if close == legS else ('Q' if close == legQ else 'G'))), primed=bool(prime_ix(P['IU4'], s0)[0] is not None))
     return (None if close is None else pd.Timestamp(close).normalize()), det
 
 # ---------------------------------------------------------------- the chronology: C1021 opens, E22 closes
@@ -230,7 +264,7 @@ if __name__ == '__main__':
     eps = chronology(calls, P, SP, wok)
     say('episodes: ' + '; '.join('%s -> %s (%s)' % (e['open'], e['close'] or 'OPEN', e['leg'] or '-') for e in eps))
     cur = eps[-1] if eps else None
-    state = dict(tool='E22', version='E22 (1031) + leg Q (1032)', built='', today=str(TODAY.date()),
+    state = dict(tool='E22', version='E22 (1031) + leg Q (1032) + leg QG (1034)', built='', today=str(TODAY.date()),
                  episodes=eps, standing=('in recession since %s' % cur['open']) if (cur and cur['close'] is None) else ('closed since %s' % (cur['close'] if cur else '-')),
                  inputs=dict(iu_newest_week=str(X.index[X.iu_rtsa.notna()].max().date()), iu_live_weeks=ntail, rate_month=str(R.index.max().date())[:7], rate=float(R.iloc[-1]),
                              rate_below_year_ago=bool(known[-1][1]), sp_day=str(SP.index[-1].date()), sp=float(SP.iloc[-1])), log=LOG)
