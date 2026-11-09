@@ -99,7 +99,7 @@ tr.open td{background:#fbf8ee}
   <div class="legend">
     <span><i style="background:#990000"></i>Composite, percent above or below trend</span>
     <span><i style="background:#d5d9de"></i>Recession (NBER; 2024 per Paper 1)</span>
-    <span><i style="background:#1f4e79"></i>Disturbance (line drawn in blue, bar on the axis)</span>
+    <span><i style="background:rgba(31,78,121,.07);border:1.5px dashed #1f4e79;box-sizing:border-box"></i>Disturbance</span>
     <span><i style="background:repeating-linear-gradient(135deg,#9aa3ad 0 3px,#fff 3px 6px)"></i>After a recession, still open</span>
   </div>
 </div>
@@ -201,15 +201,12 @@ function X(v){return L+(v-x0)/(x1-x0)*(W-L-Rm);} function Y(v){return T+(ymax-v)
 var g='<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="3" height="6" fill="#1f4e79" fill-opacity=".35"/></pattern><pattern id="hatchg" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="3" height="6" fill="#9aa3ad" fill-opacity=".6"/></pattern></defs>';
 function band(a,b,fill,op){var xa=X(xi(a)),xb=b?X(xi(b)+1/12):X(x1);return '<rect x="'+xa.toFixed(1)+'" y="'+T+'" width="'+Math.max(1,xb-xa).toFixed(1)+'" height="'+(H-T-B)+'" fill="'+fill+'" fill-opacity="'+op+'"/>';}
 J.recessions.forEach(function(r){g+=band(r.peak,r.trough,'#d5d9de',1);});
-D.forEach(function(e){ var xa=X(xi(e.peak)),xb=e.trough?X(xi(e.trough)+1/12):X(x1); g+='<rect x="'+xa.toFixed(1)+'" y="'+(H-B-5)+'" width="'+Math.max(1,xb-xa).toFixed(1)+'" height="5" fill="#1f4e79"/>';});
+D.forEach(function(e){var xa=X(xi(e.peak)),xb=e.trough?X(xi(e.trough)+1/12):X(x1); g+='<rect x="'+xa.toFixed(1)+'" y="'+(T+0.75)+'" width="'+Math.max(1,xb-xa).toFixed(1)+'" height="'+(H-T-B-1.5)+'" fill="#1f4e79" fill-opacity=".07" stroke="#1f4e79" stroke-width="1.5" stroke-dasharray="5 3"/>';});
 O.forEach(function(e){g+=e.status==='recession'?band(e.aftermath_from,null,'url(#hatchg)',1):band(e.peak,null,'url(#hatch)',1);});
 for(var v=ymin;v<=ymax;v+=2){g+='<line x1="'+L+'" x2="'+(W-Rm)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'" stroke="'+(v===0?'#666':'#e6e9ed')+'" stroke-width="'+(v===0?1:1)+'"/><text x="'+(L-6)+'" y="'+(Y(v)+4).toFixed(1)+'" font-size="11" fill="#555" text-anchor="end">'+v+'</text>';}
 for(var yr=1950;yr<=x1;yr+=10){g+='<line x1="'+X(yr).toFixed(1)+'" x2="'+X(yr).toFixed(1)+'" y1="'+(H-B)+'" y2="'+(H-B+4)+'" stroke="#666"/><text x="'+X(yr).toFixed(1)+'" y="'+(H-B+17)+'" font-size="11" fill="#555" text-anchor="middle">'+yr+'</text>';}
 var d='';for(var i=0;i<n;i++){d+=(i?'L':'M')+X(xi(dv.date[i])+0.5/12).toFixed(1)+' '+Y(dv.dev[i]).toFixed(1);}
 g+='<path d="'+d+'" fill="none" stroke="#990000" stroke-width="1.4"/>';
-D.forEach(function(e){var a=xi(e.peak), b=e.trough?xi(e.trough):x1, s='';
- for(var i=0;i<n;i++){var q=xi(dv.date[i]); if(q>=a&&q<=b) s+=(s?'L':'M')+X(q+0.5/12).toFixed(1)+' '+Y(dv.dev[i]).toFixed(1);}
- g+='<path d="'+s+'" fill="none" stroke="#1f4e79" stroke-width="2.6"/>';});
 g+='<text x="'+(L+4)+'" y="'+(T+12)+'" font-size="11" fill="#555">percent above or below trend</text>';
 svg.innerHTML=g;
 })();
