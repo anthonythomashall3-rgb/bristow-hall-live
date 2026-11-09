@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bristow-Hall Business Cycle Program — National Disturbance Chronology</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:#1c1c1c;font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;font-size:15px;line-height:1.55}
+a{color:#990000;text-decoration:none} a:hover{text-decoration:underline}
+.inner{width:90%;max-width:1800px;margin:0 auto;padding:0}
+.bh{background:#fff;border-top:5px solid #FFCC00;border-bottom:2px solid #990000}
+.bhrow{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:14px 0;width:90%;max-width:1800px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:13px;color:#990000}
+.mono{width:52px;height:52px;background:#990000;color:#fff;font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:24px;display:flex;align-items:center;justify-content:center;position:relative;border-radius:3px;flex:none}
+.mono span{position:absolute;left:10px;right:10px;bottom:7px;height:3px;background:#FFCC00}
+.wm .l1{font-weight:800;letter-spacing:.15em;font-size:16px;color:#990000;line-height:1.15}
+.wm .l2{letter-spacing:.28em;font-size:11.5px;color:#990000;font-weight:700;line-height:1.15;margin-top:3px}
+.nav{display:flex;flex-wrap:wrap;gap:15px;font-size:11.5px;font-weight:700;letter-spacing:.05em}
+.nav a{color:#990000;text-transform:uppercase;padding:4px 0;border-bottom:2px solid transparent;white-space:nowrap}
+.nav a:hover{border-bottom-color:#cfd6de;text-decoration:none}
+.nav a[aria-current="page"]{border-bottom-color:#FFCC00}
+.badge{display:inline-block;font-size:10.5px;letter-spacing:.12em;font-weight:700;padding:3px 8px;border-radius:2px;align-self:flex-start}
+.badge.live{color:#166534;background:#e8f3ec;border:1px solid #cfe3d6}
+.head{margin:38px 0 0}
+.head h1{font-size:30px;color:#990000;margin:10px 0 10px;line-height:1.2}
+.head .tag{font-size:17px;color:#333;margin:0}
+.head .by{color:#666;font-size:13px;margin:10px 0 0}
+h2{font-size:25px;font-weight:700;color:#111;margin:40px 0 0}
+.rule{border-bottom:3px solid #990000;margin:6px 0 16px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #dfe4ea;border-left:1px solid #dfe4ea}
+.tile{border-right:1px solid #dfe4ea;border-bottom:1px solid #dfe4ea;padding:11px 13px;min-height:92px}
+.tile .lab{font-style:italic;color:#444;font-size:13px;line-height:1.3}
+.tile .val{margin-top:5px;font-size:15px}
+.tile .val b{font-weight:700;font-size:17px;color:#111}
+.tile .sub{color:#666;font-size:12.5px;margin-top:3px}
+.chartbox{border:1px solid #dfe4ea;padding:12px 12px 6px}
+.chartbox svg{display:block;width:100%;height:auto}
+.chartscroll{overflow-x:auto}
+@media (max-width:720px){.chartbox svg{min-width:760px}}
+.legend{display:flex;flex-wrap:wrap;gap:18px;font-size:12.5px;color:#444;margin:8px 2px 2px}
+.legend i{display:inline-block;width:14px;height:10px;margin-right:6px;vertical-align:-1px}
+.note{color:#555;font-size:13px;margin:8px 0 0}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{text-align:left;font-weight:700;color:#111;border-bottom:2px solid #990000;padding:7px 8px;white-space:nowrap;font-size:13px}
+td{border-bottom:1px solid #dfe4ea;padding:7px 8px;vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.open td{background:#fbf8ee}
+.tw{overflow-x:auto}
+.grade{font-weight:700}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;padding:1px 6px;border-radius:2px;white-space:nowrap}
+.pill.set{color:#166534;background:#e8f3ec;border:1px solid #cfe3d6}
+.pill.prov{color:#7a5200;background:#fbf4e6;border:1px solid #eadfc4}
+.defs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid #dfe4ea;border-left:1px solid #dfe4ea}
+.def{border-right:1px solid #dfe4ea;border-bottom:1px solid #dfe4ea;padding:12px 14px}
+.def .k{font-weight:700;color:#990000;font-size:14px}
+.def p{margin:5px 0 0;color:#333;font-size:14px}
+.prose p{color:#333;margin:0 0 12px;max-width:1100px}
+.foot{background:#990000;color:#f3e3e3;margin-top:48px;padding:26px 0 30px}
+.foot .t{font-weight:800;letter-spacing:.12em;font-size:13.5px;color:#FFCC00}
+.foot .s{font-size:13px;margin-top:7px;color:#edcaca}
+.foot a{color:#f3e3e3}
+.foot .links{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 18px;margin-top:16px;font-size:13.5px;font-weight:700}
+.foot .links a{white-space:nowrap}
+@media (max-width:1100px){ .tiles{grid-template-columns:repeat(2,1fr)} .head h1{font-size:26px} }
+@media (max-width:720px){ .tiles{grid-template-columns:repeat(2,1fr)} .defs{grid-template-columns:1fr} .head h1{font-size:23px} .head .tag{font-size:15.5px} }
+</style>
+</head>
+<body>
+<header class="bh"><div class="bhrow">
+  <div class="logo" aria-label="Bristow-Hall Business Cycle Program"><div class="mono">BH<span></span></div><div class="wm"><div class="l1">BRISTOW-HALL</div><div class="l2">BUSINESS CYCLE PROGRAM</div></div></div>
+  <nav class="nav" aria-label="Sections">
+    <a href="/">Home</a>
+    <a href="/detector/">Recession Indicator</a>
+    <a href="/disturbance/" aria-current="page">Disturbance Indicator</a>
+    <a href="/state-onset/">State Recession</a>
+    <a href="/stress-map/">Stress Map</a>
+    <a href="/damage-index/">Damage Index</a>
+    <a href="/chronology/">Chronology</a>
+    <a href="/data/">Data</a>
+    <a href="/#papers">Papers</a>
+  </nav>
+</div></header>
+
+<div class="inner">
+<div class="head">
+  <span class="badge live">RETROSPECTIVE · UPDATED MONTHLY</span>
+  <h1>National Disturbance Chronology</h1>
+  <p class="tag">Every national slowdown since 1948 that did not reach the recession bar: dated by one fixed rule and graded on the same damage scale as recessions.</p>
+  <p class="by" id="vintage"></p>
+</div>
+
+<h2>At a glance</h2><div class="rule"></div>
+<div class="tiles" id="tiles"></div>
+
+<h2>Activity against its trend, 1948 to today</h2><div class="rule"></div>
+<div class="chartbox">
+  <div class="chartscroll"><svg id="chart" viewBox="0 0 1200 380" role="img" aria-label="Deviation of the coincident composite from trend, with recessions and disturbances shaded"></svg></div>
+  <div class="legend">
+    <span><i style="background:#990000"></i>Composite, percent above or below trend</span>
+    <span><i style="background:#d5d9de"></i>Recession (NBER; 2024 per Paper 1)</span>
+    <span><i style="background:#1f4e79"></i>Disturbance (line drawn in blue, bar on the axis)</span>
+    <span><i style="background:repeating-linear-gradient(135deg,#9aa3ad 0 3px,#fff 3px 6px)"></i>After a recession, still open</span>
+  </div>
+</div>
+<p class="note">The line is the four NBER coincident series (payroll employment, industrial production, real income less transfers, real manufacturing and trade sales) combined by the Conference Board method and measured against a smooth trend. A disturbance is a stretch in which the line falls (activity grows more slowly than its trend, or shrinks) that stopped short of a recession.</p>
+
+<h2>The disturbances</h2><div class="rule"></div>
+<div class="tw"><table id="reg"><thead><tr>
+  <th>Peak</th><th>Trough</th><th class="n">Months</th><th>Kind</th><th class="n">Fall vs trend (pp)</th><th class="n">Sahm max</th><th class="n">Production fall (%)</th><th class="n">Grade</th><th>Dates</th>
+</tr></thead><tbody></tbody></table></div>
+<p class="note">Grade: the program's damage grade (labor, output and production), the same arithmetic the Damage Index uses for recessions, applied to each episode's own dates. No labels; the number is the grade. "Settled" means the trough is at least two years old; newer dates can still move as data are revised.</p>
+
+<h2>How a disturbance is decided</h2><div class="rule"></div>
+<div class="defs">
+  <div class="def"><div class="k">1. Dated</div><p>A contraction of the coincident composite relative to its trend (Hodrick-Prescott, λ = 133,107.94, the OECD's monthly value), with peaks and troughs found by the Bry-Boschan rule. Windows come from the OECD's settings (minimum phase 5 months) plus any shorter window, down to 2 months, that passes test 3. Length alone never decides.</p></div>
+  <div class="def"><div class="k">2. Not a recession</div><p>The window contains no NBER recession month (nor Paper 1's April–August 2024 recession). A slowdown that runs straight into a recession is that recession's run-up, not a separate episode.</p></div>
+  <div class="def"><div class="k">3. Real</div><p>The composite falls at least 1.0 percentage point against its trend from peak to trough.</p></div>
+  <div class="def"><div class="k">4. Below the recession bar</div><p>The Sahm indicator (three-month average unemployment rate minus its 12-month low) stays under 0.50, the Sahm rule's own trigger, from the peak to three months after the trough. Every NBER recession since 1948 has reached at least 1.47.</p></div>
+  <div class="def"><div class="k">Jobless-recovery disturbance</div><p>A contraction that begins within 24 months after an NBER trough, while payroll employment is still below its pre-recession peak in every month, in which unemployment rises again by less than 1.0 point (measured from its low inside the window). It is judged against this bar instead of test 4.</p></div>
+  <div class="def"><div class="k">Fixed in advance</div><p>Nothing is tuned to the episodes. The same rule runs each month on current FRED data; the code and every ruling behind it are in the program's records.</p></div>
+</div>
+
+<h2>Close calls and what is not here</h2><div class="rule"></div>
+<div class="tw"><table id="near"><thead><tr><th>Window</th><th>Why it is not a disturbance</th><th class="n">Fall vs trend (pp)</th><th class="n">Sahm max</th><th class="n">Grade</th></tr></thead><tbody></tbody></table></div>
+<div class="prose" style="margin-top:14px">
+<p>Several episodes often called slowdowns leave no mark on the composite at all and so are not here: the 1987 stock-market crash, the 1998 financial crisis, the 2004–05 soft patch and the March 2023 bank failures. Financial stress that never reaches jobs, output, income and sales is not a disturbance by this rule.</p>
+</div>
+
+<h2 id="openh">The open episode</h2><div class="rule"></div>
+<div class="prose" id="openprose"></div>
+
+</div>
+
+<div class="foot"><div class="inner">
+  <div class="t">BRISTOW-HALL BUSINESS CYCLE PROGRAM</div>
+  <div class="s">Real-time dating of the American business cycle.</div>
+  <div class="links"><a href="/">Home</a><a href="/detector/">Recession Indicator</a><a href="/disturbance/">Disturbance Indicator</a><a href="/state-onset/">State Recession Indicator</a><a href="/stress-map/">National Stress Map</a><a href="/damage-index/">Damage Index</a><a href="/chronology/">Chronology</a><a href="/#papers">Papers</a><a href="/data/">Data</a></div>
+</div></div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function(){
+var J=JSON.parse(document.getElementById('data').textContent);
+var MO=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var MS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function ym(s){if(!s)return 'open';var p=s.split('-');return MS[+p[1]-1]+' '+p[0];}
+function ymL(s){var p=s.split('-');return MO[+p[1]-1]+' '+p[0];}
+function f2(x){return (x==null||isNaN(x))?'–':(+x).toFixed(2);}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+var E=J.episodes;
+var D=E.filter(function(e){return e.status.indexOf('disturbance')===0;});
+var R=E.filter(function(e){return e.status==='recession';});
+var Rc=R.filter(function(e){return !e.open;}), Dc=D.filter(function(e){return !e.open;});
+var O=E.filter(function(e){return e.open;});
+var NEAR=E.filter(function(e){return e.status==='labor_bar_crossed_no_recession'||e.status==='fails_DD'||e.status==='runup';});
+document.getElementById('vintage').textContent='Data through '+ymL(J.composite_last_month)+' (FRED, retrieved '+J.built.slice(0,10)+'). Re-dated each month by the same fixed rule.';
+// tiles
+var gr=Dc.map(function(e){return e.grade;}), rg=Rc.map(function(e){return e.grade;});
+var last=D.filter(function(e){return !e.open;}).slice(-1)[0];
+function openLabel(o){return o.status==='recession'?'the 2024 recession\'s window, still open':(o.status.indexOf('disturbance')===0?'disturbance, provisional':'not yet 1.0 point deep');}
+var tiles=[
+ ['Disturbances dated','<b>'+D.length+'</b>','since '+D[0].peak.slice(0,4)],
+ ['Most recent closed',''+'<b>'+ym(last.peak)+' – '+ym(last.trough)+'</b>','grade '+f2(last.grade)],
+ ['Grade range, disturbances','<b>'+f2(Math.min.apply(null,gr))+' – '+f2(Math.max.apply(null,gr))+'</b>','same scale as recessions'],
+ (O.length&&O[0].status==='recession')?['After the 2024 recession','<b>since '+ym(O[0].aftermath_from)+'</b>','still falling against trend; no disturbance open']:['Open episode',O.length?'<b>since '+ym(O[0].peak)+'</b>':'<b>none</b>',O.length?openLabel(O[0]):'']
+];
+document.getElementById('tiles').innerHTML=tiles.map(function(t){return '<div class="tile"><div class="lab">'+t[0]+'</div><div class="val">'+t[1]+'</div><div class="sub">'+t[2]+'</div></div>';}).join('');
+// register table
+var kind={disturbance_class1:'Disturbance',disturbance_class2:'Jobless-recovery disturbance'};
+document.querySelector('#reg tbody').innerHTML=D.map(function(e){
+ return '<tr><td>'+ym(e.peak)+'</td><td>'+ym(e.trough)+'</td><td class="n">'+e.months+'</td><td>'+kind[e.status]+'</td><td class="n">'+f2(e.dev_fall_pp)+'</td><td class="n">'+f2(e.status==='disturbance_class2'?e.sahm_rerise:e.sahm_max)+(e.status==='disturbance_class2'?'*':'')+'</td><td class="n">'+f2(e.ip_fall_pct)+'</td><td class="n grade">'+f2(e.grade)+'</td><td>'+(e.provisional?'<span class="pill prov">PROVISIONAL</span>':'<span class="pill set">SETTLED</span>')+'</td></tr>';
+}).join('')+'<tr><td colspan="9" style="color:#666;font-size:12.5px;border-bottom:none">* For a jobless-recovery disturbance the Sahm column shows the re-rise inside the window, the measure its own bar uses.</td></tr>';
+// near misses
+var why={labor_bar_crossed_no_recession:function(e){return 'Unemployment crossed the recession bar (Sahm '+f2(e.sahm_max)+') but no recession followed'+(e.peak==='1959-06'?': the 116-day steel strike of 1959':'')+'.';},
+ fails_DD:function(e){return 'Too shallow: the composite fell only '+f2(e.dev_fall_pp)+' points against trend.';},
+ runup:function(e){return 'Ran straight into a recession: part of that recession.';}};
+var rows=NEAR.map(function(e){return '<tr><td>'+ym(e.peak)+' – '+ym(e.trough)+'</td><td>'+why[e.status](e)+'</td><td class="n">'+f2(e.dev_fall_pp)+'</td><td class="n">'+f2(e.sahm_max)+'</td><td class="n">'+f2(e.grade)+'</td></tr>';});
+var RU={'1956-01':'1957–58','1979-03':'1980','1989-01':'1990–91','2019-01':'2020'};
+R.forEach(function(e){ if(RU[e.peak]) rows.push('<tr><td>'+ym(e.peak)+' slowdown</td><td>Ran into the '+RU[e.peak]+' recession with no recovery between: that recession\'s run-up, not a separate episode.</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>'); });
+document.querySelector('#near tbody').innerHTML=rows.join('');
+// open window
+var op=document.getElementById('openprose');
+if(O.length){var o=O[0];
+ var head='<p>The composite has been falling against its trend since '+ymL(o.peak)+' ('+o.months+' months, a fall of '+f2(o.dev_fall_pp)+' points so far).';
+ if(o.status==='recession'){ document.getElementById('openh').textContent='After the 2024 recession';
+   var diff=Math.abs(o.peak_dev-o.post_high_dev).toFixed(3);
+   op.innerHTML='<p>Paper 1\'s 2024 recession ran from April to August 2024. The composite\'s high point against its trend came in '+ymL(o.peak)+'. After the recession it recovered to within '+diff+' points of that high in '+ymL(o.post_high_month)+', and it has fallen '+f2(o.fall_since_post_high)+' points since. The Sahm indicator has stayed under 0.50 since the recession ('+f2(o.sahm_max)+' at most in the window, during the recession itself).</p>'+
+   '<p><b>Not a jobless recovery.</b> That bar needs payroll employment below its pre-recession peak in every month. Payrolls '+(o.payroll_ever_below_peak?'have been below':'never fell below')+' their pre-recession peak ('+(o.payroll_prerec_peak_k/1000).toFixed(1)+' million); in '+ymL(o.payroll_latest_month)+' they stood at '+(o.payroll_latest_k/1000).toFixed(1)+' million.</p>'+
+   '<p><b>The recession\'s aftermath, for now.</b> The bounce after the recession was shorter than the dating rule\'s minimum phase of five months and did not top the earlier high, so the rule counts the whole slide as one contraction that began in the recession. It is that recession\'s aftermath, not a disturbance, the same way the 2000–2003 window belongs to the 2001 recession. If revised data put the later high above the earlier one, the slide from the later high becomes its own episode and is judged by the usual tests. The trend is estimated from data on both sides, so these dates can still move.</p>';}
+ else if(o.status.indexOf('disturbance')===0) op.innerHTML=head+' It contains no recession month and, on the data so far, passes every test: it is shown as a provisional disturbance. Its dates can move as months are added and revised, and its grade so far is '+f2(o.grade)+'.</p>';
+ else op.innerHTML=head+' It is not yet 1.0 point deep, so it is not classified.</p>';
+} else op.innerHTML='<p>No window is open.</p>';
+// chart
+var svg=document.getElementById('chart'),W=1200,H=380,L=44,Rm=12,T=12,B=30;
+var dv=J.deviation, n=dv.date.length;
+function xi(s){var p=s.split('-');return (+p[0])+(+p[1]-1)/12;}
+var x0=xi(dv.date[0]), x1=xi(dv.date[n-1])+1/12;
+var ymin=Math.floor(Math.min.apply(null,dv.dev)), ymax=Math.ceil(Math.max.apply(null,dv.dev));
+function X(v){return L+(v-x0)/(x1-x0)*(W-L-Rm);} function Y(v){return T+(ymax-v)/(ymax-ymin)*(H-T-B);}
+var g='<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="3" height="6" fill="#1f4e79" fill-opacity=".35"/></pattern><pattern id="hatchg" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="3" height="6" fill="#9aa3ad" fill-opacity=".6"/></pattern></defs>';
+function band(a,b,fill,op){var xa=X(xi(a)),xb=b?X(xi(b)+1/12):X(x1);return '<rect x="'+xa.toFixed(1)+'" y="'+T+'" width="'+Math.max(1,xb-xa).toFixed(1)+'" height="'+(H-T-B)+'" fill="'+fill+'" fill-opacity="'+op+'"/>';}
+J.recessions.forEach(function(r){g+=band(r.peak,r.trough,'#d5d9de',1);});
+D.forEach(function(e){ var xa=X(xi(e.peak)),xb=e.trough?X(xi(e.trough)+1/12):X(x1); g+='<rect x="'+xa.toFixed(1)+'" y="'+(H-B-5)+'" width="'+Math.max(1,xb-xa).toFixed(1)+'" height="5" fill="#1f4e79"/>';});
+O.forEach(function(e){g+=e.status==='recession'?band(e.aftermath_from,null,'url(#hatchg)',1):band(e.peak,null,'url(#hatch)',1);});
+for(var v=ymin;v<=ymax;v+=2){g+='<line x1="'+L+'" x2="'+(W-Rm)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'" stroke="'+(v===0?'#666':'#e6e9ed')+'" stroke-width="'+(v===0?1:1)+'"/><text x="'+(L-6)+'" y="'+(Y(v)+4).toFixed(1)+'" font-size="11" fill="#555" text-anchor="end">'+v+'</text>';}
+for(var yr=1950;yr<=x1;yr+=10){g+='<line x1="'+X(yr).toFixed(1)+'" x2="'+X(yr).toFixed(1)+'" y1="'+(H-B)+'" y2="'+(H-B+4)+'" stroke="#666"/><text x="'+X(yr).toFixed(1)+'" y="'+(H-B+17)+'" font-size="11" fill="#555" text-anchor="middle">'+yr+'</text>';}
+var d='';for(var i=0;i<n;i++){d+=(i?'L':'M')+X(xi(dv.date[i])+0.5/12).toFixed(1)+' '+Y(dv.dev[i]).toFixed(1);}
+g+='<path d="'+d+'" fill="none" stroke="#990000" stroke-width="1.4"/>';
+D.forEach(function(e){var a=xi(e.peak), b=e.trough?xi(e.trough):x1, s='';
+ for(var i=0;i<n;i++){var q=xi(dv.date[i]); if(q>=a&&q<=b) s+=(s?'L':'M')+X(q+0.5/12).toFixed(1)+' '+Y(dv.dev[i]).toFixed(1);}
+ g+='<path d="'+s+'" fill="none" stroke="#1f4e79" stroke-width="2.6"/>';});
+g+='<text x="'+(L+4)+'" y="'+(T+12)+'" font-size="11" fill="#555">percent above or below trend</text>';
+svg.innerHTML=g;
+})();
+</script>
+</body>
+</html>
