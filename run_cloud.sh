@@ -62,8 +62,13 @@ else
   # It MUST succeed: a starter that cannot read its inputs stops the run rather than publish a page without the alarm.
   python3 s2/c1021.py
   # E22 (1031, 9 November 2026; Anthony: "lets port e22"): THE ENDER (s2/e22.py) after the starter: C1021's opens, E22's closes, the closing reading.
-  # It MUST succeed: an ender that cannot read its inputs stops the run rather than publish a chronology without its ends.
-  python3 s2/e22.py
+  # If it fails, the run does NOT stop (1031b, 9 Nov 2026: the starter's alarm must keep publishing): the alert goes out on every channel,
+  # the ender's last state (out/e22_state.json, committed by the last good run) stands, and the watchdog reports 'ENDER DID NOT RUN' each run
+  # until it runs; with no last state at all the run stops.
+  if ! python3 s2/e22.py; then
+    bash s2/alert.sh 'ENDER FAILED' "s2/e22.py failed on run ${GITHUB_RUN_ID:-local}; the ender's last state stands ($(python3 -c "import json;print(json.load(open('out/e22_state.json')).get('today'))" 2>/dev/null || echo none))" || true
+    test -f out/e22_state.json && test -f cache/e22/closing_daily.csv || { echo 'E22: no last state to stand on - the run stops'; exit 1; }
+  fi
   # v3.73 (23 September 2026, collection 333; collection 331): the committee watch, once a day; a dating the chronology file lacks raises a flag, moves nothing; never fails the run
   if [ "$(cat cache/chronology_watch_on 2>/dev/null)" != "$(date +%F)" ]; then python3 s2/chronology_watch.py && date +%F > cache/chronology_watch_on || true; fi
   python3 bhs_build.py

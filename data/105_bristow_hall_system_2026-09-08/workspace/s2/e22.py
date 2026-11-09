@@ -51,6 +51,17 @@ def load_weekly():
             tail.append(dict(week_ending=wk, iu_nsa=n, iu_rtsa=float(r.iusa), iu_release=r.rel))
     if tail:
         T = pd.DataFrame(tail).set_index('week_ending'); H = pd.concat([H[H.index <= last], T[~T.index.duplicated(keep='first')]]).sort_index()
+    # 1031c (9 Nov 2026, the open-episode drill): the frozen chain's NSA level has holes in its newest weeks (2026-08-08..09-12), and a hole
+    # breaks the NSA print's 4-week mean, so a live episode read one print where it should read two. NSA holes from 2025 on are filled from the
+    # first prints the update keeps (ALFRED's initial release of CCNSA, then the release tables' iunsa); no record episode reads a week after 2024.
+    nfill = 0
+    if fs:
+        for r in d[d.iunsa.notna() & d.iuw.notna()].sort_values('rel').drop_duplicates('iuw', keep='first').itertuples():
+            nsa.setdefault(pd.Timestamp(r.iuw), float(r.iunsa))
+        for wk0, v in nsa.items():
+            wk = wk0 + pd.Timedelta(days=(5 - wk0.weekday()) % 7)
+            if wk >= pd.Timestamp('2025-01-01') and wk in H.index and pd.isna(H.at[wk, 'iu_nsa']): H.at[wk, 'iu_nsa'] = v; nfill += 1
+    if nfill: say('NSA holes filled from first prints (2025 on): %d weeks' % nfill)
     grid = pd.date_range(H.index.min(), H.index.max(), freq='7D')
     H = H.reindex(grid); H.index.name = 'week_ending'
     say('weekly insured unemployment: frozen chain to %s, %d live weeks after (newest week %s, released %s)' % (last.date(), len(tail), H.index[H.iu_rtsa.notna()].max().date(), H.loc[H.iu_rtsa.notna(), 'iu_release'].max().date()))
@@ -211,7 +222,9 @@ if __name__ == '__main__':
     if cur: state['current'] = cur
     _iu = P['IU4'][-1]; _open = cur is not None and cur['close'] is None
     _sp_since = SP[SP.index > pd.Timestamp(cur['open'])] if _open else None
+    _nsa_wk = X.index[X.iu_nsa.notna()].max()
     state['values'] = dict(iu4=dict(value=round(_iu[1], 1), release=str(pd.Timestamp(_iu[0]).date()), week=str(X.index[X.iu_rtsa.notna()].max().date())),
+                           iu_nsa=dict(week=str(_nsa_wk.date()) if pd.notna(_nsa_wk) else None),
                            rate=dict(month=str(R.index.max().date())[:7], value=float(R.iloc[-1]), year_earlier=float(R.shift(12).iloc[-1]), diff=round(float(R.iloc[-1] - R.shift(12).iloc[-1]), 2)),
                            sp=dict(day=str(SP.index[-1].date()), close=float(SP.iloc[-1]), ratio_to_low_since_open=(round(float(_sp_since.iloc[-1] / _sp_since.min()), 3) if (_open and len(_sp_since)) else None)),
                            episode_open=_open)

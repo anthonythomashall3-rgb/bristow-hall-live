@@ -39,7 +39,7 @@ def main():
     if str(e2.get('today') or '')[:10] != TODAY.isoformat():
         problems.append(('e22:today', 'ENDER DID NOT RUN', 'the E22 ender\'s state is as of %s, not today (%s)' % (e2.get('today'), TODAY)))
     _ev = e2.get('values') or {}
-    for k, f, lim in (('iu4', 'week', 20), ('rate', 'month', 35), ('sp', 'day', 6)):
+    for k, f, lim in (('iu4', 'week', 20), ('iu_nsa', 'week', 27), ('rate', 'month', 35), ('sp', 'day', 6)):   # iu_nsa: the NSA print the two-print rule reads (ALFRED's initial release, a week behind the SA print)
         thr = (_ev.get(k) or {}).get(f)
         if not thr: problems.append(('e22:' + k, 'ENDER INPUT DARK', 'E22 input %s has no %s' % (k, f))); continue
         try:
