@@ -61,6 +61,9 @@ else
   # THE C1021 STARTER (s2/c1021.py): the pillars, the calls and today's reading from first prints and vintages, before the build.
   # It MUST succeed: a starter that cannot read its inputs stops the run rather than publish a page without the alarm.
   python3 s2/c1021.py
+  # E22 (1031, 9 November 2026; Anthony: "lets port e22"): THE ENDER (s2/e22.py) after the starter: C1021's opens, E22's closes, the closing reading.
+  # It MUST succeed: an ender that cannot read its inputs stops the run rather than publish a chronology without its ends.
+  python3 s2/e22.py
   # v3.73 (23 September 2026, collection 333; collection 331): the committee watch, once a day; a dating the chronology file lacks raises a flag, moves nothing; never fails the run
   if [ "$(cat cache/chronology_watch_on 2>/dev/null)" != "$(date +%F)" ]; then python3 s2/chronology_watch.py && date +%F > cache/chronology_watch_on || true; fi
   python3 bhs_build.py
