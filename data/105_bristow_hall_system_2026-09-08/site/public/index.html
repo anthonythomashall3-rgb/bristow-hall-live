@@ -130,7 +130,7 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;',
 (function(){
   const T=[
    {n:'Real-Time Bristow-Hall Rule Recession Indicator',s:'live',href:'/detector/',d:'The rule’s reading on one line, every release day since 1948, with the recessions it dated and the committee’s.',spark:true},
-   {n:'National Disturbance Chronology',s:'live',href:'/disturbance/',d:'Every national slowdown since 1948 that stopped short of recession, dated by one fixed rule and graded on the same scale as recessions.'},
+   {n:'National Disturbance Chronology',s:'live',href:'/disturbance/',img:'/disturbance/thumb.svg',d:'Every national slowdown since 1948 that stopped short of recession, dated by one fixed rule and graded on the same scale as recessions.'},
    {n:'Real-Time State Recession Indicator',s:'dev',href:'/state-onset/',d:'The same rule read state by state, so an onset is seen where it starts and not only in the aggregate.'},
    {n:'National Stress Map',s:'dev',href:'/stress-map/',d:'Labor-market stress across the fifty states and the District, on one scale, week by week.'},
    {n:'Damage Index',s:'dev',href:'/damage-index/',d:'A Richter scale for recessions: how deep, how broad, and where - not only when.'},
@@ -138,7 +138,7 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;',
   ];
   document.getElementById('tools').innerHTML=T.map(t=>{
     const head=t.s==='live'?'<span class="badge live">LIVE</span>':'<span class="badge dev">IN DEVELOPMENT</span>';
-    const thumb=t.spark?'<a href="'+t.href+'"><svg class="thumb" id="spark" viewBox="0 0 420 150" preserveAspectRatio="none" role="img"></svg></a>':'<a href="'+t.href+'"><div class="thumb ph"></div></a>';
+    const thumb=t.spark?'<a href="'+t.href+'"><svg class="thumb" id="spark" viewBox="0 0 420 150" preserveAspectRatio="none" role="img"></svg></a>':(t.img?'<a href="'+t.href+'"><img class="thumb" src="'+t.img+'" alt="'+t.n+'" style="object-fit:fill"></a>':'<a href="'+t.href+'"><div class="thumb ph"></div></a>');
     return '<div class="card">'+head+thumb+'<div class="name"><a href="'+t.href+'">'+t.n+'</a></div><div class="desc">'+t.d+'</div></div>';
   }).join('');
 })();
