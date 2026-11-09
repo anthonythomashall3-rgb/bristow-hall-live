@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-08 12:39",
+ "built_at": "2026-11-09 04:12",
  "version": "C1021",
- "census_date": "2026-11-08",
+ "census_date": "2026-11-09",
  "feeds": [
   {
    "feed": "Initial claims and continued claims, seasonally adjusted and not (the route's insured-unemployment pillar, the count door's claims condition, the closer)",
@@ -126,7 +126,7 @@
    "source": "Federal Reserve Bank of Atlanta, GDPNow (FRED GDPNOW, every update as a vintage)",
    "every": "Several times a month, on the days of the releases it reads (FRED carries each update between about 10:30 AM and 1 PM ET); the Atlanta Fed posts its schedule",
    "through": "2026-11-04",
-   "next": "2026-11-09",
+   "next": "2026-11-17",
    "link": "https://www.atlantafed.org/cqer/research/gdpnow",
    "value": "3.44",
    "backup": "the Atlanta Fed page; the last printed quarter carried",

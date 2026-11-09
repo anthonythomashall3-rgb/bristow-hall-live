@@ -11,15 +11,15 @@ PASS  tile: unemployed per opening labels that month  got=Sep 2026  want=Sep 202
 PASS  tile: quits rate  got=2.1%  want=2.1%
 PASS  tile: CPI year over year, by date  got=3.7%  want=3.7%
 PASS  tile: CPI labels the latest month  got=year over year, Sep 2026  want=year over year, Sep 2026
-PASS  tile: Unemployment rate next release is not in the past  got=2026-12-04  want=>= 2026-11-08
-PASS  tile: Nonfarm payrolls next release is not in the past  got=2026-12-04  want=>= 2026-11-08
-PASS  tile: Payroll growth next release is not in the past  got=2026-12-04  want=>= 2026-11-08
-PASS  tile: Initial claims (week) next release is not in the past  got=2026-11-12  want=>= 2026-11-08
-PASS  tile: Insured unemployment rate next release is not in the past  got=2026-11-12  want=>= 2026-11-08
-PASS  tile: Job openings next release is not in the past  got=2026-12-01  want=>= 2026-11-08
-PASS  tile: Unemployed per opening next release is not in the past  got=2026-12-01  want=>= 2026-11-08
-PASS  tile: Quits rate next release is not in the past  got=2026-12-01  want=>= 2026-11-08
-PASS  tile: CPI inflation next release is not in the past  got=2026-11-10  want=>= 2026-11-08
+PASS  tile: Unemployment rate next release is not in the past  got=2026-12-04  want=>= 2026-11-09
+PASS  tile: Nonfarm payrolls next release is not in the past  got=2026-12-04  want=>= 2026-11-09
+PASS  tile: Payroll growth next release is not in the past  got=2026-12-04  want=>= 2026-11-09
+PASS  tile: Initial claims (week) next release is not in the past  got=2026-11-12  want=>= 2026-11-09
+PASS  tile: Insured unemployment rate next release is not in the past  got=2026-11-12  want=>= 2026-11-09
+PASS  tile: Job openings next release is not in the past  got=2026-12-01  want=>= 2026-11-09
+PASS  tile: Unemployed per opening next release is not in the past  got=2026-12-01  want=>= 2026-11-09
+PASS  tile: Quits rate next release is not in the past  got=2026-12-01  want=>= 2026-11-09
+PASS  tile: CPI inflation next release is not in the past  got=2026-11-10  want=>= 2026-11-09
 PASS  units: unemployment rate between 1 and 40 per cent  got=4.1  want=1-40
 PASS  units: payrolls between 80 and 300 million  got=159.3  want=80-300
 PASS  units: job openings between 1 and 25 million  got=7.5  want=1-25
@@ -28,46 +28,46 @@ PASS  units: insured rate between 0.2 and 30 per cent  got=1.1  want=0.2-30
 PASS  units: quits rate between 0.5 and 6 per cent  got=2.1  want=0.5-6
 PASS  feed reading matches the readings table: Initial claims and continued claims, sea  got=-9.4  want=-9.4
 PASS  feed line matches the readings table: Initial claims and continued claims, sea  got=0  want=0
-PASS  feed is not dated in the future: Initial claims and continued claims, sea  got=2026-10-31  want=<= 2026-11-08
-PASS  feed next release is not in the past: Initial claims and continued claims, sea  got=2026-11-12  want=>= 2026-11-08
+PASS  feed is not dated in the future: Initial claims and continued claims, sea  got=2026-10-31  want=<= 2026-11-09
+PASS  feed next release is not in the past: Initial claims and continued claims, sea  got=2026-11-12  want=>= 2026-11-09
 PASS  feed has a source link: Initial claims and continued claims, sea  got=True  want=True
 PASS  feed reading matches the readings table: Unemployment rate, payrolls, the unemplo  got=0.0  want=0.0
 PASS  feed line matches the readings table: Unemployment rate, payrolls, the unemplo  got=0.3  want=0.3
-PASS  feed next release is not in the past: Unemployment rate, payrolls, the unemplo  got=2026-12-04  want=>= 2026-11-08
+PASS  feed next release is not in the past: Unemployment rate, payrolls, the unemplo  got=2026-12-04  want=>= 2026-11-09
 PASS  feed has a source link: Unemployment rate, payrolls, the unemplo  got=True  want=True
 PASS  feed reading matches the readings table: Job openings (the help-wanted pillar: op  got=19.76  want=19.76
 PASS  feed line matches the readings table: Job openings (the help-wanted pillar: op  got=0  want=0
-PASS  feed next release is not in the past: Job openings (the help-wanted pillar: op  got=2026-12-01  want=>= 2026-11-08
+PASS  feed next release is not in the past: Job openings (the help-wanted pillar: op  got=2026-12-01  want=>= 2026-11-09
 PASS  feed has a source link: Job openings (the help-wanted pillar: op  got=True  want=True
 PASS  feed reading matches the readings table: Industrial production (the production pi  got=0.66  want=0.66
 PASS  feed line matches the readings table: Industrial production (the production pi  got=0  want=0
-PASS  feed next release is not in the past: Industrial production (the production pi  got=2026-11-17  want=>= 2026-11-08
+PASS  feed next release is not in the past: Industrial production (the production pi  got=2026-11-17  want=>= 2026-11-09
 PASS  feed has a source link: Industrial production (the production pi  got=True  want=True
 PASS  feed reading matches the readings table: Moody's Baa corporate bond yield, monthl  got=0.85  want=0.85
 PASS  feed line matches the readings table: Moody's Baa corporate bond yield, monthl  got=0  want=0
-PASS  feed next release is not in the past: Moody's Baa corporate bond yield, monthl  got=2026-12-07  want=>= 2026-11-08
+PASS  feed next release is not in the past: Moody's Baa corporate bond yield, monthl  got=2026-12-07  want=>= 2026-11-09
 PASS  feed has a source link: Moody's Baa corporate bond yield, monthl  got=True  want=True
 PASS  feed reading matches the readings table: Effective federal funds rate, monthly av  got=0.13  want=0.13
 PASS  feed line matches the readings table: Effective federal funds rate, monthly av  got=1.5  want=1.5
-PASS  feed next release is not in the past: Effective federal funds rate, monthly av  got=2026-12-01  want=>= 2026-11-08
+PASS  feed next release is not in the past: Effective federal funds rate, monthly av  got=2026-12-01  want=>= 2026-11-09
 PASS  feed has a source link: Effective federal funds rate, monthly av  got=True  want=True
 PASS  feed reading matches the readings table: 10-year and 1-year Treasury yields, mont  got=0.67  want=0.67
 PASS  feed line matches the readings table: 10-year and 1-year Treasury yields, mont  got=0  want=0
-PASS  feed next release is not in the past: 10-year and 1-year Treasury yields, mont  got=2026-12-01  want=>= 2026-11-08
+PASS  feed next release is not in the past: 10-year and 1-year Treasury yields, mont  got=2026-12-01  want=>= 2026-11-09
 PASS  feed has a source link: 10-year and 1-year Treasury yields, mont  got=True  want=True
 PASS  feed reading matches the readings table: S&P 500 daily close (the market pillar:   got=9.63  want=9.63
 PASS  feed line matches the readings table: S&P 500 daily close (the market pillar:   got=0  want=0
-PASS  feed is not dated in the future: S&P 500 daily close (the market pillar:   got=2026-11-06  want=<= 2026-11-08
-PASS  feed next release is not in the past: S&P 500 daily close (the market pillar:   got=2026-11-09  want=>= 2026-11-08
+PASS  feed is not dated in the future: S&P 500 daily close (the market pillar:   got=2026-11-06  want=<= 2026-11-09
+PASS  feed next release is not in the past: S&P 500 daily close (the market pillar:   got=2026-11-09  want=>= 2026-11-09
 PASS  feed has a source link: S&P 500 daily close (the market pillar:   got=True  want=True
-PASS  feed next release is not in the past: Real GDP (the damage grade's output dime  got=2026-11-25  want=>= 2026-11-08
+PASS  feed next release is not in the past: Real GDP (the damage grade's output dime  got=2026-11-25  want=>= 2026-11-09
 PASS  feed has a source link: Real GDP (the damage grade's output dime  got=True  want=True
-PASS  feed is not dated in the future: GDPNow (the output dimension's bridge fo  got=2026-11-04  want=<= 2026-11-08
-PASS  feed next release is not in the past: GDPNow (the output dimension's bridge fo  got=2026-11-09  want=>= 2026-11-08
+PASS  feed is not dated in the future: GDPNow (the output dimension's bridge fo  got=2026-11-04  want=<= 2026-11-09
+PASS  feed next release is not in the past: GDPNow (the output dimension's bridge fo  got=2026-11-17  want=>= 2026-11-09
 PASS  feed has a source link: GDPNow (the output dimension's bridge fo  got=True  want=True
-PASS  feed next release is not in the past: Sahm rule, real time (the comparator on   got=2026-12-04  want=>= 2026-11-08
+PASS  feed next release is not in the past: Sahm rule, real time (the comparator on   got=2026-12-04  want=>= 2026-11-09
 PASS  feed has a source link: Sahm rule, real time (the comparator on   got=True  want=True
-PASS  headline date = last day of the daily series  got=2026-11-08  want=2026-11-08
+PASS  headline date = last day of the daily series  got=2026-11-09  want=2026-11-09
 PASS  daily series is in date order  got=True  want=True
 PASS  no reading is negative  got=True  want=True
 PASS  standing "since" = the last episode's close month  got=2024-09  want=2024-09
@@ -80,7 +80,7 @@ PASS  C1021: the thirteen opens are the record's (RECORD-1021)  got=['1948-12-31
 PASS  C1021: the thirteen closes are v3.76's, unchanged  got=['1949-10-28', '1954-06-03', '1958-05-23', '1961-01-30', '1970-12-24', '1975-05-01', '1980-07-09', '1982-11-15', '1991-04-25', '2001-11-21', '2009-06-18', '2020-05-07', '2024-09-26']  want=['1949-10-28', '1954-06-03', '1958-05-23', '1961-01-30', '1970-12-24', '1975-05-01', '1980-07-09', '1982-11-15', '1991-04-25', '2001-11-21', '2009-06-18', '2020-05-07', '2024-09-26']
 PASS  C1021: every open names its door  got=[]  want=[]
 PASS  C1021: the state says version C1021  got=C1021  want=C1021
-PASS  C1021: the starter ran today (out/c1021_state.json)  got=2026-11-08  want=2026-11-08
+PASS  C1021: the starter ran today (out/c1021_state.json)  got=2026-11-09  want=2026-11-09
 PASS  C1021: the v3.76 starter's blocks have left the state  got=[]  want=[]
 PASS  C1021: the record's three heights with the C1021 opens (2007-09 5.8, 2020 5.3, 2024 1.8)  got=[5.8, 5.3, 1.8]  want=[5.8, 5.3, 1.8]
 PASS  state: no leg-tier keys and no leg labels (v3.64)  got=[]  want=[]
@@ -110,8 +110,8 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-24)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-11-08 12:39', '2026-11-08 12:39')  want=('2026-11-08 12:39', '2026-11-08 12:39')
-PASS  front-page tiles fetched today  got=2026-11-08  want=2026-11-08
+PASS  public state copies are this build  got=('2026-11-09 04:12', '2026-11-09 04:12')  want=('2026-11-09 04:12', '2026-11-09 04:12')
+PASS  front-page tiles fetched today  got=2026-11-09  want=2026-11-09
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]
 PASS  data page: every leg channel has a next-published day  got=[]  want=[]

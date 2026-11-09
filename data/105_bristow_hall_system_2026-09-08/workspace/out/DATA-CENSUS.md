@@ -1,4 +1,4 @@
-# The data census - 2026-11-08 (the tool C1021, built 2026-11-08 12:39)
+# The data census - 2026-11-09 (the tool C1021, built 2026-11-09 04:12)
 
 Every input the live tool reads: the publisher and route, the backup or substitute, the schedule, what is in hand, and the guard on its format. Gaps are listed at the end.
 
@@ -13,7 +13,7 @@ Every input the live tool reads: the publisher and route, the backup or substitu
 | 10-year and 1-year Treasury yields, monthly averages (the job-losers d | GS10, GS1 | Federal Reserve H.15 via FRED (GS10, GS1) | Monthly - the month's averages, known the day after month en | 2026-10 | 2026-12-01 | the FRED monthly series cached (cache/c1021/GS10.csv, GS1.csv); the cache stands when FRED is unreachable | c1021.py: fredgraph csv parsed by header; q41 feed checks |
 | S&P 500 daily close (the market pillar: below its close a year earlier | ^GSPC | Yahoo Finance close at the 5:05 PM ET run, corrected to the official close on FR | Every trading day - read at the 5:05 PM ET run | 2026-11-06 | 2026-11-09 | the official FRED SP500 close when the chart feed fails (two independent quotes) | q41: reading matches the readings table; two sources compared |
 | Real GDP (the damage grade's output dimension) | GDPC1 | Bureau of Economic Analysis, Gross Domestic Product news release (FRED GDPC1, th | Quarterly - the advance estimate about four weeks after the  | 2026-07 | 2026-11-25 | GDPNow for the unprinted quarter; the BEA release text | damage_dimensions.py: the vintage table read by column name; q41 v3.73 checks |
-| GDPNow (the output dimension's bridge for the quarter not yet printed) | GDPNOW | Federal Reserve Bank of Atlanta, GDPNow (FRED GDPNOW, every update as a vintage) | Several times a month, on the days of the releases it reads  | 2026-11-04 | 2026-11-09 | the Atlanta Fed page; the last printed quarter carried | the vintage appender names each vintage by its FRED date |
+| GDPNow (the output dimension's bridge for the quarter not yet printed) | GDPNOW | Federal Reserve Bank of Atlanta, GDPNow (FRED GDPNOW, every update as a vintage) | Several times a month, on the days of the releases it reads  | 2026-11-04 | 2026-11-17 | the Atlanta Fed page; the last printed quarter carried | the vintage appender names each vintage by its FRED date |
 | Sahm rule, real time (the comparator on the speed panel) | SAHMREALTIME | FRED SAHMREALTIME | Monthly - FRED posts it on the morning of the employment rep | 2026-10 | 2026-12-04 | computed from the unemployment rate first prints if FRED SAHMREALTIME lapses | q41: the speed panel |
 
 ## The channels (E5: current, stale, substitute, dark)
