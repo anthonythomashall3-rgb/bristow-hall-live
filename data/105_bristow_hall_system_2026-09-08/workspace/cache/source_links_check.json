@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-11-09T09:12:17Z",
+ "checked_utc": "2026-11-09T17:09:55Z",
  "release": {},
  "row_tokens": {
   "feed|BAA": "2026-10|6.59",
@@ -13,7 +13,7 @@
   "feed|GDPC1": "2026-07|24,611.1",
   "feed|GDPC1|Real GDP (the damage grade's output dimension)": "2026-07|24,611.1",
   "feed|GDPNOW": "2026-10|3.44",
-  "feed|GDPNOW|GDPNow (the output dimension's bridge for the quarter not yet printed)": "2026-11-04|3.44",
+  "feed|GDPNOW|GDPNow (the output dimension's bridge for the quarter not yet printed)": "2026-11-09|3.48",
   "feed|GS10, GS1": "2026-10|5.13; 4.46",
   "feed|GS10, GS1|10-year and 1-year Treasury yields, monthly averages (the job-losers door's witness: the spread negative in any of the prior 12 months)": "2026-10|5.13; 4.46",
   "feed|Google Trends \"laid off\"": "2026-09-24|48",
@@ -86,7 +86,7 @@
   "row|rule|BAA|Moody's Baa corporate bond yield, monthly average": "2026-10|6.59",
   "row|rule|FEDFUNDS|Effective federal funds rate, monthly average": "2026-10|3.88",
   "row|rule|GDPC1|Real GDP": "2026-07|24,611.1",
-  "row|rule|GDPNOW|GDPNow": "2026-11-04|3.44",
+  "row|rule|GDPNOW|GDPNow": "2026-11-09|3.48",
   "row|rule|GS10, GS1|10-year and 1-year Treasury yields, monthly averages": "2026-10|5.13; 4.46",
   "row|rule|ICSA, CCSA, ICNSA, CCNSA|Initial claims and continued claims, seasonally adjusted and not": "2026-10-31|189,000; 1,718,000; 170,626; 5,780,893",
   "row|rule|INDPRO|Industrial production": "2026-09|103.9506",
