@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-09 05:24",
+ "built_at": "2026-11-09 09:43",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-09T10:24:44Z",
+ "generated_utc": "2026-11-09T14:43:50Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -1705,7 +1705,7 @@
    "waiting_since_due": null
   }
  ],
- "tool_version": "C1021",
+ "tool_version": "C1021+E22",
  "what": "Every data-page and front-page row: its coming release times, New York and UTC. Days from FRED's release calendars (the agencies' own), refreshed daily; hours from the agencies, and FRED's own measured posting clock where FRED is the publisher the tool reads (fred_clock; read_lag_min is how long after the agency's hour FRED usually has a release, which times the run that reads it); rows FRED does not schedule follow the rule named; past an agency's published days, the next ones are projected and marked expected. Pages show the first time after the reader's clock.",
  "zone": "America/New_York"
 }

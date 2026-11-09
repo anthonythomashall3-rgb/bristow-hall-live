@@ -70,19 +70,21 @@ PASS  feed has a source link: Sahm rule, real time (the comparator on   got=True
 PASS  headline date = last day of the daily series  got=2026-11-09  want=2026-11-09
 PASS  daily series is in date order  got=True  want=True
 PASS  no reading is negative  got=True  want=True
-PASS  standing "since" = the last episode's close month  got=2024-09  want=2024-09
+PASS  standing "since" = the last episode's close month  got=2024-10  want=2024-10
 PASS  standing state  got=closed  want=closed
 PASS  every episode opens before it closes  got=True  want=True
 PASS  speed panel: calls before the end of the peak month  got=8  want=8
 PASS  speed panel: thirteen episodes  got=13  want=13
 PASS  record: no close is retrospective (every close walked, v3.64)  got=[]  want=[]
 PASS  C1021: the thirteen opens are the record's (RECORD-1021)  got=['1948-12-31', '1953-10-13', '1957-04-30', '1960-06-13', '1969-10-11', '1973-08-01', '1979-11-01', '1981-06-01', '1990-06-01', '2001-04-06', '2007-11-02', '2020-04-03', '2024-01-05']  want=['1948-12-31', '1953-10-13', '1957-04-30', '1960-06-13', '1969-10-11', '1973-08-01', '1979-11-01', '1981-06-01', '1990-06-01', '2001-04-06', '2007-11-02', '2020-04-03', '2024-01-05']
-PASS  C1021: the thirteen closes are v3.76's, unchanged  got=['1949-10-28', '1954-06-03', '1958-05-23', '1961-01-30', '1970-12-24', '1975-05-01', '1980-07-09', '1982-11-15', '1991-04-25', '2001-11-21', '2009-06-18', '2020-05-07', '2024-09-26']  want=['1949-10-28', '1954-06-03', '1958-05-23', '1961-01-30', '1970-12-24', '1975-05-01', '1980-07-09', '1982-11-15', '1991-04-25', '2001-11-21', '2009-06-18', '2020-05-07', '2024-09-26']
+PASS  E22: the thirteen closes are the harness's (RECORD-1030)  got=['1949-11-02', '1954-05-27', '1958-06-19', '1961-02-24', '1970-11-12', '1975-02-06', '1980-07-22', '1982-12-02', '1991-02-07', '2001-12-06', '2009-06-25', '2020-06-05', '2024-10-01']  want=['1949-11-02', '1954-05-27', '1958-06-19', '1961-02-24', '1970-11-12', '1975-02-06', '1980-07-22', '1982-12-02', '1991-02-07', '2001-12-06', '2009-06-25', '2020-06-05', '2024-10-01']
 PASS  C1021: every open names its door  got=[]  want=[]
-PASS  C1021: the state says version C1021  got=C1021  want=C1021
+PASS  C1021+E22: the state says version C1021+E22  got=C1021+E22  want=C1021+E22
+PASS  E22: the ender ran today (out/e22_state.json)  got=2026-11-09  want=2026-11-09
+PASS  E22: every close names its leg  got=[]  want=[]
 PASS  C1021: the starter ran today (out/c1021_state.json)  got=2026-11-09  want=2026-11-09
 PASS  C1021: the v3.76 starter's blocks have left the state  got=[]  want=[]
-PASS  C1021: the record's three heights with the C1021 opens (2007-09 5.8, 2020 5.3, 2024 1.8)  got=[5.8, 5.3, 1.8]  want=[5.8, 5.3, 1.8]
+PASS  C1021: the record's three heights with the C1021 opens (2007-09 5.8, 2020 5.6, 2024 1.8)  got=[5.8, 5.6, 1.8]  want=[5.8, 5.6, 1.8]
 PASS  state: no leg-tier keys and no leg labels (v3.64)  got=[]  want=[]
 PASS  state: nothing from the frozen rule (v3.65)  got=[]  want=[]
 PASS  speed panel: the four carry no announcement day (v3.66)  got=[]  want=[]
@@ -100,7 +102,7 @@ PASS  366: the WEI row carries a next day (Thursday)  got=True  want=True
 PASS  data page: every leg channel carries a day in hand through  got=[]  want=[]
 PASS  data page: every leg channel is read by a leg  got=[]  want=[]
 PASS  data page: every feed names its series  got=[]  want=[]
-PASS  368: the margins page lists every reading  got=18  want=18
+PASS  368: the margins page lists every reading  got=15  want=15
 PASS  368: the margins page no longer shows near misses (Anthony, 25 Sep 2026)  got=True  want=True
 PASS  368: the data page links the margins page  got=True  want=True
 PASS  372: schema version in the state  got=1  want=1
@@ -110,7 +112,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-24)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-11-09 05:24', '2026-11-09 05:24')  want=('2026-11-09 05:24', '2026-11-09 05:24')
+PASS  public state copies are this build  got=('2026-11-09 09:43', '2026-11-09 09:43')  want=('2026-11-09 09:43', '2026-11-09 09:43')
 PASS  front-page tiles fetched today  got=2026-11-09  want=2026-11-09
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]
@@ -122,7 +124,7 @@ PASS  every live leg channel pulled today (WARN within two days)  got=[]  want=[
 PASS  data page: the five columns  got=['name', 'ids', 'value', 'through', 'next']  want=['name', 'ids', 'value', 'through', 'next']
 PASS  data page: no blank cell  got=0  want=0
 PASS  record: the front page sentence is computed from the state  got=0  want=0
-PASS  notes: the Notes are a short summary (Anthony, 24 September 2026: as short as the Sahm indicator notes)  got=135  want=at most 140 words
+FAIL  notes: the Notes are a short summary (Anthony, 24 September 2026: as short as the Sahm indicator notes)  got=167  want=at most 140 words
 PASS  note: every episode of the rule is dated by a chronology (advisory - a standing call no dater has yet dated is published and noted, never held)  got=[]  want=[]
 PASS  data page: every next-published day is a day  got=[]  want=[]
 PASS  data page: where it stands is the data only  got=[]  want=[]
