@@ -124,16 +124,16 @@ chk('speed panel: thirteen episodes',len(S['announcements']),13)   # v3.63: the 
 chk('record: no close is retrospective (every close walked, v3.64)',[e['close_pub'] for e in S['episodes'] if e.get('close_basis')=='retrospective'],[])
 # ---- C1021 (1022, 8 November 2026): the starter's record, every open on its own release day; the closes are v3.76's, unchanged
 _C1OPENS=['1948-12-31','1953-10-13','1957-04-30','1960-06-13','1969-10-11','1973-08-01','1979-11-01','1981-06-01','1990-06-01','2001-04-06','2007-11-02','2020-04-03','2024-01-05']
-_C1CLOSES=['1949-11-02','1954-05-27','1958-06-19','1961-02-24','1970-11-12','1975-02-06','1980-07-22','1982-12-02','1991-02-07','2001-12-06','2009-06-25','2020-06-05','2024-10-01']   # E22 (1031): the harness's thirteen closes (out/gate_1031.txt)
+_C1CLOSES=['1949-11-02','1954-05-27','1958-06-19','1961-02-24','1970-12-24','1975-02-06','1980-07-22','1982-12-02','1991-02-07','2001-12-28','2009-07-23','2020-06-05','2024-10-01']   # E22 + depth gate (1041): the battery's thirteen closes (1031/out/gate_1041.txt)
 chk('C1021: the thirteen opens are the record\'s (RECORD-1021)',[e['open_pub'] for e in S['episodes']][:13],_C1OPENS)
-chk('E22: the thirteen closes are the harness\'s (RECORD-1030)',[e.get('close_pub') for e in S['episodes']][:13],_C1CLOSES)
+chk('E22: the thirteen closes are the harness\'s (RECORD-1030/1041)',[e.get('close_pub') for e in S['episodes']][:13],_C1CLOSES)
 chk('C1021: every open names its door',[e['open_pub'] for e in S['episodes'] if not str(e.get('open_branch','')).startswith('C1021')],[])
 chk('C1021+E22: the state says version C1021+E22',S.get('version'),'C1021+E22')
 chk('E22: the ender ran today (out/e22_state.json)',(json.load(open('out/e22_state.json')).get('today') if os.path.exists('out/e22_state.json') else None),str(S.get('built'))[:10])
 chk('E22: every close names its leg',[e['close_pub'] for e in S['episodes'] if e.get('close_pub') and not str(e.get('close_branch','')).startswith('E22')],[])
 chk('C1021: the starter ran today (out/c1021_state.json)',(json.load(open('out/c1021_state.json')).get('today') or {}).get('day') if os.path.exists('out/c1021_state.json') else None,str(S.get('built'))[:10])
 chk('C1021: the v3.76 starter\'s blocks have left the state',[k for k in ('backstop_opener','activity_opener','concurrence_branch','state_breadth','claims_substitute','vacancy_bridge','payroll_backstop') if k in S],[])
-chk('C1021: the record\'s three heights with the C1021 opens (2007-09 5.8, 2020 5.6, 2024 1.8)',[e.get('damage_score') for e in S['episodes'] if e.get('open_month') in ('2007-11','2020-04','2024-01')],[5.8,5.6,1.8])   # E22 (1031): 2020's episode now ends 2020-06-05 (was 2020-05-07), so its grade reads four more weeks: 5.6
+chk('C1021: the record\'s three heights with the C1021 opens (2007-09 5.9, 2020 5.6, 2024 1.8)',[e.get('damage_score') for e in S['episodes'] if e.get('open_month') in ('2007-11','2020-04','2024-01')],[5.9,5.6,1.8])   # 1041: the 2007-09 episode ends 2009-07-23 (4 more weeks read; grade code untouched)    # E22 (1031): 2020's episode now ends 2020-06-05 (was 2020-05-07), so its grade reads four more weeks: 5.6
 # ---- 6. the data page's leg channels (17 September 2026): every leg the rule arms has a status, every listed channel has a day it is in hand through
 _lf=S.get('leg_feeds',[]); _ls=S.get('leg_status',{}); _L=S['lines']
 chk('state: no leg-tier keys and no leg labels (v3.64)',[k for k in S if 'leg' in k]+sorted({k for e in S['episodes'] for k in e if k.endswith('_leg')})+(['standing'] if 'leg' in (S.get('standing') or {}) else []),[])
