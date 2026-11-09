@@ -106,6 +106,11 @@ if [ "${BHS_DRILL:-no}" = "yes" ]; then bash s2/alert.sh "FIRE DRILL" "A drill f
 cp out/bhs_state.json ../site/bhs_state.json
 cp out/bhs_state.json ../bhs_state.json
 python3 bhs_site.py
+# THE NATIONAL DISTURBANCE CHRONOLOGY (9 November 2026; Anthony: "make the disturbance indicator autoupdating forever"):
+# re-dates every disturbance from current FRED data by the fixed rule and writes /disturbance/ over the stub bhs_site.py
+# has just written; on any failure it puts the last good page back. Never fails the run. Research home:
+# ~/Projects/Disturbance Indicator Data/10_chronology_site.
+python3 s2/disturbance/disturbance_site.py || true
 # THE RUN SLOTS (21 September 2026, collection 278): the release times at which the Cloudflare Worker and the Mac start the
 # next runs, published with the site (site/public/run_slots.json); never fails the run
 python3 s2/run_slots.py || true
