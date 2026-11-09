@@ -16,6 +16,10 @@ After an episode opened by C1021, END on the first day either leg fires:
   LEG QG (1034) - the same bull-market line and insured unemployment off its high, insured unemployment OR initial claims (4-week mean of the SA
   first prints) below its print a quarter earlier, but only after insured unemployment has risen by a third over its print on the open day
   (a recovery follows damage): ends a no-ease recession sooner.
+  DEPTH GATE (1041) on legs S and QG - when the S&P's fall since the open (from the highest close of the 365 days before the open) is deeper
+  than its deepest fall on any day of the 20 years before the open outside earlier recessions, the leg also needs industrial production (the
+  newest ALFRED INDPRO vintage known that day) above its lowest month since the open by more than its median monthly move of the prior 24
+  months: in a deep bear market a 20% rally can come before the economy turns.
 Chronology: C1021's calls open (out/c1021_state.json); an open needs no open episode and more than 183 days since the last close.
 Inputs: s2/e22_history.csv (chain v4 1946-2026, frozen: week, iu_nsa, iu_rtsa (SA first print), iu_release, ic_rtsa, ic_release), then the merged first-print
 table cache/national_first_prints_1985_live.csv (+ cache/c1021/claims_nsa_first_prints.csv) for newer weeks; s2/e22_rate_history.csv then
@@ -27,7 +31,13 @@ ROOT = os.environ.get('BHS_ROOT') or next((r for r in (os.path.expanduser('~/Pro
 W = os.getcwd(); S2 = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(W, 'out'); os.makedirs(OUT, exist_ok=True)
 TODAY = pd.Timestamp(os.environ.get('BHS_TODAY') or dt.date.today())
 K_RUN, K_SIG, H_SIG, L_DEC, BULL, GAP, COV, COV_DAYS = 8, 3, 1, 8, 1.2, 183, 0.8, 548
-QTR, DMG = 13, 1.0 / 3.0   # leg Q/QG: a quarter of weekly prints; QG's damage line (insured unemployment up a third over the open)
+QTR, DMG = 13, 1.0 / 3.0
+DEPTH_YEARS = 20   # the depth gate's quiet record: the 20 years before the open
+AL = os.environ.get('BHS_C1021_ALFRED') or os.path.join(ROOT, 'onset-detector-new-2026-08-23', '27_realtime_vintages', 'alfred_all_vintages')
+BOARD = [('1948-11', '1949-10'), ('1953-07', '1954-05'), ('1957-08', '1958-04'), ('1960-04', '1961-02'), ('1969-12', '1970-11'), ('1973-11', '1975-03'),
+         ('1980-01', '1980-07'), ('1981-07', '1982-11'), ('1990-07', '1991-03'), ('2001-03', '2001-11'), ('2007-12', '2009-06'), ('2020-02', '2020-04')]
+SPANS = [(pd.Timestamp(a + '-01'), pd.Timestamp(b + '-01') + pd.offsets.MonthEnd(0)) for a, b in BOARD]   # + the tool's own closed episodes after 2020 (chronology)
+IPV = None   # (vintage days array, list of Series), loaded once   # leg Q/QG: a quarter of weekly prints; QG's damage line (insured unemployment up a third over the open)
 LOG = []; READING = []
 def say(*a):
     s = ' '.join(str(x) for x in a); LOG.append(s); print('e22:', s, flush=True)
@@ -100,6 +110,46 @@ def load_sp():
     if not os.path.exists(spf): raise SystemExit('e22: the S&P 500 daily file is missing (%s) - the run stops' % spf)
     sp = pd.read_csv(spf, index_col=0, parse_dates=True).iloc[:, 0].astype(float).dropna(); sp = sp[~sp.index.duplicated()].sort_index()
     say('S&P 500: to %s (%.2f)' % (sp.index[-1].date(), sp.iloc[-1])); return sp
+
+def load_ip():
+    global IPV
+    if IPV is not None: return IPV
+    f = os.path.join(AL, 'INDPRO_all_vintages.csv')
+    if not os.path.exists(f) and os.path.exists(f + '.gz'): f = f + '.gz'
+    if not os.path.exists(f): raise SystemExit('e22: the ALFRED INDPRO vintage table is missing (%s) - the run stops' % f)
+    T = pd.read_csv(f); T.index = pd.to_datetime(T.iloc[:, 0]); T = T.drop(columns=[T.columns[0]])
+    vs = []
+    for c in T.columns:
+        try: vd = pd.Timestamp(c.split('_')[-1])
+        except Exception: continue
+        x = pd.to_numeric(T[c], errors='coerce').dropna().astype(float)
+        if len(x): vs.append((vd, x))
+    vs.sort(key=lambda t: t[0]); IPV = (np.array([v for v, _ in vs], dtype='datetime64[ns]'), [x for _, x in vs])
+    say('industrial production: %d ALFRED vintages, newest %s' % (len(vs), str(vs[-1][0].date())))
+    return IPV
+QCACHE = {}
+def quiet_depth(SP, s0):
+    k = (id(SP), pd.Timestamp(s0))
+    if k in QCACHE: return QCACHE[k]
+    dd = 1 - SP / SP.rolling('365D').max(); s0 = pd.Timestamp(s0)
+    x = dd[(dd.index >= s0 - pd.DateOffset(years=DEPTH_YEARS)) & (dd.index <= s0 - pd.Timedelta(days=365))]
+    m = np.ones(len(x), bool)
+    for a, b in SPANS: m &= ~((x.index >= a) & (x.index <= b))
+    QCACHE[k] = float(x[m].max()) if m.any() else 0.0; return QCACHE[k]
+def depth_ok(SP, s0, d):
+    """True when the leg may fire on day d: the fall is not deeper than the quiet record, or industrial production is off its low"""
+    seg = SP[(SP.index > s0) & (SP.index <= d)]
+    if not len(seg): return True
+    ld = seg.idxmin(); pk = SP[(SP.index > s0 - pd.Timedelta(days=365)) & (SP.index <= ld)].max()
+    if 1 - seg.min() / pk <= quiet_depth(SP, s0): return True
+    VD, VS = load_ip(); j = int(np.searchsorted(VD, np.datetime64(pd.Timestamp(d)), side='right')) - 1
+    if j < 0: return False
+    x = VS[j]
+    if len(x) < 26: return False
+    m0 = pd.Timestamp(s0.year, s0.month, 1); sg = x[x.index >= m0]
+    if len(sg) < 2: return False
+    sc = np.median(np.abs(np.diff(x.values[-25:])))
+    return bool(x.iloc[-1] - sg.min() > sc)
 
 # ---------------------------------------------------------------- the harness's functions (copied; caps -> None live)
 def mk(vals, r):
@@ -190,7 +240,7 @@ def ender(P, SP, witness_ok, s0, cap=None, cov_end=None):
         seg = SP[(SP.index > s0) & ((SP.index <= cap) if cap is not None else True)]; lo = seg.cummin()
         for d in seg[seg >= lo * BULL].index:
             i = np.searchsorted(kk, np.datetime64(d), side='right') - 1
-            if i >= 0 and vs[i] and witness_ok(d): legS = d; break
+            if i >= 0 and vs[i] and witness_ok(d) and depth_ok(SP, s0, d): legS = d; break
     # LEG Q (1032, 9 Nov 2026; PREREG-52, out/battery_1034*.txt): the bull-market line without the policy-rate witness, guarded instead by labour -
     # insured unemployment off its post-priming high AND its newest print below the print a quarter (13 prints) earlier. On every historical,
     # noise, severity, arming and revision test it never fires before E22's own legs (identical records); in a recession the Fed does not ease it
@@ -216,7 +266,8 @@ def ender(P, SP, witness_ok, s0, cap=None, cov_end=None):
             jd = int(np.searchsorted(ks0, np.datetime64(d), side='right')) - 1
             if jd <= max(j0, 0) or xs0[max(j0 + 1, 0):jd + 1].max() / base < 1 + DMG: continue
             c_ = int(np.searchsorted(kc, np.datetime64(d), side='right')) - 1
-            if (jd >= QTR and xs0[jd] < xs0[jd - QTR]) or (c_ >= QTR and xc[c_] < xc[c_ - QTR]): legG = d; break
+            if (jd >= QTR and xs0[jd] < xs0[jd - QTR]) or (c_ >= QTR and xc[c_] < xc[c_ - QTR]):
+                if depth_ok(SP, s0, d): legG = d; break
     c = [x for x in (legA, legS, legQ, legG) if x is not None]; close = min(c) if c else None
     # THE CLOSING READING (descriptive, for the page's chart; it decides nothing): on each insured-unemployment release day from the open to the
     # close (or today), the larger of leg A's share of its four conditions (primed, the significant fall, the deceleration, the policy rate) and
@@ -253,7 +304,9 @@ def chronology(calls, P, SP, wok):
         if open_ is not None: continue
         if last_close is not None and (d <= last_close or (d - last_close).days <= GAP): continue
         cl, det = ender(P, SP, wok, d); eps.append(det); open_ = d
-        if cl is not None and cl <= TODAY: last_close = cl; open_ = None
+        if cl is not None and cl <= TODAY:
+            last_close = cl; open_ = None
+            if d > SPANS[-1][1] and d.year > 2020: SPANS.append((d, pd.Timestamp(cl))); QCACHE.clear()   # the tool's own episodes join the quiet record's exclusions
         else: det['close'] = None; det['leg'] = None
     return eps
 
@@ -264,7 +317,7 @@ if __name__ == '__main__':
     eps = chronology(calls, P, SP, wok)
     say('episodes: ' + '; '.join('%s -> %s (%s)' % (e['open'], e['close'] or 'OPEN', e['leg'] or '-') for e in eps))
     cur = eps[-1] if eps else None
-    state = dict(tool='E22', version='E22 (1031) + leg Q (1032) + leg QG (1034)', built='', today=str(TODAY.date()),
+    state = dict(tool='E22', version='E22 (1031) + leg Q (1032) + leg QG (1034) + depth gate (1041)', built='', today=str(TODAY.date()),
                  episodes=eps, standing=('in recession since %s' % cur['open']) if (cur and cur['close'] is None) else ('closed since %s' % (cur['close'] if cur else '-')),
                  inputs=dict(iu_newest_week=str(X.index[X.iu_rtsa.notna()].max().date()), iu_live_weeks=ntail, rate_month=str(R.index.max().date())[:7], rate=float(R.iloc[-1]),
                              rate_below_year_ago=bool(known[-1][1]), sp_day=str(SP.index[-1].date()), sp=float(SP.iloc[-1])), log=LOG)

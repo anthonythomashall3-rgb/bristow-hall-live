@@ -1889,6 +1889,7 @@ state['core']=('C1021: one starter, four ways in, all read on the release day fr
                'the open while insured unemployment is off its high and the funds rate is below a year earlier; leg Q (collection 1032) ends a recession the Fed '
                'does not ease: the same market line with insured unemployment off its high and below its level a quarter earlier; leg QG (collection 1034) the same market line '
                'with insured unemployment or initial claims below a quarter earlier, once insured unemployment has risen a third over its level on the open day; '
+               'in a bear market deeper than any of the 20 calm years before the open, legs S and QG also wait for industrial production to come off its low (collection 1041); '
                'the end is the day the first leg fires. '
                'The damage grade is v3.76\'s, unchanged.')
 state['walk']=('C1021 (collections 1016-1022, November 2026): the route and the count door walked blind from 1948 on first prints and release days '
@@ -1908,7 +1909,7 @@ state['notes']=dict(vintage=('every monthly pillar - the unemployment rate, payr
                              '(Baa read the 7th); the S&P 500 is never revised'),
                     arithmetic='every pillar is a sign: on at or above its line; a reading equal to its line is at the line',
                     doors='the route needs all seven pillars on the same release day; each door is its own call; any one opens the episode',
-                    closers='E22 (collection 1031; RECORD-1027/1028/1030/1032): leg A on insured unemployment and leg S on the S&P 500, both under the policy-rate condition, leg Q (the S&P 500 with insured unemployment below a quarter earlier, no policy-rate condition) and leg QG (insured unemployment or initial claims below a quarter earlier, after a one-third rise; collection 1034); the end is the first leg\'s fire day',
+                    closers='E22 (collection 1031; RECORD-1027/1028/1030/1032): leg A on insured unemployment and leg S on the S&P 500, both under the policy-rate condition, leg Q (the S&P 500 with insured unemployment below a quarter earlier, no policy-rate condition) and leg QG (insured unemployment or initial claims below a quarter earlier, after a one-third rise; collection 1034), and in a bear market deeper than the 20-year quiet record legs S and QG wait for industrial production off its low (collection 1041); the end is the first leg\'s fire day',
                     damage='v3.76\'s three-dimension damage grade, unchanged (collection 327)')
 state['walked_record']=dict(first_cut=1948,record_cut=C1021.get('record_cut'),calls_in_record=len(C1021.get('calls') or []),live_calls=C1021.get('live_calls'),
                             collections='1016 (C1016P), 1019 (C1019 = +FS), 1021 (C1021 = +JL), 1022 (the port)',note='every call dated to its own release day; no call is retrospective')
