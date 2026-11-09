@@ -1,7 +1,7 @@
 {
  "tool": "E22",
- "version": "E22 (1031) + leg Q (1032)",
- "built": "2026-11-09 17:08:26Z",
+ "version": "E22 (1031) + leg Q (1032) + leg QG (1034)",
+ "built": "2026-11-09 17:48:52Z",
  "today": "2026-11-09",
  "episodes": [
   {
@@ -12,6 +12,7 @@
    "legS": "1949-11-02",
    "close": "1949-11-02",
    "legQ": "1950-02-16",
+   "legQG": "1950-02-16",
    "leg": "S",
    "primed": true
   },
@@ -23,6 +24,7 @@
    "legS": "1954-05-27",
    "close": "1954-05-27",
    "legQ": "1954-08-12",
+   "legQG": "1954-08-12",
    "leg": "S",
    "primed": true
   },
@@ -34,6 +36,7 @@
    "legS": "1958-07-25",
    "close": "1958-06-19",
    "legQ": "1958-07-25",
+   "legQG": "1958-07-25",
    "leg": "A",
    "primed": true
   },
@@ -45,6 +48,7 @@
    "legS": "1961-02-24",
    "close": "1961-02-24",
    "legQ": "1961-04-06",
+   "legQG": "1961-04-06",
    "leg": "S",
    "primed": true
   },
@@ -56,6 +60,7 @@
    "legS": "1970-11-12",
    "close": "1970-11-12",
    "legQ": "1971-01-14",
+   "legQG": "1970-12-31",
    "leg": "S",
    "primed": true
   },
@@ -67,6 +72,7 @@
    "legS": "1975-06-26",
    "close": "1975-02-06",
    "legQ": "1975-07-24",
+   "legQG": "1975-06-26",
    "leg": "A",
    "primed": true
   },
@@ -78,6 +84,7 @@
    "legS": "1980-07-22",
    "close": "1980-07-22",
    "legQ": "1980-09-24",
+   "legQG": "1980-07-31",
    "leg": "S",
    "primed": true
   },
@@ -89,6 +96,7 @@
    "legS": "1982-12-02",
    "close": "1982-12-02",
    "legQ": "1983-01-13",
+   "legQG": "1982-12-02",
    "leg": "S",
    "primed": true
   },
@@ -100,6 +108,7 @@
    "legS": "1991-02-07",
    "close": "1991-02-07",
    "legQ": "1991-07-25",
+   "legQG": "1991-05-16",
    "leg": "S",
    "primed": true
   },
@@ -111,6 +120,7 @@
    "legS": "2001-12-06",
    "close": "2001-12-06",
    "legQ": "2002-03-06",
+   "legQG": "2002-01-03",
    "leg": "S",
    "primed": true
   },
@@ -122,6 +132,7 @@
    "legS": "2009-06-25",
    "close": "2009-06-25",
    "legQ": "2009-08-13",
+   "legQG": "2009-06-25",
    "leg": "S",
    "primed": true
   },
@@ -133,6 +144,7 @@
    "legS": "2020-06-05",
    "close": "2020-06-05",
    "legQ": "2020-08-06",
+   "legQG": "2020-07-14",
    "leg": "S",
    "primed": true
   },
@@ -144,6 +156,7 @@
    "legS": "2024-10-01",
    "close": "2024-10-01",
    "legQ": "2024-10-03",
+   "legQG": null,
    "leg": "S",
    "primed": true
   }
@@ -160,6 +173,7 @@
  },
  "log": [
   "NSA holes filled from first prints (2025 on): 6 weeks",
+  "initial claims: frozen chain to 2026-08-29, 9 live weeks after",
   "weekly insured unemployment: frozen chain to 2026-09-12, 6 live weeks after (newest week 2026-10-24, released 2026-11-05)",
   "policy rate: to 2026-10-01 (3.88), below a year earlier: True",
   "S&P 500: to 2026-11-06 (7376.86)",
@@ -173,6 +187,7 @@
   "legS": "2024-10-01",
   "close": "2024-10-01",
   "legQ": "2024-10-03",
+  "legQG": null,
   "leg": "S",
   "primed": true
  },
