@@ -11,6 +11,8 @@ After an episode opened by C1021, END on the first day either leg fires:
   after the month).
   LEG S - the S&P 500 at least 20 per cent above its lowest close since the open (the published bull-market definition), insured unemployment
   not at a new post-priming high, and the policy rate below its level 12 months earlier.
+  LEG Q (1032) - the same bull-market line and insured unemployment off its high, with no policy-rate condition but insured unemployment below
+  its print a quarter (13 prints) earlier: the end of a recession in which the Fed does not ease.
 Chronology: C1021's calls open (out/c1021_state.json); an open needs no open episode and more than 183 days since the last close.
 Inputs: s2/e22_history.csv (chain v4 1946-2026, frozen: week, iu_nsa, iu_rtsa (SA first print), iu_release), then the merged first-print
 table cache/national_first_prints_1985_live.csv (+ cache/c1021/claims_nsa_first_prints.csv) for newer weeks; s2/e22_rate_history.csv then
@@ -171,7 +173,17 @@ def ender(P, SP, witness_ok, s0, cap=None, cov_end=None):
         for d in seg[seg >= lo * BULL].index:
             i = np.searchsorted(kk, np.datetime64(d), side='right') - 1
             if i >= 0 and vs[i] and witness_ok(d): legS = d; break
-    c = [x for x in (legA, legS) if x is not None]; close = min(c) if c else None
+    # LEG Q (1032, 9 Nov 2026; PREREG-52, out/battery_1034*.txt): the bull-market line without the policy-rate witness, guarded instead by labour -
+    # insured unemployment off its post-priming high AND its newest print below the print a quarter (13 prints) earlier. On every historical,
+    # noise, severity, arming and revision test it never fires before E22's own legs (identical records); in a recession the Fed does not ease it
+    # ends the episode (no-ease worlds: MAD 210.6 -> 55.2 held flat, 353.7 -> 71.2 rising, never-ends 1 -> 0).
+    legQ = None
+    if stt:
+        ks0 = np.array([k for k, _ in P['IU4']], dtype='datetime64[ns]'); xs0 = np.array([x for _, x in P['IU4']])
+        for d in seg[seg >= lo * BULL].index:
+            i = np.searchsorted(kk, np.datetime64(d), side='right') - 1; j = np.searchsorted(ks0, np.datetime64(d), side='right') - 1
+            if i >= 0 and vs[i] and j >= 13 and xs0[j] < xs0[j - 13]: legQ = d; break
+    c = [x for x in (legA, legS, legQ) if x is not None]; close = min(c) if c else None
     # THE CLOSING READING (descriptive, for the page's chart; it decides nothing): on each insured-unemployment release day from the open to the
     # close (or today), the larger of leg A's share of its four conditions (primed, the significant fall, the deceleration, the policy rate) and
     # leg S's share of its three (the market 20 per cent off its low, insured unemployment off its high, the policy rate); 1.00 on the close day.
@@ -187,12 +199,16 @@ def ender(P, SP, witness_ok, s0, cap=None, cov_end=None):
         if kk2 is not None and len(kk2):
             i = np.searchsorted(kk2, np.datetime64(d), side='right') - 1; nh = bool(i >= 0 and vs2[i])
         s_ = (int(bull) + int(nh) + int(m_)) / 3.0
-        rd.append((pd.Timestamp(d), round(max(a_, s_), 3)))
+        jq = int(np.searchsorted(np.array([k for k, _ in P['IU4']], dtype='datetime64[ns]'), np.datetime64(d), side='right')) - 1
+        qq = bool(jq >= 13 and P['IU4'][jq][1] < P['IU4'][jq - 13][1])
+        q_ = (int(bull) + int(nh) + int(qq)) / 3.0
+        rd.append((pd.Timestamp(d), round(max(a_, s_, q_), 3)))
     if close is not None: rd = [(t, v) for t, v in rd if t < pd.Timestamp(close)] + [(pd.Timestamp(close).normalize(), 1.0)]
     READING.extend(rd)
     det = dict(open=str(s0.date()), two_prints=bool(two), legA_fall=None if fire is None else str(pd.Timestamp(fire).date()), legA=None if legA is None else str(pd.Timestamp(legA).date()),
                legS=None if legS is None else str(pd.Timestamp(legS).date()), close=None if close is None else str(pd.Timestamp(close).date()),
-               leg=None if close is None else ('A' if close == legA else 'S'), primed=bool(prime_ix(P['IU4'], s0)[0] is not None))
+               legQ=None if legQ is None else str(pd.Timestamp(legQ).date()),
+               leg=None if close is None else ('A' if close == legA else ('S' if close == legS else 'Q')), primed=bool(prime_ix(P['IU4'], s0)[0] is not None))
     return (None if close is None else pd.Timestamp(close).normalize()), det
 
 # ---------------------------------------------------------------- the chronology: C1021 opens, E22 closes
@@ -214,7 +230,7 @@ if __name__ == '__main__':
     eps = chronology(calls, P, SP, wok)
     say('episodes: ' + '; '.join('%s -> %s (%s)' % (e['open'], e['close'] or 'OPEN', e['leg'] or '-') for e in eps))
     cur = eps[-1] if eps else None
-    state = dict(tool='E22', version='E22 (1031)', built='', today=str(TODAY.date()),
+    state = dict(tool='E22', version='E22 (1031) + leg Q (1032)', built='', today=str(TODAY.date()),
                  episodes=eps, standing=('in recession since %s' % cur['open']) if (cur and cur['close'] is None) else ('closed since %s' % (cur['close'] if cur else '-')),
                  inputs=dict(iu_newest_week=str(X.index[X.iu_rtsa.notna()].max().date()), iu_live_weeks=ntail, rate_month=str(R.index.max().date())[:7], rate=float(R.iloc[-1]),
                              rate_below_year_ago=bool(known[-1][1]), sp_day=str(SP.index[-1].date()), sp=float(SP.iloc[-1])), log=LOG)
