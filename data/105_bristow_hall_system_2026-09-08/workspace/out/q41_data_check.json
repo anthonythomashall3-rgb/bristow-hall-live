@@ -78,15 +78,15 @@
 },
 {
 "name": "tile: CPI year over year, by date",
-"got": "3.7%",
-"want": "3.7%",
+"got": "n/a",
+"want": "n/a",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: CPI labels the latest month",
-"got": "year over year, Sep 2026",
-"want": "year over year, Sep 2026",
+"got": "year over year, Oct 2026",
+"want": "year over year, Oct 2026",
 "status": "PASS",
 "gate": null
 },
@@ -799,8 +799,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-10 03:41', '2026-11-10 03:41')",
-"want": "('2026-11-10 03:41', '2026-11-10 03:41')",
+"got": "('2026-11-10 09:26', '2026-11-10 09:26')",
+"want": "('2026-11-10 09:26', '2026-11-10 09:26')",
 "status": "PASS",
 "gate": "hard"
 },
