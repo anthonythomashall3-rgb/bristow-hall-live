@@ -104,10 +104,10 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;',
   const st=H.standing||{}, open=st.state==='open';
   const own='<div class="tile"><div class="lab">Bristow-Hall Rule, recession indicator</div>'
     +'<div class="val"><b>'+(open?'RECESSION OPEN':'NO RECESSION')+'</b></div>'
-    // Inside a recession the line is the damage - 1.00 plus what the recession has cost so far, on the scale of ten -
+    // Inside a recession the line is the damage grade itself - 1.00 at the call, 10 for 1929-33 (collection 1035, 10 Nov 2026) -
     // so the tile reads the damage and the day the rule called; outside one it reads the indicator against 1.00, as
     // before (20 September 2026, collection 274: the tile read "reading 2.92 of 1.00" through the fire drill).
-    +'<div class="sub">'+(open?'opened '+fmtD(st.since||'')+'; damage '+(H.last_value==null?'-':Math.max(0,H.last_value-1).toFixed(2))+' of 10, '
+    +'<div class="sub">'+(open?'opened '+fmtD(st.since||'')+'; damage '+(H.last_value==null?'-':H.last_value.toFixed(2))+' of 10, '
                              :'none since '+fmtM(st.since||st.dated||'')+'; reading '+(H.last_value==null?'-':H.last_value.toFixed(2))+' of 1.00, ')+fmtD(H.last_date)+'</div>'
     +'<div class="lnk"><a href="/detector/">the indicator &#8599;</a></div></div>';
   const rest=(H.tiles||[]).map(t=>'<div class="tile"><div class="lab">'+esc(t.lab)+'</div>'
