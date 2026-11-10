@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-10 09:26",
+ "built_at": "2026-11-10 12:38",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-10T14:27:04Z",
+ "generated_utc": "2026-11-10T17:38:42Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -1375,9 +1375,9 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-10",
+   "build_next": "2026-12-10",
    "confirmed_through": "2026-12-10",
-   "fred_clock": "09:08",
+   "fred_clock": "09:10",
    "freq": "monthly",
    "ids": "cpiaucsl",
    "link": "https://fred.stlouisfed.org/series/CPIAUCSL",

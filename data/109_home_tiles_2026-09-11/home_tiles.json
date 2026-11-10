@@ -131,7 +131,7 @@
    "sub": "year over year, Oct 2026",
    "src": "https://fred.stlouisfed.org/series/CPIAUCSL",
    "sid": "CPIAUCSL",
-   "next": "2026-11-10",
+   "next": "2026-12-10",
    "srcs": [
     [
      "FRED CPIAUCSL",

@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-10 09:26",
+ "built_at": "2026-11-10 12:38",
  "fallback": "weekdays 08:35, 09:45, 10:15, 16:20 and 20:10 (New York time), used only if this list cannot be read",
- "generated_utc": "2026-11-10T14:27:04Z",
+ "generated_utc": "2026-11-10T17:38:42Z",
  "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes after each release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close at 4:20 PM and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
  "refresh_incomplete": null,
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
@@ -14,10 +14,10 @@
    ]
   },
   {
-   "ny": "2026-11-09 14:40",
-   "utc": "2026-11-09T19:40:00Z",
+   "ny": "2026-11-09 14:35",
+   "utc": "2026-11-09T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -35,10 +35,10 @@
    ]
   },
   {
-   "ny": "2026-11-10 14:40",
-   "utc": "2026-11-10T19:40:00Z",
+   "ny": "2026-11-10 14:35",
+   "utc": "2026-11-10T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -49,10 +49,10 @@
    ]
   },
   {
-   "ny": "2026-11-11 14:40",
-   "utc": "2026-11-11T19:40:00Z",
+   "ny": "2026-11-11 14:35",
+   "utc": "2026-11-11T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -77,10 +77,10 @@
    ]
   },
   {
-   "ny": "2026-11-12 14:40",
-   "utc": "2026-11-12T19:40:00Z",
+   "ny": "2026-11-12 14:35",
+   "utc": "2026-11-12T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -91,10 +91,10 @@
    ]
   },
   {
-   "ny": "2026-11-13 14:40",
-   "utc": "2026-11-13T19:40:00Z",
+   "ny": "2026-11-13 14:35",
+   "utc": "2026-11-13T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -105,10 +105,10 @@
    ]
   },
   {
-   "ny": "2026-11-16 14:40",
-   "utc": "2026-11-16T19:40:00Z",
+   "ny": "2026-11-16 14:35",
+   "utc": "2026-11-16T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -133,10 +133,10 @@
    ]
   },
   {
-   "ny": "2026-11-17 14:40",
-   "utc": "2026-11-17T19:40:00Z",
+   "ny": "2026-11-17 14:35",
+   "utc": "2026-11-17T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -154,10 +154,10 @@
    ]
   },
   {
-   "ny": "2026-11-18 14:40",
-   "utc": "2026-11-18T19:40:00Z",
+   "ny": "2026-11-18 14:35",
+   "utc": "2026-11-18T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -182,10 +182,10 @@
    ]
   },
   {
-   "ny": "2026-11-19 14:40",
-   "utc": "2026-11-19T19:40:00Z",
+   "ny": "2026-11-19 14:35",
+   "utc": "2026-11-19T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -196,10 +196,10 @@
    ]
   },
   {
-   "ny": "2026-11-20 14:40",
-   "utc": "2026-11-20T19:40:00Z",
+   "ny": "2026-11-20 14:35",
+   "utc": "2026-11-20T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -217,10 +217,10 @@
    ]
   },
   {
-   "ny": "2026-11-23 14:40",
-   "utc": "2026-11-23T19:40:00Z",
+   "ny": "2026-11-23 14:35",
+   "utc": "2026-11-23T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -231,10 +231,10 @@
    ]
   },
   {
-   "ny": "2026-11-24 14:40",
-   "utc": "2026-11-24T19:40:00Z",
+   "ny": "2026-11-24 14:35",
+   "utc": "2026-11-24T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -273,10 +273,10 @@
    ]
   },
   {
-   "ny": "2026-11-25 14:40",
-   "utc": "2026-11-25T19:40:00Z",
+   "ny": "2026-11-25 14:35",
+   "utc": "2026-11-25T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -287,10 +287,10 @@
    ]
   },
   {
-   "ny": "2026-11-27 14:40",
-   "utc": "2026-11-27T19:40:00Z",
+   "ny": "2026-11-27 14:35",
+   "utc": "2026-11-27T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -301,10 +301,10 @@
    ]
   },
   {
-   "ny": "2026-11-30 14:40",
-   "utc": "2026-11-30T19:40:00Z",
+   "ny": "2026-11-30 14:35",
+   "utc": "2026-11-30T19:35:00Z",
    "why": [
-    "the S&P 500 official close (FRED SP500, posted about 11:45 AM)"
+    "the S&P 500 official close (FRED SP500, posted about 11:26 AM)"
    ]
   },
   {
@@ -312,6 +312,20 @@
    "utc": "2026-11-30T21:20:00Z",
    "why": [
     "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
+   ]
+  },
+  {
+   "ny": "2026-12-01 10:16",
+   "utc": "2026-12-01T15:16:00Z",
+   "why": [
+    "JOLTS (job openings) (10:00 AM ET; FRED by about 10:11 AM)"
+   ]
+  },
+  {
+   "ny": "2026-12-01 12:07",
+   "utc": "2026-12-01T17:07:00Z",
+   "why": [
+    "GDPNow (12:02 PM ET)"
    ]
   }
  ],
