@@ -1200,10 +1200,11 @@ def _damage3(d,call):
         s=_D3[call][_D3[call].index<=d]
         return float(s.iloc[-1]) if len(s) else 0.0
     return _damage(d,call)
+from decimal import Decimal as _DEC, ROUND_HALF_UP as _HALFUP   # 1035: the grade as JavaScript's toFixed(2) shows it
 for _e in EP:   # the record table shows each recession's damage score (17 September 2026)
     if not _e.get('open_pub'): continue
     _a=pd.Timestamp(_e['open_pub']); _b=pd.Timestamp(_e['close_pub']) if _e.get('close_pub') else pd.Timestamp(today)
-    if _a in _DMG_CUM: _e['damage_score']=round(_damage3(_b,_a),1); _e['grade']=round(1.0+0.9*_damage3(_b,_a),2);   # 1035: the grade as the site plots it, 1.00 at the call to 10 for 1929-33
+    if _a in _DMG_CUM: _e['damage_score']=round(_damage3(_b,_a),1); _e['grade']=float(_DEC(round(1.0+0.9*_damage3(_b,_a),3)).quantize(_DEC('0.01'),rounding=_HALFUP));   # 1035: the grade exactly as the site shows it (the index on the close day, stored to 3 decimals, shown as toFixed(2)); 1.00 at the call, 10 for 1929-33
     if _a in _DMG_CUM: _e['damage_pm']=round(_DMG_CUM[_a][3],1); _e['damage_depth']=round(_DMG_CUM[_a][4],1); _e.update(_DIM_EP.get(_a,{}))   # v3.73: the grade in three dimensions
 DMG=[]
 for i,d in enumerate(DD):
