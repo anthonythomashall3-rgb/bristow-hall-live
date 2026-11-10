@@ -799,8 +799,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-10 09:26', '2026-11-10 09:26')",
-"want": "('2026-11-10 09:26', '2026-11-10 09:26')",
+"got": "('2026-11-10 12:33', '2026-11-10 12:33')",
+"want": "('2026-11-10 12:33', '2026-11-10 12:33')",
 "status": "PASS",
 "gate": "hard"
 },
@@ -883,7 +883,7 @@
 },
 {
 "name": "notes: the Notes are a short summary (Anthony, 24 September 2026: as short as the Sahm indicator notes)",
-"got": "135",
+"got": "140",
 "want": "at most 140 words",
 "status": "PASS",
 "gate": null
