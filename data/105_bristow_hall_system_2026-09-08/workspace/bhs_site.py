@@ -265,9 +265,10 @@ try:
         if _RL.get(_RK[i]): r['srcs']=_RL[_RK[i]]; r['url']=_RL[_RK[i]][0][1]
 except Exception as _e: print('source links not applied (%s): the build\'s addresses stand' % _e)
 def _srcline(r):
-    if not r.get('srcs'): return r['source']
-    tail=r['source'].split(' &middot; ',1)[1] if ' &middot; ' in (r['source'] or '') else ''
-    return ' &middot; '.join('<a href="'+_esc(u)+'" target="_blank" rel="noopener">'+_esc(n)+' &#8599;</a>' for n,u in r['srcs'])+((' &middot; '+tail) if tail else '')
+    # 11 November 2026 (Anthony: the notes after the links - 'Quarterly, 8:30 AM ET', 'line 0.2' - sat on some rows and not on others;
+    # "remove these notes on this entire column ... we need to maintain consistency"): the line is the sources and nothing else.
+    if not r.get('srcs'): return _re3.sub(r'\s*&middot;.*$','',r['source'] or '')
+    return ' &middot; '.join('<a href="'+_esc(u)+'" target="_blank" rel="noopener">'+_esc(n)+' &#8599;</a>' for n,u in r['srcs'])
 def _pct(v,u):
     # a percent carries its sign on the number (Anthony, 17 September 2026): "1.1%", and the units line keeps only what
     # else the publisher says ("seasonally adjusted"); percentage points and percent changes are not percents of a level
