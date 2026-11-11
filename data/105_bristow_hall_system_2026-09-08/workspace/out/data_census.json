@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-11 09:23",
+ "built_at": "2026-11-11 14:37",
  "version": "C1021+E22",
  "census_date": "2026-11-11",
  "feeds": [
@@ -219,9 +219,9 @@
    "JTSJOL": "FRED API",
    "UNRATE": "FRED API",
    "PAYEMS": "FRED API",
-   "UNEMPLOY": "FRED API",
    "JTSQUR": "FRED API",
    "CPIAUCSL": "FRED API",
+   "UNEMPLOY": "FRED API",
    "IURSA": "FRED API",
    "ICSA": "FRED API"
   },

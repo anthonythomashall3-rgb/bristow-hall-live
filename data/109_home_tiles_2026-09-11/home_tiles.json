@@ -146,9 +146,9 @@
    "JTSJOL": "FRED API",
    "UNRATE": "FRED API",
    "PAYEMS": "FRED API",
-   "UNEMPLOY": "FRED API",
    "JTSQUR": "FRED API",
    "CPIAUCSL": "FRED API",
+   "UNEMPLOY": "FRED API",
    "IURSA": "FRED API",
    "ICSA": "FRED API"
   },
