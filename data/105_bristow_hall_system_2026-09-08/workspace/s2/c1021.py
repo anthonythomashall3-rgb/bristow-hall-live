@@ -80,6 +80,15 @@ def fred_monthly(series):
         if len(df) > 100: df.to_csv(f, index=False)
     except Exception as e:
         say('FRED', series, 'not reached; cache stands:', repr(e)[:80])
+        # 1043 (11 November 2026): FRED did not answer - the months the cache lacks are read from the publisher itself (the New York
+        # Fed for the funds rate, the Treasury for the yields; equal to FRED on 127 of 128, 129 of 130 and 130 of 130 months of history,
+        # never more than 0.01 apart). FRED's own file replaces the cache whole at its next answer. Baa has no second publisher.
+        try:
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import second_source as _ss
+            _added = _ss.extend_cache(series, f) if os.path.exists(f) else []
+            if _added: say('SECOND SOURCE', series, 'months read from the publisher:', ', '.join(_added))
+        except Exception as e2:
+            say('second source', series, 'not reached either:', repr(e2)[:80])
     if not os.path.exists(f): raise SystemExit('c1021: FRED %s is unreachable and no cache stands (%s) - the run stops' % (series, f))
     df = pd.read_csv(f, parse_dates=['date']); return df.set_index('date').v.astype(float)
 

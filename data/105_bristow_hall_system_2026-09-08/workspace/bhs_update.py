@@ -435,6 +435,22 @@ def _append_vintages(s):
 for s in ['PAYEMS','GDPC1','GDPNOW','INDPRO','PERMIT','UNEMPLOY','LNS13023621','UNRATE','JTSJOL']:   # UNEMPLOY/LNS13023621 for C1021 (1022)   # PERMIT from 781 (moved from _monthly_vintage above)
     try: _append_vintages(s)
     except Exception as e: say(f'{s:14s} vintages NOT refreshed ({e})'); _FAILED.add(s)
+# ---- 1043 (11 November 2026; Anthony: every source has a backup wherever possible): THE LABOUR VINTAGE TABLES' SECOND SOURCE. When
+# ---- FRED failed for a labour series above, the Bureau of Labor Statistics' own API is read; if it carries a month the table lacks,
+# ---- that print is appended as a vintage named by today (never earlier than the release: causal-late at worst). Tested equal to
+# ---- ALFRED's newest vintage on every series (1043/out/TEST-1043.md). Nothing here runs while FRED answers.
+try:
+    _c1043=[s for s in ('PAYEMS','UNEMPLOY','LNS13023621','UNRATE','JTSJOL') if s in _FAILED or (globals().get('_FRED_DOWN') or {}).get('fails',0)>0]
+    if _c1043:
+        sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2')); import second_source as _ss1043
+        _bk=None
+        for _l in open(ENV):
+            if _l.startswith('BLS_API_KEY='): _bk=_l.strip().split('=',1)[1].strip().strip('"').strip("'") or None
+        _b1043=_ss1043.bls_series(_c1043,key=_bk,years=(10 if _bk else 3))
+        for s in _c1043:
+            _col=_ss1043.append_bls_vintage(os.path.join(AL,f'{s}_all_vintages.csv'),s,_b1043.get(s),today,backup=backup)
+            say(f'{s:14s} SECOND SOURCE (BLS API): '+(f'vintage {_col} appended' if _col else 'no month beyond the table'))
+except Exception as e: say(f'labour second source (BLS API) NOT read ({e})')
 # ---- C1021 (1022, 8 November 2026): the NSA claims FIRST PRINTS the starter's I4 and HW pillars read, straight from ALFRED's
 # ---- initial releases of ICNSA (initial) and CCNSA (insured), appended to cache/c1021/claims_nsa_first_prints.csv. A week already
 # ---- in the file is never rewritten; a failed fetch leaves the file in hand (c1021.py then fills the newest weeks from FRED, labelled).

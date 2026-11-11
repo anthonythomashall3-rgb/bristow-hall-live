@@ -24,10 +24,10 @@ BACKUPS = {   # the backup route or substitute for each feed, as declared in the
     'GDPNow': 'the Atlanta Fed page; the last printed quarter carried',
     'Search week': 'the claims week alone at any cell looser than (35, 20) (E34c); a second search source is not yet declared (R2)',
     # C1021 (1022, 8 November 2026): the starter's feeds
-    'Unemployment rate, payrolls, the unemployed count': "ALFRED's vintage tables appended each release (bhs_update); the last vintage in hand stands until the next; a missing table stops the run (c1021.py)",
-    "Moody's Baa": 'the FRED monthly series cached (cache/c1021/BAA.csv, private); the cache stands when FRED is unreachable',
-    'Effective federal funds rate': 'the FRED monthly series cached (cache/c1021/FEDFUNDS.csv); the cache stands when FRED is unreachable',
-    '10-year and 1-year Treasury yields': 'the FRED monthly series cached (cache/c1021/GS10.csv, GS1.csv); the cache stands when FRED is unreachable',
+    'Unemployment rate, payrolls, the unemployed count': "ALFRED's vintage tables appended each release (bhs_update); the last vintage in hand stands until the next; a missing table stops the run (c1021.py); when FRED fails, the BLS API print appended as a vintage (bhs_update, s2/second_source.py; 1043: identical to ALFRED on every month of every table)",
+    "Moody's Baa": 'the FRED monthly series cached (cache/c1021/BAA.csv, private); the cache stands when FRED is unreachable; NO SECOND PUBLISHER (the series is Moody\'s own; 1043)',
+    'Effective federal funds rate': 'the New York Fed EFFR, monthly calendar-day average (s2/second_source.py; 1043: equal to FRED on 127 of 128 months, never more than 0.01 apart), then the cache',
+    '10-year and 1-year Treasury yields': 'the Treasury daily par yield curve, monthly average (s2/second_source.py; 1043: GS10 equal on 129 of 130 months, GS1 on 130 of 130, never more than 0.01 apart), then the cache',
     'Initial claims and continued claims': "45's first prints (the Department's release) merged with ALFRED's ICNSA/CCNSA initial releases (cache/c1021/claims_nsa_first_prints.csv); the newest weeks from FRED, labelled FILL",
     'Industrial production (the production pillar)': "ALFRED's INDPRO vintage table appended each G.17 (bhs_update)",
 }
