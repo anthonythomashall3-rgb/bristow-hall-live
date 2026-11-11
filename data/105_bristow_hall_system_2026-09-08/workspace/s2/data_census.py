@@ -56,6 +56,13 @@ def main():
     ch = [dict(channel=c['channel'], status=c['status'], last=c.get('last'), limit_days=c.get('limit_days'), substitute=c.get('substitute')) for c in S.get('channels', [])]
     out = dict(built_at=S.get('built_at'), version=S.get('version'), census_date=datetime.date.today().isoformat(), feeds=rows, channels=ch, gaps=gaps,
                note='every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)')
+    # the front-page tiles (1042, 11 November 2026): the route each series came by this run, and its backups
+    try:
+        _ht = json.load(open(os.path.join(os.path.dirname(os.path.dirname(HERE)), '109_home_tiles_2026-09-11', 'home_tiles.json')))
+        _sc = _ht.get('source_check') or {}
+        out['tiles'] = dict(routes=_sc.get('routes'), compared_with_bls=_sc.get('compared'), mismatch=_sc.get('mismatch'),
+                            backups='FRED API, then the FRED keyless file, then the file on disk; the BLS API read every run for the six monthly series, compared with FRED, and used for any month FRED lacks')
+    except Exception as _e: out['tiles'] = dict(error=str(_e)[:80])
     json.dump(out, open(os.path.join(HERE, 'out', 'data_census.json'), 'w'), indent=1)
     md = ['# The data census - %s (the tool %s, built %s)' % (out['census_date'], S.get('version'), S.get('built_at')), '',
           'Every input the live tool reads: the publisher and route, the backup or substitute, the schedule, what is in hand, and the guard on its format. Gaps are listed at the end.', '',

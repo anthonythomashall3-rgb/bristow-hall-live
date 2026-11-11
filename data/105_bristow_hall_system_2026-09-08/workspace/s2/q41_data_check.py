@@ -43,7 +43,7 @@ def chk(name,got,want,ok=None):
 # or a garbage input - never published. 'soft': the page disagrees with its own sources - held, unless the standing
 # changed (a call is never held back by a page check). None: freshness and presentation - published, and noted.
 _HARD=('units:','daily series is in date order','no reading is negative','every episode opens before it closes','public state copies are this build','372: schema','378: the Department')
-_SOFT=('feed reading matches','feed line matches','feed is not dated in the future','headline date','standing','speed panel','record:','data page: the five columns','data page: no blank cell')
+_SOFT=('second source','feed reading matches','feed line matches','feed is not dated in the future','headline date','standing','speed panel','record:','data page: the five columns','data page: no blank cell')
 def _gate(name):
     if 'next release is not in the past' in name: return None
     if name.startswith(_HARD): return 'hard'
@@ -69,9 +69,12 @@ m=J.index[-1]
 chk('tile: unemployed per opening reads ONE month',tile['Unemployed per opening']['val'],f'{UE.loc[m]/J.loc[m]:.2f}')
 chk('tile: unemployed per opening labels that month',tile['Unemployed per opening']['sub'],m.strftime('%b %Y'))
 chk('tile: quits rate',tile['Quits rate']['val'],f'{Q.iloc[-1]:.1f}%')
-cm=next(d for d in reversed(C.index) if (d-pd.DateOffset(years=1)) in C.index); c0=cm-pd.DateOffset(years=1)   # 11 Nov 2026: latest month whose base month was published
-chk('tile: CPI year over year, by date',tile['CPI inflation']['val'],f'{(C.loc[cm]/C.loc[c0]-1)*100:.1f}%')
-chk('tile: CPI labels the month it reads',tile['CPI inflation']['sub'],'year over year, '+cm.strftime('%b %Y'))
+cm=C.index[-1]; c0=cm-pd.DateOffset(years=1); _est=c0 not in C.index   # 11 Nov 2026 (1042): a base month never published = geometric mean of the months either side (the BLS's own fill)
+_cb=(C.loc[c0-pd.DateOffset(months=1)]*C.loc[c0+pd.DateOffset(months=1)])**0.5 if _est else C.loc[c0]
+chk('tile: CPI year over year, by date',tile['CPI inflation']['val'],f'{(C.loc[cm]/_cb-1)*100:.1f}%')
+chk('tile: CPI labels the month it reads, and says estimated when the base is filled',tile['CPI inflation']['sub'],('estimated year over year, ' if _est else 'year over year, ')+cm.strftime('%b %Y'))
+_sc=json.load(open(os.path.join(T9,'home_tiles.json'))).get('source_check') or {}
+chk('second source: every tile figure equals the BLS\'s own (last six months)',_sc.get('mismatch',[]),[])
 for t in TI:
     chk(f'tile: {t["lab"]} next release is not in the past',t['next'],'>= '+TODAY.isoformat(),ok=(t['next'] is None or t['next']>=TODAY.isoformat()))
 # plausibility, so a wrong unit cannot pass arithmetic

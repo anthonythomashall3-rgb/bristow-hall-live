@@ -75,20 +75,77 @@ def next_release(ds):
     now=datetime.datetime.now(ZoneInfo('America/New_York'))
     if ds[0]==now.date().isoformat() and (now.hour,now.minute)>=(10,30) and len(ds)>1: return ds[1]
     return ds[0]
+# A SECOND SOURCE BEHIND EVERY SERIES (11 November 2026, collection 1042; Anthony: "make sure that all of our sources have backups
+# wherever possible"). Order: (1) the FRED API; (2) FRED's keyless file (another route, no key to expire); (3) the file on disk.
+# The Bureau of Labor Statistics' own API (the publisher itself) is read on every run for the six monthly series: its figures are
+# compared with FRED's (source_check in the JSON; s2/q41_data_check.py), and a month the BLS has that FRED has not yet loaded, or
+# that the disk file lacks when FRED is down, is taken from the BLS.
+import io as _io
+BLS_ID={'UNRATE':'LNS14000000','PAYEMS':'CES0000000001','UNEMPLOY':'LNS13000000','JTSJOL':'JTS000000000000000JOL','JTSQUR':'JTS000000000000000QUR','CPIAUCSL':'CUSR0000SA0'}
+_BKEY=None
+for _l in open(ENV):
+    if _l.startswith('BLS_API_KEY='): _BKEY=_l.strip().split('=',1)[1].strip().strip('"').strip("'") or None
+def _fredgraph(sid):
+    df=pd.read_csv(_io.StringIO(_curl('https://fred.stlouisfed.org/graph/fredgraph.csv?id='+sid,m=30)))
+    assert df.shape[1]==2 and df.columns[1]==sid, 'fredgraph: unexpected columns'
+    s=pd.Series(pd.to_numeric(df.iloc[:,1],errors='coerce').values,index=pd.to_datetime(df.iloc[:,0])).dropna()
+    s=s[s.index>='1990-01-01'].sort_index()
+    assert len(s)>100, 'fredgraph: too short'
+    return s
+_BLS={}
+def _bls_all():
+    y=datetime.date.today().year
+    body={'seriesid':list(BLS_ID.values()),'startyear':str(y-2),'endyear':str(y)}
+    if _BKEY: body['registrationkey']=_BKEY
+    r=subprocess.run(['curl','-sSL','-m','30','-X','POST','-H','Content-Type: application/json','-d',json.dumps(body),'https://api.bls.gov/publicAPI/v2/timeseries/data/'],capture_output=True,text=True)
+    d=json.loads(r.stdout)
+    assert d.get('status')=='REQUEST_SUCCEEDED', 'BLS API: '+str(d.get('status'))
+    inv={v:k for k,v in BLS_ID.items()}
+    for srs in d['Results']['series']:
+        obs={}
+        for o in srs['data']:
+            if o['period'][:1]=='M' and o['period']!='M13':
+                try: obs[pd.Timestamp(int(o['year']),int(o['period'][1:]),1)]=float(str(o['value']).replace(',',''))
+                except ValueError: pass       # a month the Bureau never published (October 2025) prints as '-'
+        if obs and srs['seriesID'] in inv: _BLS[inv[srs['seriesID']]]=pd.Series(obs).sort_index()
+try: _bls_all()
+except Exception as _e: print('home tiles: BLS API not read ('+str(_e)[:50]+'); FRED stands alone this run')
+_ROUTE={}
 def get(sid):
     p=os.path.join(FR,sid+'.csv')
-    try:
-        s=fred(sid)
+    s=None
+    for route,fn in (('FRED API',fred),('FRED keyless file',_fredgraph)):
+        try:
+            s=fn(sid)
+            _ROUTE[sid]=route
+            break
+        except Exception as e: print(f'home tiles: {sid} not read by the {route} ({str(e)[:50]})')
+    if s is None and os.path.exists(p):
+        s=pd.read_csv(p,index_col=0,parse_dates=True).iloc[:,0].dropna()
+        _ROUTE[sid]='file on disk'
+        print(f'home tiles: {sid}: the file on disk stands')
+    if s is None: raise RuntimeError(f'{sid}: no source answered and no file on disk')
+    b=_BLS.get(sid)
+    if b is not None and len(b):
+        _new=b[b.index>s.index[-1]]
+        if len(_new):
+            s=pd.concat([s,_new]).sort_index()
+            _ROUTE[sid]+=' + BLS API (newer month)'
+            print(f'home tiles: {sid} {_new.index[-1].strftime("%b %Y")} taken from the BLS API ahead of FRED')
+    if _ROUTE[sid]!='file on disk':
         if os.path.exists(p): shutil.copy(p,p+'.bak')
         s.rename(sid).to_frame().to_csv(p)
-        return s
-    except Exception as e:
-        if os.path.exists(p):
-            print(f'home tiles: {sid} not refreshed ({str(e)[:50]}); the file on disk stands')
-            return pd.read_csv(p,index_col=0,parse_dates=True).iloc[:,0].dropna()
-        raise
+    return s
 from concurrent.futures import ThreadPoolExecutor as _TPE
 with _TPE(max_workers=3) as _ex: S=dict(zip(SERIES,_ex.map(get,SERIES)))
+# every BLS figure for the last six months it shares with FRED must equal FRED's (the same number from the publisher itself)
+_XC=dict(routes=dict(_ROUTE),compared=[],mismatch=[])
+for _sid,_b in _BLS.items():
+    _cm_=[d for d in _b.index if d in S[_sid].index][-6:]
+    if _cm_: _XC['compared'].append(_sid)
+    for _d in _cm_:
+        if abs(float(_b.loc[_d])-float(S[_sid].loc[_d]))>1e-6*max(1.0,abs(float(_b.loc[_d]))): _XC['mismatch'].append('%s %s: FRED %s, BLS %s'%(_sid,_d.strftime('%Y-%m'),S[_sid].loc[_d],_b.loc[_d]))
+print('home tiles: second source: %d series compared with the BLS, %d mismatch%s'%(len(_XC['compared']),len(_XC['mismatch']),(' - '+' / '.join(_XC['mismatch'])) if _XC['mismatch'] else ''))
 def mon(d): return pd.Timestamp(d).strftime('%b %Y')
 def day(d): d=pd.Timestamp(d); return d.strftime('%b')+' '+str(d.day)+', '+str(d.year)   # audit-0924: 'Sep 19, 2026'
 U=S['UNRATE']; P=S['PAYEMS']; J=S['JTSJOL']; UE=S['UNEMPLOY']; Q=S['JTSQUR']; C=S['CPIAUCSL']; IC=S['ICSA']; IU=S['IURSA']
@@ -97,11 +154,20 @@ U=S['UNRATE']; P=S['PAYEMS']; J=S['JTSJOL']; UE=S['UNEMPLOY']; Q=S['JTSQUR']; C=
 #   ICSA   persons (not thousands)          CPIAUCSL  index 1982-84=100
 # so a level in thousands is divided by 1,000 and printed in millions, which is how a reader holds it.
 g3=(P.iloc[-1]-P.iloc[-4])/3.0            # payroll growth, three-month average change, thousands
-# 11 November 2026 (Anthony: n/a must never be printed): October 2025 was never published (the 2025 shutdown), and the BLS itself
-# publishes no 12-month change for October 2026. The tile shows the latest month for which the figure EXISTS, and labels that month.
-_cm=next(d for d in reversed(C.index) if (d-pd.DateOffset(years=1)) in C.index)   # by date, never by position
-_c0=_cm-pd.DateOffset(years=1)
-cpi=(C.loc[_cm]/C.loc[_c0]-1)*100
+# 11 November 2026 (Anthony: n/a must never be printed; "there are other sources where we can find the cpi inflation"): October 2025
+# was never published (the 2025 lapse in appropriations) and the BLS publishes no 12-month change for October 2026. Where the base
+# month does not exist it is filled the way the BLS itself filled it for seasonal adjustment (its FAQ on the lapse, question 12): the
+# geometric mean of the published months either side. The tile then says "estimated". No other month is ever filled.
+_cm=C.index[-1]
+_c0=_cm-pd.DateOffset(years=1)      # by date, never by position
+_cpi_est=_c0 not in C.index
+if _cpi_est:
+    _lo=_c0-pd.DateOffset(months=1)
+    _hi=_c0+pd.DateOffset(months=1)
+    assert _lo in C.index and _hi in C.index, f'CPI: no base for {_cm.date()} and no published month either side of {_c0.date()}'
+    _cbase=float(np.sqrt(C.loc[_lo]*C.loc[_hi]))
+else: _cbase=float(C.loc[_c0])
+cpi=(C.loc[_cm]/_cbase-1)*100
 _um=J.index[-1]                           # unemployed per opening: BOTH series read at the SAME month
 assert _um in UE.index, f'UNEMPLOY has no observation for {_um.date()}'
 upo=UE.loc[_um]/J.loc[_um]
@@ -114,7 +180,7 @@ T=[
  dict(lab='Job openings',           val=f'{J.iloc[-1]/1000:,.1f} million',  sub=mon(J.index[-1]),                    src='https://www.bls.gov/jlt/'),
  dict(lab='Unemployed per opening', val=f'{upo:.2f}',                      sub=mon(_um),                    src='https://www.bls.gov/jlt/'),
  dict(lab='Quits rate',             val=f'{Q.iloc[-1]:.1f}%',              sub=mon(Q.index[-1]),                    src='https://www.bls.gov/jlt/'),
- dict(lab='CPI inflation',          val=f'{cpi:.1f}%',                     sub='year over year, '+mon(_cm), src='https://www.bls.gov/cpi/'),
+ dict(lab='CPI inflation',          val=f'{cpi:.1f}%',                     sub=('estimated year over year, ' if _cpi_est else 'year over year, ')+mon(_cm), src='https://www.bls.gov/cpi/'),
 ]
 # NO PLACEHOLDER, EVER (11 November 2026): a tile that is not a number stops this run here; the tiles already on disk stand.
 import re as _re_np
@@ -176,6 +242,7 @@ if _prev is not None:
         if _o is None: _moved.append(f"{_t['lab']} (new)")
         elif (_o.get('val'),_o.get('sub'))!=(_t['val'],_t['sub']): _moved.append(f"{_t['lab']} {_o.get('val')} -> {_t['val']}")
 out=dict(built=datetime.date.today().isoformat(),tiles=T)
+out['source_check']=_XC
 json.dump(out,open(_op,'w'),indent=1)
 print('home tiles: '+(('CHANGED — '+'; '.join(_moved)) if _moved else 'unchanged')
       +f' | {len(T)} readings through {mon(U.index[-1])} (unemployment rate), {day(IC.index[-1])} (claims)'
