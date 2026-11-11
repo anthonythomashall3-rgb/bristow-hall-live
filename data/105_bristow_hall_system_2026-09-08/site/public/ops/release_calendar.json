@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-11 09:13",
+ "built_at": "2026-11-11 09:23",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-11T14:13:28Z",
+ "generated_utc": "2026-11-11T14:23:58Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -1505,7 +1505,7 @@
   {
    "agrees_with_build": true,
    "build_next": "2026-11-17",
-   "confirmed_through": "2027-11-17",
+   "confirmed_through": "2027-12-16",
    "fred_clock": "09:21",
    "freq": "monthly",
    "ids": "indpro",
@@ -1586,6 +1586,11 @@
      "expected": false,
      "ny": "2027-11-17 09:15",
      "utc": "2027-11-17T14:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-12-16 09:15",
+     "utc": "2027-12-16T14:15:00Z"
     }
    ],
    "waiting_since_due": null
