@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-11 14:37",
+ "built_at": "2026-11-11 16:02",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-11T19:37:13Z",
+ "generated_utc": "2026-11-11T21:02:17Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -13,7 +13,7 @@
    "link": "https://finance.yahoo.com/quote/%5EGSPC/history/",
    "name": "s&p 500 daily close",
    "next_expected": false,
-   "next_ny": "2026-11-11 16:00",
+   "next_ny": "2026-11-12 16:00",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the S&P 500 close",
