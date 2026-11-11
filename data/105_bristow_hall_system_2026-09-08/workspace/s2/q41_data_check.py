@@ -74,7 +74,7 @@ _cb=(C.loc[c0-pd.DateOffset(months=1)]*C.loc[c0+pd.DateOffset(months=1)])**0.5 i
 chk('tile: CPI year over year, by date',tile['CPI inflation']['val'],f'{(C.loc[cm]/_cb-1)*100:.1f}%')
 chk('tile: CPI labels the month it reads, and says estimated when the base is filled',tile['CPI inflation']['sub'],('estimated year over year, ' if _est else 'year over year, ')+cm.strftime('%b %Y'))
 _sc=json.load(open(os.path.join(T9,'home_tiles.json'))).get('source_check') or {}
-chk('second source: every tile figure equals the BLS\'s own (last six months)',_sc.get('mismatch',[]),[])
+chk('second source: every tile figure equals the publisher\'s own (BLS last six months; Department of Labor newest week)',_sc.get('mismatch',[]),[])
 for t in TI:
     chk(f'tile: {t["lab"]} next release is not in the past',t['next'],'>= '+TODAY.isoformat(),ok=(t['next'] is None or t['next']>=TODAY.isoformat()))
 # plausibility, so a wrong unit cannot pass arithmetic

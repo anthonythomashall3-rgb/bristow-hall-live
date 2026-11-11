@@ -145,7 +145,25 @@ for _sid,_b in _BLS.items():
     if _cm_: _XC['compared'].append(_sid)
     for _d in _cm_:
         if abs(float(_b.loc[_d])-float(S[_sid].loc[_d]))>1e-6*max(1.0,abs(float(_b.loc[_d]))): _XC['mismatch'].append('%s %s: FRED %s, BLS %s'%(_sid,_d.strftime('%Y-%m'),S[_sid].loc[_d],_b.loc[_d]))
-print('home tiles: second source: %d series compared with the BLS, %d mismatch%s'%(len(_XC['compared']),len(_XC['mismatch']),(' - '+' / '.join(_XC['mismatch'])) if _XC['mismatch'] else ''))
+# 1047 (11 November 2026): the two weekly-claims tiles against the Department of Labor's own release (the chain's first-print file,
+# cache/national_first_prints_1985_live.csv, kept by bhs_update.py and bhs_dol_press.py). The newest week FRED carries is the advance
+# figure, which is the first print: the two must be equal; a week the Department has released that FRED lacks is taken from the release.
+try:
+    _np=pd.read_csv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),'cache','national_first_prints_1985_live.csv'),dtype=str)
+    for _sid,_wk,_col in (('ICSA','ic_week_ended','icsa'),('IURSA','iu_week_ended','iur_sa')):
+        _x=pd.DataFrame({'w':pd.to_datetime(_np[_wk],errors='coerce'),'v':pd.to_numeric(_np[_col],errors='coerce')}).dropna().sort_values('w').drop_duplicates('w',keep='last')
+        _d=_x['w'].iloc[-1]
+        _v=float(_x['v'].iloc[-1])
+        if _d==S[_sid].index[-1]:
+            _XC['compared'].append(_sid)
+            if abs(_v-float(S[_sid].iloc[-1]))>1e-6*max(1.0,abs(_v)): _XC['mismatch'].append('%s %s: FRED %s, Department of Labor release %s'%(_sid,_d.date(),S[_sid].iloc[-1],_v))
+        elif _d>S[_sid].index[-1] and (_d-S[_sid].index[-1]).days<=21:
+            S[_sid].loc[_d]=_v
+            S[_sid].rename(_sid).to_frame().to_csv(os.path.join(FR,_sid+'.csv'))
+            _XC['routes'][_sid]=str(_XC['routes'].get(_sid,''))+' + Department of Labor release (newer week)'
+            print('home tiles: %s week ending %s taken from the Department of Labor release ahead of FRED'%(_sid,_d.date()))
+except Exception as _e: print('home tiles: Department of Labor first-print file not read ('+str(_e)[:60]+')')
+print('home tiles: second source: %d series compared with the BLS and the Department of Labor, %d mismatch%s'%(len(_XC['compared']),len(_XC['mismatch']),(' - '+' / '.join(_XC['mismatch'])) if _XC['mismatch'] else ''))
 def mon(d): return pd.Timestamp(d).strftime('%b %Y')
 def day(d): d=pd.Timestamp(d); return d.strftime('%b')+' '+str(d.day)+', '+str(d.year)   # audit-0924: 'Sep 19, 2026'
 U=S['UNRATE']; P=S['PAYEMS']; J=S['JTSJOL']; UE=S['UNEMPLOY']; Q=S['JTSQUR']; C=S['CPIAUCSL']; IC=S['ICSA']; IU=S['IURSA']

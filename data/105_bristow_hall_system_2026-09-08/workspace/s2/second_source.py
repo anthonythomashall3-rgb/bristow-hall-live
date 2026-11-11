@@ -75,7 +75,22 @@ def monthly_second(series):
     t = datetime.date.today()
     if series == 'FEDFUNDS': return effr_monthly(start=(t - datetime.timedelta(days=500)).isoformat())
     if series in ('GS10', 'GS1'): return treasury_monthly('10 Yr' if series == 'GS10' else '1 Yr', [t.year - 1, t.year])
+    if series == 'BAA': return baa_republished()
     return None
+
+def baa_republished():
+    """Moody's Baa monthly average as two other hosts carry it (1047, 11 November 2026). Moody's licenses the series to FRED and has no
+    free publisher of its own, so these are RE-PUBLISHERS of the same numbers on servers that are not FRED's: they cover FRED being
+    unreachable, not Moody's failing to deliver. Tested equal to FRED BAA on every month they carry (macroradar.io 1294 of 1294 from
+    1919, equibles.com 82 of 82 from 2020). A month is returned only where BOTH carry it and agree to the hundredth."""
+    a = pd.read_csv(io.StringIO(_curl('https://www.macroradar.io/api/v1/series/BAA?format=csv')), comment='#')
+    b = pd.read_csv(io.StringIO(_curl('https://equibles.com/economicdata/baa.csv')))
+    if list(a.columns[:2]) != ['date', 'value'] or 'Date' not in b.columns or 'Value' not in b.columns: raise RuntimeError('Baa re-publishers: unexpected columns')
+    sa = pd.Series(pd.to_numeric(a['value'], errors='coerce').values, index=pd.to_datetime(a['date'])).dropna()
+    sb = pd.Series(pd.to_numeric(b['Value'], errors='coerce').values, index=pd.to_datetime(b['Date'])).dropna()
+    ix = sa.index.intersection(sb.index); ok = [d for d in ix if abs(float(sa.loc[d]) - float(sb.loc[d])) < 0.005]
+    if len(ok) < 24: raise RuntimeError('Baa re-publishers: fewer than 24 months agree')
+    return sa.loc[ok].sort_index().round(2)
 
 def extend_cache(series, cache_csv):
     """append to a c1021 monthly cache (columns date, v) the complete months it lacks; returns the months added"""

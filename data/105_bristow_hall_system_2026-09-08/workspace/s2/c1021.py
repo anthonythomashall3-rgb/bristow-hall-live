@@ -82,7 +82,7 @@ def fred_monthly(series):
         say('FRED', series, 'not reached; cache stands:', repr(e)[:80])
         # 1043 (11 November 2026): FRED did not answer - the months the cache lacks are read from the publisher itself (the New York
         # Fed for the funds rate, the Treasury for the yields; equal to FRED on 127 of 128, 129 of 130 and 130 of 130 months of history,
-        # never more than 0.01 apart). FRED's own file replaces the cache whole at its next answer. Baa has no second publisher.
+        # never more than 0.01 apart). FRED's own file replaces the cache whole at its next answer. Baa (1047): two re-publishers on other hosts, a month taken only where both agree.
         try:
             sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import second_source as _ss
             _added = _ss.extend_cache(series, f) if os.path.exists(f) else []
