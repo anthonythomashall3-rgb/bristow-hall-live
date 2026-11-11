@@ -127,8 +127,8 @@
   },
   {
    "lab": "CPI inflation",
-   "val": "n/a",
-   "sub": "year over year, Oct 2026",
+   "val": "3.7%",
+   "sub": "year over year, Sep 2026",
    "src": "https://fred.stlouisfed.org/series/CPIAUCSL",
    "sid": "CPIAUCSL",
    "next": "2026-12-10",

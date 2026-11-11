@@ -9,8 +9,8 @@ PASS  tile: job openings (thousands -> millions)  got=7.5 million  want=7.5 mill
 PASS  tile: unemployed per opening reads ONE month  got=0.94  want=0.94
 PASS  tile: unemployed per opening labels that month  got=Sep 2026  want=Sep 2026
 PASS  tile: quits rate  got=2.1%  want=2.1%
-PASS  tile: CPI year over year, by date  got=n/a  want=n/a
-PASS  tile: CPI labels the latest month  got=year over year, Oct 2026  want=year over year, Oct 2026
+PASS  tile: CPI year over year, by date  got=3.7%  want=3.7%
+PASS  tile: CPI labels the month it reads  got=year over year, Sep 2026  want=year over year, Sep 2026
 PASS  tile: Unemployment rate next release is not in the past  got=2026-12-04  want=>= 2026-11-11
 PASS  tile: Nonfarm payrolls next release is not in the past  got=2026-12-04  want=>= 2026-11-11
 PASS  tile: Payroll growth next release is not in the past  got=2026-12-04  want=>= 2026-11-11
@@ -102,7 +102,7 @@ PASS  366: the WEI row carries a next day (Thursday)  got=True  want=True
 PASS  data page: every leg channel carries a day in hand through  got=[]  want=[]
 PASS  data page: every leg channel is read by a leg  got=[]  want=[]
 PASS  data page: every feed names its series  got=[]  want=[]
-PASS  368: the margins page lists every reading  got=15  want=15
+FAIL  368: the margins page lists every reading  got=13  want=15
 PASS  368: the margins page no longer shows near misses (Anthony, 25 Sep 2026)  got=True  want=True
 PASS  368: the data page links the margins page  got=True  want=True
 PASS  372: schema version in the state  got=1  want=1
@@ -112,7 +112,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-24)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-11-11 04:25', '2026-11-11 04:25')  want=('2026-11-11 04:25', '2026-11-11 04:25')
+PASS  public state copies are this build  got=('2026-11-11 08:16', '2026-11-11 08:16')  want=('2026-11-11 08:16', '2026-11-11 08:16')
 PASS  front-page tiles fetched today  got=2026-11-11  want=2026-11-11
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]
@@ -132,3 +132,5 @@ PASS  data page: every leg channel states its units  got=[]  want=[]
 PASS  data page: every feed value states its units  got=[]  want=[]
 PASS  data page: the search terms are on Google's own scale  got=[]  want=[]
 PASS  data page: every percent carries its % sign  got=[]  want=[]
+PASS  units: every front-page tile is a number  got=[]  want=[]
+PASS  units: no published page prints a placeholder (n/a, NaN, None, null)  got=[]  want=[]

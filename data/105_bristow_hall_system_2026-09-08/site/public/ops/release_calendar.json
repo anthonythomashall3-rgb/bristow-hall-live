@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-11 04:25",
+ "built_at": "2026-11-11 08:16",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-11T09:25:44Z",
+ "generated_utc": "2026-11-11T13:16:08Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -1375,49 +1375,6 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-12-10",
-   "confirmed_through": "2026-12-10",
-   "fred_clock": "09:10",
-   "freq": "monthly",
-   "ids": "cpiaucsl",
-   "link": "https://fred.stlouisfed.org/series/CPIAUCSL",
-   "name": "cpi inflation",
-   "next_expected": false,
-   "next_ny": "2026-12-10 08:30",
-   "read_lag_min": 50,
-   "release_id": 10,
-   "short": "CPI",
-   "slots": true,
-   "source": "FRED release 10 (Consumer Price Index)",
-   "through": "2026-10-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-10 08:30",
-     "utc": "2026-11-10T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-10 08:30",
-     "utc": "2026-12-10T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-12 08:30",
-     "utc": "2027-01-12T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-02-09 08:30",
-     "utc": "2027-02-09T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
    "build_next": "2026-12-04",
    "confirmed_through": "2026-12-04",
    "fred_clock": "09:30",
@@ -1629,6 +1586,49 @@
      "expected": true,
      "ny": "2027-02-02 10:00",
      "utc": "2027-02-02T15:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-12-10",
+   "confirmed_through": "2026-12-10",
+   "fred_clock": "09:10",
+   "freq": "monthly",
+   "ids": "cpiaucsl",
+   "link": "https://fred.stlouisfed.org/series/CPIAUCSL",
+   "name": "cpi inflation",
+   "next_expected": false,
+   "next_ny": "2026-12-10 08:30",
+   "read_lag_min": 50,
+   "release_id": 10,
+   "short": "CPI",
+   "slots": true,
+   "source": "FRED release 10 (Consumer Price Index)",
+   "through": "2026-09-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-10 08:30",
+     "utc": "2026-11-10T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-10 08:30",
+     "utc": "2026-12-10T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-12 08:30",
+     "utc": "2027-01-12T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-09 08:30",
+     "utc": "2027-02-09T13:30:00Z"
     }
    ],
    "waiting_since_due": null
