@@ -127,8 +127,8 @@
   },
   {
    "lab": "CPI inflation",
-   "val": "3.7%",
-   "sub": "year over year, Sep 2026",
+   "val": "3.9%",
+   "sub": "estimated year over year, Oct 2026",
    "src": "https://fred.stlouisfed.org/series/CPIAUCSL",
    "sid": "CPIAUCSL",
    "next": "2026-12-10",
@@ -140,5 +140,26 @@
    ],
    "link": "FRED CPIAUCSL"
   }
- ]
+ ],
+ "source_check": {
+  "routes": {
+   "UNRATE": "FRED API",
+   "PAYEMS": "FRED API",
+   "JTSJOL": "FRED API",
+   "UNEMPLOY": "FRED API",
+   "JTSQUR": "FRED API",
+   "CPIAUCSL": "FRED API",
+   "ICSA": "FRED API",
+   "IURSA": "FRED API"
+  },
+  "compared": [
+   "UNRATE",
+   "PAYEMS",
+   "UNEMPLOY",
+   "JTSJOL",
+   "JTSQUR",
+   "CPIAUCSL"
+  ],
+  "mismatch": []
+ }
 }

@@ -78,17 +78,24 @@
 },
 {
 "name": "tile: CPI year over year, by date",
-"got": "3.7%",
-"want": "3.7%",
+"got": "3.9%",
+"want": "3.9%",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "tile: CPI labels the month it reads",
-"got": "year over year, Sep 2026",
-"want": "year over year, Sep 2026",
+"name": "tile: CPI labels the month it reads, and says estimated when the base is filled",
+"got": "estimated year over year, Oct 2026",
+"want": "estimated year over year, Oct 2026",
 "status": "PASS",
 "gate": null
+},
+{
+"name": "second source: every tile figure equals the BLS's own (last six months)",
+"got": "[]",
+"want": "[]",
+"status": "PASS",
+"gate": "soft"
 },
 {
 "name": "tile: Unemployment rate next release is not in the past",
@@ -799,8 +806,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-11 08:16', '2026-11-11 08:16')",
-"want": "('2026-11-11 08:16', '2026-11-11 08:16')",
+"got": "('2026-11-11 08:25', '2026-11-11 08:25')",
+"want": "('2026-11-11 08:25', '2026-11-11 08:25')",
 "status": "PASS",
 "gate": "hard"
 },

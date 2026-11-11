@@ -9,8 +9,9 @@ PASS  tile: job openings (thousands -> millions)  got=7.5 million  want=7.5 mill
 PASS  tile: unemployed per opening reads ONE month  got=0.94  want=0.94
 PASS  tile: unemployed per opening labels that month  got=Sep 2026  want=Sep 2026
 PASS  tile: quits rate  got=2.1%  want=2.1%
-PASS  tile: CPI year over year, by date  got=3.7%  want=3.7%
-PASS  tile: CPI labels the month it reads  got=year over year, Sep 2026  want=year over year, Sep 2026
+PASS  tile: CPI year over year, by date  got=3.9%  want=3.9%
+PASS  tile: CPI labels the month it reads, and says estimated when the base is filled  got=estimated year over year, Oct 2026  want=estimated year over year, Oct 2026
+PASS  second source: every tile figure equals the BLS's own (last six months)  got=[]  want=[]
 PASS  tile: Unemployment rate next release is not in the past  got=2026-12-04  want=>= 2026-11-11
 PASS  tile: Nonfarm payrolls next release is not in the past  got=2026-12-04  want=>= 2026-11-11
 PASS  tile: Payroll growth next release is not in the past  got=2026-12-04  want=>= 2026-11-11
@@ -112,7 +113,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-24)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-11-11 08:16', '2026-11-11 08:16')  want=('2026-11-11 08:16', '2026-11-11 08:16')
+PASS  public state copies are this build  got=('2026-11-11 08:25', '2026-11-11 08:25')  want=('2026-11-11 08:25', '2026-11-11 08:25')
 PASS  front-page tiles fetched today  got=2026-11-11  want=2026-11-11
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]
