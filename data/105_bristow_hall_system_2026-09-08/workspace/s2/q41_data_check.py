@@ -69,9 +69,9 @@ m=J.index[-1]
 chk('tile: unemployed per opening reads ONE month',tile['Unemployed per opening']['val'],f'{UE.loc[m]/J.loc[m]:.2f}')
 chk('tile: unemployed per opening labels that month',tile['Unemployed per opening']['sub'],m.strftime('%b %Y'))
 chk('tile: quits rate',tile['Quits rate']['val'],f'{Q.iloc[-1]:.1f}%')
-c0=C.index[-1]-pd.DateOffset(years=1)
-chk('tile: CPI year over year, by date',tile['CPI inflation']['val'],(f'{(C.iloc[-1]/C.loc[c0]-1)*100:.1f}%' if c0 in C.index else 'n/a'))   # v3.66 (22 September 2026, collection 295): the base month may be unpublished
-chk('tile: CPI labels the latest month',tile['CPI inflation']['sub'],'year over year, '+C.index[-1].strftime('%b %Y'))
+cm=next(d for d in reversed(C.index) if (d-pd.DateOffset(years=1)) in C.index); c0=cm-pd.DateOffset(years=1)   # 11 Nov 2026: latest month whose base month was published
+chk('tile: CPI year over year, by date',tile['CPI inflation']['val'],f'{(C.loc[cm]/C.loc[c0]-1)*100:.1f}%')
+chk('tile: CPI labels the month it reads',tile['CPI inflation']['sub'],'year over year, '+cm.strftime('%b %Y'))
 for t in TI:
     chk(f'tile: {t["lab"]} next release is not in the past',t['next'],'>= '+TODAY.isoformat(),ok=(t['next'] is None or t['next']>=TODAY.isoformat()))
 # plausibility, so a wrong unit cannot pass arithmetic
@@ -240,6 +240,25 @@ _ispct=lambda u: str(u or '').lower().startswith('percent') and not str(u or '')
 chk('data page: every percent carries its % sign',[r['channel'] for r in _lf if r.get('value') and _ispct(r.get('units')) and ('<b>'+r['value']+'%</b>') not in _dp]
     +[i for f in S['feeds'] for i,v,u in f.get('values',[]) if _ispct(u) and ('<b>'+v+'%</b>') not in _dp],[])
 if any(r['channel']=='UMCSENT' for r in _lf): chk('UMCSENT carries the source\'s months beyond FRED',str(next((r.get('through') for r in _lf if r['channel']=='UMCSENT'),''))>=str(TODAY.replace(day=1)-datetime.timedelta(days=45))[:7],True)   # v3.58: UMCSENT fed a carried leg; it left the page with the tier
+
+# ---- NO PLACEHOLDER, EVER (11 November 2026, Anthony: n/a on the live site "should never happen"; "to any of our data or processes").
+# ---- HARD gate ('units:' prefix): a tile that is not a number, or any published page showing n/a, NaN, None, null, undefined or inf
+# ---- where a value belongs, is never published - the last good build stays live and the alert fires.
+import re as _re9, html as _h9, glob as _g9
+_PH=r'(n/?a|nan|none|null|undefined|-?inf(inity)?)'
+chk('units: every front-page tile is a number',[t_['lab'] for t_ in TI if not _re9.fullmatch(r'[+-]?\d[\d,]*(\.\d+)?(%| million| a month)?',str(t_.get('val')))],[])
+_ph=[]
+for _pp in sorted(_g9.glob(os.path.join(COL,'site','public','**','*.html'),recursive=True)):
+    _tx=open(_pp,encoding='utf-8',errors='replace').read()
+    for _m in _re9.finditer(r'\bdata-[a-z]+="\s*'+_PH+r'\s*%?"',_tx,_re9.I): _ph.append(os.path.relpath(_pp,os.path.join(COL,'site','public'))+': '+_m.group(0)[:40])
+    _tx=_re9.sub(r'<script.*?</script>|<style.*?</style>|<!--.*?-->','',_tx,flags=_re9.S)
+    for _l in _h9.unescape(_re9.sub(r'<[^>]+>','\n',_tx)).split('\n'):
+        if _re9.fullmatch(r'\s*'+_PH+r'\s*%?\s*',_l,_re9.I): _ph.append(os.path.relpath(_pp,os.path.join(COL,'site','public'))+': '+_l.strip())
+for _jp in ('home_tiles.json',):
+    for _t in TI:
+        for _k,_v in _t.items():
+            if isinstance(_v,str) and _re9.fullmatch(r'\s*'+_PH+r'\s*%?\s*',_v,_re9.I): _ph.append('tiles: %s.%s=%s'%(_t.get('lab'),_k,_v))
+chk('units: no published page prints a placeholder (n/a, NaN, None, null)',_ph,[])
 
 bad=[r for r in R if r[3]=='FAIL']
 print('\n'.join(f'| {n} | {g} | {w} | {s} |' for n,g,w,s in R))

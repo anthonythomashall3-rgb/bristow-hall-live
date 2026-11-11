@@ -347,6 +347,7 @@ try:
     _rd.sort(key=lambda r:(-1 if r.get('side')==_live else 0, -_rat(r)))
     _mrows=''
     for r in _rd:
+        if r.get('reading') is None or r.get('line') is None: continue   # 11 Nov 2026: a leg read only inside an episode has no reading today; no 'None' on the page
         _q=_rat(r); _flag=(r.get('side')==_live and 0.8<=_q<1); _past=(r.get('side')==_live and _q>=1)   # audit-0924: 250% of a line is not 'within 20%'
         _nx=str(r.get('next') or '').split(' (')[0]
         if _nx=='daily': _nx=(_dt3.date.today()+_dt3.timedelta(days=(3 if _dt3.date.today().weekday()==4 else 2 if _dt3.date.today().weekday()==5 else 1))).isoformat()

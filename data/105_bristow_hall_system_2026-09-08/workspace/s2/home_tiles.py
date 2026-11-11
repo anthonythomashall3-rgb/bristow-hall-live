@@ -97,8 +97,11 @@ U=S['UNRATE']; P=S['PAYEMS']; J=S['JTSJOL']; UE=S['UNEMPLOY']; Q=S['JTSQUR']; C=
 #   ICSA   persons (not thousands)          CPIAUCSL  index 1982-84=100
 # so a level in thousands is divided by 1,000 and printed in millions, which is how a reader holds it.
 g3=(P.iloc[-1]-P.iloc[-4])/3.0            # payroll growth, three-month average change, thousands
-_c0=C.index[-1]-pd.DateOffset(years=1)    # the SAME month a year earlier, by date, never by position
-cpi=((C.iloc[-1]/C.loc[_c0]-1)*100) if _c0 in C.index else None   # v3.66 (22 September 2026, collection 295): October 2025 was never published (the shutdown); the tile says n/a, it does not stop
+# 11 November 2026 (Anthony: n/a must never be printed): October 2025 was never published (the 2025 shutdown), and the BLS itself
+# publishes no 12-month change for October 2026. The tile shows the latest month for which the figure EXISTS, and labels that month.
+_cm=next(d for d in reversed(C.index) if (d-pd.DateOffset(years=1)) in C.index)   # by date, never by position
+_c0=_cm-pd.DateOffset(years=1)
+cpi=(C.loc[_cm]/C.loc[_c0]-1)*100
 _um=J.index[-1]                           # unemployed per opening: BOTH series read at the SAME month
 assert _um in UE.index, f'UNEMPLOY has no observation for {_um.date()}'
 upo=UE.loc[_um]/J.loc[_um]
@@ -111,8 +114,12 @@ T=[
  dict(lab='Job openings',           val=f'{J.iloc[-1]/1000:,.1f} million',  sub=mon(J.index[-1]),                    src='https://www.bls.gov/jlt/'),
  dict(lab='Unemployed per opening', val=f'{upo:.2f}',                      sub=mon(_um),                    src='https://www.bls.gov/jlt/'),
  dict(lab='Quits rate',             val=f'{Q.iloc[-1]:.1f}%',              sub=mon(Q.index[-1]),                    src='https://www.bls.gov/jlt/'),
- dict(lab='CPI inflation',          val=(f'{cpi:.1f}%' if cpi is not None else 'n/a'),                     sub='year over year, '+mon(C.index[-1]), src='https://www.bls.gov/cpi/'),
+ dict(lab='CPI inflation',          val=f'{cpi:.1f}%',                     sub='year over year, '+mon(_cm), src='https://www.bls.gov/cpi/'),
 ]
+# NO PLACEHOLDER, EVER (11 November 2026): a tile that is not a number stops this run here; the tiles already on disk stand.
+import re as _re_np
+_bad_np=[t_['lab'] for t_ in T if not _re_np.fullmatch(r'[+-]?\d[\d,]*(\.\d+)?(%| million| a month)?',str(t_['val'])) or not _re_np.search(r'\b(19|20)\d\d$',str(t_['sub']))]
+assert not _bad_np, 'home tiles: not a number / no period: '+', '.join(_bad_np)
 _ID={"Unemployment rate":"UNRATE","Nonfarm payrolls":"PAYEMS","Payroll growth":"PAYEMS","Initial claims (week)":"ICSA",
      "Insured unemployment rate":"IURSA","Job openings":"JTSJOL","Unemployed per opening":"JTSJOL","Quits rate":"JTSQUR","CPI inflation":"CPIAUCSL"}
 _DS={}; _NX={}
