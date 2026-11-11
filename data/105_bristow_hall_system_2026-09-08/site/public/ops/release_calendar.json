@@ -1,11 +1,11 @@
 {
- "built_at": "2026-11-11 16:02",
+ "built_at": "2026-11-11 17:16",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-11T21:02:17Z",
+ "generated_utc": "2026-11-11T22:16:37Z",
  "rows": [
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-11",
+   "build_next": "2026-11-12",
    "confirmed_through": "2027-03-03",
    "fred_clock": null,
    "freq": "daily",
@@ -19,7 +19,7 @@
    "short": "the S&P 500 close",
    "slots": false,
    "source": "rule: nyse_close",
-   "through": "2026-11-10",
+   "through": "2026-11-11",
    "time_known": true,
    "time_note": "the market close",
    "times": [
