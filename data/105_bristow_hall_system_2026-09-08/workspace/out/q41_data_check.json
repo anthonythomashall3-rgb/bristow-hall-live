@@ -91,7 +91,7 @@
 "gate": null
 },
 {
-"name": "second source: every tile figure equals the BLS's own (last six months)",
+"name": "second source: every tile figure equals the publisher's own (BLS last six months; Department of Labor newest week)",
 "got": "[]",
 "want": "[]",
 "status": "PASS",
@@ -806,8 +806,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-11 08:42', '2026-11-11 08:42')",
-"want": "('2026-11-11 08:42', '2026-11-11 08:42')",
+"got": "('2026-11-11 09:13', '2026-11-11 09:13')",
+"want": "('2026-11-11 09:13', '2026-11-11 09:13')",
 "status": "PASS",
 "gate": "hard"
 },

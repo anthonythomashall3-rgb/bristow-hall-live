@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-11 08:42",
+ "built_at": "2026-11-11 09:13",
  "version": "C1021+E22",
  "census_date": "2026-11-11",
  "feeds": [
@@ -64,7 +64,7 @@
    "next": "2026-12-07",
    "link": "https://fred.stlouisfed.org/series/BAA",
    "value": "6.59",
-   "backup": "the FRED monthly series cached (cache/c1021/BAA.csv, private); the cache stands when FRED is unreachable; NO SECOND PUBLISHER (the series is Moody's own; 1043)",
+   "backup": "the FRED monthly series cached (cache/c1021/BAA.csv, private); the cache stands when FRED is unreachable; when FRED fails, two re-publishers on other hosts (macroradar.io, equibles.com), a month taken only where both agree (s2/second_source.py; 1047: equal to FRED on 1294 of 1294 and 82 of 82 months); Moody's itself has no free publisher",
    "format_check": "c1021.py: fredgraph csv parsed by header, a bad parse stops the run; q41 feed checks",
    "auto": "yes"
   },
@@ -216,12 +216,12 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
-   "UNRATE": "FRED API",
    "PAYEMS": "FRED API",
+   "UNRATE": "FRED API",
    "JTSJOL": "FRED API",
    "JTSQUR": "FRED API",
-   "CPIAUCSL": "FRED API",
    "UNEMPLOY": "FRED API",
+   "CPIAUCSL": "FRED API",
    "ICSA": "FRED API",
    "IURSA": "FRED API"
   },
@@ -231,7 +231,9 @@
    "UNEMPLOY",
    "JTSJOL",
    "JTSQUR",
-   "CPIAUCSL"
+   "CPIAUCSL",
+   "ICSA",
+   "IURSA"
   ],
   "mismatch": [],
   "backups": "FRED API, then the FRED keyless file, then the file on disk; the BLS API read every run for the six monthly series, compared with FRED, and used for any month FRED lacks"
