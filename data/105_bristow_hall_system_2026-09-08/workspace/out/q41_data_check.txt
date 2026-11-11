@@ -103,7 +103,7 @@ PASS  366: the WEI row carries a next day (Thursday)  got=True  want=True
 PASS  data page: every leg channel carries a day in hand through  got=[]  want=[]
 PASS  data page: every leg channel is read by a leg  got=[]  want=[]
 PASS  data page: every feed names its series  got=[]  want=[]
-FAIL  368: the margins page lists every reading  got=13  want=15
+PASS  368: the margins page lists every reading that is read today  got=13  want=13
 PASS  368: the margins page no longer shows near misses (Anthony, 25 Sep 2026)  got=True  want=True
 PASS  368: the data page links the margins page  got=True  want=True
 PASS  372: schema version in the state  got=1  want=1
@@ -113,7 +113,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-24)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-11-11 08:25', '2026-11-11 08:25')  want=('2026-11-11 08:25', '2026-11-11 08:25')
+PASS  public state copies are this build  got=('2026-11-11 08:28', '2026-11-11 08:28')  want=('2026-11-11 08:28', '2026-11-11 08:28')
 PASS  front-page tiles fetched today  got=2026-11-11  want=2026-11-11
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]

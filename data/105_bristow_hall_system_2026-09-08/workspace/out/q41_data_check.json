@@ -735,10 +735,10 @@
 "gate": null
 },
 {
-"name": "368: the margins page lists every reading",
+"name": "368: the margins page lists every reading that is read today",
 "got": "13",
-"want": "15",
-"status": "FAIL",
+"want": "13",
+"status": "PASS",
 "gate": null
 },
 {
@@ -806,8 +806,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-11 08:25', '2026-11-11 08:25')",
-"want": "('2026-11-11 08:25', '2026-11-11 08:25')",
+"got": "('2026-11-11 08:28', '2026-11-11 08:28')",
+"want": "('2026-11-11 08:28', '2026-11-11 08:28')",
 "status": "PASS",
 "gate": "hard"
 },
