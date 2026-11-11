@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-11 08:28",
+ "built_at": "2026-11-11 08:42",
  "version": "C1021+E22",
  "census_date": "2026-11-11",
  "feeds": [
@@ -25,7 +25,7 @@
    "next": "2026-12-04",
    "link": "https://www.bls.gov/news.release/empsit.toc.htm",
    "value": "4.1; 159,293; 7,068; 3,166",
-   "backup": "ALFRED's vintage tables appended each release (bhs_update); the last vintage in hand stands until the next; a missing table stops the run (c1021.py)",
+   "backup": "ALFRED's vintage tables appended each release (bhs_update); the last vintage in hand stands until the next; a missing table stops the run (c1021.py); when FRED fails, the BLS API print appended as a vintage (bhs_update, s2/second_source.py; 1043: identical to ALFRED on every month of every table)",
    "format_check": "c1021.py: each vintage read by its dated column; q41 C1021 checks (the thirteen opens, the starter ran today)",
    "auto": "yes"
   },
@@ -64,7 +64,7 @@
    "next": "2026-12-07",
    "link": "https://fred.stlouisfed.org/series/BAA",
    "value": "6.59",
-   "backup": "the FRED monthly series cached (cache/c1021/BAA.csv, private); the cache stands when FRED is unreachable",
+   "backup": "the FRED monthly series cached (cache/c1021/BAA.csv, private); the cache stands when FRED is unreachable; NO SECOND PUBLISHER (the series is Moody's own; 1043)",
    "format_check": "c1021.py: fredgraph csv parsed by header, a bad parse stops the run; q41 feed checks",
    "auto": "yes"
   },
@@ -77,7 +77,7 @@
    "next": "2026-12-01",
    "link": "https://fred.stlouisfed.org/series/FEDFUNDS",
    "value": "3.88",
-   "backup": "the FRED monthly series cached (cache/c1021/FEDFUNDS.csv); the cache stands when FRED is unreachable",
+   "backup": "the New York Fed EFFR, monthly calendar-day average (s2/second_source.py; 1043: equal to FRED on 127 of 128 months, never more than 0.01 apart), then the cache",
    "format_check": "c1021.py: fredgraph csv parsed by header; q41 feed checks",
    "auto": "yes"
   },
@@ -90,7 +90,7 @@
    "next": "2026-12-01",
    "link": "https://fred.stlouisfed.org/series/GS10",
    "value": "5.13; 4.46",
-   "backup": "the FRED monthly series cached (cache/c1021/GS10.csv, GS1.csv); the cache stands when FRED is unreachable",
+   "backup": "the Treasury daily par yield curve, monthly average (s2/second_source.py; 1043: GS10 equal on 129 of 130 months, GS1 on 130 of 130, never more than 0.01 apart), then the cache",
    "format_check": "c1021.py: fredgraph csv parsed by header; q41 feed checks",
    "auto": "yes"
   },
@@ -216,12 +216,12 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
-   "PAYEMS": "FRED API",
    "UNRATE": "FRED API",
+   "PAYEMS": "FRED API",
    "JTSJOL": "FRED API",
-   "UNEMPLOY": "FRED API",
    "JTSQUR": "FRED API",
    "CPIAUCSL": "FRED API",
+   "UNEMPLOY": "FRED API",
    "ICSA": "FRED API",
    "IURSA": "FRED API"
   },
