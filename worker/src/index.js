@@ -37,7 +37,7 @@
 
 // the deployed code's version: every workflow run compares it with the repository's copy of this file, so a starter
 // redeployed from an old clone is caught (22 September 2026, collection 306)
-const VERSION = '2026-11-08b (bristow-hall-live; C1021 starter; queue-stall recovery)';   // 1022: the starter for the C1021 version of the tool
+const VERSION = '2026-11-12 (bristow-hall-live; C1021 starter; queue-stall recovery; ghost runs passed)';   // 1022: the starter for the C1021 version of the tool
 const REPO = 'anthonythomashall3-rgb/bristow-hall-live';
 const WORKFLOW = 'update.yml';
 const SITE = 'https://bhrrealtime.pages.dev';
@@ -54,6 +54,12 @@ const SLOT_RE = /^\d{4}-\d\d-\d\d \d\d:\d\d$/;
 const ACTIVE = ['queued', 'in_progress', 'pending', 'waiting', 'requested'];
 const QUEUE_STALL_MS = 20 * 60000;          // 1022: a run still 'queued' (no runner) after this long is cancelled and started again by hand
 const STUCK_MS = 55 * 60000;              // longer than the job's own 50-minute limit: queued for a runner, or GitHub itself stuck
+// A GHOST RUN (12 November 2026): run 43097051970 sat 'queued' from 11 November 15:36 New York, GitHub refused to cancel it
+// (409, "has not been queued yet"), and every check after it read "a run is under way" - the 12 November 08:35 claims slot was
+// never started. A run not completed after STUCK_MS (longer than the job's own limit) cannot be running: it is told once
+// (the 'stuck' alert) and no longer counts as a run under way.
+const ghost = (x, now) => x.status !== 'completed' && now - new Date(x.run_started_at || x.created_at) > STUCK_MS;
+const live = (x, now) => ACTIVE.includes(x.status) && !ghost(x, now);
 const GATE_STEP = 'check what was built before letting it out';     // the checks: a run that failed here was HELD
 const NOTIFY_STEP = 'tell Anthony how the update went';   // the workflow step that sends each run's own message
 // a named client: the site answers 403 to anonymous scripted user agents (Python's default, found 21 September 2026)
@@ -233,7 +239,7 @@ async function decide(env, now, act) {
       // again, unless a later run has already done the work: every run checks out main as it stands, so a later run that
       // sent its own message ran the new code. The newest push is looked at, not only the newest run (a GitHub firing that
       // found the site current can be newer than the dropped push).
-      const active0 = runs.find(x => ACTIVE.includes(x.status));
+      const active0 = runs.find(x => live(x, now));
       const push = runs.find(x => x.event === 'push');
       if (push && !active0 && push.status === 'completed' && push.conclusion === 'cancelled' && !(await kvGet(env, `pushrec:${push.id}`))) {
         const info = await runInfo(env, push);
@@ -262,7 +268,7 @@ async function decide(env, now, act) {
       // A RUN GITHUB LEAVES QUEUED (8 November 2026, collection 1022: the C1021 push runs sat 'queued' for 1 h 40 min while a
       // by-hand dispatch started at once). A run queued (not yet running) for more than QUEUE_STALL_MS is cancelled once and
       // started again by hand; the phone hears. One recovery per run, at most 3 a day; a recovery that also stalls is only told.
-      const queued = runs.find(x => x.status === 'queued');
+      const queued = runs.find(x => x.status === 'queued' && !ghost(x, now));
       if (queued && now - new Date(queued.created_at) > QUEUE_STALL_MS && !(await kvGet(env, `qstall:${queued.id}`))) {
         const nq = parseInt(await kvGet(env, `qstalls:${day}`) || '0', 10);
         const mins = Math.round((now - new Date(queued.created_at)) / 60000);
@@ -292,7 +298,7 @@ async function decide(env, now, act) {
   if (s.built && s.built >= s.due && s.incomplete) {   // 818: the build published, but FRED was unreachable: try again every 30 minutes
     if (!env.GH_TOKEN || !act) { out.decision = `incomplete: the build of ${s.built} could not reach FRED; ${act ? 'no GitHub token' : 'the next five-minute check starts a run'}`; return out; }
     if (runs === null) { out.decision = 'incomplete: the list of runs could not be read'; return out; }
-    const active = runs.find(x => x.status === 'queued' || x.status === 'in_progress');
+    const active = runs.find(x => live(x, now));
     if (active) { out.decision = `incomplete: a run is under way (${active.status})`; return out; }
     const last = runs.find(x => x.event !== 'schedule' || x.conclusion !== 'success');
     if (last && now - new Date(last.updated_at) < INCOMPLETE_GAP_MS) { out.decision = `incomplete: the build of ${s.built} could not reach FRED; the next start is due after ${ny(new Date(new Date(last.updated_at).getTime() + INCOMPLETE_GAP_MS))}`; return out; }
@@ -316,7 +322,11 @@ async function decide(env, now, act) {
   if (!env.GH_TOKEN) { out.decision = `${behind}; no GitHub token is set, so nothing can be started from here`; return out; }
   if (!act) { out.decision = `${behind}; the next five-minute check starts a run unless one is under way`; return out; }
   if (runs === null) { out.decision = `${behind}; the list of runs could not be read`; return out; }
-  const active = runs.find(x => ACTIVE.includes(x.status));
+  const dead = runs.find(x => ghost(x, now));
+  if (dead)
+    await alertOnce(env, `stuck:${dead.id}`, 86400, 'an update run is stuck',
+      `The run started ${ny(new Date(dead.created_at))} New York time has been ${dead.status} for ${Math.round((now - new Date(dead.created_at)) / 60000)} minutes and GitHub will not end it. The Worker no longer waits for it: runs are started past it. https://github.com/${REPO}/actions/runs/${dead.id}`, now);
+  const active = runs.find(x => live(x, now));
   if (active) {
     out.decision = `${behind}; a run is under way (${active.status}, started ${ny(new Date(active.created_at))})`;
     const age = now - new Date(active.run_started_at || active.created_at);
