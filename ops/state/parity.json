@@ -1,6 +1,6 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
- "checked_at": "2026-11-12T15:13Z",
+ "checked_at": "2026-11-12T16:47Z",
  "open_misses": [],
  "reads": [
   {
@@ -1968,6 +1968,16 @@
    "posted": "2026-11-12 08:30 ET",
    "read_at": "2026-11-12T14:04Z",
    "release": 180,
+   "to": "2026-11-07"
+  },
+  {
+   "from": "2026-10-31",
+   "ids": "WEI (backstop shadow reading)",
+   "lag_min": 15,
+   "name": "the Weekly Economic Index",
+   "posted": "2026-11-12 11:32 ET",
+   "read_at": "2026-11-12T16:47Z",
+   "release": 465,
    "to": "2026-11-07"
   }
  ],
