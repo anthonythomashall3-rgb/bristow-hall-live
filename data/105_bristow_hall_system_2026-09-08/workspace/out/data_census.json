@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-12 09:04",
+ "built_at": "2026-11-12 09:07",
  "version": "C1021+E22",
  "census_date": "2026-11-12",
  "feeds": [
@@ -217,12 +217,12 @@
  "tiles": {
   "routes": {
    "UNRATE": "FRED API",
-   "UNEMPLOY": "FRED API",
-   "JTSQUR": "FRED API",
-   "CPIAUCSL": "FRED API",
-   "JTSJOL": "FRED API",
-   "IURSA": "FRED API",
    "PAYEMS": "FRED API",
+   "JTSJOL": "FRED API",
+   "UNEMPLOY": "FRED API",
+   "CPIAUCSL": "FRED API",
+   "JTSQUR": "FRED API",
+   "IURSA": "FRED API",
    "ICSA": "FRED API"
   },
   "compared_with_bls": [
@@ -231,7 +231,9 @@
    "UNEMPLOY",
    "JTSJOL",
    "JTSQUR",
-   "CPIAUCSL"
+   "CPIAUCSL",
+   "ICSA",
+   "IURSA"
   ],
   "mismatch": [],
   "backups": "FRED API, then the FRED keyless file, then the file on disk; the BLS API read every run for the six monthly series, compared with FRED, and used for any month FRED lacks"
