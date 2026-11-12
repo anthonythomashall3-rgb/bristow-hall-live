@@ -81,6 +81,7 @@ LAG_MIN = 5             # a release is read 5 minutes after its time (FRED-read 
 CLOSE_HM = '16:20'      # the market-close run on NYSE trading days: the chart feed's settled close and the day's H.15 post
 OFFICIAL_CLOSE_RID = 189    # FRED SP500 (S&P Dow Jones Indices' official close): its own run each trading evening
 OFFICIAL_CLOSE_HM = '20:15' # used only while FRED's posting clock for SP500 is unknown
+MARKET_CLOSE_HM = '16:00'   # the NYSE close: an SP500 post before it is not the day's official close
 MERGE_MIN = 15          # slots closer than this are one run
 MIN_FUTURE = 3          # every row always knows at least its next three releases
 RETRY_MIN = (10, 30, 90)    # a release due and not in is looked for again 10, 30 and 90 minutes after it was found missing
@@ -162,12 +163,14 @@ def _mins(hm):
     return 60 * h + m
 
 
-def fred_clock(rid, q=0.5):
+def fred_clock(rid, q=0.5, after=None):
     """FRED's usual posting clock for a release (HH:MM New York): the q-quantile of its first post on each of its last nine
     posting days; None while fewer than three are known"""
     posts = sorted((((jload(FRED_POSTED, {}) or {}).get(str(rid)) or {}).get('posts') or []))
     first = {}
     for p in posts:
+        if after and p[11:16] < after:
+            continue                               # 12 November 2026: only posts at or after this clock (the official close)
         first.setdefault(p[:10], p)                # a day's first post is the release; a later one the same day is a touch
     mins = sorted(_mins(first[d][11:16]) for d in sorted(first)[-POSTS_USED:])
     if len(mins) < 3:
@@ -217,7 +220,11 @@ def read_lag(rid, hm):
 def official_close_hm():
     """the trading evening's run for the official close: FRED's usual SP500 post (its 75th percentile) plus eight minutes,
     on the next five-minute mark (collection 411); OFFICIAL_CLOSE_HM while the clock is unknown"""
-    q = fred_clock(OFFICIAL_CLOSE_RID, 0.75)
+    # 12 NOVEMBER 2026: from 26 October FRED also touched SP500 at midday (11:12 AM-2:58 PM); a day's first post was then the
+    # touch, the clock fell from 8:02 PM to midday, the evening run moved to 2:35 PM - before the close - and, with no evening
+    # run left to see the evening post, stayed there. The official close cannot be posted before the market closes: only
+    # posts from 4:00 PM count.
+    q = fred_clock(OFFICIAL_CLOSE_RID, 0.75, after=MARKET_CLOSE_HM)
     if not q:
         return OFFICIAL_CLOSE_HM
     m = _mins(q) + 8
@@ -956,7 +963,7 @@ def schedule(cal, state, pending):
     while d <= hi.date():
         if trading_day(d):
             raw.append((at(d, CLOSE_HM), "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"))
-            raw.append((at(d, oc), "the S&P 500 official close (FRED SP500, posted about %s)" % fmt_hm(fred_clock(OFFICIAL_CLOSE_RID) or oc)))
+            raw.append((at(d, oc), "the S&P 500 official close (FRED SP500, posted about %s)" % fmt_hm(fred_clock(OFFICIAL_CLOSE_RID, after=MARKET_CLOSE_HM) or oc)))
         d += dt.timedelta(days=1)
     # the rule-dated month is read by 9:05 AM on its day, whatever else runs that day (358: the page shows that time, so it
     # must be kept; until 23 September 2026 the run was added only when no other run was due that day, which could leave the
