@@ -1,18 +1,6 @@
 {
- "came_in": [
-  {
-   "due_ny": "2026-11-12 08:30",
-   "expected_day": false,
-   "ids": "eta 539 by state",
-   "short": "weekly claims",
-   "since_ny": "2026-11-12 09:04",
-   "through_before": "2026-10-24",
-   "value_before": "0",
-   "came_in": "2026-11-11 16:00",
-   "early": true,
-   "through_now": "2026-10-24"
-  }
- ],
+ "came_in": [],
+ "early": {},
  "expired": [
   {
    "due_ny": "2026-10-20 10:00",
@@ -35,7 +23,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-12 09:30",
+ "last_check_ny": "2026-11-12 10:08",
  "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }
