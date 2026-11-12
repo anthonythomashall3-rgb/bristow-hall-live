@@ -1,10 +1,10 @@
-# The data census - 2026-11-12 (the tool C1021+E22, built 2026-11-12 03:05)
+# The data census - 2026-11-12 (the tool C1021+E22, built 2026-11-12 09:04)
 
 Every input the live tool reads: the publisher and route, the backup or substitute, the schedule, what is in hand, and the guard on its format. Gaps are listed at the end.
 
 | feed | series | source | every | in hand through | next | backup or substitute | format guard |
 |---|---|---|---|---|---|---|---|
-| Initial claims and continued claims, seasonally adjusted and not (the  | ICSA, CCSA, ICNSA, CCNSA | Department of Labor (the UI claims news release; ALFRED vintages after it; the f | Weekly - Thursday 8:30 AM ET (Wednesday before a Thursday ho | 2026-10-31 | 2026-11-12 | the states' ETA 539 weekly file with the Bureau's seasonal factors (s2/claims_substitute.py, exact where teste | q41 feed checks; the claims loader asserts the release week columns (45) |
+| Initial claims and continued claims, seasonally adjusted and not (the  | ICSA, CCSA, ICNSA, CCNSA | Department of Labor (the UI claims news release; ALFRED vintages after it; the f | Weekly - Thursday 8:30 AM ET (Wednesday before a Thursday ho | 2026-11-07 | 2026-11-19 | the states' ETA 539 weekly file with the Bureau's seasonal factors (s2/claims_substitute.py, exact where teste | q41 feed checks; the claims loader asserts the release week columns (45) |
 | Unemployment rate, payrolls, the unemployed count, job losers (the hou | UNRATE, PAYEMS, UNEMPLOY, LNS13023621 | Bureau of Labor Statistics, Employment Situation (each month as first printed: A | Monthly - usually the first Friday, 8:30 AM ET | 2026-10 | 2026-12-04 | ALFRED's vintage tables appended each release (bhs_update); the last vintage in hand stands until the next; a  | c1021.py: each vintage read by its dated column; q41 C1021 checks (the thirteen opens, the |
 | Job openings (the help-wanted pillar: openings growing slower than cla | JTSJOL | Bureau of Labor Statistics, JOLTS (ALFRED JTSJOL, each month as first printed) | Monthly - about five weeks after the month, 10:00 AM ET | 2026-09 | 2026-12-01 | the Indeed Hiring Lab postings index, at most two months (s2/vacancy_bridge.py; collection 330) | walk39 asserts the vacancy first prints are not stale (>150 rows, within 8 months) |
 | Industrial production (the production pillar) | INDPRO | Federal Reserve, G.17 Industrial Production and Capacity Utilization (ALFRED IND | Monthly - about the 16th, 9:15 AM ET | 2026-09 | 2026-11-17 | the FRED current file of INDPRO (flagged: revised values), then the G.17 release text | c1021.py: the newest G.17 print within its ALFRED vintage; the vintage history appended an |
@@ -20,7 +20,7 @@ Every input the live tool reads: the publisher and route, the backup or substitu
 
 | channel | status | last | limit (days) | substitute |
 |---|---|---|---|---|
-| initial and continued claims, insured unemployment rate (DOL weekly) | current | 2026-10-31 | 13 |  |
+| initial and continued claims, insured unemployment rate (DOL weekly) | current | 2026-11-07 | 13 |  |
 | industrial production, the newest G.17 print (the production pillar) | current | 2026-10-16 | 45 |  |
 | Moody's Baa yield, monthly average (the credit pillar) | current | 2026-10 | 45 |  |
 | the effective federal funds rate, monthly average (the fed-shock door) | current | 2026-10 | 40 |  |

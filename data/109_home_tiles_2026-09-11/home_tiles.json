@@ -48,8 +48,8 @@
   },
   {
    "lab": "Initial claims (week)",
-   "val": "189,000",
-   "sub": "week ending Oct 31, 2026",
+   "val": "200,000",
+   "sub": "week ending Nov 7, 2026",
    "src": "https://fred.stlouisfed.org/series/ICSA",
    "sid": "ICSA",
    "next": "2026-11-12",
@@ -64,7 +64,7 @@
   {
    "lab": "Insured unemployment rate",
    "val": "1.1%",
-   "sub": "week ending Oct 24, 2026",
+   "sub": "week ending Oct 31, 2026",
    "src": "https://fred.stlouisfed.org/series/IURSA",
    "sid": "IURSA",
    "next": "2026-11-12",
@@ -143,14 +143,14 @@
  ],
  "source_check": {
   "routes": {
-   "JTSJOL": "FRED API",
-   "PAYEMS": "FRED API",
    "UNRATE": "FRED API",
    "UNEMPLOY": "FRED API",
    "JTSQUR": "FRED API",
    "CPIAUCSL": "FRED API",
-   "ICSA": "FRED API",
-   "IURSA": "FRED API"
+   "JTSJOL": "FRED API",
+   "IURSA": "FRED API",
+   "PAYEMS": "FRED API",
+   "ICSA": "FRED API"
   },
   "compared": [
    "UNRATE",
@@ -158,9 +158,7 @@
    "UNEMPLOY",
    "JTSJOL",
    "JTSQUR",
-   "CPIAUCSL",
-   "ICSA",
-   "IURSA"
+   "CPIAUCSL"
   ],
   "mismatch": []
  }

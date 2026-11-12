@@ -1,6 +1,6 @@
 {
  "tool": "C1021",
- "built": "2026-11-12 08:04:35Z",
+ "built": "2026-11-12 14:02:04Z",
  "grid": {
   "day0": "2012-01-01",
   "days": 5430
@@ -85,23 +85,23 @@
    "max_prior_12_first_prints": 7831.0
   },
   "I4": {
-   "week": "2026-10-24",
+   "week": "2026-10-31",
    "yoy_log_pts_4wk": -9.4,
    "fills": []
   },
   "HW": {
    "jolts_month": "2026-09",
    "jolts_yoy_pct": 4.94,
-   "claims_4wk_yoy_log_pts": -14.82,
-   "week": "2026-10-31",
+   "claims_4wk_yoy_log_pts": -16.02,
+   "week": "2026-11-07",
    "fills": []
   },
   "CHI": {
-   "ic_week": "2026-10-31",
-   "ic_rtsa_4wk": 195245.0,
-   "iu_week": "2026-10-24",
-   "iu_rtsa_4wk": 1734654.0,
-   "ratio_to_365d_max": 0.8565
+   "ic_week": "2026-11-07",
+   "ic_rtsa_4wk": 194644.0,
+   "iu_week": "2026-10-31",
+   "iu_rtsa_4wk": 1754057.0,
+   "ratio_to_365d_max": 0.8661
   },
   "FS": {
    "month": "2026-10",

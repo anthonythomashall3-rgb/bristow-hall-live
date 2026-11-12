@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-12 03:05",
+ "built_at": "2026-11-12 09:04",
  "version": "C1021+E22",
  "census_date": "2026-11-12",
  "feeds": [
@@ -8,10 +8,10 @@
    "series": "ICSA, CCSA, ICNSA, CCNSA",
    "source": "Department of Labor (the UI claims news release; ALFRED vintages after it; the first prints back to August 1975 from the release archive, the bound news releases and volumes, the captures of the Internet Archive, the closing table of the release and the press: collections 45, 399, 396, 382, 397 and 404)",
    "every": "Weekly - Thursday 8:30 AM ET (Wednesday before a Thursday holiday)",
-   "through": "2026-10-31",
-   "next": "2026-11-12",
+   "through": "2026-11-07",
+   "next": "2026-11-19",
    "link": "https://www.dol.gov/ui/data.pdf",
-   "value": "189,000; 1,718,000; 170,626; 5,780,893",
+   "value": "200,000; 1,697,000; 170,626; 5,780,893",
    "backup": "the states' ETA 539 weekly file with the Bureau's seasonal factors (s2/claims_substitute.py, exact where tested; collection 329)",
    "format_check": "q41 feed checks; the claims loader asserts the release week columns (45)",
    "auto": "yes"
@@ -151,7 +151,7 @@
   {
    "channel": "initial and continued claims, insured unemployment rate (DOL weekly)",
    "status": "current",
-   "last": "2026-10-31",
+   "last": "2026-11-07",
    "limit_days": 13,
    "substitute": null
   },
@@ -216,14 +216,14 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
-   "JTSJOL": "FRED API",
-   "PAYEMS": "FRED API",
    "UNRATE": "FRED API",
    "UNEMPLOY": "FRED API",
    "JTSQUR": "FRED API",
    "CPIAUCSL": "FRED API",
-   "ICSA": "FRED API",
-   "IURSA": "FRED API"
+   "JTSJOL": "FRED API",
+   "IURSA": "FRED API",
+   "PAYEMS": "FRED API",
+   "ICSA": "FRED API"
   },
   "compared_with_bls": [
    "UNRATE",
@@ -231,9 +231,7 @@
    "UNEMPLOY",
    "JTSJOL",
    "JTSQUR",
-   "CPIAUCSL",
-   "ICSA",
-   "IURSA"
+   "CPIAUCSL"
   ],
   "mismatch": [],
   "backups": "FRED API, then the FRED keyless file, then the file on disk; the BLS API read every run for the six monthly series, compared with FRED, and used for any month FRED lacks"

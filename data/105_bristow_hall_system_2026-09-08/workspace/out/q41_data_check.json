@@ -29,15 +29,15 @@
 },
 {
 "name": "tile: initial claims (persons, not thousands)",
-"got": "189,000",
-"want": "189,000",
+"got": "200,000",
+"want": "200,000",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: claims week",
-"got": "week ending Oct 31, 2026",
-"want": "week ending Oct 31, 2026",
+"got": "week ending Nov 7, 2026",
+"want": "week ending Nov 7, 2026",
 "status": "PASS",
 "gate": null
 },
@@ -183,7 +183,7 @@
 },
 {
 "name": "units: initial claims between 50,000 and 20,000,000",
-"got": "189000",
+"got": "200000",
 "want": "5e4-2e7",
 "status": "PASS",
 "gate": "hard"
@@ -218,14 +218,14 @@
 },
 {
 "name": "feed is not dated in the future: Initial claims and continued claims, sea",
-"got": "2026-10-31",
+"got": "2026-11-07",
 "want": "<= 2026-11-12",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Initial claims and continued claims, sea",
-"got": "2026-11-12",
+"got": "2026-11-19",
 "want": ">= 2026-11-12",
 "status": "PASS",
 "gate": null
@@ -267,8 +267,8 @@
 },
 {
 "name": "feed reading matches the readings table: Job openings (the help-wanted pillar: op",
-"got": "19.76",
-"want": "19.76",
+"got": "20.96",
+"want": "20.96",
 "status": "PASS",
 "gate": "soft"
 },
@@ -770,21 +770,21 @@
 "gate": "hard"
 },
 {
-"name": "378: the Department's latest icsa first print agrees with FRED (ICSA, week 2026-10-31)",
-"got": "189000.0",
-"want": "189000.0",
+"name": "378: the Department's latest icsa first print agrees with FRED (ICSA, week 2026-11-07)",
+"got": "200000.0",
+"want": "200000.0",
 "status": "PASS",
 "gate": "hard"
 },
 {
-"name": "378: the Department's latest iusa first print agrees with FRED (CCSA, week 2026-10-24)",
-"got": "1718000.0",
-"want": "1718000.0",
+"name": "378: the Department's latest iusa first print agrees with FRED (CCSA, week 2026-10-31)",
+"got": "1697000.0",
+"want": "1697000.0",
 "status": "PASS",
 "gate": "hard"
 },
 {
-"name": "378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-24)",
+"name": "378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-31)",
 "got": "1.1",
 "want": "1.1",
 "status": "PASS",
@@ -806,8 +806,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-12 03:05', '2026-11-12 03:05')",
-"want": "('2026-11-12 03:05', '2026-11-12 03:05')",
+"got": "('2026-11-12 09:04', '2026-11-12 09:04')",
+"want": "('2026-11-12 09:04', '2026-11-12 09:04')",
 "status": "PASS",
 "gate": "hard"
 },

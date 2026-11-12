@@ -1,7 +1,7 @@
 {
  "tool": "E22",
  "version": "E22 (1031) + leg Q (1032) + leg QG (1034) + depth gate (1041)",
- "built": "2026-11-12 08:04:42Z",
+ "built": "2026-11-12 14:02:16Z",
  "today": "2026-11-12",
  "episodes": [
   {
@@ -163,8 +163,8 @@
  ],
  "standing": "closed since 2024-10-01",
  "inputs": {
-  "iu_newest_week": "2026-10-24",
-  "iu_live_weeks": 6,
+  "iu_newest_week": "2026-10-31",
+  "iu_live_weeks": 7,
   "rate_month": "2026-10",
   "rate": 3.88,
   "rate_below_year_ago": true,
@@ -173,8 +173,8 @@
  },
  "log": [
   "NSA holes filled from first prints (2025 on): 6 weeks",
-  "initial claims: frozen chain to 2026-08-29, 9 live weeks after",
-  "weekly insured unemployment: frozen chain to 2026-09-12, 6 live weeks after (newest week 2026-10-24, released 2026-11-05)",
+  "initial claims: frozen chain to 2026-08-29, 10 live weeks after",
+  "weekly insured unemployment: frozen chain to 2026-09-12, 7 live weeks after (newest week 2026-10-31, released 2026-11-12)",
   "policy rate: to 2026-10-01 (3.88), below a year earlier: True",
   "S&P 500: to 2026-11-11 (7619.38)",
   "industrial production: 1224 ALFRED vintages, newest 2026-10-16",
@@ -194,12 +194,12 @@
  },
  "values": {
   "iu4": {
-   "value": 1714250.0,
-   "release": "2026-11-05",
-   "week": "2026-10-24"
+   "value": 1711000.0,
+   "release": "2026-11-12",
+   "week": "2026-10-31"
   },
   "iu_nsa": {
-   "week": "2026-10-24"
+   "week": "2026-10-31"
   },
   "rate": {
    "month": "2026-10",

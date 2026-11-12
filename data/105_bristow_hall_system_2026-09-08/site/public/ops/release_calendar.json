@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-12 03:05",
+ "built_at": "2026-11-12 09:04",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-12T08:05:20Z",
+ "generated_utc": "2026-11-12T14:04:23Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -516,7 +516,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-12",
+   "build_next": "2026-11-19",
    "confirmed_through": "2026-12-31",
    "fred_clock": "08:34",
    "freq": "weekly",
@@ -524,13 +524,81 @@
    "link": "https://www.dol.gov/ui/data.pdf",
    "name": "initial claims and continued claims, seasonally adjusted and not",
    "next_expected": false,
-   "next_ny": "2026-11-12 08:30",
+   "next_ny": "2026-11-19 08:30",
    "read_lag_min": 0,
    "release_id": 180,
    "short": "weekly claims",
    "slots": true,
    "source": "FRED release 180 (Unemployment Insurance Weekly Claims Report)",
-   "through": "2026-10-31",
+   "through": "2026-11-07",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-05 08:30",
+     "utc": "2026-11-05T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-12 08:30",
+     "utc": "2026-11-12T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-19 08:30",
+     "utc": "2026-11-19T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 08:30",
+     "utc": "2026-11-25T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-03 08:30",
+     "utc": "2026-12-03T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-10 08:30",
+     "utc": "2026-12-10T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 08:30",
+     "utc": "2026-12-17T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-24 08:30",
+     "utc": "2026-12-24T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-31 08:30",
+     "utc": "2026-12-31T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-11-12",
+   "confirmed_through": "2026-12-31",
+   "fred_clock": "08:34",
+   "freq": "weekly",
+   "ids": "icsa",
+   "link": "https://fred.stlouisfed.org/series/ICSA",
+   "name": "initial claims",
+   "next_expected": false,
+   "next_ny": "2026-11-19 08:30",
+   "read_lag_min": 0,
+   "release_id": 180,
+   "short": "weekly claims",
+   "slots": true,
+   "source": "FRED release 180 (Unemployment Insurance Weekly Claims Report)",
+   "through": "2026-11-07",
    "time_known": true,
    "time_note": null,
    "times": [
@@ -953,11 +1021,11 @@
    "confirmed_through": "2026-12-31",
    "fred_clock": "08:34",
    "freq": "weekly",
-   "ids": "icsa",
-   "link": "https://fred.stlouisfed.org/series/ICSA",
-   "name": "initial claims",
+   "ids": "iursa",
+   "link": "https://fred.stlouisfed.org/series/IURSA",
+   "name": "insured unemployment rate",
    "next_expected": false,
-   "next_ny": "2026-11-12 08:30",
+   "next_ny": "2026-11-19 08:30",
    "read_lag_min": 0,
    "release_id": 180,
    "short": "weekly claims",
@@ -1085,75 +1153,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-12",
-   "confirmed_through": "2026-12-31",
-   "fred_clock": "08:34",
-   "freq": "weekly",
-   "ids": "iursa",
-   "link": "https://fred.stlouisfed.org/series/IURSA",
-   "name": "insured unemployment rate",
-   "next_expected": false,
-   "next_ny": "2026-11-12 08:30",
-   "read_lag_min": 0,
-   "release_id": 180,
-   "short": "weekly claims",
-   "slots": true,
-   "source": "FRED release 180 (Unemployment Insurance Weekly Claims Report)",
-   "through": "2026-10-24",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-05 08:30",
-     "utc": "2026-11-05T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-12 08:30",
-     "utc": "2026-11-12T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-19 08:30",
-     "utc": "2026-11-19T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 08:30",
-     "utc": "2026-11-25T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-03 08:30",
-     "utc": "2026-12-03T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-10 08:30",
-     "utc": "2026-12-10T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 08:30",
-     "utc": "2026-12-17T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-24 08:30",
-     "utc": "2026-12-24T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-31 08:30",
-     "utc": "2026-12-31T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-11-12",
+   "build_next": "2026-11-19",
    "confirmed_through": "2026-12-31",
    "fred_clock": "08:34",
    "freq": "weekly",
@@ -1161,7 +1161,7 @@
    "link": "https://fred.stlouisfed.org/series/CCNSA",
    "name": "insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)",
    "next_expected": false,
-   "next_ny": "2026-11-12 08:30",
+   "next_ny": "2026-11-19 08:30",
    "read_lag_min": 0,
    "release_id": 180,
    "short": "weekly claims",
@@ -1217,11 +1217,11 @@
      "utc": "2026-12-31T13:30:00Z"
     }
    ],
-   "waiting_since_due": null
+   "waiting_since_due": "2026-11-12 08:30"
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-12",
+   "build_next": "2026-11-19",
    "confirmed_through": "2026-12-31",
    "fred_clock": "08:34",
    "freq": "weekly",
@@ -1229,7 +1229,7 @@
    "link": "https://oui.doleta.gov/unemploy/csv/ar539.csv",
    "name": "states with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
    "next_expected": false,
-   "next_ny": "2026-11-12 08:30",
+   "next_ny": "2026-11-19 08:30",
    "read_lag_min": 0,
    "release_id": 180,
    "short": "weekly claims",
@@ -1285,7 +1285,7 @@
      "utc": "2026-12-31T13:30:00Z"
     }
    ],
-   "waiting_since_due": null
+   "waiting_since_due": "2026-11-12 08:30"
   },
   {
    "agrees_with_build": true,
