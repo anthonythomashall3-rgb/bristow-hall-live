@@ -845,6 +845,11 @@ def build(allow_fetch=True):
 # ---------------------------------------------------------------------------------------------- what is still due
 WATCHED = ('FRED release', 'rule: h15_week', 'rule: nyse_close')     # not the FOMC row: its data-through moves every day
 EXPIRE_DAYS = 7
+# A RELEASE THAT CAME EARLY (12 November 2026, collection 1053). The Department of Labor posted the state claims file on
+# Wednesday 11 November 20:51 GMT, ahead of Thursday's 8:30; a run that evening read it, so at 8:30 the row had nothing left
+# to move and was "waiting" all morning (three look-again runs and a wrong message). A row's through-date that moves forward
+# when none of its releases is due is remembered, and a release due within EARLY_H hours after it is counted as in.
+EARLY_H = 48
 
 
 def pending_update(cal, new_rows, old_rows, prev_built):
@@ -870,14 +875,20 @@ def pending_update(cal, new_rows, old_rows, prev_built):
         return cur is None or cur > (thr_before or '') or (val_before is not None and val_new.get(ids, '') != val_before)
     pend = {(p['ids'], p['due_ny']): p for p in st.get('pending', [])}
     came = []
+    FM = '%Y-%m-%d %H:%M'
+    early = {k: v for k, v in (st.get('early') or {}).items()
+             if v.get('at', '') >= (nowx - dt.timedelta(hours=2 * EARLY_H)).strftime(FM)}
+    credited, watched = set(), set()
     for k, p in list(pend.items()):
         cur = thr_new.get(p['ids'])
         if _moved(p['ids'], p.get('through_before', ''), p.get('value_before')):
             came.append(dict(p, came_in=nowx.strftime('%Y-%m-%d %H:%M'), through_now=cur))
+            credited.add(p['ids'])
             del pend[k]
     for r in cal['rows']:
         if not r['source'].startswith(WATCHED) or r['ids'] not in thr_new:
             continue
+        watched.add(r['ids'])
         for x in r['times']:
             if x.get('expected'):
                 continue                         # a projected day is not a promise: only the agency's own days are waited for
@@ -890,6 +901,12 @@ def pending_update(cal, new_rows, old_rows, prev_built):
             vbefore = val_old.get(r['ids'], val_new.get(r['ids'], ''))
             if _moved(r['ids'], before, vbefore if r['ids'] in val_old else None):
                 came.append({'ids': r['ids'], 'short': r['short'], 'due_ny': x['ny'], 'came_in': nowx.strftime('%Y-%m-%d %H:%M')})
+                credited.add(r['ids'])
+                continue
+            e = early.get(r['ids'])
+            if e and e.get('through') == thr_new[r['ids']] and e.get('at', '') >= (t - dt.timedelta(hours=EARLY_H)).strftime(FM):
+                came.append({'ids': r['ids'], 'short': r['short'], 'due_ny': x['ny'], 'came_in': e['at'], 'early': True})
+                del early[r['ids']]
                 continue
             key = (r['ids'], x['ny'])
             if key not in pend:
@@ -897,6 +914,9 @@ def pending_update(cal, new_rows, old_rows, prev_built):
                              'through_before': before, 'value_before': vbefore, 'since_ny': nowx.strftime('%Y-%m-%d %H:%M')}
     # a release the next one has overtaken is dropped (its row moved on, or a newer one is waited for); an entry older than
     # a week is set aside as expired (said in the message) so an agency's cancelled release cannot be waited for forever
+    for ids in watched:                          # a through-date that moved forward with none of its releases due: early
+        if ids not in credited and thr_old.get(ids) and thr_new[ids] > thr_old[ids] and not any(k[0] == ids for k in pend):
+            early[ids] = {'through': thr_new[ids], 'at': nowx.strftime(FM)}
     keep, expired = {}, list(st.get('expired', []))[-20:]
     for (ids, due), p in sorted(pend.items(), key=lambda kv: kv[0][1]):
         try:
@@ -909,7 +929,7 @@ def pending_update(cal, new_rows, old_rows, prev_built):
         keep[ids] = p
     doc = {'last_check_ny': (nowx - dt.timedelta(minutes=5)).strftime('%Y-%m-%d %H:%M'),
            'pending': sorted(keep.values(), key=lambda p: p['due_ny']), 'expired': expired[-20:],
-           'came_in': came[-20:],
+           'came_in': came[-20:], 'early': early,
            'what': 'releases whose time passed without their row moving: looked for again 30 and 90 minutes after they '
                    'were found missing, then at every scheduled run (ops/calendar_build.py)'}
     jsave(PENDING, doc)
