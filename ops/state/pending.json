@@ -1,15 +1,10 @@
 {
  "came_in": [
   {
-   "came_in": "2026-11-12 11:58",
-   "due_ny": "2026-11-12 11:30",
-   "expected_day": false,
-   "ids": "wei",
-   "short": "weekly economic index (lewis, mertens an",
-   "since_ny": "2026-11-12 11:46",
-   "through_before": "2026-10-31",
-   "through_now": "2026-11-07",
-   "value_before": "3.03"
+   "came_in": "2026-11-12 16:22",
+   "due_ny": "2026-11-12 16:00",
+   "ids": "^gspc",
+   "short": "the S&P 500 close"
   }
  ],
  "early": {},
@@ -35,7 +30,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-12 11:53",
+ "last_check_ny": "2026-11-12 16:17",
  "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }

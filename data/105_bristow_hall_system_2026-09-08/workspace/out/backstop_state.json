@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-12T16:58:21",
+ "built_at": "2026-11-12T21:22:21",
  "standing": {
   "state": "closed",
   "since": "2024-10-01",
@@ -21,8 +21,8 @@
    "line": 30,
    "on": false,
    "since": "2021-04-10",
-   "data_through": "2026-10-24",
-   "reporting": 51,
+   "data_through": "2026-10-31",
+   "reporting": 1,
    "states_accelerating": [],
    "unit": "states of 51 whose 13-week average insured rate is >= 0.20 pp above a year earlier",
    "vintage": "ETA 539 c8/c18 by c2, administrative, unrevised",

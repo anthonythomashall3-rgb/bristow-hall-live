@@ -1,11 +1,11 @@
 {
- "built_at": "2026-11-12 11:58",
+ "built_at": "2026-11-12 16:22",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-12T16:58:35Z",
+ "generated_utc": "2026-11-12T21:22:26Z",
  "rows": [
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-12",
+   "build_next": "2026-11-13",
    "confirmed_through": "2027-03-04",
    "fred_clock": null,
    "freq": "daily",
@@ -13,13 +13,13 @@
    "link": "https://finance.yahoo.com/quote/%5EGSPC/history/",
    "name": "s&p 500 daily close",
    "next_expected": false,
-   "next_ny": "2026-11-12 16:00",
+   "next_ny": "2026-11-13 16:00",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the S&P 500 close",
    "slots": false,
    "source": "rule: nyse_close",
-   "through": "2026-11-11",
+   "through": "2026-11-12",
    "time_known": true,
    "time_note": "the market close",
    "times": [
@@ -453,11 +453,6 @@
    "times": [
     {
      "expected": false,
-     "ny": "2026-11-02 12:02",
-     "utc": "2026-11-02T17:02:00Z"
-    },
-    {
-     "expected": false,
      "ny": "2026-11-04 12:02",
      "utc": "2026-11-04T17:02:00Z"
     },
@@ -876,11 +871,6 @@
    "times": [
     {
      "expected": false,
-     "ny": "2026-11-02 16:15",
-     "utc": "2026-11-02T21:15:00Z"
-    },
-    {
-     "expected": false,
      "ny": "2026-12-01 16:15",
      "utc": "2026-12-01T21:15:00Z"
     },
@@ -967,11 +957,6 @@
    "time_known": true,
    "time_note": "the month's average is complete on the first business day after month end (FRED's H.15 monthly post, 4:15 PM ET)",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-02 16:15",
-     "utc": "2026-11-02T21:15:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-12-01 16:15",
