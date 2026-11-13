@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-12 16:22",
+ "built_at": "2026-11-12 20:17",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-12T21:22:26Z",
+ "generated_utc": "2026-11-13T01:17:06Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -1220,7 +1220,7 @@
    "short": "weekly claims",
    "slots": true,
    "source": "FRED release 180",
-   "through": "2026-10-24",
+   "through": "2026-10-31",
    "time_known": true,
    "time_note": null,
    "times": [
