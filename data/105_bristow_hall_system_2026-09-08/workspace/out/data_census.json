@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-12 20:17",
+ "built_at": "2026-11-13 03:07",
  "version": "C1021+E22",
- "census_date": "2026-11-12",
+ "census_date": "2026-11-13",
  "feeds": [
   {
    "feed": "Initial claims and continued claims, seasonally adjusted and not (the route's insured-unemployment pillar, the count door's claims condition, the closer)",
@@ -216,14 +216,14 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
+   "UNRATE": "FRED API",
    "JTSJOL": "FRED API",
    "PAYEMS": "FRED API",
-   "UNRATE": "FRED API",
+   "UNEMPLOY": "FRED API",
    "JTSQUR": "FRED API",
    "CPIAUCSL": "FRED API",
-   "UNEMPLOY": "FRED API",
-   "IURSA": "FRED API",
-   "ICSA": "FRED API"
+   "ICSA": "FRED API",
+   "IURSA": "FRED API"
   },
   "compared_with_bls": [
    "UNRATE",

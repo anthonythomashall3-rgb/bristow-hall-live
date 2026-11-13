@@ -5,4 +5,4 @@ release schedule: 12 rows added; dated schedule now through 2026-12-23
   GDPC1: FRED lists 14 dates, 2 from a week ago on, last 2026-12-23
   GDPNOW: FRED lists 74 dates, 10 from a week ago on, last 2026-12-23
   INDPRO: FRED lists 15 dates, 2 from a week ago on, last 2026-12-16
-  claims: FRED lists 59 dates, 8 still to come, last 2026-12-31; not on a Thursday: ['2026-11-25']
+  claims: FRED lists 59 dates, 7 still to come, last 2026-12-31; not on a Thursday: ['2026-11-25']
