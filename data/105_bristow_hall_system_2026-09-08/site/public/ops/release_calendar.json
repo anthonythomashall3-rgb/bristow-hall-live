@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-13 20:17",
+ "built_at": "2026-11-14 03:04",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-14T01:17:07Z",
+ "generated_utc": "2026-11-14T08:05:10Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -23,11 +23,6 @@
    "time_known": true,
    "time_note": "the market close",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-06 16:00",
-     "utc": "2026-11-06T21:00:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-09 16:00",
