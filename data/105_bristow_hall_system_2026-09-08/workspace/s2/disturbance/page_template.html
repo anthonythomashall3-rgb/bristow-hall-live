@@ -72,7 +72,7 @@ tr.open td{background:#fbf8ee}
   <nav class="nav" aria-label="Sections">
     <a href="/">Home</a>
     <a href="/detector/">Recession Indicator</a>
-    <a href="/disturbance/" aria-current="page">Disturbance Indicator</a>
+    <a href="/disturbance/" aria-current="page">Disturbance Chronology</a>
     <a href="/state-onset/">State Recession</a>
     <a href="/stress-map/">Stress Map</a>
     <a href="/damage-index/">Damage Index</a>
@@ -135,7 +135,7 @@ tr.open td{background:#fbf8ee}
 <div class="foot"><div class="inner">
   <div class="t">BRISTOW-HALL BUSINESS CYCLE PROGRAM</div>
   <div class="s">Real-time dating of the American business cycle.</div>
-  <div class="links"><a href="/">Home</a><a href="/detector/">Recession Indicator</a><a href="/disturbance/">Disturbance Indicator</a><a href="/state-onset/">State Recession Indicator</a><a href="/stress-map/">National Stress Map</a><a href="/damage-index/">Damage Index</a><a href="/chronology/">Chronology</a><a href="/#papers">Papers</a><a href="/data/">Data</a></div>
+  <div class="links"><a href="/">Home</a><a href="/detector/">Recession Indicator</a><a href="/disturbance/">Disturbance Chronology</a><a href="/state-onset/">State Recession Indicator</a><a href="/stress-map/">National Stress Map</a><a href="/damage-index/">Damage Index</a><a href="/chronology/">Chronology</a><a href="/#papers">Papers</a><a href="/data/">Data</a></div>
 </div></div>
 
 <script id="data" type="application/json">__DATA__</script>
@@ -154,7 +154,7 @@ var R=E.filter(function(e){return e.status==='recession';});
 var Rc=R.filter(function(e){return !e.open;}), Dc=D.filter(function(e){return !e.open;});
 var O=E.filter(function(e){return e.open;});
 var NEAR=E.filter(function(e){return e.status==='labor_bar_crossed_no_recession'||e.status==='fails_DD'||e.status==='runup';});
-document.getElementById('vintage').textContent='Data through '+ymL(J.composite_last_month)+' (FRED, retrieved '+J.built.slice(0,10)+'). Re-dated each month by the same fixed rule.';
+document.getElementById('vintage').textContent='Composite through '+ymL(J.composite_last_month)+', the latest month with both payrolls and industrial production (FRED, retrieved '+J.built.slice(0,10)+'). Re-dated each month by the same fixed rule.';
 // tiles
 var gr=Dc.map(function(e){return e.grade;}), rg=Rc.map(function(e){return e.grade;});
 var last=D.filter(function(e){return !e.open;}).slice(-1)[0];
@@ -193,7 +193,7 @@ if(O.length){var o=O[0];
  else op.innerHTML=head+' It is not yet 1.0 point deep, so it is not classified.</p>';
 } else op.innerHTML='<p>No window is open.</p>';
 // chart
-var svg=document.getElementById('chart'),W=1200,H=380,L=44,Rm=12,T=12,B=30;
+var svg=document.getElementById('chart'),W=1200,H=380,L=44,Rm=12,T=26,B=30;
 var dv=J.deviation, n=dv.date.length;
 function xi(s){var p=s.split('-');return (+p[0])+(+p[1]-1)/12;}
 var x0=xi(dv.date[0]), x1=xi(dv.date[n-1])+1/12;
@@ -208,7 +208,7 @@ for(var v=ymin;v<=ymax;v+=2){g+='<line x1="'+L+'" x2="'+(W-Rm)+'" y1="'+Y(v).toF
 for(var yr=1950;yr<=x1;yr+=10){g+='<line x1="'+X(yr).toFixed(1)+'" x2="'+X(yr).toFixed(1)+'" y1="'+(H-B)+'" y2="'+(H-B+4)+'" stroke="#666"/><text x="'+X(yr).toFixed(1)+'" y="'+(H-B+17)+'" font-size="11" fill="#555" text-anchor="middle">'+yr+'</text>';}
 var d='';for(var i=0;i<n;i++){d+=(i?'L':'M')+X(xi(dv.date[i])+0.5/12).toFixed(1)+' '+Y(dv.dev[i]).toFixed(1);}
 g+='<path d="'+d+'" fill="none" stroke="#990000" stroke-width="1.4"/>';
-g+='<text x="'+(L+4)+'" y="'+(T+12)+'" font-size="11" fill="#555">percent above or below trend</text>';
+g+='<text x="'+L+'" y="'+(T-9)+'" font-size="11" fill="#555">percent above or below trend</text>';
 svg.innerHTML=g;
 })();
 </script>
