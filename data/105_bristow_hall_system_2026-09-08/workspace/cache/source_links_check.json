@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-11-14T08:04:56Z",
+ "checked_utc": "2026-11-14T10:49:13Z",
  "release": {},
  "row_tokens": {
   "feed|BAA": "2026-10|6.59",
@@ -478,27 +478,27 @@
   },
   "https://oui.doleta.gov/unemploy/DataDownloads.asp": {
    "alerted": null,
-   "code": 502,
+   "code": 200,
    "day": "2026-11-14",
    "final": null,
-   "last_known": "ok",
-   "status": "unknown"
+   "hops": [],
+   "status": "ok"
   },
   "https://oui.doleta.gov/unemploy/claims.asp": {
    "alerted": null,
-   "code": 502,
+   "code": 206,
    "day": "2026-11-14",
    "final": null,
-   "last_known": "ok",
-   "status": "unknown"
+   "hops": [],
+   "status": "ok"
   },
   "https://oui.doleta.gov/unemploy/csv/ar539.csv": {
    "alerted": null,
-   "code": 502,
+   "code": 206,
    "day": "2026-11-14",
    "final": null,
-   "last_known": "ok",
-   "status": "unknown"
+   "hops": [],
+   "status": "ok"
   },
   "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=5d&interval=1d": {
    "alerted": null,
