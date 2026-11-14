@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-13 16:23",
+ "built_at": "2026-11-13 20:17",
  "version": "C1021+E22",
  "census_date": "2026-11-13",
  "feeds": [
@@ -216,14 +216,14 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
-   "PAYEMS": "FRED API",
    "UNRATE": "FRED API",
+   "PAYEMS": "FRED API",
    "JTSJOL": "FRED API",
    "UNEMPLOY": "FRED API",
    "JTSQUR": "FRED API",
-   "CPIAUCSL": "FRED API",
    "ICSA": "FRED API",
-   "IURSA": "FRED API"
+   "IURSA": "FRED API",
+   "CPIAUCSL": "FRED API"
   },
   "compared_with_bls": [
    "UNRATE",
