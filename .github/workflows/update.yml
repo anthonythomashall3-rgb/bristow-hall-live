@@ -415,7 +415,10 @@ jobs:
         id: cards
         if: steps.when.outputs.go == 'true'
         working-directory: ${{ steps.tool.outputs.workspace }}
-        run: python3 s2/card_shots.py
+        run: |
+          # the chart and map cards are element screenshots taken with Playwright driving the runner's own Chrome (no browser download)
+          pip install --quiet --retries 10 --timeout 60 playwright || { sleep 30; pip install --quiet --retries 10 --timeout 60 playwright; }
+          python3 s2/card_shots.py
 
       - name: the release calendar, and next days that roll forward by themselves
         if: steps.when.outputs.go == 'true'
@@ -548,7 +551,7 @@ jobs:
         if: steps.when.outputs.go == 'true' && steps.publish.outcome == 'success' && env.OPS_TEST != '1'
         continue-on-error: true
         working-directory: ${{ steps.tool.outputs.workspace }}
-        run: sleep 30; python3 s2/card_shots.py --readback
+        run: pip install --quiet --retries 10 --timeout 60 playwright; sleep 30; python3 s2/card_shots.py --readback
 
       - name: delete old test builds
         if: steps.when.outputs.go == 'true'
