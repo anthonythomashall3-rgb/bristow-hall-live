@@ -1,5 +1,5 @@
 {
- "at": "2026-11-15T21:13:16Z",
+ "at": "2026-11-15T21:18:45Z",
  "cards": {
   "/detector/": {
    "img": "/detector/card.png?v=4cbbfe96",
@@ -25,14 +25,14 @@
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
-  "/damage-index/": {
-   "img": "/damage-index/card.png?v=bf8c00ee",
+  "/forecaster/": {
+   "img": "/forecaster/card.png?v=adbdda00",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/chronology/": {
-   "img": "/chronology/card.png?v=ff1ff2a4",
+   "img": "/chronology/card.png?v=8411ece5",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true

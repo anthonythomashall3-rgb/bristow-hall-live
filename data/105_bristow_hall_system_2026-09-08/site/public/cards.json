@@ -1,5 +1,5 @@
 {
- "built": "2026-11-15T21:11:44Z",
+ "built": "2026-11-15T21:17:19Z",
  "size": [
   1200,
   760
@@ -41,22 +41,22 @@
    "colours": 1530,
    "share_not_main": 0.3409
   },
-  "/damage-index/": {
-   "png": "/damage-index/card.png",
-   "sha256": "bf8c00ee84369087e7aff7e83937786dc846e507159f8e2c2d1a972ab11f7c1b",
+  "/forecaster/": {
+   "png": "/forecaster/card.png",
+   "sha256": "adbdda00f45d174335c6746c6e9053d6eb733d8f18825b2706ebc381eff4a7be",
    "on_home": true,
-   "w": 1200,
-   "h": 522,
-   "colours": 871,
-   "share_not_main": 0.2876
+   "w": 2400,
+   "h": 1044,
+   "colours": 1648,
+   "share_not_main": 0.2197
   },
   "/chronology/": {
    "png": "/chronology/card.png",
-   "sha256": "ff1ff2a44d5d517ce9c7b638e2145a1f8dd1a4dd1201f972e962f898d12ef73e",
+   "sha256": "8411ece59063cdd933393a1ea3e28f79f1f9ead45f8df4e188f6ec850dab2f53",
    "on_home": true,
    "w": 1200,
    "h": 522,
-   "colours": 992,
+   "colours": 1003,
    "share_not_main": 0.2932
   },
   "/data/": {
