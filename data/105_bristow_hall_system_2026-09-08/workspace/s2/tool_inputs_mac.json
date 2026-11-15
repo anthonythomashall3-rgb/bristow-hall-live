@@ -1,0 +1,517 @@
+{
+ "generated_at": "2026-11-15T13:18:20Z",
+ "generator": "s2/tool_inputs_mac.py (run on the Mac)",
+ "tools": {
+  "stress-map": {
+   "read_from": "INPUTS of 1052 code/stress_map_v2_1052.py (v1 and v3 read the same files)",
+   "rows": [
+    {
+     "key": "v1_state_shapes",
+     "name": "State boundaries, 2024 (drawn from the Census file)",
+     "ids": "cb_2024_us_state",
+     "source": "Census Bureau, cartographic boundary files",
+     "url": "https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html",
+     "freq": "static",
+     "through": "static (2024 boundaries)",
+     "refreshed": "2026-11-15T11:44Z",
+     "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/out/state_shapes_cb2024_svg_1052.json"
+    },
+    {
+     "key": "v4_chronology",
+     "name": "Bristow-Hall State chronology v4",
+     "ids": "derived",
+     "source": "Bristow-Hall (collection 1032)",
+     "url": "/state-onset/",
+     "freq": "monthly",
+     "through": "2026-06",
+     "refreshed": "2026-11-15T01:23Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv"
+    },
+    {
+     "key": "v4_line",
+     "name": "Bristow-Hall State damage line v4",
+     "ids": "derived",
+     "source": "Bristow-Hall (collection 1032)",
+     "url": "/state-onset/",
+     "freq": "monthly",
+     "through": "2026-09",
+     "refreshed": "2026-11-15T01:23Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json"
+    },
+    {
+     "key": "v4_index",
+     "name": "State coincident indexes, 50 states",
+     "ids": "<ST>PHCI",
+     "source": "Federal Reserve Bank of Philadelphia",
+     "url": "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/state-coincident-indexes",
+     "freq": "monthly",
+     "through": "2026-09",
+     "refreshed": "2026-11-09T17:47Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/philly/coincident-revised.xls"
+    },
+    {
+     "key": "v4_state_ur",
+     "name": "State unemployment rates, 50 states and DC",
+     "ids": "<ST>UR",
+     "source": "Bureau of Labor Statistics, LAUS (via FRED)",
+     "url": "https://fred.stlouisfed.org/series/CAUR",
+     "freq": "monthly",
+     "through": "2026-07-01",
+     "refreshed": "2026-11-08T18:41Z",
+     "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_ur/<ST>UR.csv"
+    },
+    {
+     "key": "l0_payrolls",
+     "name": "State payroll employment, not seasonally adjusted (history layer before 1979-07)",
+     "ids": "<ST>NAN",
+     "source": "Bureau of Labor Statistics, CES State (via FRED)",
+     "url": "https://fred.stlouisfed.org/series/CANAN",
+     "freq": "monthly",
+     "through": "2026-09-01",
+     "refreshed": "2026-10-31T15:23Z",
+     "path": "~/Projects/Onset Detector Data/954_state_chronology_1939_bry_boschan_2026-10-31/data/state_nan/<ST>NAN.csv"
+    },
+    {
+     "key": "l0_claims",
+     "name": "State initial claims, not seasonally adjusted (history layer before 1979-07)",
+     "ids": "state IC NSA",
+     "source": "Department of Labor, ETA (FH history file)",
+     "url": "https://oui.doleta.gov/unemploy/claims.asp",
+     "freq": "monthly",
+     "through": "2024-01-01",
+     "refreshed": "2026-09-02T18:35Z",
+     "path": "~/Projects/Onset Detector Data/24_bristow_rule_lab/workspace/lab/fh/FH_state_claims_nsa_log.csv"
+    },
+    {
+     "key": "register",
+     "name": "National disturbance register v3.2",
+     "ids": "derived: PAYEMS, INDPRO, W875RX1, CMRMTSPL, UNRATE, GDPC1",
+     "source": "Bristow-Hall (Disturbance Indicator)",
+     "url": "/disturbance/",
+     "freq": "monthly",
+     "through": "2026-10",
+     "refreshed": "2026-11-14T13:36Z",
+     "path": "~/Projects/Disturbance Indicator Data/10_chronology_site/out_v3_2_damage_cut/chronology.csv"
+    },
+    {
+     "key": "live_chronology",
+     "name": "Live recession chronology (the detector)",
+     "ids": "derived",
+     "source": "Bristow-Hall (the detector)",
+     "url": "/detector/",
+     "freq": "daily",
+     "through": "2026-11-14 05:50",
+     "refreshed": "2026-11-15T01:41Z",
+     "path": "~/bh/fix_disturbance_1114/data/105_bristow_hall_system_2026-09-08/site/public/detector/bhs_state.json"
+    },
+    {
+     "key": "county_laus",
+     "name": "County unemployment rates and labor force, 3,143 counties",
+     "ids": "LAUCN*",
+     "source": "Bureau of Labor Statistics, LAUS",
+     "url": "https://www.bls.gov/lau/",
+     "freq": "monthly",
+     "through": "2026-07",
+     "refreshed": "2026-11-09T19:30Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/laus_county/county_ur_lf_1990_2026.csv.gz"
+    },
+    {
+     "key": "county_qcew",
+     "name": "QCEW county total covered employment",
+     "ids": "QCEW county",
+     "source": "Bureau of Labor Statistics, QCEW",
+     "url": "https://www.bls.gov/cew/downloadable-data-files.htm",
+     "freq": "quarterly",
+     "through": "2026-03",
+     "refreshed": "2026-11-14T00:21Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry/<YEAR>_county_tot.csv"
+    },
+    {
+     "key": "county_shapes",
+     "name": "County boundaries, 2024",
+     "ids": "cb_2024_us_county_500k",
+     "source": "Census Bureau, cartographic boundary files",
+     "url": "https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html",
+     "freq": "static",
+     "through": "static (2024 boundaries)",
+     "refreshed": "2026-11-14T14:51Z",
+     "path": "/Volumes/Sandisk G/Recession Data/06 Tool 5 - National Stress Map/Map boundaries through time (Census cartographic boundary files 2010-2024)/cb_2024_us_county_500k.zip"
+    },
+    {
+     "key": "ces_national",
+     "name": "National payrolls by supersector",
+     "ids": "CES",
+     "source": "Bureau of Labor Statistics, CES",
+     "url": "https://download.bls.gov/pub/time.series/ce/",
+     "freq": "monthly",
+     "through": "2026-10",
+     "refreshed": "2026-11-11T15:06Z",
+     "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/ces_all.txt.gz"
+    },
+    {
+     "key": "ces_state",
+     "name": "State payrolls by supersector",
+     "ids": "SM",
+     "source": "Bureau of Labor Statistics, CES State and Metro",
+     "url": "https://download.bls.gov/pub/time.series/sm/",
+     "freq": "monthly",
+     "through": "2026-09",
+     "refreshed": "2026-11-09T14:42Z",
+     "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/state_metro_payrolls_all.txt.gz"
+    }
+   ]
+  },
+  "state-onset": {
+   "read_from": "41 scripts of the 1032 chain (ROUTINE step 2, their imports, the writers of the files they read)",
+   "rows": [
+    {
+     "key": "03_data/state/fred_state_payrolls",
+     "name": "State payroll employment, 50 states and DC",
+     "ids": "<ST>NA",
+     "source": "Bureau of Labor Statistics, CES State and Metro (via FRED)",
+     "url": "https://fred.stlouisfed.org/series/CANA",
+     "freq": "monthly",
+     "through": "2026-07-01",
+     "refreshed": "2026-11-08T18:41Z",
+     "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_payrolls"
+    },
+    {
+     "key": "03_data/state/fred_state_ur",
+     "name": "State unemployment rates, 50 states and DC",
+     "ids": "<ST>UR",
+     "source": "Bureau of Labor Statistics, LAUS (via FRED)",
+     "url": "https://fred.stlouisfed.org/series/CAUR",
+     "freq": "monthly",
+     "through": "2026-07-01",
+     "refreshed": "2026-11-08T18:41Z",
+     "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_ur"
+    },
+    {
+     "key": "data/bea/SQINC4__ALL_AREAS_1948_2026.csv",
+     "name": "State personal income, quarterly (SQINC4)",
+     "ids": "SQINC4",
+     "source": "Bureau of Economic Analysis",
+     "url": "https://apps.bea.gov/regional/downloadzip.htm",
+     "freq": "quarterly",
+     "through": "2026-06",
+     "refreshed": "2026-09-28T15:25Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/bea/SQINC4__ALL_AREAS_1948_2026.csv"
+    },
+    {
+     "key": "data/bps_state/bps_state_monthly_units.csv",
+     "name": "State building permits, units",
+     "ids": "BPS state",
+     "source": "Census Bureau, Building Permits Survey",
+     "url": "https://www.census.gov/construction/bps/",
+     "freq": "monthly",
+     "through": "2026-09",
+     "refreshed": "2026-11-12T12:39Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/bps_state/bps_state_monthly_units.csv"
+    },
+    {
+     "key": "data/claims/legT/state_ic_weekly_1945_2026.csv",
+     "name": "State initial claims, weekly, 1945 on",
+     "ids": "state IC weekly",
+     "source": "Department of Labor, ETA (spliced history)",
+     "url": "https://oui.doleta.gov/unemploy/claims.asp",
+     "freq": "weekly",
+     "through": "2026-09-05",
+     "refreshed": "2026-11-09T18:01Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/claims/legT/state_ic_weekly_1945_2026.csv"
+    },
+    {
+     "key": "data/cps_state/cps_state_*.csv",
+     "name": "State CPS microdata tallies",
+     "ids": "CPS state",
+     "source": "Census Bureau / BLS, Current Population Survey",
+     "url": "https://www.census.gov/data/datasets/time-series/demo/cps/cps-basic.html",
+     "freq": "monthly",
+     "through": "2026-09",
+     "refreshed": "2026-11-10T06:44Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/cps_state/cps_state_*.csv"
+    },
+    {
+     "key": "data/dol/ar5159.csv",
+     "name": "State claims and payments, ETA 5159",
+     "ids": "ETA 5159 by state",
+     "source": "Department of Labor, ETA 5159",
+     "url": "https://oui.doleta.gov/unemploy/DataDownloads.asp",
+     "freq": "monthly",
+     "through": "2026-10-31",
+     "refreshed": "2026-11-09T18:13Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar5159.csv"
+    },
+    {
+     "key": "data/dol/ar539.csv",
+     "name": "State weekly claims, ETA 539",
+     "ids": "ETA 539 by state",
+     "source": "Department of Labor, ETA 539",
+     "url": "https://oui.doleta.gov/unemploy/DataDownloads.asp",
+     "freq": "weekly",
+     "through": "2026-10-31",
+     "refreshed": "2026-11-06T21:50Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar539.csv"
+    },
+    {
+     "key": "data/fred/CPIAUCSL.csv",
+     "name": "Consumer price index",
+     "ids": "CPIAUCSL",
+     "source": "Bureau of Labor Statistics (via FRED)",
+     "url": "https://fred.stlouisfed.org/series/CPIAUCSL",
+     "freq": "monthly",
+     "through": "2026-08-01",
+     "refreshed": "2026-09-15T19:07Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/fred/CPIAUCSL.csv"
+    },
+    {
+     "key": "data/fred_nsa",
+     "name": "State payrolls and unemployment rates, not seasonally adjusted",
+     "ids": "<ST>NAN, <ST>URN",
+     "source": "Bureau of Labor Statistics (via FRED)",
+     "url": "https://fred.stlouisfed.org/series/CANAN",
+     "freq": "monthly",
+     "through": "2026-09-01",
+     "refreshed": "2026-11-10T15:11Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/fred_nsa"
+    },
+    {
+     "key": "data/iur/ship137/state_iur_monthly_1948_2026_spliced.csv",
+     "name": "State insured unemployment rates, monthly, 1948 on",
+     "ids": "state IUR",
+     "source": "Department of Labor, ETA (spliced history)",
+     "url": "https://oui.doleta.gov/unemploy/claims.asp",
+     "freq": "monthly",
+     "through": "2026-08-01",
+     "refreshed": "2026-11-09T17:54Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/iur/ship137/state_iur_monthly_1948_2026_spliced.csv"
+    },
+    {
+     "key": "data/philly/coincident-revised.xls",
+     "name": "State coincident indexes, 50 states",
+     "ids": "<ST>PHCI",
+     "source": "Federal Reserve Bank of Philadelphia",
+     "url": "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/state-coincident-indexes",
+     "freq": "monthly",
+     "through": "2026-09",
+     "refreshed": "2026-11-09T17:47Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/philly/coincident-revised.xls"
+    },
+    {
+     "key": "data/qcew/qcew_release_dates.csv",
+     "name": "QCEW release dates",
+     "ids": "QCEW releases",
+     "source": "Bureau of Labor Statistics, QCEW",
+     "url": "https://www.bls.gov/schedule/news_release/cew.htm",
+     "freq": "quarterly",
+     "through": "2026-08-28",
+     "refreshed": "2026-11-10T14:32Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew/qcew_release_dates.csv"
+    },
+    {
+     "key": "data/qcew/qcew_state_total_monthly.csv",
+     "name": "QCEW State total covered employment",
+     "ids": "QCEW state",
+     "source": "Bureau of Labor Statistics, QCEW",
+     "url": "https://www.bls.gov/cew/downloadable-data-files.htm",
+     "freq": "quarterly",
+     "through": "2026-03",
+     "refreshed": "2026-11-10T14:29Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew/qcew_state_total_monthly.csv"
+    },
+    {
+     "key": "data/qcew_industry",
+     "name": "QCEW county total covered employment",
+     "ids": "QCEW county",
+     "source": "Bureau of Labor Statistics, QCEW",
+     "url": "https://www.bls.gov/cew/downloadable-data-files.htm",
+     "freq": "quarterly",
+     "through": "2026-03",
+     "refreshed": "2026-11-14T00:21Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry/<YEAR>_county_tot.csv"
+    },
+    {
+     "key": "data/state_industry_releases_1994_2026_a168.csv",
+     "name": "State payrolls by industry, as first published",
+     "ids": "SM first prints",
+     "source": "Bureau of Labor Statistics, State Employment and Unemployment release",
+     "url": "https://www.bls.gov/sae/",
+     "freq": "monthly",
+     "through": "2026-09",
+     "refreshed": "2026-11-14T12:14Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/state_industry_releases_1994_2026_a168.csv"
+    },
+    {
+     "key": "data/state_payroll_releases_1994_2007.csv",
+     "name": "State payrolls, as first published 1994-2007",
+     "ids": "SM first prints",
+     "source": "Bureau of Labor Statistics, State Employment and Unemployment release",
+     "url": "https://www.bls.gov/sae/",
+     "freq": "monthly",
+     "through": "2007-11",
+     "refreshed": "2026-11-09T20:27Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/state_payroll_releases_1994_2007.csv"
+    },
+    {
+     "key": "out/BH-STATE-CHRONOLOGY-V4-1032.csv",
+     "name": "Bristow-Hall State chronology v4",
+     "ids": "derived",
+     "source": "Bristow-Hall (collection 1032)",
+     "url": "/state-onset/",
+     "freq": "monthly",
+     "through": "2026-06",
+     "refreshed": "2026-11-15T01:23Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv"
+    },
+    {
+     "key": "out/damage_line_v4_a198_1032.json",
+     "name": "Bristow-Hall State damage line v4",
+     "ids": "derived",
+     "source": "Bristow-Hall (collection 1032)",
+     "url": "/state-onset/",
+     "freq": "monthly",
+     "through": "2026-09",
+     "refreshed": "2026-11-15T01:23Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json"
+    }
+   ]
+  },
+  "shadow": {
+   "read_from": "823 out/live_state_823.json (run 2026-11-15T13:17:54+00:00): its feeds and doors",
+   "rows": [
+    {
+     "key": "claims13_R_612.csv",
+     "name": "Initial claims, 13-week feed, by release day",
+     "ids": "ICSA",
+     "source": "Department of Labor, weekly claims release",
+     "url": "https://fred.stlouisfed.org/series/ICSA",
+     "freq": "weekly",
+     "through": "2026-11-12",
+     "refreshed": "2026-11-12T13:42Z",
+     "path": "~/Projects/Onset Detector Data/612_live_tool_hall_rule_start_staging_before_after_2026-10-08/data/feeds/claims13_R_612.csv"
+    },
+    {
+     "key": "gap_612.csv",
+     "name": "Unemployment gap feed, by release day",
+     "ids": "UNRATE",
+     "source": "Bureau of Labor Statistics, Employment Situation",
+     "url": "https://fred.stlouisfed.org/series/UNRATE",
+     "freq": "monthly",
+     "through": "2026-11-06",
+     "refreshed": "2026-11-07T08:04Z",
+     "path": "~/Projects/Onset Detector Data/612_live_tool_hall_rule_start_staging_before_after_2026-10-08/data/feeds/gap_612.csv"
+    },
+    {
+     "key": "michez_612.csv",
+     "name": "Michaillat-Saez feed, by release day",
+     "ids": "UNRATE, JTSJOL",
+     "source": "Bureau of Labor Statistics, Employment Situation and JOLTS",
+     "url": "https://fred.stlouisfed.org/series/JTSJOL",
+     "freq": "monthly",
+     "through": "2026-11-06",
+     "refreshed": "2026-11-07T08:04Z",
+     "path": "~/Projects/Onset Detector Data/612_live_tool_hall_rule_start_staging_before_after_2026-10-08/data/feeds/michez_612.csv"
+    },
+    {
+     "key": "sp500_612.csv",
+     "name": "S&P 500 daily close",
+     "ids": "^GSPC",
+     "source": "S&P Dow Jones Indices (via FRED SP500)",
+     "url": "https://fred.stlouisfed.org/series/SP500",
+     "freq": "daily",
+     "through": "2026-11-13",
+     "refreshed": "2026-11-14T01:10Z",
+     "path": "~/Projects/Onset Detector Data/612_live_tool_hall_rule_start_staging_before_after_2026-10-08/data/feeds/sp500_612.csv"
+    },
+    {
+     "key": "door:CMg",
+     "name": "First-print door CMg (its last call)",
+     "ids": "CMg",
+     "source": "Bristow-Hall (736 door library, rebuilt from the shadow feeds by 823)",
+     "url": "/shadow/",
+     "freq": "daily",
+     "through": "2020-04-03",
+     "refreshed": "2026-11-15T13:17",
+     "path": ""
+    },
+    {
+     "key": "door:CS",
+     "name": "First-print door CS (its last call)",
+     "ids": "CS",
+     "source": "Bristow-Hall (736 door library, rebuilt from the shadow feeds by 823)",
+     "url": "/shadow/",
+     "freq": "daily",
+     "through": "2020-03-26",
+     "refreshed": "2026-11-15T13:17",
+     "path": ""
+    },
+    {
+     "key": "door:GS4x",
+     "name": "First-print door GS4x (its last call)",
+     "ids": "GS4x",
+     "source": "Bristow-Hall (736 door library, rebuilt from the shadow feeds by 823)",
+     "url": "/shadow/",
+     "freq": "daily",
+     "through": "2024-03-08",
+     "refreshed": "2026-11-15T13:17",
+     "path": ""
+    },
+    {
+     "key": "door:IPM",
+     "name": "First-print door IPM (its last call)",
+     "ids": "IPM",
+     "source": "Bristow-Hall (736 door library, rebuilt from the shadow feeds by 823)",
+     "url": "/shadow/",
+     "freq": "daily",
+     "through": "2020-04-15",
+     "refreshed": "2026-11-15T13:17",
+     "path": ""
+    },
+    {
+     "key": "door:JL",
+     "name": "First-print door JL (its last call)",
+     "ids": "JL",
+     "source": "Bristow-Hall (736 door library, rebuilt from the shadow feeds by 823)",
+     "url": "/shadow/",
+     "freq": "daily",
+     "through": "",
+     "refreshed": "2026-11-15T13:17",
+     "path": ""
+    },
+    {
+     "key": "door:TSfp",
+     "name": "First-print door TSfp (its last call)",
+     "ids": "TSfp",
+     "source": "Bristow-Hall (736 door library, rebuilt from the shadow feeds by 823)",
+     "url": "/shadow/",
+     "freq": "daily",
+     "through": "2020-04-03",
+     "refreshed": "2026-11-15T13:17",
+     "path": ""
+    },
+    {
+     "key": "door:U0fpG",
+     "name": "First-print door U0fpG (its last call)",
+     "ids": "U0fpG",
+     "source": "Bristow-Hall (736 door library, rebuilt from the shadow feeds by 823)",
+     "url": "/shadow/",
+     "freq": "daily",
+     "through": "2024-07-05",
+     "refreshed": "2026-11-15T13:17",
+     "path": ""
+    },
+    {
+     "key": "doorlists.json",
+     "name": "V3.76 door lists (frozen)",
+     "ids": "V376_LAB, V376_P, V376_Y",
+     "source": "Bristow-Hall (collection 736)",
+     "url": "/shadow/",
+     "freq": "static",
+     "through": "2026-10-05",
+     "refreshed": "2026-10-15T21:32Z",
+     "path": "~/Projects/Onset Detector Data/736_fit_risk_test_every_rule_2026-10-15/specs/doorlists.json"
+    }
+   ]
+  }
+ },
+ "unclassified": []
+}
