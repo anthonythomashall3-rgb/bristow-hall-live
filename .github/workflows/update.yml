@@ -408,6 +408,15 @@ jobs:
       # the agency, writes ops/release_calendar.json into the site, and adds a run slot after any release the tool's own
       # list does not cover; ops/inject.py links the script that rolls a passed "next" day forward in the reader's browser.
       # Never fails the run.
+      # 15 NOVEMBER 2026 (collection 1052; Anthony 09:34 PT: the home page images must always show what each live tool looks like right now):
+      # a headless-Chrome picture of every tool page as this run built it becomes that tool's home card; a missing or blank picture fails the
+      # step, and the publish below then does not run (nothing is published).
+      - name: the home cards, a picture of each tool as it is now
+        id: cards
+        if: steps.when.outputs.go == 'true'
+        working-directory: ${{ steps.tool.outputs.workspace }}
+        run: python3 s2/card_shots.py
+
       - name: the release calendar, and next days that roll forward by themselves
         if: steps.when.outputs.go == 'true'
         continue-on-error: true
@@ -535,6 +544,12 @@ jobs:
       # TEST BUILDS ARE DELETED AFTER THEIR TEST (audit-0924, 24 September 2026; Anthony: "Auto-delete"); live builds after 30 days (409). A test branch
       # publishes a preview at its own public address; one older than two hours has had its test, so it is deleted and no
       # stale copy of the site stays public. Runs after every publish; never fails the run.
+      - name: the home cards on the live site (each card is this build's picture and matches the live tool page now)
+        if: steps.when.outputs.go == 'true' && steps.publish.outcome == 'success' && env.OPS_TEST != '1'
+        continue-on-error: true
+        working-directory: ${{ steps.tool.outputs.workspace }}
+        run: sleep 30; python3 s2/card_shots.py --readback
+
       - name: delete old test builds
         if: steps.when.outputs.go == 'true'
         continue-on-error: true
