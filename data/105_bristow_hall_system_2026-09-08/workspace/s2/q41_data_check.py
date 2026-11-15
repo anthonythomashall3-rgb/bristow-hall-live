@@ -177,7 +177,7 @@ try:
     _mp=open(os.path.join(COL,'site','public','margins','index.html'),encoding='utf-8').read()
     chk('368: the margins page lists every reading that is read today',_mp.count('<tr class='),len([r for r in (S.get('readings') or []) if r.get('reading') is not None and r.get('line') is not None]))   # 1042 (11 Nov 2026): a leg read only inside an episode has no reading today and is not a row
     chk('368: the margins page no longer shows near misses (Anthony, 25 Sep 2026)','Near misses' not in _mp,True)
-    chk('368: the data page links the margins page','href="/margins/"' in _dp,True)
+    chk('368: the data page has no Margins section (Anthony, 15 Nov 2026: "remove the margins section")','margins' not in _dp.lower(),True)
 except Exception as _e: chk('368: the margins page built',repr(_e)[:80],'ok')
 # ---- collection 372 (24 September 2026; plan Step 6 R10): the state's schema version - a hard gate (a state of another schema is a corrupt state)
 try:

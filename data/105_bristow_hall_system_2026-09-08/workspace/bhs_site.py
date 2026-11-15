@@ -387,7 +387,7 @@ _datapage=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
  '<div class="dwrap"><table class="dtab" id="dtab"><thead><tr>'
  '<th class="on asc" data-k="tool">Tool</th><th data-k="name">Series</th><th data-k="ids">ID</th><th data-k="freq">Frequency</th><th data-k="value">Where it stands</th><th class="num" data-k="through">Held through</th>'
  '<th class="num" data-k="refreshed">Refreshed</th><th class="num" data-k="next">Next published</th></tr></thead><tbody>'
- +_trs+'</tbody></table></div><p class="dleg"><a href="/margins/">Margins</a></p>'+_legend+
+ +_trs+'</tbody></table></div>'+_legend+
  '<script>(function(){var tb=document.getElementById("dtab"),ths=tb.querySelectorAll("th[data-k]"),cur="tool",dir=1;'
  'function srt(k,d){var body=tb.tBodies[0],rows=Array.prototype.slice.call(body.rows);rows.sort(function(a,b){var x=a.dataset[k]||"",y=b.dataset[k]||"";if(x===y)return 0;if(x==="")return 1;if(y==="")return -1;return (x<y?-1:1)*d;});'
  'rows.forEach(function(r){body.appendChild(r);});ths.forEach(function(t){t.classList.remove("on","asc");if(t.dataset.k===k){t.classList.add("on");if(d>0)t.classList.add("asc");}});}'
