@@ -13,11 +13,14 @@ picture differing from its most common colour).
 Usage: python3 s2/card_shots.py [--readback]"""
 import os, re, sys, json, time, zlib, struct, shutil, hashlib, threading, subprocess, http.server, socketserver, functools, urllib.request
 H = os.path.dirname(os.path.abspath(__file__)); WS = os.path.dirname(H); SITE = os.path.abspath(os.path.join(WS, '..', 'site', 'public'))
-LIVE = 'https://bhrrealtime.pages.dev'; W, HH = 1200, 760; TOP, CH_ = 145, 430   # the card = rows 145..575: below the site masthead, the page's own title and chart (about the card's 2.8:1)
+LIVE = 'https://bhrrealtime.pages.dev'; W, HH = 1200, 760; ASPECT = 2.3; TOP, CH_ = 145, round(1200 / 2.3)   # the card = rows 145..575: below the site masthead, the page's own title and chart (about the card's 2.8:1)
 EXTRA = ['/data/']
 # 15 Nov 2026 11:32 PT (Anthony: "show the actual graphs of the tools on the home page and the visuals of the tools"): a tool with a chart or
 # map has its card made from that element alone (Playwright element screenshot, 2x); a page without one (in development) keeps the page shot.
-SEL = {'/detector/': '#chart', '/state-onset/': '#chart', '/disturbance/': 'svg#chart', '/stress-map/': 'svg#map'}          # shot as well (Anthony named it), though the home page has no card for it
+# 11:49 PT (Anthony: every card the same size, cut if need be; no x or y axis, only the graph): a chart's card is its plot area alone (axis
+# labels hidden, cut to the plot box) and every card is drawn ASPECT:1 (s2/card_prep.js); the map is centred whole in the same box.
+SEL = {'/detector/': '#chart svg', '/state-onset/': '#chart svg', '/disturbance/': 'svg#chart', '/stress-map/': 'svg#map'}
+PREP = open(os.path.join(H, 'card_prep.js'), encoding='utf-8').read()          # shot as well (Anthony named it), though the home page has no card for it
 
 def chrome():
     for c in (os.environ.get('CHROME'), shutil.which('google-chrome'), shutil.which('google-chrome-stable'), shutil.which('chromium'),
@@ -32,7 +35,9 @@ def shoot_el(url, sel, out):
         try:
             pg = b.new_page(viewport={'width': W, 'height': 900}, device_scale_factor=2)
             pg.goto(url, wait_until='networkidle', timeout=180000); pg.wait_for_timeout(3000)
-            e = pg.locator(sel).first; e.scroll_into_view_if_needed(); pg.wait_for_timeout(800)
+            kind = pg.evaluate(PREP, [sel, ASPECT])
+            if kind not in ('chart', 'map'): raise RuntimeError(f'card_prep: {kind}')
+            pg.wait_for_timeout(800); e = pg.locator(sel).first
             e.screenshot(path=out, animations='disabled', timeout=120000)
         finally: b.close()
     return os.path.exists(out) and os.path.getsize(out) > 0, ''
@@ -123,7 +128,7 @@ def build():
     m = re.search(r'const T=\[(.*?)\n  \];', t, re.S); block = re.sub(r"\{n:'[^}]*\}", img_for, m.group(1))
     t = t[:m.start(1)] + block + t[m.end(1):]
     for old in ('style="object-fit:fill"', 'style="object-fit:cover;object-position:top"'):
-        t = t.replace(old, 'style="object-fit:contain;object-position:center;background:#fff"')
+        t = t.replace(old, 'style="object-fit:cover;object-position:center;background:#fff"')
     open(idx, 'w', encoding='utf-8').write(t); json.dump(R, open(os.path.join(SITE, 'cards.json'), 'w'), indent=1)
     print('home cards:', ', '.join(f"{h} {c['colours']} colours" for h, c in R['cards'].items())); return 0
 
