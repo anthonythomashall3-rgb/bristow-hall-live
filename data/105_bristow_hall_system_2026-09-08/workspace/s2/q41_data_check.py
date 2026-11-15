@@ -42,7 +42,7 @@ def chk(name,got,want,ok=None):
 # THE GATE CLASS OF EACH CHECK (17 September 2026, collection 201; s2/deploy_gate.py reads it). 'hard': a corrupt state
 # or a garbage input - never published. 'soft': the page disagrees with its own sources - held, unless the standing
 # changed (a call is never held back by a page check). None: freshness and presentation - published, and noted.
-_HARD=('units:','daily series is in date order','no reading is negative','every episode opens before it closes','public state copies are this build','372: schema','378: the Department')
+_HARD=('units:','feed value date','daily series is in date order','no reading is negative','every episode opens before it closes','public state copies are this build','372: schema','378: the Department')
 _SOFT=('second source','feed reading matches','feed line matches','feed is not dated in the future','headline date','standing','speed panel','record:','data page: the five columns','data page: no blank cell')
 def _gate(name):
     if 'next release is not in the past' in name: return None
@@ -100,6 +100,42 @@ for f in S.get('feeds',[]):
     if f.get('next') and len(str(f['next']))==10:
         chk(f'feed next release is not in the past: {f["name"][:40]}',f['next'],'>= '+TODAY.isoformat(),ok=f['next']>=TODAY.isoformat())
     chk(f'feed has a source link: {f["name"][:40]}',bool(f.get('url')),True)
+# ---- 1052 (15 Nov 2026): a feed value is the NEWEST observation of its source, never an old row picked up by a blank-skipping
+# ---- read (the claims row showed ICNSA for Aug 29, 2026 and CCNSA for Nov 28, 2020). For every series the build dated
+# ---- (feed_value_dates), the newest week in the source files is found again here; the shown value must be that week's value,
+# ---- and the week must be within the weekly cadence. HARD: a stale or misdated value is never published.
+_W1052=os.path.join(COL,'workspace'); _FV=S.get('feed_value_dates') or {}
+_shown1052={x_:v_ for f in S.get('feeds',[]) for x_,v_,_u in (f.get('values') or []) if x_ in ('ICNSA','CCNSA')}
+for _sid,(_col,_wk,_lag) in (('ICNSA',('icnsa','ic_week_ended',5)),('CCNSA',('iunsa','iu_week_ended',12))):
+    if _sid not in _shown1052: continue
+    _fr=[]
+    for _p in ([_FV[_sid]['source']] if _sid in _FV else [])+[os.path.join(_W1052,'cache','c1021','claims_nsa_first_prints.csv')]:
+        _pp=_p if os.path.isabs(_p) else os.path.join(_W1052,_p)
+        if os.path.exists(_pp):
+            _q=pd.read_csv(_pp,dtype=str); _fr.append(pd.DataFrame({'w':pd.to_datetime(_q[_wk],errors='coerce'),'v':pd.to_numeric(_q[_col],errors='coerce'),'r':pd.to_datetime(_q['release_date'],errors='coerce')}).dropna(subset=['w','v']))
+    _q=pd.concat(_fr).sort_values(['w','r']) if _fr else pd.DataFrame(columns=['w','v','r']); _nw=_q['w'].max() if len(_q) else None
+    _nv=float(_q[_q['w']==_nw].iloc[0]['v']) if _nw is not None else None
+    chk(f'feed value date: {_sid} shown is the newest week in its source',(_FV.get(_sid) or {}).get('date'),str(_nw.date()) if _nw is not None else None)
+    chk(f'feed value date: {_sid} shown value is that week\'s first print',_shown1052[_sid],'{:,.0f}'.format(_nv) if _nv is not None else None)
+    _age=(pd.Timestamp(TODAY)-_nw).days if _nw is not None else None
+    chk(f'feed value date: {_sid} newest week within the weekly cadence',_age,f'{_lag}-{_lag+9} days',ok=_age is not None and _lag<=_age<=_lag+9)
+# the route's insured-unemployment reading is labelled with the week it was computed for, and that week is the newest week held
+# (a reading carried over a missing base week shows its own, older week - and fails here, noted, until the base week is in hand)
+try:
+    _c1=json.load(open(os.path.join(_W1052,'out','c1021_state.json')))['values']['I4']
+    _r1=next((r for r in S['readings'] if str(r.get('object','')).startswith('route: insured unemployment')),None)
+    chk('feed reading matches its week: route insured unemployment through = the week computed',(_r1 or {}).get('through'),_c1.get('week'))
+    chk('route insured unemployment: computed for the newest week held',_c1.get('week'),_c1.get('newest_week_held'))
+except Exception as _e1052: chk('route insured unemployment: computed for the newest week held',repr(_e1052)[:80],'readable')
+# 1052: the state page draws no point past a state's own data month (dg.rt / now.last_month): no carried-forward month as data
+try:
+    import re as _re1052
+    _sp=open(os.path.join(COL,'site','public','state-onset','index.html'),encoding='utf-8').read(); _m=_re1052.search(r'const ALL = (\{.*?\});\n',_sp,_re1052.S)
+    if _m:
+        _A=json.loads(_m.group(1))
+        _bad=[k for k,v in _A.items() if v['series']['dates'] and v['series']['dates'][-1][:7]>min(x for x in ((v.get('dg') or {}).get('rt'),(v.get('now') or {}).get('last_month')) if x)[:7]]
+        chk('state page: no series point past the state\'s own data month',_bad,[])
+except Exception as _e1052b: chk('state page: no series point past the state\'s own data month',repr(_e1052b)[:80],'readable')
 
 # ---- 3. the indicator's own headline ----
 d=S['series']['dates']; v=S['series']['values']
