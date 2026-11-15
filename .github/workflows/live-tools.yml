@@ -66,6 +66,13 @@ jobs:
           sudo ln -sf "$CH" "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
           git config --global user.name "bristow-hall live tools"; git config --global user.email "noreply@users.noreply.github.com"
           mkdir -p "$LT_OUT"
+          # check a185 runs `node --check /dev/stdin`. On Linux /dev/stdin is a pipe that Node cannot resolve as a file (exit 1 for any script;
+          # on the Mac it is a file); this shim, first on PATH, hands Node the same text as a file. Every other node call passes through.
+          echo 'var a = 1;' | node --check /dev/stdin; echo "plain node --check /dev/stdin: rc $?"
+          mkdir -p "$RUNNER_TEMP/shim"; REAL="$(command -v node)"
+          printf '#!/bin/bash\nif [ "$#" = 2 ] && [ "$1" = --check ] && [ "$2" = /dev/stdin ]; then t=$(mktemp --suffix=.js); cat > "$t"; "%s" --check "$t"; rc=$?; rm -f "$t"; exit $rc; fi\nexec "%s" "$@"\n' "$REAL" "$REAL" > "$RUNNER_TEMP/shim/node"
+          chmod +x "$RUNNER_TEMP/shim/node"; echo "$RUNNER_TEMP/shim" >> "$GITHUB_PATH"
+          echo 'var a = 1;' | "$RUNNER_TEMP/shim/node" --check /dev/stdin && echo "node --check /dev/stdin works"
 
       - name: restore the state (release assets, checksummed)
         run: |
@@ -153,6 +160,10 @@ jobs:
             !${{ runner.temp }}/lt_out/assets
           retention-days: 90
           if-no-files-found: warn
+
+      - name: a parity run fails when a check failed
+        if: env.MODE == 'parity'
+        run: python3 -c "import json,sys;s=json.load(open('$LT_OUT/status.json'));print(s);sys.exit(0 if s['state_stress_ok'] and s['shadow_ok'] else 1)"
 
       - name: fail the run when the pages were held
         if: env.MODE == 'full' && (steps.pages.outputs.pages_ok != 'True' || steps.pages.outputs.shadow_ok != 'True')
