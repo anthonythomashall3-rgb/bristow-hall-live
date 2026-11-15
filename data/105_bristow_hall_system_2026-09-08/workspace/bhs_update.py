@@ -461,7 +461,12 @@ try:
     for _ser,_wk,_val in (('ICNSA','ic_week_ended','icnsa'),('CCNSA','iu_week_ended','iunsa')):
         _have=set(pd.to_datetime(_cur[_wk],errors='coerce').dropna().dt.strftime('%Y-%m-%d'))
         _last=max(_have) if _have else '1999-12-01'
-        _a=alfred_first(_ser,start=str((pd.Timestamp(_last)-pd.Timedelta(days=60)).date()))
+        # 1052 (15 Nov 2026): a week missing INSIDE the held span (the 2025 lapse in appropriations left CCNSA weeks 2025-09-20..11-01
+        # out for a year, freezing I4) is fetched too: the pull starts at the earliest week of the last three years the file lacks
+        _st=pd.Timestamp(_last)-pd.Timedelta(days=60)
+        _gap=[w for w in pd.date_range(pd.Timestamp(_last)-pd.Timedelta(days=3*365),pd.Timestamp(_last),freq='W-SAT') if w.strftime('%Y-%m-%d') not in _have]
+        if _have and _gap: _st=min(_st,_gap[0]-pd.Timedelta(days=7)); say(f'c1021 claims NSA first prints: {_ser} lacks {len(_gap)} week(s) inside the held span, from {_gap[0].date()}; fetched from there')
+        _a=alfred_first(_ser,start=str(_st.date()))
         for _d,_r in _a.iterrows():
             _k=_d.strftime('%Y-%m-%d')
             if _k in _have: continue

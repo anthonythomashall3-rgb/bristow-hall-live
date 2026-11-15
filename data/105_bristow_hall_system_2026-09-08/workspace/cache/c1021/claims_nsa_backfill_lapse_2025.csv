@@ -1,0 +1,8 @@
+iu_week_ended,iunsa,release_date,source,vintage,crosscheck
+2025-09-20,1695993,2025-11-20,ALFRED CCNSA earliest vintage carrying the week (alfredgraph.csv vintage_date scan 2025-09-25..2025-11-21: absent through 2025-11-19),2025-11-20,DOL release 2025-11-20 (oui.doleta.gov/press/2025/112025.pdf) is the first release after the 2025-10-01..11-12 lapse; it prints NSA levels only for Oct 25 / Nov 1 / Nov 8
+2025-09-27,1683585,2025-11-20,ALFRED CCNSA earliest vintage carrying the week (alfredgraph.csv vintage_date scan 2025-09-25..2025-11-21: absent through 2025-11-19),2025-11-20,as above
+2025-10-04,1651890,2025-11-20,ALFRED CCNSA earliest vintage carrying the week (alfredgraph.csv vintage_date scan 2025-09-25..2025-11-21: absent through 2025-11-19),2025-11-20,as above
+2025-10-11,1674170,2025-11-20,ALFRED CCNSA earliest vintage carrying the week (alfredgraph.csv vintage_date scan 2025-09-25..2025-11-21: absent through 2025-11-19),2025-11-20,as above
+2025-10-18,1708565,2025-11-20,ALFRED CCNSA earliest vintage carrying the week (alfredgraph.csv vintage_date scan 2025-09-25..2025-11-21: absent through 2025-11-19),2025-11-20,as above
+2025-10-25,1712360,2025-11-20,ALFRED CCNSA earliest vintage carrying the week (alfredgraph.csv vintage_date scan 2025-09-25..2025-11-21: absent through 2025-11-19),2025-11-20,DOL release 2025-11-20 prints Insured Unemployment (NSA) week ending October 25 = 1712360 (equal)
+2025-11-01,1720175,2025-11-20,ALFRED CCNSA earliest vintage carrying the week (alfredgraph.csv vintage_date scan 2025-09-25..2025-11-21: absent through 2025-11-19),2025-11-20,DOL release 2025-11-20 prints Insured Unemployment (NSA) week ending November 1 = 1720175 (equal)
