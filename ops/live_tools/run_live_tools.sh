@@ -23,6 +23,9 @@ if [ "${MODE:-full}" != "parity" ]; then
   step "State inputs" $PY code/state_inputs_refresh_1052.py || say "state input refresh returned non-zero (held files kept)"
   step "QCEW county" $PY code/qcew_county_refresh_1052.py || say "QCEW county refresh returned non-zero (held files kept)"
   step "DOL State claims" $PY code/dol_refresh_1052.py || say "DOL refresh returned non-zero (held files kept)"
+  # 15 Nov 2026: the State page's other inputs (CPI, NSA State series, weekly State claims and monthly insured rate from ETA 539, permits, CPS, SQINC4) and the
+  # stress map's disturbance register (from the repo copy the cloud update rebuilds); add-only, see the script's first lines
+  step "State page other inputs" $PY code/state_extra_refresh_1052.py || say "other State inputs refresh returned non-zero (held files kept)"
 fi
 step "1032 routine step 2" $PY code/state_v4_rebuild_1052.py || STOP="1032 routine step 2 (six scripts or a check) failed"
 [ -z "$STOP" ] && { step "State page render" $PY code/page_check_1052.py state "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/web/state-onset/index.html" || STOP="State page render check failed"; }
