@@ -59,6 +59,11 @@ META = [
 LAST_N = [0]
 def refresher(p):
     """how the file is refreshed, from where it lives (the job that writes that folder)"""
+    if os.environ.get('LT_RUNNER') == 'github':   # 15 Nov 2026 (1052): these tools now run on GitHub Actions (.github/workflows/live-tools.yml), not the Mac
+        if '191_standing_collector' in p: return 'each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)'
+        if '/612_' in p: return 'each live-tools run on GitHub: 824 feed refresher (add-only) + live_union_823'
+        if any(k in p for k in ('coincident-revised', 'fred_state_ur', 'fred_state_payrolls', 'county_tot', '/dol/ar5')): return 'each live-tools run on GitHub: publisher fetch (held file kept, dated copy)'
+        if any(k in p for k in ('BH-STATE-CHRONOLOGY-V4', 'damage_line_v4')): return 'each live-tools run on GitHub: rebuilt (1032 routine step 2)'
     if '191_standing_collector' in p: return 'continuous: Mac launchd collector191new'
     if '/612_' in p: return 'release days: Mac 612 feeds + launchd liveunion823'
     if 'bhs_state' in p: return 'each cloud run (a Mac copy of the published state)'

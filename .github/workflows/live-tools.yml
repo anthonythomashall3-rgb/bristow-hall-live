@@ -1,0 +1,155 @@
+name: live tools (state-onset, stress-map, data page rows, shadow)
+
+# 15 NOVEMBER 2026 (collection 1052; Anthony 08:21 PT: "make it not on the mac but on the github and make sure ALL live tools are updated
+# by the github so the mac doesnt need to be on and running"). Until now /state-onset/, /stress-map/, the data page's Mac rows
+# (s2/tool_inputs_mac.json) and /shadow/ were rebuilt on the Mac (launchd com.bristowhall.stressmap1052 and com.bristowhall.liveunion823)
+# and pushed here. This workflow runs the same scripts on GitHub: the files they read are kept as release assets (ops/live_tools/state.py,
+# add-only), restored at the Mac's own paths, refreshed from the publishers (FRED, Philadelphia Fed, BLS API v2, QCEW open data, DOL),
+# rebuilt, checked, committed only when every check passes and something changed, deployed by the site workflow (update.yml, mode site)
+# and read back from https://bhrrealtime.pages.dev. Each script in ops/live_tools/ says what it does in its first lines.
+on:
+  schedule:
+    # after the morning releases (BLS 8:30 ET State and county LAUS, State payrolls, CES, QCEW; DOL claims 8:30 ET Thursday; the
+    # Philadelphia Fed State indexes) and after the 4 PM ET close (the S&P 500 feed of the shadow tool): the Mac job's 08:45 and 18:15
+    # Pacific, in UTC (GitHub ignores daylight saving; in summer these are 09:50 and 19:20 Pacific, still after every release)
+    - cron: '50 16 * * *'
+    - cron: '20 2 * * *'
+  pull_request:          # a change to this machinery is checked by a parity run on the pull request (nothing is published from a PR)
+    paths: ['ops/live_tools/**', '.github/workflows/live-tools.yml']
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "full (refresh, build, check, publish) | parity (the restored inputs as they are: build and check only, nothing published; outputs as an artifact)"
+        default: "full"
+
+concurrency:
+  group: live-tools
+  cancel-in-progress: false
+
+permissions:
+  contents: write     # commit the pages; upload the state assets
+  actions: write      # start the site deploy (update.yml, mode site)
+
+jobs:
+  live-tools:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      MODE: ${{ github.event_name == 'pull_request' && 'parity' || inputs.mode || 'full' }}
+      GH_TOKEN: ${{ github.token }}
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - name: where the run keeps its record
+        run: echo "LT_OUT=$RUNNER_TEMP/lt_out" >> "$GITHUB_ENV"
+
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.ref || 'main' }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+
+      - name: the Mac's packages, same versions
+        run: pip install --quiet --retries 10 --timeout 60 -r ops/live_tools/requirements.txt
+
+      - name: the Mac's folders (the scripts run unchanged at their own paths)
+        run: |
+          sudo mkdir -p /Users/anthonyhall "/Volumes/Sandisk G" "/Applications/Google Chrome.app/Contents/MacOS"
+          sudo chown -R "$(id -u):$(id -g)" /Users/anthonyhall "/Volumes/Sandisk G"
+          CH="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium)"; echo "Chrome: $CH"; "$CH" --version
+          sudo ln -sf "$CH" "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+          git config --global user.name "bristow-hall live tools"; git config --global user.email "noreply@users.noreply.github.com"
+          mkdir -p "$LT_OUT"
+
+      - name: restore the state (release assets, checksummed)
+        run: |
+          python3 ops/live_tools/state.py restore
+          # the live repository at the Mac clone's path (the stress map reads origin/main's bhs_state.json; the shadow page is written here)
+          B="/Users/anthonyhall/Projects/Onset Detector Data/105_bristow_hall_system_2026-09-08"; mkdir -p "$B"; ln -sfn "$GITHUB_WORKSPACE" "$B/cloud"
+
+      - name: refresh, rebuild and check (ops/live_tools/run_live_tools.sh)
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: bash ops/live_tools/run_live_tools.sh; cat "$LT_OUT/status.json"
+
+      - name: parity outputs
+        if: env.MODE == 'parity'
+        run: |
+          cd "$GITHUB_WORKSPACE/data/105_bristow_hall_system_2026-09-08/workspace" && HOME=/Users/anthonyhall python3 s2/tool_inputs_mac.py > "$LT_OUT/tool_inputs.log" 2>&1 || true
+          P="/Users/anthonyhall/Projects/Onset Detector Data"; O="$LT_OUT/parity"; mkdir -p "$O"
+          cd "$P" && tar -czf "$O/outputs.tar.gz" \
+            1032_state_recession_indicator_all_states_dc_2026-11-09/out 1032_state_recession_indicator_all_states_dc_2026-11-09/web/state-onset \
+            1052_stress_map_fix_parse_collect_2026-11-12/out 1052_stress_map_fix_parse_collect_2026-11-12/web/stress-map \
+            823_live_release_readiness_2026-10-23/out \
+            -C "$GITHUB_WORKSPACE" data/105_bristow_hall_system_2026-09-08/site/public/shadow/index.html data/105_bristow_hall_system_2026-09-08/workspace/s2/tool_inputs_mac.json
+
+      - name: put the pages in place (only when every check passed)
+        id: pages
+        if: env.MODE == 'full'
+        env:
+          LT_RUNNER: github
+        run: |
+          OK=$(python3 -c "import json;print(json.load(open('$LT_OUT/status.json'))['state_stress_ok'])")
+          SH=$(python3 -c "import json;print(json.load(open('$LT_OUT/status.json'))['shadow_ok'])")
+          if [ "$OK" = "True" ]; then HOME=/Users/anthonyhall python3 ops/live_tools/publish_pages.py || OK=False; fi
+          echo "pages_ok=$OK" >> "$GITHUB_OUTPUT"; echo "shadow_ok=$SH" >> "$GITHUB_OUTPUT"
+
+      - name: commit to main (only what passed and changed)
+        id: commit
+        if: env.MODE == 'full'
+        run: |
+          WS=data/105_bristow_hall_system_2026-09-08/workspace; SITE=data/105_bristow_hall_system_2026-09-08/site
+          if [ "${{ steps.pages.outputs.pages_ok }}" = "True" ]; then
+            git add -A $WS/s2/state_onset $WS/s2/stress_map $SITE/public/state-onset $SITE/public/stress-map $WS/s2/tool_inputs_mac.json
+          fi
+          if [ "${{ steps.pages.outputs.shadow_ok }}" = "True" ]; then git add -A $SITE/public/shadow/index.html; fi
+          AHEAD=$(git rev-list --count origin/main..HEAD 2>/dev/null || echo 0)     # live_union_823's own commit of the shadow page
+          if git diff --cached --quiet && [ "$AHEAD" = "0" ]; then echo "nothing changed"; echo "pushed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          git diff --cached --quiet || git commit -q -m "Live tools rebuilt on GitHub (1052 live-tools.yml): $(git diff --cached --name-only | sed -E 's#.*/(state_onset|stress_map|state-onset|stress-map|shadow)/.*#\1#;s#.*/tool_inputs_mac.json#data-page rows#' | sort -u | tr '\n' ' ')"
+          git checkout -q -- . 2>/dev/null || true; git clean -fdq -- data 2>/dev/null || true
+          for i in 1 2 3 4; do git pull -q --rebase origin main && git push -q origin HEAD:main && break || sleep 20; done
+          git fetch -q origin main; [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ] || { echo "not pushed"; exit 1; }
+          echo "pushed=true" >> "$GITHUB_OUTPUT"; echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"; git log -1 --stat | head -20
+
+      - name: deploy the site (update.yml, mode site) and wait for it
+        id: deploy
+        if: env.MODE == 'full' && steps.commit.outputs.pushed == 'true'
+        run: |
+          T0=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          gh workflow run update.yml -R "$GITHUB_REPOSITORY" --ref main -f mode=site -f origin=hand
+          for i in $(seq 1 60); do
+            sleep 20
+            RID=$(gh run list -R "$GITHUB_REPOSITORY" --workflow update.yml --event workflow_dispatch -L 5 --json databaseId,createdAt -q "[.[] | select(.createdAt >= \"$T0\")][-1].databaseId")
+            [ -n "$RID" ] && break
+          done
+          echo "update run $RID"; echo "run=$RID" >> "$GITHUB_OUTPUT"
+          gh run watch "$RID" -R "$GITHUB_REPOSITORY" --exit-status --interval 30 > /dev/null && echo "deploy ok" || { echo "the site deploy failed"; exit 1; }
+
+      - name: read the live pages back
+        if: env.MODE == 'full' && steps.deploy.outcome == 'success'
+        run: |
+          W="stress state data"; [ "${{ steps.pages.outputs.pages_ok }}" = "True" ] || W="data"
+          [ "${{ steps.pages.outputs.shadow_ok }}" = "True" ] && W="$W shadow"
+          HOME=/Users/anthonyhall python3 ops/live_tools/readback.py $W
+
+      - name: keep the state (new and refreshed inputs, add-only release asset)
+        if: always() && env.MODE == 'full'
+        run: |
+          if [ -f "$LT_OUT/restored.json" ]; then python3 ops/live_tools/state.py delta; else echo "the state was not restored, nothing to keep"; fi
+
+      - name: the run's record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-tools-${{ env.MODE }}-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/lt_out
+            !${{ runner.temp }}/lt_out/assets
+          retention-days: 90
+          if-no-files-found: warn
+
+      - name: fail the run when the pages were held
+        if: env.MODE == 'full' && (steps.pages.outputs.pages_ok != 'True' || steps.pages.outputs.shadow_ok != 'True')
+        run: cat "$LT_OUT/status.json" "$LT_OUT/publish_pages.json" 2>/dev/null; tail -40 "$LT_OUT/run.log"; exit 1
