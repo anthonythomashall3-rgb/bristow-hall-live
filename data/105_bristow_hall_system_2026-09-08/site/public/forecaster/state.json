@@ -1,0 +1,199 @@
+{
+ "tool": "Real-Time National Recession Forecaster (Tool 4, rule H2, collection 1118)",
+ "built": "2026-11-15 21:09 UTC",
+ "status": "clear",
+ "status_line": "No recession warning.",
+ "readings": {
+  "spread_10y_3m": {
+   "month": "2026-10",
+   "value": 1.08,
+   "on": false
+  },
+  "spread_10y_1y": {
+   "month": "2026-10",
+   "value": 0.67,
+   "on": false,
+   "armed_within_365d": false
+  },
+  "insured_unemployment": {
+   "week": "2026-10-31",
+   "released": "2026-11-12",
+   "rate": 1.1,
+   "year_earlier": 1.3,
+   "on": false
+  },
+  "war_surge": {
+   "value": 4.42,
+   "veto_on": false
+  }
+ },
+ "last_close": "2024-10-01",
+ "record": [
+  {
+   "peak": "1948-11",
+   "trough": "1949-10",
+   "warning": null,
+   "lag": null,
+   "note": "before the data begin"
+  },
+  {
+   "peak": "1953-07",
+   "trough": "1954-05",
+   "warning": null,
+   "lag": null,
+   "note": "before the data begin"
+  },
+  {
+   "peak": "1957-08",
+   "trough": "1958-04",
+   "warning": "1957-01-12",
+   "lag": -231,
+   "route": "2",
+   "note": ""
+  },
+  {
+   "peak": "1960-04",
+   "trough": "1961-02",
+   "warning": "1960-04-02",
+   "lag": -28,
+   "route": "2",
+   "note": ""
+  },
+  {
+   "peak": "1969-12",
+   "trough": "1970-11",
+   "warning": "1969-02-01",
+   "lag": -333,
+   "route": "1",
+   "note": ""
+  },
+  {
+   "peak": "1973-11",
+   "trough": "1975-03",
+   "warning": "1973-07-01",
+   "lag": -152,
+   "route": "1",
+   "note": ""
+  },
+  {
+   "peak": "1980-01",
+   "trough": "1980-07",
+   "warning": "1979-01-01",
+   "lag": -395,
+   "route": "1",
+   "note": ""
+  },
+  {
+   "peak": "1981-07",
+   "trough": "1982-11",
+   "warning": "1980-12-01",
+   "lag": -242,
+   "route": "1",
+   "note": ""
+  },
+  {
+   "peak": "1990-07",
+   "trough": "1991-03",
+   "warning": "1989-08-03",
+   "lag": -362,
+   "route": "2",
+   "note": ""
+  },
+  {
+   "peak": "2001-03",
+   "trough": "2001-11",
+   "warning": "2000-09-01",
+   "lag": -211,
+   "route": "1",
+   "note": ""
+  },
+  {
+   "peak": "2007-12",
+   "trough": "2009-06",
+   "warning": "2006-09-01",
+   "lag": -486,
+   "route": "1",
+   "note": ""
+  },
+  {
+   "peak": "2020-02",
+   "trough": "2020-04",
+   "warning": "2019-07-01",
+   "lag": -243,
+   "route": "1",
+   "note": ""
+  },
+  {
+   "peak": "2024-04",
+   "trough": "2024-08",
+   "warning": "2022-12-01",
+   "lag": -516,
+   "route": "1",
+   "note": ""
+  }
+ ],
+ "false_alarms": [],
+ "pending": [],
+ "warnings": [
+  {
+   "start": "1957-01-12",
+   "end": "1958-06-14"
+  },
+  {
+   "start": "1960-04-02",
+   "end": "1961-02-18"
+  },
+  {
+   "start": "1969-02-01",
+   "end": "1970-12-19"
+  },
+  {
+   "start": "1973-07-01",
+   "end": "1975-02-01"
+  },
+  {
+   "start": "1979-01-01",
+   "end": "1980-07-01"
+  },
+  {
+   "start": "1980-12-01",
+   "end": "1981-09-01"
+  },
+  {
+   "start": "1982-05-20",
+   "end": "1982-07-15"
+  },
+  {
+   "start": "1989-08-03",
+   "end": "1990-09-27"
+  },
+  {
+   "start": "2000-09-01",
+   "end": "2001-12-28"
+  },
+  {
+   "start": "2006-09-01",
+   "end": "2008-05-29"
+  },
+  {
+   "start": "2019-07-01",
+   "end": "2020-06-04"
+  },
+  {
+   "start": "2022-12-01",
+   "end": "2024-09-26"
+  }
+ ],
+ "inputs_fresh": {
+  "fred": [
+   "GS1",
+   "GS10",
+   "TB3MS"
+  ]
+ },
+ "log": [
+  "rates through 2026-10 2026-10 fresh from FRED",
+  "insured unemployment through week 2026-10-31 released 2026-11-12",
+  "record: 11 of 11 early; 0 false alarms; 0 pending"
+ ]
+}
