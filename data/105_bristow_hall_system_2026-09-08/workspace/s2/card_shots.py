@@ -19,7 +19,8 @@ EXTRA = ['/data/']
 # map has its card made from that element alone (Playwright element screenshot, 2x); a page without one (in development) keeps the page shot.
 # 11:49 PT (Anthony: every card the same size, cut if need be; no x or y axis, only the graph): a chart's card is its plot area alone (axis
 # labels hidden, cut to the plot box) and every card is drawn ASPECT:1 (s2/card_prep.js); the map is centred whole in the same box.
-SEL = {'/detector/': '#chart svg', '/state-onset/': '#chart svg', '/disturbance/': 'svg#chart', '/stress-map/': 'svg#map'}
+SEL = {'/detector/': '#chart svg', '/state-onset/': '#chart svg', '/disturbance/': 'svg#chart', '/stress-map/': 'svg#map',
+       '/forecaster/': '#chart svg'}   # Tool 4 (1118, 15 Nov 2026) in place of the damage index
 PREP = open(os.path.join(H, 'card_prep.js'), encoding='utf-8').read()          # shot as well (Anthony named it), though the home page has no card for it
 
 def chrome():

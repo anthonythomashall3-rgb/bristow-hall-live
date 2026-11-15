@@ -411,6 +411,19 @@ jobs:
       # 15 NOVEMBER 2026 (collection 1052; Anthony 09:34 PT: the home page images must always show what each live tool looks like right now):
       # a headless-Chrome picture of every tool page as this run built it becomes that tool's home card; a missing or blank picture fails the
       # step, and the publish below then does not run (nothing is published).
+      # TOOL 4, THE REAL-TIME NATIONAL RECESSION FORECASTER, IN PLACE OF THE DAMAGE INDEX (15 Nov 2026, collection 1118; Anthony 13:03 PT
+      # "h2", 12:29 PT "publish it to the live site in replacement of the damage index ... live updating on github"). Runs on every
+      # build after the pages are written: refreshes GS10, GS1, TB3MS, FDEFX and CPIAUCNS from FRED, reads the claims first prints the
+      # update just refreshed and the Recession Indicator's closes from bhs_state.json, writes /forecaster/, points /damage-index/ at it,
+      # and renames the menu entry and the home card. A failure leaves the rest of the site as built (the home card is then the old one).
+      - name: the recession forecaster (Tool 4)
+        id: forecaster
+        if: steps.when.outputs.go == 'true'
+        continue-on-error: true
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: python3 ops/tool4/forecaster.py 2>&1 | tee -a "$GITHUB_WORKSPACE/run.log"; exit ${PIPESTATUS[0]}
+
       - name: the home cards, a picture of each tool as it is now
         id: cards
         if: steps.when.outputs.go == 'true'
