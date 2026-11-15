@@ -26,7 +26,7 @@ if [ "${MODE:-full}" != "parity" ]; then
 fi
 step "1032 routine step 2" $PY code/state_v4_rebuild_1052.py || STOP="1032 routine step 2 (six scripts or a check) failed"
 [ -z "$STOP" ] && { step "State page render" $PY code/page_check_1052.py state "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/web/state-onset/index.html" || STOP="State page render check failed"; }
-[ -z "$STOP" ] && { step "stress map v3.1" $PY code/stress_map_v2_1052.py --all || STOP="stress map v3.1 build failed"; }
+[ -z "$STOP" ] && { step "stress map v3.1" $PY code/stress_map_v2_1052.py --all --procs "$(nproc)" || STOP="stress map v3.1 build failed"; }
 [ -z "$STOP" ] && { step "stress map gate" $PY - "$C" <<'EOF'
 import json, sys, os
 C = sys.argv[1]; s = json.load(open(os.path.join(C, 'out/stress_map_v3_1_tests_state_1052.json')))['results']; c = json.load(open(os.path.join(C, 'out/stress_map_v3_1_tests_1052.json')))
