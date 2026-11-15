@@ -180,7 +180,7 @@ def shadow_inputs():
 
 def build():
     tools = {}; unknown = []
-    for tool, fn in (('stress-map', stress_map_inputs), ('state-onset', state_onset_inputs), ('shadow', shadow_inputs)):
+    for tool, fn in (('stress-map', stress_map_inputs), ('state-onset', state_onset_inputs)):   # 15 Nov 2026 11:00 PT: no shadow rows on the data page (Anthony)
         rows, frm = fn(); out = []
         for r in rows:
             if r[0].startswith('door:'):
