@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-15T13:18:20Z",
+ "generated_at": "2026-11-15T13:30:26Z",
  "generator": "s2/tool_inputs_mac.py (run on the Mac)",
  "tools": {
   "stress-map": {
@@ -14,7 +14,9 @@
      "freq": "static",
      "through": "static (2024 boundaries)",
      "refreshed": "2026-11-15T11:44Z",
-     "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/out/state_shapes_cb2024_svg_1052.json"
+     "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/out/state_shapes_cb2024_svg_1052.json",
+     "held": "1 file",
+     "refresh": "never (static)"
     },
     {
      "key": "v4_chronology",
@@ -24,8 +26,10 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "through": "2026-06",
-     "refreshed": "2026-11-15T01:23Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv"
+     "refreshed": "2026-11-15T13:21Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "v4_line",
@@ -35,8 +39,10 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "through": "2026-09",
-     "refreshed": "2026-11-15T01:23Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json"
+     "refreshed": "2026-11-15T13:21Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "v4_index",
@@ -47,7 +53,9 @@
      "freq": "monthly",
      "through": "2026-09",
      "refreshed": "2026-11-09T17:47Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/philly/coincident-revised.xls"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/philly/coincident-revised.xls",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "v4_state_ur",
@@ -56,9 +64,11 @@
      "source": "Bureau of Labor Statistics, LAUS (via FRED)",
      "url": "https://fred.stlouisfed.org/series/CAUR",
      "freq": "monthly",
-     "through": "2026-07-01",
-     "refreshed": "2026-11-08T18:41Z",
-     "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_ur/<ST>UR.csv"
+     "through": "2026-09-01",
+     "refreshed": "2026-11-15T13:19Z",
+     "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_ur/<ST>UR.csv",
+     "held": "51 files",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "l0_payrolls",
@@ -69,7 +79,9 @@
      "freq": "monthly",
      "through": "2026-09-01",
      "refreshed": "2026-10-31T15:23Z",
-     "path": "~/Projects/Onset Detector Data/954_state_chronology_1939_bry_boschan_2026-10-31/data/state_nan/<ST>NAN.csv"
+     "path": "~/Projects/Onset Detector Data/954_state_chronology_1939_bry_boschan_2026-10-31/data/state_nan/<ST>NAN.csv",
+     "held": "51 files",
+     "refresh": "never (history layer)"
     },
     {
      "key": "l0_claims",
@@ -80,7 +92,9 @@
      "freq": "monthly",
      "through": "2024-01-01",
      "refreshed": "2026-09-02T18:35Z",
-     "path": "~/Projects/Onset Detector Data/24_bristow_rule_lab/workspace/lab/fh/FH_state_claims_nsa_log.csv"
+     "path": "~/Projects/Onset Detector Data/24_bristow_rule_lab/workspace/lab/fh/FH_state_claims_nsa_log.csv",
+     "held": "1 file",
+     "refresh": "never (history layer)"
     },
     {
      "key": "register",
@@ -91,7 +105,9 @@
      "freq": "monthly",
      "through": "2026-10",
      "refreshed": "2026-11-14T13:36Z",
-     "path": "~/Projects/Disturbance Indicator Data/10_chronology_site/out_v3_2_damage_cut/chronology.csv"
+     "path": "~/Projects/Disturbance Indicator Data/10_chronology_site/out_v3_2_damage_cut/chronology.csv",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "live_chronology",
@@ -100,9 +116,24 @@
      "source": "Bristow-Hall (the detector)",
      "url": "/detector/",
      "freq": "daily",
-     "through": "2026-11-14 05:50",
-     "refreshed": "2026-11-15T01:41Z",
-     "path": "~/bh/fix_disturbance_1114/data/105_bristow_hall_system_2026-09-08/site/public/detector/bhs_state.json"
+     "through": "2026-11-15 06:10",
+     "refreshed": "2026-11-15T13:29Z",
+     "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/data/live_chronology/bhs_state_origin_main.json",
+     "held": "1 file",
+     "refresh": "each cloud run (a Mac copy of the published state)"
+    },
+    {
+     "key": "county_laus_191",
+     "name": "County unemployment rates and labor force, 3,143 counties (BLS flat file)",
+     "ids": "LAUCN*",
+     "source": "Bureau of Labor Statistics, LAUS",
+     "url": "https://download.bls.gov/pub/time.series/la/",
+     "freq": "monthly",
+     "through": "MISSING",
+     "refreshed": "",
+     "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/laus_county.txt.gz",
+     "held": "0 files",
+     "refresh": "continuous: Mac launchd collector191new"
     },
     {
      "key": "county_laus",
@@ -113,7 +144,9 @@
      "freq": "monthly",
      "through": "2026-07",
      "refreshed": "2026-11-09T19:30Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/laus_county/county_ur_lf_1990_2026.csv.gz"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/laus_county/county_ur_lf_1990_2026.csv.gz",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "county_qcew",
@@ -124,7 +157,9 @@
      "freq": "quarterly",
      "through": "2026-03",
      "refreshed": "2026-11-14T00:21Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry/<YEAR>_county_tot.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry/<YEAR>_county_tot.csv",
+     "held": "37 files",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "county_shapes",
@@ -135,7 +170,9 @@
      "freq": "static",
      "through": "static (2024 boundaries)",
      "refreshed": "2026-11-14T14:51Z",
-     "path": "/Volumes/Sandisk G/Recession Data/06 Tool 5 - National Stress Map/Map boundaries through time (Census cartographic boundary files 2010-2024)/cb_2024_us_county_500k.zip"
+     "path": "/Volumes/Sandisk G/Recession Data/06 Tool 5 - National Stress Map/Map boundaries through time (Census cartographic boundary files 2010-2024)/cb_2024_us_county_500k.zip",
+     "held": "1 file",
+     "refresh": "never (static)"
     },
     {
      "key": "ces_national",
@@ -146,7 +183,9 @@
      "freq": "monthly",
      "through": "2026-10",
      "refreshed": "2026-11-11T15:06Z",
-     "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/ces_all.txt.gz"
+     "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/ces_all.txt.gz",
+     "held": "1 file",
+     "refresh": "continuous: Mac launchd collector191new"
     },
     {
      "key": "ces_state",
@@ -157,7 +196,9 @@
      "freq": "monthly",
      "through": "2026-09",
      "refreshed": "2026-11-09T14:42Z",
-     "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/state_metro_payrolls_all.txt.gz"
+     "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/state_metro_payrolls_all.txt.gz",
+     "held": "1 file",
+     "refresh": "continuous: Mac launchd collector191new"
     }
    ]
   },
@@ -171,9 +212,11 @@
      "source": "Bureau of Labor Statistics, CES State and Metro (via FRED)",
      "url": "https://fred.stlouisfed.org/series/CANA",
      "freq": "monthly",
-     "through": "2026-07-01",
-     "refreshed": "2026-11-08T18:41Z",
-     "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_payrolls"
+     "through": "2026-09-01",
+     "refreshed": "2026-11-15T13:19Z",
+     "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_payrolls",
+     "held": "51 files",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "03_data/state/fred_state_ur",
@@ -182,9 +225,11 @@
      "source": "Bureau of Labor Statistics, LAUS (via FRED)",
      "url": "https://fred.stlouisfed.org/series/CAUR",
      "freq": "monthly",
-     "through": "2026-07-01",
-     "refreshed": "2026-11-08T18:41Z",
-     "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_ur"
+     "through": "2026-09-01",
+     "refreshed": "2026-11-15T13:19Z",
+     "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_ur",
+     "held": "51 files",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/bea/SQINC4__ALL_AREAS_1948_2026.csv",
@@ -195,7 +240,9 @@
      "freq": "quarterly",
      "through": "2026-06",
      "refreshed": "2026-09-28T15:25Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/bea/SQINC4__ALL_AREAS_1948_2026.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/bea/SQINC4__ALL_AREAS_1948_2026.csv",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/bps_state/bps_state_monthly_units.csv",
@@ -206,7 +253,9 @@
      "freq": "monthly",
      "through": "2026-09",
      "refreshed": "2026-11-12T12:39Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/bps_state/bps_state_monthly_units.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/bps_state/bps_state_monthly_units.csv",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/claims/legT/state_ic_weekly_1945_2026.csv",
@@ -217,7 +266,9 @@
      "freq": "weekly",
      "through": "2026-09-05",
      "refreshed": "2026-11-09T18:01Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/claims/legT/state_ic_weekly_1945_2026.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/claims/legT/state_ic_weekly_1945_2026.csv",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/cps_state/cps_state_*.csv",
@@ -228,7 +279,9 @@
      "freq": "monthly",
      "through": "2026-09",
      "refreshed": "2026-11-10T06:44Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/cps_state/cps_state_*.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/cps_state/cps_state_*.csv",
+     "held": "33 files",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/dol/ar5159.csv",
@@ -239,7 +292,9 @@
      "freq": "monthly",
      "through": "2026-10-31",
      "refreshed": "2026-11-09T18:13Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar5159.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar5159.csv",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/dol/ar539.csv",
@@ -250,7 +305,9 @@
      "freq": "weekly",
      "through": "2026-10-31",
      "refreshed": "2026-11-06T21:50Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar539.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar539.csv",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/fred/CPIAUCSL.csv",
@@ -261,7 +318,9 @@
      "freq": "monthly",
      "through": "2026-08-01",
      "refreshed": "2026-09-15T19:07Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/fred/CPIAUCSL.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/fred/CPIAUCSL.csv",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/fred_nsa",
@@ -272,7 +331,9 @@
      "freq": "monthly",
      "through": "2026-09-01",
      "refreshed": "2026-11-10T15:11Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/fred_nsa"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/fred_nsa",
+     "held": "103 files",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/iur/ship137/state_iur_monthly_1948_2026_spliced.csv",
@@ -283,7 +344,9 @@
      "freq": "monthly",
      "through": "2026-08-01",
      "refreshed": "2026-11-09T17:54Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/iur/ship137/state_iur_monthly_1948_2026_spliced.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/iur/ship137/state_iur_monthly_1948_2026_spliced.csv",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/philly/coincident-revised.xls",
@@ -294,7 +357,9 @@
      "freq": "monthly",
      "through": "2026-09",
      "refreshed": "2026-11-09T17:47Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/philly/coincident-revised.xls"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/philly/coincident-revised.xls",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/qcew/qcew_release_dates.csv",
@@ -305,7 +370,9 @@
      "freq": "quarterly",
      "through": "2026-08-28",
      "refreshed": "2026-11-10T14:32Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew/qcew_release_dates.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew/qcew_release_dates.csv",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/qcew/qcew_state_total_monthly.csv",
@@ -316,7 +383,9 @@
      "freq": "quarterly",
      "through": "2026-03",
      "refreshed": "2026-11-10T14:29Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew/qcew_state_total_monthly.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew/qcew_state_total_monthly.csv",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/qcew_industry",
@@ -327,7 +396,9 @@
      "freq": "quarterly",
      "through": "2026-03",
      "refreshed": "2026-11-14T00:21Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry/<YEAR>_county_tot.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry/<YEAR>_county_tot.csv",
+     "held": "37 files",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/state_industry_releases_1994_2026_a168.csv",
@@ -338,7 +409,9 @@
      "freq": "monthly",
      "through": "2026-09",
      "refreshed": "2026-11-14T12:14Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/state_industry_releases_1994_2026_a168.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/state_industry_releases_1994_2026_a168.csv",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "data/state_payroll_releases_1994_2007.csv",
@@ -349,7 +422,9 @@
      "freq": "monthly",
      "through": "2007-11",
      "refreshed": "2026-11-09T20:27Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/state_payroll_releases_1994_2007.csv"
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/state_payroll_releases_1994_2007.csv",
+     "held": "1 file",
+     "refresh": "never (history layer)"
     },
     {
      "key": "out/BH-STATE-CHRONOLOGY-V4-1032.csv",
@@ -359,8 +434,10 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "through": "2026-06",
-     "refreshed": "2026-11-15T01:23Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv"
+     "refreshed": "2026-11-15T13:21Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     },
     {
      "key": "out/damage_line_v4_a198_1032.json",
@@ -370,13 +447,15 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "through": "2026-09",
-     "refreshed": "2026-11-15T01:23Z",
-     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json"
+     "refreshed": "2026-11-15T13:21Z",
+     "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
+     "held": "1 file",
+     "refresh": "manual: Mac rebuild of the tool"
     }
    ]
   },
   "shadow": {
-   "read_from": "823 out/live_state_823.json (run 2026-11-15T13:17:54+00:00): its feeds and doors",
+   "read_from": "823 out/live_state_823.json (run 2026-11-15T13:27:11+00:00): its feeds and doors",
    "rows": [
     {
      "key": "claims13_R_612.csv",
@@ -387,7 +466,9 @@
      "freq": "weekly",
      "through": "2026-11-12",
      "refreshed": "2026-11-12T13:42Z",
-     "path": "~/Projects/Onset Detector Data/612_live_tool_hall_rule_start_staging_before_after_2026-10-08/data/feeds/claims13_R_612.csv"
+     "path": "~/Projects/Onset Detector Data/612_live_tool_hall_rule_start_staging_before_after_2026-10-08/data/feeds/claims13_R_612.csv",
+     "held": "1 file",
+     "refresh": "release days: Mac 612 feeds + launchd liveunion823"
     },
     {
      "key": "gap_612.csv",
@@ -398,7 +479,9 @@
      "freq": "monthly",
      "through": "2026-11-06",
      "refreshed": "2026-11-07T08:04Z",
-     "path": "~/Projects/Onset Detector Data/612_live_tool_hall_rule_start_staging_before_after_2026-10-08/data/feeds/gap_612.csv"
+     "path": "~/Projects/Onset Detector Data/612_live_tool_hall_rule_start_staging_before_after_2026-10-08/data/feeds/gap_612.csv",
+     "held": "1 file",
+     "refresh": "release days: Mac 612 feeds + launchd liveunion823"
     },
     {
      "key": "michez_612.csv",
@@ -409,7 +492,9 @@
      "freq": "monthly",
      "through": "2026-11-06",
      "refreshed": "2026-11-07T08:04Z",
-     "path": "~/Projects/Onset Detector Data/612_live_tool_hall_rule_start_staging_before_after_2026-10-08/data/feeds/michez_612.csv"
+     "path": "~/Projects/Onset Detector Data/612_live_tool_hall_rule_start_staging_before_after_2026-10-08/data/feeds/michez_612.csv",
+     "held": "1 file",
+     "refresh": "release days: Mac 612 feeds + launchd liveunion823"
     },
     {
      "key": "sp500_612.csv",
@@ -420,7 +505,9 @@
      "freq": "daily",
      "through": "2026-11-13",
      "refreshed": "2026-11-14T01:10Z",
-     "path": "~/Projects/Onset Detector Data/612_live_tool_hall_rule_start_staging_before_after_2026-10-08/data/feeds/sp500_612.csv"
+     "path": "~/Projects/Onset Detector Data/612_live_tool_hall_rule_start_staging_before_after_2026-10-08/data/feeds/sp500_612.csv",
+     "held": "1 file",
+     "refresh": "release days: Mac 612 feeds + launchd liveunion823"
     },
     {
      "key": "door:CMg",
@@ -430,8 +517,10 @@
      "url": "/shadow/",
      "freq": "daily",
      "through": "2020-04-03",
-     "refreshed": "2026-11-15T13:17",
-     "path": ""
+     "refreshed": "2026-11-15T13:27",
+     "path": "",
+     "held": "11 calls",
+     "refresh": "release days: Mac launchd liveunion823"
     },
     {
      "key": "door:CS",
@@ -441,8 +530,10 @@
      "url": "/shadow/",
      "freq": "daily",
      "through": "2020-03-26",
-     "refreshed": "2026-11-15T13:17",
-     "path": ""
+     "refreshed": "2026-11-15T13:27",
+     "path": "",
+     "held": "1 calls",
+     "refresh": "release days: Mac launchd liveunion823"
     },
     {
      "key": "door:GS4x",
@@ -452,8 +543,10 @@
      "url": "/shadow/",
      "freq": "daily",
      "through": "2024-03-08",
-     "refreshed": "2026-11-15T13:17",
-     "path": ""
+     "refreshed": "2026-11-15T13:27",
+     "path": "",
+     "held": "6 calls",
+     "refresh": "release days: Mac launchd liveunion823"
     },
     {
      "key": "door:IPM",
@@ -463,8 +556,10 @@
      "url": "/shadow/",
      "freq": "daily",
      "through": "2020-04-15",
-     "refreshed": "2026-11-15T13:17",
-     "path": ""
+     "refreshed": "2026-11-15T13:27",
+     "path": "",
+     "held": "11 calls",
+     "refresh": "release days: Mac launchd liveunion823"
     },
     {
      "key": "door:JL",
@@ -473,9 +568,11 @@
      "source": "Bristow-Hall (736 door library, rebuilt from the shadow feeds by 823)",
      "url": "/shadow/",
      "freq": "daily",
-     "through": "",
-     "refreshed": "2026-11-15T13:17",
-     "path": ""
+     "through": "no call",
+     "refreshed": "2026-11-15T13:27",
+     "path": "",
+     "held": "0 calls",
+     "refresh": "release days: Mac launchd liveunion823"
     },
     {
      "key": "door:TSfp",
@@ -485,8 +582,10 @@
      "url": "/shadow/",
      "freq": "daily",
      "through": "2020-04-03",
-     "refreshed": "2026-11-15T13:17",
-     "path": ""
+     "refreshed": "2026-11-15T13:27",
+     "path": "",
+     "held": "13 calls",
+     "refresh": "release days: Mac launchd liveunion823"
     },
     {
      "key": "door:U0fpG",
@@ -496,8 +595,10 @@
      "url": "/shadow/",
      "freq": "daily",
      "through": "2024-07-05",
-     "refreshed": "2026-11-15T13:17",
-     "path": ""
+     "refreshed": "2026-11-15T13:27",
+     "path": "",
+     "held": "11 calls",
+     "refresh": "release days: Mac launchd liveunion823"
     },
     {
      "key": "doorlists.json",
@@ -508,7 +609,9 @@
      "freq": "static",
      "through": "2026-10-05",
      "refreshed": "2026-10-15T21:32Z",
-     "path": "~/Projects/Onset Detector Data/736_fit_risk_test_every_rule_2026-10-15/specs/doorlists.json"
+     "path": "~/Projects/Onset Detector Data/736_fit_risk_test_every_rule_2026-10-15/specs/doorlists.json",
+     "held": "1 file",
+     "refresh": "never (static)"
     }
    ]
   }

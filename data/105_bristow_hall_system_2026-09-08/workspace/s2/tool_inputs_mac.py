@@ -39,6 +39,7 @@ META = [
  ('qcew_industry', ('QCEW county and industry employment', 'QCEW county/industry', 'Bureau of Labor Statistics, QCEW', 'https://www.bls.gov/cew/downloadable-data-files.htm', 'quarterly')),
  ('state_industry_releases', ('State payrolls by industry, as first published', 'SM first prints', 'Bureau of Labor Statistics, State Employment and Unemployment release', 'https://www.bls.gov/sae/', 'monthly')),
  ('state_payroll_releases', ('State payrolls, as first published 1994-2007', 'SM first prints', 'Bureau of Labor Statistics, State Employment and Unemployment release', 'https://www.bls.gov/sae/', 'monthly')),
+ ('laus_county.txt', ('County unemployment rates and labor force, 3,143 counties (BLS flat file)', 'LAUCN*', 'Bureau of Labor Statistics, LAUS', 'https://download.bls.gov/pub/time.series/la/', 'monthly')),
  ('county_ur_lf', ('County unemployment rates and labor force, 3,143 counties', 'LAUCN*', 'Bureau of Labor Statistics, LAUS', 'https://www.bls.gov/lau/', 'monthly')),
  ('ces_all.txt', ('National payrolls by supersector', 'CES', 'Bureau of Labor Statistics, CES', 'https://download.bls.gov/pub/time.series/ce/', 'monthly')),
  ('state_metro_payrolls_all', ('State payrolls by supersector', 'SM', 'Bureau of Labor Statistics, CES State and Metro', 'https://download.bls.gov/pub/time.series/sm/', 'monthly')),
@@ -47,7 +48,7 @@ META = [
  ('BH-STATE-CHRONOLOGY-V4', ('Bristow-Hall State chronology v4', 'derived', 'Bristow-Hall (collection 1032)', '/state-onset/', 'monthly')),
  ('damage_line_v4', ('Bristow-Hall State damage line v4', 'derived', 'Bristow-Hall (collection 1032)', '/state-onset/', 'monthly')),
  ('out_v3_2_damage_cut/chronology.csv', ('National disturbance register v3.2', 'derived: PAYEMS, INDPRO, W875RX1, CMRMTSPL, UNRATE, GDPC1', 'Bristow-Hall (Disturbance Indicator)', '/disturbance/', 'monthly')),
- ('bhs_state.json', ('Live recession chronology (the detector)', 'derived', 'Bristow-Hall (the detector)', '/detector/', 'daily')),
+ ('bhs_state', ('Live recession chronology (the detector)', 'derived', 'Bristow-Hall (the detector)', '/detector/', 'daily')),
  ('claims13_R_612', ('Initial claims, 13-week feed, by release day', 'ICSA', 'Department of Labor, weekly claims release', FR + 'ICSA', 'weekly')),
  ('gap_612', ('Unemployment gap feed, by release day', 'UNRATE', 'Bureau of Labor Statistics, Employment Situation', FR + 'UNRATE', 'monthly')),
  ('michez_612', ('Michaillat-Saez feed, by release day', 'UNRATE, JTSJOL', 'Bureau of Labor Statistics, Employment Situation and JOLTS', FR + 'JTSJOL', 'monthly')),
@@ -55,6 +56,15 @@ META = [
  ('doorlists.json', ('V3.76 door lists (frozen)', 'V376_LAB, V376_P, V376_Y', 'Bristow-Hall (collection 736)', '/shadow/', 'static')),
 ]
 
+LAST_N = [0]
+def refresher(p):
+    """how the file is refreshed, from where it lives (the job that writes that folder)"""
+    if '191_standing_collector' in p: return 'continuous: Mac launchd collector191new'
+    if '/612_' in p: return 'release days: Mac 612 feeds + launchd liveunion823'
+    if 'bhs_state' in p: return 'each cloud run (a Mac copy of the published state)'
+    if p.endswith('.zip') or 'state_shapes_cb2024' in p or 'doorlists.json' in p: return 'never (static)'
+    if 'state_nan' in p or 'FH_state_claims' in p or 'payroll_releases_1994_2007' in p: return 'never (history layer)'
+    return 'manual: Mac rebuild of the tool'
 def meta(path):
     for k, m in META:
         if k in path: return m
@@ -99,14 +109,14 @@ def latest(path, key=''):
     pat = path.replace('<ST>', '*').replace('<YEAR>', '*')
     fs = sorted(glob.glob(pat)) if '*' in pat else ([os.path.join(pat, x) for x in sorted(os.listdir(pat)) if not x.startswith('.')] if os.path.isdir(pat) else ([pat] if os.path.exists(pat) else []))
     if not fs: return 'MISSING', ''
-    ref = _mtime(fs)
+    ref = _mtime(fs); LAST_N[0] = len(fs)
     try:
         if path.endswith('.zip') or 'state_shapes_cb2024' in path: return 'static (2024 boundaries)', ref
         if path.endswith('.xls'):
             import pandas as pd; X = pd.read_excel(fs[0], sheet_name='Indexes'); return str(pd.to_datetime(X.iloc[:, 0], errors='coerce').max().date())[:7], ref
         if 'county_tot' in path: return _qcew_county(fs), ref
-        if path.endswith('.txt.gz'): return _bls_flat(fs[0], 'CES0000000001' if 'ces_all' in path else 'SMS06000000000000001'), ref
-        if path.endswith('bhs_state.json'): return str(json.load(open(fs[0])).get('built_at', ''))[:16], ref
+        if path.endswith('.txt.gz'): return _bls_flat(fs[0], 'CES0000000001' if 'ces_all' in path else 'LAUCN060370000000003' if 'laus_county' in path else 'SMS06000000000000001'), ref
+        if 'bhs_state' in os.path.basename(path) and path.endswith('.json'): return str(json.load(open(fs[0])).get('built_at', ''))[:16], ref
         if path.endswith('.json'): return _maxdate_text(open(fs[0], errors='replace').read()), ref
         if len(fs) == 1 and fs[0].endswith(('.csv', '.csv.gz')): return _csv_last(fs[0]), ref
         vals = [v for v in (_csv_last(f) for f in fs if f.endswith(('.csv', '.csv.gz'))) if v]
@@ -159,7 +169,7 @@ def shadow_inputs():
     for fn in sorted(L.get('feeds') or {}): rows.append((fn, os.path.join(feeds_dir, fn)))
     for d in sorted(L.get('doors') or {}):
         if d.startswith('V376'): continue
-        rows.append(('door:' + d, (L['doors'][d][-1] if L['doors'][d] else ''), L.get('run', '')))
+        rows.append(('door:' + d, (L['doors'][d][-1] if L['doors'][d] else ''), L.get('run', ''), len(L['doors'][d])))
     rows.append(('doorlists.json', glob.glob(ROOT + '/736_*/specs/doorlists.json')[0]))
     return rows, '823 out/live_state_823.json (run %s): its feeds and doors' % L.get('run', '')
 
@@ -170,14 +180,17 @@ def build():
         for r in rows:
             if r[0].startswith('door:'):
                 d = r[0][5:]
-                out.append(dict(key=r[0], name='First-print door ' + d + ' (its last call)', ids=d, source='Bristow-Hall (736 door library, rebuilt from the shadow feeds by 823)', url='/shadow/', freq='daily', through=r[1][:10], refreshed=r[2][:16].replace('+00:00', 'Z'), path=''))
+                out.append(dict(key=r[0], name='First-print door ' + d + ' (its last call)', ids=d, source='Bristow-Hall (736 door library, rebuilt from the shadow feeds by 823)', url='/shadow/', freq='daily', through=r[1][:10] or 'no call', refreshed=r[2][:16].replace('+00:00', 'Z'), path='',
+                                held='%d calls' % r[3], refresh='release days: Mac launchd liveunion823'))
                 continue
             k, p = r; m = meta(p) or meta(k)
-            th, rf = latest(p, k)
+            LAST_N[0] = 0; th, rf = latest(p, k)
             if m and m[1].startswith('derived') and p.endswith('.csv') and os.path.exists(p): th = _maxdate_text(open(p, errors='replace').read())   # a register: the newest month it carries, not its first column
             if not m: unknown.append((tool, k, p)); m = (k + ' (not classified)', k, 'not classified', '', '')
             if any(o['name'] == m[0] for o in out): continue   # two literals of the tool's code naming the same files (e.g. a folder and a pattern in it)
-            out.append(dict(key=k, name=m[0], ids=m[1], source=m[2], url=m[3], freq=m[4], through=th, refreshed=rf, path=p.replace(HOME, '~')))
+            if m[4] == 'static' and not th: th = 'static'
+            out.append(dict(key=k, name=m[0], ids=m[1], source=m[2], url=m[3], freq=m[4], through=th, refreshed=rf, path=p.replace(HOME, '~'),
+                            held='%d file%s' % (LAST_N[0], '' if LAST_N[0] == 1 else 's'), refresh=refresher(p)))
         tools[tool] = dict(read_from=frm, rows=out)
     J = dict(generated_at=dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z'), generator='s2/tool_inputs_mac.py (run on the Mac)', tools=tools, unclassified=unknown)
     return J, unknown
