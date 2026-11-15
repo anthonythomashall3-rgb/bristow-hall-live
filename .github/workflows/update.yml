@@ -540,6 +540,27 @@ jobs:
           PY
           rm -f runs_this_month.txt
 
+      # THE SOURCE GATE (15 November 2026, collection 1052; Anthony: "make sure that there are NEVER anymore data errors that will EVER
+      # happen again"). Every number the built pages publish - home tiles, data-page rows, the detector's readings and feeds, the State
+      # and stress-map months, the forecaster - is fetched again from its publisher (FRED/ALFRED, the BLS API v2, QCEW) and recomputed
+      # from scratch; a figure that disagrees beyond its displayed rounding, is older than the newest release, is labelled later than its
+      # data, sits after the newest month of its inputs, or shows a "Next published" that is not the publisher's next release is a FAIL.
+      # Mode in ops/source_gate.json: "hold" = a FAIL stops the publish below (the live site keeps the last good build) and the message
+      # step reports the run HELD; "warn" = report only. Every figure and check: out/source_gate_report.json. No AI.
+      - name: every published number against its source (the source gate)
+        id: srcgate
+        if: steps.when.outputs.go == 'true'
+        working-directory: ${{ steps.tool.outputs.workspace }}
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          SITE: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}
+        run: |
+          set +e
+          python3 s2/source_gate.py --site "$SITE" 2>&1 | tee "$RUNNER_TEMP/source_gate.log"; rc=${PIPESTATUS[0]}
+          grep -E '^(HOLD source gate|source gate)' "$RUNNER_TEMP/source_gate.log" | tail -1 >> "$GITHUB_WORKSPACE/run.log"
+          exit $rc
+
       - name: publish to Cloudflare Pages
         id: publish
         if: steps.when.outputs.go == 'true'
@@ -747,7 +768,7 @@ jobs:
           JOB_STATUS: ${{ job.status }}
           OUT_SETUP: ${{ (steps.apt.outcome == 'failure' || steps.pip.outcome == 'failure') && 'failure' || 'success' }}
           OUT_MAIN: ${{ steps.main.outcome }}
-          OUT_GATE: ${{ steps.gate.outcome }}
+          OUT_GATE: ${{ steps.srcgate.outcome == 'failure' && 'failure' || steps.gate.outcome }}   # the source gate's hold is a hold (1052)
           OUT_PUBLISH: ${{ steps.publish.outcome }}
           OUT_PUSH: ${{ steps.commit.outcome }}
           OPS_ORIGIN: ${{ inputs.origin || github.event_name }}

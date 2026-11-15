@@ -110,6 +110,23 @@ jobs:
           if [ "$OK" = "True" ]; then HOME=/Users/anthonyhall python3 ops/live_tools/publish_pages.py || OK=False; fi
           echo "pages_ok=$OK" >> "$GITHUB_OUTPUT"; echo "shadow_ok=$SH" >> "$GITHUB_OUTPUT"
 
+      # THE SOURCE GATE (15 November 2026, collection 1052): the State and stress-map pages just put in place are checked against the
+      # publishers (each State's newest unemployment rate and claims week on FRED, the BLS county file, QCEW) before anything is committed:
+      # a phantom month, a stale month or a stale carried week stops the commit (and so the deploy) in hold mode (ops/source_gate.json).
+      - name: the pages against their sources (the source gate)
+        id: srcgate
+        if: env.MODE == 'full' && steps.pages.outputs.pages_ok == 'True'
+        working-directory: data/105_bristow_hall_system_2026-09-08/workspace
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          ALERT_NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          set +e
+          python3 s2/source_gate.py --site ../site/public --pages state,stress --out "$LT_OUT/source_gate_report.json" --no-verified-write 2>&1 | tee "$LT_OUT/source_gate.log"; rc=${PIPESTATUS[0]}
+          if [ "$rc" != 0 ]; then bash s2/alert.sh "HOLD" "live tools held by the source gate: $(grep -m1 '^HOLD' "$LT_OUT/source_gate.log" | cut -c1-300)"; fi
+          exit $rc
+
       - name: commit to main (only what passed and changed)
         id: commit
         if: env.MODE == 'full'
