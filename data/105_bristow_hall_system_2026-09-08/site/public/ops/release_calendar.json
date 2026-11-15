@@ -1,7 +1,7 @@
 {
  "built_at": "2026-11-15 16:06",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-15T21:07:03Z",
+ "generated_utc": "2026-11-15T21:12:32Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -669,8 +669,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": true,
-   "build_next": "2026-12-07",
+   "agrees_with_build": false,
+   "build_next": "2026-12-01",
    "confirmed_through": "2027-12-07",
    "fred_clock": null,
    "freq": "monthly",
@@ -1501,8 +1501,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": false,
-   "build_next": "2026-11-16",
+   "agrees_with_build": true,
+   "build_next": "2026-12-04",
    "confirmed_through": "2026-12-04",
    "fred_clock": "09:30",
    "freq": "monthly",
@@ -1544,8 +1544,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": false,
-   "build_next": "2026-11-16",
+   "agrees_with_build": true,
+   "build_next": "2026-12-04",
    "confirmed_through": "2026-12-04",
    "fred_clock": "09:30",
    "freq": "monthly",
@@ -1587,8 +1587,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": false,
-   "build_next": "2026-11-16",
+   "agrees_with_build": true,
+   "build_next": "2026-11-25",
    "confirmed_through": "2026-12-23",
    "fred_clock": null,
    "freq": "monthly",
@@ -1625,8 +1625,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": false,
-   "build_next": "2026-11-16",
+   "agrees_with_build": true,
+   "build_next": "2026-11-25",
    "confirmed_through": "2026-12-23",
    "fred_clock": null,
    "freq": "monthly",
@@ -1663,8 +1663,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": false,
-   "build_next": "2026-11-16",
+   "agrees_with_build": true,
+   "build_next": "2026-11-20",
    "confirmed_through": "2026-12-25",
    "fred_clock": null,
    "freq": "weekly",
@@ -1769,8 +1769,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": false,
-   "build_next": "2026-11-16",
+   "agrees_with_build": true,
+   "build_next": "2026-12-04",
    "confirmed_through": "2026-12-23",
    "fred_clock": null,
    "freq": "monthly",
@@ -1845,8 +1845,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": false,
-   "build_next": "2026-11-19",
+   "agrees_with_build": true,
+   "build_next": "",
    "confirmed_through": "2026-12-25",
    "fred_clock": null,
    "freq": "weekly",
@@ -1913,8 +1913,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": false,
-   "build_next": "2026-11-16",
+   "agrees_with_build": true,
+   "build_next": "2026-11-20",
    "confirmed_through": "2026-12-18",
    "fred_clock": "13:06",
    "freq": "monthly",
@@ -2027,8 +2027,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": false,
-   "build_next": "2026-11-16",
+   "agrees_with_build": true,
+   "build_next": "2026-12-04",
    "confirmed_through": "2026-12-04",
    "fred_clock": "09:30",
    "freq": "monthly",
@@ -2071,7 +2071,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "",
+   "build_next": "2026-11-20",
    "confirmed_through": "2026-12-18",
    "fred_clock": "13:06",
    "freq": "monthly",
