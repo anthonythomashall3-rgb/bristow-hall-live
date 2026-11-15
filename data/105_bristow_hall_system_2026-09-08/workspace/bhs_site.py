@@ -344,6 +344,7 @@ def _drow(r):
     th=_iso(r['through']); nx=_nxt_iso(r['nxt']); rf=_iso(r['refreshed'])
     _ti_=(_TOOLS.index(r['tool']) if r['tool'] in _TOOLS else 9); _tk='%d %s'%(_ti_,r['tool'])
     _thx=(_fmtp(r['through'],r.get('cad')) if (r.get('kind')!='tool' or _re3.match(r'^\d{4}-\d{2}(-\d{2})?$',str(r['through']))) else _esc(r['through']))   # 'static', a date with a note: shown as measured
+    if r.get('kind')=='tool' and _re3.match(r'^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}',str(r['through'])): _thx=_fmtp(str(r['through'])[:10],r.get('cad'))   # 1052 (Anthony): a timestamp is shown as the page's date ('Nov 15, 2026'), never raw
     _rft=str(r.get('refreshed') or ''); _rfs=_fmtd(rf) if rf else (_esc(_rft) if _rft else '<span class="na">&mdash;</span>')   # 'MISSING' is said, not blanked
     return ('<tr data-tool="'+_esc(_tk)+'" data-name="'+_esc(r['name'].lower())+'" data-ids="'+_esc(r['ids'].lower())+'" data-value="'+_esc(r['value'].lower())+'" data-freq="'+_esc(r.get('cad') or '')+'" data-through="'+th+'" data-next="'+nx+'" data-refreshed="'+_esc(_rft or rf)+'" data-legs="'+_esc(r['legs'].lower())+'"'+(' data-frozen="1"' if r.get('frozen') else '')+'>'
             +'<td class="tool"><a href="'+_esc(_ti.PAGE.get(r['tool'],'/') if '_ti' in globals() else '/')+'">'+_esc(r['tool'])+'</a></td>'
@@ -386,7 +387,7 @@ _datapage=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
  '<div class="dwrap"><table class="dtab" id="dtab"><thead><tr>'
  '<th class="on asc" data-k="tool">Tool</th><th data-k="name">Series</th><th data-k="ids">ID</th><th data-k="freq">Frequency</th><th data-k="value">Where it stands</th><th class="num" data-k="through">Held through</th>'
  '<th class="num" data-k="refreshed">Refreshed</th><th class="num" data-k="next">Next published</th></tr></thead><tbody>'
- +_trs+'</tbody></table></div><p class="dleg"><a href="/margins/">Margins</a></p>'+_legend+
+ +_trs+'</tbody></table></div>'+_legend+
  '<script>(function(){var tb=document.getElementById("dtab"),ths=tb.querySelectorAll("th[data-k]"),cur="tool",dir=1;'
  'function srt(k,d){var body=tb.tBodies[0],rows=Array.prototype.slice.call(body.rows);rows.sort(function(a,b){var x=a.dataset[k]||"",y=b.dataset[k]||"";if(x===y)return 0;if(x==="")return 1;if(y==="")return -1;return (x<y?-1:1)*d;});'
  'rows.forEach(function(r){body.appendChild(r);});ths.forEach(function(t){t.classList.remove("on","asc");if(t.dataset.k===k){t.classList.add("on");if(d>0)t.classList.add("asc");}});}'
