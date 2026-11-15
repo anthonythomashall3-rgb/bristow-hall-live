@@ -26,15 +26,17 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.14'
+      # the mode of ops/source_gate.json: in hold mode this check fails while the live site has a figure the gate would hold
       - name: the live site against its sources
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
         run: |
           mkdir -p "$RUNNER_TEMP/sg"
-          python3 "$WS/s2/source_gate.py" --live https://bhrrealtime.pages.dev --live-dir "$RUNNER_TEMP/sg/live" --mode warn \
+          python3 "$WS/s2/source_gate.py" --live https://bhrrealtime.pages.dev --live-dir "$RUNNER_TEMP/sg/live" \
             --sources-out "$RUNNER_TEMP/sg/sources.json" --out "$RUNNER_TEMP/sg/live_report.json"
       - name: the gate's own test (broken copies of the live build must be caught; an outage must not freeze the site)
+        if: always()
         run: python3 "$WS/s2/source_gate_selftest.py" --site "$RUNNER_TEMP/sg/live" --sources "$RUNNER_TEMP/sg/sources.json" --out "$RUNNER_TEMP/sg/selftest.json"
       - name: every figure and every check
         if: always()
