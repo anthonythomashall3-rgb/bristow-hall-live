@@ -1,0 +1,45 @@
+name: source gate (the live site against the publishers, and the gate's own test)
+
+# 15 NOVEMBER 2026 (collection 1052; Anthony: "make sure that there are NEVER anymore data errors that will EVER happen again").
+# The source gate (workspace/s2/source_gate.py) runs inside update.yml before every publish and inside live-tools.yml before its
+# commit. This workflow checks the gate itself: it reads the LIVE site (https://bhrrealtime.pages.dev), checks every published figure
+# against FRED/ALFRED and the BLS API, then runs the self-test (deliberately broken copies of the live build reproducing the 15 November
+# errors, each of which must be caught). It never publishes anything. Runs on a pull request that changes the gate, and by hand.
+on:
+  pull_request:
+    paths: ['data/105_bristow_hall_system_2026-09-08/workspace/s2/source_gate*.py', '.github/workflows/source-gate.yml', 'ops/source_gate.json']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      WS: data/105_bristow_hall_system_2026-09-08/workspace
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+      - name: the live site against its sources
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/sg"
+          python3 "$WS/s2/source_gate.py" --live https://bhrrealtime.pages.dev --live-dir "$RUNNER_TEMP/sg/live" --mode warn \
+            --sources-out "$RUNNER_TEMP/sg/sources.json" --out "$RUNNER_TEMP/sg/live_report.json"
+      - name: the gate's own test (broken copies of the live build must be caught; an outage must not freeze the site)
+        run: python3 "$WS/s2/source_gate_selftest.py" --site "$RUNNER_TEMP/sg/live" --sources "$RUNNER_TEMP/sg/sources.json" --out "$RUNNER_TEMP/sg/selftest.json"
+      - name: every figure and every check
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-gate-${{ github.run_id }}
+          path: ${{ runner.temp }}/sg
+          retention-days: 30
