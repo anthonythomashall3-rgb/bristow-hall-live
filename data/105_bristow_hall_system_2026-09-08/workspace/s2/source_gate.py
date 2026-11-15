@@ -60,7 +60,7 @@ FRED_SCALE = {'PAYEMS': 1e3, 'JTSJOL': 1e3, 'UNEMPLOY': 1e3, 'LNS13023621': 1e3,
 BLS_OF = {'UNRATE': 'LNS14000000', 'PAYEMS': 'CES0000000001', 'UNEMPLOY': 'LNS13000000', 'LNS13023621': 'LNS13023621',
           'JTSJOL': 'JTS000000000000000JOL', 'JTSQUR': 'JTS000000000000000QUR', 'CPIAUCSL': 'CUSR0000SA0'}
 # month averages of daily H.15 / Moody's series: next published by the program's documented rule, not FRED's daily H.15 calendar
-MONTH_AVG_RULE = {'FEDFUNDS': 'next_bday', 'GS10': 'next_bday', 'GS1': 'next_bday', 'TB3MS': 'next_bday', 'BAA': 'day7'}
+MONTH_AVG_RULE = {'FEDFUNDS': 'next_bday', 'GS10': 'next_bday', 'GS1': 'next_bday', 'TB3MS': 'next_bday', 'BAA': 'bday_or_day7'}
 # rows that are archives, not live inputs (their period is fixed on purpose); every one is named with its reason
 ARCHIVAL = {
     'state payrolls, as first published 1994-2007': 'a closed archive of first prints (1994-2007)',
@@ -162,8 +162,15 @@ class Sources:
             if self.fred_key:
                 q = urllib.parse.urlencode(dict(series_id=sid, api_key=self.fred_key, file_type='json', observation_start=start,
                                                 realtime_start=start, realtime_end='9999-12-31'))
-                obs = json.loads(self._get('https://api.stlouisfed.org/fred/series/observations?' + q))['observations']
-                rows = [[o['date'], o['realtime_start'], o['realtime_end'], None if o['value'] in ('.', '') else float(o['value'])] for o in obs]
+                try:
+                    obs = json.loads(self._get('https://api.stlouisfed.org/fred/series/observations?' + q))['observations']
+                    rows = [[o['date'], o['realtime_start'], o['realtime_end'], None if o['value'] in ('.', '') else float(o['value'])] for o in obs]
+                except RuntimeError as e:
+                    if 'does not exist in ALFRED' not in str(e): raise
+                    # a series FRED keeps without vintages (the S&P 500): today's values, no publication days
+                    q = urllib.parse.urlencode(dict(series_id=sid, api_key=self.fred_key, file_type='json', observation_start=start))
+                    obs = json.loads(self._get('https://api.stlouisfed.org/fred/series/observations?' + q))['observations']
+                    rows = [[o['date'], None, '9999-12-31', None if o['value'] in ('.', '') else float(o['value'])] for o in obs]
             else:
                 txt = self._get('https://fred.stlouisfed.org/graph/fredgraph.csv?' + urllib.parse.urlencode(dict(id=sid, cosd=start)))
                 rows = []
@@ -215,6 +222,25 @@ class Sources:
             self.c[key] = out; return out
         except Exception as e:
             self.c[key + ':err'] = str(e); return None
+
+    def dol539(self):
+        """the Department of Labor's ETA 539 file (the State weekly claims the build reads), re-read: each State's newest week of
+        initial claims (rptdate) and of continued claims (the reflecting week c2)."""
+        key = 'dol539'
+        if key in self.c: return self.c[key]
+        if key + ':err' in self.c: return None
+        try:
+            import csv, io
+            txt = self._get('https://oui.doleta.gov/unemploy/csv/ar539.csv')
+            out = {}
+            for r in csv.DictReader(io.StringIO(txt)):
+                st = r.get('st'); o = out.setdefault(st, {'ic': '', 'cc': ''})
+                if (r.get('c3') or '').strip() and r['rptdate'] > o['ic']: o['ic'] = r['rptdate'][:10]
+                if (r.get('c8') or '').strip() and (r.get('c2') or '')[:10] > o['cc']: o['cc'] = r['c2'][:10]
+            if len(out) < 50: raise RuntimeError('the ETA 539 file has %d States' % len(out))
+            self.c[key] = out; return out
+        except Exception as e:
+            self.c[key + ':err'] = str(e); self.errors['ETA539'] = str(e); return None
 
     def qcew_has(self, year, q):
         key = 'qcew:%d:%d' % (year, q)
@@ -289,6 +315,18 @@ class Gate:
             rows = self.src.fred(sid, start)
             self._s[k] = Series(sid, rows) if rows is not None else None
         return self._s[k]
+
+    def dol_series(self, st, which):
+        """a State's newest DOL week as a one-observation series (which: 'ic' initial claims, 'cc' continued/insured); st='US*' = the
+        newest across States."""
+        d = self.src.dol539()
+        if not d: return None
+        if st == 'US*':
+            w = max((v[which] for v in d.values() if v.get(which)), default=None)
+        else:
+            w = (d.get(st) or {}).get(which)
+        if not w: return None
+        return Series('DOL539:%s:%s' % (st, which), [[w, None, '9999-12-31', 1.0]])
 
     def read(self, rel):
         p = os.path.join(self.site, rel)
@@ -430,7 +468,7 @@ class Gate:
         if transform in ('vs_high12', 'vs_high12_pct', 'vs_low12'):
             a = at(s, period); prior = [at(s, back(period, i)) for i in range(1, 13)]
             if a is None or any(x is None for x in prior): return None, 'missing months in the prior 12'
-            if transform == 'vs_high12': return a - max(prior), None
+            if transform == 'vs_high12': return max(prior) - a, None     # 'below their high': positive when under it
             if transform == 'vs_high12_pct': return (a / max(prior) - 1) * 100, None
             return a - min(prior), None
         if transform == 'sp_yoy':
@@ -448,21 +486,32 @@ class Gate:
         sid = sids[0] if sids else None
         exp, how = None, ''
         if sid in MONTH_AVG_RULE and through:
-            m = madd(through[:7], 2)
-            first = dt.date(int(m[:4]), int(m[5:7]), 7 if MONTH_AVG_RULE[sid] == 'day7' else 1)
-            cand = [bday(first)]
-            m3 = madd(m, 1); cand.append(bday(dt.date(int(m3[:4]), int(m3[5:7]), first.day)))
-            exp_set = {c.isoformat() for c in cand if c.isoformat() > bd}
-            exp, how = min(exp_set) if exp_set else None, 'the month average is posted the %s after the month' % (
-                '7th' if MONTH_AVG_RULE[sid] == 'day7' else 'first business day')
-            ok = nxt in exp_set and nxt == exp
+            # the month after the newest month held is the next to be posted: its first business day (the publisher) or, for
+            # Moody's Baa, the 7th (the day the program reads it); a day already gone moves to the month after
+            days = (1, 7) if MONTH_AVG_RULE[sid] == 'bday_or_day7' else (1,)
+            exp_set = set()
+            for day in days:
+                for k in (2, 3):
+                    m = madd(through[:7], k); c = bday(dt.date(int(m[:4]), int(m[5:7]), day)).isoformat()
+                    if c > bd: exp_set.add(c); break
+            exp = min(exp_set) if exp_set else None
+            how = 'the month average is posted the first business day after the month%s' % (' (read the 7th)' if len(days) > 1 else '')
+            ok = nxt in exp_set
         elif sid == 'SP500':
             d = D(bd) + dt.timedelta(days=1)
             while d.weekday() >= 5 or d.isoformat() in NYSE_HOLIDAYS: d += dt.timedelta(days=1)
             exp, how = d.isoformat(), 'the next NYSE trading day'
             ok = nxt in (exp, bd) and (nxt != bd or D(bd).weekday() < 5 and bd not in NYSE_HOLIDAYS)
         elif sid:
-            rel = self.src.release_dates(sid, bd)
+            group = list(dict.fromkeys(sids))
+            if re.search(r'(ICLAIMS|CCLAIMS|INSUREDUR)$', sid):
+                group = [sid, 'ICSA']      # the State weekly claims: DOL's Thursday release, or FRED's State claims report
+            rels = [r for r in (self.src.release_dates(x, bd) for x in group) if r]
+            rel = None
+            if rels:
+                nexts = sorted({min([d for d in r['dates'] if d > bd] or ['9999']) for r in rels})
+                rel = {'release_id': '+'.join(str(r['release_id']) for r in rels), 'release': ' / '.join(r['release'] or '' for r in rels),
+                       'dates': sorted(set(d for r in rels for d in r['dates'])), 'accept': nexts if re.search(r'(ICLAIMS|CCLAIMS|INSUREDUR)$', sid) else nexts[:1]}
             if not rel:
                 if nxt <= bd:
                     self.R.add(page, label, 'next published', 'FAIL', nxt, None, sid, None, None, 'next published %s is not after the build day %s' % (nxt, bd))
@@ -470,10 +519,9 @@ class Gate:
                     self.R.add(page, label, 'next published', 'WARN', nxt, None, sid, None, None, 'the release calendar could not be read; next is after the build day')
                 return
             ds = rel['dates']
-            after = [d for d in ds if d > bd]
-            exp = after[0] if after else None
+            exp = rel['accept'][0] if rel['accept'] else None
             how = 'FRED release %s (%s)' % (rel['release_id'], rel['release'])
-            ok = (nxt == exp) or (nxt == bd and bd in ds)
+            ok = (nxt in rel['accept']) or (nxt == bd and bd in ds)
         else:
             exp, how = None, 'no series to look the release up by'
             ok = nxt > bd
@@ -530,7 +578,7 @@ class Gate:
             exp, why = self.recompute(tr, sids, pk, self.build_day, scale)
             self.compare('home', lab, pn[0] if pn else None, exp, pn[1] if pn else 0, sids[0], pk, tr, why or '')
             self.remember('home', lab, sids[0], val, pk)
-            self.next_check('home', lab, tile.get('next'), sids, pk)
+            self.next_check('home', lab, tile.get('next'), list(dict.fromkeys(sids + ([tile['sid']] if tile.get('sid') else []))), pk)
         # the indicator's own tile and its sparkline: the detector's own reading on the build day
         S = self.detector_state()
         if S and H.get('last_date'):
@@ -608,7 +656,7 @@ class Gate:
             # --- a single value on the row
             if not vals:
                 key = ids.strip().lower()
-                if key in ROW_RECIPES:
+                if key in ROW_RECIPES and re.search(r'\d', value or '') and not re.match(r'^\d+ files?$', value):
                     tr, sid = ROW_RECIPES[key]; s = self.S(sid)
                     pk = self.norm_period(s, through, freq)
                     pn = parse_num(value)
@@ -635,7 +683,10 @@ class Gate:
                         self.remember(page, label, sid, value, pk)
                 else:
                     # a derived reading or a file: the period is checked against its inputs; the value is listed as not source-checked
-                    if value and not re.match(r'^\d+ files?$', value):
+                    if re.search(r'\bmissing\b|\bnan\b|\bnone\b|\bnull\b|\bundefined\b', value or '', re.I):
+                        self.R.add(page, label, 'value', 'FAIL', value, through, ids, None, None,
+                                   'the page shows "%s" where the value it holds should be' % value)
+                    elif value and not re.match(r'^\d+ files?$', value):
                         self.R.add(page, label, 'value', 'WARN', value, through, ids, 'derived', None,
                                    'a derived value with no recipe here: not recomputed (listed as remaining risk)')
                     self.row_fresh(page, label, reps, through, freq, value)
@@ -657,12 +708,19 @@ class Gate:
             self.R.add(page, label, 'freshness', 'WARN', value, through, None, None, None,
                        'no series id on the row: its period cannot be checked against a publisher (listed as remaining risk)')
             return
-        got = [(x, self.S(x, '2025-01-01')) for x in reps]
+        got = []
+        for x in reps:
+            m = re.search(r'(ICLAIMS|CCLAIMS|INSUREDUR)$', x)
+            if m:     # the State weekly claims: the publisher is the DOL ETA 539 file (FRED posts it a week later)
+                s = self.dol_series('US*', 'ic' if m.group(1) == 'ICLAIMS' else 'cc') or self.S(x, '2025-01-01')
+            else:
+                s = self.S(x, '2025-01-01')
+            got.append((x, s))
         live = [(x, s) for x, s in got if s is not None and s.dates]
         if not live:
             return self.unverified(page, label, value, through, ','.join(reps), 'file', 'none of %s could be read' % ','.join(reps), 'freshness')
         # the row's period in each series' own terms; a monthly row built from a weekly series may trail the newest week by a month
-        src_weekly = any(len(s.dates) > 1 and (D(s.dates[-1]) - D(s.dates[-2])).days == 7 for _, s in live)
+        src_weekly = any((len(s.dates) > 1 and (D(s.dates[-1]) - D(s.dates[-2])).days == 7) or s.sid.startswith('DOL539') for _, s in live)
         best = max(live, key=lambda xs: xs[1].newest)
         x, s = best
         if freq == 'monthly' and src_weekly:
@@ -854,7 +912,7 @@ class Gate:
             self.remember('state-onset', lab, st + 'UR', last, last)
             c = (a.get('through') or {}).get('claims')
             if c:
-                ic = self.S(st + 'ICLAIMS', '2026-01-01')
+                ic = self.dol_series(st, 'ic') or self.S(st + 'ICLAIMS', '2026-01-01')
                 self.fresh('state-onset', '%s claims through' % st, ic, c, 'weekly', c, 'week')
             # a provisional point must say so
             if ser.get('provisional') is True and not re.search(r'provisional', t[:i] + t[i + 12:], re.I):
@@ -869,7 +927,7 @@ class Gate:
         J = json.loads(m.group(1)); V = J.get('v2') or {}; PV = J.get('prov') or {}; thru = V.get('thru') or {}
         # the newest State month (every State's own unemployment rate) and the newest State claims week
         urs = {st: self.S(st + 'UR', '2025-01-01') for st in STATES}
-        ics = {st: self.S(st + 'ICLAIMS', '2026-01-01') for st in STATES}
+        ics = {st: (self.dol_series(st, 'ic') or self.S(st + 'ICLAIMS', '2026-01-01')) for st in STATES}
         um = [mkey(s.newest) for s in urs.values() if s and s.dates]
         iw = {st: s.newest for st, s in ics.items() if s and s.dates}
         if um:
