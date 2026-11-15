@@ -51,6 +51,10 @@ jobs:
         with:
           python-version: '3.14'
 
+      - uses: actions/setup-node@v5     # check a185 parses the page's scripts with node --check /dev/stdin: the Mac's Node, same version
+        with:
+          node-version: '26.8.1'
+
       - name: the Mac's packages, same versions
         run: pip install --quiet --retries 10 --timeout 60 -r ops/live_tools/requirements.txt
 
