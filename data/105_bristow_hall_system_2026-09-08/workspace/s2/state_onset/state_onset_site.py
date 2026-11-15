@@ -37,9 +37,37 @@ def thumb(t, Wd=420, Hh=150, pad=5):
     return ''.join(g)
 
 
+def trim_phantom(t):
+    """1052 (15 Nov 2026): NO CARRIED-FORWARD POINT IS DRAWN AS DATA. The 1032 build (code/state_page_1032.py) runs every state's
+    grade series to the weekly claims' last month (months_all ends 2026-10) and holds the last grade into the months the index and
+    the jobless rate have not reached ("the last grade is held to the end"), so every state showed a 2026-10 point equal to
+    September while its own data (dg.rt, now.last_month) ran through 2026-09. Here every series point after the state's own last
+    data month - the earlier of dg.rt and now.last_month - is removed before the page is published. Returns (page, points cut)."""
+    import json
+    m = re.search(r'const ALL = (\{.*?\});\n', t, re.S); A = json.loads(m.group(1)); cut = 0
+    for st, S in A.items():
+        lims = [x for x in ((S.get('dg') or {}).get('rt'), (S.get('now') or {}).get('last_month')) if x]
+        if not lims: raise ValueError('%s: no data month (dg.rt, now.last_month) to bound the series' % st)
+        lim = min(lims)[:7]; ser = S['series']; n = len(ser['dates'])
+        keep = [i for i, d in enumerate(ser['dates']) if d[:7] <= lim]
+        if len(keep) == n: continue
+        assert keep == list(range(len(keep))), '%s: a month past %s inside the series' % (st, lim)
+        for k, v in list(ser.items()):
+            if isinstance(v, list) and len(v) == n: ser[k] = v[:len(keep)]
+        cut += n - len(keep)
+    if not cut: return t, 0
+    js = json.dumps(A, separators=(',', ':'), ensure_ascii=False)
+    return t[:m.start(1)] + js + t[m.end(1):], cut
+
+
 def main():
     t = open(os.path.join(H, 'page.html'), encoding='utf-8').read()
     assert 'const ALL = ' in t and len(t) > 1000000, 'page.html is not the built state page'
+    try:
+        t, _cut = trim_phantom(t)
+        print('state page: %d series point(s) past a state\'s own data month removed' % _cut)
+    except Exception:   # the page as built stands (q41 reports any point past a state's data month)
+        traceback.print_exc(); print('state page: phantom-month trim FAILED; the page as built stands')
     home = os.path.join(SITE, 'index.html')
     if os.path.exists(home):            # one masthead and footer across the site
         h = open(home, encoding='utf-8').read()

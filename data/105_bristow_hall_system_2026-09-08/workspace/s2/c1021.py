@@ -129,23 +129,27 @@ def weekly_prints(d, wcol, vcol):
     """(week-ending days, values, known days) of a first-print column, one row per week (the earliest release), sorted by week"""
     x = d[[wcol, vcol, 'rel']].dropna().sort_values(['rel']).drop_duplicates(wcol, keep='first').sort_values(wcol)
     return x[wcol].values, x[vcol].values.astype(float), x['rel'].values
-def weekly_yoy_log(weeks, vals, knowns, w=4, L=52):
+def weekly_yoy_log(weeks, vals, knowns, w=4, L=52, with_week=False):
     """569 libbuild strict_weekly, form yoy, log: on each known day the newest known week; 100 x log(sum of the w newest weeks / the same w
-    weeks 52 weeks earlier), every week of both spans known by that day; painted daily from the known day"""
+    weeks 52 weeks earlier), every week of both spans known by that day; painted daily from the known day.
+    with_week (1052, 15 Nov 2026): also the week each painted value was computed for (day index of its week-ending day; NaN where
+    none), so a value carried from an earlier day is labelled with its own week, never with the newest week held"""
     w0 = pd.to_datetime(pd.Series(weeks)).values; v0 = np.asarray(vals, float); k0 = pd.to_datetime(pd.Series(knowns)).values
     ok = ~pd.isna(w0) & ~pd.isna(k0) & np.isfinite(v0) & (v0 > 0); w0, v0, k0 = w0[ok], v0[ok], k0[ok]
-    if len(w0) == 0: return np.full(N, np.nan)
+    if len(w0) == 0: return (np.full(N, np.nan), np.full(N, np.nan)) if with_week else np.full(N, np.nan)
     o = np.sort(w0); g = np.rint((w0 - o[0]) / np.timedelta64(7, 'D')).astype(int); n = int(g.max()) + 1
     lv = np.full(n, np.nan); k = np.full(n, np.datetime64('NaT'), dtype='datetime64[ns]')
     for j in np.lexsort((k0, g)):
         if np.isnan(lv[g[j]]): lv[g[j]] = v0[j]; k[g[j]] = k0[j]
-    has = ~np.isnat(k) & np.isfinite(lv); pairs = []
+    has = ~np.isnat(k) & np.isfinite(lv); pairs = []; wpairs = []
     for dd in np.unique(k[has]):
         av = has & (k <= dd); i = int(np.flatnonzero(av).max()); x = np.where(av, lv, np.nan)
         if i - L - w + 1 < 0: continue
         cur, base = x[i - w + 1:i + 1], x[i - L - w + 1:i - L + 1]
         if np.isfinite(cur).all() and np.isfinite(base).all() and cur.sum() > 0 and base.sum() > 0:
             pairs.append((di(pd.Timestamp(dd)), 100.0 * math.log(cur.sum() / base.sum())))
+            wpairs.append((di(pd.Timestamp(dd)), float(di(pd.Timestamp(o[0]) + pd.Timedelta(days=7 * i)))))
+    if with_week: return paint(pairs, default=np.nan), paint(wpairs, default=np.nan)
     return paint(pairs, default=np.nan)
 def weekly_high(weeks, vals, knowns, w=4, win=CHI_WIN):
     """the record's door statistic (1000c high_arr): the 4-week mean of the first prints, each print at its release day, at or above every
@@ -209,9 +213,18 @@ def build2(P, VAL, SRC, D):
     # the weekly claims first prints
     cl, FILL = load_claims()
     icw, icv, ick = weekly_prints(cl, 'icw', 'icnsa'); iuw, iuv, iuk = weekly_prints(cl, 'iuw', 'iunsa')
-    c4 = weekly_yoy_log(icw, icv, ick, 4); i4 = weekly_yoy_log(iuw, iuv, iuk, 4)
+    c4 = weekly_yoy_log(icw, icv, ick, 4); i4, i4w = weekly_yoy_log(iuw, iuv, iuk, 4, with_week=True)
     P['I4'] = np.nan_to_num(i4, nan=-9) > 0
-    VAL['I4'] = dict(week=str(pd.Timestamp(iuw[-1]).date()), yoy_log_pts_4wk=round(float(np.nan_to_num(i4, nan=np.nan)[-1]), 2) if np.isfinite(i4[-1]) else None, fills=FILL.get('iunsa', [])); SRC['I4'] = 'DOL weekly claims release: insured unemployment NSA as first printed (45 + E66; ALFRED CCNSA initial releases)'
+    # 1052 (15 Nov 2026): 'week' is the week the reading was COMPUTED for (never the newest week held, which a reading carried
+    # forward over a missing base week was labelled with for two months); the newest week held is kept beside it, and any week
+    # missing inside the last three years of either first-print column is listed (q41 fails the reading when the two weeks differ)
+    _i4wk = str(day(int(i4w[-1])).date()) if np.isfinite(i4w[-1]) else None
+    _gaps = {}
+    for _nm, _ww in (('icnsa', icw), ('iunsa', iuw)):
+        _hv = set(pd.to_datetime(pd.Series(_ww)).dt.normalize()); _lt = max(_hv)
+        _gaps[_nm] = [str(x.date()) for x in pd.date_range(_lt - pd.Timedelta(days=3 * 365), _lt, freq='W-SAT') if x not in _hv]
+        if _gaps[_nm]: say('FIRST-PRINT GAP', _nm, 'lacks', len(_gaps[_nm]), 'week(s) inside its last three years:', ', '.join(_gaps[_nm][:8]))
+    VAL['I4'] = dict(week=_i4wk, newest_week_held=str(pd.Timestamp(iuw[-1]).date()), yoy_log_pts_4wk=round(float(i4[-1]), 2) if np.isfinite(i4[-1]) else None, fills=FILL.get('iunsa', []), gaps_3y=_gaps); SRC['I4'] = 'DOL weekly claims release: insured unemployment NSA as first printed (45 + E66; ALFRED CCNSA initial releases)'
     # HW: JOLTS openings yoy (ratio - 1, the newest print of each month, from its release day) below initial claims' 4-week NSA yoy (100 x log / 100)
     VJ = alfred('JTSJOL'); fpj = first_prints(VJ); pairs = []
     for m, (vd, v) in fpj.items():
