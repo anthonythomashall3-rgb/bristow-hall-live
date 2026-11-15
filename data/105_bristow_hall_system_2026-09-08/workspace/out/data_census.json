@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-15 14:54",
+ "built_at": "2026-11-15 15:28",
  "version": "C1021+E22",
  "census_date": "2026-11-15",
  "feeds": [
@@ -96,7 +96,7 @@
   },
   {
    "feed": "S&P 500 daily close (the market pillar: below its close a year earlier; a confirmation of the claims closer)",
-   "series": "^GSPC",
+   "series": "SP500",
    "source": "Yahoo Finance close at the 5:05 PM ET run, corrected to the official close on FRED (SP500), which FRED posts the same evening, about 8 PM ET",
    "every": "Every trading day - read at the 5:05 PM ET run",
    "through": "2026-11-13",
@@ -216,13 +216,13 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
-   "PAYEMS": "FRED API",
    "JTSJOL": "FRED API",
    "UNRATE": "FRED API",
    "UNEMPLOY": "FRED API",
    "JTSQUR": "FRED API",
-   "ICSA": "FRED API",
+   "PAYEMS": "FRED API",
    "CPIAUCSL": "FRED API",
+   "ICSA": "FRED API",
    "IURSA": "FRED API"
   },
   "compared_with_bls": [

@@ -9,6 +9,12 @@
  },
  "problems": {},
  "rows": {
+  "row|backstop|ALINSUREDUR ... WYINSUREDUR|States with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)": [
+   [
+    "Department of Labor, ETA 539 (ar539.csv)",
+    "https://oui.doleta.gov/unemploy/csv/ar539.csv"
+   ]
+  ],
   "row|backstop|CCNSA / COVEMP|Insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)": [
    [
     "FRED CCNSA",
@@ -23,12 +29,6 @@
    [
     "FRED CFNAIMA3",
     "https://fred.stlouisfed.org/series/CFNAIMA3"
-   ]
-  ],
-  "row|backstop|ETA 539 by state|States with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)": [
-   [
-    "Department of Labor, ETA 539 (ar539.csv)",
-    "https://oui.doleta.gov/unemploy/csv/ar539.csv"
    ]
   ],
   "row|backstop|UNRATE, JTSJOL|Michaillat and Saez's rule: the smaller of the unemployment indicator and the vacancy indicator": [
@@ -139,6 +139,16 @@
     "https://fred.stlouisfed.org/series/SAHMREALTIME"
    ]
   ],
+  "row|rule|SP500|S&P 500 daily close": [
+   [
+    "Yahoo Finance ^GSPC",
+    "https://finance.yahoo.com/quote/%5EGSPC/history/"
+   ],
+   [
+    "FRED SP500",
+    "https://fred.stlouisfed.org/series/SP500"
+   ]
+  ],
   "row|rule|UNRATE, PAYEMS, UNEMPLOY, LNS13023621|Unemployment rate, payrolls, the unemployed count, job losers": [
    [
     "ALFRED UNRATE",
@@ -156,17 +166,10 @@
     "ALFRED LNS13023621",
     "https://alfred.stlouisfed.org/series?seid=LNS13023621"
    ]
-  ],
-  "row|rule|^GSPC|S&P 500 daily close": [
-   [
-    "Yahoo Finance ^GSPC",
-    "https://finance.yahoo.com/quote/%5EGSPC/history/"
-   ],
-   [
-    "FRED SP500",
-    "https://fred.stlouisfed.org/series/SP500"
-   ]
   ]
  },
- "rows_with_new_data_this_run": []
+ "rows_with_new_data_this_run": [
+  "row|backstop|ALINSUREDUR ... WYINSUREDUR|States with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
+  "row|rule|SP500|S&P 500 daily close"
+ ]
 }

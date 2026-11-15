@@ -113,7 +113,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-31)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-11-15 14:54', '2026-11-15 14:54')  want=('2026-11-15 14:54', '2026-11-15 14:54')
+PASS  public state copies are this build  got=('2026-11-15 15:28', '2026-11-15 15:28')  want=('2026-11-15 15:28', '2026-11-15 15:28')
 PASS  front-page tiles fetched today  got=2026-11-15  want=2026-11-15
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]
@@ -123,7 +123,7 @@ PASS  data page: a live channel is not marked ended  got=[]  want=[]
 PASS  data page: every feed has a next-published day  got=[]  want=[]
 PASS  every live leg channel pulled today (WARN within two days)  got=[]  want=[]
 PASS  data page: the five columns  got=['tool', 'name', 'ids', 'freq', 'value', 'through', 'refreshed', 'next']  want=['tool', 'name', 'ids', 'freq', 'value', 'through', 'refreshed', 'next']
-PASS  data page: no blank cell  got=0  want=0
+PASS  data page: no blank cell (a dash only in Next published of a static or frozen history-layer row)  got=0  want=0
 PASS  record: the front page sentence is computed from the state  got=0  want=0
 PASS  notes: the Notes are a short summary (Anthony, 24 September 2026: as short as the Sahm indicator notes)  got=140  want=at most 140 words
 PASS  note: every episode of the rule is dated by a chronology (advisory - a standing call no dater has yet dated is published and noted, never held)  got=[]  want=[]

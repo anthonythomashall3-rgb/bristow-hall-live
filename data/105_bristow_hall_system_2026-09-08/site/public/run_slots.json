@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-15 14:54",
+ "built_at": "2026-11-15 15:28",
  "fallback": "weekdays 08:35, 09:45, 10:15, 16:20 and 20:10 (New York time), used only if this list cannot be read",
- "generated_utc": "2026-11-15T19:55:25Z",
+ "generated_utc": "2026-11-15T20:29:29Z",
  "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes after each release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close at 4:20 PM and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
  "refresh_incomplete": null,
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
@@ -18,6 +18,14 @@
    "utc": "2026-11-13T01:15:00Z",
    "why": [
     "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
+   ]
+  },
+  {
+   "ny": "2026-11-13 08:35",
+   "utc": "2026-11-13T13:35:00Z",
+   "why": [
+    "state weekly claims, eta 539 (8:30 AM ET)",
+    "state initial claims, weekly, 1945 on (8:30 AM ET)"
    ]
   },
   {
@@ -126,6 +134,24 @@
    ]
   },
   {
+   "ny": "2026-11-20 08:35",
+   "utc": "2026-11-20T13:35:00Z",
+   "why": [
+    "state weekly claims, eta 539 (8:30 AM ET)",
+    "state initial claims, weekly, 1945 on (8:30 AM ET)"
+   ]
+  },
+  {
+   "ny": "2026-11-20 13:11",
+   "utc": "2026-11-20T18:11:00Z",
+   "why": [
+    "state payrolls by industry, as first pub (10:00 AM ET; FRED by about 1:06 PM)",
+    "state unemployment rates, 50 states and  (10:00 AM ET; FRED by about 1:06 PM)",
+    "state payrolls and unemployment rates, n (10:00 AM ET; FRED by about 1:06 PM)",
+    "state payroll employment, not seasonally (10:00 AM ET; FRED by about 1:06 PM)"
+   ]
+  },
+  {
    "ny": "2026-11-20 16:20",
    "utc": "2026-11-20T21:20:00Z",
    "why": [
@@ -180,7 +206,8 @@
    "why": [
     "weekly claims (8:30 AM ET)",
     "fred series w875rx1 (8:30 AM ET)",
-    "fred series cmrmtspl (8:30 AM ET)"
+    "fred series cmrmtspl (8:30 AM ET)",
+    "state building permits, units (8:30 AM ET)"
    ]
   },
   {
@@ -216,6 +243,14 @@
    "utc": "2026-11-26T01:15:00Z",
    "why": [
     "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
+   ]
+  },
+  {
+   "ny": "2026-11-27 08:35",
+   "utc": "2026-11-27T13:35:00Z",
+   "why": [
+    "state weekly claims, eta 539 (8:30 AM ET)",
+    "state initial claims, weekly, 1945 on (8:30 AM ET)"
    ]
   },
   {
@@ -314,6 +349,15 @@
    "utc": "2026-12-04T01:15:00Z",
    "why": [
     "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
+   ]
+  },
+  {
+   "ny": "2026-12-04 08:35",
+   "utc": "2026-12-04T13:35:00Z",
+   "why": [
+    "state weekly claims, eta 539 (8:30 AM ET)",
+    "state coincident indexes, 50 states (8:30 AM ET)",
+    "state initial claims, weekly, 1945 on (8:30 AM ET)"
    ]
   },
   {

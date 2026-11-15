@@ -1,4 +1,54 @@
 {
+ "ALBPPRIV": {
+  "fetched": "2026-11-15",
+  "name": "Housing Units Authorized By Building Permits",
+  "release_id": 148
+ },
+ "ALCCLAIMS": {
+  "fetched": "2026-11-15",
+  "name": "State Unemployment Insurance Weekly Claims Report",
+  "release_id": 469
+ },
+ "ALICLAIMS": {
+  "fetched": "2026-11-15",
+  "name": "State Unemployment Insurance Weekly Claims Report",
+  "release_id": 469
+ },
+ "ALNA": {
+  "fetched": "2026-11-15",
+  "name": "State Employment and Unemployment",
+  "release_id": 112
+ },
+ "ALNAN": {
+  "fetched": "2026-11-15",
+  "name": "State Employment and Unemployment",
+  "release_id": 112
+ },
+ "ALOTOT": {
+  "fetched": "2026-11-15",
+  "name": "Personal Income by State",
+  "release_id": 110
+ },
+ "ALPHCI": {
+  "fetched": "2026-11-15",
+  "name": "State Coincident Indexes",
+  "release_id": 109
+ },
+ "ALUR": {
+  "fetched": "2026-11-15",
+  "name": "State Employment and Unemployment",
+  "release_id": 112
+ },
+ "ALURN": {
+  "fetched": "2026-11-15",
+  "name": "State Employment and Unemployment",
+  "release_id": 112
+ },
+ "ALWTOT": {
+  "fetched": "2026-11-15",
+  "name": "Personal Income by State",
+  "release_id": 110
+ },
  "AWHMAN": {
   "fetched": "2026-10-22",
   "name": "Employment Situation",
@@ -197,6 +247,11 @@
   "name": "Employment Situation",
   "release_id": 50
  },
+ "MANEMP": {
+  "fetched": "2026-11-15",
+  "name": "Employment Situation",
+  "release_id": 50
+ },
  "MICHEZ": {
   "fetched": "2026-09-23",
   "name": "",
@@ -293,6 +348,56 @@
   "name": "Employment Situation",
   "release_id": 50
  },
+ "USCONS": {
+  "fetched": "2026-11-15",
+  "name": "Employment Situation",
+  "release_id": 50
+ },
+ "USEHS": {
+  "fetched": "2026-11-15",
+  "name": "Employment Situation",
+  "release_id": 50
+ },
+ "USFIRE": {
+  "fetched": "2026-11-15",
+  "name": "Employment Situation",
+  "release_id": 50
+ },
+ "USGOVT": {
+  "fetched": "2026-11-15",
+  "name": "Employment Situation",
+  "release_id": 50
+ },
+ "USINFO": {
+  "fetched": "2026-11-15",
+  "name": "Employment Situation",
+  "release_id": 50
+ },
+ "USLAH": {
+  "fetched": "2026-11-15",
+  "name": "Employment Situation",
+  "release_id": 50
+ },
+ "USMINE": {
+  "fetched": "2026-11-15",
+  "name": "Employment Situation",
+  "release_id": 50
+ },
+ "USPBS": {
+  "fetched": "2026-11-15",
+  "name": "Employment Situation",
+  "release_id": 50
+ },
+ "USSERV": {
+  "fetched": "2026-11-15",
+  "name": "Employment Situation",
+  "release_id": 50
+ },
+ "USTPU": {
+  "fetched": "2026-11-15",
+  "name": "Employment Situation",
+  "release_id": 50
+ },
  "V376_LAB": {
   "fetched": "2026-11-15",
   "name": "",
@@ -326,5 +431,55 @@
   "fetched": "2026-10-23",
   "name": "Weekly Economic Index (Lewis-Mertens-Stock)",
   "release_id": 465
+ },
+ "WYBPPRIV": {
+  "fetched": "2026-11-15",
+  "name": "Housing Units Authorized By Building Permits",
+  "release_id": 148
+ },
+ "WYCCLAIMS": {
+  "fetched": "2026-11-15",
+  "name": "State Unemployment Insurance Weekly Claims Report",
+  "release_id": 469
+ },
+ "WYICLAIMS": {
+  "fetched": "2026-11-15",
+  "name": "State Unemployment Insurance Weekly Claims Report",
+  "release_id": 469
+ },
+ "WYNA": {
+  "fetched": "2026-11-15",
+  "name": "State Employment and Unemployment",
+  "release_id": 112
+ },
+ "WYNAN": {
+  "fetched": "2026-11-15",
+  "name": "State Employment and Unemployment",
+  "release_id": 112
+ },
+ "WYOTOT": {
+  "fetched": "2026-11-15",
+  "name": "Personal Income by State",
+  "release_id": 110
+ },
+ "WYPHCI": {
+  "fetched": "2026-11-15",
+  "name": "State Coincident Indexes",
+  "release_id": 109
+ },
+ "WYUR": {
+  "fetched": "2026-11-15",
+  "name": "State Employment and Unemployment",
+  "release_id": 112
+ },
+ "WYURN": {
+  "fetched": "2026-11-15",
+  "name": "State Employment and Unemployment",
+  "release_id": 112
+ },
+ "WYWTOT": {
+  "fetched": "2026-11-15",
+  "name": "Personal Income by State",
+  "release_id": 110
  }
 }

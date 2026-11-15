@@ -1,5 +1,5 @@
 {
- "built": "2026-11-15T19:54:40Z",
+ "built": "2026-11-15T20:28:37Z",
  "size": [
   1200,
   760
@@ -61,12 +61,12 @@
   },
   "/data/": {
    "png": "/data/card.png",
-   "sha256": "b5785730dcbba9dfc5f7c16180a507fc72858066a91a456081c13eccc22db821",
+   "sha256": "645f623657dd493152ba30b64670d77b7418f7382cbd8f595cad94088ed60e61",
    "on_home": false,
    "w": 1200,
    "h": 522,
-   "colours": 1543,
-   "share_not_main": 0.1215
+   "colours": 1684,
+   "share_not_main": 0.122
   }
  }
 }

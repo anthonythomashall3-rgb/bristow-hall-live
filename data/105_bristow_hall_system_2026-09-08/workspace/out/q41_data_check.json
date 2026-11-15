@@ -806,8 +806,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-15 14:54', '2026-11-15 14:54')",
-"want": "('2026-11-15 14:54', '2026-11-15 14:54')",
+"got": "('2026-11-15 15:28', '2026-11-15 15:28')",
+"want": "('2026-11-15 15:28', '2026-11-15 15:28')",
 "status": "PASS",
 "gate": "hard"
 },
@@ -875,7 +875,7 @@
 "gate": "soft"
 },
 {
-"name": "data page: no blank cell",
+"name": "data page: no blank cell (a dash only in Next published of a static or frozen history-layer row)",
 "got": "0",
 "want": "0",
 "status": "PASS",

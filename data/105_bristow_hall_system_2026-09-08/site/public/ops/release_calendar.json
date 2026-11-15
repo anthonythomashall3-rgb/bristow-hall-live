@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-15 14:54",
+ "built_at": "2026-11-15 15:28",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-15T19:55:25Z",
+ "generated_utc": "2026-11-15T20:29:29Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -9,7 +9,7 @@
    "confirmed_through": "2027-03-05",
    "fred_clock": null,
    "freq": "daily",
-   "ids": "^gspc",
+   "ids": "sp500",
    "link": "/detector/",
    "name": "s&p 500 daily close",
    "next_expected": false,
@@ -1112,7 +1112,7 @@
    "confirmed_through": "2026-12-31",
    "fred_clock": "08:34",
    "freq": "weekly",
-   "ids": "eta 539 by state",
+   "ids": "alinsuredur ... wyinsuredur",
    "link": "/detector/",
    "name": "states with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
    "next_expected": false,
@@ -1501,8 +1501,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": true,
-   "build_next": "",
+   "agrees_with_build": false,
+   "build_next": "2026-11-16",
    "confirmed_through": "2026-12-04",
    "fred_clock": "09:30",
    "freq": "monthly",
@@ -1544,8 +1544,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": true,
-   "build_next": "",
+   "agrees_with_build": false,
+   "build_next": "2026-11-16",
    "confirmed_through": "2026-12-04",
    "fred_clock": "09:30",
    "freq": "monthly",
@@ -1587,8 +1587,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": true,
-   "build_next": "",
+   "agrees_with_build": false,
+   "build_next": "2026-11-16",
    "confirmed_through": "2026-12-23",
    "fred_clock": null,
    "freq": "monthly",
@@ -1625,8 +1625,8 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": true,
-   "build_next": "",
+   "agrees_with_build": false,
+   "build_next": "2026-11-16",
    "confirmed_through": "2026-12-23",
    "fred_clock": null,
    "freq": "monthly",
@@ -1663,12 +1663,376 @@
    "waiting_since_due": null
   },
   {
+   "agrees_with_build": false,
+   "build_next": "2026-11-16",
+   "confirmed_through": "2026-12-25",
+   "fred_clock": null,
+   "freq": "weekly",
+   "ids": "aliclaims ... wyiclaims, alcclaims ... wycclaims",
+   "link": "/state-onset/",
+   "name": "state weekly claims, eta 539",
+   "next_expected": false,
+   "next_ny": "2026-11-20 08:30",
+   "read_lag_min": 0,
+   "release_id": 469,
+   "short": "state weekly claims, eta 539",
+   "slots": true,
+   "source": "FRED release 469 (State Unemployment Insurance Weekly Claims Report)",
+   "through": "2026-11-07",
+   "time_known": false,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-06 08:30",
+     "utc": "2026-11-06T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-09 08:30",
+     "utc": "2026-11-09T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-13 08:30",
+     "utc": "2026-11-13T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-20 08:30",
+     "utc": "2026-11-20T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-27 08:30",
+     "utc": "2026-11-27T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 08:30",
+     "utc": "2026-12-04T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-11 08:30",
+     "utc": "2026-12-11T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 08:30",
+     "utc": "2026-12-18T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-25 08:30",
+     "utc": "2026-12-25T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
    "agrees_with_build": true,
-   "build_next": "",
+   "build_next": "2026-11-25",
+   "confirmed_through": "2026-12-23",
+   "fred_clock": null,
+   "freq": "monthly",
+   "ids": "albppriv ... wybppriv",
+   "link": "/state-onset/",
+   "name": "state building permits, units",
+   "next_expected": false,
+   "next_ny": "2026-11-25 08:30",
+   "read_lag_min": 0,
+   "release_id": 148,
+   "short": "state building permits, units",
+   "slots": true,
+   "source": "FRED release 148 (Housing Units Authorized By Building Permits)",
+   "through": "2026-09-30",
+   "time_known": false,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-25 08:30",
+     "utc": "2026-11-25T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 08:30",
+     "utc": "2026-12-23T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-05 08:30",
+     "utc": "2027-01-05T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": false,
+   "build_next": "2026-11-16",
+   "confirmed_through": "2026-12-23",
+   "fred_clock": null,
+   "freq": "monthly",
+   "ids": "alphci ... wyphci",
+   "link": "/state-onset/",
+   "name": "state coincident indexes, 50 states",
+   "next_expected": false,
+   "next_ny": "2026-12-04 08:30",
+   "read_lag_min": 0,
+   "release_id": 109,
+   "short": "state coincident indexes, 50 states",
+   "slots": true,
+   "source": "FRED release 109 (State Coincident Indexes)",
+   "through": "2026-09-30",
+   "time_known": false,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-12-04 08:30",
+     "utc": "2026-12-04T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 08:30",
+     "utc": "2026-12-23T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 08:30",
+     "utc": "2027-01-08T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-11-20",
+   "confirmed_through": "2026-12-18",
+   "fred_clock": "13:06",
+   "freq": "monthly",
+   "ids": "alna ... wyna",
+   "link": "/state-onset/",
+   "name": "state payrolls by industry, as first published",
+   "next_expected": false,
+   "next_ny": "2026-11-20 10:00",
+   "read_lag_min": 186,
+   "release_id": 112,
+   "short": "state payrolls by industry, as first pub",
+   "slots": true,
+   "source": "FRED release 112 (State Employment and Unemployment)",
+   "through": "2026-09-30",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-20 10:00",
+     "utc": "2026-11-20T15:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 10:00",
+     "utc": "2026-12-18T15:00:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 10:00",
+     "utc": "2027-01-08T15:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": false,
+   "build_next": "2026-11-19",
+   "confirmed_through": "2026-12-25",
+   "fred_clock": null,
+   "freq": "weekly",
+   "ids": "aliclaims ... wyiclaims",
+   "link": "/state-onset/",
+   "name": "state initial claims, weekly, 1945 on",
+   "next_expected": false,
+   "next_ny": "2026-11-20 08:30",
+   "read_lag_min": 0,
+   "release_id": 469,
+   "short": "state initial claims, weekly, 1945 on",
+   "slots": true,
+   "source": "FRED release 469 (State Unemployment Insurance Weekly Claims Report)",
+   "through": "2026-09-05",
+   "time_known": false,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-06 08:30",
+     "utc": "2026-11-06T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-09 08:30",
+     "utc": "2026-11-09T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-13 08:30",
+     "utc": "2026-11-13T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-20 08:30",
+     "utc": "2026-11-20T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-27 08:30",
+     "utc": "2026-11-27T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 08:30",
+     "utc": "2026-12-04T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-11 08:30",
+     "utc": "2026-12-11T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 08:30",
+     "utc": "2026-12-18T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-25 08:30",
+     "utc": "2026-12-25T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": false,
+   "build_next": "2026-11-16",
+   "confirmed_through": "2026-12-18",
+   "fred_clock": "13:06",
+   "freq": "monthly",
+   "ids": "alur ... wyur",
+   "link": "/state-onset/",
+   "name": "state unemployment rates, 50 states and dc",
+   "next_expected": false,
+   "next_ny": "2026-11-20 10:00",
+   "read_lag_min": 186,
+   "release_id": 112,
+   "short": "state unemployment rates, 50 states and ",
+   "slots": true,
+   "source": "FRED release 112 (State Employment and Unemployment)",
+   "through": "2026-09-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-20 10:00",
+     "utc": "2026-11-20T15:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 10:00",
+     "utc": "2026-12-18T15:00:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 10:00",
+     "utc": "2027-01-08T15:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-11-20",
+   "confirmed_through": "2026-12-18",
+   "fred_clock": "13:06",
+   "freq": "monthly",
+   "ids": "alnan ... wynan, alurn ... wyurn",
+   "link": "/state-onset/",
+   "name": "state payrolls and unemployment rates, not seasonally adjusted",
+   "next_expected": false,
+   "next_ny": "2026-11-20 10:00",
+   "read_lag_min": 186,
+   "release_id": 112,
+   "short": "state payrolls and unemployment rates, n",
+   "slots": true,
+   "source": "FRED release 112 (State Employment and Unemployment)",
+   "through": "2026-09-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-20 10:00",
+     "utc": "2026-11-20T15:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 10:00",
+     "utc": "2026-12-18T15:00:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 10:00",
+     "utc": "2027-01-08T15:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-12-23",
+   "confirmed_through": "2026-12-23",
+   "fred_clock": null,
+   "freq": "irregular",
+   "ids": "alotot ... wyotot, alwtot ... wywtot",
+   "link": "/state-onset/",
+   "name": "state personal income, quarterly (sqinc4)",
+   "next_expected": false,
+   "next_ny": "2026-12-23 08:30",
+   "read_lag_min": 0,
+   "release_id": 110,
+   "short": "state personal income, quarterly (sqinc4",
+   "slots": true,
+   "source": "FRED release 110 (Personal Income by State)",
+   "through": "2026-06-30",
+   "time_known": false,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-12-23 08:30",
+     "utc": "2026-12-23T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-20 08:30",
+     "utc": "2027-01-20T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-25 08:30",
+     "utc": "2027-02-25T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-11-17",
    "confirmed_through": "2027-12-16",
    "fred_clock": "09:21",
    "freq": "monthly",
-   "ids": "derived: payems, indpro, w875rx1, cmrmtspl, unrate, gdpc1",
+   "ids": "payems, indpro, w875rx1, cmrmtspl, unrate, gdpc1",
    "link": "/stress-map/",
    "name": "national disturbance register v3.2",
    "next_expected": false,
@@ -1751,6 +2115,87 @@
      "expected": false,
      "ny": "2027-12-16 09:15",
      "utc": "2027-12-16T14:15:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": false,
+   "build_next": "2026-11-16",
+   "confirmed_through": "2026-12-04",
+   "fred_clock": "09:30",
+   "freq": "monthly",
+   "ids": "payems, usmine, uscons, manemp, ustpu, usinfo, usfire, uspbs, usehs, uslah, usserv, usgovt",
+   "link": "/stress-map/",
+   "name": "national payrolls by supersector",
+   "next_expected": false,
+   "next_ny": "2026-12-04 08:30",
+   "read_lag_min": 61,
+   "release_id": 50,
+   "short": "the jobs report",
+   "slots": true,
+   "source": "FRED release 50 (Employment Situation)",
+   "through": "2026-10-31",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-06 08:30",
+     "utc": "2026-11-06T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 08:30",
+     "utc": "2026-12-04T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 08:30",
+     "utc": "2027-01-08T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-12 08:30",
+     "utc": "2027-02-12T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "",
+   "confirmed_through": "2026-12-18",
+   "fred_clock": "13:06",
+   "freq": "monthly",
+   "ids": "alnan ... wynan",
+   "link": "/stress-map/",
+   "name": "state payroll employment, not seasonally adjusted (history layer before 1979-07)",
+   "next_expected": false,
+   "next_ny": "2026-11-20 10:00",
+   "read_lag_min": 186,
+   "release_id": 112,
+   "short": "state payroll employment, not seasonally",
+   "slots": true,
+   "source": "FRED release 112 (State Employment and Unemployment)",
+   "through": "2026-09-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-20 10:00",
+     "utc": "2026-11-20T15:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 10:00",
+     "utc": "2026-12-18T15:00:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 10:00",
+     "utc": "2027-01-08T15:00:00Z"
     }
    ],
    "waiting_since_due": null
