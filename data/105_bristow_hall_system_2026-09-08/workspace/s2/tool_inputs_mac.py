@@ -12,6 +12,7 @@ Each row's latest observation and refresh time are measured from the file itself
 (publisher, link, frequency); a file the tools read that META does not name is still listed, as 'not classified', and the
 run exits 1 so the gap is seen. No AI. Usage: python3 s2/tool_inputs_mac.py [--check]"""
 import os, re, sys, ast, glob, gzip, json, datetime as dt
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import held_values as HV
 HOME = os.path.expanduser('~'); ROOT = os.path.join(HOME, 'Projects/Onset Detector Data'); DI = os.path.join(HOME, 'Projects/Disturbance Indicator Data')
 HERE = os.path.dirname(os.path.abspath(__file__)); OUTF = os.path.join(HERE, 'tool_inputs_mac.json')
 C52 = glob.glob(ROOT + '/1052_*')[0]; D32 = glob.glob(ROOT + '/1032_*')[0]; D823 = glob.glob(ROOT + '/823_*')[0]
@@ -19,36 +20,36 @@ TODAY = dt.date.today().isoformat()
 FR = 'https://fred.stlouisfed.org/series/'
 # name, series ids, publisher, link, frequency - keyed by a piece of the path (first match wins)
 META = [
- ('coincident-revised.xls', ('State coincident indexes, 50 states', 'ALPHCI ... WYPHCI', 'Federal Reserve Bank of Philadelphia', 'https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/state-coincident-indexes', 'monthly')),
- ('fred_state_ur', ('State unemployment rates, 50 states and DC', 'ALUR ... WYUR', 'Bureau of Labor Statistics, LAUS (via FRED)', FR + 'CAUR', 'monthly')),
- ('fred_state_payrolls', ('State payroll employment, 50 states and DC', 'ALNA ... WYNA', 'Bureau of Labor Statistics, CES State and Metro (via FRED)', FR + 'CANA', 'monthly')),
+ ('coincident-revised.xls', ('State coincident indexes, 50 states', 'ALPHCI ... WYPHCI', 'Federal Reserve Bank of Philadelphia', 'https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/state-coincident-indexes', 'monthly', 'fred:109')),
+ ('fred_state_ur', ('State unemployment rates, 50 states and DC', 'ALUR ... WYUR', 'Bureau of Labor Statistics, LAUS (via FRED)', FR + 'CAUR', 'monthly', 'bls_state')),
+ ('fred_state_payrolls', ('State payroll employment, 50 states and DC', 'ALNA ... WYNA', 'Bureau of Labor Statistics, CES State and Metro (via FRED)', FR + 'CANA', 'monthly', 'bls_state')),
  ('fred_nsa', ('State payrolls and unemployment rates, not seasonally adjusted', 'ALNAN ... WYNAN, ALURN ... WYURN', 'Bureau of Labor Statistics (via FRED)', FR + 'CANAN', 'monthly', 'bls_state')),
- ('state_nan', ('State payroll employment, not seasonally adjusted (history layer before 1979-07)', 'ALNAN ... WYNAN', 'Bureau of Labor Statistics, CES State (via FRED)', FR + 'CANAN', 'monthly')),
- ('FH_state_claims', ('State initial claims, not seasonally adjusted (history layer before 1979-07)', 'ALICLAIMS ... WYICLAIMS', 'Department of Labor, ETA (FH history file)', 'https://oui.doleta.gov/unemploy/claims.asp', 'monthly')),
- ('dol/ar539.csv', ('State weekly claims, ETA 539', 'ALICLAIMS ... WYICLAIMS, ALCCLAIMS ... WYCCLAIMS', 'Department of Labor, ETA 539', 'https://oui.doleta.gov/unemploy/DataDownloads.asp', 'weekly')),
- ('dol/ar5159.csv', ('State claims and payments, ETA 5159', '', 'Department of Labor, ETA 5159', 'https://oui.doleta.gov/unemploy/DataDownloads.asp', 'monthly')),
- ('state_ic_weekly', ('State initial claims, weekly, 1945 on', 'ALICLAIMS ... WYICLAIMS', 'Department of Labor, ETA (spliced history)', 'https://oui.doleta.gov/unemploy/claims.asp', 'weekly', 'dol_claims')),
- ('state_iur_monthly', ('State insured unemployment rates, monthly, 1948 on', 'ALINSUREDUR ... WYINSUREDUR', 'Department of Labor, ETA (spliced history)', 'https://oui.doleta.gov/unemploy/claims.asp', 'monthly', 'dol_claims')),
+ ('state_nan', ('State payroll employment, not seasonally adjusted (history layer before 1979-07)', 'ALNAN ... WYNAN', 'Bureau of Labor Statistics, CES State (via FRED)', FR + 'CANAN', 'monthly', 'bls_state')),
+ ('FH_state_claims', ('State initial claims, not seasonally adjusted (history layer before 1979-07)', 'ALICLAIMS ... WYICLAIMS', 'Department of Labor, ETA (FH history file)', 'https://oui.doleta.gov/unemploy/claims.asp', 'monthly', 'eta539')),
+ ('dol/ar539.csv', ('State weekly claims, ETA 539', 'ALICLAIMS ... WYICLAIMS, ALCCLAIMS ... WYCCLAIMS', 'Department of Labor, ETA 539', 'https://oui.doleta.gov/unemploy/DataDownloads.asp', 'weekly', 'eta539')),
+ ('dol/ar5159.csv', ('State claims and payments, ETA 5159', '', 'Department of Labor, ETA 5159', 'https://oui.doleta.gov/unemploy/DataDownloads.asp', 'monthly', 'eta5159')),
+ ('state_ic_weekly', ('State initial claims, weekly, 1945 on', 'ALICLAIMS ... WYICLAIMS', 'Department of Labor, ETA (spliced history)', 'https://oui.doleta.gov/unemploy/claims.asp', 'weekly', 'eta539')),
+ ('state_iur_monthly', ('State insured unemployment rates, monthly, 1948 on', 'ALINSUREDUR ... WYINSUREDUR', 'Department of Labor, ETA (spliced history)', 'https://oui.doleta.gov/unemploy/claims.asp', 'monthly', 'eta539')),
  ('SQINC4', ('State personal income, quarterly (SQINC4)', 'ALOTOT ... WYOTOT, ALWTOT ... WYWTOT', 'Bureau of Economic Analysis', 'https://apps.bea.gov/regional/downloadzip.htm', 'quarterly', 'bea_spi')),
  ('bps_state', ('State building permits, units', 'ALBPPRIV ... WYBPPRIV', 'Census Bureau, Building Permits Survey', 'https://www.census.gov/construction/bps/', 'monthly', 'census_bps')),
  ('cps_state', ('State CPS microdata tallies', '', 'Census Bureau / BLS, Current Population Survey', 'https://www.census.gov/data/datasets/time-series/demo/cps/cps-basic.html', 'monthly', 'census_cps')),
  ('fred/CPIAUCSL', ('Consumer price index', 'CPIAUCSL', 'Bureau of Labor Statistics (via FRED)', FR + 'CPIAUCSL', 'monthly', 'bls_cpi')),
  ('qcew_state_total_monthly', ('QCEW State total covered employment', '', 'Bureau of Labor Statistics, QCEW', 'https://www.bls.gov/cew/downloadable-data-files.htm', 'quarterly', 'bls_qcew')),
  ('qcew_release_dates', ('QCEW release dates', '', 'Bureau of Labor Statistics, QCEW', 'https://www.bls.gov/schedule/news_release/cew.htm', 'quarterly', 'bls_qcew')),
- ('county_tot', ('QCEW county total covered employment', '', 'Bureau of Labor Statistics, QCEW', 'https://www.bls.gov/cew/downloadable-data-files.htm', 'quarterly')),
- ('qcew_industry', ('QCEW county and industry employment', '', 'Bureau of Labor Statistics, QCEW', 'https://www.bls.gov/cew/downloadable-data-files.htm', 'quarterly')),
+ ('county_tot', ('QCEW county total covered employment', '', 'Bureau of Labor Statistics, QCEW', 'https://www.bls.gov/cew/downloadable-data-files.htm', 'quarterly', 'bls_qcew')),
+ ('qcew_industry', ('QCEW county and industry employment', '', 'Bureau of Labor Statistics, QCEW', 'https://www.bls.gov/cew/downloadable-data-files.htm', 'quarterly', 'bls_qcew')),
  ('state_industry_releases', ('State payrolls by industry, as first published', 'ALNA ... WYNA', 'Bureau of Labor Statistics, State Employment and Unemployment release', 'https://www.bls.gov/sae/', 'monthly', 'bls_state')),
- ('state_payroll_releases', ('State payrolls, as first published 1994-2007', 'ALNA ... WYNA', 'Bureau of Labor Statistics, State Employment and Unemployment release', 'https://www.bls.gov/sae/', 'monthly')),
- ('laus_county.txt', ('County unemployment rates and labor force, 3,143 counties (BLS flat file)', '', 'Bureau of Labor Statistics, LAUS', 'https://download.bls.gov/pub/time.series/la/', 'monthly')),
- ('county_ur_lf', ('County unemployment rates and labor force, 3,143 counties', '', 'Bureau of Labor Statistics, LAUS', 'https://www.bls.gov/lau/', 'monthly', 'bls_metro')),
- ('ces_all.txt', ('National payrolls by supersector', 'PAYEMS, USMINE, USCONS, MANEMP, USTPU, USINFO, USFIRE, USPBS, USEHS, USLAH, USSERV, USGOVT', 'Bureau of Labor Statistics, CES', 'https://download.bls.gov/pub/time.series/ce/', 'monthly')),
- ('state_metro_payrolls_all', ('State payrolls by supersector', '', 'Bureau of Labor Statistics, CES State and Metro', 'https://download.bls.gov/pub/time.series/sm/', 'monthly')),
- ('cb_2024_us_county', ('County boundaries, 2024', '', 'Census Bureau, cartographic boundary files', 'https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html', 'static')),
- ('state_shapes_cb2024', ('State boundaries, 2024 (drawn from the Census file)', '', 'Census Bureau, cartographic boundary files', 'https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html', 'static')),
- ('BH-STATE-CHRONOLOGY-V4', ('Bristow-Hall State chronology v4', '', 'Bristow-Hall (collection 1032)', '/state-onset/', 'monthly')),
- ('damage_line_v4', ('Bristow-Hall State damage line v4', '', 'Bristow-Hall (collection 1032)', '/state-onset/', 'monthly')),
+ ('state_payroll_releases', ('State payrolls, as first published 1994-2007', 'ALNA ... WYNA', 'Bureau of Labor Statistics, State Employment and Unemployment release', 'https://www.bls.gov/sae/', 'monthly', 'bls_state')),
+ ('laus_county.txt', ('County unemployment rates and labor force, 3,143 counties (BLS flat file)', '', 'Bureau of Labor Statistics, LAUS', 'https://download.bls.gov/pub/time.series/la/', 'monthly', 'bls_metro')),
+ ('county_ur_lf', ('County unemployment rates and labor force, 3,143 counties (held base file; each stress-map run merges the newest BLS county file over it)', '', 'Bureau of Labor Statistics, LAUS', 'https://www.bls.gov/lau/', 'monthly', 'bls_metro')),
+ ('ces_all.txt', ('National payrolls by supersector', 'PAYEMS, USMINE, USCONS, MANEMP, USTPU, USINFO, USFIRE, USPBS, USEHS, USLAH, USSERV, USGOVT', 'Bureau of Labor Statistics, CES', 'https://download.bls.gov/pub/time.series/ce/', 'monthly', 'fred:50')),
+ ('state_metro_payrolls_all', ('State payrolls by supersector', '', 'Bureau of Labor Statistics, CES State and Metro', 'https://download.bls.gov/pub/time.series/sm/', 'monthly', 'bls_state')),
+ ('cb_2024_us_county', ('County boundaries, 2024', '', 'Census Bureau, cartographic boundary files', 'https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html', 'static', 'static')),
+ ('state_shapes_cb2024', ('State boundaries, 2024 (drawn from the Census file)', '', 'Census Bureau, cartographic boundary files', 'https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html', 'static', 'static')),
+ ('BH-STATE-CHRONOLOGY-V4', ('Bristow-Hall State chronology v4', '', 'Bristow-Hall (collection 1032)', '/state-onset/', 'monthly', 'derived_state')),
+ ('damage_line_v4', ('Bristow-Hall State damage line v4', '', 'Bristow-Hall (collection 1032)', '/state-onset/', 'monthly', 'derived_state')),
  ('out_v3_2_damage_cut/chronology.csv', ('National disturbance register v3.2', 'PAYEMS, INDPRO, W875RX1, CMRMTSPL, UNRATE, GDPC1', 'Bristow-Hall (Disturbance Indicator)', '/disturbance/', 'monthly', 'inputs')),
- ('bhs_state', ('Live recession chronology (the detector)', '', 'Bristow-Hall (the detector)', '/detector/', 'daily')),
+ ('bhs_state', ('Live recession chronology (the detector)', '', 'Bristow-Hall (the detector)', '/detector/', 'daily', 'derived_detector')),
  ('claims13_R_612', ('Initial claims, 13-week feed, by release day', 'ICSA', 'Department of Labor, weekly claims release', FR + 'ICSA', 'weekly')),
  ('gap_612', ('Unemployment gap feed, by release day', 'UNRATE', 'Bureau of Labor Statistics, Employment Situation', FR + 'UNRATE', 'monthly')),
  ('michez_612', ('Michaillat-Saez feed, by release day', 'UNRATE, JTSJOL', 'Bureau of Labor Statistics, Employment Situation and JOLTS', FR + 'JTSJOL', 'monthly')),
@@ -121,6 +122,8 @@ def latest(path, key=''):
             import pandas as pd; X = pd.read_excel(fs[0], sheet_name='Indexes'); return str(pd.to_datetime(X.iloc[:, 0], errors='coerce').max().date())[:7], ref
         if 'county_tot' in path: return _qcew_county(fs), ref
         if path.endswith('.txt.gz'): return _bls_flat(fs[0], 'CES0000000001' if 'ces_all' in path else 'LAUCN060370000000003' if 'laus_county' in path else 'SMS06000000000000001'), ref
+        if 'BH-STATE-CHRONOLOGY-V4' in path:   # 15 Nov 2026 (1052 audit): the chronology is built through its damage line's month - the stress map reads that month (V4L['through'])
+            return json.load(open(os.path.join(os.path.dirname(fs[0]), 'damage_line_v4_a198_1032.json')))['through'], ref
         if 'bhs_state' in os.path.basename(path) and path.endswith('.json'): return str(json.load(open(fs[0])).get('built_at', ''))[:16], ref
         if path.endswith('.json'): return _maxdate_text(open(fs[0], errors='replace').read()), ref
         if len(fs) == 1 and fs[0].endswith(('.csv', '.csv.gz')): return _csv_last(fs[0]), ref
@@ -190,12 +193,17 @@ def build():
                 continue
             k, p = r; m = meta(p) or meta(k)
             LAST_N[0] = 0; th, rf = latest(p, k)
-            if m and m[1].startswith('derived') and p.endswith('.csv') and os.path.exists(p): th = _maxdate_text(open(p, errors='replace').read())   # a register: the newest month it carries, not its first column
+            if m and (m[1].startswith('derived') or 'out_v3_2_damage_cut' in p) and p.endswith('.csv') and os.path.exists(p): th = _maxdate_text(open(p, errors='replace').read())   # a register: the newest month it carries, not its first column (1052: the v3.2 register's payroll_latest_month)
             if not m: unknown.append((tool, k, p)); m = (k + ' (not classified)', k, 'not classified', '', '')
             if any(o['name'] == m[0] for o in out): continue   # two literals of the tool's code naming the same files (e.g. a folder and a pattern in it)
             if m[4] == 'static' and not th: th = 'static'
+            pat = p.replace('<ST>', '*').replace('<YEAR>', '*')
+            fs = sorted(glob.glob(pat)) if '*' in pat else ([os.path.join(pat, x) for x in sorted(os.listdir(pat)) if not x.startswith('.')] if os.path.isdir(pat) else ([pat] if os.path.exists(pat) else []))
+            try: hv = HV.held(p, fs)
+            except Exception as e: hv = None; print('HELD VALUE NOT READ:', m[0], repr(e)[:120])
+            if not hv: unknown.append((tool, k, 'no held value read'))
             out.append(dict(key=k, name=m[0], ids=m[1], source=m[2], url=m[3], freq=m[4], release=(m[5] if len(m) > 5 else ''), through=th, refreshed=rf, path=p.replace(HOME, '~'),
-                            held='%d file%s' % (LAST_N[0], '' if LAST_N[0] == 1 else 's'), refresh=refresher(p)))
+                            held=hv, refresh=refresher(p)))
         tools[tool] = dict(read_from=frm, rows=out)
     J = dict(generated_at=dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z'), generator='s2/tool_inputs_mac.py (run on the Mac)', tools=tools, unclassified=unknown)
     return J, unknown
