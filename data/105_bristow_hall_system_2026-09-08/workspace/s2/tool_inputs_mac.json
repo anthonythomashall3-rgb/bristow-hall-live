@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-15T16:58:19Z",
+ "generated_at": "2026-11-15T19:15:02Z",
  "generator": "s2/tool_inputs_mac.py (run on the Mac)",
  "tools": {
   "stress-map": {
@@ -26,10 +26,10 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "through": "2026-06",
-     "refreshed": "2026-11-15T16:46Z",
+     "refreshed": "2026-11-15T18:52Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
     },
     {
      "key": "v4_line",
@@ -39,10 +39,10 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "through": "2026-09",
-     "refreshed": "2026-11-15T16:46Z",
+     "refreshed": "2026-11-15T18:52Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
     },
     {
      "key": "v4_index",
@@ -55,7 +55,7 @@
      "refreshed": "2026-11-09T17:47Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/philly/coincident-revised.xls",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
      "key": "v4_state_ur",
@@ -68,7 +68,7 @@
      "refreshed": "2026-11-15T13:19Z",
      "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_ur/<ST>UR.csv",
      "held": "51 files",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
      "key": "l0_payrolls",
@@ -116,14 +116,27 @@
      "source": "Bristow-Hall (the detector)",
      "url": "/detector/",
      "freq": "daily",
-     "through": "2026-11-15 09:28",
-     "refreshed": "2026-11-15T16:47Z",
+     "through": "2026-11-15 13:48",
+     "refreshed": "2026-11-15T18:52Z",
      "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/data/live_chronology/bhs_state_origin_main.json",
      "held": "1 file",
      "refresh": "each cloud run (a Mac copy of the published state)"
     },
     {
      "key": "county_laus",
+     "name": "County unemployment rates and labor force, 3,143 counties (BLS flat file)",
+     "ids": "LAUCN*",
+     "source": "Bureau of Labor Statistics, LAUS",
+     "url": "https://download.bls.gov/pub/time.series/la/",
+     "freq": "monthly",
+     "through": "2026-09",
+     "refreshed": "2026-11-15T18:49Z",
+     "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/laus_county.txt.gz",
+     "held": "1 file",
+     "refresh": "each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)"
+    },
+    {
+     "key": "county_laus_held",
      "name": "County unemployment rates and labor force, 3,143 counties",
      "ids": "LAUCN*",
      "source": "Bureau of Labor Statistics, LAUS",
@@ -146,7 +159,7 @@
      "refreshed": "2026-11-14T00:21Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry/<YEAR>_county_tot.csv",
      "held": "37 files",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
      "key": "county_shapes",
@@ -172,7 +185,7 @@
      "refreshed": "2026-11-11T15:06Z",
      "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/ces_all.txt.gz",
      "held": "1 file",
-     "refresh": "continuous: Mac launchd collector191new"
+     "refresh": "each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)"
     },
     {
      "key": "ces_state",
@@ -185,7 +198,7 @@
      "refreshed": "2026-11-09T14:42Z",
      "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/state_metro_payrolls_all.txt.gz",
      "held": "1 file",
-     "refresh": "continuous: Mac launchd collector191new"
+     "refresh": "each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)"
     }
    ]
   },
@@ -203,7 +216,7 @@
      "refreshed": "2026-11-15T13:19Z",
      "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_payrolls",
      "held": "51 files",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
      "key": "03_data/state/fred_state_ur",
@@ -216,7 +229,7 @@
      "refreshed": "2026-11-15T13:19Z",
      "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_ur",
      "held": "51 files",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
      "key": "data/bea/SQINC4__ALL_AREAS_1948_2026.csv",
@@ -278,10 +291,10 @@
      "url": "https://oui.doleta.gov/unemploy/DataDownloads.asp",
      "freq": "monthly",
      "through": "2026-10-31",
-     "refreshed": "2026-11-09T18:13Z",
+     "refreshed": "2026-11-15T18:51Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar5159.csv",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
      "key": "data/dol/ar539.csv",
@@ -290,11 +303,11 @@
      "source": "Department of Labor, ETA 539",
      "url": "https://oui.doleta.gov/unemploy/DataDownloads.asp",
      "freq": "weekly",
-     "through": "2026-10-31",
-     "refreshed": "2026-11-06T21:50Z",
+     "through": "2026-11-07",
+     "refreshed": "2026-11-15T18:51Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar539.csv",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
      "key": "data/fred/CPIAUCSL.csv",
@@ -346,7 +359,7 @@
      "refreshed": "2026-11-09T17:47Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/philly/coincident-revised.xls",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
      "key": "data/qcew/qcew_release_dates.csv",
@@ -385,7 +398,7 @@
      "refreshed": "2026-11-14T00:21Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry/<YEAR>_county_tot.csv",
      "held": "37 files",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
      "key": "data/state_industry_releases_1994_2026_a168.csv",
@@ -421,10 +434,10 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "through": "2026-06",
-     "refreshed": "2026-11-15T16:46Z",
+     "refreshed": "2026-11-15T18:52Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
     },
     {
      "key": "out/damage_line_v4_a198_1032.json",
@@ -434,10 +447,10 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "through": "2026-09",
-     "refreshed": "2026-11-15T16:46Z",
+     "refreshed": "2026-11-15T18:52Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
     }
    ]
   }
