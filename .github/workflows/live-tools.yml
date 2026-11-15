@@ -68,7 +68,7 @@ jobs:
           mkdir -p "$LT_OUT"
           # check a185 runs `node --check /dev/stdin`. On Linux /dev/stdin is a pipe that Node cannot resolve as a file (exit 1 for any script;
           # on the Mac it is a file); this shim, first on PATH, hands Node the same text as a file. Every other node call passes through.
-          echo 'var a = 1;' | node --check /dev/stdin; echo "plain node --check /dev/stdin: rc $?"
+          if ( echo 'var a = 1;' | node --check /dev/stdin > /dev/null 2>&1 ); then echo "plain node --check /dev/stdin works"; else echo "plain node --check /dev/stdin fails here (a pipe, ENOENT): the shim is needed"; fi
           mkdir -p "$RUNNER_TEMP/shim"; REAL="$(command -v node)"
           printf '#!/bin/bash\nif [ "$#" = 2 ] && [ "$1" = --check ] && [ "$2" = /dev/stdin ]; then t=$(mktemp --suffix=.js); cat > "$t"; "%s" --check "$t"; rc=$?; rm -f "$t"; exit $rc; fi\nexec "%s" "$@"\n' "$REAL" "$REAL" > "$RUNNER_TEMP/shim/node"
           chmod +x "$RUNNER_TEMP/shim/node"; echo "$RUNNER_TEMP/shim" >> "$GITHUB_PATH"
