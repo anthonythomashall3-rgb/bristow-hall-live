@@ -806,8 +806,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-15 06:10', '2026-11-15 06:10')",
-"want": "('2026-11-15 06:10', '2026-11-15 06:10')",
+"got": "('2026-11-15 08:32', '2026-11-15 08:32')",
+"want": "('2026-11-15 08:32', '2026-11-15 08:32')",
 "status": "PASS",
 "gate": "hard"
 },
@@ -869,8 +869,8 @@
 },
 {
 "name": "data page: the five columns",
-"got": "['name', 'ids', 'value', 'through', 'next']",
-"want": "['name', 'ids', 'value', 'through', 'next']",
+"got": "['tool', 'name', 'ids', 'freq', 'value', 'through', 'refreshed', 'next']",
+"want": "['tool', 'name', 'ids', 'freq', 'value', 'through', 'refreshed', 'next']",
 "status": "PASS",
 "gate": "soft"
 },

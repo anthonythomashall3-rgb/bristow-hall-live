@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-15 06:10",
+ "built_at": "2026-11-15 08:32",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-15T11:10:15Z",
+ "generated_utc": "2026-11-15T13:33:01Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -10,7 +10,7 @@
    "fred_clock": null,
    "freq": "daily",
    "ids": "^gspc",
-   "link": "https://finance.yahoo.com/quote/%5EGSPC/history/",
+   "link": "/detector/",
    "name": "s&p 500 daily close",
    "next_expected": false,
    "next_ny": "2026-11-16 16:00",
@@ -433,7 +433,7 @@
    "fred_clock": "12:02",
    "freq": "weekly",
    "ids": "gdpnow",
-   "link": "https://alfred.stlouisfed.org/series?seid=GDPNOW",
+   "link": "/detector/",
    "name": "gdpnow",
    "next_expected": false,
    "next_ny": "2026-11-17 12:02",
@@ -506,7 +506,7 @@
    "fred_clock": "08:34",
    "freq": "weekly",
    "ids": "icsa, ccsa, icnsa, ccnsa",
-   "link": "https://www.dol.gov/ui/data.pdf",
+   "link": "/detector/",
    "name": "initial claims and continued claims, seasonally adjusted and not",
    "next_expected": false,
    "next_ny": "2026-11-19 08:30",
@@ -519,79 +519,6 @@
    "time_known": true,
    "time_note": null,
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-05 08:30",
-     "utc": "2026-11-05T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-12 08:30",
-     "utc": "2026-11-12T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-19 08:30",
-     "utc": "2026-11-19T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-25 08:30",
-     "utc": "2026-11-25T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-03 08:30",
-     "utc": "2026-12-03T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-10 08:30",
-     "utc": "2026-12-10T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-17 08:30",
-     "utc": "2026-12-17T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-24 08:30",
-     "utc": "2026-12-24T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-31 08:30",
-     "utc": "2026-12-31T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-11-19",
-   "confirmed_through": "2026-12-31",
-   "fred_clock": "08:34",
-   "freq": "weekly",
-   "ids": "icsa",
-   "link": "https://fred.stlouisfed.org/series/ICSA",
-   "name": "initial claims",
-   "next_expected": false,
-   "next_ny": "2026-11-19 08:30",
-   "read_lag_min": 0,
-   "release_id": 180,
-   "short": "weekly claims",
-   "slots": true,
-   "source": "FRED release 180 (Unemployment Insurance Weekly Claims Report)",
-   "through": "2026-11-07",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-05 08:30",
-     "utc": "2026-11-05T13:30:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-12 08:30",
@@ -642,7 +569,7 @@
    "fred_clock": "11:39",
    "freq": "weekly",
    "ids": "wei",
-   "link": "https://fred.stlouisfed.org/series/WEI",
+   "link": "/detector/",
    "name": "weekly economic index (lewis, mertens and stock), 13-week mean",
    "next_expected": false,
    "next_ny": "2026-11-19 11:30",
@@ -710,7 +637,7 @@
    "fred_clock": "09:30",
    "freq": "monthly",
    "ids": "unrate, payems, unemploy, lns13023621",
-   "link": "https://alfred.stlouisfed.org/series?seid=UNRATE",
+   "link": "/detector/",
    "name": "unemployment rate, payrolls, the unemployed count, job losers",
    "next_expected": false,
    "next_ny": "2026-12-04 08:30",
@@ -753,7 +680,7 @@
    "fred_clock": null,
    "freq": "monthly",
    "ids": "baa",
-   "link": "https://fred.stlouisfed.org/series/BAA",
+   "link": "/detector/",
    "name": "moody's baa corporate bond yield, monthly average",
    "next_expected": false,
    "next_ny": "2026-12-07 16:15",
@@ -846,7 +773,7 @@
    "fred_clock": null,
    "freq": "monthly",
    "ids": "fedfunds",
-   "link": "https://fred.stlouisfed.org/series/FEDFUNDS",
+   "link": "/detector/",
    "name": "effective federal funds rate, monthly average",
    "next_expected": false,
    "next_ny": "2026-12-01 16:15",
@@ -934,7 +861,7 @@
    "fred_clock": null,
    "freq": "monthly",
    "ids": "gs10, gs1",
-   "link": "https://fred.stlouisfed.org/series/GS10",
+   "link": "/detector/",
    "name": "10-year and 1-year treasury yields, monthly averages",
    "next_expected": false,
    "next_ny": "2026-12-01 16:15",
@@ -1022,7 +949,7 @@
    "fred_clock": "09:36",
    "freq": "monthly",
    "ids": "sahmrealtime",
-   "link": "https://fred.stlouisfed.org/series/SAHMREALTIME",
+   "link": "/detector/",
    "name": "sahm rule, real time",
    "next_expected": false,
    "next_ny": "2026-12-04 09:36",
@@ -1065,7 +992,7 @@
    "fred_clock": "08:34",
    "freq": "weekly",
    "ids": "iursa",
-   "link": "https://fred.stlouisfed.org/series/IURSA",
+   "link": "/detector/",
    "name": "insured unemployment rate",
    "next_expected": false,
    "next_ny": "2026-11-19 08:30",
@@ -1078,11 +1005,6 @@
    "time_known": true,
    "time_note": null,
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-05 08:30",
-     "utc": "2026-11-05T13:30:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-12 08:30",
@@ -1133,7 +1055,7 @@
    "fred_clock": "08:34",
    "freq": "weekly",
    "ids": "ccnsa / covemp",
-   "link": "https://fred.stlouisfed.org/series/CCNSA",
+   "link": "/detector/",
    "name": "insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)",
    "next_expected": false,
    "next_ny": "2026-11-19 08:30",
@@ -1146,11 +1068,6 @@
    "time_known": true,
    "time_note": null,
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-05 08:30",
-     "utc": "2026-11-05T13:30:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-12 08:30",
@@ -1201,7 +1118,7 @@
    "fred_clock": "08:34",
    "freq": "weekly",
    "ids": "eta 539 by state",
-   "link": "https://oui.doleta.gov/unemploy/csv/ar539.csv",
+   "link": "/detector/",
    "name": "states with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
    "next_expected": false,
    "next_ny": "2026-11-19 08:30",
@@ -1214,11 +1131,6 @@
    "time_known": true,
    "time_note": null,
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-05 08:30",
-     "utc": "2026-11-05T13:30:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-12 08:30",
@@ -1264,98 +1176,12 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-12-04",
-   "confirmed_through": "2026-12-04",
-   "fred_clock": "09:30",
-   "freq": "monthly",
-   "ids": "unrate",
-   "link": "https://fred.stlouisfed.org/series/UNRATE",
-   "name": "unemployment rate",
-   "next_expected": false,
-   "next_ny": "2026-12-04 08:30",
-   "read_lag_min": 61,
-   "release_id": 50,
-   "short": "the jobs report",
-   "slots": true,
-   "source": "FRED release 50 (Employment Situation)",
-   "through": "2026-10-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-06 08:30",
-     "utc": "2026-11-06T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-04 08:30",
-     "utc": "2026-12-04T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-08 08:30",
-     "utc": "2027-01-08T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-02-12 08:30",
-     "utc": "2027-02-12T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-12-04",
-   "confirmed_through": "2026-12-04",
-   "fred_clock": "09:30",
-   "freq": "monthly",
-   "ids": "payems",
-   "link": "https://fred.stlouisfed.org/series/PAYEMS",
-   "name": "nonfarm payrolls",
-   "next_expected": false,
-   "next_ny": "2026-12-04 08:30",
-   "read_lag_min": 61,
-   "release_id": 50,
-   "short": "the jobs report",
-   "slots": true,
-   "source": "FRED release 50 (Employment Situation)",
-   "through": "2026-10-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-06 08:30",
-     "utc": "2026-11-06T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-04 08:30",
-     "utc": "2026-12-04T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-08 08:30",
-     "utc": "2027-01-08T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-02-12 08:30",
-     "utc": "2027-02-12T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
    "build_next": "2026-12-10",
    "confirmed_through": "2026-12-10",
    "fred_clock": "09:10",
    "freq": "monthly",
    "ids": "cpiaucsl",
-   "link": "https://fred.stlouisfed.org/series/CPIAUCSL",
+   "link": "/detector/",
    "name": "cpi inflation",
    "next_expected": false,
    "next_ny": "2026-12-10 08:30",
@@ -1398,7 +1224,7 @@
    "fred_clock": "09:30",
    "freq": "monthly",
    "ids": "unrate, jtsjol",
-   "link": "https://alfred.stlouisfed.org/series?seid=UNRATE",
+   "link": "/detector/",
    "name": "michaillat and saez's rule: the smaller of the unemployment indicator and the vacancy indicator",
    "next_expected": false,
    "next_ny": "2026-12-04 08:30",
@@ -1441,7 +1267,7 @@
    "fred_clock": "10:10",
    "freq": "monthly",
    "ids": "jtsjol",
-   "link": "https://alfred.stlouisfed.org/series?seid=JTSJOL",
+   "link": "/detector/",
    "name": "job openings",
    "next_expected": false,
    "next_ny": "2026-12-01 10:00",
@@ -1479,7 +1305,7 @@
    "fred_clock": "09:21",
    "freq": "monthly",
    "ids": "indpro",
-   "link": "https://alfred.stlouisfed.org/series?seid=INDPRO",
+   "link": "/detector/",
    "name": "industrial production",
    "next_expected": false,
    "next_ny": "2026-11-17 09:15",
@@ -1572,7 +1398,7 @@
    "fred_clock": "10:10",
    "freq": "monthly",
    "ids": "jtsqur",
-   "link": "https://fred.stlouisfed.org/series/JTSQUR",
+   "link": "/detector/",
    "name": "quits rate",
    "next_expected": false,
    "next_ny": "2026-12-01 10:00",
@@ -1610,7 +1436,7 @@
    "fred_clock": "08:34",
    "freq": "monthly",
    "ids": "cfnaima3",
-   "link": "https://fred.stlouisfed.org/series/CFNAIMA3",
+   "link": "/detector/",
    "name": "chicago fed national activity index, three-month average",
    "next_expected": false,
    "next_ny": "2026-11-23 08:30",
@@ -1648,7 +1474,7 @@
    "fred_clock": "08:51",
    "freq": "monthly",
    "ids": "gdpc1",
-   "link": "https://fred.stlouisfed.org/series/GDPC1",
+   "link": "/detector/",
    "name": "real gdp",
    "next_expected": false,
    "next_ny": "2026-11-25 08:30",
@@ -1675,6 +1501,324 @@
      "expected": true,
      "ny": "2027-01-28 08:30",
      "utc": "2027-01-28T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "",
+   "confirmed_through": "2026-12-04",
+   "fred_clock": "09:30",
+   "freq": "monthly",
+   "ids": "payems",
+   "link": "/disturbance/",
+   "name": "fred series payems",
+   "next_expected": false,
+   "next_ny": "2026-12-04 08:30",
+   "read_lag_min": 61,
+   "release_id": 50,
+   "short": "the jobs report",
+   "slots": true,
+   "source": "FRED release 50 (Employment Situation)",
+   "through": "2026-10-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-06 08:30",
+     "utc": "2026-11-06T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 08:30",
+     "utc": "2026-12-04T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 08:30",
+     "utc": "2027-01-08T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-12 08:30",
+     "utc": "2027-02-12T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "",
+   "confirmed_through": "2026-12-04",
+   "fred_clock": "09:30",
+   "freq": "monthly",
+   "ids": "unrate",
+   "link": "/disturbance/",
+   "name": "fred series unrate",
+   "next_expected": false,
+   "next_ny": "2026-12-04 08:30",
+   "read_lag_min": 61,
+   "release_id": 50,
+   "short": "the jobs report",
+   "slots": true,
+   "source": "FRED release 50 (Employment Situation)",
+   "through": "2026-10-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-06 08:30",
+     "utc": "2026-11-06T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-04 08:30",
+     "utc": "2026-12-04T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 08:30",
+     "utc": "2027-01-08T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-12 08:30",
+     "utc": "2027-02-12T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "",
+   "confirmed_through": "2026-12-23",
+   "fred_clock": null,
+   "freq": "monthly",
+   "ids": "w875rx1",
+   "link": "/disturbance/",
+   "name": "fred series w875rx1",
+   "next_expected": false,
+   "next_ny": "2026-11-25 08:30",
+   "read_lag_min": 0,
+   "release_id": 54,
+   "short": "fred series w875rx1",
+   "slots": true,
+   "source": "FRED release 54 (Personal Income and Outlays)",
+   "through": "2026-09-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-25 08:30",
+     "utc": "2026-11-25T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 08:30",
+     "utc": "2026-12-23T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-28 08:30",
+     "utc": "2027-01-28T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "",
+   "confirmed_through": "2026-12-23",
+   "fred_clock": null,
+   "freq": "monthly",
+   "ids": "cmrmtspl",
+   "link": "/disturbance/",
+   "name": "fred series cmrmtspl",
+   "next_expected": false,
+   "next_ny": "2026-11-25 08:30",
+   "read_lag_min": 0,
+   "release_id": 282,
+   "short": "fred series cmrmtspl",
+   "slots": true,
+   "source": "FRED release 282 (Supplemental Estimates, Underlying Detail Tables, Spliced Series)",
+   "through": "2026-08-01",
+   "time_known": false,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-25 08:30",
+     "utc": "2026-11-25T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 08:30",
+     "utc": "2026-12-23T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-28 08:30",
+     "utc": "2027-01-28T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "",
+   "confirmed_through": "2027-12-16",
+   "fred_clock": "09:21",
+   "freq": "monthly",
+   "ids": "derived: payems, indpro, w875rx1, cmrmtspl, unrate, gdpc1",
+   "link": "/stress-map/",
+   "name": "national disturbance register v3.2",
+   "next_expected": false,
+   "next_ny": "2026-11-17 09:15",
+   "read_lag_min": 6,
+   "release_id": 13,
+   "short": "industrial production (G.17)",
+   "slots": true,
+   "source": "FRED release 13 (G.17 Industrial Production and Capacity Utilization)",
+   "through": "2026-10-31",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-17 09:15",
+     "utc": "2026-11-17T14:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-16 09:15",
+     "utc": "2026-12-16T14:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-01-15 09:15",
+     "utc": "2027-01-15T14:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-02-17 09:15",
+     "utc": "2027-02-17T14:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-03-15 09:15",
+     "utc": "2027-03-15T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-04-15 09:15",
+     "utc": "2027-04-15T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-05-17 09:15",
+     "utc": "2027-05-17T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-06-16 09:15",
+     "utc": "2027-06-16T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-07-16 09:15",
+     "utc": "2027-07-16T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-08-17 09:15",
+     "utc": "2027-08-17T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-09-16 09:15",
+     "utc": "2027-09-16T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-10-18 09:15",
+     "utc": "2027-10-18T13:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-11-17 09:15",
+     "utc": "2027-11-17T14:15:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-12-16 09:15",
+     "utc": "2027-12-16T14:15:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "",
+   "confirmed_through": "2026-12-31",
+   "fred_clock": "08:34",
+   "freq": "weekly",
+   "ids": "icsa",
+   "link": "/shadow/",
+   "name": "initial claims, 13-week feed, by release day",
+   "next_expected": false,
+   "next_ny": "2026-11-19 08:30",
+   "read_lag_min": 0,
+   "release_id": 180,
+   "short": "weekly claims",
+   "slots": true,
+   "source": "FRED release 180 (Unemployment Insurance Weekly Claims Report)",
+   "through": "2026-11-12",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-12 08:30",
+     "utc": "2026-11-12T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-19 08:30",
+     "utc": "2026-11-19T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 08:30",
+     "utc": "2026-11-25T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-03 08:30",
+     "utc": "2026-12-03T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-10 08:30",
+     "utc": "2026-12-10T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 08:30",
+     "utc": "2026-12-17T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-24 08:30",
+     "utc": "2026-12-24T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-31 08:30",
+     "utc": "2026-12-31T13:30:00Z"
     }
    ],
    "waiting_since_due": null

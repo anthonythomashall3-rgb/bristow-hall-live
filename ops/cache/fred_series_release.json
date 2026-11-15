@@ -4,6 +4,30 @@
   "name": "Employment Situation",
   "release_id": 50
  },
+ "BPS": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "BY": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "CB_2024_US_COUNTY_500K": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "CB_2024_US_STATE": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
  "CCNSA": {
   "fetched": "2026-10-22",
   "name": "Unemployment Insurance Weekly Claims Report",
@@ -13,6 +37,12 @@
   "fetched": "2026-10-22",
   "name": "Unemployment Insurance Weekly Claims Report",
   "release_id": 180
+ },
+ "CES": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
  },
  "CFNAIMA3": {
   "fetched": "2026-10-22",
@@ -24,6 +54,23 @@
   "name": "Employment Situation",
   "release_id": 50
  },
+ "CMG": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "CMRMTSPL": {
+  "fetched": "2026-11-15",
+  "name": "Supplemental Estimates, Underlying Detail Tables, Spliced Series",
+  "release_id": 282
+ },
+ "COUNTY": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
  "COVEMP": {
   "fetched": "2026-10-22",
   "name": "Unemployment Insurance Weekly Claims Report",
@@ -33,6 +80,36 @@
   "fetched": "2026-10-22",
   "name": "Consumer Price Index",
   "release_id": 10
+ },
+ "CPS": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "CS": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "DERIVED": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "ETA": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "FIRST": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
  },
  "GDPC1": {
   "fetched": "2026-10-23",
@@ -44,10 +121,22 @@
   "name": "GDPNow",
   "release_id": 386
  },
+ "GS4X": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
  "HOUST": {
   "fetched": "2026-10-22",
   "name": "New Residential Construction",
   "release_id": 27
+ },
+ "IC": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
  },
  "ICNSA": {
   "fetched": "2026-11-08",
@@ -64,10 +153,28 @@
   "name": "G.17 Industrial Production and Capacity Utilization",
   "release_id": 13
  },
+ "IPM": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "IUR": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
  "IURSA": {
   "fetched": "2026-10-22",
   "name": "Unemployment Insurance Weekly Claims Report",
   "release_id": 180
+ },
+ "JL": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
  },
  "JTSJOL": {
   "fetched": "2026-10-22",
@@ -101,6 +208,12 @@
   "name": "Employment Situation",
   "release_id": 50
  },
+ "NSA": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
  "PAYEMS": {
   "fetched": "2026-10-22",
   "name": "Employment Situation",
@@ -111,8 +224,26 @@
   "name": "New Residential Construction",
   "release_id": 27
  },
+ "PRINTS": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "QCEW": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
  "RATES": {
   "fetched": "2026-09-22",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "RELEASES": {
+  "fetched": "2026-11-15",
   "name": "",
   "note": "not a FRED series",
   "release_id": null
@@ -122,8 +253,32 @@
   "name": "Sahm Rule Recession Indicator",
   "release_id": 456
  },
+ "SM": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "SQINC4": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
  "STATE": {
-  "fetched": "2026-09-22",
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "TSFP": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "U0FPG": {
+  "fetched": "2026-11-15",
   "name": "",
   "note": "not a FRED series",
   "release_id": null
@@ -137,6 +292,35 @@
   "fetched": "2026-10-22",
   "name": "Employment Situation",
   "release_id": 50
+ },
+ "V376_LAB": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "V376_P": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "V376_Y": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
+ },
+ "W875RX1": {
+  "fetched": "2026-11-15",
+  "name": "Personal Income and Outlays",
+  "release_id": 54
+ },
+ "WEEKLY": {
+  "fetched": "2026-11-15",
+  "name": "",
+  "note": "not a FRED series",
+  "release_id": null
  },
  "WEI": {
   "fetched": "2026-10-23",

@@ -53,40 +53,16 @@
     "https://fred.stlouisfed.org/series/CPIAUCSL"
    ]
   ],
-  "row|front|ICSA|Initial claims": [
-   [
-    "FRED ICSA",
-    "https://fred.stlouisfed.org/series/ICSA"
-   ]
-  ],
   "row|front|IURSA|Insured unemployment rate": [
    [
     "FRED IURSA",
     "https://fred.stlouisfed.org/series/IURSA"
    ]
   ],
-  "row|front|JTSJOL|Job openings": [
-   [
-    "FRED JTSJOL",
-    "https://fred.stlouisfed.org/series/JTSJOL"
-   ]
-  ],
   "row|front|JTSQUR|Quits rate": [
    [
     "FRED JTSQUR",
     "https://fred.stlouisfed.org/series/JTSQUR"
-   ]
-  ],
-  "row|front|PAYEMS|Nonfarm payrolls": [
-   [
-    "FRED PAYEMS",
-    "https://fred.stlouisfed.org/series/PAYEMS"
-   ]
-  ],
-  "row|front|UNRATE|Unemployment rate": [
-   [
-    "FRED UNRATE",
-    "https://fred.stlouisfed.org/series/UNRATE"
    ]
   ],
   "row|rule|BAA|Moody's Baa corporate bond yield, monthly average": [
