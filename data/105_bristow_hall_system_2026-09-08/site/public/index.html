@@ -99,7 +99,7 @@ h2{font-size:25px;font-weight:700;color:#111;margin:40px 0 0}
 <div class="foot"><div class="inner">
   <div class="t">BRISTOW-HALL BUSINESS CYCLE PROGRAM</div>
   <div class="s">Real-time dating of the American business cycle.</div>
-  <div class="links"><a href="/">Home</a><a href="/detector/">Recession Indicator</a><a href="/disturbance/">Disturbance Chronology</a><a href="/state-onset/">State Recession Indicator</a><a href="/stress-map/">National Stress Map</a><a href="/damage-index/">Damage Index</a><a href="/chronology/">Chronology</a><a href="/#papers">Papers</a><a href="/data/">Data</a></div>
+  <div class="links"><a href="/">Home</a><a href="/detector/">Recession Indicator</a><a href="/disturbance/">Disturbance Chronology</a><a href="/state-onset/">State Recession Chronology</a><a href="/stress-map/">National Stress Map</a><a href="/damage-index/">Damage Index</a><a href="/chronology/">Chronology</a><a href="/#papers">Papers</a><a href="/data/">Data</a></div>
 </div></div>
 
 <script>
@@ -131,7 +131,7 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;',
   const T=[
    {n:'Real-Time Bristow-Hall Rule Recession Indicator',s:'live',href:'/detector/',d:'The rule’s reading on one line, every release day since 1948, with the recessions it dated and the committee’s.',spark:true},
    {n:'National Disturbance Chronology',s:'live',href:'/disturbance/',img:'/disturbance/thumb.svg',d:'Every national slowdown since 1948 that stopped short of recession, dated by one fixed rule and graded on the same scale as recessions.'},
-   {n:'Real-Time State Recession Indicator',s:'dev',href:'/state-onset/',d:'The same rule read state by state, so an onset is seen where it starts and not only in the aggregate.'},
+   {n:'State Recession Chronology and Damage Grade',s:'live',href:'/state-onset/',d:'Recessions and disturbances in each of the fifty states since 1979, dated as the nation is, each with a damage grade.'},
    {n:'National Stress Map',s:'dev',href:'/stress-map/',d:'Labor-market stress across the fifty states and the District, on one scale, week by week.'},
    {n:'Damage Index',s:'dev',href:'/damage-index/',d:'A Richter scale for recessions: how deep, how broad, and where - not only when.'},
    {n:'Business-Cycle Chronology',s:'dev',href:'/chronology/',d:'The program’s dated chronology of peaks and troughs beside the committee’s and the OECD’s.'}
