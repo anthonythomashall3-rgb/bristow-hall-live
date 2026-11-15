@@ -111,6 +111,9 @@ python3 bhs_site.py
 # has just written; on any failure it puts the last good page back. Never fails the run. Research home:
 # ~/Projects/Disturbance Indicator Data/10_chronology_site.
 python3 s2/disturbance/disturbance_site.py || true
+# THE STATE RECESSION CHRONOLOGY AND DAMAGE GRADE (14 November 2026; Anthony: "publish to the live site"): writes the page
+# built in collection 1032 (s2/state_onset/page.html) over the stub bhs_site.py writes at /state-onset/; never fails the run
+python3 s2/state_onset/state_onset_site.py || true
 # THE RUN SLOTS (21 September 2026, collection 278): the release times at which the Cloudflare Worker and the Mac start the
 # next runs, published with the site (site/public/run_slots.json); never fails the run
 python3 s2/run_slots.py || true

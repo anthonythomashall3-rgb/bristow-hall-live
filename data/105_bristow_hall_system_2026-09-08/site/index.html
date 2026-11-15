@@ -338,7 +338,7 @@ const SITE = false;
     try{ const url=URL.createObjectURL(new Blob([html],{type:'text/html'})); const w=window.open(url,'_blank'); if(w) return; }catch(e){}
     dataPanel('csv'); }
   const FREQTXT=(SER.frequency||'Daily, on release days'); $('#freq1').innerHTML=FREQTXT.replace(', ',',<br>'); $('#freq2').textContent=FREQTXT;
-  const CITE='Bristow, Duke and Hall, Anthony, Real-time Bristow-Hall Rule Recession Indicator [BHRREALTIME], retrieved from the Bristow-Hall System.';
+  const CITE='Bristow and Hall, Real-time Bristow-Hall Rule Recession Indicator [BHRREALTIME].';
   $('#cite').textContent=CITE;
   { const ds=[]; const walk=o=>{ for(const k in o){ const v=o[k]; if(v&&typeof v==='object') walk(v); else if(typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)) ds.push(v); } }; walk(S.through||{}); if(!ds.length) ds.push(ld.length>7?ld:ld+'-01'); ds.sort(); $('#ver').textContent=fmtD(ds[ds.length-1]); }   // the latest day the data reach
   if(S.notes&&S.notes.vacancy){ const _vn=$('#vacnote'); if(_vn) _vn.textContent=S.notes.vacancy; }
