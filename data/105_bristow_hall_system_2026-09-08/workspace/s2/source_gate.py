@@ -390,7 +390,8 @@ class Gate:
             return
         if p < newest:
             later = [d for d in s.dates if d > p]
-            pub = min((s.first_pub.get(d) or '0000') for d in later) if later else None
+            pubs = [s.first_pub[d] for d in later if s.first_pub.get(d)]
+            pub = min(pubs) if pubs else None
             if pub and pub >= self.build_day:
                 self.R.add(page, label, 'freshness', 'WARN', value, p, s.sid, transform, newest,
                            'a newer period (%s) was published %s, on or after the build day: the next run takes it' % (newest, pub))
@@ -473,7 +474,8 @@ class Gate:
             return a - min(prior), None
         if transform == 'sp_yoy':
             o = s.on(day); a = o.get(period)
-            ago = (D(period) - dt.timedelta(days=365)).isoformat(); ks = [k for k in o if k <= ago]
+            # the reading of the build day: its newest close against the last close on or before 365 days before that day
+            ago = (D(day) - dt.timedelta(days=365)).isoformat(); ks = [k for k in o if k <= ago]
             if a is None or not ks: return None, 'missing'
             return (a / o[max(ks)] - 1) * 100, None
         return None, 'no recipe for %s' % transform

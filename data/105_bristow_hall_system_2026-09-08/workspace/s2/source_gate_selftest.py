@@ -146,6 +146,38 @@ def main():
                                  'fails': [{k: x[k] for k in ('page', 'label', 'check', 'value', 'expected', 'detail')} for x in details]})
         print('  %-22s %s  decision %s, %d new FAIL(s): %s' % (name, 'CAUGHT' if caught else 'MISSED', rep['decision'], len(new),
               ' | '.join('%s %s: %s' % (x['page'], x['label'][:40], (x['detail'] or '')[:90]) for x in details[:4])))
+    # a CORRECT build passes: the build above with only its known errors corrected (each correction is the publisher's own value
+    # that the gate reported), and nothing else touched. Every other figure on it is left exactly as published.
+    d = os.path.join(tmp, 'corrected'); shutil.copytree(a.site, d)
+    fixed = []
+    def fix_row(page, name, fn):
+        p = os.path.join(d, 'data', 'index.html'); t = open(p, encoding='utf-8').read(); tool = page.split('/', 1)[1]
+        for nm in (G.htmlmod.escape(name, quote=True).replace('&#x27;', "'"), name):
+            pat = r'<tr data-tool="\d+ %s" data-name="%s".*?</tr>' % (re.escape(tool), re.escape(nm))
+            t2 = re.sub(pat, lambda m: fn(m.group(0)), t, flags=re.S)
+            if t2 != t: open(p, 'w', encoding='utf-8').write(t2); return True
+    for r in base['rows']:
+        if r['status'] != 'FAIL': continue
+        if r['page'].startswith('data/') and r['check'] == 'value' and 'where the value it holds should be' in (r['detail'] or ''):
+            if fix_row(r['page'], r['label'], lambda x: re.sub(r'<b>MISSING</b>', '<b>held</b>', x.replace('data-value="missing"', 'data-value="held"'), flags=re.I)):
+                fixed.append(('MISSING shown', r['page'], r['label']))
+        elif r['page'].startswith('data/') and r['check'] == 'freshness' and r.get('expected'):
+            e = r['expected'] if len(r['expected']) == 10 else r['expected'] + '-01'
+            if fix_row(r['page'], r['label'], lambda x: re.sub(r'data-through="[^"]*"', 'data-through="%s"' % e, x)):
+                fixed.append(('stale period', r['page'], r['label']))
+        elif r['page'] == 'detector' and r['check'] == 'freshness' and r.get('expected'):
+            tt, aa, bb, S = load_S(d)
+            for x in S['readings']:
+                if x['object'].split(',')[0][:90] == r['label']: x['through'] = r['expected']; fixed.append(('frozen reading', r['page'], r['label']))
+            save_S(d, S)
+    rc = G.run(d, out=os.path.join(tmp, 'corrected.json'), **kw)
+    left = [x for x in rc['rows'] if x['status'] == 'FAIL']
+    ok_c = not left
+    print('  %-22s %s  %d known errors corrected, nothing else touched: decision %s, %d checks, %d PASS, %d FAIL%s' % (
+        'correct_build', 'PASSES' if ok_c else 'STILL FAILS', len(fixed), rc['decision'], rc['totals']['checks'], rc['totals']['passed'],
+        len(left), (': ' + ' | '.join('%s %s %s' % (x['page'], x['label'][:40], (x['detail'] or '')[:80]) for x in left[:5])) if left else ''))
+    out['correct_build'] = {'corrected': fixed, 'decision': rc['decision'], 'fails_left': left, 'totals': rc['totals']}
+    allok &= ok_c
     # an outage: the source of a figure cannot be read. Unchanged since the last verified build -> may stay; changed -> held.
     cache = json.load(open(a.sources))
     for k in [k for k in cache if k.startswith('fred:UNRATE:')]: cache[k + ':err'] = 'simulated outage'; del cache[k]
