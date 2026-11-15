@@ -26,7 +26,8 @@ on:
         default: "full"
 
 concurrency:
-  group: live-tools
+  # a pull request's parity run publishes nothing: its own group, so a queued main run does not cancel it (15 Nov 2026)
+  group: ${{ github.event_name == 'pull_request' && format('live-tools-pr-{0}', github.ref) || 'live-tools' }}
   cancel-in-progress: false
 
 permissions:
@@ -156,7 +157,31 @@ jobs:
             [ -n "$RID" ] && break
           done
           echo "update run $RID"; echo "run=$RID" >> "$GITHUB_OUTPUT"
-          gh run watch "$RID" -R "$GITHUB_REPOSITORY" --exit-status --interval 30 > /dev/null && echo "deploy ok" || { echo "the site deploy failed"; exit 1; }
+          SHA="${{ steps.commit.outputs.sha }}"
+          # The site deploy is done when ANY update.yml run on main that started after our dispatch and whose commit contains ours ($SHA, or a later
+          # commit of main) has finished with success. A push by another chat queues a newer update run, which cancels our pending dispatch
+          # (concurrency group 'update'); that newer run deploys our pages too, so it counts (15 Nov 2026, run 43756722308 / 43759507101).
+          python3 - "$SHA" "$T0" "$RID" <<'PY'
+          import json, subprocess, sys, time
+          sha, t0, rid = sys.argv[1:4]; R = __import__('os').environ['GITHUB_REPOSITORY']
+          gh = lambda *a: subprocess.run(['gh', *a], capture_output=True, text=True).stdout
+          def contains(head):
+              if head == sha: return True
+              try: return json.loads(gh('api', f'repos/{R}/compare/{sha}...{head}')).get('status') in ('identical', 'ahead')
+              except Exception: return False
+          end = time.time() + 45 * 60
+          while time.time() < end:
+              runs = json.loads(gh('run', 'list', '-R', R, '--workflow', 'update.yml', '--branch', 'main', '-L', '20', '--json', 'databaseId,status,conclusion,headSha,createdAt') or '[]')
+              runs = [r for r in runs if r['createdAt'] >= t0]
+              good = [r for r in runs if r['status'] == 'completed' and r['conclusion'] == 'success' and contains(r['headSha'])]
+              if good: print('deploy ok: update run %s (commit %s) contains %s' % (good[0]['databaseId'], good[0]['headSha'][:8], sha[:8])); sys.exit(0)
+              live = [r for r in runs if r['status'] != 'completed']
+              mine = [r for r in runs if str(r['databaseId']) == rid]
+              if mine and mine[0]['status'] == 'completed' and mine[0]['conclusion'] not in ('success', 'cancelled') and not live:
+                  print('the site deploy failed: run %s %s' % (rid, mine[0]['conclusion'])); sys.exit(1)
+              time.sleep(30)
+          print('no update run containing %s finished with success in 45 minutes' % sha[:8]); sys.exit(1)
+          PY
 
       - name: read the live pages back
         if: env.MODE == 'full' && steps.deploy.outcome == 'success'
