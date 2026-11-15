@@ -262,7 +262,7 @@ _lf=state.get('leg_feeds',[]); _ls=state.get('leg_status',{})
 try:
     _bs=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'out','backstop_state.json')))
     _BSROW={'SOS_NSA':('Insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)','CCNSA / COVEMP','https://www.dol.gov/ui/data.pdf','Department of Labor, weekly claims release'),
-            'LMSI30':('States with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)','ETA 539 by state','https://oui.doleta.gov/unemploy/DataDownloads.asp','Department of Labor, ETA 539 state weekly claims'),
+            'LMSI30':('States with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)','ALINSUREDUR ... WYINSUREDUR','https://oui.doleta.gov/unemploy/DataDownloads.asp','Department of Labor, ETA 539 state weekly claims'),
             'CFNAI':('Chicago Fed National Activity Index, three-month average','CFNAIMA3','https://www.chicagofed.org/research/data/cfnai/current-data','Federal Reserve Bank of Chicago'),
             # v3.74 (23 September 2026, collection 335; the row's link, its series and its next day added after the deploy's ops check
             # reported the row with no link and no release calendar): the shadow reading. Its ids name both inputs, so the ops calendar
@@ -345,10 +345,10 @@ def _drow(r):
     _ti_=(_TOOLS.index(r['tool']) if r['tool'] in _TOOLS else 9); _tk='%d %s'%(_ti_,r['tool'])
     _thx=(_fmtp(r['through'],r.get('cad')) if (r.get('kind')!='tool' or _re3.match(r'^\d{4}-\d{2}(-\d{2})?$',str(r['through']))) else _esc(r['through']))   # 'static', a date with a note: shown as measured
     _rft=str(r.get('refreshed') or ''); _rfs=_fmtd(rf) if rf else (_esc(_rft) if _rft else '<span class="na">&mdash;</span>')   # 'MISSING' is said, not blanked
-    return ('<tr data-tool="'+_esc(_tk)+'" data-name="'+_esc(r['name'].lower())+'" data-ids="'+_esc(r['ids'].lower())+'" data-value="'+_esc(r['value'].lower())+'" data-freq="'+_esc(r.get('cad') or '')+'" data-through="'+th+'" data-next="'+nx+'" data-refreshed="'+_esc(_rft or rf)+'" data-legs="'+_esc(r['legs'].lower())+'">'
+    return ('<tr data-tool="'+_esc(_tk)+'" data-name="'+_esc(r['name'].lower())+'" data-ids="'+_esc(r['ids'].lower())+'" data-value="'+_esc(r['value'].lower())+'" data-freq="'+_esc(r.get('cad') or '')+'" data-through="'+th+'" data-next="'+nx+'" data-refreshed="'+_esc(_rft or rf)+'" data-legs="'+_esc(r['legs'].lower())+'"'+(' data-frozen="1"' if r.get('frozen') else '')+'>'
             +'<td class="tool"><a href="'+_esc(_ti.PAGE.get(r['tool'],'/') if '_ti' in globals() else '/')+'">'+_esc(r['tool'])+'</a></td>'
             +'<td><b>'+t1+'</b><div class="src">'+_srcline(r)+'</div>'+('<div class="note">'+_esc(r['note'])+'</div>' if r.get('note') else '')+'</td>'
-            +'<td class="id">'+_esc(r['ids'])+'</td>'
+            +'<td class="id">'+(_esc(r['ids']) or '&mdash;')+'</td>'   # 1052 (Anthony: "JUST GIVE THE FRED ID"): FRED IDs only; a row with no FRED series shows a dash
             +'<td>'+_esc((r.get('cad') or '').capitalize() or '-')+'</td>'
             +'<td class="val">'+_vcell(r)+'</td>'
             +'<td class="num">'+(_thx if r['through'] else '<span class="na">&mdash;</span>')+'</td>'

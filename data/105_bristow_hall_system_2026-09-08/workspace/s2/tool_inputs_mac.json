@@ -8,7 +8,7 @@
     {
      "key": "v1_state_shapes",
      "name": "State boundaries, 2024 (drawn from the Census file)",
-     "ids": "cb_2024_us_state",
+     "ids": "",
      "source": "Census Bureau, cartographic boundary files",
      "url": "https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html",
      "freq": "static",
@@ -16,12 +16,13 @@
      "refreshed": "2026-11-15T11:44Z",
      "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/out/state_shapes_cb2024_svg_1052.json",
      "held": "1 file",
-     "refresh": "never (static)"
+     "refresh": "never (static)",
+     "release": ""
     },
     {
      "key": "v4_chronology",
      "name": "Bristow-Hall State chronology v4",
-     "ids": "derived",
+     "ids": "",
      "source": "Bristow-Hall (collection 1032)",
      "url": "/state-onset/",
      "freq": "monthly",
@@ -29,12 +30,13 @@
      "refreshed": "2026-11-15T18:52Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": "1 file",
-     "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
+     "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)",
+     "release": ""
     },
     {
      "key": "v4_line",
      "name": "Bristow-Hall State damage line v4",
-     "ids": "derived",
+     "ids": "",
      "source": "Bristow-Hall (collection 1032)",
      "url": "/state-onset/",
      "freq": "monthly",
@@ -42,12 +44,13 @@
      "refreshed": "2026-11-15T18:52Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": "1 file",
-     "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
+     "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)",
+     "release": ""
     },
     {
      "key": "v4_index",
      "name": "State coincident indexes, 50 states",
-     "ids": "<ST>PHCI",
+     "ids": "ALPHCI ... WYPHCI",
      "source": "Federal Reserve Bank of Philadelphia",
      "url": "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/state-coincident-indexes",
      "freq": "monthly",
@@ -55,12 +58,13 @@
      "refreshed": "2026-11-09T17:47Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/philly/coincident-revised.xls",
      "held": "1 file",
-     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)",
+     "release": ""
     },
     {
      "key": "v4_state_ur",
      "name": "State unemployment rates, 50 states and DC",
-     "ids": "<ST>UR",
+     "ids": "ALUR ... WYUR",
      "source": "Bureau of Labor Statistics, LAUS (via FRED)",
      "url": "https://fred.stlouisfed.org/series/CAUR",
      "freq": "monthly",
@@ -68,12 +72,13 @@
      "refreshed": "2026-11-15T13:19Z",
      "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_ur/<ST>UR.csv",
      "held": "51 files",
-     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)",
+     "release": ""
     },
     {
      "key": "l0_payrolls",
      "name": "State payroll employment, not seasonally adjusted (history layer before 1979-07)",
-     "ids": "<ST>NAN",
+     "ids": "ALNAN ... WYNAN",
      "source": "Bureau of Labor Statistics, CES State (via FRED)",
      "url": "https://fred.stlouisfed.org/series/CANAN",
      "freq": "monthly",
@@ -81,12 +86,13 @@
      "refreshed": "2026-10-31T15:23Z",
      "path": "~/Projects/Onset Detector Data/954_state_chronology_1939_bry_boschan_2026-10-31/data/state_nan/<ST>NAN.csv",
      "held": "51 files",
-     "refresh": "never (history layer)"
+     "refresh": "never (history layer)",
+     "release": ""
     },
     {
      "key": "l0_claims",
      "name": "State initial claims, not seasonally adjusted (history layer before 1979-07)",
-     "ids": "state IC NSA",
+     "ids": "ALICLAIMS ... WYICLAIMS",
      "source": "Department of Labor, ETA (FH history file)",
      "url": "https://oui.doleta.gov/unemploy/claims.asp",
      "freq": "monthly",
@@ -94,12 +100,13 @@
      "refreshed": "2026-09-02T18:35Z",
      "path": "~/Projects/Onset Detector Data/24_bristow_rule_lab/workspace/lab/fh/FH_state_claims_nsa_log.csv",
      "held": "1 file",
-     "refresh": "never (history layer)"
+     "refresh": "never (history layer)",
+     "release": ""
     },
     {
      "key": "register",
      "name": "National disturbance register v3.2",
-     "ids": "derived: PAYEMS, INDPRO, W875RX1, CMRMTSPL, UNRATE, GDPC1",
+     "ids": "PAYEMS, INDPRO, W875RX1, CMRMTSPL, UNRATE, GDPC1",
      "source": "Bristow-Hall (Disturbance Indicator)",
      "url": "/disturbance/",
      "freq": "monthly",
@@ -107,12 +114,13 @@
      "refreshed": "2026-11-14T13:36Z",
      "path": "~/Projects/Disturbance Indicator Data/10_chronology_site/out_v3_2_damage_cut/chronology.csv",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "manual: Mac rebuild of the tool",
+     "release": "inputs"
     },
     {
      "key": "live_chronology",
      "name": "Live recession chronology (the detector)",
-     "ids": "derived",
+     "ids": "",
      "source": "Bristow-Hall (the detector)",
      "url": "/detector/",
      "freq": "daily",
@@ -120,12 +128,13 @@
      "refreshed": "2026-11-15T18:52Z",
      "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/data/live_chronology/bhs_state_origin_main.json",
      "held": "1 file",
-     "refresh": "each cloud run (a Mac copy of the published state)"
+     "refresh": "each cloud run (a Mac copy of the published state)",
+     "release": ""
     },
     {
      "key": "county_laus",
      "name": "County unemployment rates and labor force, 3,143 counties (BLS flat file)",
-     "ids": "LAUCN*",
+     "ids": "",
      "source": "Bureau of Labor Statistics, LAUS",
      "url": "https://download.bls.gov/pub/time.series/la/",
      "freq": "monthly",
@@ -133,12 +142,13 @@
      "refreshed": "2026-11-15T18:49Z",
      "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/laus_county.txt.gz",
      "held": "1 file",
-     "refresh": "each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)"
+     "refresh": "each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)",
+     "release": ""
     },
     {
      "key": "county_laus_held",
      "name": "County unemployment rates and labor force, 3,143 counties",
-     "ids": "LAUCN*",
+     "ids": "",
      "source": "Bureau of Labor Statistics, LAUS",
      "url": "https://www.bls.gov/lau/",
      "freq": "monthly",
@@ -146,12 +156,13 @@
      "refreshed": "2026-11-09T19:30Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/laus_county/county_ur_lf_1990_2026.csv.gz",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "manual: Mac rebuild of the tool",
+     "release": "bls_metro"
     },
     {
      "key": "county_qcew",
      "name": "QCEW county total covered employment",
-     "ids": "QCEW county",
+     "ids": "",
      "source": "Bureau of Labor Statistics, QCEW",
      "url": "https://www.bls.gov/cew/downloadable-data-files.htm",
      "freq": "quarterly",
@@ -159,12 +170,13 @@
      "refreshed": "2026-11-14T00:21Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry/<YEAR>_county_tot.csv",
      "held": "37 files",
-     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)",
+     "release": ""
     },
     {
      "key": "county_shapes",
      "name": "County boundaries, 2024",
-     "ids": "cb_2024_us_county_500k",
+     "ids": "",
      "source": "Census Bureau, cartographic boundary files",
      "url": "https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html",
      "freq": "static",
@@ -172,12 +184,13 @@
      "refreshed": "2026-11-14T14:51Z",
      "path": "/Volumes/Sandisk G/Recession Data/06 Tool 5 - National Stress Map/Map boundaries through time (Census cartographic boundary files 2010-2024)/cb_2024_us_county_500k.zip",
      "held": "1 file",
-     "refresh": "never (static)"
+     "refresh": "never (static)",
+     "release": ""
     },
     {
      "key": "ces_national",
      "name": "National payrolls by supersector",
-     "ids": "CES",
+     "ids": "PAYEMS, USMINE, USCONS, MANEMP, USTPU, USINFO, USFIRE, USPBS, USEHS, USLAH, USSERV, USGOVT",
      "source": "Bureau of Labor Statistics, CES",
      "url": "https://download.bls.gov/pub/time.series/ce/",
      "freq": "monthly",
@@ -185,12 +198,13 @@
      "refreshed": "2026-11-11T15:06Z",
      "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/ces_all.txt.gz",
      "held": "1 file",
-     "refresh": "each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)"
+     "refresh": "each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)",
+     "release": ""
     },
     {
      "key": "ces_state",
      "name": "State payrolls by supersector",
-     "ids": "SM",
+     "ids": "",
      "source": "Bureau of Labor Statistics, CES State and Metro",
      "url": "https://download.bls.gov/pub/time.series/sm/",
      "freq": "monthly",
@@ -198,7 +212,8 @@
      "refreshed": "2026-11-09T14:42Z",
      "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/state_metro_payrolls_all.txt.gz",
      "held": "1 file",
-     "refresh": "each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)"
+     "refresh": "each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)",
+     "release": ""
     }
    ]
   },
@@ -208,7 +223,7 @@
     {
      "key": "03_data/state/fred_state_payrolls",
      "name": "State payroll employment, 50 states and DC",
-     "ids": "<ST>NA",
+     "ids": "ALNA ... WYNA",
      "source": "Bureau of Labor Statistics, CES State and Metro (via FRED)",
      "url": "https://fred.stlouisfed.org/series/CANA",
      "freq": "monthly",
@@ -216,12 +231,13 @@
      "refreshed": "2026-11-15T13:19Z",
      "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_payrolls",
      "held": "51 files",
-     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)",
+     "release": ""
     },
     {
      "key": "03_data/state/fred_state_ur",
      "name": "State unemployment rates, 50 states and DC",
-     "ids": "<ST>UR",
+     "ids": "ALUR ... WYUR",
      "source": "Bureau of Labor Statistics, LAUS (via FRED)",
      "url": "https://fred.stlouisfed.org/series/CAUR",
      "freq": "monthly",
@@ -229,12 +245,13 @@
      "refreshed": "2026-11-15T13:19Z",
      "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_ur",
      "held": "51 files",
-     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)",
+     "release": ""
     },
     {
      "key": "data/bea/SQINC4__ALL_AREAS_1948_2026.csv",
      "name": "State personal income, quarterly (SQINC4)",
-     "ids": "SQINC4",
+     "ids": "ALOTOT ... WYOTOT, ALWTOT ... WYWTOT",
      "source": "Bureau of Economic Analysis",
      "url": "https://apps.bea.gov/regional/downloadzip.htm",
      "freq": "quarterly",
@@ -242,12 +259,13 @@
      "refreshed": "2026-09-28T15:25Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/bea/SQINC4__ALL_AREAS_1948_2026.csv",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "manual: Mac rebuild of the tool",
+     "release": "bea_spi"
     },
     {
      "key": "data/bps_state/bps_state_monthly_units.csv",
      "name": "State building permits, units",
-     "ids": "BPS state",
+     "ids": "ALBPPRIV ... WYBPPRIV",
      "source": "Census Bureau, Building Permits Survey",
      "url": "https://www.census.gov/construction/bps/",
      "freq": "monthly",
@@ -255,12 +273,13 @@
      "refreshed": "2026-11-12T12:39Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/bps_state/bps_state_monthly_units.csv",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "manual: Mac rebuild of the tool",
+     "release": "census_bps"
     },
     {
      "key": "data/claims/legT/state_ic_weekly_1945_2026.csv",
      "name": "State initial claims, weekly, 1945 on",
-     "ids": "state IC weekly",
+     "ids": "ALICLAIMS ... WYICLAIMS",
      "source": "Department of Labor, ETA (spliced history)",
      "url": "https://oui.doleta.gov/unemploy/claims.asp",
      "freq": "weekly",
@@ -268,12 +287,13 @@
      "refreshed": "2026-11-09T18:01Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/claims/legT/state_ic_weekly_1945_2026.csv",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "manual: Mac rebuild of the tool",
+     "release": "dol_claims"
     },
     {
      "key": "data/cps_state/cps_state_*.csv",
      "name": "State CPS microdata tallies",
-     "ids": "CPS state",
+     "ids": "",
      "source": "Census Bureau / BLS, Current Population Survey",
      "url": "https://www.census.gov/data/datasets/time-series/demo/cps/cps-basic.html",
      "freq": "monthly",
@@ -281,12 +301,13 @@
      "refreshed": "2026-11-10T06:44Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/cps_state/cps_state_*.csv",
      "held": "33 files",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "manual: Mac rebuild of the tool",
+     "release": "census_cps"
     },
     {
      "key": "data/dol/ar5159.csv",
      "name": "State claims and payments, ETA 5159",
-     "ids": "ETA 5159 by state",
+     "ids": "",
      "source": "Department of Labor, ETA 5159",
      "url": "https://oui.doleta.gov/unemploy/DataDownloads.asp",
      "freq": "monthly",
@@ -294,12 +315,13 @@
      "refreshed": "2026-11-15T18:51Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar5159.csv",
      "held": "1 file",
-     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)",
+     "release": ""
     },
     {
      "key": "data/dol/ar539.csv",
      "name": "State weekly claims, ETA 539",
-     "ids": "ETA 539 by state",
+     "ids": "ALICLAIMS ... WYICLAIMS, ALCCLAIMS ... WYCCLAIMS",
      "source": "Department of Labor, ETA 539",
      "url": "https://oui.doleta.gov/unemploy/DataDownloads.asp",
      "freq": "weekly",
@@ -307,7 +329,8 @@
      "refreshed": "2026-11-15T18:51Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar539.csv",
      "held": "1 file",
-     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)",
+     "release": ""
     },
     {
      "key": "data/fred/CPIAUCSL.csv",
@@ -320,12 +343,13 @@
      "refreshed": "2026-09-15T19:07Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/fred/CPIAUCSL.csv",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "manual: Mac rebuild of the tool",
+     "release": "bls_cpi"
     },
     {
      "key": "data/fred_nsa",
      "name": "State payrolls and unemployment rates, not seasonally adjusted",
-     "ids": "<ST>NAN, <ST>URN",
+     "ids": "ALNAN ... WYNAN, ALURN ... WYURN",
      "source": "Bureau of Labor Statistics (via FRED)",
      "url": "https://fred.stlouisfed.org/series/CANAN",
      "freq": "monthly",
@@ -333,12 +357,13 @@
      "refreshed": "2026-11-10T15:11Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/fred_nsa",
      "held": "103 files",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "manual: Mac rebuild of the tool",
+     "release": "bls_state"
     },
     {
      "key": "data/iur/ship137/state_iur_monthly_1948_2026_spliced.csv",
      "name": "State insured unemployment rates, monthly, 1948 on",
-     "ids": "state IUR",
+     "ids": "ALINSUREDUR ... WYINSUREDUR",
      "source": "Department of Labor, ETA (spliced history)",
      "url": "https://oui.doleta.gov/unemploy/claims.asp",
      "freq": "monthly",
@@ -346,12 +371,13 @@
      "refreshed": "2026-11-09T17:54Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/iur/ship137/state_iur_monthly_1948_2026_spliced.csv",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "manual: Mac rebuild of the tool",
+     "release": "dol_claims"
     },
     {
      "key": "data/philly/coincident-revised.xls",
      "name": "State coincident indexes, 50 states",
-     "ids": "<ST>PHCI",
+     "ids": "ALPHCI ... WYPHCI",
      "source": "Federal Reserve Bank of Philadelphia",
      "url": "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/state-coincident-indexes",
      "freq": "monthly",
@@ -359,12 +385,13 @@
      "refreshed": "2026-11-09T17:47Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/philly/coincident-revised.xls",
      "held": "1 file",
-     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)",
+     "release": ""
     },
     {
      "key": "data/qcew/qcew_release_dates.csv",
      "name": "QCEW release dates",
-     "ids": "QCEW releases",
+     "ids": "",
      "source": "Bureau of Labor Statistics, QCEW",
      "url": "https://www.bls.gov/schedule/news_release/cew.htm",
      "freq": "quarterly",
@@ -372,12 +399,13 @@
      "refreshed": "2026-11-10T14:32Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew/qcew_release_dates.csv",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "manual: Mac rebuild of the tool",
+     "release": "bls_qcew"
     },
     {
      "key": "data/qcew/qcew_state_total_monthly.csv",
      "name": "QCEW State total covered employment",
-     "ids": "QCEW state",
+     "ids": "",
      "source": "Bureau of Labor Statistics, QCEW",
      "url": "https://www.bls.gov/cew/downloadable-data-files.htm",
      "freq": "quarterly",
@@ -385,12 +413,13 @@
      "refreshed": "2026-11-10T14:29Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew/qcew_state_total_monthly.csv",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "manual: Mac rebuild of the tool",
+     "release": "bls_qcew"
     },
     {
      "key": "data/qcew_industry",
      "name": "QCEW county total covered employment",
-     "ids": "QCEW county",
+     "ids": "",
      "source": "Bureau of Labor Statistics, QCEW",
      "url": "https://www.bls.gov/cew/downloadable-data-files.htm",
      "freq": "quarterly",
@@ -398,12 +427,13 @@
      "refreshed": "2026-11-14T00:21Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry/<YEAR>_county_tot.csv",
      "held": "37 files",
-     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
+     "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)",
+     "release": ""
     },
     {
      "key": "data/state_industry_releases_1994_2026_a168.csv",
      "name": "State payrolls by industry, as first published",
-     "ids": "SM first prints",
+     "ids": "ALNA ... WYNA",
      "source": "Bureau of Labor Statistics, State Employment and Unemployment release",
      "url": "https://www.bls.gov/sae/",
      "freq": "monthly",
@@ -411,12 +441,13 @@
      "refreshed": "2026-11-14T12:14Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/state_industry_releases_1994_2026_a168.csv",
      "held": "1 file",
-     "refresh": "manual: Mac rebuild of the tool"
+     "refresh": "manual: Mac rebuild of the tool",
+     "release": "bls_state"
     },
     {
      "key": "data/state_payroll_releases_1994_2007.csv",
      "name": "State payrolls, as first published 1994-2007",
-     "ids": "SM first prints",
+     "ids": "ALNA ... WYNA",
      "source": "Bureau of Labor Statistics, State Employment and Unemployment release",
      "url": "https://www.bls.gov/sae/",
      "freq": "monthly",
@@ -424,12 +455,13 @@
      "refreshed": "2026-11-09T20:27Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/state_payroll_releases_1994_2007.csv",
      "held": "1 file",
-     "refresh": "never (history layer)"
+     "refresh": "never (history layer)",
+     "release": ""
     },
     {
      "key": "out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "name": "Bristow-Hall State chronology v4",
-     "ids": "derived",
+     "ids": "",
      "source": "Bristow-Hall (collection 1032)",
      "url": "/state-onset/",
      "freq": "monthly",
@@ -437,12 +469,13 @@
      "refreshed": "2026-11-15T18:52Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": "1 file",
-     "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
+     "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)",
+     "release": ""
     },
     {
      "key": "out/damage_line_v4_a198_1032.json",
      "name": "Bristow-Hall State damage line v4",
-     "ids": "derived",
+     "ids": "",
      "source": "Bristow-Hall (collection 1032)",
      "url": "/state-onset/",
      "freq": "monthly",
@@ -450,7 +483,8 @@
      "refreshed": "2026-11-15T18:52Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": "1 file",
-     "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
+     "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)",
+     "release": ""
     }
    ]
   }

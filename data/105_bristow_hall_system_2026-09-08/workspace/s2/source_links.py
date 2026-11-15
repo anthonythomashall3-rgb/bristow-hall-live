@@ -66,12 +66,14 @@ YAHOO = ('Yahoo Finance ^GSPC', 'https://finance.yahoo.com/quote/%5EGSPC/history
 
 # the data page's rows, by their ids (lower case, as the page's data-ids): where each number in the row is read from
 SOURCES = {
-    '^gspc': [YAHOO, fred('SP500')],                                   # the chart feed's close at 4:20 PM; FRED's official close
+    '^gspc': [YAHOO, fred('SP500')],
+    'sp500': [YAHOO, fred('SP500')],                                   # 1052: the S&P 500 row's ID is FRED's SP500 (same sources)                                   # the chart feed's close at 4:20 PM; FRED's official close
     'dfedtaru': [fred('DFEDTARU')],
     'dcpf1m, dcpn30, wtb3ms': [fred('DCPF1M'), fred('DCPN30'), fred('WTB3MS')],
     'icsa, ccsa, iursa': [DOL_PDF, alfred('ICSA'), alfred('CCSA'), alfred('IURSA')],   # the release day's PDF; ALFRED's first prints
     'eta 539 state insured rates': [FRED_REL469],                     # {ST}INSUREDUR, FRED's Friday post (walk9: the breadth object)
     'eta 539 by state': [AR539],
+    'alinsuredur ... wyinsuredur': [AR539],                           # 1052: the backstop's breadth row, by its FRED IDs (same source)
     'eta 539': [AR539, FRED_REL112],                                  # continued weeks by state over state payrolls ({ST}NA)
     'ccnsa / covemp': [fred('CCNSA'), fred('COVEMP')],
     'wei': [fred('WEI')],

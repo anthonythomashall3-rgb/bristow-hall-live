@@ -218,7 +218,13 @@ import re as _re
 _dp=open(os.path.join(COL,'site','public','data','index.html'),encoding='utf-8').read()
 # 1052 (15 Nov 2026; Anthony: every live tool's inputs on the data page, with source, frequency, newest observation and refresh time): eight columns
 chk('data page: the five columns',_re.findall(r'<th[^>]*data-k="([a-z]+)"',_dp),['tool','name','ids','freq','value','through','refreshed','next'])
-chk('data page: no blank cell',_dp.count('class="na"'),0)
+# 1052 (15 Nov 2026; Anthony: the data page shows only dates): a dash is allowed in ONE place only - the Next published cell (the row's last)
+# of a row whose cadence is static (a boundary file) or which is a frozen history layer (data-frozen="1"): neither has a next release.
+_na_ok=0
+for _ta,_tb in _re.findall(r'<tr\b([^>]*)>(.*?)</tr>',_dp,_re.S):
+    _tds=_re.findall(r'<td\b[^>]*>(.*?)</td>',_tb,_re.S)
+    if _tds and ('data-freq="static"' in _ta or 'data-frozen="1"' in _ta): _na_ok+=_tds[-1].count('class="na"')
+chk('data page: no blank cell (a dash only in Next published of a static or frozen history-layer row)',_dp.count('class="na"')-_na_ok,0)
 # ---- v3.74 (23 September 2026, R15): the front page's record sentence is the state's, at every build
 import importlib.util as _iu_rs; _sp_rs=_iu_rs.spec_from_file_location('record_sentence',os.path.join(os.path.dirname(os.path.abspath(__file__)),'record_sentence.py')); _rs=_iu_rs.module_from_spec(_sp_rs); _sp_rs.loader.exec_module(_rs)
 _fp=open(os.path.join(COL,'site','public','detector','index.html'),encoding='utf-8').read()

@@ -29,7 +29,7 @@
  ],
  "_version_files": "Files besides code that make a version what it is. When the last good version has to run (ops/run.sh), every file a person's commit changed since it (and no run wrote) is put back with its code; these are used only if that history cannot be read.",
  "calendar_rules": {
-  "^gspc": "nyse_close",
+  "^gspc": "nyse_close", "sp500": "nyse_close", "alinsuredur ... wyinsuredur": "fred:180",
   "eta 539 by state": "fred:180",
   "fedfunds": "month_avg_next_bday",
   "gs10, gs1": "month_avg_next_bday",
