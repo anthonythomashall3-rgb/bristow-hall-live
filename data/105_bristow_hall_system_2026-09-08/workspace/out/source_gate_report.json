@@ -4,8 +4,8 @@
  "decision": "WARN-ONLY (would hold)",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-15",
- "checked_at": "2026-11-15 23:09 UTC",
- "seconds": 98.5,
+ "checked_at": "2026-11-15 23:41 UTC",
+ "seconds": 95.3,
  "source_calls": 171,
  "source_errors": {},
  "counts": {
@@ -20,9 +20,8 @@
    "PASS": 18
   },
   "data/state-onset": {
-   "PASS": 20,
+   "PASS": 23,
    "WARN": 13,
-   "FAIL": 3,
    "INFO": 1
   },
   "data/stress-map": {
@@ -49,48 +48,12 @@
  "totals": {
   "checks": 387,
   "figures": 267,
-  "fail": 5,
+  "fail": 2,
   "warn": 37,
   "unverified": 0,
-  "passed": 339
+  "passed": 342
  },
  "failures": [
-  {
-   "page": "data/state-onset",
-   "label": "state initial claims, weekly, 1945 on",
-   "check": "freshness",
-   "status": "FAIL",
-   "value": "",
-   "period": "2026-09-05",
-   "series": "DOL539:US*:ic",
-   "transform": "file",
-   "expected": "2026-11-07",
-   "detail": "stale: shows 2026-09-05 but 2026-11-07 was published before the build"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "consumer price index: CPIAUCSL",
-   "check": "freshness",
-   "status": "FAIL",
-   "value": "334.131",
-   "period": "2026-08-01",
-   "series": "CPIAUCSL",
-   "transform": "level",
-   "expected": "2026-10-01",
-   "detail": "stale: shows 2026-08-01 but 2026-10-01 was published 2026-10-14"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "state insured unemployment rates, monthly, 1948 on",
-   "check": "freshness",
-   "status": "FAIL",
-   "value": "",
-   "period": "2026-08",
-   "series": "ALINSUREDUR",
-   "transform": "monthly from weekly",
-   "expected": "2026-10",
-   "detail": "stale: monthly through 2026-08 but the weekly source runs to 2026-10-31"
-  },
   {
    "page": "data/stress-map",
    "label": "state boundaries, 2024 (drawn from the census file)",
@@ -1535,6 +1498,30 @@
   },
   {
    "page": "data/state-onset",
+   "label": "state initial claims, weekly, 1945 on",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "",
+   "period": "2026-11-07",
+   "series": "DOL539:US*:ic",
+   "transform": "file",
+   "expected": "2026-11-07",
+   "detail": ""
+  },
+  {
+   "page": "data/state-onset",
+   "label": "state initial claims, weekly, 1945 on",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-11-19",
+   "period": null,
+   "series": "ALICLAIMS",
+   "transform": null,
+   "expected": "2026-11-19",
+   "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
+  },
+  {
+   "page": "data/state-onset",
    "label": "state weekly claims, eta 539",
    "check": "freshness",
    "status": "PASS",
@@ -1556,6 +1543,30 @@
    "transform": null,
    "expected": "2026-11-19",
    "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
+  },
+  {
+   "page": "data/state-onset",
+   "label": "state cps microdata tallies",
+   "check": "freshness",
+   "status": "WARN",
+   "value": "",
+   "period": "2026-10-31",
+   "series": null,
+   "transform": null,
+   "expected": null,
+   "detail": "no series id on the row: its period cannot be checked against a publisher (listed as remaining risk)"
+  },
+  {
+   "page": "data/state-onset",
+   "label": "state cps microdata tallies",
+   "check": "next published",
+   "status": "WARN",
+   "value": "2026-12-10",
+   "period": null,
+   "series": null,
+   "transform": null,
+   "expected": null,
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1583,6 +1594,66 @@
   },
   {
    "page": "data/state-onset",
+   "label": "consumer price index: CPIAUCSL",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "337.476",
+   "period": "2026-10-01",
+   "series": "CPIAUCSL",
+   "transform": "level",
+   "expected": "2026-10-01",
+   "detail": ""
+  },
+  {
+   "page": "data/state-onset",
+   "label": "consumer price index: CPIAUCSL",
+   "check": "value",
+   "status": "PASS",
+   "value": 337.476,
+   "period": "2026-10-01",
+   "series": "CPIAUCSL",
+   "transform": "level",
+   "expected": 337.476,
+   "detail": ""
+  },
+  {
+   "page": "data/state-onset",
+   "label": "consumer price index",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-12-10",
+   "period": null,
+   "series": "CPIAUCSL",
+   "transform": null,
+   "expected": "2026-12-10",
+   "detail": "FRED release 10 (Consumer Price Index)"
+  },
+  {
+   "page": "data/state-onset",
+   "label": "state insured unemployment rates, monthly, 1948 on",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "",
+   "period": "2026-10",
+   "series": "ALINSUREDUR",
+   "transform": "monthly from weekly",
+   "expected": "2026-10",
+   "detail": ""
+  },
+  {
+   "page": "data/state-onset",
+   "label": "state insured unemployment rates, monthly, 1948 on",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-11-19",
+   "period": null,
+   "series": "ALINSUREDUR",
+   "transform": null,
+   "expected": "2026-11-19",
+   "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
+  },
+  {
+   "page": "data/state-onset",
    "label": "state building permits, units",
    "check": "freshness",
    "status": "PASS",
@@ -1604,30 +1675,6 @@
    "transform": null,
    "expected": "2026-11-25",
    "detail": "FRED release 148 (Housing Units Authorized By Building Permits)"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "state cps microdata tallies",
-   "check": "freshness",
-   "status": "WARN",
-   "value": "",
-   "period": "2026-09-30",
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "no series id on the row: its period cannot be checked against a publisher (listed as remaining risk)"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "state cps microdata tallies",
-   "check": "next published",
-   "status": "WARN",
-   "value": "2026-12-10",
-   "period": null,
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1712,30 +1759,6 @@
    "transform": null,
    "expected": null,
    "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "state initial claims, weekly, 1945 on",
-   "check": "freshness",
-   "status": "FAIL",
-   "value": "",
-   "period": "2026-09-05",
-   "series": "DOL539:US*:ic",
-   "transform": "file",
-   "expected": "2026-11-07",
-   "detail": "stale: shows 2026-09-05 but 2026-11-07 was published before the build"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "state initial claims, weekly, 1945 on",
-   "check": "next published",
-   "status": "PASS",
-   "value": "2026-11-19",
-   "period": null,
-   "series": "ALICLAIMS",
-   "transform": null,
-   "expected": "2026-11-19",
-   "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
   },
   {
    "page": "data/state-onset",
@@ -1844,66 +1867,6 @@
    "transform": null,
    "expected": null,
    "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "consumer price index: CPIAUCSL",
-   "check": "freshness",
-   "status": "FAIL",
-   "value": "334.131",
-   "period": "2026-08-01",
-   "series": "CPIAUCSL",
-   "transform": "level",
-   "expected": "2026-10-01",
-   "detail": "stale: shows 2026-08-01 but 2026-10-01 was published 2026-10-14"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "consumer price index: CPIAUCSL",
-   "check": "value",
-   "status": "PASS",
-   "value": 334.131,
-   "period": "2026-08-01",
-   "series": "CPIAUCSL",
-   "transform": "level",
-   "expected": 334.131,
-   "detail": ""
-  },
-  {
-   "page": "data/state-onset",
-   "label": "consumer price index",
-   "check": "next published",
-   "status": "PASS",
-   "value": "2026-12-10",
-   "period": null,
-   "series": "CPIAUCSL",
-   "transform": null,
-   "expected": "2026-12-10",
-   "detail": "FRED release 10 (Consumer Price Index)"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "state insured unemployment rates, monthly, 1948 on",
-   "check": "freshness",
-   "status": "FAIL",
-   "value": "",
-   "period": "2026-08",
-   "series": "ALINSUREDUR",
-   "transform": "monthly from weekly",
-   "expected": "2026-10",
-   "detail": "stale: monthly through 2026-08 but the weekly source runs to 2026-10-31"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "state insured unemployment rates, monthly, 1948 on",
-   "check": "next published",
-   "status": "PASS",
-   "value": "2026-11-19",
-   "period": null,
-   "series": "ALINSUREDUR",
-   "transform": null,
-   "expected": "2026-11-19",
-   "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
   },
   {
    "page": "data/state-onset",
