@@ -114,6 +114,9 @@ python3 s2/disturbance/disturbance_site.py || true
 # THE STATE RECESSION CHRONOLOGY AND DAMAGE GRADE (14 November 2026; Anthony: "publish to the live site"): writes the page
 # built in collection 1032 (s2/state_onset/page.html) over the stub bhs_site.py writes at /state-onset/; never fails the run
 python3 s2/state_onset/state_onset_site.py || true
+# THE NATIONAL STRESS MAP (15 November 2026; Anthony: "ENSURE THAT EVERYTHING IS LIVE UPDATING"): writes the page built in collection 1052
+# (s2/stress_map/page.html, committed by the Mac job com.bristowhall.stressmap1052 after its checks pass) over the stub bhs_site.py writes at /stress-map/; never fails the run
+python3 s2/stress_map/stress_map_site.py || true
 # THE RUN SLOTS (21 September 2026, collection 278): the release times at which the Cloudflare Worker and the Mac start the
 # next runs, published with the site (site/public/run_slots.json); never fails the run
 python3 s2/run_slots.py || true

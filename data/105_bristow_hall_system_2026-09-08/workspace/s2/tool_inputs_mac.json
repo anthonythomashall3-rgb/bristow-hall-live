@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-15T13:30:26Z",
+ "generated_at": "2026-11-15T13:43:36Z",
  "generator": "s2/tool_inputs_mac.py (run on the Mac)",
  "tools": {
   "stress-map": {
@@ -26,7 +26,7 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "through": "2026-06",
-     "refreshed": "2026-11-15T13:21Z",
+     "refreshed": "2026-11-15T13:34Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": "1 file",
      "refresh": "manual: Mac rebuild of the tool"
@@ -39,7 +39,7 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "through": "2026-09",
-     "refreshed": "2026-11-15T13:21Z",
+     "refreshed": "2026-11-15T13:34Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": "1 file",
      "refresh": "manual: Mac rebuild of the tool"
@@ -121,19 +121,6 @@
      "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/data/live_chronology/bhs_state_origin_main.json",
      "held": "1 file",
      "refresh": "each cloud run (a Mac copy of the published state)"
-    },
-    {
-     "key": "county_laus_191",
-     "name": "County unemployment rates and labor force, 3,143 counties (BLS flat file)",
-     "ids": "LAUCN*",
-     "source": "Bureau of Labor Statistics, LAUS",
-     "url": "https://download.bls.gov/pub/time.series/la/",
-     "freq": "monthly",
-     "through": "MISSING",
-     "refreshed": "",
-     "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/laus_county.txt.gz",
-     "held": "0 files",
-     "refresh": "continuous: Mac launchd collector191new"
     },
     {
      "key": "county_laus",
@@ -434,7 +421,7 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "through": "2026-06",
-     "refreshed": "2026-11-15T13:21Z",
+     "refreshed": "2026-11-15T13:34Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": "1 file",
      "refresh": "manual: Mac rebuild of the tool"
@@ -447,7 +434,7 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "through": "2026-09",
-     "refreshed": "2026-11-15T13:21Z",
+     "refreshed": "2026-11-15T13:34Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": "1 file",
      "refresh": "manual: Mac rebuild of the tool"
