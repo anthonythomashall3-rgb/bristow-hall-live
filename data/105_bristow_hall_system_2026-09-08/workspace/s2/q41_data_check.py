@@ -69,10 +69,9 @@ m=J.index[-1]
 chk('tile: unemployed per opening reads ONE month',tile['Unemployed per opening']['val'],f'{UE.loc[m]/J.loc[m]:.2f}')
 chk('tile: unemployed per opening labels that month',tile['Unemployed per opening']['sub'],m.strftime('%b %Y'))
 chk('tile: quits rate',tile['Quits rate']['val'],f'{Q.iloc[-1]:.1f}%')
-cm=C.index[-1]; c0=cm-pd.DateOffset(years=1); _est=c0 not in C.index   # 11 Nov 2026 (1042): a base month never published = geometric mean of the months either side (the BLS's own fill)
-_cb=(C.loc[c0-pd.DateOffset(months=1)]*C.loc[c0+pd.DateOffset(months=1)])**0.5 if _est else C.loc[c0]
-chk('tile: CPI year over year, by date',tile['CPI inflation']['val'],f'{(C.loc[cm]/_cb-1)*100:.1f}%')
-chk('tile: CPI labels the month it reads, and says estimated when the base is filled',tile['CPI inflation']['sub'],('estimated year over year, ' if _est else 'year over year, ')+cm.strftime('%b %Y'))
+_Cd=C.dropna(); cm=next(d for d in reversed(list(_Cd.index)) if (d-pd.DateOffset(years=1)) in _Cd.index)   # 15 Nov 2026: published months only, as FRED
+chk('tile: CPI year over year, by date, from published months only',tile['CPI inflation']['val'],f'{(C.loc[cm]/C.loc[cm-pd.DateOffset(years=1)]-1)*100:.1f}%')
+chk('tile: CPI labels the month it reads',tile['CPI inflation']['sub'],'year over year, '+cm.strftime('%b %Y'))
 _sc=json.load(open(os.path.join(T9,'home_tiles.json'))).get('source_check') or {}
 chk('second source: every tile figure equals the publisher\'s own (BLS last six months; Department of Labor newest week)',_sc.get('mismatch',[]),[])
 for t in TI:
