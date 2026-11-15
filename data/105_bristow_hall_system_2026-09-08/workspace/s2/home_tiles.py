@@ -176,15 +176,11 @@ g3=(P.iloc[-1]-P.iloc[-4])/3.0            # payroll growth, three-month average 
 # was never published (the 2025 lapse in appropriations) and the BLS publishes no 12-month change for October 2026. Where the base
 # month does not exist it is filled the way the BLS itself filled it for seasonal adjustment (its FAQ on the lapse, question 12): the
 # geometric mean of the published months either side. The tile then says "estimated". No other month is ever filled.
-_cm=C.index[-1]
-_c0=_cm-pd.DateOffset(years=1)      # by date, never by position
-_cpi_est=_c0 not in C.index
-if _cpi_est:
-    _lo=_c0-pd.DateOffset(months=1)
-    _hi=_c0+pd.DateOffset(months=1)
-    assert _lo in C.index and _hi in C.index, f'CPI: no base for {_cm.date()} and no published month either side of {_c0.date()}'
-    _cbase=float(np.sqrt(C.loc[_lo]*C.loc[_hi]))
-else: _cbase=float(C.loc[_c0])
+# 15 Nov 2026 12:40 PT (Anthony: the CPI figure must match what FRED shows): the tile prints only a 12-month change the publisher's own
+# figures give - the newest month whose month a year earlier was published (by date). October 2025 was never published, so for October
+# 2026 the BLS prints no 12-month change and FRED has none; the tile then shows September 2026 until November 2026 is out. Nothing is estimated.
+_cm=next(d for d in reversed(list(C.dropna().index)) if (d-pd.DateOffset(years=1)) in C.dropna().index)
+_cbase=float(C.loc[_cm-pd.DateOffset(years=1)]); _cpi_est=False
 cpi=(C.loc[_cm]/_cbase-1)*100
 _um=J.index[-1]                           # unemployed per opening: BOTH series read at the SAME month
 assert _um in UE.index, f'UNEMPLOY has no observation for {_um.date()}'
@@ -198,7 +194,7 @@ T=[
  dict(lab='Job openings',           val=f'{J.iloc[-1]/1000:,.1f} million',  sub=mon(J.index[-1]),                    src='https://www.bls.gov/jlt/'),
  dict(lab='Unemployed per opening', val=f'{upo:.2f}',                      sub=mon(_um),                    src='https://www.bls.gov/jlt/'),
  dict(lab='Quits rate',             val=f'{Q.iloc[-1]:.1f}%',              sub=mon(Q.index[-1]),                    src='https://www.bls.gov/jlt/'),
- dict(lab='CPI inflation',          val=f'{cpi:.1f}%',                     sub=('estimated year over year, ' if _cpi_est else 'year over year, ')+mon(_cm), src='https://www.bls.gov/cpi/'),
+ dict(lab='CPI inflation',          val=f'{cpi:.1f}%',                     sub='year over year, '+mon(_cm), src='https://www.bls.gov/cpi/'),
 ]
 # NO PLACEHOLDER, EVER (11 November 2026): a tile that is not a number stops this run here; the tiles already on disk stand.
 import re as _re_np
