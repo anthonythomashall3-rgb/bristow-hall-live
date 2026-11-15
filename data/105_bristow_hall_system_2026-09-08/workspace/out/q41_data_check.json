@@ -749,7 +749,7 @@
 "gate": null
 },
 {
-"name": "368: the data page links the margins page",
+"name": "368: the data page has no Margins section (Anthony, 15 Nov 2026: \"remove the margins section\")",
 "got": "True",
 "want": "True",
 "status": "PASS",
@@ -806,8 +806,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-15 15:28', '2026-11-15 15:28')",
-"want": "('2026-11-15 15:28', '2026-11-15 15:28')",
+"got": "('2026-11-15 15:39', '2026-11-15 15:39')",
+"want": "('2026-11-15 15:39', '2026-11-15 15:39')",
 "status": "PASS",
 "gate": "hard"
 },
