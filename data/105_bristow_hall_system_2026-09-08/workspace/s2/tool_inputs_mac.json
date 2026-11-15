@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-15T20:38:29Z",
+ "generated_at": "2026-11-15T21:48:34Z",
  "generator": "s2/tool_inputs_mac.py (run on the Mac)",
  "tools": {
   "stress-map": {
@@ -12,11 +12,14 @@
      "source": "Census Bureau, cartographic boundary files",
      "url": "https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html",
      "freq": "static",
-     "release": "",
+     "release": "static",
      "through": "static (2024 boundaries)",
      "refreshed": "2026-11-15T11:44Z",
      "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/out/state_shapes_cb2024_svg_1052.json",
-     "held": "1 file",
+     "held": {
+      "value": "2024 boundaries",
+      "units": ""
+     },
      "refresh": "never (static)"
     },
     {
@@ -26,11 +29,26 @@
      "source": "Bristow-Hall (collection 1032)",
      "url": "/state-onset/",
      "freq": "monthly",
-     "release": "",
-     "through": "2026-06",
-     "refreshed": "2026-11-15T20:15Z",
+     "release": "derived_state",
+     "through": "2026-09",
+     "refreshed": "2026-11-15T21:19Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
-     "held": "1 file",
+     "held": {
+      "values": [
+       [
+        "States in recession",
+        "4",
+        "AR, AZ, OK, WA"
+       ],
+       [
+        "States in disturbance",
+        "10",
+        "AL, GA, HI, IL, KY, ME, NM, NY, TX, VA"
+       ]
+      ],
+      "units": "",
+      "period": "2026-09"
+     },
      "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
     },
     {
@@ -40,11 +58,216 @@
      "source": "Bristow-Hall (collection 1032)",
      "url": "/state-onset/",
      "freq": "monthly",
-     "release": "",
+     "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-15T20:15Z",
+     "refreshed": "2026-11-15T21:19Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "1.84"
+       ],
+       [
+        "AK",
+        "0.0"
+       ],
+       [
+        "AZ",
+        "2.11"
+       ],
+       [
+        "AR",
+        "2.24"
+       ],
+       [
+        "CA",
+        "0.0"
+       ],
+       [
+        "CO",
+        "0.0"
+       ],
+       [
+        "CT",
+        "0.0"
+       ],
+       [
+        "DE",
+        "0.0"
+       ],
+       [
+        "FL",
+        "0.0"
+       ],
+       [
+        "GA",
+        "1.52"
+       ],
+       [
+        "HI",
+        "1.6"
+       ],
+       [
+        "ID",
+        "0.0"
+       ],
+       [
+        "IL",
+        "1.63"
+       ],
+       [
+        "IN",
+        "0.0"
+       ],
+       [
+        "IA",
+        "0.0"
+       ],
+       [
+        "KS",
+        "0.0"
+       ],
+       [
+        "KY",
+        "0.85"
+       ],
+       [
+        "LA",
+        "0.0"
+       ],
+       [
+        "ME",
+        "1.77"
+       ],
+       [
+        "MD",
+        "0.0"
+       ],
+       [
+        "MA",
+        "0.0"
+       ],
+       [
+        "MI",
+        "0.0"
+       ],
+       [
+        "MN",
+        "0.0"
+       ],
+       [
+        "MS",
+        "0.0"
+       ],
+       [
+        "MO",
+        "0.0"
+       ],
+       [
+        "MT",
+        "0.0"
+       ],
+       [
+        "NE",
+        "0.0"
+       ],
+       [
+        "NV",
+        "0.0"
+       ],
+       [
+        "NH",
+        "0.0"
+       ],
+       [
+        "NJ",
+        "0.0"
+       ],
+       [
+        "NM",
+        "1.64"
+       ],
+       [
+        "NY",
+        "1.4"
+       ],
+       [
+        "NC",
+        "0.0"
+       ],
+       [
+        "ND",
+        "0.0"
+       ],
+       [
+        "OH",
+        "0.0"
+       ],
+       [
+        "OK",
+        "2.02"
+       ],
+       [
+        "OR",
+        "0.0"
+       ],
+       [
+        "PA",
+        "0.0"
+       ],
+       [
+        "RI",
+        "0.0"
+       ],
+       [
+        "SC",
+        "0.0"
+       ],
+       [
+        "SD",
+        "0.0"
+       ],
+       [
+        "TN",
+        "0.0"
+       ],
+       [
+        "TX",
+        "1.69"
+       ],
+       [
+        "UT",
+        "0.0"
+       ],
+       [
+        "VT",
+        "0.0"
+       ],
+       [
+        "VA",
+        "1.99"
+       ],
+       [
+        "WA",
+        "2.12"
+       ],
+       [
+        "WV",
+        "0.0"
+       ],
+       [
+        "WI",
+        "0.0"
+       ],
+       [
+        "WY",
+        "0.0"
+       ]
+      ],
+      "units": "damage line v4 (points), latest month",
+      "period": "2026-09"
+     },
      "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
     },
     {
@@ -54,11 +277,216 @@
      "source": "Federal Reserve Bank of Philadelphia",
      "url": "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/state-coincident-indexes",
      "freq": "monthly",
-     "release": "",
+     "release": "fred:109",
      "through": "2026-09",
      "refreshed": "2026-11-09T17:47Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/philly/coincident-revised.xls",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "139.50"
+       ],
+       [
+        "AK",
+        "125.42"
+       ],
+       [
+        "AZ",
+        "190.96"
+       ],
+       [
+        "AR",
+        "150.56"
+       ],
+       [
+        "CA",
+        "178.32"
+       ],
+       [
+        "CO",
+        "178.25"
+       ],
+       [
+        "CT",
+        "142.67"
+       ],
+       [
+        "DE",
+        "151.53"
+       ],
+       [
+        "FL",
+        "186.10"
+       ],
+       [
+        "GA",
+        "179.11"
+       ],
+       [
+        "HI",
+        "130.89"
+       ],
+       [
+        "ID",
+        "183.81"
+       ],
+       [
+        "IL",
+        "138.53"
+       ],
+       [
+        "IN",
+        "143.92"
+       ],
+       [
+        "IA",
+        "144.18"
+       ],
+       [
+        "KS",
+        "145.86"
+       ],
+       [
+        "KY",
+        "142.27"
+       ],
+       [
+        "LA",
+        "117.85"
+       ],
+       [
+        "ME",
+        "145.66"
+       ],
+       [
+        "MD",
+        "150.71"
+       ],
+       [
+        "MA",
+        "166.94"
+       ],
+       [
+        "MI",
+        "130.49"
+       ],
+       [
+        "MN",
+        "159.17"
+       ],
+       [
+        "MS",
+        "137.12"
+       ],
+       [
+        "MO",
+        "144.88"
+       ],
+       [
+        "MT",
+        "138.63"
+       ],
+       [
+        "NE",
+        "158.92"
+       ],
+       [
+        "NV",
+        "179.36"
+       ],
+       [
+        "NH",
+        "179.96"
+       ],
+       [
+        "NJ",
+        "147.89"
+       ],
+       [
+        "NM",
+        "153.13"
+       ],
+       [
+        "NY",
+        "144.22"
+       ],
+       [
+        "NC",
+        "169.89"
+       ],
+       [
+        "ND",
+        "170.41"
+       ],
+       [
+        "OH",
+        "140.68"
+       ],
+       [
+        "OK",
+        "146.87"
+       ],
+       [
+        "OR",
+        "170.46"
+       ],
+       [
+        "PA",
+        "137.16"
+       ],
+       [
+        "RI",
+        "140.86"
+       ],
+       [
+        "SC",
+        "179.65"
+       ],
+       [
+        "SD",
+        "160.44"
+       ],
+       [
+        "TN",
+        "168.02"
+       ],
+       [
+        "TX",
+        "186.63"
+       ],
+       [
+        "UT",
+        "189.41"
+       ],
+       [
+        "VT",
+        "159.23"
+       ],
+       [
+        "VA",
+        "159.48"
+       ],
+       [
+        "WA",
+        "172.12"
+       ],
+       [
+        "WV",
+        "122.00"
+       ],
+       [
+        "WI",
+        "142.03"
+       ],
+       [
+        "WY",
+        "129.68"
+       ]
+      ],
+      "units": "index, 2007=100, seasonally adjusted (to two decimals)",
+      "period": "2026-09"
+     },
      "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
@@ -68,11 +496,220 @@
      "source": "Bureau of Labor Statistics, LAUS (via FRED)",
      "url": "https://fred.stlouisfed.org/series/CAUR",
      "freq": "monthly",
-     "release": "",
+     "release": "bls_state",
      "through": "2026-09-01",
      "refreshed": "2026-11-15T13:19Z",
      "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_ur/<ST>UR.csv",
-     "held": "51 files",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "3.5"
+       ],
+       [
+        "AK",
+        "4.3"
+       ],
+       [
+        "AZ",
+        "4.9"
+       ],
+       [
+        "AR",
+        "3.9"
+       ],
+       [
+        "CA",
+        "5.1"
+       ],
+       [
+        "CO",
+        "4.1"
+       ],
+       [
+        "CT",
+        "5.1"
+       ],
+       [
+        "DE",
+        "4.6"
+       ],
+       [
+        "DC",
+        "5.6"
+       ],
+       [
+        "FL",
+        "4.4"
+       ],
+       [
+        "GA",
+        "3.3"
+       ],
+       [
+        "HI",
+        "2.8"
+       ],
+       [
+        "ID",
+        "3.6"
+       ],
+       [
+        "IL",
+        "4.6"
+       ],
+       [
+        "IN",
+        "3.4"
+       ],
+       [
+        "IA",
+        "3.2"
+       ],
+       [
+        "KS",
+        "3.8"
+       ],
+       [
+        "KY",
+        "4.7"
+       ],
+       [
+        "LA",
+        "4.0"
+       ],
+       [
+        "ME",
+        "3.3"
+       ],
+       [
+        "MD",
+        "3.9"
+       ],
+       [
+        "MA",
+        "4.3"
+       ],
+       [
+        "MI",
+        "5.0"
+       ],
+       [
+        "MN",
+        "4.5"
+       ],
+       [
+        "MS",
+        "3.3"
+       ],
+       [
+        "MO",
+        "3.6"
+       ],
+       [
+        "MT",
+        "3.1"
+       ],
+       [
+        "NE",
+        "2.9"
+       ],
+       [
+        "NV",
+        "4.7"
+       ],
+       [
+        "NH",
+        "2.6"
+       ],
+       [
+        "NJ",
+        "4.2"
+       ],
+       [
+        "NM",
+        "4.7"
+       ],
+       [
+        "NY",
+        "4.3"
+       ],
+       [
+        "NC",
+        "3.4"
+       ],
+       [
+        "ND",
+        "2.2"
+       ],
+       [
+        "OH",
+        "3.4"
+       ],
+       [
+        "OK",
+        "4.2"
+       ],
+       [
+        "OR",
+        "5.0"
+       ],
+       [
+        "PA",
+        "3.6"
+       ],
+       [
+        "RI",
+        "3.6"
+       ],
+       [
+        "SC",
+        "4.0"
+       ],
+       [
+        "SD",
+        "2.0"
+       ],
+       [
+        "TN",
+        "3.4"
+       ],
+       [
+        "TX",
+        "4.4"
+       ],
+       [
+        "UT",
+        "3.5"
+       ],
+       [
+        "VT",
+        "2.6"
+       ],
+       [
+        "VA",
+        "3.6"
+       ],
+       [
+        "WA",
+        "4.8"
+       ],
+       [
+        "WV",
+        "4.0"
+       ],
+       [
+        "WI",
+        "3.2"
+       ],
+       [
+        "WY",
+        "3.0"
+       ]
+      ],
+      "units": "percent, seasonally adjusted",
+      "period": "2026-09"
+     },
      "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
@@ -82,11 +719,220 @@
      "source": "Bureau of Labor Statistics, CES State (via FRED)",
      "url": "https://fred.stlouisfed.org/series/CANAN",
      "freq": "monthly",
-     "release": "",
+     "release": "bls_state",
      "through": "2026-09-01",
      "refreshed": "2026-10-31T15:23Z",
      "path": "~/Projects/Onset Detector Data/954_state_chronology_1939_bry_boschan_2026-10-31/data/state_nan/<ST>NAN.csv",
-     "held": "51 files",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "2,218.8"
+       ],
+       [
+        "AK",
+        "348.8"
+       ],
+       [
+        "AZ",
+        "3,274.6"
+       ],
+       [
+        "AR",
+        "1,354.4"
+       ],
+       [
+        "CA",
+        "18,113.7"
+       ],
+       [
+        "CO",
+        "2,977.9"
+       ],
+       [
+        "CT",
+        "1,735.7"
+       ],
+       [
+        "DE",
+        "497.5"
+       ],
+       [
+        "DC",
+        "718.7"
+       ],
+       [
+        "FL",
+        "9,997.7"
+       ],
+       [
+        "GA",
+        "4,977.4"
+       ],
+       [
+        "HI",
+        "638.1"
+       ],
+       [
+        "ID",
+        "894.4"
+       ],
+       [
+        "IL",
+        "6,193.5"
+       ],
+       [
+        "IN",
+        "3,273.3"
+       ],
+       [
+        "IA",
+        "1,586.5"
+       ],
+       [
+        "KS",
+        "1,471.2"
+       ],
+       [
+        "KY",
+        "2,041.7"
+       ],
+       [
+        "LA",
+        "2,016.4"
+       ],
+       [
+        "ME",
+        "672.2"
+       ],
+       [
+        "MD",
+        "2,800.9"
+       ],
+       [
+        "MA",
+        "3,713.0"
+       ],
+       [
+        "MI",
+        "4,505.8"
+       ],
+       [
+        "MN",
+        "3,075.2"
+       ],
+       [
+        "MS",
+        "1,200.5"
+       ],
+       [
+        "MO",
+        "3,010.1"
+       ],
+       [
+        "MT",
+        "525.6"
+       ],
+       [
+        "NE",
+        "1,064.8"
+       ],
+       [
+        "NV",
+        "1,625.7"
+       ],
+       [
+        "NH",
+        "705.8"
+       ],
+       [
+        "NJ",
+        "4,384.9"
+       ],
+       [
+        "NM",
+        "903.9"
+       ],
+       [
+        "NY",
+        "9,940.3"
+       ],
+       [
+        "NC",
+        "5,129.0"
+       ],
+       [
+        "ND",
+        "452.4"
+       ],
+       [
+        "OH",
+        "5,698.6"
+       ],
+       [
+        "OK",
+        "1,804.0"
+       ],
+       [
+        "OR",
+        "1,980.2"
+       ],
+       [
+        "PA",
+        "6,233.6"
+       ],
+       [
+        "RI",
+        "518.2"
+       ],
+       [
+        "SC",
+        "2,438.8"
+       ],
+       [
+        "SD",
+        "474.1"
+       ],
+       [
+        "TN",
+        "3,398.4"
+       ],
+       [
+        "TX",
+        "14,426.4"
+       ],
+       [
+        "UT",
+        "1,801.1"
+       ],
+       [
+        "VT",
+        "310.9"
+       ],
+       [
+        "VA",
+        "4,249.7"
+       ],
+       [
+        "WA",
+        "3,661.4"
+       ],
+       [
+        "WV",
+        "719.5"
+       ],
+       [
+        "WI",
+        "3,054.4"
+       ],
+       [
+        "WY",
+        "299.7"
+       ]
+      ],
+      "units": "thousands of persons, not seasonally adjusted",
+      "period": "2026-09"
+     },
      "refresh": "never (history layer)"
     },
     {
@@ -96,11 +942,220 @@
      "source": "Department of Labor, ETA (FH history file)",
      "url": "https://oui.doleta.gov/unemploy/claims.asp",
      "freq": "monthly",
-     "release": "",
+     "release": "eta539",
      "through": "2024-01-01",
      "refreshed": "2026-09-02T18:35Z",
      "path": "~/Projects/Onset Detector Data/24_bristow_rule_lab/workspace/lab/fh/FH_state_claims_nsa_log.csv",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "9.56317796268366"
+       ],
+       [
+        "AK",
+        "8.185907481482324"
+       ],
+       [
+        "AZ",
+        "9.728955578017002"
+       ],
+       [
+        "AR",
+        "9.042631527550073"
+       ],
+       [
+        "CA",
+        "12.33338788283171"
+       ],
+       [
+        "CO",
+        "9.775540538205506"
+       ],
+       [
+        "CT",
+        "9.87822102528824"
+       ],
+       [
+        "DE",
+        "8.163940954755008"
+       ],
+       [
+        "DC",
+        "7.583756300707112"
+       ],
+       [
+        "FL",
+        "10.260112495224819"
+       ],
+       [
+        "GA",
+        "10.527579359655915"
+       ],
+       [
+        "HI",
+        "8.824089482791823"
+       ],
+       [
+        "ID",
+        "9.10597935665144"
+       ],
+       [
+        "IL",
+        "10.899439380817963"
+       ],
+       [
+        "IN",
+        "9.887002416276266"
+       ],
+       [
+        "IA",
+        "9.83916234197957"
+       ],
+       [
+        "KS",
+        "9.007856923358275"
+       ],
+       [
+        "KY",
+        "9.27771860730613"
+       ],
+       [
+        "LA",
+        "8.820994645747902"
+       ],
+       [
+        "ME",
+        "8.37378460812088"
+       ],
+       [
+        "MD",
+        "9.58520880610688"
+       ],
+       [
+        "MA",
+        "10.421268928868125"
+       ],
+       [
+        "MI",
+        "10.855724411183752"
+       ],
+       [
+        "MN",
+        "10.267818117285737"
+       ],
+       [
+        "MS",
+        "8.700847193443972"
+       ],
+       [
+        "MO",
+        "10.072766084358127"
+       ],
+       [
+        "MT",
+        "8.705331133531631"
+       ],
+       [
+        "NE",
+        "8.416488487294606"
+       ],
+       [
+        "NV",
+        "9.458605712064172"
+       ],
+       [
+        "NH",
+        "7.810758116529357"
+       ],
+       [
+        "NJ",
+        "10.906231172140481"
+       ],
+       [
+        "NM",
+        "8.456593569287309"
+       ],
+       [
+        "NY",
+        "11.422836630188543"
+       ],
+       [
+        "NC",
+        "9.77661962392714"
+       ],
+       [
+        "ND",
+        "8.075271546297458"
+       ],
+       [
+        "OH",
+        "10.606684068949075"
+       ],
+       [
+        "OK",
+        "8.967249182852276"
+       ],
+       [
+        "OR",
+        "10.353160915308612"
+       ],
+       [
+        "PA",
+        "11.047455542925034"
+       ],
+       [
+        "RI",
+        "8.927446816256198"
+       ],
+       [
+        "SC",
+        "9.612399686949514"
+       ],
+       [
+        "SD",
+        "7.382124365737512"
+       ],
+       [
+        "TN",
+        "9.581006974541651"
+       ],
+       [
+        "TX",
+        "11.221168434476418"
+       ],
+       [
+        "UT",
+        "9.244258590179644"
+       ],
+       [
+        "VT",
+        "7.788211557847076"
+       ],
+       [
+        "VA",
+        "9.571853592555165"
+       ],
+       [
+        "WA",
+        "10.650909827496076"
+       ],
+       [
+        "WV",
+        "8.785998208098329"
+       ],
+       [
+        "WI",
+        "10.503422351373894"
+       ],
+       [
+        "WY",
+        "7.674617497364363"
+       ]
+      ],
+      "units": "natural log of the month's initial claims, not seasonally adjusted (as held)",
+      "period": "2024-01"
+     },
      "refresh": "never (history layer)"
     },
     {
@@ -111,10 +1166,14 @@
      "url": "/disturbance/",
      "freq": "monthly",
      "release": "inputs",
-     "through": "2024-06",
+     "through": "2026-10",
      "refreshed": "2026-11-14T13:36Z",
      "path": "~/Projects/Disturbance Indicator Data/10_chronology_site/out_v3_2_damage_cut/chronology.csv",
-     "held": "1 file",
+     "held": {
+      "value": "Open from the Jun 2024 peak: recession, grade 2.12, provisional",
+      "units": "the register's latest dated row",
+      "period": "2026-10"
+     },
      "refresh": "manual: Mac rebuild of the tool"
     },
     {
@@ -124,11 +1183,15 @@
      "source": "Bristow-Hall (the detector)",
      "url": "/detector/",
      "freq": "daily",
-     "release": "",
-     "through": "2026-11-15 14:54",
-     "refreshed": "2026-11-15T20:16Z",
+     "release": "derived_detector",
+     "through": "2026-11-15 16:06",
+     "refreshed": "2026-11-15T21:20Z",
      "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/data/live_chronology/bhs_state_origin_main.json",
-     "held": "1 file",
+     "held": {
+      "value": "Closed since Oct 2024",
+      "units": "the detector's standing (closed: no recession open; open: a recession called)",
+      "period": "2026-11-15"
+     },
      "refresh": "each cloud run (a Mac copy of the published state)"
     },
     {
@@ -138,16 +1201,31 @@
      "source": "Bureau of Labor Statistics, LAUS",
      "url": "https://download.bls.gov/pub/time.series/la/",
      "freq": "monthly",
-     "release": "",
+     "release": "bls_metro",
      "through": "2026-09",
      "refreshed": "2026-11-15T18:49Z",
      "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/laus_county.txt.gz",
-     "held": "1 file",
+     "held": {
+      "values": [
+       [
+        "U.S., from the county file",
+        "4.0%",
+        "unemployment rate, labor-force-weighted over 3,143 counties, not seasonally adjusted"
+       ],
+       [
+        "U.S., from the county file",
+        "170,297,925",
+        "labor force, persons (sum of the counties)"
+       ]
+      ],
+      "units": "BLS LAUS county flat file",
+      "period": "2026-09"
+     },
      "refresh": "each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)"
     },
     {
      "key": "county_laus_held",
-     "name": "County unemployment rates and labor force, 3,143 counties",
+     "name": "County unemployment rates and labor force, 3,143 counties (held base file; each stress-map run merges the newest BLS county file over it)",
      "ids": "",
      "source": "Bureau of Labor Statistics, LAUS",
      "url": "https://www.bls.gov/lau/",
@@ -156,7 +1234,22 @@
      "through": "2026-07",
      "refreshed": "2026-11-09T19:30Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/laus_county/county_ur_lf_1990_2026.csv.gz",
-     "held": "1 file",
+     "held": {
+      "values": [
+       [
+        "U.S., from the county file",
+        "4.4%",
+        "unemployment rate, labor-force-weighted over 3,143 counties, not seasonally adjusted"
+       ],
+       [
+        "U.S., from the county file",
+        "170,234,880",
+        "labor force, persons (sum of the counties)"
+       ]
+      ],
+      "units": "BLS LAUS county, held base file",
+      "period": "2026-07"
+     },
      "refresh": "manual: Mac rebuild of the tool"
     },
     {
@@ -166,11 +1259,21 @@
      "source": "Bureau of Labor Statistics, QCEW",
      "url": "https://www.bls.gov/cew/downloadable-data-files.htm",
      "freq": "quarterly",
-     "release": "",
+     "release": "bls_qcew",
      "through": "2026-03",
      "refreshed": "2026-11-14T00:21Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry/<YEAR>_county_tot.csv",
-     "held": "37 files",
+     "held": {
+      "values": [
+       [
+        "U.S., from the county file",
+        "148,941,462",
+        "covered employment, persons (sum of 3,143 county rows, not seasonally adjusted)"
+       ]
+      ],
+      "units": "",
+      "period": "2026-03"
+     },
      "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
@@ -180,11 +1283,14 @@
      "source": "Census Bureau, cartographic boundary files",
      "url": "https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html",
      "freq": "static",
-     "release": "",
+     "release": "static",
      "through": "static (2024 boundaries)",
      "refreshed": "2026-11-14T14:51Z",
      "path": "/Volumes/Sandisk G/Recession Data/06 Tool 5 - National Stress Map/Map boundaries through time (Census cartographic boundary files 2010-2024)/cb_2024_us_county_500k.zip",
-     "held": "1 file",
+     "held": {
+      "value": "2024 boundaries",
+      "units": ""
+     },
      "refresh": "never (static)"
     },
     {
@@ -194,11 +1300,71 @@
      "source": "Bureau of Labor Statistics, CES",
      "url": "https://download.bls.gov/pub/time.series/ce/",
      "freq": "monthly",
-     "release": "",
+     "release": "fred:50",
      "through": "2026-10",
      "refreshed": "2026-11-11T15:06Z",
      "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/ces_all.txt.gz",
-     "held": "1 file",
+     "held": {
+      "values": [
+       [
+        "PAYEMS",
+        "159,293",
+        "thousands of persons, seasonally adjusted"
+       ],
+       [
+        "USMINE",
+        "605",
+        "thousands of persons, seasonally adjusted"
+       ],
+       [
+        "USCONS",
+        "8,367",
+        "thousands of persons, seasonally adjusted"
+       ],
+       [
+        "MANEMP",
+        "12,681",
+        "thousands of persons, seasonally adjusted"
+       ],
+       [
+        "USTPU",
+        "28,818",
+        "thousands of persons, seasonally adjusted"
+       ],
+       [
+        "USINFO",
+        "2,734",
+        "thousands of persons, seasonally adjusted"
+       ],
+       [
+        "USFIRE",
+        "9,085",
+        "thousands of persons, seasonally adjusted"
+       ],
+       [
+        "USPBS",
+        "22,604",
+        "thousands of persons, seasonally adjusted"
+       ],
+       [
+        "USEHS",
+        "28,058",
+        "thousands of persons, seasonally adjusted"
+       ],
+       [
+        "USLAH",
+        "16,964",
+        "thousands of persons, seasonally adjusted"
+       ],
+       [
+        "USGOVT",
+        "23,332",
+        "thousands of persons, seasonally adjusted"
+       ]
+      ],
+      "units": "",
+      "period": "2026-10"
+     },
      "refresh": "each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)"
     },
     {
@@ -208,11 +1374,220 @@
      "source": "Bureau of Labor Statistics, CES State and Metro",
      "url": "https://download.bls.gov/pub/time.series/sm/",
      "freq": "monthly",
-     "release": "",
+     "release": "bls_state",
      "through": "2026-09",
      "refreshed": "2026-11-09T14:42Z",
      "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/state_metro_payrolls_all.txt.gz",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "2,219.0"
+       ],
+       [
+        "AK",
+        "340.7"
+       ],
+       [
+        "AZ",
+        "3,277.8"
+       ],
+       [
+        "AR",
+        "1,350.8"
+       ],
+       [
+        "CA",
+        "18,151.6"
+       ],
+       [
+        "CO",
+        "2,973.8"
+       ],
+       [
+        "CT",
+        "1,731.6"
+       ],
+       [
+        "DE",
+        "495.8"
+       ],
+       [
+        "DC",
+        "719.9"
+       ],
+       [
+        "FL",
+        "10,045.4"
+       ],
+       [
+        "GA",
+        "4,983.0"
+       ],
+       [
+        "HI",
+        "642.4"
+       ],
+       [
+        "ID",
+        "890.1"
+       ],
+       [
+        "IL",
+        "6,164.5"
+       ],
+       [
+        "IN",
+        "3,257.3"
+       ],
+       [
+        "IA",
+        "1,587.4"
+       ],
+       [
+        "KS",
+        "1,469.4"
+       ],
+       [
+        "KY",
+        "2,031.7"
+       ],
+       [
+        "LA",
+        "2,024.2"
+       ],
+       [
+        "ME",
+        "661.7"
+       ],
+       [
+        "MD",
+        "2,794.3"
+       ],
+       [
+        "MA",
+        "3,711.0"
+       ],
+       [
+        "MI",
+        "4,487.4"
+       ],
+       [
+        "MN",
+        "3,065.0"
+       ],
+       [
+        "MS",
+        "1,198.2"
+       ],
+       [
+        "MO",
+        "3,007.3"
+       ],
+       [
+        "MT",
+        "520.3"
+       ],
+       [
+        "NE",
+        "1,063.3"
+       ],
+       [
+        "NV",
+        "1,620.2"
+       ],
+       [
+        "NH",
+        "703.1"
+       ],
+       [
+        "NJ",
+        "4,377.4"
+       ],
+       [
+        "NM",
+        "904.3"
+       ],
+       [
+        "NY",
+        "9,970.4"
+       ],
+       [
+        "NC",
+        "5,128.0"
+       ],
+       [
+        "ND",
+        "447.3"
+       ],
+       [
+        "OH",
+        "5,688.3"
+       ],
+       [
+        "OK",
+        "1,799.8"
+       ],
+       [
+        "OR",
+        "1,973.9"
+       ],
+       [
+        "PA",
+        "6,212.6"
+       ],
+       [
+        "RI",
+        "513.1"
+       ],
+       [
+        "SC",
+        "2,441.3"
+       ],
+       [
+        "SD",
+        "470.5"
+       ],
+       [
+        "TN",
+        "3,388.2"
+       ],
+       [
+        "TX",
+        "14,461.3"
+       ],
+       [
+        "UT",
+        "1,797.0"
+       ],
+       [
+        "VT",
+        "311.0"
+       ],
+       [
+        "VA",
+        "4,250.6"
+       ],
+       [
+        "WA",
+        "3,654.9"
+       ],
+       [
+        "WV",
+        "717.4"
+       ],
+       [
+        "WI",
+        "3,043.3"
+       ],
+       [
+        "WY",
+        "295.5"
+       ]
+      ],
+      "units": "total nonfarm, thousands of persons, seasonally adjusted",
+      "period": "2026-09"
+     },
      "refresh": "each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)"
     }
    ]
@@ -227,11 +1602,220 @@
      "source": "Bureau of Labor Statistics, CES State and Metro (via FRED)",
      "url": "https://fred.stlouisfed.org/series/CANA",
      "freq": "monthly",
-     "release": "",
+     "release": "bls_state",
      "through": "2026-09-01",
      "refreshed": "2026-11-15T13:19Z",
      "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_payrolls",
-     "held": "51 files",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "2,219.0"
+       ],
+       [
+        "AK",
+        "340.7"
+       ],
+       [
+        "AZ",
+        "3,277.8"
+       ],
+       [
+        "AR",
+        "1,350.8"
+       ],
+       [
+        "CA",
+        "18,151.6"
+       ],
+       [
+        "CO",
+        "2,973.8"
+       ],
+       [
+        "CT",
+        "1,731.6"
+       ],
+       [
+        "DE",
+        "495.8"
+       ],
+       [
+        "DC",
+        "719.9"
+       ],
+       [
+        "FL",
+        "10,045.4"
+       ],
+       [
+        "GA",
+        "4,983.0"
+       ],
+       [
+        "HI",
+        "642.4"
+       ],
+       [
+        "ID",
+        "890.1"
+       ],
+       [
+        "IL",
+        "6,164.5"
+       ],
+       [
+        "IN",
+        "3,257.3"
+       ],
+       [
+        "IA",
+        "1,587.4"
+       ],
+       [
+        "KS",
+        "1,469.4"
+       ],
+       [
+        "KY",
+        "2,031.7"
+       ],
+       [
+        "LA",
+        "2,024.2"
+       ],
+       [
+        "ME",
+        "661.7"
+       ],
+       [
+        "MD",
+        "2,794.3"
+       ],
+       [
+        "MA",
+        "3,711.0"
+       ],
+       [
+        "MI",
+        "4,487.4"
+       ],
+       [
+        "MN",
+        "3,065.0"
+       ],
+       [
+        "MS",
+        "1,198.2"
+       ],
+       [
+        "MO",
+        "3,007.3"
+       ],
+       [
+        "MT",
+        "520.3"
+       ],
+       [
+        "NE",
+        "1,063.3"
+       ],
+       [
+        "NV",
+        "1,620.2"
+       ],
+       [
+        "NH",
+        "703.1"
+       ],
+       [
+        "NJ",
+        "4,377.4"
+       ],
+       [
+        "NM",
+        "904.3"
+       ],
+       [
+        "NY",
+        "9,970.4"
+       ],
+       [
+        "NC",
+        "5,128.0"
+       ],
+       [
+        "ND",
+        "447.3"
+       ],
+       [
+        "OH",
+        "5,688.3"
+       ],
+       [
+        "OK",
+        "1,799.8"
+       ],
+       [
+        "OR",
+        "1,973.9"
+       ],
+       [
+        "PA",
+        "6,212.6"
+       ],
+       [
+        "RI",
+        "513.1"
+       ],
+       [
+        "SC",
+        "2,441.3"
+       ],
+       [
+        "SD",
+        "470.5"
+       ],
+       [
+        "TN",
+        "3,388.2"
+       ],
+       [
+        "TX",
+        "14,461.3"
+       ],
+       [
+        "UT",
+        "1,797.0"
+       ],
+       [
+        "VT",
+        "311.0"
+       ],
+       [
+        "VA",
+        "4,250.6"
+       ],
+       [
+        "WA",
+        "3,654.9"
+       ],
+       [
+        "WV",
+        "717.4"
+       ],
+       [
+        "WI",
+        "3,043.3"
+       ],
+       [
+        "WY",
+        "295.5"
+       ]
+      ],
+      "units": "thousands of persons, seasonally adjusted",
+      "period": "2026-09"
+     },
      "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
@@ -241,11 +1825,220 @@
      "source": "Bureau of Labor Statistics, LAUS (via FRED)",
      "url": "https://fred.stlouisfed.org/series/CAUR",
      "freq": "monthly",
-     "release": "",
+     "release": "bls_state",
      "through": "2026-09-01",
      "refreshed": "2026-11-15T13:19Z",
      "path": "~/Projects/Disturbance Indicator Data/03_data/state/fred_state_ur",
-     "held": "51 files",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "3.5"
+       ],
+       [
+        "AK",
+        "4.3"
+       ],
+       [
+        "AZ",
+        "4.9"
+       ],
+       [
+        "AR",
+        "3.9"
+       ],
+       [
+        "CA",
+        "5.1"
+       ],
+       [
+        "CO",
+        "4.1"
+       ],
+       [
+        "CT",
+        "5.1"
+       ],
+       [
+        "DE",
+        "4.6"
+       ],
+       [
+        "DC",
+        "5.6"
+       ],
+       [
+        "FL",
+        "4.4"
+       ],
+       [
+        "GA",
+        "3.3"
+       ],
+       [
+        "HI",
+        "2.8"
+       ],
+       [
+        "ID",
+        "3.6"
+       ],
+       [
+        "IL",
+        "4.6"
+       ],
+       [
+        "IN",
+        "3.4"
+       ],
+       [
+        "IA",
+        "3.2"
+       ],
+       [
+        "KS",
+        "3.8"
+       ],
+       [
+        "KY",
+        "4.7"
+       ],
+       [
+        "LA",
+        "4.0"
+       ],
+       [
+        "ME",
+        "3.3"
+       ],
+       [
+        "MD",
+        "3.9"
+       ],
+       [
+        "MA",
+        "4.3"
+       ],
+       [
+        "MI",
+        "5.0"
+       ],
+       [
+        "MN",
+        "4.5"
+       ],
+       [
+        "MS",
+        "3.3"
+       ],
+       [
+        "MO",
+        "3.6"
+       ],
+       [
+        "MT",
+        "3.1"
+       ],
+       [
+        "NE",
+        "2.9"
+       ],
+       [
+        "NV",
+        "4.7"
+       ],
+       [
+        "NH",
+        "2.6"
+       ],
+       [
+        "NJ",
+        "4.2"
+       ],
+       [
+        "NM",
+        "4.7"
+       ],
+       [
+        "NY",
+        "4.3"
+       ],
+       [
+        "NC",
+        "3.4"
+       ],
+       [
+        "ND",
+        "2.2"
+       ],
+       [
+        "OH",
+        "3.4"
+       ],
+       [
+        "OK",
+        "4.2"
+       ],
+       [
+        "OR",
+        "5.0"
+       ],
+       [
+        "PA",
+        "3.6"
+       ],
+       [
+        "RI",
+        "3.6"
+       ],
+       [
+        "SC",
+        "4.0"
+       ],
+       [
+        "SD",
+        "2.0"
+       ],
+       [
+        "TN",
+        "3.4"
+       ],
+       [
+        "TX",
+        "4.4"
+       ],
+       [
+        "UT",
+        "3.5"
+       ],
+       [
+        "VT",
+        "2.6"
+       ],
+       [
+        "VA",
+        "3.6"
+       ],
+       [
+        "WA",
+        "4.8"
+       ],
+       [
+        "WV",
+        "4.0"
+       ],
+       [
+        "WI",
+        "3.2"
+       ],
+       [
+        "WY",
+        "3.0"
+       ]
+      ],
+      "units": "percent, seasonally adjusted",
+      "period": "2026-09"
+     },
      "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
@@ -259,7 +2052,216 @@
      "through": "2026-06",
      "refreshed": "2026-09-28T15:25Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/bea/SQINC4__ALL_AREAS_1948_2026.csv",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "320,837.9; 149,826.5"
+       ],
+       [
+        "AK",
+        "60,943.4; 29,783.6"
+       ],
+       [
+        "AZ",
+        "543,715.5; 259,723.6"
+       ],
+       [
+        "AR",
+        "197,060.1; 89,696.4"
+       ],
+       [
+        "CA",
+        "3,707,571.2; 1,935,502.8"
+       ],
+       [
+        "CO",
+        "541,957.5; 272,896.6"
+       ],
+       [
+        "CT",
+        "392,402.6; 164,885.6"
+       ],
+       [
+        "DE",
+        "75,321.8; 39,246.7"
+       ],
+       [
+        "DC",
+        "84,393.9; 98,088.2"
+       ],
+       [
+        "FL",
+        "1,916,916.3; 808,944.4"
+       ],
+       [
+        "GA",
+        "758,979.1; 400,512.8"
+       ],
+       [
+        "HI",
+        "111,519.4; 52,689.4"
+       ],
+       [
+        "ID",
+        "137,570.3; 61,913.1"
+       ],
+       [
+        "IL",
+        "1,046,322.6; 537,706.1"
+       ],
+       [
+        "IN",
+        "478,898.3; 229,492.8"
+       ],
+       [
+        "IA",
+        "226,731.7; 106,868.7"
+       ],
+       [
+        "KS",
+        "215,810.6; 103,275.8"
+       ],
+       [
+        "KY",
+        "289,528.1; 135,863.0"
+       ],
+       [
+        "LA",
+        "307,617.5; 137,456.3"
+       ],
+       [
+        "ME",
+        "103,947.4; 46,222.4"
+       ],
+       [
+        "MD",
+        "527,346.1; 247,497.6"
+       ],
+       [
+        "MA",
+        "731,469.0; 387,193.7"
+       ],
+       [
+        "MI",
+        "709,406.4; 334,819.1"
+       ],
+       [
+        "MN",
+        "475,981.8; 244,406.2"
+       ],
+       [
+        "MS",
+        "165,279.3; 70,771.6"
+       ],
+       [
+        "MO",
+        "455,481.3; 216,788.9"
+       ],
+       [
+        "MT",
+        "86,216.7; 35,568.6"
+       ],
+       [
+        "NE",
+        "162,493.7; 73,209.6"
+       ],
+       [
+        "NV",
+        "250,488.1; 119,042.1"
+       ],
+       [
+        "NH",
+        "129,038.2; 59,136.9"
+       ],
+       [
+        "NJ",
+        "890,188.7; 395,679.3"
+       ],
+       [
+        "NM",
+        "137,479.5; 61,174.2"
+       ],
+       [
+        "NY",
+        "1,921,707.2; 1,071,333.8"
+       ],
+       [
+        "NC",
+        "796,007.4; 402,228.6"
+       ],
+       [
+        "ND",
+        "64,813.1; 31,975.5"
+       ],
+       [
+        "OH",
+        "837,341.6; 417,831.5"
+       ],
+       [
+        "OK",
+        "283,752.9; 117,294.8"
+       ],
+       [
+        "OR",
+        "323,491.0; 158,373.3"
+       ],
+       [
+        "PA",
+        "1,021,605.6; 483,800.8"
+       ],
+       [
+        "RI",
+        "86,372.1; 38,974.0"
+       ],
+       [
+        "SC",
+        "368,182.4; 168,064.2"
+       ],
+       [
+        "SD",
+        "77,500.9; 30,745.5"
+       ],
+       [
+        "TN",
+        "525,989.0; 247,747.4"
+       ],
+       [
+        "TX",
+        "2,428,630.2; 1,200,804.2"
+       ],
+       [
+        "UT",
+        "259,009.7; 136,085.3"
+       ],
+       [
+        "VT",
+        "50,316.7; 21,970.3"
+       ],
+       [
+        "VA",
+        "741,010.8; 371,620.6"
+       ],
+       [
+        "WA",
+        "735,190.1; 388,342.8"
+       ],
+       [
+        "WV",
+        "107,928.1; 45,205.9"
+       ],
+       [
+        "WI",
+        "444,006.5; 215,281.1"
+       ],
+       [
+        "WY",
+        "55,895.5; 20,354.7"
+       ]
+      ],
+      "units": "line 10: Personal income (millions of dollars, seasonally adjusted); line 50: Wages and salaries (Millions of dollars); quarter",
+      "period": "2026-06"
+     },
      "refresh": "manual: Mac rebuild of the tool"
     },
     {
@@ -273,7 +2275,216 @@
      "through": "2026-09",
      "refreshed": "2026-11-12T12:39Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/bps_state/bps_state_monthly_units.csv",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "1,558"
+       ],
+       [
+        "AK",
+        "59"
+       ],
+       [
+        "AZ",
+        "2,107"
+       ],
+       [
+        "AR",
+        "899"
+       ],
+       [
+        "CA",
+        "9,329"
+       ],
+       [
+        "CO",
+        "1,949"
+       ],
+       [
+        "CT",
+        "408"
+       ],
+       [
+        "DE",
+        "521"
+       ],
+       [
+        "DC",
+        "303"
+       ],
+       [
+        "FL",
+        "14,649"
+       ],
+       [
+        "GA",
+        "5,038"
+       ],
+       [
+        "HI",
+        "283"
+       ],
+       [
+        "ID",
+        "1,580"
+       ],
+       [
+        "IL",
+        "1,263"
+       ],
+       [
+        "IN",
+        "2,918"
+       ],
+       [
+        "IA",
+        "1,063"
+       ],
+       [
+        "KS",
+        "2,162"
+       ],
+       [
+        "KY",
+        "1,738"
+       ],
+       [
+        "LA",
+        "1,028"
+       ],
+       [
+        "ME",
+        "585"
+       ],
+       [
+        "MD",
+        "745"
+       ],
+       [
+        "MA",
+        "1,515"
+       ],
+       [
+        "MI",
+        "1,871"
+       ],
+       [
+        "MN",
+        "2,584"
+       ],
+       [
+        "MS",
+        "711"
+       ],
+       [
+        "MO",
+        "1,747"
+       ],
+       [
+        "MT",
+        "352"
+       ],
+       [
+        "NE",
+        "934"
+       ],
+       [
+        "NV",
+        "1,236"
+       ],
+       [
+        "NH",
+        "459"
+       ],
+       [
+        "NJ",
+        "1,990"
+       ],
+       [
+        "NM",
+        "743"
+       ],
+       [
+        "NY",
+        "4,260"
+       ],
+       [
+        "NC",
+        "5,817"
+       ],
+       [
+        "ND",
+        "605"
+       ],
+       [
+        "OH",
+        "2,143"
+       ],
+       [
+        "OK",
+        "923"
+       ],
+       [
+        "OR",
+        "1,054"
+       ],
+       [
+        "PA",
+        "2,185"
+       ],
+       [
+        "RI",
+        "166"
+       ],
+       [
+        "SC",
+        "3,530"
+       ],
+       [
+        "SD",
+        "471"
+       ],
+       [
+        "TN",
+        "4,535"
+       ],
+       [
+        "TX",
+        "16,162"
+       ],
+       [
+        "UT",
+        "1,646"
+       ],
+       [
+        "VT",
+        "152"
+       ],
+       [
+        "VA",
+        "2,641"
+       ],
+       [
+        "WA",
+        "2,157"
+       ],
+       [
+        "WV",
+        "290"
+       ],
+       [
+        "WI",
+        "1,836"
+       ],
+       [
+        "WY",
+        "132"
+       ]
+      ],
+      "units": "housing units authorized, total, not seasonally adjusted",
+      "period": "2026-09"
+     },
      "refresh": "manual: Mac rebuild of the tool"
     },
     {
@@ -283,11 +2494,220 @@
      "source": "Department of Labor, ETA (spliced history)",
      "url": "https://oui.doleta.gov/unemploy/claims.asp",
      "freq": "weekly",
-     "release": "dol_claims",
+     "release": "eta539",
      "through": "2026-09-05",
      "refreshed": "2026-11-09T18:01Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/claims/legT/state_ic_weekly_1945_2026.csv",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "1,515"
+       ],
+       [
+        "AK",
+        "412"
+       ],
+       [
+        "AZ",
+        "2,516"
+       ],
+       [
+        "AR",
+        "1,084"
+       ],
+       [
+        "CA",
+        "37,356"
+       ],
+       [
+        "CO",
+        "2,961"
+       ],
+       [
+        "CT",
+        "3,188"
+       ],
+       [
+        "DE",
+        "470"
+       ],
+       [
+        "DC",
+        "610"
+       ],
+       [
+        "FL",
+        "5,508"
+       ],
+       [
+        "GA",
+        "3,992"
+       ],
+       [
+        "HI",
+        "1,169"
+       ],
+       [
+        "ID",
+        "654"
+       ],
+       [
+        "IL",
+        "7,089"
+       ],
+       [
+        "IN",
+        "2,136"
+       ],
+       [
+        "IA",
+        "1,247"
+       ],
+       [
+        "KS",
+        "847"
+       ],
+       [
+        "KY",
+        "596"
+       ],
+       [
+        "LA",
+        "1,316"
+       ],
+       [
+        "ME",
+        "430"
+       ],
+       [
+        "MD",
+        "2,154"
+       ],
+       [
+        "MA",
+        "4,510"
+       ],
+       [
+        "MI",
+        "5,799"
+       ],
+       [
+        "MN",
+        "3,303"
+       ],
+       [
+        "MS",
+        "900"
+       ],
+       [
+        "MO",
+        "2,180"
+       ],
+       [
+        "MT",
+        "366"
+       ],
+       [
+        "NE",
+        "1,095"
+       ],
+       [
+        "NV",
+        "2,600"
+       ],
+       [
+        "NH",
+        "333"
+       ],
+       [
+        "NJ",
+        "8,409"
+       ],
+       [
+        "NM",
+        "640"
+       ],
+       [
+        "NY",
+        "14,408"
+       ],
+       [
+        "NC",
+        "2,956"
+       ],
+       [
+        "ND",
+        "208"
+       ],
+       [
+        "OH",
+        "4,314"
+       ],
+       [
+        "OK",
+        "1,100"
+       ],
+       [
+        "OR",
+        "4,087"
+       ],
+       [
+        "PA",
+        "8,421"
+       ],
+       [
+        "RI",
+        "667"
+       ],
+       [
+        "SC",
+        "1,911"
+       ],
+       [
+        "SD",
+        "174"
+       ],
+       [
+        "TN",
+        "2,698"
+       ],
+       [
+        "TX",
+        "15,051"
+       ],
+       [
+        "UT",
+        "1,198"
+       ],
+       [
+        "VT",
+        "282"
+       ],
+       [
+        "VA",
+        "2,145"
+       ],
+       [
+        "WA",
+        "5,160"
+       ],
+       [
+        "WV",
+        "543"
+       ],
+       [
+        "WI",
+        "2,198"
+       ],
+       [
+        "WY",
+        "249"
+       ]
+      ],
+      "units": "initial claims, not seasonally adjusted, week ending",
+      "period": "2026-09-05"
+     },
      "refresh": "manual: Mac rebuild of the tool"
     },
     {
@@ -301,7 +2721,216 @@
      "through": "2026-09",
      "refreshed": "2026-11-10T06:44Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/cps_state/cps_state_*.csv",
-     "held": "33 files",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "4.0%"
+       ],
+       [
+        "AK",
+        "5.4%"
+       ],
+       [
+        "AZ",
+        "3.6%"
+       ],
+       [
+        "AR",
+        "4.8%"
+       ],
+       [
+        "CA",
+        "5.1%"
+       ],
+       [
+        "CO",
+        "5.4%"
+       ],
+       [
+        "CT",
+        "6.6%"
+       ],
+       [
+        "DE",
+        "5.0%"
+       ],
+       [
+        "DC",
+        "4.1%"
+       ],
+       [
+        "FL",
+        "3.2%"
+       ],
+       [
+        "GA",
+        "5.5%"
+       ],
+       [
+        "HI",
+        "3.7%"
+       ],
+       [
+        "ID",
+        "3.3%"
+       ],
+       [
+        "IL",
+        "3.5%"
+       ],
+       [
+        "IN",
+        "4.9%"
+       ],
+       [
+        "IA",
+        "3.7%"
+       ],
+       [
+        "KS",
+        "4.1%"
+       ],
+       [
+        "KY",
+        "4.8%"
+       ],
+       [
+        "LA",
+        "3.5%"
+       ],
+       [
+        "ME",
+        "3.8%"
+       ],
+       [
+        "MD",
+        "3.3%"
+       ],
+       [
+        "MA",
+        "4.2%"
+       ],
+       [
+        "MI",
+        "4.3%"
+       ],
+       [
+        "MN",
+        "5.1%"
+       ],
+       [
+        "MS",
+        "3.7%"
+       ],
+       [
+        "MO",
+        "3.3%"
+       ],
+       [
+        "MT",
+        "2.4%"
+       ],
+       [
+        "NE",
+        "1.6%"
+       ],
+       [
+        "NV",
+        "4.3%"
+       ],
+       [
+        "NH",
+        "1.1%"
+       ],
+       [
+        "NJ",
+        "3.7%"
+       ],
+       [
+        "NM",
+        "5.1%"
+       ],
+       [
+        "NY",
+        "5.3%"
+       ],
+       [
+        "NC",
+        "2.9%"
+       ],
+       [
+        "ND",
+        "2.1%"
+       ],
+       [
+        "OH",
+        "3.5%"
+       ],
+       [
+        "OK",
+        "3.6%"
+       ],
+       [
+        "OR",
+        "3.6%"
+       ],
+       [
+        "PA",
+        "3.0%"
+       ],
+       [
+        "RI",
+        "2.6%"
+       ],
+       [
+        "SC",
+        "3.3%"
+       ],
+       [
+        "SD",
+        "1.4%"
+       ],
+       [
+        "TN",
+        "3.2%"
+       ],
+       [
+        "TX",
+        "3.8%"
+       ],
+       [
+        "UT",
+        "2.4%"
+       ],
+       [
+        "VT",
+        "2.9%"
+       ],
+       [
+        "VA",
+        "4.8%"
+       ],
+       [
+        "WA",
+        "3.8%"
+       ],
+       [
+        "WV",
+        "3.5%"
+       ],
+       [
+        "WI",
+        "2.9%"
+       ],
+       [
+        "WY",
+        "3.1%"
+       ]
+      ],
+      "units": "unemployment rate from the tallies: unemployed / (employed + unemployed), weighted, not seasonally adjusted",
+      "period": "2026-09"
+     },
      "refresh": "manual: Mac rebuild of the tool"
     },
     {
@@ -311,11 +2940,220 @@
      "source": "Department of Labor, ETA 5159",
      "url": "https://oui.doleta.gov/unemploy/DataDownloads.asp",
      "freq": "monthly",
-     "release": "",
+     "release": "eta5159",
      "through": "2026-10-31",
      "refreshed": "2026-11-15T18:51Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar5159.csv",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "6,708"
+       ],
+       [
+        "AK (Sep 30, 2026)",
+        "1,812"
+       ],
+       [
+        "AZ",
+        "10,135"
+       ],
+       [
+        "AR (Sep 30, 2026)",
+        "4,756"
+       ],
+       [
+        "CA",
+        "172,290"
+       ],
+       [
+        "CO (Sep 30, 2026)",
+        "12,188"
+       ],
+       [
+        "CT",
+        "8,347"
+       ],
+       [
+        "DE",
+        "2,011"
+       ],
+       [
+        "DC",
+        "1,765"
+       ],
+       [
+        "FL",
+        "22,350"
+       ],
+       [
+        "GA",
+        "15,460"
+       ],
+       [
+        "HI",
+        "5,369"
+       ],
+       [
+        "ID",
+        "3,335"
+       ],
+       [
+        "IL (Sep 30, 2026)",
+        "25,893"
+       ],
+       [
+        "IN (Sep 30, 2026)",
+        "8,670"
+       ],
+       [
+        "IA",
+        "5,414"
+       ],
+       [
+        "KS",
+        "4,104"
+       ],
+       [
+        "KY (Sep 30, 2026)",
+        "6,448"
+       ],
+       [
+        "LA",
+        "5,035"
+       ],
+       [
+        "ME",
+        "2,460"
+       ],
+       [
+        "MD",
+        "9,327"
+       ],
+       [
+        "MA",
+        "18,717"
+       ],
+       [
+        "MI",
+        "25,858"
+       ],
+       [
+        "MN",
+        "14,954"
+       ],
+       [
+        "MS",
+        "3,796"
+       ],
+       [
+        "MO",
+        "9,395"
+       ],
+       [
+        "MT",
+        "2,720"
+       ],
+       [
+        "NE",
+        "2,005"
+       ],
+       [
+        "NV",
+        "11,765"
+       ],
+       [
+        "NH",
+        "1,360"
+       ],
+       [
+        "NJ",
+        "36,224"
+       ],
+       [
+        "NM",
+        "3,714"
+       ],
+       [
+        "NY",
+        "56,360"
+       ],
+       [
+        "NC",
+        "12,587"
+       ],
+       [
+        "ND",
+        "1,020"
+       ],
+       [
+        "OH",
+        "22,182"
+       ],
+       [
+        "OK",
+        "5,050"
+       ],
+       [
+        "OR (Sep 30, 2026)",
+        "15,907"
+       ],
+       [
+        "PA",
+        "35,298"
+       ],
+       [
+        "RI",
+        "2,891"
+       ],
+       [
+        "SC",
+        "8,931"
+       ],
+       [
+        "SD",
+        "827"
+       ],
+       [
+        "TN",
+        "12,619"
+       ],
+       [
+        "TX (Sep 30, 2026)",
+        "56,443"
+       ],
+       [
+        "UT",
+        "6,090"
+       ],
+       [
+        "VT",
+        "1,540"
+       ],
+       [
+        "VA",
+        "10,139"
+       ],
+       [
+        "WA",
+        "29,814"
+       ],
+       [
+        "WV",
+        "2,525"
+       ],
+       [
+        "WI (Sep 30, 2026)",
+        "8,812"
+       ],
+       [
+        "WY",
+        "884"
+       ]
+      ],
+      "units": "State UI initial claims (c1), not seasonally adjusted, month",
+      "period": "2026-10-31"
+     },
      "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
@@ -325,11 +3163,220 @@
      "source": "Department of Labor, ETA 539",
      "url": "https://oui.doleta.gov/unemploy/DataDownloads.asp",
      "freq": "weekly",
-     "release": "",
+     "release": "eta539",
      "through": "2026-11-07",
      "refreshed": "2026-11-15T18:51Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar539.csv",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "1,647; 6,601"
+       ],
+       [
+        "AK",
+        "642; 4,242"
+       ],
+       [
+        "AZ",
+        "2,420; 18,452"
+       ],
+       [
+        "AR",
+        "1,226; 4,649"
+       ],
+       [
+        "CA",
+        "44,723; 318,909"
+       ],
+       [
+        "CO",
+        "3,871; 30,928"
+       ],
+       [
+        "CT",
+        "2,508; 18,692"
+       ],
+       [
+        "DE",
+        "571; 4,117"
+       ],
+       [
+        "DC",
+        "616; 6,424"
+       ],
+       [
+        "FL",
+        "5,362; 29,221"
+       ],
+       [
+        "GA",
+        "3,895; 22,141"
+       ],
+       [
+        "HI",
+        "1,359; 6,852"
+       ],
+       [
+        "ID",
+        "1,039; 4,597"
+       ],
+       [
+        "IL",
+        "8,389; 75,745"
+       ],
+       [
+        "IN",
+        "2,371; 16,548"
+       ],
+       [
+        "IA",
+        "1,786; 6,186"
+       ],
+       [
+        "KS",
+        "1,109; 6,090"
+       ],
+       [
+        "KY",
+        "1,471; 8,541"
+       ],
+       [
+        "LA",
+        "1,212; 5,007"
+       ],
+       [
+        "ME",
+        "921; 4,598"
+       ],
+       [
+        "MD",
+        "2,230; 20,323"
+       ],
+       [
+        "MA",
+        "5,997; 62,673"
+       ],
+       [
+        "MI",
+        "2,316; 29,975"
+       ],
+       [
+        "MN",
+        "6,341; 33,045"
+       ],
+       [
+        "MS (Oct 31, 2026)",
+        "789; 5,535"
+       ],
+       [
+        "MO",
+        "5,588; 17,014"
+       ],
+       [
+        "MT",
+        "919; 5,092"
+       ],
+       [
+        "NE",
+        "625; 3,813"
+       ],
+       [
+        "NV",
+        "3,425; 23,598"
+       ],
+       [
+        "NH",
+        "428; 3,242"
+       ],
+       [
+        "NJ",
+        "12,488; 85,115"
+       ],
+       [
+        "NM (Oct 31, 2026)",
+        "791; 8,453"
+       ],
+       [
+        "NY",
+        "14,569; 139,493"
+       ],
+       [
+        "NC (Oct 31, 2026)",
+        "2,741; 16,649"
+       ],
+       [
+        "ND",
+        "431; 1,535"
+       ],
+       [
+        "OH",
+        "5,264; 35,036"
+       ],
+       [
+        "OK",
+        "1,121; 8,927"
+       ],
+       [
+        "OR",
+        "4,716; 29,921"
+       ],
+       [
+        "PA",
+        "10,380; 72,492"
+       ],
+       [
+        "RI",
+        "764; 7,185"
+       ],
+       [
+        "SC",
+        "2,061; 13,611"
+       ],
+       [
+        "SD",
+        "303; 1,119"
+       ],
+       [
+        "TN",
+        "2,473; 12,456"
+       ],
+       [
+        "TX",
+        "15,927; 126,184"
+       ],
+       [
+        "UT",
+        "1,653; 10,809"
+       ],
+       [
+        "VT",
+        "482; 2,177"
+       ],
+       [
+        "VA",
+        "2,157; 18,555"
+       ],
+       [
+        "WA",
+        "7,237; 66,248"
+       ],
+       [
+        "WV",
+        "685; 4,629"
+       ],
+       [
+        "WI",
+        "2,951; 14,807"
+       ],
+       [
+        "WY",
+        "519; 1,582"
+       ]
+      ],
+      "units": "initial claims (c3); continued weeks claimed (c8); not seasonally adjusted, week ending",
+      "period": "2026-11-07"
+     },
      "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
@@ -343,7 +3390,17 @@
      "through": "2026-08-01",
      "refreshed": "2026-09-15T19:07Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/fred/CPIAUCSL.csv",
-     "held": "1 file",
+     "held": {
+      "values": [
+       [
+        "CPIAUCSL",
+        "334.131",
+        "index 1982-1984=100, seasonally adjusted"
+       ]
+      ],
+      "units": "",
+      "period": "2026-08"
+     },
      "refresh": "manual: Mac rebuild of the tool"
     },
     {
@@ -357,7 +3414,216 @@
      "through": "2026-09-01",
      "refreshed": "2026-11-10T15:11Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/fred_nsa",
-     "held": "103 files",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "2,218.8; 3.7%"
+       ],
+       [
+        "AK",
+        "348.8; 3.9%"
+       ],
+       [
+        "AZ",
+        "3,274.6; 4.7%"
+       ],
+       [
+        "AR",
+        "1,354.4; 3.7%"
+       ],
+       [
+        "CA",
+        "18,113.7; 5.1%"
+       ],
+       [
+        "CO",
+        "2,977.9; 4.4%"
+       ],
+       [
+        "CT",
+        "1,735.7; 5.1%"
+       ],
+       [
+        "DE",
+        "497.5; 4.6%"
+       ],
+       [
+        "DC",
+        "718.7; 5.3%"
+       ],
+       [
+        "FL",
+        "9,997.7; 4.2%"
+       ],
+       [
+        "GA",
+        "4,977.4; 3.5%"
+       ],
+       [
+        "HI",
+        "638.1; 3.2%"
+       ],
+       [
+        "ID",
+        "894.4; 3.3%"
+       ],
+       [
+        "IL",
+        "6,193.5; 4.2%"
+       ],
+       [
+        "IN",
+        "3,273.3; 3.7%"
+       ],
+       [
+        "IA",
+        "1,586.5; 3.2%"
+       ],
+       [
+        "KS",
+        "1,471.2; 3.8%"
+       ],
+       [
+        "KY",
+        "2,041.7; 4.5%"
+       ],
+       [
+        "LA",
+        "2,016.4; 3.8%"
+       ],
+       [
+        "ME",
+        "672.2; 3.1%"
+       ],
+       [
+        "MD",
+        "2,800.9; 3.5%"
+       ],
+       [
+        "MA",
+        "3,713.0; 4.1%"
+       ],
+       [
+        "MI",
+        "4,505.8; 4.8%"
+       ],
+       [
+        "MN",
+        "3,075.2; 4.4%"
+       ],
+       [
+        "MS",
+        "1,200.5; 3.3%"
+       ],
+       [
+        "MO",
+        "3,010.1; 3.3%"
+       ],
+       [
+        "MT",
+        "525.6; 2.5%"
+       ],
+       [
+        "NE",
+        "1,064.8; 2.5%"
+       ],
+       [
+        "NV",
+        "1,625.7; 4.5%"
+       ],
+       [
+        "NH",
+        "705.8; 1.9%"
+       ],
+       [
+        "NJ",
+        "4,384.9; 4.1%"
+       ],
+       [
+        "NM",
+        "903.9; 4.8%"
+       ],
+       [
+        "NY",
+        "9,940.3; 4.5%"
+       ],
+       [
+        "NC",
+        "5,129.0; 3.1%"
+       ],
+       [
+        "ND",
+        "452.4; 1.8%"
+       ],
+       [
+        "OH",
+        "5,698.6; 3.3%"
+       ],
+       [
+        "OK",
+        "1,804.0; 3.9%"
+       ],
+       [
+        "OR",
+        "1,980.2; 4.3%"
+       ],
+       [
+        "PA",
+        "6,233.6; 3.2%"
+       ],
+       [
+        "RI",
+        "518.2; 2.9%"
+       ],
+       [
+        "SC",
+        "2,438.8; 3.7%"
+       ],
+       [
+        "SD",
+        "474.1; 1.7%"
+       ],
+       [
+        "TN",
+        "3,398.4; 3.3%"
+       ],
+       [
+        "TX",
+        "14,426.4; 4.3%"
+       ],
+       [
+        "UT",
+        "1,801.1; 3.2%"
+       ],
+       [
+        "VT",
+        "310.9; 2.6%"
+       ],
+       [
+        "VA",
+        "4,249.7; 3.6%"
+       ],
+       [
+        "WA",
+        "3,661.4; 4.3%"
+       ],
+       [
+        "WV",
+        "719.5; 3.5%"
+       ],
+       [
+        "WI",
+        "3,054.4; 2.9%"
+       ],
+       [
+        "WY",
+        "299.7; 2.7%"
+       ]
+      ],
+      "period": "2026-09",
+      "units": "payrolls, thousands of persons; unemployment rate, percent; not seasonally adjusted"
+     },
      "refresh": "manual: Mac rebuild of the tool"
     },
     {
@@ -367,11 +3633,220 @@
      "source": "Department of Labor, ETA (spliced history)",
      "url": "https://oui.doleta.gov/unemploy/claims.asp",
      "freq": "monthly",
-     "release": "dol_claims",
+     "release": "eta539",
      "through": "2026-08-01",
      "refreshed": "2026-11-09T17:54Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/iur/ship137/state_iur_monthly_1948_2026_spliced.csv",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "0.36"
+       ],
+       [
+        "AK (Jul 2026)",
+        "0.86"
+       ],
+       [
+        "AZ (Jul 2026)",
+        "0.70"
+       ],
+       [
+        "AR (Jul 2026)",
+        "0.47"
+       ],
+       [
+        "CA",
+        "1.94"
+       ],
+       [
+        "CO (Jul 2026)",
+        "1.04"
+       ],
+       [
+        "CT (Jul 2026)",
+        "1.56"
+       ],
+       [
+        "DE",
+        "1.10"
+       ],
+       [
+        "DC",
+        "1.11"
+       ],
+       [
+        "FL (Jul 2026)",
+        "0.31"
+       ],
+       [
+        "GA (Jul 2026)",
+        "0.52"
+       ],
+       [
+        "HI",
+        "0.99"
+       ],
+       [
+        "ID (Jul 2026)",
+        "0.54"
+       ],
+       [
+        "IL (Jul 2026)",
+        "1.44"
+       ],
+       [
+        "IN (Jul 2026)",
+        "0.56"
+       ],
+       [
+        "IA",
+        "0.52"
+       ],
+       [
+        "KS (Jul 2026)",
+        "0.40"
+       ],
+       [
+        "KY (Jul 2026)",
+        "0.52"
+       ],
+       [
+        "LA",
+        "0.38"
+       ],
+       [
+        "ME (Jul 2026)",
+        "0.72"
+       ],
+       [
+        "MD (Jul 2026)",
+        "0.87"
+       ],
+       [
+        "MA",
+        "2.17"
+       ],
+       [
+        "MI (Jul 2026)",
+        "1.14"
+       ],
+       [
+        "MN",
+        "2.18"
+       ],
+       [
+        "MS",
+        "0.67"
+       ],
+       [
+        "MO",
+        "0.70"
+       ],
+       [
+        "MT (Jul 2026)",
+        "0.89"
+       ],
+       [
+        "NE",
+        "0.47"
+       ],
+       [
+        "NV",
+        "1.93"
+       ],
+       [
+        "NH (Jul 2026)",
+        "0.52"
+       ],
+       [
+        "NJ",
+        "2.71"
+       ],
+       [
+        "NM",
+        "1.20"
+       ],
+       [
+        "NY (Jul 2026)",
+        "1.62"
+       ],
+       [
+        "NC (Jul 2026)",
+        "0.40"
+       ],
+       [
+        "ND",
+        "0.55"
+       ],
+       [
+        "OH (Jul 2026)",
+        "0.68"
+       ],
+       [
+        "OK",
+        "0.70"
+       ],
+       [
+        "OR",
+        "2.15"
+       ],
+       [
+        "PA",
+        "1.72"
+       ],
+       [
+        "RI",
+        "2.33"
+       ],
+       [
+        "SC",
+        "0.78"
+       ],
+       [
+        "SD",
+        "0.27"
+       ],
+       [
+        "TN",
+        "0.51"
+       ],
+       [
+        "TX (Jul 2026)",
+        "1.06"
+       ],
+       [
+        "UT",
+        "0.70"
+       ],
+       [
+        "VT (Jul 2026)",
+        "0.79"
+       ],
+       [
+        "VA",
+        "0.68"
+       ],
+       [
+        "WA",
+        "1.80"
+       ],
+       [
+        "WV",
+        "0.89"
+       ],
+       [
+        "WI (Jul 2026)",
+        "0.68"
+       ],
+       [
+        "WY",
+        "0.60"
+       ]
+      ],
+      "units": "percent, insured unemployment rate, monthly average",
+      "period": "2026-08"
+     },
      "refresh": "manual: Mac rebuild of the tool"
     },
     {
@@ -381,11 +3856,216 @@
      "source": "Federal Reserve Bank of Philadelphia",
      "url": "https://www.philadelphiafed.org/surveys-and-data/regional-economic-analysis/state-coincident-indexes",
      "freq": "monthly",
-     "release": "",
+     "release": "fred:109",
      "through": "2026-09",
      "refreshed": "2026-11-09T17:47Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/philly/coincident-revised.xls",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "139.50"
+       ],
+       [
+        "AK",
+        "125.42"
+       ],
+       [
+        "AZ",
+        "190.96"
+       ],
+       [
+        "AR",
+        "150.56"
+       ],
+       [
+        "CA",
+        "178.32"
+       ],
+       [
+        "CO",
+        "178.25"
+       ],
+       [
+        "CT",
+        "142.67"
+       ],
+       [
+        "DE",
+        "151.53"
+       ],
+       [
+        "FL",
+        "186.10"
+       ],
+       [
+        "GA",
+        "179.11"
+       ],
+       [
+        "HI",
+        "130.89"
+       ],
+       [
+        "ID",
+        "183.81"
+       ],
+       [
+        "IL",
+        "138.53"
+       ],
+       [
+        "IN",
+        "143.92"
+       ],
+       [
+        "IA",
+        "144.18"
+       ],
+       [
+        "KS",
+        "145.86"
+       ],
+       [
+        "KY",
+        "142.27"
+       ],
+       [
+        "LA",
+        "117.85"
+       ],
+       [
+        "ME",
+        "145.66"
+       ],
+       [
+        "MD",
+        "150.71"
+       ],
+       [
+        "MA",
+        "166.94"
+       ],
+       [
+        "MI",
+        "130.49"
+       ],
+       [
+        "MN",
+        "159.17"
+       ],
+       [
+        "MS",
+        "137.12"
+       ],
+       [
+        "MO",
+        "144.88"
+       ],
+       [
+        "MT",
+        "138.63"
+       ],
+       [
+        "NE",
+        "158.92"
+       ],
+       [
+        "NV",
+        "179.36"
+       ],
+       [
+        "NH",
+        "179.96"
+       ],
+       [
+        "NJ",
+        "147.89"
+       ],
+       [
+        "NM",
+        "153.13"
+       ],
+       [
+        "NY",
+        "144.22"
+       ],
+       [
+        "NC",
+        "169.89"
+       ],
+       [
+        "ND",
+        "170.41"
+       ],
+       [
+        "OH",
+        "140.68"
+       ],
+       [
+        "OK",
+        "146.87"
+       ],
+       [
+        "OR",
+        "170.46"
+       ],
+       [
+        "PA",
+        "137.16"
+       ],
+       [
+        "RI",
+        "140.86"
+       ],
+       [
+        "SC",
+        "179.65"
+       ],
+       [
+        "SD",
+        "160.44"
+       ],
+       [
+        "TN",
+        "168.02"
+       ],
+       [
+        "TX",
+        "186.63"
+       ],
+       [
+        "UT",
+        "189.41"
+       ],
+       [
+        "VT",
+        "159.23"
+       ],
+       [
+        "VA",
+        "159.48"
+       ],
+       [
+        "WA",
+        "172.12"
+       ],
+       [
+        "WV",
+        "122.00"
+       ],
+       [
+        "WI",
+        "142.03"
+       ],
+       [
+        "WY",
+        "129.68"
+       ]
+      ],
+      "units": "index, 2007=100, seasonally adjusted (to two decimals)",
+      "period": "2026-09"
+     },
      "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
@@ -399,7 +4079,11 @@
      "through": "2026-08-28",
      "refreshed": "2026-11-10T14:32Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew/qcew_release_dates.csv",
-     "held": "1 file",
+     "held": {
+      "value": "2026 Q1 released Aug 28, 2026",
+      "units": "",
+      "period": "2026-08-28"
+     },
      "refresh": "manual: Mac rebuild of the tool"
     },
     {
@@ -413,7 +4097,216 @@
      "through": "2026-03",
      "refreshed": "2026-11-10T14:29Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew/qcew_state_total_monthly.csv",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "2,121,230"
+       ],
+       [
+        "AK",
+        "320,096"
+       ],
+       [
+        "AZ",
+        "3,249,138"
+       ],
+       [
+        "AR",
+        "1,305,223"
+       ],
+       [
+        "CA",
+        "18,211,770"
+       ],
+       [
+        "CO",
+        "2,848,514"
+       ],
+       [
+        "CT",
+        "1,668,156"
+       ],
+       [
+        "DE",
+        "473,598"
+       ],
+       [
+        "DC",
+        "715,766"
+       ],
+       [
+        "FL",
+        "9,962,755"
+       ],
+       [
+        "GA",
+        "4,865,240"
+       ],
+       [
+        "HI",
+        "643,896"
+       ],
+       [
+        "ID",
+        "867,879"
+       ],
+       [
+        "IL",
+        "5,992,382"
+       ],
+       [
+        "IN",
+        "3,160,699"
+       ],
+       [
+        "IA",
+        "1,537,509"
+       ],
+       [
+        "KS",
+        "1,425,330"
+       ],
+       [
+        "KY",
+        "1,979,083"
+       ],
+       [
+        "LA",
+        "1,917,226"
+       ],
+       [
+        "ME",
+        "629,100"
+       ],
+       [
+        "MD",
+        "2,700,282"
+       ],
+       [
+        "MA",
+        "3,552,946"
+       ],
+       [
+        "MI",
+        "4,357,481"
+       ],
+       [
+        "MN",
+        "2,878,068"
+       ],
+       [
+        "MS",
+        "1,162,883"
+       ],
+       [
+        "MO",
+        "2,890,458"
+       ],
+       [
+        "MT",
+        "506,648"
+       ],
+       [
+        "NE",
+        "1,008,180"
+       ],
+       [
+        "NV",
+        "1,575,701"
+       ],
+       [
+        "NH",
+        "674,990"
+       ],
+       [
+        "NJ",
+        "4,247,817"
+       ],
+       [
+        "NM",
+        "867,405"
+       ],
+       [
+        "NY",
+        "9,743,576"
+       ],
+       [
+        "NC",
+        "4,942,709"
+       ],
+       [
+        "ND",
+        "420,702"
+       ],
+       [
+        "OH",
+        "5,458,346"
+       ],
+       [
+        "OK",
+        "1,700,570"
+       ],
+       [
+        "OR",
+        "1,952,327"
+       ],
+       [
+        "PA",
+        "6,002,061"
+       ],
+       [
+        "RI",
+        "486,940"
+       ],
+       [
+        "SC",
+        "2,326,599"
+       ],
+       [
+        "SD",
+        "451,691"
+       ],
+       [
+        "TN",
+        "3,254,064"
+       ],
+       [
+        "TX",
+        "14,124,564"
+       ],
+       [
+        "UT",
+        "1,737,775"
+       ],
+       [
+        "VT",
+        "304,184"
+       ],
+       [
+        "VA",
+        "4,118,739"
+       ],
+       [
+        "WA",
+        "3,558,558"
+       ],
+       [
+        "WV",
+        "693,317"
+       ],
+       [
+        "WI",
+        "2,902,580"
+       ],
+       [
+        "WY",
+        "275,190"
+       ]
+      ],
+      "units": "covered employment, persons, not seasonally adjusted",
+      "period": "2026-03"
+     },
      "refresh": "manual: Mac rebuild of the tool"
     },
     {
@@ -423,11 +4316,21 @@
      "source": "Bureau of Labor Statistics, QCEW",
      "url": "https://www.bls.gov/cew/downloadable-data-files.htm",
      "freq": "quarterly",
-     "release": "",
+     "release": "bls_qcew",
      "through": "2026-03",
      "refreshed": "2026-11-14T00:21Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry/<YEAR>_county_tot.csv",
-     "held": "37 files",
+     "held": {
+      "values": [
+       [
+        "U.S., from the county file",
+        "148,941,462",
+        "covered employment, persons (sum of 3,143 county rows, not seasonally adjusted)"
+       ]
+      ],
+      "units": "",
+      "period": "2026-03"
+     },
      "refresh": "each live-tools run on GitHub: publisher fetch (held file kept, dated copy)"
     },
     {
@@ -441,7 +4344,216 @@
      "through": "2026-09",
      "refreshed": "2026-11-14T12:14Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/state_industry_releases_1994_2026_a168.csv",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "2,219.0"
+       ],
+       [
+        "AK",
+        "340.7"
+       ],
+       [
+        "AZ",
+        "3,277.8"
+       ],
+       [
+        "AR",
+        "1,350.8"
+       ],
+       [
+        "CA",
+        "18,151.6"
+       ],
+       [
+        "CO",
+        "2,973.8"
+       ],
+       [
+        "CT",
+        "1,731.6"
+       ],
+       [
+        "DE",
+        "495.8"
+       ],
+       [
+        "DC",
+        "719.9"
+       ],
+       [
+        "FL",
+        "10,045.4"
+       ],
+       [
+        "GA",
+        "4,983.0"
+       ],
+       [
+        "HI",
+        "642.4"
+       ],
+       [
+        "ID",
+        "890.1"
+       ],
+       [
+        "IL",
+        "6,164.5"
+       ],
+       [
+        "IN",
+        "3,257.3"
+       ],
+       [
+        "IA",
+        "1,587.4"
+       ],
+       [
+        "KS",
+        "1,469.4"
+       ],
+       [
+        "KY",
+        "2,031.7"
+       ],
+       [
+        "LA",
+        "2,024.2"
+       ],
+       [
+        "ME",
+        "661.7"
+       ],
+       [
+        "MD",
+        "2,794.3"
+       ],
+       [
+        "MA",
+        "3,711.0"
+       ],
+       [
+        "MI",
+        "4,487.4"
+       ],
+       [
+        "MN",
+        "3,065.0"
+       ],
+       [
+        "MS",
+        "1,198.2"
+       ],
+       [
+        "MO",
+        "3,007.3"
+       ],
+       [
+        "MT",
+        "520.3"
+       ],
+       [
+        "NE",
+        "1,063.3"
+       ],
+       [
+        "NV",
+        "1,620.2"
+       ],
+       [
+        "NH",
+        "703.1"
+       ],
+       [
+        "NJ",
+        "4,377.4"
+       ],
+       [
+        "NM",
+        "904.3"
+       ],
+       [
+        "NY",
+        "9,970.4"
+       ],
+       [
+        "NC",
+        "5,128.0"
+       ],
+       [
+        "ND",
+        "447.3"
+       ],
+       [
+        "OH",
+        "5,688.3"
+       ],
+       [
+        "OK",
+        "1,799.8"
+       ],
+       [
+        "OR",
+        "1,973.9"
+       ],
+       [
+        "PA",
+        "6,212.6"
+       ],
+       [
+        "RI",
+        "513.1"
+       ],
+       [
+        "SC",
+        "2,441.3"
+       ],
+       [
+        "SD",
+        "470.5"
+       ],
+       [
+        "TN",
+        "3,388.2"
+       ],
+       [
+        "TX",
+        "14,461.3"
+       ],
+       [
+        "UT",
+        "1,797.0"
+       ],
+       [
+        "VT",
+        "311.0"
+       ],
+       [
+        "VA",
+        "4,250.6"
+       ],
+       [
+        "WA",
+        "3,654.9"
+       ],
+       [
+        "WV",
+        "717.4"
+       ],
+       [
+        "WI",
+        "3,043.3"
+       ],
+       [
+        "WY",
+        "295.5"
+       ]
+      ],
+      "units": "total nonfarm, thousands of persons, seasonally adjusted, as first published",
+      "period": "2026-09"
+     },
      "refresh": "manual: Mac rebuild of the tool"
     },
     {
@@ -451,11 +4563,220 @@
      "source": "Bureau of Labor Statistics, State Employment and Unemployment release",
      "url": "https://www.bls.gov/sae/",
      "freq": "monthly",
-     "release": "",
+     "release": "bls_state",
      "through": "2007-11",
      "refreshed": "2026-11-09T20:27Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/state_payroll_releases_1994_2007.csv",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "2,018.7"
+       ],
+       [
+        "AK",
+        "318.4"
+       ],
+       [
+        "AZ",
+        "2,720.1"
+       ],
+       [
+        "AR",
+        "1,206.9"
+       ],
+       [
+        "CA",
+        "15,274.1"
+       ],
+       [
+        "CO",
+        "2,339.1"
+       ],
+       [
+        "CT",
+        "1,702.9"
+       ],
+       [
+        "DE",
+        "440.4"
+       ],
+       [
+        "DC",
+        "701.9"
+       ],
+       [
+        "FL",
+        "8,149.4"
+       ],
+       [
+        "GA",
+        "4,171.3"
+       ],
+       [
+        "HI",
+        "628.9"
+       ],
+       [
+        "ID",
+        "660.1"
+       ],
+       [
+        "IL",
+        "5,984.3"
+       ],
+       [
+        "IN",
+        "2,989.0"
+       ],
+       [
+        "IA",
+        "1,529.3"
+       ],
+       [
+        "KS",
+        "1,388.8"
+       ],
+       [
+        "KY",
+        "1,860.1"
+       ],
+       [
+        "LA",
+        "1,927.4"
+       ],
+       [
+        "ME",
+        "618.5"
+       ],
+       [
+        "MD",
+        "2,630.4"
+       ],
+       [
+        "MA",
+        "3,285.3"
+       ],
+       [
+        "MI",
+        "4,245.1"
+       ],
+       [
+        "MN",
+        "2,771.8"
+       ],
+       [
+        "MS",
+        "1,168.8"
+       ],
+       [
+        "MO",
+        "2,798.3"
+       ],
+       [
+        "MT",
+        "447.8"
+       ],
+       [
+        "NE",
+        "963.2"
+       ],
+       [
+        "NV",
+        "1,303.9"
+       ],
+       [
+        "NH",
+        "650.3"
+       ],
+       [
+        "NJ",
+        "4,109.8"
+       ],
+       [
+        "NM",
+        "850.0"
+       ],
+       [
+        "NY",
+        "8,722.4"
+       ],
+       [
+        "NC",
+        "4,121.8"
+       ],
+       [
+        "ND",
+        "360.8"
+       ],
+       [
+        "OH",
+        "5,435.3"
+       ],
+       [
+        "OK",
+        "1,584.2"
+       ],
+       [
+        "OR",
+        "1,737.9"
+       ],
+       [
+        "PA",
+        "5,815.2"
+       ],
+       [
+        "RI",
+        "499.3"
+       ],
+       [
+        "SC",
+        "1,941.3"
+       ],
+       [
+        "SD",
+        "409.7"
+       ],
+       [
+        "TN",
+        "2,813.1"
+       ],
+       [
+        "TX",
+        "10,361.5"
+       ],
+       [
+        "UT",
+        "1,270.7"
+       ],
+       [
+        "VT",
+        "309.0"
+       ],
+       [
+        "VA",
+        "3,798.8"
+       ],
+       [
+        "WA",
+        "2,937.6"
+       ],
+       [
+        "WV",
+        "761.6"
+       ],
+       [
+        "WI",
+        "2,879.9"
+       ],
+       [
+        "WY",
+        "289.9"
+       ]
+      ],
+      "units": "total nonfarm, thousands of persons, as first published",
+      "period": "2007-11"
+     },
      "refresh": "never (history layer)"
     },
     {
@@ -465,11 +4786,26 @@
      "source": "Bristow-Hall (collection 1032)",
      "url": "/state-onset/",
      "freq": "monthly",
-     "release": "",
-     "through": "2026-06",
-     "refreshed": "2026-11-15T20:15Z",
+     "release": "derived_state",
+     "through": "2026-09",
+     "refreshed": "2026-11-15T21:19Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
-     "held": "1 file",
+     "held": {
+      "values": [
+       [
+        "States in recession",
+        "4",
+        "AR, AZ, OK, WA"
+       ],
+       [
+        "States in disturbance",
+        "10",
+        "AL, GA, HI, IL, KY, ME, NM, NY, TX, VA"
+       ]
+      ],
+      "units": "",
+      "period": "2026-09"
+     },
      "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
     },
     {
@@ -479,11 +4815,216 @@
      "source": "Bristow-Hall (collection 1032)",
      "url": "/state-onset/",
      "freq": "monthly",
-     "release": "",
+     "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-15T20:15Z",
+     "refreshed": "2026-11-15T21:19Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
-     "held": "1 file",
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "1.84"
+       ],
+       [
+        "AK",
+        "0.0"
+       ],
+       [
+        "AZ",
+        "2.11"
+       ],
+       [
+        "AR",
+        "2.24"
+       ],
+       [
+        "CA",
+        "0.0"
+       ],
+       [
+        "CO",
+        "0.0"
+       ],
+       [
+        "CT",
+        "0.0"
+       ],
+       [
+        "DE",
+        "0.0"
+       ],
+       [
+        "FL",
+        "0.0"
+       ],
+       [
+        "GA",
+        "1.52"
+       ],
+       [
+        "HI",
+        "1.6"
+       ],
+       [
+        "ID",
+        "0.0"
+       ],
+       [
+        "IL",
+        "1.63"
+       ],
+       [
+        "IN",
+        "0.0"
+       ],
+       [
+        "IA",
+        "0.0"
+       ],
+       [
+        "KS",
+        "0.0"
+       ],
+       [
+        "KY",
+        "0.85"
+       ],
+       [
+        "LA",
+        "0.0"
+       ],
+       [
+        "ME",
+        "1.77"
+       ],
+       [
+        "MD",
+        "0.0"
+       ],
+       [
+        "MA",
+        "0.0"
+       ],
+       [
+        "MI",
+        "0.0"
+       ],
+       [
+        "MN",
+        "0.0"
+       ],
+       [
+        "MS",
+        "0.0"
+       ],
+       [
+        "MO",
+        "0.0"
+       ],
+       [
+        "MT",
+        "0.0"
+       ],
+       [
+        "NE",
+        "0.0"
+       ],
+       [
+        "NV",
+        "0.0"
+       ],
+       [
+        "NH",
+        "0.0"
+       ],
+       [
+        "NJ",
+        "0.0"
+       ],
+       [
+        "NM",
+        "1.64"
+       ],
+       [
+        "NY",
+        "1.4"
+       ],
+       [
+        "NC",
+        "0.0"
+       ],
+       [
+        "ND",
+        "0.0"
+       ],
+       [
+        "OH",
+        "0.0"
+       ],
+       [
+        "OK",
+        "2.02"
+       ],
+       [
+        "OR",
+        "0.0"
+       ],
+       [
+        "PA",
+        "0.0"
+       ],
+       [
+        "RI",
+        "0.0"
+       ],
+       [
+        "SC",
+        "0.0"
+       ],
+       [
+        "SD",
+        "0.0"
+       ],
+       [
+        "TN",
+        "0.0"
+       ],
+       [
+        "TX",
+        "1.69"
+       ],
+       [
+        "UT",
+        "0.0"
+       ],
+       [
+        "VT",
+        "0.0"
+       ],
+       [
+        "VA",
+        "1.99"
+       ],
+       [
+        "WA",
+        "2.12"
+       ],
+       [
+        "WV",
+        "0.0"
+       ],
+       [
+        "WI",
+        "0.0"
+       ],
+       [
+        "WY",
+        "0.0"
+       ]
+      ],
+      "units": "damage line v4 (points), latest month",
+      "period": "2026-09"
+     },
      "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
     }
    ]
