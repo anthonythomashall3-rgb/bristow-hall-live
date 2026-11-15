@@ -14,6 +14,9 @@ on:
     # Pacific, in UTC (GitHub ignores daylight saving; in summer these are 09:50 and 19:20 Pacific, still after every release)
     - cron: '50 16 * * *'
     - cron: '20 2 * * *'
+    # Thursdays after the DOL weekly claims release (05:30 ET; PREREG-1052 v3 Amendment 3: the stress map's provisional month to date takes the
+    # newest week that day): 10:45 UTC = 05:45 EST / 06:45 EDT
+    - cron: '45 10 * * 4'
   pull_request:          # a change to this machinery is checked by a parity run on the pull request (nothing is published from a PR)
     paths: ['ops/live_tools/**', '.github/workflows/live-tools.yml']
   workflow_dispatch:
@@ -141,7 +144,7 @@ jobs:
       - name: read the live pages back
         if: env.MODE == 'full' && steps.deploy.outcome == 'success'
         run: |
-          W="stress state data"; [ "${{ steps.pages.outputs.pages_ok }}" = "True" ] || W="data"
+          W="stress state data cards"; [ "${{ steps.pages.outputs.pages_ok }}" = "True" ] || W="data cards"
           [ "${{ steps.pages.outputs.shadow_ok }}" = "True" ] && W="$W shadow"
           HOME=/Users/anthonyhall python3 ops/live_tools/readback.py $W
 

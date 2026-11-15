@@ -22,7 +22,7 @@ if [ "${MODE:-full}" != "parity" ]; then
   step "BLS API series" $PY "$OPS/bls_api_1052.py" || say "BLS API refresh returned non-zero (held files kept)"
   step "State inputs" $PY code/state_inputs_refresh_1052.py || say "state input refresh returned non-zero (held files kept)"
   step "QCEW county" $PY code/qcew_county_refresh_1052.py || say "QCEW county refresh returned non-zero (held files kept)"
-  step "DOL State claims" $PY "$OPS/dol_refresh_1052.py" || say "DOL refresh returned non-zero (held files kept)"
+  step "DOL State claims" $PY code/dol_refresh_1052.py || say "DOL refresh returned non-zero (held files kept)"
 fi
 step "1032 routine step 2" $PY code/state_v4_rebuild_1052.py || STOP="1032 routine step 2 (six scripts or a check) failed"
 [ -z "$STOP" ] && { step "State page render" $PY code/page_check_1052.py state "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/web/state-onset/index.html" || STOP="State page render check failed"; }

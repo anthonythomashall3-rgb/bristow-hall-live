@@ -715,6 +715,7 @@ Users/anthonyhall/Projects/Onset Detector Data/1032_state_recession_indicator_al
 Users/anthonyhall/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/web/data.json
 Users/anthonyhall/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/web/ref_national/detector.html
 Users/anthonyhall/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/web/state-onset/index.html
+Users/anthonyhall/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/code/dol_refresh_1052.py
 Users/anthonyhall/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/code/live/stress_map_site.py
 Users/anthonyhall/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/code/page_check_1052.py
 Users/anthonyhall/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/code/publish_live_pages_1052.py

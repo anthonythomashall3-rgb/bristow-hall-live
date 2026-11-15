@@ -4,6 +4,7 @@
   /state-onset/ 1052 code/page_check_1052.py state: all 50 States render (no script error, 1979 start, 0-10 axis, episode rows)
   /shadow/      the page's text equals the page this run committed (build stamps aside)
   /data/        every row name of s2/tool_inputs_mac.json is on the page
+  home cards    every card's picture is the deploying build's (sha256 of /cards.json) and matches a fresh screenshot of the live tool page
 Retries for up to 15 minutes (Cloudflare can take minutes). Writes $LT_OUT/readback.json; exit 1 if any check fails."""
 import os, re, sys, json, time, subprocess, urllib.request
 LIVE = 'https://bhrrealtime.pages.dev'; ROOT = os.path.expanduser('~/Projects/Onset Detector Data')
@@ -15,7 +16,7 @@ def get(path):
     with urllib.request.urlopen(req, timeout=60) as r: return r.read().decode('utf-8', 'replace')
 def text(h): return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', re.sub(r'(?s)<(script|style)[^>]*>.*?</\1>', ' ', h))).strip()
 def main():
-    want = sys.argv[1:] or ['stress', 'state', 'shadow', 'data']; R = {}
+    want = sys.argv[1:] or ['stress', 'state', 'shadow', 'data', 'cards']; R = {}
     page = open(os.path.join(WT, WS, 's2/stress_map/page.html')).read()
     thru = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', page, re.S).group(1).replace('<\\/', '</'))['v2']['thru']
     t0 = time.time()
@@ -41,6 +42,10 @@ def main():
                 miss = [n for n in names if not any(x in live for x in (n, _h.escape(n), _h.escape(n, quote=False), n.replace("'", '&#x27;')))]
                 R['data'] = dict(ok=not miss, rows=len(names), missing=miss[:10])
             except Exception as e: R['data'] = dict(ok=False, err=f'{type(e).__name__} {e}'[:200])
+        if 'cards' in want:   # the home cards: each the picture the deploying build took, matching the live tool page now (s2/card_shots.py --readback)
+            r = subprocess.run([sys.executable, 's2/card_shots.py', '--readback'], cwd=os.path.join(WT, WS), capture_output=True, text=True, timeout=900)
+            try: R['cards'] = json.load(open(os.path.join(WT, WS, 'out', 'cards_readback.json')))
+            except Exception: R['cards'] = dict(ok=False, err=(r.stdout + r.stderr)[-300:])
         ok = all(v.get('ok') for v in R.values())
         if ok or time.time() - t0 > 900: break
         print('read-back not yet right:', {k: v.get('ok') for k, v in R.items()}, flush=True); time.sleep(60)
