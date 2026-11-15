@@ -4,8 +4,8 @@
  "decision": "WARN-ONLY (would hold)",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-15",
- "checked_at": "2026-11-15 22:24 UTC",
- "seconds": 96.0,
+ "checked_at": "2026-11-15 23:09 UTC",
+ "seconds": 98.5,
  "source_calls": 171,
  "source_errors": {},
  "counts": {
