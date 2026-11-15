@@ -4,8 +4,8 @@
  "decision": "WARN-ONLY (would hold)",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-15",
- "checked_at": "2026-11-15 21:50 UTC",
- "seconds": 94.7,
+ "checked_at": "2026-11-15 21:56 UTC",
+ "seconds": 131.6,
  "source_calls": 171,
  "source_errors": {},
  "counts": {
@@ -32,9 +32,8 @@
    "FAIL": 2
   },
   "detector": {
-   "FAIL": 1,
-   "WARN": 9,
-   "PASS": 57
+   "PASS": 58,
+   "WARN": 9
   },
   "state-onset": {
    "PASS": 100
@@ -50,10 +49,10 @@
  "totals": {
   "checks": 387,
   "figures": 267,
-  "fail": 6,
+  "fail": 5,
   "warn": 37,
   "unverified": 0,
-  "passed": 338
+  "passed": 339
  },
  "failures": [
   {
@@ -115,18 +114,6 @@
    "transform": null,
    "expected": null,
    "detail": "next published is not after the build day"
-  },
-  {
-   "page": "detector",
-   "label": "route: insured unemployment (not seasonally adjusted",
-   "check": "freshness",
-   "status": "FAIL",
-   "value": -9.4,
-   "period": "2026-09-12",
-   "series": "CCNSA",
-   "transform": "reading",
-   "expected": "2026-10-31",
-   "detail": "stale: shows 2026-09-12 but 2026-10-31 was published 2026-10-01"
   }
  ],
  "rows": [
@@ -2534,21 +2521,21 @@
    "page": "detector",
    "label": "route: insured unemployment (not seasonally adjusted",
    "check": "freshness",
-   "status": "FAIL",
-   "value": -9.4,
-   "period": "2026-09-12",
+   "status": "PASS",
+   "value": -13.25,
+   "period": "2026-10-31",
    "series": "CCNSA",
    "transform": "reading",
    "expected": "2026-10-31",
-   "detail": "stale: shows 2026-09-12 but 2026-10-31 was published 2026-10-01"
+   "detail": ""
   },
   {
    "page": "detector",
    "label": "route: insured unemployment (not seasonally adjusted",
    "check": "value",
    "status": "WARN",
-   "value": -9.4,
-   "period": "2026-09-12",
+   "value": -13.25,
+   "period": "2026-10-31",
    "series": "CCNSA",
    "transform": "derived",
    "expected": null,
@@ -2811,7 +2798,7 @@
    "label": "count door: initial or insured claims",
    "check": "freshness",
    "status": "PASS",
-   "value": 0.8661,
+   "value": 0.8635,
    "period": "2026-11-07",
    "series": "ICSA",
    "transform": "reading",
@@ -2823,7 +2810,7 @@
    "label": "count door: initial or insured claims",
    "check": "value",
    "status": "WARN",
-   "value": 0.8661,
+   "value": 0.8635,
    "period": "2026-11-07",
    "series": "ICSA",
    "transform": "derived",

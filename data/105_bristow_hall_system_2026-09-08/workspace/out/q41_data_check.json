@@ -204,8 +204,8 @@
 },
 {
 "name": "feed reading matches the readings table: Initial claims and continued claims, sea",
-"got": "-9.4",
-"want": "-9.4",
+"got": "-13.25",
+"want": "-13.25",
 "status": "PASS",
 "gate": "soft"
 },
@@ -533,16 +533,16 @@
 },
 {
 "name": "feed reading matches its week: route insured unemployment through = the week computed",
-"got": "2026-09-12",
-"want": "2026-09-12",
+"got": "2026-10-31",
+"want": "2026-10-31",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "route insured unemployment: computed for the newest week held",
-"got": "2026-09-12",
+"got": "2026-10-31",
 "want": "2026-10-31",
-"status": "FAIL",
+"status": "PASS",
 "gate": null
 },
 {
@@ -869,8 +869,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-15 16:06', '2026-11-15 16:06')",
-"want": "('2026-11-15 16:06', '2026-11-15 16:06')",
+"got": "('2026-11-15 16:55', '2026-11-15 16:55')",
+"want": "('2026-11-15 16:55', '2026-11-15 16:55')",
 "status": "PASS",
 "gate": "hard"
 },
@@ -938,11 +938,25 @@
 "gate": "soft"
 },
 {
-"name": "data page: no blank cell (a dash only in Next published of a static or frozen history-layer row)",
-"got": "0",
-"want": "0",
+"name": "data page: no blank cell (only the ID cell of a row with no FRED series may be empty)",
+"got": "[]",
+"want": "[]",
 "status": "PASS",
 "gate": "soft"
+},
+{
+"name": "data page: every Next published cell is a day with its time, ET, today or later",
+"got": "[]",
+"want": "[]",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "data page: where it stands is the value held (no file or call counts, nothing missing)",
+"got": "[]",
+"want": "[]",
+"status": "PASS",
+"gate": null
 },
 {
 "name": "record: the front page sentence is computed from the state",
