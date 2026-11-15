@@ -26,7 +26,8 @@ on:
         default: "full"
 
 concurrency:
-  group: live-tools
+  # a pull request's parity run publishes nothing: its own group, so a queued main run does not cancel it (15 Nov 2026)
+  group: ${{ github.event_name == 'pull_request' && format('live-tools-pr-{0}', github.ref) || 'live-tools' }}
   cancel-in-progress: false
 
 permissions:
