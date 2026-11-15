@@ -16,7 +16,7 @@ def get(path):
     with urllib.request.urlopen(req, timeout=60) as r: return r.read().decode('utf-8', 'replace')
 def text(h): return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', re.sub(r'(?s)<(script|style)[^>]*>.*?</\1>', ' ', h))).strip()
 def main():
-    want = sys.argv[1:] or ['stress', 'state', 'shadow', 'data', 'cards']; R = {}
+    want = sys.argv[1:] or ['stress', 'scale', 'state', 'shadow', 'data', 'cards']; R = {}
     page = open(os.path.join(WT, WS, 's2/stress_map/page.html')).read()
     thru = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', page, re.S).group(1).replace('<\\/', '</'))['v2']['thru']
     t0 = time.time()
@@ -42,6 +42,17 @@ def main():
                 miss = [n for n in names if not any(x in live for x in (n, _h.escape(n), _h.escape(n, quote=False), n.replace("'", '&#x27;')))]
                 R['data'] = dict(ok=not miss, rows=len(names), missing=miss[:10])
             except Exception as e: R['data'] = dict(ok=False, err=f'{type(e).__name__} {e}'[:200])
+        if 'scale' in want:   # Anthony 10:03 PT: the colour-scale end labels must sit within the bar's left and right edges
+            try:
+                from playwright.sync_api import sync_playwright
+                with sync_playwright() as p_:
+                    br = p_.chromium.launch(executable_path='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless=True); pg = br.new_page(viewport={'width': 1400, 'height': 1000})
+                    pg.goto(LIVE + '/stress-map/?v=%d' % time.time(), wait_until='load'); pg.wait_for_function('window.__SM && window.__SM.ready', timeout=60000)
+                    g = pg.evaluate("()=>{const b=document.getElementById('sbar').getBoundingClientRect(),s=document.querySelectorAll('#sticks span');"
+                                    "const f=s[0].getBoundingClientRect(),l=s[s.length-1].getBoundingClientRect();return {bar:[b.left,b.right],first:[f.left,f.right,s[0].textContent],last:[l.left,l.right,s[s.length-1].textContent]}}")
+                    br.close()
+                R['scale'] = dict(ok=g['first'][0] >= g['bar'][0] - 0.5 and g['last'][1] <= g['bar'][1] + 0.5, **g)
+            except Exception as e: R['scale'] = dict(ok=False, err=f'{type(e).__name__} {e}'[:200])
         if 'cards' in want:   # the home cards: each the picture the deploying build took, matching the live tool page now (s2/card_shots.py --readback)
             r = subprocess.run([sys.executable, 's2/card_shots.py', '--readback'], cwd=os.path.join(WT, WS), capture_output=True, text=True, timeout=900)
             try: R['cards'] = json.load(open(os.path.join(WT, WS, 'out', 'cards_readback.json')))

@@ -144,7 +144,7 @@ jobs:
       - name: read the live pages back
         if: env.MODE == 'full' && steps.deploy.outcome == 'success'
         run: |
-          W="stress state data cards"; [ "${{ steps.pages.outputs.pages_ok }}" = "True" ] || W="data cards"
+          W="stress scale state data cards"; [ "${{ steps.pages.outputs.pages_ok }}" = "True" ] || W="data cards"
           [ "${{ steps.pages.outputs.shadow_ok }}" = "True" ] && W="$W shadow"
           HOME=/Users/anthonyhall python3 ops/live_tools/readback.py $W
 
