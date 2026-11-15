@@ -1,5 +1,5 @@
 {
- "built": "2026-11-15T20:44:00Z",
+ "built": "2026-11-15T21:06:19Z",
  "size": [
   1200,
   760
@@ -25,12 +25,12 @@
   },
   "/state-onset/": {
    "png": "/state-onset/card.png",
-   "sha256": "9f773cdb03d95fbc480e988824b686862f8c175e334fd27995fba2e35254aac7",
+   "sha256": "8ff4b1317bf767e70432426df7a35477f45296c462869d4ced5a2b917d0d6a1c",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 565,
-   "share_not_main": 0.3038
+   "colours": 573,
+   "share_not_main": 0.3049
   },
   "/stress-map/": {
    "png": "/stress-map/card.png",
@@ -61,12 +61,12 @@
   },
   "/data/": {
    "png": "/data/card.png",
-   "sha256": "645f623657dd493152ba30b64670d77b7418f7382cbd8f595cad94088ed60e61",
+   "sha256": "70ba553c01fee85ccbb56ce42874e06180913d67be9a15d57d9066ca494b33e9",
    "on_home": false,
    "w": 1200,
    "h": 522,
-   "colours": 1684,
-   "share_not_main": 0.122
+   "colours": 1682,
+   "share_not_main": 0.1221
   }
  }
 }

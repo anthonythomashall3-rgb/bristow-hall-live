@@ -68,6 +68,15 @@ PASS  feed next release is not in the past: GDPNow (the output dimension's bridg
 PASS  feed has a source link: GDPNow (the output dimension's bridge fo  got=True  want=True
 PASS  feed next release is not in the past: Sahm rule, real time (the comparator on   got=2026-12-04  want=>= 2026-11-15
 PASS  feed has a source link: Sahm rule, real time (the comparator on   got=True  want=True
+PASS  feed value date: ICNSA shown is the newest week in its source  got=2026-11-07  want=2026-11-07
+PASS  feed value date: ICNSA shown value is that week's first print  got=206,982  want=206,982
+PASS  feed value date: ICNSA newest week within the weekly cadence  got=8  want=5-14 days
+PASS  feed value date: CCNSA shown is the newest week in its source  got=2026-10-31  want=2026-10-31
+PASS  feed value date: CCNSA shown value is that week's first print  got=1,503,556  want=1,503,556
+PASS  feed value date: CCNSA newest week within the weekly cadence  got=15  want=12-21 days
+PASS  feed reading matches its week: route insured unemployment through = the week computed  got=2026-09-12  want=2026-09-12
+FAIL  route insured unemployment: computed for the newest week held  got=2026-09-12  want=2026-10-31
+PASS  state page: no series point past the state's own data month  got=[]  want=[]
 PASS  headline date = last day of the daily series  got=2026-11-15  want=2026-11-15
 PASS  daily series is in date order  got=True  want=True
 PASS  no reading is negative  got=True  want=True
@@ -113,7 +122,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-31)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-11-15 15:43', '2026-11-15 15:43')  want=('2026-11-15 15:43', '2026-11-15 15:43')
+PASS  public state copies are this build  got=('2026-11-15 16:06', '2026-11-15 16:06')  want=('2026-11-15 16:06', '2026-11-15 16:06')
 PASS  front-page tiles fetched today  got=2026-11-15  want=2026-11-15
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]

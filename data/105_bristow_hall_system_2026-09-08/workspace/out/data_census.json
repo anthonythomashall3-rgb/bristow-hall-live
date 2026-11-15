@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-15 15:43",
+ "built_at": "2026-11-15 16:06",
  "version": "C1021+E22",
  "census_date": "2026-11-15",
  "feeds": [
@@ -11,7 +11,7 @@
    "through": "2026-11-07",
    "next": "2026-11-19",
    "link": "https://www.dol.gov/ui/data.pdf",
-   "value": "200,000; 1,697,000; 170,626; 5,780,893",
+   "value": "200,000; 1,697,000; 206,982; 1,503,556",
    "backup": "the states' ETA 539 weekly file with the Bureau's seasonal factors (s2/claims_substitute.py, exact where tested; collection 329)",
    "format_check": "q41 feed checks; the claims loader asserts the release week columns (45)",
    "auto": "yes"
@@ -216,12 +216,12 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
-   "PAYEMS": "FRED API",
-   "UNRATE": "FRED API",
    "JTSJOL": "FRED API",
-   "JTSQUR": "FRED API",
-   "CPIAUCSL": "FRED API",
+   "UNRATE": "FRED API",
+   "PAYEMS": "FRED API",
    "UNEMPLOY": "FRED API",
+   "CPIAUCSL": "FRED API",
+   "JTSQUR": "FRED API",
    "ICSA": "FRED API",
    "IURSA": "FRED API"
   },
