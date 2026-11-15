@@ -14,7 +14,10 @@ Usage: python3 s2/card_shots.py [--readback]"""
 import os, re, sys, json, time, zlib, struct, shutil, hashlib, threading, subprocess, http.server, socketserver, functools, urllib.request
 H = os.path.dirname(os.path.abspath(__file__)); WS = os.path.dirname(H); SITE = os.path.abspath(os.path.join(WS, '..', 'site', 'public'))
 LIVE = 'https://bhrrealtime.pages.dev'; W, HH = 1200, 760; TOP, CH_ = 145, 430   # the card = rows 145..575: below the site masthead, the page's own title and chart (about the card's 2.8:1)
-EXTRA = ['/data/']          # shot as well (Anthony named it), though the home page has no card for it
+EXTRA = ['/data/']
+# 15 Nov 2026 11:32 PT (Anthony: "show the actual graphs of the tools on the home page and the visuals of the tools"): a tool with a chart or
+# map has its card made from that element alone (Playwright element screenshot, 2x); a page without one (in development) keeps the page shot.
+SEL = {'/detector/': '#chart', '/state-onset/': '#chart', '/disturbance/': 'svg#chart', '/stress-map/': 'svg#map'}          # shot as well (Anthony named it), though the home page has no card for it
 
 def chrome():
     for c in (os.environ.get('CHROME'), shutil.which('google-chrome'), shutil.which('google-chrome-stable'), shutil.which('chromium'),
@@ -22,8 +25,23 @@ def chrome():
         if c and os.path.exists(c): return c
     raise SystemExit('no Chrome found')
 
-def shoot(url, out):
+def shoot_el(url, sel, out):
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        b = p.chromium.launch(executable_path=chrome(), args=['--no-sandbox', '--disable-gpu', '--hide-scrollbars'])
+        try:
+            pg = b.new_page(viewport={'width': W, 'height': 900}, device_scale_factor=2)
+            pg.goto(url, wait_until='networkidle', timeout=180000); pg.wait_for_timeout(3000)
+            e = pg.locator(sel).first; e.scroll_into_view_if_needed(); pg.wait_for_timeout(800)
+            e.screenshot(path=out, animations='disabled', timeout=120000)
+        finally: b.close()
+    return os.path.exists(out) and os.path.getsize(out) > 0, ''
+
+def shoot(url, out, href=None):
     if os.path.exists(out): os.remove(out)
+    if href in SEL:
+        try: return shoot_el(url, SEL[href], out)
+        except Exception as e: return False, f'{type(e).__name__} {e}'[:300]
     import tempfile
     prof = tempfile.mkdtemp(prefix='cardshot')
     cmd = [chrome(), '--headless=new', '--disable-gpu', '--no-sandbox', '--hide-scrollbars', '--no-first-run', '--user-data-dir=' + prof,
@@ -90,7 +108,7 @@ def build():
     R = dict(built=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), size=[W, HH], cards={}); bad = []
     for href in tools + EXTRA:
         out = os.path.join(SITE, href.strip('/'), 'card.png'); os.makedirs(os.path.dirname(out), exist_ok=True)
-        ok, err = shoot(base + href, out)
+        ok, err = shoot(base + href, out, href)
         if not ok: bad.append(f'{href}: no screenshot ({err})'); continue
         st = blank_stats(out); sha = hashlib.sha256(open(out, 'rb').read()).hexdigest()
         if st['colours'] < 12 or st['share_not_main'] < 0.03: bad.append(f'{href}: blank picture {st}')
@@ -104,7 +122,8 @@ def build():
         return body.replace("href:'%s'" % href, "href:'%s',img:'%scard.png?v=%s'" % (href, href, v), 1)
     m = re.search(r'const T=\[(.*?)\n  \];', t, re.S); block = re.sub(r"\{n:'[^}]*\}", img_for, m.group(1))
     t = t[:m.start(1)] + block + t[m.end(1):]
-    t = t.replace('style="object-fit:fill"', 'style="object-fit:cover;object-position:top"')
+    for old in ('style="object-fit:fill"', 'style="object-fit:cover;object-position:top"'):
+        t = t.replace(old, 'style="object-fit:contain;object-position:center;background:#fff"')
     open(idx, 'w', encoding='utf-8').write(t); json.dump(R, open(os.path.join(SITE, 'cards.json'), 'w'), indent=1)
     print('home cards:', ', '.join(f"{h} {c['colours']} colours" for h, c in R['cards'].items())); return 0
 
@@ -119,7 +138,7 @@ def readback():
             if not r['img'] or 'card.png' not in r['img']: raise RuntimeError('the card has no generated picture')
             b = get(LIVE + r['img']); a = os.path.join(tmp, href.strip('/') + '_live_card.png'); open(a, 'wb').write(b)
             r['same_as_build'] = hashlib.sha256(b).hexdigest() == mine['cards'][href]['sha256']
-            f = os.path.join(tmp, href.strip('/') + '_live_page.png'); good, err = shoot(LIVE + href + '?v=%d' % time.time(), f)
+            f = os.path.join(tmp, href.strip('/') + '_live_page.png'); good, err = shoot(LIVE + href + '?v=%d' % time.time(), f, href)
             r['page_vs_card_pixels_differing'] = diff_share(a, f) if good else None
             r['ok'] = bool(r['same_as_build'] and r['page_vs_card_pixels_differing'] is not None and r['page_vs_card_pixels_differing'] <= 0.03)
         except Exception as e: r.update(ok=False, err=f'{type(e).__name__} {e}'[:200])
