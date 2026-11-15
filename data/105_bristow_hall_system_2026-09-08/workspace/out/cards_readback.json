@@ -1,26 +1,26 @@
 {
- "at": "2026-11-15T19:21:39Z",
+ "at": "2026-11-15T19:40:21Z",
  "cards": {
   "/detector/": {
-   "img": "/detector/card.png?v=aaa02d10",
+   "img": "/detector/card.png?v=fa6f6831",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/disturbance/": {
-   "img": "/disturbance/card.png?v=065cfdf0",
+   "img": "/disturbance/card.png?v=700b285b",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/state-onset/": {
-   "img": "/state-onset/card.png?v=6ee5dc2c",
+   "img": "/state-onset/card.png?v=2575f62e",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/stress-map/": {
-   "img": "/stress-map/card.png?v=bace8710",
+   "img": "/stress-map/card.png?v=af8c4d99",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
