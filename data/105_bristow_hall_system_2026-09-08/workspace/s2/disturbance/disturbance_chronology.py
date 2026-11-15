@@ -34,6 +34,7 @@ import argparse, datetime as dt, json, os, sys, urllib.request
 import numpy as np, pandas as pd
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+DAMAGE_CUT = 2.0   # register v3.2: the grade at or above which a window is a recession (Anthony, 14 Nov 2026 05:35 PT: '2.0')
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.dirname(HERE))      # live system: s2/damage_dimensions.py, the site's own grader (v3.76)
 try:
@@ -235,6 +236,11 @@ def main():
         seg = UR[(UR.index >= p) & (UR.index <= te)]; ex = (seg - base).clip(lower=0)
         L = dd.labour_score(float(ex.max()), float(ex.sum()))
         o = dd.output_dimension(G, p, te); q = dd.production_dimension(IP, p, te)
+        # Register v3.2 (Anthony, 14 Nov 2026 05:30 and 05:35 PT): recession or disturbance is read from the DAMAGE GRADE, not from the criteria - DAMAGE_CUT or more a
+        # recession, below it a disturbance. The v3.1 status is kept in status_v3_1; class 1 / class 2 remain as descriptions of a disturbance, not as tests.
+        status_v3_1 = status; g_ = round(dd.grade(L, o['score'], q['score']), 2)
+        if status in ('recession', 'disturbance_class1', 'disturbance_class2', 'labor_bar_crossed_no_recession'):
+            status = 'recession' if g_ >= DAMAGE_CUT else ('disturbance_class2' if c2 else 'disturbance_class1')
         prov = t is None or (last.year - t.year) * 12 + last.month - t.month < PROVISIONAL_MONTHS
         aft = {}
         if t is None and has_recession(p, t):
@@ -251,7 +257,7 @@ def main():
                        payroll_ever_below_peak=bool((PAY[PAY.index >= rpk] < ppk).any()))
         rows.append(dict(**aft, peak=p.strftime('%Y-%m'), trough=t.strftime('%Y-%m') if t is not None else None,
                          open=t is None, months=months, dating='OECD 5/15' if mp == 5 else 'floor 2/6',
-                         status=status, dev_fall_pp=round(f, 2), sahm_max=round(smax, 2), sahm_rerise=rerise,
+                         status=status, status_v3_1=status_v3_1, dev_fall_pp=round(f, 2), sahm_max=round(smax, 2), sahm_rerise=rerise,
                          ur_rise_pp=round(float(ex.max()), 2), ip_fall_pct=round(q['pt'], 2), gdp_fall_pct=round(o['pt'], 2),
                          L=round(L, 2), O=round(o['score'], 2), P=round(q['score'], 2),
                          grade=round(dd.grade(L, o['score'], q['score']), 2), provisional=bool(prov),
