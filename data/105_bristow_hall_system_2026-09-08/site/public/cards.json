@@ -1,0 +1,72 @@
+{
+ "built": "2026-11-15T18:48:47Z",
+ "size": [
+  1200,
+  760
+ ],
+ "cards": {
+  "/detector/": {
+   "png": "/detector/card.png",
+   "sha256": "5334b22e013df9b9c8a63709f9b0a96fbfc1d27d5e5ac4743811e6da1d5dfbdb",
+   "on_home": true,
+   "w": 1200,
+   "h": 430,
+   "colours": 985,
+   "share_not_main": 0.1937
+  },
+  "/disturbance/": {
+   "png": "/disturbance/card.png",
+   "sha256": "065cfdf03736f12bb8601bc74d8db64f7912e5c5310c9b4cdf893813a9392c4e",
+   "on_home": true,
+   "w": 1200,
+   "h": 430,
+   "colours": 1462,
+   "share_not_main": 0.0896
+  },
+  "/state-onset/": {
+   "png": "/state-onset/card.png",
+   "sha256": "94803153ad363f546f7e9da923a1492d41895e289b5b4b4260d507717d86edf3",
+   "on_home": true,
+   "w": 1200,
+   "h": 430,
+   "colours": 1039,
+   "share_not_main": 0.2109
+  },
+  "/stress-map/": {
+   "png": "/stress-map/card.png",
+   "sha256": "50d44dd505592c5f626b6b88ce3ba23699eeba2270212e4baceb511dcef8d5b8",
+   "on_home": true,
+   "w": 1200,
+   "h": 430,
+   "colours": 1962,
+   "share_not_main": 0.1311
+  },
+  "/damage-index/": {
+   "png": "/damage-index/card.png",
+   "sha256": "fc7a73fbdde7720a35c353baa563527b3deda4a6f623715fd0139a8c77972a73",
+   "on_home": true,
+   "w": 1200,
+   "h": 430,
+   "colours": 871,
+   "share_not_main": 0.3475
+  },
+  "/chronology/": {
+   "png": "/chronology/card.png",
+   "sha256": "3fcf700ee4756595d12d19c81ecfe978b890fb0a334282244eb93fc47d137815",
+   "on_home": true,
+   "w": 1200,
+   "h": 430,
+   "colours": 992,
+   "share_not_main": 0.3543
+  },
+  "/data/": {
+   "png": "/data/card.png",
+   "sha256": "b9adc48c624e728ad7112cb54280b3d92a3b3a1078299f398356f793c06f0014",
+   "on_home": false,
+   "w": 1200,
+   "h": 430,
+   "colours": 1292,
+   "share_not_main": 0.1335
+  }
+ }
+}

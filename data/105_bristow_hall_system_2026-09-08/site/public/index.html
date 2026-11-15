@@ -129,16 +129,16 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;',
 })();
 (function(){
   const T=[
-   {n:'Real-Time Bristow-Hall Rule Recession Indicator',s:'live',href:'/detector/',d:'The rule’s reading on one line, every release day since 1948, with the recessions it dated and the committee’s.',spark:true},
-   {n:'National Disturbance Chronology',s:'live',href:'/disturbance/',img:'/disturbance/thumb.svg',d:'Every national slowdown since 1948 that stopped short of recession, dated by one fixed rule and graded on the same scale as recessions.'},
-   {n:'State Recession Chronology and Damage Grade',s:'live',href:'/state-onset/',img:'/state-onset/thumb.svg',d:'Recessions and disturbances in each of the fifty states since 1979, dated as the nation is, each with a damage grade.'},
-   {n:'National Stress Map',s:'live',href:'/stress-map/',img:'/stress-map/thumb.svg',d:'Recession and disturbance damage across the fifty States and their counties, on one colour scale, month by month since 1947.'},
-   {n:'Damage Index',s:'dev',href:'/damage-index/',d:'A Richter scale for recessions: how deep, how broad, and where - not only when.'},
-   {n:'Business-Cycle Chronology',s:'dev',href:'/chronology/',d:'The program’s dated chronology of peaks and troughs beside the committee’s and the OECD’s.'}
+   {n:'Real-Time Bristow-Hall Rule Recession Indicator',s:'live',href:'/detector/',img:'/detector/card.png?v=5334b22e',d:'The rule’s reading on one line, every release day since 1948, with the recessions it dated and the committee’s.'},
+   {n:'National Disturbance Chronology',s:'live',href:'/disturbance/',img:'/disturbance/card.png?v=065cfdf0',d:'Every national slowdown since 1948 that stopped short of recession, dated by one fixed rule and graded on the same scale as recessions.'},
+   {n:'State Recession Chronology and Damage Grade',s:'live',href:'/state-onset/',img:'/state-onset/card.png?v=94803153',d:'Recessions and disturbances in each of the fifty states since 1979, dated as the nation is, each with a damage grade.'},
+   {n:'National Stress Map',s:'live',href:'/stress-map/',img:'/stress-map/card.png?v=50d44dd5',d:'Recession and disturbance damage across the fifty States and their counties, on one colour scale, month by month since 1947.'},
+   {n:'Damage Index',s:'dev',href:'/damage-index/',img:'/damage-index/card.png?v=fc7a73fb',d:'A Richter scale for recessions: how deep, how broad, and where - not only when.'},
+   {n:'Business-Cycle Chronology',s:'dev',href:'/chronology/',img:'/chronology/card.png?v=3fcf700e',d:'The program’s dated chronology of peaks and troughs beside the committee’s and the OECD’s.'}
   ];
   document.getElementById('tools').innerHTML=T.map(t=>{
     const head=t.s==='live'?'<span class="badge live">LIVE</span>':'<span class="badge dev">IN DEVELOPMENT</span>';
-    const thumb=t.spark?'<a href="'+t.href+'"><svg class="thumb" id="spark" viewBox="0 0 420 150" preserveAspectRatio="none" role="img"></svg></a>':(t.img?'<a href="'+t.href+'"><img class="thumb" src="'+t.img+'" alt="'+t.n+'" style="object-fit:fill"></a>':'<a href="'+t.href+'"><div class="thumb ph"></div></a>');
+    const thumb=t.spark?'<a href="'+t.href+'"><svg class="thumb" id="spark" viewBox="0 0 420 150" preserveAspectRatio="none" role="img"></svg></a>':(t.img?'<a href="'+t.href+'"><img class="thumb" src="'+t.img+'" alt="'+t.n+'" style="object-fit:cover;object-position:top"></a>':'<a href="'+t.href+'"><div class="thumb ph"></div></a>');
     return '<div class="card">'+head+thumb+'<div class="name"><a href="'+t.href+'">'+t.n+'</a></div><div class="desc">'+t.d+'</div></div>';
   }).join('');
 })();

@@ -1,0 +1,42 @@
+{
+ "at": "2026-11-15T18:49:49Z",
+ "cards": {
+  "/detector/": {
+   "img": "/detector/card.png?v=5334b22e",
+   "same_as_build": true,
+   "page_vs_card_pixels_differing": 0.0,
+   "ok": true
+  },
+  "/disturbance/": {
+   "img": "/disturbance/card.png?v=065cfdf0",
+   "same_as_build": true,
+   "page_vs_card_pixels_differing": 0.0,
+   "ok": true
+  },
+  "/state-onset/": {
+   "img": "/state-onset/card.png?v=94803153",
+   "same_as_build": true,
+   "page_vs_card_pixels_differing": 0.0,
+   "ok": true
+  },
+  "/stress-map/": {
+   "img": "/stress-map/card.png?v=50d44dd5",
+   "same_as_build": true,
+   "page_vs_card_pixels_differing": 0.0,
+   "ok": true
+  },
+  "/damage-index/": {
+   "img": "/damage-index/card.png?v=fc7a73fb",
+   "same_as_build": true,
+   "page_vs_card_pixels_differing": 0.0,
+   "ok": true
+  },
+  "/chronology/": {
+   "img": "/chronology/card.png?v=3fcf700e",
+   "same_as_build": true,
+   "page_vs_card_pixels_differing": 0.0,
+   "ok": true
+  }
+ },
+ "ok": true
+}
