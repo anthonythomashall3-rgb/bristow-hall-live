@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-15 09:28",
+ "built_at": "2026-11-15 11:59",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-15T14:29:05Z",
+ "generated_utc": "2026-11-15T17:00:07Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -582,11 +582,6 @@
    "time_known": true,
    "time_note": null,
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-05 11:30",
-     "utc": "2026-11-05T16:30:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-12 11:30",
