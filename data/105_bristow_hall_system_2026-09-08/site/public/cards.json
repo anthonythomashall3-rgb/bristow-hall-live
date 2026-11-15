@@ -1,5 +1,5 @@
 {
- "built": "2026-11-15T20:39:42Z",
+ "built": "2026-11-15T20:44:00Z",
  "size": [
   1200,
   760
@@ -34,12 +34,12 @@
   },
   "/stress-map/": {
    "png": "/stress-map/card.png",
-   "sha256": "3de6f005e0aa1e5cb7369b2665e48986c2c733a96c6e3631ff4a3762b19bb127",
+   "sha256": "82619fd6cfd0681db328f0873af0e6ab9b90cc4e18d5843bdee33379d7c6048b",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1535,
-   "share_not_main": 0.3408
+   "colours": 1530,
+   "share_not_main": 0.3409
   },
   "/damage-index/": {
    "png": "/damage-index/card.png",

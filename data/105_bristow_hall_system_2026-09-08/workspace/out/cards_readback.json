@@ -1,5 +1,5 @@
 {
- "at": "2026-11-15T20:41:08Z",
+ "at": "2026-11-15T20:45:31Z",
  "cards": {
   "/detector/": {
    "img": "/detector/card.png?v=4cbbfe96",
@@ -20,7 +20,7 @@
    "ok": true
   },
   "/stress-map/": {
-   "img": "/stress-map/card.png?v=3de6f005",
+   "img": "/stress-map/card.png?v=82619fd6",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
