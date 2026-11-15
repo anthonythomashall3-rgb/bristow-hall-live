@@ -12,33 +12,27 @@ PAGE = os.path.join(SITE, 'state-onset', 'index.html')
 
 
 def thumb(t, Wd=420, Hh=150, pad=5):
-    """The home page card's picture: the share of the 50 states in a recession (shaded red) and in a disturbance (lined
-    blue above it), month by month since 1979, read from the page's own data. Written beside the page each run."""
+    """The home page card's picture: the chart the page opens on (California), drawn as the page draws it - the damage
+    grade on 0 to 10, recessions shaded gray, disturbances hatched - from the page's own data. Written each run."""
     import json
-    A = json.loads(re.search(r'const ALL = (\{.*?\});\n', t, re.S).group(1)); n = len(A)
-    months = A[sorted(A)[0]]['series']['dates']; mk = [m[:7] for m in months]; ix = {m: i for i, m in enumerate(mk)}
-    rec = [0] * len(mk); dis = [0] * len(mk)
-    for v in A.values():
-        r_ = [0] * len(mk); d_ = [0] * len(mk)
-        for p in v['nber']:
-            if p.get('nested'): continue
-            for m in mk:
-                if p['peak'] < m <= p['trough']:
-                    (r_ if p['cls'] == 'recession' else d_)[ix[m]] = 1
-        for i in range(len(mk)):
-            rec[i] += r_[i]; dis[i] += d_[i] if not r_[i] else 0
-    X = lambda i: pad + i / max(1, len(mk) - 1) * (Wd - 2 * pad); Y = lambda v: Hh - pad - v / n * (Hh - 2 * pad)
-    top = [rec[i] + dis[i] for i in range(len(mk))]
-    area = lambda lo, hi: 'M' + ' L'.join('%.1f %.1f' % (X(i), Y(hi[i])) for i in range(len(mk))) + ' L' + ' L'.join('%.1f %.1f' % (X(i), Y(lo[i])) for i in reversed(range(len(mk)))) + ' Z'
-    zero = [0] * len(mk)
+    A = json.loads(re.search(r'const ALL = (\{.*?\});\n', t, re.S).group(1))
+    dft = re.search(r'return ALL\[k\]\?k:"([A-Z]{2})"', t); S = A[dft.group(1) if dft else 'CA']
+    mk = [m[:7] for m in S['series']['dates']]; vals = S['series']['values']; n = len(mk)
+    X = lambda i: pad + i / max(1, n - 1) * (Wd - 2 * pad); Y = lambda v: Hh - pad - min(max(v, 0), 10) / 10 * (Hh - 2 * pad)
+    pos = lambda m: mk.index(m) if m in mk else (0 if m < mk[0] else n - 1)
     g = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" preserveAspectRatio="none">' % (Wd, Hh),
-         '<defs><pattern id="d" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
-         '<rect width="1.6" height="5" fill="#1f4e79" fill-opacity=".45"/></pattern></defs>', '<rect width="%d" height="%d" fill="#fff"/>' % (Wd, Hh)]
-    for frac in (0.5, 1.0):
-        g.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" stroke="#e3e6ea" stroke-width="1" vector-effect="non-scaling-stroke"/>' % (pad, Wd - pad, Y(frac * n), Y(frac * n)))
-    g.append('<path d="%s" fill="url(#d)" stroke="none"/>' % area(rec, top))
-    g.append('<path d="%s" fill="#990000" fill-opacity=".18" stroke="none"/>' % area(zero, rec))
-    g.append('<path d="%s" fill="none" stroke="#990000" stroke-width="1.1" vector-effect="non-scaling-stroke"/>' % ('M' + ' L'.join('%.1f %.1f' % (X(i), Y(rec[i])) for i in range(len(mk)))))
+         '<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
+         '<line x1="0" y1="0" x2="0" y2="6" stroke="#b9c0c7" stroke-width="2"/></pattern></defs>', '<rect width="%d" height="%d" fill="#fff"/>' % (Wd, Hh)]
+    for v in (2, 4, 6, 8, 10):
+        g.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" stroke="#e3e6ea" stroke-width="1" vector-effect="non-scaling-stroke"/>' % (pad, Wd - pad, Y(v), Y(v)))
+    for r in S['nber']:
+        a, b = X(pos(r['peak'])), X(pos(r['trough']))
+        if r['prov']:
+            g.append('<rect x="%.1f" y="%d" width="%.1f" height="%d" fill="url(#hatch)" stroke="#9aa3ad" stroke-width="1" vector-effect="non-scaling-stroke"/>' % (a, pad, max(2, b - a), Hh - 2 * pad))
+        else:
+            g.append('<rect x="%.1f" y="%d" width="%.1f" height="%d" fill="#dcdcdc"/>' % (a, pad, max(1, b - a), Hh - 2 * pad))
+    pts = [(X(i), Y(v)) for i, v in enumerate(vals) if v is not None]
+    g.append('<path d="%s" fill="none" stroke="#990000" stroke-width="1.3" vector-effect="non-scaling-stroke"/>' % ('M' + ' L'.join('%.1f %.1f' % p for p in pts)))
     g.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" stroke="#c9ced4" stroke-width="1" vector-effect="non-scaling-stroke"/></svg>' % (pad, Wd - pad, Y(0), Y(0)))
     return ''.join(g)
 
