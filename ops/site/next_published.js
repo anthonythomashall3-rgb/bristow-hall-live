@@ -83,13 +83,13 @@
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
   }
   var now = Date.now();
-  get('/ops/release_calendar.json').then(function (cal) {
-    var byIds = {};
-    (cal.rows || []).forEach(function (r) { byIds[norm(r.ids)] = r; });
-    // the data page
+  // THE DATA PAGE (15 November 2026, collection 1052; Anthony 12:34 PT: every Next published row carries the exact time, no gaps). The
+  // build writes each row's coming times (data-nexts, UTC, from s2/next_published.py: the publisher's day and clock, or the run that
+  // rebuilds a Bristow-Hall layer) and prints the first as "Nov 19, 2026, 8:30 AM ET". When that time passes before the next build,
+  // the cell shows the row's next time, same format. Nothing is looked up; if anything fails the cell stays as built.
+  try {
     var tb = document.getElementById('dtab');
     if (tb && tb.tHead && tb.tBodies.length) {
-      // the values' long unit lines may wrap, so the table fits a laptop screen and "Next published" is not cut off
       var css = document.createElement('style');
       css.textContent = '#dtab .v{white-space:normal}';
       document.head.appendChild(css);
@@ -97,16 +97,25 @@
       for (i = 0; i < ths.length; i++) { if (ths[i].getAttribute('data-k') === 'next') col = i; }
       if (col >= 0) {
         Array.prototype.forEach.call(tb.tBodies[0].rows, function (tr) {
-          var r = byIds[norm(tr.getAttribute('data-ids'))];
-          if (!r || !tr.cells[col]) return;
-          var pick = choose(r, tr.getAttribute('data-next') || '', now, cal.built_at);
-          if (!pick) return;
-          fill(tr.cells[col], pick.t, r.time_known, pick.note, r.time_note);
-          tr.cells[col].title = 'Scheduled: ' + (r.source || '') + '. Updated by your clock: the next release after now.';
-          tr.setAttribute('data-next', pick.t.ny.slice(0, 10));
+          var ts = String(tr.getAttribute('data-nexts') || '').split(' ').filter(Boolean), k;
+          for (k = 0; k < ts.length; k++) {
+            var ms = Date.parse(ts[k]);
+            if (ms > now) {
+              if (k > 0 && tr.cells[col]) {
+                var d = new Date(ms);
+                tr.cells[col].textContent = FD.format(d) + ', ' + FT.format(d) + ' ET';
+                tr.setAttribute('data-next', nyDay(ms));
+              }
+              break;
+            }
+          }
         });
       }
     }
+  } catch (e) { /* the data page stays as built */ }
+  get('/ops/release_calendar.json').then(function (cal) {
+    var byIds = {};
+    (cal.rows || []).forEach(function (r) { byIds[norm(r.ids)] = r; });
     // the front page's readings: the first tile is the indicator, the rest follow H.tiles in order
     try {
       var tiles = document.querySelectorAll('#tiles .tile');

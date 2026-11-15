@@ -330,23 +330,31 @@ def _pct(v,u):
     return v,u
 def _vcell(r):
     # the value and, beneath it, the units the publisher states; a feed of several series lists each with its ID
+    # 1052 (15 Nov 2026 12:36 PT; Anthony: "THE EXACT VALUE OF THE DATA THAT WE ARE HOLDING"): a tool's input row carries the values read
+    # from the held file at the run (s2/held_values.py) - a 50-State family as a plain scrollable list, its units and period beneath
+    _per=(' &middot; '+_esc(_HV.per(r['period'])) if r.get('period') and '_HV' in globals() else '')
+    if r.get('vlist'):
+        _pc=str(r.get('units') or '').lower().startswith('percent')
+        return ('<div class="vl">'+' '.join('<span>'+_esc(a)+'&nbsp;<b>'+_esc(v+('%' if _pc and not str(v).endswith('%') else ''))+'</b></span>' for a,v in r['vlist'])+'</div>'
+                +'<div class="u">'+_esc(r.get('units') or '')+_per+'</div>')
     if r.get('values'):
         out=[]
         for i_,v_,u_ in r['values']:
             v_,u_=_pct(v_,u_); out.append('<div class="v"><b>'+_esc(v_)+'</b><span class="u">'+_esc(i_)+(' &middot; '+_esc(u_) if u_ else '')+'</span></div>')
-        return ''.join(out)
+        return ''.join(out)+('<div class="u">'+_esc(r.get('units') or '')+_per+'</div>' if (r.get('units') or _per) and r.get('kind')=='tool' else '')
     if not r['value']: return '<span class="na">&mdash;</span>'
     v_,u_=_pct(r['value'],r.get('units'))
-    return '<b>'+_esc(v_)+'</b>'+('<div class="u">'+_esc(u_)+'</div>' if u_ else '')
+    return '<b>'+_esc(v_)+'</b>'+('<div class="u">'+_esc(u_)+_per+'</div>' if (u_ or _per) else '')
 def _drow(r):
     ext=not str(r.get('url') or '').startswith('/')
     t1=('<a href="'+_esc(r['url'])+'"'+(' target="_blank" rel="noopener"' if ext else '')+'>'+_esc(r['name'])+' &#8599;</a>') if r.get('url') else _esc(r['name'])
-    th=_iso(r['through']); nx=_nxt_iso(r['nxt']); rf=_iso(r['refreshed'])
+    th=_iso(r['through']); rf=_iso(r['refreshed'])
+    _nts=r.get('_nts') or []; nx=(_nts[0].strftime('%Y-%m-%d') if _nts else '')   # the day (ops/calendar_build.py compares it with the calendar's days)
     _ti_=(_TOOLS.index(r['tool']) if r['tool'] in _TOOLS else 9); _tk='%d %s'%(_ti_,r['tool'])
     _thx=(_fmtp(r['through'],r.get('cad')) if (r.get('kind')!='tool' or _re3.match(r'^\d{4}-\d{2}(-\d{2})?$',str(r['through']))) else _esc(r['through']))   # 'static', a date with a note: shown as measured
     if r.get('kind')=='tool' and _re3.match(r'^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}',str(r['through'])): _thx=_fmtp(str(r['through'])[:10],r.get('cad'))   # 1052 (Anthony): a timestamp is shown as the page's date ('Nov 15, 2026'), never raw
     _rft=str(r.get('refreshed') or ''); _rfs=_fmtd(rf) if rf else (_esc(_rft) if _rft else '<span class="na">&mdash;</span>')   # 'MISSING' is said, not blanked
-    return ('<tr data-tool="'+_esc(_tk)+'" data-name="'+_esc(r['name'].lower())+'" data-ids="'+_esc(r['ids'].lower())+'" data-value="'+_esc(r['value'].lower())+'" data-freq="'+_esc(r.get('cad') or '')+'" data-through="'+th+'" data-next="'+nx+'" data-refreshed="'+_esc(_rft or rf)+'" data-legs="'+_esc(r['legs'].lower())+'"'+(' data-frozen="1"' if r.get('frozen') else '')+'>'
+    return ('<tr data-tool="'+_esc(_tk)+'" data-name="'+_esc(r['name'].lower())+'" data-ids="'+_esc(r['ids'].lower())+'" data-value="'+_esc(r['value'].lower())+'" data-freq="'+_esc(r.get('cad') or '')+'" data-through="'+th+'" data-next="'+nx+'" data-nexts="'+' '.join(t.astimezone(_NP.UTC).strftime('%Y-%m-%dT%H:%M:%SZ') for t in _nts[:8])+'" data-refreshed="'+_esc(_rft or rf)+'" data-legs="'+_esc(r['legs'].lower())+'"'+(' data-frozen="1"' if r.get('frozen') else '')+'>'
             +'<td class="tool"><a href="'+_esc(_ti.PAGE.get(r['tool'],'/') if '_ti' in globals() else '/')+'">'+_esc(r['tool'])+'</a></td>'
             +'<td><b>'+t1+'</b><div class="src">'+_srcline(r)+'</div>'+('<div class="note">'+_esc(r['note'])+'</div>' if r.get('note') else '')+'</td>'
             +'<td class="id">'+(_esc(r['ids']) or '&mdash;')+'</td>'   # 1052 (Anthony: "JUST GIVE THE FRED ID"): FRED IDs only; a row with no FRED series shows a dash
@@ -354,7 +362,24 @@ def _drow(r):
             +'<td class="val">'+_vcell(r)+'</td>'
             +'<td class="num">'+(_thx if r['through'] else '<span class="na">&mdash;</span>')+'</td>'
             +'<td class="num">'+_rfs+'</td>'
-            +'<td class="num">'+((_fmtd(nx) if nx else '<span class="na">&mdash;</span>') if not r['nxt'].startswith('~') else '<span class="na">&mdash;</span>')+'</td></tr>')
+            +'<td class="num nx">'+(_esc(_NP.fmt(_nts[0])) if _nts else '<span class="na">&mdash;</span>')+'</td></tr>')
+# NEXT PUBLISHED = THE DAY AND THE TIME (15 Nov 2026 12:34 PT, Anthony: "EVERY SINGLE NEXT PUBLISHED ROW NEEDS THE EXACT TIME IT IS NEXT
+# PUBLISHED AND THERE SHOULD BE NO GAPS"): s2/next_published.py, from the publishers' calendars and clocks (ops/release_times_measured.json)
+# and, for a Bristow-Hall layer, the first scheduled run that rebuilds it after its inputs' next release. The page's script rolls a passed
+# time forward to the row's next one (data-nexts) by the reader's clock.
+import importlib.util as _iu_np, datetime as _dtn
+_sp_np=_iu_np.spec_from_file_location('next_published',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','next_published.py')); _NP=_iu_np.module_from_spec(_sp_np); _sp_np.loader.exec_module(_NP)
+_sp_hv=_iu_np.spec_from_file_location('held_values',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','held_values.py')); _HV=_iu_np.module_from_spec(_sp_hv); _sp_hv.loader.exec_module(_HV)
+_nown=_dtn.datetime.now(_NP.ET)
+for r in _rows:
+    sp=r.get('sched') or ('cal', r['ids'])
+    if sp[0] not in ('derived_state',):
+        try: r['_nts']=_NP.upcoming(sp,_nown)
+        except Exception as _e: print('NEXT PUBLISHED NOT WORKED OUT:', r['tool'], r['name'], _e); r['_nts']=[]
+_st_in=[r['_nts'][0] for r in _rows if r['tool']=='state-onset' and (r.get('sched') or ('',))[0]=='pub' and r.get('_nts')]
+for r in _rows:
+    if (r.get('sched') or ('',))[0]=='derived_state': r['_nts']=_NP.upcoming(r['sched'],_nown,inputs=_st_in)
+print('data page: rows without a next published time:', [(r['tool'],r['name']) for r in _rows if not r.get('_nts')])
 _rows.sort(key=lambda r:_iso(r['through']),reverse=True)
 _rows.sort(key=lambda r:(_TOOLS.index(r['tool']) if r['tool'] in _TOOLS else 9))   # grouped by tool (stable: newest first inside each)
 _trs=''.join(_drow(r) for r in _rows)
@@ -379,6 +404,7 @@ _datapage=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
  '.dtab .src{color:#666;font-size:12.5px;font-weight:400;margin-top:3px}'
  '.dtab .note{color:#7f0000;font-size:12.5px;margin-top:4px}'
  '.dtab td.tool{white-space:nowrap;font-size:13px}.dtab td:nth-child(2){min-width:230px;max-width:340px}.dtab td.val{max-width:360px}.dtab td.val .v{white-space:normal}.dtab td.id{white-space:normal;max-width:170px}'
+ '.dtab .vl{max-height:7.6em;overflow-y:auto;line-height:1.5;font-size:13px}.dtab .vl span{display:inline-block;margin-right:9px;white-space:nowrap}'
  '.dtab .na{color:#999}.dwrap{overflow-x:auto}.dlede{max-width:none;color:#7f0000;margin:12px 0 0}'
  '.dleg{margin-top:8px;font-size:12.5px;color:#555}.dleg summary{cursor:pointer;color:#990000}'
  '@media (max-width:1100px){.dtab th[data-k="ids"],.dtab td.id{display:none}.dtab td{padding:9px 6px}.dtab .v{white-space:normal}}</style>\n</head>\n<body>\n'

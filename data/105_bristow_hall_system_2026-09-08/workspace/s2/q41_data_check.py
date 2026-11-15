@@ -253,13 +253,27 @@ import re as _re
 _dp=open(os.path.join(COL,'site','public','data','index.html'),encoding='utf-8').read()
 # 1052 (15 Nov 2026; Anthony: every live tool's inputs on the data page, with source, frequency, newest observation and refresh time): eight columns
 chk('data page: the five columns',_re.findall(r'<th[^>]*data-k="([a-z]+)"',_dp),['tool','name','ids','freq','value','through','refreshed','next'])
-# 1052 (15 Nov 2026; Anthony: the data page shows only dates): a dash is allowed in ONE place only - the Next published cell (the row's last)
-# of a row whose cadence is static (a boundary file) or which is a frozen history layer (data-frozen="1"): neither has a next release.
-_na_ok=0
-for _ta,_tb in _re.findall(r'<tr\b([^>]*)>(.*?)</tr>',_dp,_re.S):
-    _tds=_re.findall(r'<td\b[^>]*>(.*?)</td>',_tb,_re.S)
-    if _tds and ('data-freq="static"' in _ta or 'data-frozen="1"' in _ta): _na_ok+=_tds[-1].count('class="na"')
-chk('data page: no blank cell (a dash only in Next published of a static or frozen history-layer row)',_dp.count('class="na"')-_na_ok,0)
+# 1052 (15 Nov 2026 12:34 PT; Anthony: "EVERY SINGLE NEXT PUBLISHED ROW NEEDS THE EXACT TIME IT IS NEXT PUBLISHED AND THERE SHOULD BE NO
+# GAPS"): the exception that let a static or history-layer row show a dash is gone. No blank cell anywhere but the ID cell of a row with
+# no FRED series (Anthony 1052: "JUST GIVE THE FRED ID"); every Next published cell is a day with its time, ET, not in the past; and
+# Where it stands is the data held - never a count of files or calls, never MISSING (12:36 PT: "THE EXACT VALUE OF THE DATA THAT WE ARE HOLDING").
+_NXRE=_re.compile(r'^[A-Z][a-z]{2} \d{1,2}, \d{4}, \d{1,2}:\d{2} [AP]M ET$')
+_bad_nx=[]; _bad_val=[]; _bad_na=[]
+import html as _hq
+for _ta,_tb in _re.findall(r'<tr\b([^>]*data-tool[^>]*)>(.*?)</tr>',_dp,_re.S):
+    _tds=_re.findall(r'<td\b[^>]*>(.*?)</td>',_tb,_re.S); _nm=(_re.search(r'data-name="([^"]*)"',_ta) or [None,''])[1]
+    if len(_tds)<8: _bad_nx.append(_nm); continue
+    _nx=_hq.unescape(_re.sub(r'<[^>]+>','',_tds[7])).strip()
+    if not _NXRE.match(_nx): _bad_nx.append((_nm,_nx))
+    else:
+        _t=datetime.datetime.strptime(_nx[:-3],'%b %d, %Y, %I:%M %p')
+        if _t.date()<TODAY: _bad_nx.append((_nm,_nx))
+    _vt=_hq.unescape(_re.sub(r'<[^>]+>',' ',_tds[4]))
+    if _re.search(r'\b\d+ (files?|calls?)\b|MISSING|ERROR',_vt) or not _vt.strip() or 'class="na"' in _tds[4]: _bad_val.append(_nm)
+    _bad_na+=[_nm for _i,_c in enumerate(_tds) if _i!=2 and ('class="na"' in _c or not _re.sub(r'<[^>]+>','',_c).strip())]
+chk('data page: no blank cell (only the ID cell of a row with no FRED series may be empty)',_bad_na,[])
+chk('data page: every Next published cell is a day with its time, ET, today or later',_bad_nx,[])
+chk('data page: where it stands is the value held (no file or call counts, nothing missing)',_bad_val,[])
 # ---- v3.74 (23 September 2026, R15): the front page's record sentence is the state's, at every build
 import importlib.util as _iu_rs; _sp_rs=_iu_rs.spec_from_file_location('record_sentence',os.path.join(os.path.dirname(os.path.abspath(__file__)),'record_sentence.py')); _rs=_iu_rs.module_from_spec(_sp_rs); _sp_rs.loader.exec_module(_rs)
 _fp=open(os.path.join(COL,'site','public','detector','index.html'),encoding='utf-8').read()
