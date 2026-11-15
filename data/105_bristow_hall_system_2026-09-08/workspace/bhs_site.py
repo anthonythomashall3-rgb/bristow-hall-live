@@ -200,11 +200,40 @@ def _iso(d):
     m=_re3.search(r'([A-Z][a-z]{2}) (\d{4})',d)
     if m and m.group(1) in _MON: return '%s-%02d-01'%(m.group(2),_MON.index(m.group(1))+1)
     return ''
+# 15 Nov 2026 12:08 PT (Anthony): the data page gives dates only - Refreshed is the day, Next published is a day, never a sentence.
+# A row refreshed by a scheduled run gives the day of that workflow's next scheduled run (its cron lines, UTC); a row with no next day shows a dash.
+_CRON = {'live': [('50', '16', '*'), ('20', '2', '*'), ('45', '10', '4')],
+         'cloud': [('40', '13', '1-5'), ('40', '14', '1-5'), ('40', '15', '1-5'), ('40', '21', '1-5'), ('40', '22', '1-5'), ('40', '14', '0,6'), ('30', '1', '2-6')]}
+def _dows(f):
+    out = set()
+    for part in f.split(','):
+        if part == '*': return set(range(7))
+        if '-' in part: a, b = part.split('-'); out |= set(range(int(a), int(b) + 1))
+        else: out.add(int(part))
+    return out
+def _next_run(which):
+    now = _dt3.datetime.utcnow(); best = None
+    for mi, hh, dw in _CRON[which]:
+        ds = _dows(dw)
+        for k in range(0, 9):
+            d = (now + _dt3.timedelta(days=k)).replace(hour=int(hh), minute=int(mi), second=0, microsecond=0)
+            if d > now and ((d.weekday() + 1) % 7) in ds:
+                best = d if best is None or d < best else best; break
+    return best.date().isoformat() if best else ''
+def _nxt_day(n):
+    """Next published as a day: the date itself, the next scheduled run's day for a row refreshed by a run, '' when there is none"""
+    n = str(n or '')
+    m = _re3.match(r'^~?(\d{4}-\d{2}-\d{2})', n)
+    if m: return m.group(1)
+    l = n.lower()
+    if 'live-tools run' in l: return _next_run('live')
+    if 'cloud run' in l: return _next_run('cloud')
+    if 'next weekday' in l or l == 'daily': return (_dt3.date.today() + _dt3.timedelta(days=1)).isoformat()
+    return ''
 def _nxt_iso(n):
     n=str(n or ''); m=_re3.match(r'^~?(\d{4}-\d{2}-\d{2})',n)
     if m: return m.group(1)
-    if 'next weekday' in n or n=='daily': return (_dt3.date.today()+_dt3.timedelta(days=1)).isoformat()
-    return ''
+    return _nxt_day(n)
 _rows=[]
 for f in state.get('feeds',[]):
     _pb=_pub(_strip_paren(f.get('name')))
@@ -315,7 +344,7 @@ def _drow(r):
     th=_iso(r['through']); nx=_nxt_iso(r['nxt']); rf=_iso(r['refreshed'])
     _ti_=(_TOOLS.index(r['tool']) if r['tool'] in _TOOLS else 9); _tk='%d %s'%(_ti_,r['tool'])
     _thx=(_fmtp(r['through'],r.get('cad')) if (r.get('kind')!='tool' or _re3.match(r'^\d{4}-\d{2}(-\d{2})?$',str(r['through']))) else _esc(r['through']))   # 'static', a date with a note: shown as measured
-    _rft=str(r.get('refreshed') or ''); _rfs=(_fmtd(rf)+((' '+_rft[11:16]+' UTC') if _re3.match(r'^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}',_rft) else '')) if rf else (_esc(_rft) if _rft else '<span class="na">&mdash;</span>')   # 'MISSING' is said, not blanked
+    _rft=str(r.get('refreshed') or ''); _rfs=_fmtd(rf) if rf else (_esc(_rft) if _rft else '<span class="na">&mdash;</span>')   # 'MISSING' is said, not blanked
     return ('<tr data-tool="'+_esc(_tk)+'" data-name="'+_esc(r['name'].lower())+'" data-ids="'+_esc(r['ids'].lower())+'" data-value="'+_esc(r['value'].lower())+'" data-freq="'+_esc(r.get('cad') or '')+'" data-through="'+th+'" data-next="'+nx+'" data-refreshed="'+_esc(_rft or rf)+'" data-legs="'+_esc(r['legs'].lower())+'">'
             +'<td class="tool"><a href="'+_esc(_ti.PAGE.get(r['tool'],'/') if '_ti' in globals() else '/')+'">'+_esc(r['tool'])+'</a></td>'
             +'<td><b>'+t1+'</b><div class="src">'+_srcline(r)+'</div>'+('<div class="note">'+_esc(r['note'])+'</div>' if r.get('note') else '')+'</td>'
@@ -324,7 +353,7 @@ def _drow(r):
             +'<td class="val">'+_vcell(r)+'</td>'
             +'<td class="num">'+(_thx if r['through'] else '<span class="na">&mdash;</span>')+'</td>'
             +'<td class="num">'+_rfs+'</td>'
-            +'<td class="num">'+(('<span class="na">&mdash;</span>' if r['nxt'].startswith('~') else (_fmtd(r['nxt'][:10]) if _re3.match(r'^\d{4}-\d{2}-\d{2}',r['nxt']) else _esc(r['nxt']))) if r['nxt'] else '<span class="na">&mdash;</span>')+'</td></tr>')
+            +'<td class="num">'+((_fmtd(nx) if nx else '<span class="na">&mdash;</span>') if not r['nxt'].startswith('~') else '<span class="na">&mdash;</span>')+'</td></tr>')
 _rows.sort(key=lambda r:_iso(r['through']),reverse=True)
 _rows.sort(key=lambda r:(_TOOLS.index(r['tool']) if r['tool'] in _TOOLS else 9))   # grouped by tool (stable: newest first inside each)
 _trs=''.join(_drow(r) for r in _rows)
@@ -355,7 +384,7 @@ _datapage=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
  +_nav_data+'\n<div class="inner">'
  '<h2 style="margin-top:30px">Data</h2><div class="rule"></div>'+_stale_line+_ch_line+
  '<div class="dwrap"><table class="dtab" id="dtab"><thead><tr>'
- '<th class="on asc" data-k="tool">Tool</th><th data-k="name">Series</th><th data-k="ids">ID</th><th data-k="freq">Frequency</th><th data-k="value">Where it stands</th><th class="num" data-k="through">In hand through</th>'
+ '<th class="on asc" data-k="tool">Tool</th><th data-k="name">Series</th><th data-k="ids">ID</th><th data-k="freq">Frequency</th><th data-k="value">Where it stands</th><th class="num" data-k="through">Held through</th>'
  '<th class="num" data-k="refreshed">Refreshed</th><th class="num" data-k="next">Next published</th></tr></thead><tbody>'
  +_trs+'</tbody></table></div><p class="dleg"><a href="/margins/">Margins</a></p>'+_legend+
  '<script>(function(){var tb=document.getElementById("dtab"),ths=tb.querySelectorAll("th[data-k]"),cur="tool",dir=1;'
@@ -424,7 +453,7 @@ _warnpage=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<
  '.dtab th.num,.dtab td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}.dtab td{padding:9px 10px;border-bottom:1px solid #dfe4ea;vertical-align:top}'
  '.dtab td.id{font-family:Menlo,Consolas,monospace;font-size:12.5px;color:#222}</style>\n</head>\n<body>\n'+_nav_data+'\n<div class="inner">'
  '<h2 style="margin-top:30px">WARN notices, the 25 states</h2><div class="rule"></div>'
- '<table class="dtab"><thead><tr><th>State page</th><th>State</th><th class="num">Notices on file</th><th class="num">In hand through</th></tr></thead><tbody>'+_wrows+'</tbody></table></div>\n'+_footer+'\n</body>\n</html>\n')
+ '<table class="dtab"><thead><tr><th>State page</th><th>State</th><th class="num">Notices on file</th><th class="num">Held through</th></tr></thead><tbody>'+_wrows+'</tbody></table></div>\n'+_footer+'\n</body>\n</html>\n')
 os.makedirs(os.path.join(SITE,'public','data','warn'),exist_ok=True)
 open(os.path.join(SITE,'public','data','warn','index.html'),'w',encoding='utf-8').write(_warnpage)
 print('data inventory built:',len(state.get('feeds',[])),'rule series,',len(_seen),'front-page series,',len(_lf),'leg channels |',len(_rows),'rows')

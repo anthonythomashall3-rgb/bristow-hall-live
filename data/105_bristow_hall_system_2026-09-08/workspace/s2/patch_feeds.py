@@ -44,7 +44,7 @@ b=('  <ul id="nextlist"></ul>\n'
    '— a job on the machine that runs the rule refreshes each of these on its own schedule and rebuilds this page):</p>\n'
    '  <div style="overflow-x:auto"><table id="feeds" style="border-collapse:collapse;font-size:12.5px;margin:2px 0 10px">'
    '<thead><tr><th style="text-align:left;padding:3px 10px 3px 0">Data</th><th style="text-align:left;padding:3px 10px 3px 0">Source</th>'
-   '<th style="text-align:left;padding:3px 10px 3px 0">Updates</th><th style="text-align:left;padding:3px 10px 3px 0">In hand through</th>'
+   '<th style="text-align:left;padding:3px 10px 3px 0">Updates</th><th style="text-align:left;padding:3px 10px 3px 0">Held through</th>'
    '<th style="text-align:left;padding:3px 0">Next update</th></tr></thead><tbody></tbody></table></div>\n')
 t=t.replace(a,b)
 # render it from the JSON, next to the nextlist rendering
