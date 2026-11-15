@@ -41,7 +41,7 @@ h2{font-size:25px;font-weight:700;color:#111;margin:40px 0 0}
 .badge.live{color:#166534;background:#e8f3ec;border:1px solid #cfe3d6}
 .badge.dev{color:#7a5200;background:#fbf4e6;border:1px solid #eadfc4}
 .thumb{border:1px solid #e6e9ed;background:#fff;height:150px;width:100%;display:block}
-img.thumb{height:auto}  /* 15 Nov 2026 11:41 PT (Anthony): each card shows its whole chart or map, filling the card width */
+img.thumb{height:auto;aspect-ratio:2.3/1;object-fit:cover;object-position:center}  /* 15 Nov 2026 11:41 PT (Anthony): each card shows its whole chart or map, filling the card width */
 .thumb.ph{background:repeating-linear-gradient(135deg,#fcfdfe,#fcfdfe 10px,#f3f5f8 10px,#f3f5f8 20px);border-style:solid}
 .card .name{font-weight:700;font-size:16px;color:#990000}
 .card .desc{color:#555;font-size:13.5px}
@@ -130,16 +130,16 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;',
 })();
 (function(){
   const T=[
-   {n:'Real-Time Bristow-Hall Rule Recession Indicator',s:'live',href:'/detector/',img:'/detector/card.png?v=fa6f6831',d:'The rule’s reading on one line, every release day since 1948, with the recessions it dated and the committee’s.'},
-   {n:'National Disturbance Chronology',s:'live',href:'/disturbance/',img:'/disturbance/card.png?v=700b285b',d:'Every national slowdown since 1948 that stopped short of recession, dated by one fixed rule and graded on the same scale as recessions.'},
-   {n:'State Recession Chronology and Damage Grade',s:'live',href:'/state-onset/',img:'/state-onset/card.png?v=2575f62e',d:'Recessions and disturbances in each of the fifty states since 1979, dated as the nation is, each with a damage grade.'},
-   {n:'National Stress Map',s:'live',href:'/stress-map/',img:'/stress-map/card.png?v=af8c4d99',d:'Recession and disturbance damage across the fifty States and their counties, on one color scale, month by month since 1947.'},
-   {n:'Damage Index',s:'dev',href:'/damage-index/',img:'/damage-index/card.png?v=fc7a73fb',d:'A Richter scale for recessions: how deep, how broad, and where - not only when.'},
-   {n:'Business-Cycle Chronology',s:'dev',href:'/chronology/',img:'/chronology/card.png?v=3fcf700e',d:'The program’s dated chronology of peaks and troughs beside the committee’s and the OECD’s.'}
+   {n:'Real-Time Bristow-Hall Rule Recession Indicator',s:'live',href:'/detector/',img:'/detector/card.png?v=4cbbfe96',d:'The rule’s reading on one line, every release day since 1948, with the recessions it dated and the committee’s.'},
+   {n:'National Disturbance Chronology',s:'live',href:'/disturbance/',img:'/disturbance/card.png?v=d4d94a99',d:'Every national slowdown since 1948 that stopped short of recession, dated by one fixed rule and graded on the same scale as recessions.'},
+   {n:'State Recession Chronology and Damage Grade',s:'live',href:'/state-onset/',img:'/state-onset/card.png?v=9f773cdb',d:'Recessions and disturbances in each of the fifty states since 1979, dated as the nation is, each with a damage grade.'},
+   {n:'National Stress Map',s:'live',href:'/stress-map/',img:'/stress-map/card.png?v=3de6f005',d:'Recession and disturbance damage across the fifty States and their counties, on one color scale, month by month since 1947.'},
+   {n:'Damage Index',s:'dev',href:'/damage-index/',img:'/damage-index/card.png?v=bf8c00ee',d:'A Richter scale for recessions: how deep, how broad, and where - not only when.'},
+   {n:'Business-Cycle Chronology',s:'dev',href:'/chronology/',img:'/chronology/card.png?v=ff1ff2a4',d:'The program’s dated chronology of peaks and troughs beside the committee’s and the OECD’s.'}
   ];
   document.getElementById('tools').innerHTML=T.map(t=>{
     const head=t.s==='live'?'<span class="badge live">LIVE</span>':'<span class="badge dev">IN DEVELOPMENT</span>';
-    const thumb=t.spark?'<a href="'+t.href+'"><svg class="thumb" id="spark" viewBox="0 0 420 150" preserveAspectRatio="none" role="img"></svg></a>':(t.img?'<a href="'+t.href+'"><img class="thumb" src="'+t.img+'" alt="'+t.n+'" style="object-fit:contain;object-position:center;background:#fff"></a>':'<a href="'+t.href+'"><div class="thumb ph"></div></a>');
+    const thumb=t.spark?'<a href="'+t.href+'"><svg class="thumb" id="spark" viewBox="0 0 420 150" preserveAspectRatio="none" role="img"></svg></a>':(t.img?'<a href="'+t.href+'"><img class="thumb" src="'+t.img+'" alt="'+t.n+'" style="object-fit:cover;object-position:center;background:#fff"></a>':'<a href="'+t.href+'"><div class="thumb ph"></div></a>');
     return '<div class="card">'+head+thumb+'<div class="name"><a href="'+t.href+'">'+t.n+'</a></div><div class="desc">'+t.d+'</div></div>';
   }).join('');
 })();

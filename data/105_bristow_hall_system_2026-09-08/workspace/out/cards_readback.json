@@ -1,38 +1,38 @@
 {
- "at": "2026-11-15T19:47:19Z",
+ "at": "2026-11-15T19:56:07Z",
  "cards": {
   "/detector/": {
-   "img": "/detector/card.png?v=fa6f6831",
+   "img": "/detector/card.png?v=4cbbfe96",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/disturbance/": {
-   "img": "/disturbance/card.png?v=700b285b",
+   "img": "/disturbance/card.png?v=d4d94a99",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/state-onset/": {
-   "img": "/state-onset/card.png?v=2575f62e",
+   "img": "/state-onset/card.png?v=9f773cdb",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/stress-map/": {
-   "img": "/stress-map/card.png?v=af8c4d99",
+   "img": "/stress-map/card.png?v=3de6f005",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/damage-index/": {
-   "img": "/damage-index/card.png?v=fc7a73fb",
+   "img": "/damage-index/card.png?v=bf8c00ee",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/chronology/": {
-   "img": "/chronology/card.png?v=3fcf700e",
+   "img": "/chronology/card.png?v=ff1ff2a4",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true

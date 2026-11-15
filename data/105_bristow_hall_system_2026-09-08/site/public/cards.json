@@ -1,5 +1,5 @@
 {
- "built": "2026-11-15T19:45:57Z",
+ "built": "2026-11-15T19:54:40Z",
  "size": [
   1200,
   760
@@ -7,66 +7,66 @@
  "cards": {
   "/detector/": {
    "png": "/detector/card.png",
-   "sha256": "fa6f6831a924b63033081a3d0d6fa998be4c5ed315375c35887766b75799fc65",
+   "sha256": "4cbbfe96321d5d25862fe9fb388a1f8f8f16f7be4a8b5055d2387156d42ac508",
    "on_home": true,
-   "w": 2092,
-   "h": 946,
-   "colours": 960,
-   "share_not_main": 0.2053
+   "w": 2400,
+   "h": 1044,
+   "colours": 704,
+   "share_not_main": 0.2257
   },
   "/disturbance/": {
    "png": "/disturbance/card.png",
-   "sha256": "700b285b74bc3a4f407ec23e1d0707f4f09ebe9ecbbeec702643a9ae273ff27b",
+   "sha256": "d4d94a992dc2e81526a5101665e72eb849e2dd01628f4c2bdcc093d268c02579",
    "on_home": true,
-   "w": 2108,
-   "h": 670,
-   "colours": 1273,
-   "share_not_main": 0.3363
+   "w": 2400,
+   "h": 1044,
+   "colours": 1144,
+   "share_not_main": 0.3877
   },
   "/state-onset/": {
    "png": "/state-onset/card.png",
-   "sha256": "2575f62e4282ef39ec52b0efd3667e95aa78f3bc6627b0c0890fb146fccb9e01",
+   "sha256": "9f773cdb03d95fbc480e988824b686862f8c175e334fd27995fba2e35254aac7",
    "on_home": true,
-   "w": 2092,
-   "h": 946,
-   "colours": 859,
-   "share_not_main": 0.2691
+   "w": 2400,
+   "h": 1044,
+   "colours": 565,
+   "share_not_main": 0.3038
   },
   "/stress-map/": {
    "png": "/stress-map/card.png",
-   "sha256": "af8c4d99cf3557e8dbfc25a0bb87467bedb67eda4d37fdf89d53c1cf08e12a66",
+   "sha256": "3de6f005e0aa1e5cb7369b2665e48986c2c733a96c6e3631ff4a3762b19bb127",
    "on_home": true,
-   "w": 1558,
-   "h": 976,
-   "colours": 1579,
-   "share_not_main": 0.4876
+   "w": 2400,
+   "h": 1044,
+   "colours": 1535,
+   "share_not_main": 0.3408
   },
   "/damage-index/": {
    "png": "/damage-index/card.png",
-   "sha256": "fc7a73fbdde7720a35c353baa563527b3deda4a6f623715fd0139a8c77972a73",
+   "sha256": "bf8c00ee84369087e7aff7e83937786dc846e507159f8e2c2d1a972ab11f7c1b",
    "on_home": true,
    "w": 1200,
-   "h": 430,
+   "h": 522,
    "colours": 871,
-   "share_not_main": 0.3475
+   "share_not_main": 0.2876
   },
   "/chronology/": {
    "png": "/chronology/card.png",
-   "sha256": "3fcf700ee4756595d12d19c81ecfe978b890fb0a334282244eb93fc47d137815",
+   "sha256": "ff1ff2a44d5d517ce9c7b638e2145a1f8dd1a4dd1201f972e962f898d12ef73e",
    "on_home": true,
    "w": 1200,
-   "h": 430,
+   "h": 522,
    "colours": 992,
-   "share_not_main": 0.3543
+   "share_not_main": 0.2932
   },
   "/data/": {
    "png": "/data/card.png",
-   "sha256": "b9adc48c624e728ad7112cb54280b3d92a3b3a1078299f398356f793c06f0014",
+   "sha256": "b5785730dcbba9dfc5f7c16180a507fc72858066a91a456081c13eccc22db821",
    "on_home": false,
    "w": 1200,
-   "h": 430,
-   "colours": 1292,
-   "share_not_main": 0.1335
+   "h": 522,
+   "colours": 1543,
+   "share_not_main": 0.1215
   }
  }
 }
