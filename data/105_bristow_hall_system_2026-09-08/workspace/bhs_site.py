@@ -212,9 +212,12 @@ for f in state.get('feeds',[]):
                       source=((_pb[0]+' &middot; '+_pb[2]) if _pb else _strip_paren(f.get('source'))+((' &middot; '+_exact_every(_strip_paren(f.get('every')))) if f.get('every') else '')),
                       value=f.get('value') or '',values=f.get('values') or [],units=None,through=str(f.get('through') or ''),nxt=str(f.get('next') or ''),refreshed=state.get('built') or '',legs='the rule',note=None))
 _seen=set()
+# 15 Nov 2026 (1052; Anthony: "OUR DATA PAGE IS CORRECT"): a front-page tile whose series the rule's own row already lists is the same
+# series twice with two in-hand dates (JTSJOL: Sep 30 on the rule's row, Sep 1 on the tile's); it is folded into the rule's row
+_rule_ids={x.strip() for f in state.get('feeds',[]) for x in str(f.get('ids') or '').replace('/',',').split(',')}
 for t in _tiles:
     sid=t.get('sid') or ''
-    if not sid or sid in _seen: continue
+    if not sid or sid in _seen or sid in _rule_ids: continue
     _seen.add(sid)
     _TILE_UNITS={'UNRATE':'percent, seasonally adjusted','PAYEMS':'persons, seasonally adjusted','ICSA':'claims, seasonally adjusted','IURSA':'percent, seasonally adjusted','JTSJOL':'openings, seasonally adjusted','UNEMPLOY':'unemployed per opening','JTSQUR':'percent, seasonally adjusted','CPIAUCSL':'percent, year over year'}
     _tu=_TILE_UNITS.get(sid,'')
@@ -264,6 +267,25 @@ try:
     for i,r in enumerate(_rows):
         if _RL.get(_RK[i]): r['srcs']=_RL[_RK[i]]; r['url']=_RL[_RK[i]][0][1]
 except Exception as _e: print('source links not applied (%s): the build\'s addresses stand' % _e)
+# EVERY LIVE TOOL'S INPUTS (15 November 2026, collection 1052): the rows above are the detector's; s2/tool_inputs.py adds one row for each
+# input of /disturbance/, /state-onset/, /stress-map/ and /shadow/, read from each tool's own input list (never typed here), with its
+# source, frequency, newest observation held and when it was last refreshed. A series listed twice for one tool is folded (newest kept).
+for r in _rows: r.setdefault('tool','detector')
+for r in _rows:
+    if not r.get('cad') and r.get('kind')=='leg': r['cad']=_cad_kind(next((f.get('cadence') for f in _lf if _strip_paren(f.get('title') or f['channel'])==r['name']),''))
+_TOOL_GEN=''
+try:
+    import importlib.util as _iu_ti; _sp_ti=_iu_ti.spec_from_file_location('tool_inputs',os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','tool_inputs.py')); _ti=_iu_ti.module_from_spec(_sp_ti); _sp_ti.loader.exec_module(_ti)
+    _tr,_TOOL_GEN=_ti.all_rows(); _rows+=_tr; _TOOLS=_ti.TOOLS
+except Exception as _e:
+    print('TOOL INPUT ROWS NOT ADDED:', _e); _TOOLS=['detector']
+_dups={}
+for r in _rows: _dups.setdefault((r['tool'],r['ids'].upper().replace(' ',''),r['name'].lower()),[]).append(r)
+for k,v in _dups.items():
+    if len(v)>1:   # never two rows of one series for one tool: the newest in-hand row stays, the run says so (the page still updates)
+        print('DATA PAGE DUPLICATE (kept the newest):', k, [x['through'] for x in v])
+        for x in sorted(v,key=lambda x:_iso(x['through']))[:-1]: _rows.remove(x)
+print('data page rows per tool:', {t:sum(1 for r in _rows if r['tool']==t) for t in _TOOLS}, '| Mac manifest', _TOOL_GEN)
 def _srcline(r):
     # 11 November 2026 (Anthony: the notes after the links - 'Quarterly, 8:30 AM ET', 'line 0.2' - sat on some rows and not on others;
     # "remove these notes on this entire column ... we need to maintain consistency"): the line is the sources and nothing else.
@@ -291,13 +313,20 @@ def _drow(r):
     ext=not str(r.get('url') or '').startswith('/')
     t1=('<a href="'+_esc(r['url'])+'"'+(' target="_blank" rel="noopener"' if ext else '')+'>'+_esc(r['name'])+' &#8599;</a>') if r.get('url') else _esc(r['name'])
     th=_iso(r['through']); nx=_nxt_iso(r['nxt']); rf=_iso(r['refreshed'])
-    return ('<tr data-name="'+_esc(r['name'].lower())+'" data-ids="'+_esc(r['ids'].lower())+'" data-value="'+_esc(r['value'].lower())+'" data-through="'+th+'" data-next="'+nx+'" data-refreshed="'+rf+'" data-legs="'+_esc(r['legs'].lower())+'">'
+    _ti_=(_TOOLS.index(r['tool']) if r['tool'] in _TOOLS else 9); _tk='%d %s'%(_ti_,r['tool'])
+    _thx=(_fmtp(r['through'],r.get('cad')) if (r.get('kind')!='tool' or _re3.match(r'^\d{4}-\d{2}(-\d{2})?$',str(r['through']))) else _esc(r['through']))   # 'static', a date with a note: shown as measured
+    _rft=str(r.get('refreshed') or ''); _rfs=(_fmtd(rf)+((' '+_rft[11:16]+' UTC') if _re3.match(r'^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}',_rft) else '')) if rf else '<span class="na">&mdash;</span>'
+    return ('<tr data-tool="'+_esc(_tk)+'" data-name="'+_esc(r['name'].lower())+'" data-ids="'+_esc(r['ids'].lower())+'" data-value="'+_esc(r['value'].lower())+'" data-freq="'+_esc(r.get('cad') or '')+'" data-through="'+th+'" data-next="'+nx+'" data-refreshed="'+_esc(_rft or rf)+'" data-legs="'+_esc(r['legs'].lower())+'">'
+            +'<td class="tool"><a href="'+_esc(_ti.PAGE.get(r['tool'],'/') if '_ti' in globals() else '/')+'">'+_esc(r['tool'])+'</a></td>'
             +'<td><b>'+t1+'</b><div class="src">'+_srcline(r)+'</div>'+('<div class="note">'+_esc(r['note'])+'</div>' if r.get('note') else '')+'</td>'
             +'<td class="id">'+_esc(r['ids'])+'</td>'
+            +'<td>'+_esc((r.get('cad') or '').capitalize() or '-')+'</td>'
             +'<td class="val">'+_vcell(r)+'</td>'
-            +'<td class="num">'+(_fmtp(r['through'],r.get('cad')) if r['through'] else '<span class="na">&mdash;</span>')+'</td>'
+            +'<td class="num">'+(_thx if r['through'] else '<span class="na">&mdash;</span>')+'</td>'
+            +'<td class="num">'+_rfs+'</td>'
             +'<td class="num">'+(('<span class="na">&mdash;</span>' if r['nxt'].startswith('~') else (_fmtd(r['nxt'][:10]) if _re3.match(r'^\d{4}-\d{2}-\d{2}',r['nxt']) else _esc(r['nxt']))) if r['nxt'] else '<span class="na">&mdash;</span>')+'</td></tr>')
 _rows.sort(key=lambda r:_iso(r['through']),reverse=True)
+_rows.sort(key=lambda r:(_TOOLS.index(r['tool']) if r['tool'] in _TOOLS else 9))   # grouped by tool (stable: newest first inside each)
 _trs=''.join(_drow(r) for r in _rows)
 _stale=state.get('leg_channels_stale',[])
 _legend=''
@@ -319,20 +348,21 @@ _datapage=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
  '.dtab td.id{font-family:Menlo,Consolas,monospace;font-size:12.5px;color:#222;white-space:nowrap}'
  '.dtab .src{color:#666;font-size:12.5px;font-weight:400;margin-top:3px}'
  '.dtab .note{color:#7f0000;font-size:12.5px;margin-top:4px}'
+ '.dtab td.tool{white-space:nowrap;font-size:13px}.dtab td:nth-child(2){min-width:230px;max-width:340px}.dtab td.val{max-width:360px}.dtab td.val .v{white-space:normal}.dtab td.id{white-space:normal;max-width:170px}'
  '.dtab .na{color:#999}.dwrap{overflow-x:auto}.dlede{max-width:none;color:#7f0000;margin:12px 0 0}'
  '.dleg{margin-top:8px;font-size:12.5px;color:#555}.dleg summary{cursor:pointer;color:#990000}'
  '@media (max-width:1100px){.dtab th[data-k="ids"],.dtab td.id{display:none}.dtab td{padding:9px 6px}.dtab .v{white-space:normal}}</style>\n</head>\n<body>\n'
  +_nav_data+'\n<div class="inner">'
  '<h2 style="margin-top:30px">Data</h2><div class="rule"></div>'+_stale_line+_ch_line+
  '<div class="dwrap"><table class="dtab" id="dtab"><thead><tr>'
- '<th data-k="name">Series</th><th data-k="ids">ID</th><th data-k="value">Where it stands</th><th class="num on" data-k="through">In hand through</th>'
- '<th class="num" data-k="next">Next published</th></tr></thead><tbody>'
+ '<th class="on asc" data-k="tool">Tool</th><th data-k="name">Series</th><th data-k="ids">ID</th><th data-k="freq">Frequency</th><th data-k="value">Where it stands</th><th class="num" data-k="through">In hand through</th>'
+ '<th class="num" data-k="refreshed">Refreshed</th><th class="num" data-k="next">Next published</th></tr></thead><tbody>'
  +_trs+'</tbody></table></div><p class="dleg"><a href="/margins/">Margins</a></p>'+_legend+
- '<script>(function(){var tb=document.getElementById("dtab"),ths=tb.querySelectorAll("th[data-k]"),cur="through",dir=-1;'
+ '<script>(function(){var tb=document.getElementById("dtab"),ths=tb.querySelectorAll("th[data-k]"),cur="tool",dir=1;'
  'function srt(k,d){var body=tb.tBodies[0],rows=Array.prototype.slice.call(body.rows);rows.sort(function(a,b){var x=a.dataset[k]||"",y=b.dataset[k]||"";if(x===y)return 0;if(x==="")return 1;if(y==="")return -1;return (x<y?-1:1)*d;});'
  'rows.forEach(function(r){body.appendChild(r);});ths.forEach(function(t){t.classList.remove("on","asc");if(t.dataset.k===k){t.classList.add("on");if(d>0)t.classList.add("asc");}});}'
- 'ths.forEach(function(t){t.addEventListener("click",function(){var k=t.dataset.k;dir=(k===cur)?-dir:((k==="name"||k==="ids"||k==="value")?1:-1);cur=k;srt(k,dir);});});'
- 'srt("through",-1);})();</script>'
+ 'ths.forEach(function(t){t.addEventListener("click",function(){var k=t.dataset.k;dir=(k===cur)?-dir:((k==="tool"||k==="name"||k==="ids"||k==="value"||k==="freq")?1:-1);cur=k;srt(k,dir);});});'
+ '})();</script>'
  '</div>\n'+_footer+'\n</body>\n</html>\n')
 os.makedirs(os.path.join(SITE,'public','data'),exist_ok=True)
 open(os.path.join(SITE,'public','data','index.html'),'w',encoding='utf-8').write(_us(_datapage))
