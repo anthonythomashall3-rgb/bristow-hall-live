@@ -4,7 +4,7 @@
    16.2s  concurrence branch
    16.2s  build_c1021
    16.3s  closing series
-   28.2s  daily series
-   28.6s  readings
-   28.6s  feeds
-   29.3s  state written
+   28.5s  daily series
+   28.8s  readings
+   28.9s  feeds
+   29.6s  state written

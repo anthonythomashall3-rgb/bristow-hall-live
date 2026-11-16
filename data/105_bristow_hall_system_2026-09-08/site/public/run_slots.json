@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-15 22:18",
+ "built_at": "2026-11-15 22:28",
  "fallback": "weekdays 08:35, 09:45, 10:15, 16:20 and 20:10 (New York time), used only if this list cannot be read",
- "generated_utc": "2026-11-16T03:20:02Z",
+ "generated_utc": "2026-11-16T03:29:03Z",
  "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes after each release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close at 4:20 PM and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
  "refresh_incomplete": null,
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
@@ -137,6 +137,17 @@
    "utc": "2026-11-19T16:45:00Z",
    "why": [
     "weekly economic index (lewis, mertens an (11:30 AM ET; FRED by about 11:40 AM)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-11-19 15:56",
+   "utc": "2026-11-19T20:56:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "the Department's ETA 539 State file (3:55 PM ET; read from the Department)"
    ]
   },
   {
@@ -293,6 +304,17 @@
    ]
   },
   {
+   "live_tools": true,
+   "ny": "2026-11-25 15:56",
+   "utc": "2026-11-25T20:56:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "the Department's ETA 539 State file (3:55 PM ET; read from the Department)"
+   ]
+  },
+  {
    "ny": "2026-11-25 16:20",
    "utc": "2026-11-25T21:20:00Z",
    "why": [
@@ -430,6 +452,17 @@
    "utc": "2026-12-03T16:45:00Z",
    "why": [
     "weekly economic index (lewis, mertens an (11:30 AM ET; FRED by about 11:40 AM)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-03 15:56",
+   "utc": "2026-12-03T20:56:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "the Department's ETA 539 State file (3:55 PM ET; read from the Department)"
    ]
   },
   {
