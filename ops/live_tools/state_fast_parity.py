@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+"""PARITY OF THE STATE INPUTS FROM THE BLS API (speed program 1052). No AI. For every one of the 205 series ops/live_tools/state_fast.py
+serves from the BLS API, the bytes it hands the State refresh scripts are parsed exactly as those scripts parse FRED's fredgraph file
+(pd.read_csv, rows whose value is numeric, pd.to_numeric) and compared with FRED's own file parsed the same way: every date and every
+value must be equal, and the series written by the scripts' to_csv must be byte-identical. A series whose BLS history starts later
+than FRED's is reported (state_fast sends such a series to FRED whenever the held file starts earlier). Exit 1 on any difference."""
+import os, sys, io, json, time, urllib.request
+import pandas as pd
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import state_fast as sf
+
+
+def parse(b, sid):
+    n = pd.read_csv(io.BytesIO(b)); assert n.columns[1] == sid, n.columns
+    n = n[pd.to_numeric(n.iloc[:, 1], errors='coerce').notna()]
+    return pd.DataFrame({'date': n.iloc[:, 0].astype(str), sid: pd.to_numeric(n.iloc[:, 1])})
+
+
+def main():
+    t = time.time(); sf.bundle(); tb = time.time() - t
+    out = dict(series=0, identical=0, later_start=[], different=[], bls_seconds=round(tb, 1))
+    for sid in sorted(sf.BLS_OF):
+        url = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + sid
+        b = sf.fredgraph_from_bls(url)
+        f = None
+        for i in range(4):
+            try: f = urllib.request.urlopen(url, timeout=60).read(); break
+            except Exception: time.sleep(10 * (i + 1))
+        out['series'] += 1
+        if b is None or f is None: out['different'].append(dict(sid=sid, why='BLS %s, FRED %s' % (b is not None, f is not None))); continue
+        A, B = parse(f, sid), parse(b, sid)
+        if B.date.iloc[0] > A.date.iloc[0]:
+            A2 = A[A.date >= B.date.iloc[0]].reset_index(drop=True)
+            out['later_start'].append(dict(sid=sid, fred_from=A.date.iloc[0], bls_from=B.date.iloc[0], equal_where_both=A2.to_csv(index=False) == B.to_csv(index=False)))
+            if A2.to_csv(index=False) != B.to_csv(index=False): out['different'].append(dict(sid=sid, why='differs on common dates'))
+            continue
+        if A.to_csv(index=False, lineterminator='\n') == B.to_csv(index=False, lineterminator='\n'): out['identical'] += 1
+        else:
+            m = A.merge(B, on='date', how='outer', suffixes=('_fred', '_bls'), indicator=True)
+            bad = m[(m['_merge'] != 'both') | (m[sid + '_fred'] != m[sid + '_bls'])]
+            out['different'].append(dict(sid=sid, n=len(bad), first=bad.head(3).astype(str).values.tolist()))
+    out['ok'] = not out['different']
+    os.makedirs(os.environ.get('LT_OUT', '/tmp'), exist_ok=True)
+    json.dump(out, open(os.path.join(os.environ.get('LT_OUT', '/tmp'), 'state_fast_parity.json'), 'w'), indent=1)
+    print(json.dumps({k: v for k, v in out.items() if k != 'later_start'}, indent=1)[:3000])
+    print('later BLS start (served from FRED when the held file starts earlier):', [(x['sid'], x['fred_from'], x['bls_from'], x['equal_where_both']) for x in out['later_start']][:60])
+    print('STATE FAST PARITY', 'PASS' if out['ok'] else 'FAIL')
+    sys.exit(0 if out['ok'] else 1)
+
+
+if __name__ == '__main__':
+    main()
