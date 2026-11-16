@@ -20,7 +20,8 @@ def main():
     src_ver = os.path.join(ROOT, 'ops', 'state', 'source_gate_verified.json')
     if os.path.exists(src_ver): shutil.copy(src_ver, ver)
     t = time.time()
-    A = sg.run(SITE, 'warn', sources_out=os.path.join(tmp, 'A_sources.json'), out=os.path.join(tmp, 'A.json'), verified_path=ver, quiet=True, write_verified=False)
+    A = sg.run(SITE, 'warn', sources_out=os.path.join(tmp, 'A_sources.json'), out=os.path.join(tmp, 'A.json'), verified_path=ver, quiet=True, write_verified=False,
+               cache_out=os.path.join(tmp, 'A_cache.json'))
     ta = time.time() - t
     keys = sorted(k for k in json.load(open(os.path.join(tmp, 'A_sources.json'))) if not k.endswith(':err'))
     json.dump(keys, open(os.path.join(tmp, 'keys.json'), 'w'))
@@ -60,7 +61,15 @@ def main():
                totals_A=A['totals'], totals_B=B['totals'], seconds_cold=round(ta, 1), seconds_prefetch=round(tp, 1), seconds_warm_gate=round(tb, 1),
                calls_cold=A['source_calls'], calls_warm_gate=B['source_calls'], source_read_failures_one_side=readfail,
                real_differences=real, cold_vs_cold_noise=noise, unexplained=unexplained, differing_rows=diff)
-    out['ok'] = not unexplained and A['decision'] == B['decision'] and A['totals']['fail'] == B['totals']['fail']
+    # C (1052, 16 Nov): the prefetch starting from the cold gate's own sources as a previous run left them (--prev): FRED answers FRED
+    # reports unchanged are kept, the rest fetched; the gate from it must give A's rows
+    t = time.time(); sg.prefetch(os.path.join(tmp, 'prefetchC.json'), keys_path=os.path.join(tmp, 'keys.json'), prev=os.path.join(tmp, 'A_cache.json')); tpc = time.time() - t
+    Cr = sg.run(SITE, 'warn', out=os.path.join(tmp, 'C.json'), verified_path=ver, quiet=True, write_verified=False, warm=os.path.join(tmp, 'prefetchC.json'))
+    rc_ = [json.dumps(r, sort_keys=True, default=str) for r in Cr['rows']]
+    out['C_prefetch_seconds'] = round(tpc, 1); out['C_rows_identical_to_A'] = rc_ == ra; out['C_rows_identical_to_B'] = rc_ == rb
+    out['C_decision'] = Cr['decision']; out['C_calls'] = Cr['source_calls']
+    print('C (prefetch from the last run\'s sources): prefetch %.0f s; rows identical to the cold gate: %s, to B: %s' % (tpc, rc_ == ra, rc_ == rb))
+    out['ok'] = not unexplained and A['decision'] == B['decision'] and A['totals']['fail'] == B['totals']['fail'] and (rc_ == ra or rc_ == rb)
     os.makedirs(os.path.join(ROOT, 'ops', 'speed', 'out'), exist_ok=True)
     json.dump(out, open(os.path.join(ROOT, 'ops', 'speed', 'out', 'parity_source_gate.json'), 'w'), indent=1)
     print(json.dumps({k: v for k, v in out.items() if k not in ('differing_rows', 'source_read_failures_one_side', 'real_differences', 'cold_vs_cold_noise', 'unexplained')}))

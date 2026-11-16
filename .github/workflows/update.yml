@@ -395,6 +395,16 @@ jobs:
       # FRED's rate limit, from the list the last gate read (ops/state/source_gate_keys.json); the gate then starts from them, keeping only
       # FRED answers of series FRED says it has not updated since, and fetches everything else itself. Same checks, same verdict
       # (ops/speed/parity_source_gate.py). A prefetch that fails leaves the gate as it was.
+      # 1052 speed (16 Nov 2026): the last run's gate sources (FRED answers, stamped), kept in GitHub's cache; the prefetch keeps those FRED
+      # reports unchanged since and fetches only the rest
+      - name: the last gate's sources
+        if: steps.when.outputs.go == 'true'
+        uses: actions/cache@v5
+        with:
+          path: ${{ runner.temp }}/gate_cache
+          key: gate-src-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: gate-src-
+
       - name: the source gate's sources, fetched while the site builds
         if: steps.when.outputs.go == 'true'
         continue-on-error: true
@@ -404,7 +414,7 @@ jobs:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
         run: |
           rm -f "$RUNNER_TEMP/gate_prefetch.json"
-          nohup python3 s2/source_gate.py --prefetch-to "$RUNNER_TEMP/gate_prefetch.json" > "$RUNNER_TEMP/gate_prefetch.log" 2>&1 &
+          nohup python3 s2/source_gate.py --prefetch-to "$RUNNER_TEMP/gate_prefetch.json" --prev "$RUNNER_TEMP/gate_cache/sources.json" > "$RUNNER_TEMP/gate_prefetch.log" 2>&1 &
           echo "prefetch started (pid $!)"
 
       # UPDATE, BUILD, SITE - with a second try and the last good code behind it (ops/run.sh; 22 September 2026, collection
@@ -607,7 +617,7 @@ jobs:
           for i in $(seq 1 240); do pgrep -f -- '--prefetch-to' >/dev/null || break; sleep 1; done
           cat "$RUNNER_TEMP/gate_prefetch.log" 2>/dev/null | tail -2
           WARM=""; [ -s "$RUNNER_TEMP/gate_prefetch.json" ] && WARM="--warm $RUNNER_TEMP/gate_prefetch.json"
-          python3 s2/source_gate.py --site "$SITE" $WARM 2>&1 | tee "$RUNNER_TEMP/source_gate.log"; rc=${PIPESTATUS[0]}
+          python3 s2/source_gate.py --site "$SITE" $WARM --cache-out "$RUNNER_TEMP/gate_cache/sources.json" 2>&1 | tee "$RUNNER_TEMP/source_gate.log"; rc=${PIPESTATUS[0]}
           grep -E '^(HOLD source gate|source gate)' "$RUNNER_TEMP/source_gate.log" | tail -1 >> "$GITHUB_WORKSPACE/run.log"
           exit $rc
 

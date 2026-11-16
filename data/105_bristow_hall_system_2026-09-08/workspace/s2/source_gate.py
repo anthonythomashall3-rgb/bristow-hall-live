@@ -1171,7 +1171,7 @@ def warm_cache(path, fred_key=''):
     return {k: v for k, v in c.items() if k.split(':')[1] not in changed}
 
 
-def prefetch(out_path, keys_path=KEYS, workers=3, spacing=0.75):
+def prefetch(out_path, keys_path=KEYS, workers=3, spacing=0.75, prev=None):
     """1052 speed: fetch, in parallel and politely (one call every `spacing` seconds across all threads: 80 a minute, under FRED's 120
     for the key every job shares; a 429 makes every thread wait). Only FRED sources are fetched: the gate re-reads the rest itself, every source the last gate read, into a cache the gate then starts from (--warm). The
     gate reads the same sources from the same publishers; it only no longer waits for them one by one after the build."""
@@ -1180,6 +1180,16 @@ def prefetch(out_path, keys_path=KEYS, workers=3, spacing=0.75):
     keys = [k for k in json.load(open(keys_path)) if k.startswith('fred:') or k.startswith('rel:')]
     src = Sources(os.environ.get('FRED_API_KEY', '').strip(), os.environ.get('BLS_API_KEY', '').strip(), budget_s=600)
     src.spacing = spacing
+    # 1052 speed (16 Nov 2026): THE LAST RUN'S SOURCES, KEPT. The answers the previous gate read (its --cache-out, restored from GitHub's
+    # cache) are kept only for FRED series FRED itself lists as NOT updated since they were read (one fred/series/updates call, as the
+    # gate's --warm does); everything else is fetched now. The stamp written is the time of that check, so the gate's own --warm check
+    # covers the whole span from the first read to the gate. No previous cache, or a failed check: everything is fetched, as before.
+    t_ct = dt.datetime.now(ZoneInfo('America/Chicago')).strftime('%Y%m%d%H%M')
+    kept = warm_cache(prev, src.fred_key) if prev and os.path.exists(prev) else None
+    if kept:
+        src.c.update(kept); n_kept = len(kept)
+    else:
+        n_kept = 0
     today = dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat()
     def one(k):
         p = k.split(':')
@@ -1191,16 +1201,18 @@ def prefetch(out_path, keys_path=KEYS, workers=3, spacing=0.75):
             elif p[0] == 'dol539': src.dol539()
             elif p[0] == 'qcew': src.qcew_has(int(p[1]), int(p[2]))
         except Exception: pass
-    t0 = time.time(); t_ct = dt.datetime.now(ZoneInfo('America/Chicago')).strftime('%Y%m%d%H%M')   # FRED's stamps are Central time
-    with ThreadPoolExecutor(max_workers=workers) as ex: list(ex.map(one, keys))
+    t0 = time.time()   # t_ct (above): FRED's stamps are Central time
+    with ThreadPoolExecutor(max_workers=workers) as ex: list(ex.map(one, [k for k in keys if k not in src.c]))
     src.c['_meta:prefetched_ct'] = t_ct
     src.save(out_path)
-    print('source gate prefetch: %d of %d sources in %.0fs, %d calls' % (sum(1 for k in src.c if not k.endswith(':err')) - 1, len(keys), time.time() - t0, src.calls))
+    print('source gate prefetch: %d of %d sources in %.0fs, %d calls (%d kept from the last run, FRED reporting them unchanged)' % (sum(1 for k in src.c if not k.endswith(':err')) - 1, len(keys), time.time() - t0, src.calls, n_kept))
 
 
 def run(site, mode='warn', pages=None, sources_in=None, sources_out=None, now=None, out=None, verified_path=None,
-        fred_key=None, bls_key=None, quiet=False, write_verified=True, warm=None):
+        fred_key=None, bls_key=None, quiet=False, write_verified=True, warm=None, cache_out=None):
     t0 = time.time()
+    from zoneinfo import ZoneInfo
+    t0_ct = (dt.datetime.now(ZoneInfo('America/Chicago')) - dt.timedelta(minutes=1)).strftime('%Y%m%d%H%M')
     fk = fred_key if fred_key is not None else os.environ.get('FRED_API_KEY', '').strip()
     cache = json.load(open(sources_in)) if sources_in and os.path.exists(sources_in) else (warm_cache(warm, fk) if warm else None)
     src = Sources(fk,
@@ -1222,6 +1234,12 @@ def run(site, mode='warn', pages=None, sources_in=None, sources_out=None, now=No
             import traceback
             R.add(p, 'the gate itself', 'crash', 'FAIL', detail='%s: %s | %s' % (type(e).__name__, e, traceback.format_exc().splitlines()[-3][:200]))
     if sources_out: src.save(sources_out)
+    if cache_out and not sources_in:   # 1052 speed: what this gate read, stamped with its start, for the next run's prefetch (--prev)
+        try:
+            os.makedirs(os.path.dirname(os.path.abspath(cache_out)), exist_ok=True)
+            json.dump(dict({k: v for k, v in src.c.items() if k.startswith('fred:') or k.startswith('rel:')}, **{'_meta:prefetched_ct': t0_ct}), open(cache_out, 'w'))
+        except OSError:
+            pass
     if not sources_in and write_verified:   # 1052 speed: the sources this gate read, for the next run's prefetch
         try:
             os.makedirs(os.path.dirname(KEYS), exist_ok=True)
@@ -1284,10 +1302,12 @@ def main():
     ap.add_argument('--verified'); ap.add_argument('--no-verified-write', action='store_true')
     ap.add_argument('--live-dir', help='where --live keeps the downloaded pages (default: a new temporary folder)')
     ap.add_argument('--prefetch-to', help='1052 speed: fetch every source the last gate read into this file, then stop')
+    ap.add_argument('--prev', help='1052 speed: with --prefetch-to, the last gate\'s --cache-out (FRED answers FRED reports unchanged are kept)')
+    ap.add_argument('--cache-out', help='1052 speed: write what this gate read (FRED answers, stamped) for the next run\'s prefetch')
     ap.add_argument('--warm', help='1052 speed: start from the sources a --prefetch-to of this run fetched (online: anything missing is fetched)')
     a = ap.parse_args()
     if a.prefetch_to:
-        prefetch(a.prefetch_to); return
+        prefetch(a.prefetch_to, prev=a.prev); return
     mode = a.mode
     if not mode:
         try: mode = json.load(open(os.path.join(ROOT, 'ops', 'source_gate.json'))).get('mode', 'warn')
@@ -1301,7 +1321,7 @@ def main():
     now = dt.datetime.strptime(a.now, '%Y-%m-%d %H:%M').replace(tzinfo=dt.timezone.utc) if a.now else None
     try:
         rep = run(site, mode, a.pages.split(',') if a.pages else None, a.sources_in, a.sources_out, now, a.out, a.verified,
-                  write_verified=not a.no_verified_write and not a.live, warm=a.warm)
+                  write_verified=not a.no_verified_write and not a.live, warm=a.warm, cache_out=a.cache_out)
     except Exception as e:
         print('HOLD source gate: the gate itself failed (%s: %s); nothing is published' % (type(e).__name__, e) if mode == 'hold'
               else 'source gate (warn mode) crashed: %s: %s' % (type(e).__name__, e))
