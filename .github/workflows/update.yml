@@ -58,7 +58,7 @@ concurrency:
 permissions:
   contents: write
   issues: write      # the second alert channel (s2/alert.sh opens an issue); 20 September 2026, collection 257
-  actions: read      # the month's minutes are read from this repository's own runs; 20 September 2026, collection 274
+  actions: write     # 1052 speed: a release slot of the live tools' data starts live-tools.yml (was read: the month's minutes are read from this repository's own runs; 20 September 2026, collection 274
 
 jobs:
   update:
@@ -623,6 +623,20 @@ jobs:
           npx --yes wrangler@4.136.0 pages deploy "$SITE_SUB" --project-name bhrrealtime --branch "$PAGES_BRANCH" --commit-dirty=true \
             || npx --yes wrangler@4 pages deploy "$SITE_SUB" --project-name bhrrealtime --branch "$PAGES_BRANCH" --commit-dirty=true \
             || { sleep 30; npx --yes wrangler@4 pages deploy "$SITE_SUB" --project-name bhrrealtime --branch "$PAGES_BRANCH" --commit-dirty=true; }
+
+      # 1052 SPEED (16 November 2026): A RELEASE THE LIVE TOOLS READ STARTS THEM. A slot run whose release feeds the State onset page and the
+      # stress map (run_slots.json "live_tools": the BLS State release, the Employment Situation) starts live-tools.yml as soon as the
+      # publisher has the release and this run has published, instead of waiting for its fixed times (16:50 and 02:20 UTC).
+      - name: start the live tools for this release
+        if: steps.when.outputs.go == 'true' && steps.publish.outcome == 'success' && github.ref_name == 'main' && inputs.origin == 'slot' && inputs.slot != ''
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SLOT: ${{ inputs.slot }}
+          RUN_SLOTS: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}/run_slots.json
+        run: |
+          LT=$(python3 -c "import json,os;print(next((1 for s in json.load(open(os.environ['RUN_SLOTS']))['slots'] if s.get('ny')==os.environ['SLOT'] and s.get('live_tools')),0))" 2>/dev/null || echo 0)
+          if [ "$LT" = "1" ]; then gh workflow run live-tools.yml --ref main -f mode=full && echo "live-tools.yml started for the $SLOT release"; else echo "the $SLOT slot does not feed the live tools"; fi
 
       # TEST BUILDS ARE DELETED AFTER THEIR TEST (audit-0924, 24 September 2026; Anthony: "Auto-delete"); live builds after 30 days (409). A test branch
       # publishes a preview at its own public address; one older than two hours has had its test, so it is deleted and no
