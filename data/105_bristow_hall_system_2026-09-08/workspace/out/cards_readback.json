@@ -1,5 +1,5 @@
 {
- "at": "2026-11-16T13:55:18Z",
+ "at": "2026-11-16T14:03:00Z",
  "cards": {
   "/detector/": {
    "img": "/detector/card.png?v=c5ce6d43",
@@ -25,8 +25,8 @@
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
-  "/damage-index/": {
-   "img": "/damage-index/card.png?v=f009e5f7",
+  "/forecaster/": {
+   "img": "/forecaster/card.png?v=b93da363",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
