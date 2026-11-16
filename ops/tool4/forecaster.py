@@ -264,7 +264,7 @@ page = f'''<!doctype html>
 .fc .status{{font-size:22px;font-weight:700;padding:12px 16px;border-radius:6px;margin:0 0 18px;display:inline-block}}
 .fc .status.clear{{background:#eef6ee;color:#1d5e20}} .fc .status.warn{{background:#fbeaea;color:#990000}}
 .fc table{{border-collapse:collapse;margin:8px 0 18px;font-size:14px}} .fc td,.fc th{{border-bottom:1px solid #e5e5e5;padding:5px 12px 5px 0;text-align:left}}
-.fc .muted{{color:#888}} .fc .key span{{display:inline-block;margin-right:18px;font-size:13px}} .fc p{{color:#333;max-width:900px}}
+.fc .muted{{color:#888}} .fc .key span{{display:inline-block;margin-right:18px;font-size:13px}} .fc p{{color:#333;max-width:none}}
 #chart svg{{width:100%;height:auto;display:block}}
 </style>
 </head>
