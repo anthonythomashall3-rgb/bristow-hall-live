@@ -386,6 +386,23 @@ jobs:
           if [ -z "$W" ]; then echo "the $SLOT slot reads nothing from a publisher"; exit 0; fi
           timeout 780 python3 s2/publisher_first.py wait $W --limit 720 2>&1 | tee -a "$GITHUB_WORKSPACE/run.log" || true
 
+      # 1052 SPEED: THE SOURCE GATE'S SOURCES, FETCHED WHILE THE SITE BUILDS. The gate (below, before the publish) used to fetch its ~180
+      # sources one by one after the build, 100-155 s on the release path. They are fetched here in the background, in parallel and under
+      # FRED's rate limit, from the list the last gate read (ops/state/source_gate_keys.json); the gate then starts from them, keeping only
+      # FRED answers of series FRED says it has not updated since, and fetches everything else itself. Same checks, same verdict
+      # (ops/speed/parity_source_gate.py). A prefetch that fails leaves the gate as it was.
+      - name: the source gate's sources, fetched while the site builds
+        if: steps.when.outputs.go == 'true'
+        continue-on-error: true
+        working-directory: ${{ steps.tool.outputs.workspace }}
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: |
+          rm -f "$RUNNER_TEMP/gate_prefetch.json"
+          nohup python3 s2/source_gate.py --prefetch-to "$RUNNER_TEMP/gate_prefetch.json" > "$RUNNER_TEMP/gate_prefetch.log" 2>&1 &
+          echo "prefetch started (pid $!)"
+
       # UPDATE, BUILD, SITE - with a second try and the last good code behind it (ops/run.sh; 22 September 2026, collection
       # 306). run_cloud.sh is the live tool's entry (ops/tool.json); ops/run.sh runs it with a time limit, tries once more
       # after a failure, and if the code has changed since the last run that published, runs that run's code, so a broken
@@ -581,7 +598,11 @@ jobs:
           SITE: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}
         run: |
           set +e
-          python3 s2/source_gate.py --site "$SITE" 2>&1 | tee "$RUNNER_TEMP/source_gate.log"; rc=${PIPESTATUS[0]}
+          # the prefetch started before the build (1052 speed): wait for it while it is still fetching (at most 4 minutes), then start from it
+          for i in $(seq 1 240); do pgrep -f -- '--prefetch-to' >/dev/null || break; sleep 1; done
+          cat "$RUNNER_TEMP/gate_prefetch.log" 2>/dev/null | tail -2
+          WARM=""; [ -s "$RUNNER_TEMP/gate_prefetch.json" ] && WARM="--warm $RUNNER_TEMP/gate_prefetch.json"
+          python3 s2/source_gate.py --site "$SITE" $WARM 2>&1 | tee "$RUNNER_TEMP/source_gate.log"; rc=${PIPESTATUS[0]}
           grep -E '^(HOLD source gate|source gate)' "$RUNNER_TEMP/source_gate.log" | tail -1 >> "$GITHUB_WORKSPACE/run.log"
           exit $rc
 
