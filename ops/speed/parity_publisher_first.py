@@ -42,7 +42,8 @@ def sha(p): return hashlib.sha256(open(p, 'rb').read()).hexdigest()
 
 def pre_state(src, dst):
     tab = pd.read_csv(src, index_col=0); tab.index = pd.to_datetime(tab.index)
-    tab = tab.drop(columns=[tab.columns[-1]]).dropna(how='all')
+    last = tab[tab.columns[-1]]; tab = tab.drop(columns=[tab.columns[-1]])
+    tab = tab[~(tab.isna().all(axis=1) & last.notna())]     # the rows only the newest vintage carried (a row empty in every vintage stays)
     tab.index.name = 'date'; tab.to_csv(dst, na_rep='')
 
 
