@@ -84,7 +84,7 @@ OFFICIAL_CLOSE_HM = '20:15' # used only while FRED's posting clock for SP500 is 
 MARKET_CLOSE_HM = '16:00'   # the NYSE close: an SP500 post before it is not the day's official close
 MERGE_MIN = 15          # slots closer than this are one run
 # 1052 speed (15 Nov 2026): FRED release id -> the publisher group s2/publisher_first.py reads at release time (BLS API v2, the G.17 file)
-PUBLISHER_FIRST = {'50': 'bls_empsit', '192': 'bls_jolts', '13': 'fed_g17'}
+PUBLISHER_FIRST = {'50': 'bls_empsit', '192': 'bls_jolts', '13': 'fed_g17', '10': 'bls_cpi', '180': 'dol_claims'}
 PUBLISHER_FIRST_MIN = 1  # the publisher-read run starts this many minutes after the release, then polls the publisher (update.yml)
 PUBLISHER_WARM_MIN = 20  # and a run this many minutes before it does the day's first (full) refresh, so the release run is incremental
 MIN_FUTURE = 3          # every row always knows at least its next three releases
@@ -986,7 +986,7 @@ def schedule(cal, state, pending):
             # from its publisher (s2/publisher_first.py) gets a run one minute after the release, which polls the publisher until the
             # new month is out; the FRED run above stays for everything still read from FRED
             pfg = PUBLISHER_FIRST.get(str(r.get('release_id') or ''))
-            if pfg and lag > 0:
+            if pfg:
                 raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), '%s (%s ET; read from the publisher)' % (r['short'], t.strftime('%I:%M %p').lstrip('0')), pfg))
                 # the day's first run pulls every series (bhs_update.py FULL); it is done before the release, so the release run is quick
                 raw.append((t - dt.timedelta(minutes=PUBLISHER_WARM_MIN), "the day's full refresh before %s (%s ET)" % (r['short'], t.strftime('%I:%M %p').lstrip('0'))))
