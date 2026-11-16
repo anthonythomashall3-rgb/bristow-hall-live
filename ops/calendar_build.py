@@ -84,7 +84,7 @@ OFFICIAL_CLOSE_HM = '20:15' # used only while FRED's posting clock for SP500 is 
 MARKET_CLOSE_HM = '16:00'   # the NYSE close: an SP500 post before it is not the day's official close
 MERGE_MIN = 15          # slots closer than this are one run
 # 1052 speed (15 Nov 2026): FRED release id -> the publisher group s2/publisher_first.py reads at release time (BLS API v2, the G.17 file)
-PUBLISHER_FIRST = {'50': 'bls_empsit', '192': 'bls_jolts', '13': 'fed_g17', '10': 'bls_cpi', '180': 'dol_claims', '112': 'bls_state'}
+PUBLISHER_FIRST = {'53': 'bea_gdp', '50': 'bls_empsit', '192': 'bls_jolts', '13': 'fed_g17', '10': 'bls_cpi', '180': 'dol_claims', '112': 'bls_state'}
 LIVE_TOOLS_GROUPS = {'bls_state', 'bls_empsit', 'dol_539'}
 ETA539_HM = '15:56'     # the Department's ETA 539 State file follows the claims release the same day at about 3:55 PM ET (measured)   # a slot waiting for these also starts live-tools.yml (State onset, stress map: State LAUS/CES, CES national)
 PUBLISHER_FIRST_MIN = 1  # the publisher-read run starts this many minutes after the release, then polls the publisher (update.yml)

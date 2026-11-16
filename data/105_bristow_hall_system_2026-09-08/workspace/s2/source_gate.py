@@ -63,6 +63,7 @@ PUB_BLS = {'PAYEMS': 'CES0000000001', 'USMINE': 'CES1000000001', 'USCONS': 'CES2
            'USEHS': 'CES6500000001', 'USLAH': 'CES7000000001', 'USSERV': 'CES0800000001', 'USGOVT': 'CES9000000001',
            'UNRATE': 'LNS14000000', 'UNEMPLOY': 'LNS13000000', 'LNS13023621': 'LNS13023621', 'JTSJOL': 'JTS000000000000000JOL',
            'JTSQUR': 'JTS000000000000000QUR', 'CPIAUCSL': 'CUSR0000SA0', 'CPIAUCNS': 'CUUR0000SA0'}
+PUB_BEA = {'GDPC1': ('T10106', '1', 'Q'), 'W875RX1': ('T20600', '36', 'M')}   # W875RX1 = Table 2.6 line 36 (found by ops/speed/parity_publisher_first.py: 33 of 33 months equal FRED's)   # 1052: NIPA table, line, frequency of the BEA series behind FRED ids (publisher fallback)
 BLS_OF = {'UNRATE': 'LNS14000000', 'PAYEMS': 'CES0000000001', 'UNEMPLOY': 'LNS13000000', 'LNS13023621': 'LNS13023621',
           'JTSJOL': 'JTS000000000000000JOL', 'JTSQUR': 'JTS000000000000000QUR', 'CPIAUCSL': 'CUSR0000SA0'}
 # month averages of daily H.15 / Moody's series: next published by the program's documented rule, not FRED's daily H.15 calendar
@@ -238,6 +239,29 @@ class Sources:
         except Exception as e:
             self.c[key + ':err'] = str(e); return None
 
+    def bea(self, table, line, freq):
+        """one NIPA line from the BEA API (key BEA_API_KEY): {'YYYY-MM': value in billions}. 1052: the publisher fallback for GDP."""
+        key = 'bea:%s:%s:%s' % (table, line, freq)
+        if key in self.c: return self.c[key]
+        if key + ':err' in self.c: return None
+        try:
+            k = os.environ.get('BEA_API_KEY', '').strip()
+            if not k: raise RuntimeError('no BEA key')
+            q = urllib.parse.urlencode(dict(UserID=k, method='GetData', datasetname='NIPA', TableName=table, Frequency=freq, Year='ALL', ResultFormat='JSON'))
+            res = json.loads(self._get('https://apps.bea.gov/api/data?' + q).replace(k, '[key]'))['BEAAPI']['Results']
+            res = res[0] if isinstance(res, list) else res
+            out = {}
+            for o in res.get('Data', []):
+                if str(o.get('LineNumber')) != str(line): continue
+                tp = o['TimePeriod']
+                m = '%s-%02d' % (tp[:4], (int(tp[5]) - 1) * 3 + 1) if 'Q' in tp else '%s-%s' % (tp[:4], tp[5:7])
+                try: out[m] = float(o['DataValue'].replace(',', '')) * 10 ** int(o.get('UNIT_MULT') or 0) / 1e9
+                except ValueError: pass
+            if not out: raise RuntimeError('BEA: no line %s in %s' % (line, table))
+            self.c[key] = out; return out
+        except Exception as e:
+            self.c[key + ':err'] = str(e); return None
+
     def g17(self, code='B50001'):
         """the Federal Reserve's G.17 data file (ip_sa.txt): {'YYYY-MM': value} of one seasonally adjusted series (B50001 = INDPRO).
         1052 speed: the publisher's own print, read where FRED has not posted the release yet."""
@@ -368,6 +392,8 @@ class Gate:
         try:
             if sid == 'INDPRO':
                 vals = self.src.g17() or {}
+            elif sid in PUB_BEA:
+                vals = self.src.bea(*PUB_BEA[sid]) or {}
             elif sid in PUB_BLS:
                 vals = {}
                 if PUB_BLS[sid] in BLS_OF.values():      # the bundle the gate reads anyway (value_on, bls_newest): one call for all
@@ -378,7 +404,7 @@ class Gate:
                 return None
             rows = [['%s-01' % m, None, '9999-12-31', v] for m, v in sorted(vals.items()) if '%s-01' % m >= start]
             if not rows: return None
-            self.R.add('sources', sid, 'source', 'WARN', detail='FRED could not be read: checked against the publisher (%s)' % ('G.17 file' if sid == 'INDPRO' else 'BLS API v2 ' + PUB_BLS[sid]))
+            self.R.add('sources', sid, 'source', 'WARN', detail='FRED could not be read: checked against the publisher (%s)' % ('G.17 file' if sid == 'INDPRO' else ('BEA API %s line %s' % PUB_BEA[sid][:2]) if sid in PUB_BEA else 'BLS API v2 ' + PUB_BLS[sid]))
             return rows
         except Exception:
             return None

@@ -32,6 +32,7 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
         run: python3 ops/speed/parity_publisher_first.py
       - name: the release-time probes and the State first-print capture answer (smoke test; nothing kept)
         env:
