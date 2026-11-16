@@ -1,11 +1,11 @@
 {
  "gate": "source gate (s2/source_gate.py, collection 1052)",
- "mode": "warn",
+ "mode": "hold",
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-15",
- "checked_at": "2026-11-16 01:30 UTC",
- "seconds": 96.0,
+ "checked_at": "2026-11-16 01:37 UTC",
+ "seconds": 95.1,
  "source_calls": 171,
  "source_errors": {},
  "counts": {
