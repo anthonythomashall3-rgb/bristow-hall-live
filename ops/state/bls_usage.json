@@ -1,7 +1,7 @@
 {
  "day": "2026-11-16",
  "requests": {
-  "bls_v2_key1": 2
+  "bls_v2_key1": 3
  },
  "alerted": {},
  "refused": {}
