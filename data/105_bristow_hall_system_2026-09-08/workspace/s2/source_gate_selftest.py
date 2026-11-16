@@ -202,6 +202,22 @@ def main():
     print('  %-22s %s  FRED and BLS down for UNRATE, the tile changed (4.4%%): %s (held)' % ('outage_changed', 'CAUGHT' if o2 else 'MISSED', st2))
     allok &= o1 and o2
     out['outage'] = {'unchanged': st1, 'unchanged_ok': o1, 'changed': st2, 'changed_held': o2}
+    # 1052 (16 Nov 2026): FRED refuses a read (429, the key's shared limit) but the publisher answers. The figure is checked against the
+    # publisher (BLS API v2) and passes, whatever the verified store says; changed to a wrong value, it is a FAIL (a mismatch), not merely held.
+    cache = json.load(open(a.sources))
+    for k in [k for k in cache if k.startswith('fred:UNRATE:')]: cache[k + ':err'] = 'HTTP 429 Too Many Requests (simulated)'; del cache[k]
+    pc = os.path.join(tmp, 'fred429_sources.json'); json.dump(cache, open(pc, 'w')); json.dump({}, open(vfile, 'w'))
+    r3 = G.run(a.site, mode='hold', sources_in=pc, verified_path=vfile, quiet=True, write_verified=False)
+    st3 = [x['status'] for x in r3['rows'] if x['page'] == 'home' and x['label'] == 'Unemployment rate' and x['check'] in ('source', 'value', 'freshness')]
+    r4 = G.run(d, mode='hold', sources_in=pc, verified_path=vfile, quiet=True, write_verified=False)
+    rows4 = [x for x in r4['rows'] if x['page'] == 'home' and x['label'] == 'Unemployment rate' and x['check'] in ('source', 'value', 'freshness')]
+    st4 = [x['status'] for x in rows4]
+    o3 = 'PASS' in st3 and 'FAIL' not in st3 and 'UNVERIFIED' not in st3
+    o4 = any(x['status'] == 'FAIL' and x['check'] == 'value' for x in rows4)
+    print('  %-22s %s  FRED refuses UNRATE (429), the BLS answers, a figure never verified: %s (checked against the publisher)' % ('fred429_publisher', 'OK' if o3 else 'WRONG', st3))
+    print('  %-22s %s  the same, the tile changed (4.4%%): %s (a mismatch with the publisher)' % ('fred429_mismatch', 'CAUGHT' if o4 else 'MISSED', st4))
+    allok &= o3 and o4
+    out['fred429'] = {'unchanged': st3, 'unchanged_ok': o3, 'changed': st4, 'changed_caught': o4}
     out['all_caught'] = bool(allok)
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
     json.dump(out, open(a.out, 'w'), indent=1, default=str)
