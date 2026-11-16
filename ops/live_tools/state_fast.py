@@ -47,7 +47,7 @@ def _fetch_span(ids, y0, y1, key):
                 if d.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError('%s %s' % (d.get('status'), (d.get('message') or [''])[:1]))
                 break
             except Exception as e:
-                if t == 2: d = {'Results': {'series': []}}; REC['why']['bls %d-%d batch %d' % (y0, y1, i // 50)] = str(e)[:160]   # those series go to FRED
+                if t == 2: d = {'Results': {'series': []}}; REC['why']['bls %d-%d batch %d' % (y0, y1, i // 50)] = str(e).replace(key or '\0', '[key]')[:160]   # those series go to FRED (the refusal repeats the key: redacted)
                 else: time.sleep(5 * (t + 1))
         for s in d['Results']['series']:
             rows = got.setdefault(s['seriesID'], {})
