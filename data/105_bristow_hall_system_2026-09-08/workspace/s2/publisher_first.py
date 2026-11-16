@@ -354,14 +354,24 @@ def _probe_539():
     return bool(newest and newest >= sat.isoformat()), 'ETA 539 through %s (Wyoming)' % newest
 
 
+def _fred_json(url, tries=4):
+    """a FRED API call that waits out a 429 (the key's limit is shared by every job running at the moment)"""
+    import urllib.request, urllib.error
+    for i in range(tries):
+        try:
+            with urllib.request.urlopen(url, timeout=30) as r: return json.load(r)
+        except urllib.error.HTTPError as e:
+            if e.code != 429 or i == tries - 1: raise
+            time.sleep(15 * (i + 1))
+
+
 def _probe_fred(g):
     """fred:<SID>:<release time, New York, YYYYMMDDHHMM>: out when FRED's last_updated stamp for the series is at or after the release"""
     import urllib.request
     from zoneinfo import ZoneInfo
     _, sid, rel = g.split(':')
     k = os.environ.get('FRED_API_KEY', '').strip()
-    with urllib.request.urlopen('https://api.stlouisfed.org/fred/series?series_id=%s&file_type=json&api_key=%s' % (sid, k), timeout=30) as r:
-        lu = json.load(r)['seriess'][0]['last_updated']          # '2026-11-23 07:36:02-06'
+    lu = _fred_json('https://api.stlouisfed.org/fred/series?series_id=%s&file_type=json&api_key=%s' % (sid, k))['seriess'][0]['last_updated']   # '2026-11-23 07:36:02-06'
     t = datetime.datetime.strptime(lu[:19], '%Y-%m-%d %H:%M:%S').replace(tzinfo=datetime.timezone(datetime.timedelta(hours=int(lu[19:]))))
     r0 = datetime.datetime.strptime(rel, '%Y%m%d%H%M').replace(tzinfo=ZoneInfo('America/New_York'))
     return t >= r0 - datetime.timedelta(minutes=2), 'FRED %s updated %s' % (sid, lu)
