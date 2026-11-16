@@ -390,6 +390,14 @@ jobs:
       # 306). run_cloud.sh is the live tool's entry (ops/tool.json); ops/run.sh runs it with a time limit, tries once more
       # after a failure, and if the code has changed since the last run that published, runs that run's code, so a broken
       # new version never stops the site updating (the notification says so, and the new code stays in the repository).
+      # Tool 4's inputs fetched before the build, so the data page's forecaster rows show the newest figures (1118, 16 Nov 2026)
+      - name: the recession forecaster's inputs (Tool 4)
+        if: steps.when.outputs.go == 'true'
+        continue-on-error: true
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: python3 ops/tool4/forecaster.py --prefetch
+
       - name: update, build, site
         id: main
         if: steps.when.outputs.go == 'true'

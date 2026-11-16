@@ -17,7 +17,7 @@ Inputs: FRED API (GS10, GS1, TB3MS; FDEFX, CPIAUCNS for the veto's live days) wi
 claims first prints (workspace/cache/national_first_prints_1985_live.csv); the 1949-75 first prints (collection 59) and the veto
 history 1965-08-19..2026-10-04 (collection 561) kept in data/tool4_forecaster/. Writes site/public/forecaster/ (index.html,
 state.json), turns /damage-index/ into a pointer to it, and renames the menu entry and home card on every built page.
-Usage: python3 ops/tool4/forecaster.py [--offline]"""
+Usage: python3 ops/tool4/forecaster.py [--offline] [--prefetch: fetch and keep the inputs only, before the site build]"""
 import os, re, sys, csv, json, glob, calendar, datetime as dt, urllib.request, urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -37,6 +37,8 @@ def me(m):
     y, mo = map(int, m.split('-')); return dt.date(y, mo, calendar.monthrange(y, mo)[1])
 
 # ---------- FRED ----------
+LATEST_F = os.path.join(DATA, 'latest.json')   # the newest observation of each series as FRED holds it now (the data page reads it)
+LATEST = json.load(open(LATEST_F)) if os.path.exists(LATEST_F) else {}
 def fred(sid, start='1950-01-01'):
     key = os.environ.get('FRED_API_KEY', '')
     if OFFLINE or not key: return None
@@ -45,7 +47,9 @@ def fred(sid, start='1950-01-01'):
         try:
             with urllib.request.urlopen('https://api.stlouisfed.org/fred/series/observations?' + q, timeout=60) as r:
                 obs = json.load(r)['observations']
-            return {o['date'][:10]: float(o['value']) for o in obs if o['value'] not in ('.', '')}
+            out = {o['date'][:10]: float(o['value']) for o in obs if o['value'] not in ('.', '')}
+            if out: LATEST[sid] = [max(out), out[max(out)]]
+            return out
         except Exception as e:
             err = type(e).__name__
     log('FRED', sid, 'failed:', err); return None
@@ -111,6 +115,9 @@ if f_ and c_:
             live_rows.append(dict(date=TODAY.isoformat(), surge=f'{g - infl:.4f}', quarter=q[:7], defense_g4=f'{g:.4f}', cpi_g4=f'{infl:.4f}'))
         with open(LIVE_V, 'w', newline='') as f:
             w = csv.DictWriter(f, fieldnames=['date', 'surge', 'quarter', 'defense_g4', 'cpi_g4']); w.writeheader(); w.writerows(live_rows)
+json.dump(LATEST, open(LATEST_F, 'w'), indent=1)
+if '--prefetch' in sys.argv:   # before the site build: the data page's rows read these files (1118, 16 Nov 2026)
+    print('prefetch done:', {k: v[0] for k, v in LATEST.items()}); sys.exit(0)
 # days after the 561 history: each day takes the newest live reading made on or before it (the first live reading also covers the gap
 # between the end of the 561 history and the first live run)
 lr = sorted((r['date'], float(r['surge'])) for r in live_rows)

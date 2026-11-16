@@ -112,20 +112,15 @@ def forecaster_rows():
     rows.append(_row('forecaster', 'Insured unemployment rate, first print', 'IURSA', 'Department of Labor (weekly claims release, first prints)',
                      'https://fred.stlouisfed.org/series/IURSA', 'weekly', (iu['iu_week_ended'] if iu else 'MISSING'), built or 'MISSING',
                      value=(iu['iur_sa'] if iu else 'MISSING'), units='percent, seasonally adjusted', sched=('cal', 'IURSA')))
-    try: W = list(csv.DictReader(open(os.path.join(D, 'war_surge_live.csv'))))
-    except Exception: W = []
-    w = W[-1] if W else None
-    q = (w['quarter'] + '-01') if w else 'MISSING'
-    rows.append(_row('forecaster', 'Federal defense consumption and investment (war-surge veto)', 'FDEFX', 'FRED (API, every run)',
-                     'https://fred.stlouisfed.org/series/FDEFX', 'quarterly', q, built or 'MISSING',
-                     value=('%+.1f%%' % float(w['defense_g4']) if w else 'MISSING'), units='change from a year earlier', sched=('inputs', [53])))
-    qe = q
-    if w:
-        y, m = map(int, w['quarter'].split('-')); qe = '%d-%02d-01' % (y, m + 2)   # the quarter's last month: the CPI months the veto compares
-    rows.append(_row('forecaster', 'Consumer prices, not seasonally adjusted (war-surge veto)', 'CPIAUCNS', 'FRED (API, every run)',
-                     'https://fred.stlouisfed.org/series/CPIAUCNS', 'monthly', qe, built or 'MISSING',
-                     value=('%+.1f%%' % float(w['cpi_g4']) if w else 'MISSING'), units='change from a year earlier, same quarter',
-                     sched=('pub', 'bls_cpi', CAL['bls_cpi'][2])))
+    try: L = json.load(open(os.path.join(D, 'latest.json')))
+    except Exception: L = {}
+    for sid, name, units, cad, sched in (
+            ('FDEFX', 'Federal defense consumption and investment (war-surge veto)', 'billions of dollars, seasonally adjusted annual rate', 'quarterly', ('inputs', [53])),
+            ('CPIAUCNS', 'Consumer prices, not seasonally adjusted (war-surge veto)', 'index 1982-84=100', 'monthly', ('pub', 'bls_cpi', CAL['bls_cpi'][2]))):
+        x = L.get(sid)
+        rows.append(_row('forecaster', name, sid, 'FRED (API, every run)', 'https://fred.stlouisfed.org/series/' + sid, cad,
+                         (x[0] if x else 'MISSING'), built or 'MISSING', value=(('%.3f' % x[1]).rstrip('0').rstrip('.') if x else 'MISSING'),
+                         units=units, sched=sched))
     return rows
 def all_rows():
     m, gen = mac_rows(); return disturbance_rows() + m + forecaster_rows(), gen
