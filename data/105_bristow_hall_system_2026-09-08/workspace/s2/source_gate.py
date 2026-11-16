@@ -1108,9 +1108,9 @@ def warm_cache(path, fred_key=''):
     return {k: v for k, v in c.items() if k.split(':')[1] not in changed}
 
 
-def prefetch(out_path, keys_path=KEYS, workers=4, spacing=0.75):
-    """1052 speed: fetch, in parallel and politely (one call every `spacing` seconds across all threads, under FRED's 120 a minute
-    together with the update's own calls), every source the last gate read, into a cache the gate then starts from (--warm). The
+def prefetch(out_path, keys_path=KEYS, workers=4, spacing=0.6):
+    """1052 speed: fetch, in parallel and politely (one call every `spacing` seconds across all threads: 100 a minute, under FRED's 120
+    together with the update's own few calls), every source the last gate read, into a cache the gate then starts from (--warm). The
     gate reads the same sources from the same publishers; it only no longer waits for them one by one after the build."""
     from concurrent.futures import ThreadPoolExecutor
     from zoneinfo import ZoneInfo
