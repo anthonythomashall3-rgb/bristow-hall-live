@@ -1145,13 +1145,13 @@ def warm_cache(path, fred_key=''):
     return {k: v for k, v in c.items() if k.split(':')[1] not in changed}
 
 
-def prefetch(out_path, keys_path=KEYS, workers=3, spacing=1.0):
-    """1052 speed: fetch, in parallel and politely (one call every `spacing` seconds across all threads: 60 a minute, half of FRED's 120
-    for the key every job shares), every source the last gate read, into a cache the gate then starts from (--warm). The
+def prefetch(out_path, keys_path=KEYS, workers=3, spacing=0.75):
+    """1052 speed: fetch, in parallel and politely (one call every `spacing` seconds across all threads: 80 a minute, under FRED's 120
+    for the key every job shares; a 429 makes every thread wait). Only FRED sources are fetched: the gate re-reads the rest itself, every source the last gate read, into a cache the gate then starts from (--warm). The
     gate reads the same sources from the same publishers; it only no longer waits for them one by one after the build."""
     from concurrent.futures import ThreadPoolExecutor
     from zoneinfo import ZoneInfo
-    keys = json.load(open(keys_path))
+    keys = [k for k in json.load(open(keys_path)) if k.startswith('fred:') or k.startswith('rel:')]
     src = Sources(os.environ.get('FRED_API_KEY', '').strip(), os.environ.get('BLS_API_KEY', '').strip(), budget_s=600)
     src.spacing = spacing
     today = dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat()
