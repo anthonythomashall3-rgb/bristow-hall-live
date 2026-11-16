@@ -305,8 +305,7 @@ def verify(al, fred_vintage, vintage_dates, say=print, backup=None, alert=None):
 # minute after the release only waits until the source the build reads has the new period, then builds:
 #   bls_cpi     the CPI: the home tile takes a month the BLS API has ahead of FRED (s2/home_tiles.py); out when the BLS API has the
 #               month before the release month
-#   dol_claims  the weekly claims: out when FRED's ICSA reaches the week ended the Saturday before the release AND the Department's
-#               release (https://www.dol.gov/ui/data.pdf) was modified today
+#   dol_claims  the weekly claims: out when the Department's release (https://www.dol.gov/ui/data.pdf) was modified today
 def _today_et():
     from zoneinfo import ZoneInfo
     return datetime.datetime.now(ZoneInfo('America/New_York')).date()
@@ -331,7 +330,9 @@ def _probe_claims():
     import email.utils
     from zoneinfo import ZoneInfo
     dol_today = bool(lm) and email.utils.parsedate_to_datetime(lm).astimezone(ZoneInfo('America/New_York')).date() == t
-    return bool(fe and fe >= sat.isoformat() and dol_today), 'FRED ICSA through %s, the Department release %s' % (fe, 'out today' if dol_today else 'not yet today')
+    # 1052 (16 Nov 2026): the Department's release alone decides - the build takes the new week from it (bhs_dol_press.py, home_tiles.py)
+    # and the source gate checks it against the same release; FRED's ICSA is the cross-check when it posts
+    return dol_today, 'the Department release %s (FRED ICSA through %s)' % ('out today' if dol_today else 'not yet today', fe)
 
 
 def _probe_state():
