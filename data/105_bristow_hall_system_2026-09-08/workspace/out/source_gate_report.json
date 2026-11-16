@@ -3,9 +3,9 @@
  "mode": "hold",
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
- "build_day": "2026-11-15",
- "checked_at": "2026-11-16 04:32 UTC",
- "seconds": 2.9,
+ "build_day": "2026-11-16",
+ "checked_at": "2026-11-16 06:18 UTC",
+ "seconds": 3.2,
  "source_calls": 4,
  "source_errors": {},
  "counts": {
@@ -388,7 +388,7 @@
    "check": "matches the detector",
    "status": "PASS",
    "value": 0.143,
-   "period": "2026-11-15",
+   "period": "2026-11-16",
    "series": "BHRREALTIME",
    "transform": "the detector reading",
    "expected": 0.143,
@@ -427,7 +427,7 @@
    "period": null,
    "series": "SP500",
    "transform": null,
-   "expected": "2026-11-16",
+   "expected": "2026-11-17",
    "detail": "the next NYSE trading day"
   },
   {
@@ -1568,7 +1568,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1712,7 +1712,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1736,7 +1736,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1952,7 +1952,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2252,7 +2252,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2276,7 +2276,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2900,7 +2900,7 @@
    "series": "UNEMPLOY",
    "transform": "reading",
    "expected": "2026-10",
-   "detail": "newest on the BLS API (FRED has not posted it yet)"
+   "detail": "newest at the publisher (FRED has not posted it yet)"
   },
   {
    "page": "detector",
@@ -3279,7 +3279,7 @@
    "label": "current through: search",
    "check": "freshness",
    "status": "WARN",
-   "value": "2026-11-14",
+   "value": "2026-11-15",
    "period": null,
    "series": null,
    "transform": null,
@@ -3292,10 +3292,10 @@
    "check": "phantom",
    "status": "PASS",
    "value": 0.143,
-   "period": "2026-11-15",
+   "period": "2026-11-16",
    "series": "BHRREALTIME",
    "transform": null,
-   "expected": "2026-11-15",
+   "expected": "2026-11-16",
    "detail": ""
   },
   {
@@ -3304,7 +3304,7 @@
    "check": "cadence",
    "status": "PASS",
    "value": 0.143,
-   "period": "2026-11-15",
+   "period": "2026-11-16",
    "series": null,
    "transform": null,
    "expected": null,
@@ -3415,7 +3415,7 @@
    "period": null,
    "series": "SP500",
    "transform": null,
-   "expected": "2026-11-16",
+   "expected": "2026-11-17",
    "detail": "the next NYSE trading day"
   },
   {

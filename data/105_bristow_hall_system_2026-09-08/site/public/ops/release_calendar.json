@@ -1,12 +1,12 @@
 {
- "built_at": "2026-11-15 23:31",
+ "built_at": "2026-11-16 01:14",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-16T04:32:02Z",
+ "generated_utc": "2026-11-16T06:15:06Z",
  "rows": [
   {
    "agrees_with_build": true,
    "build_next": "2026-11-16",
-   "confirmed_through": "2027-03-05",
+   "confirmed_through": "2027-03-08",
    "fred_clock": null,
    "freq": "daily",
    "ids": "sp500",
@@ -422,6 +422,11 @@
      "expected": false,
      "ny": "2027-03-05 16:00",
      "utc": "2027-03-05T21:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-03-08 16:00",
+     "utc": "2027-03-08T21:00:00Z"
     }
    ],
    "waiting_since_due": null
