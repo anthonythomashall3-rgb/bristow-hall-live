@@ -54,6 +54,8 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.14'
+          cache: pip                                            # 1052 speed: the Mac's packages from GitHub's cache (about 30 s a run)
+          cache-dependency-path: ops/live_tools/requirements.txt
 
       - uses: actions/setup-node@v5     # check a185 parses the page's scripts with node --check /dev/stdin: the Mac's Node, same version
         with:
