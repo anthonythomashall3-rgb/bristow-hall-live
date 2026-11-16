@@ -8,8 +8,8 @@ OUR DATA PAGE IS CORRECT"). Called by bhs_site.py at every build. No row is type
 The detector's rows stay where bhs_site.py makes them (the rule's feeds, the front page tiles, the backstop tier, the legs)."""
 import os, ast, json, datetime as _dt
 HERE = os.path.dirname(os.path.abspath(__file__))
-TOOLS = ['detector', 'disturbance', 'state-onset', 'stress-map']   # 15 Nov 2026 11:00 PT (Anthony: "remove all of the shadows from the data"): the shadow tool is not on the data page   # every live tool with inputs of its own (chronology, damage-index: stubs; margins: the detector's readings)
-PAGE = {'detector': '/detector/', 'disturbance': '/disturbance/', 'state-onset': '/state-onset/', 'stress-map': '/stress-map/'}
+TOOLS = ['detector', 'disturbance', 'state-onset', 'stress-map', 'forecaster']   # 15 Nov 2026 11:00 PT (Anthony: "remove all of the shadows from the data"): the shadow tool is not on the data page   # every live tool with inputs of its own (chronology, damage-index: stubs; margins: the detector's readings)
+PAGE = {'detector': '/detector/', 'disturbance': '/disturbance/', 'state-onset': '/state-onset/', 'stress-map': '/stress-map/', 'forecaster': '/forecaster/'}
 def _row(tool, name, ids, source, url, cad, through, refreshed, note=None, value='', units=None, nxt='', frozen=False, values=None, vlist=None, period='', sched=None):
     return dict(kind='tool', tool=tool, cad=cad or '', name=name, ids=ids or '', url=url or '', source=source or '', value=value or '', values=values or [], units=units,
                 through=str(through or ''), nxt=nxt or '', refreshed=str(refreshed or ''), legs=tool, note=note, srcs=([[source, url]] if url else None), frozen=frozen,
@@ -85,5 +85,47 @@ def mac_rows():
                              value=h.get('value') or ('' if (h.get('values') or h.get('vlist')) else 'MISSING'), values=h.get('values'), vlist=h.get('vlist'),
                              units=h.get('units'), period=h.get('period'), nxt='', sched=sched, frozen=('history layer' in _rf)))
     return rows, J.get('generated_at', '')
+def forecaster_rows():
+    """TOOL 4, THE RECESSION FORECASTER (collection 1118, 15 Nov 2026): one row per series ops/tool4/forecaster.py reads, each read from the
+    file that run keeps (data/tool4_forecaster/, the claims first prints in cache/), refreshed = the forecaster's last build."""
+    import csv
+    REPO = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..')); D = os.path.join(REPO, 'data', 'tool4_forecaster')
+    SITE = os.path.abspath(os.path.join(HERE, '..', '..', 'site', 'public'))
+    try: built = json.load(open(os.path.join(SITE, 'forecaster', 'state.json'))).get('built', '')[:16]
+    except Exception: built = ''
+    rows = []
+    try: R = list(csv.DictReader(open(os.path.join(D, 'rates_monthly.csv'))))
+    except Exception: R = []
+    H15 = ('cal', 'GS10, GS1')
+    for sid, name in (('GS10', '10-year Treasury yield, monthly average'), ('GS1', '1-year Treasury yield, monthly average'),
+                      ('TB3MS', '3-month Treasury bill rate, monthly average')):
+        have = [r for r in R if r.get(sid)]
+        last = have[-1] if have else None
+        rows.append(_row('forecaster', name, sid, 'FRED (API, every run)', 'https://fred.stlouisfed.org/series/' + sid, 'monthly',
+                         (last['month'] if last else 'MISSING'), built or 'MISSING', value=('%.2f' % float(last[sid]) if last else 'MISSING'),
+                         units='percent, monthly average', sched=H15))
+    iu = None
+    try:
+        for r in csv.DictReader(open(os.path.join(HERE, '..', 'cache', 'national_first_prints_1985_live.csv'))):
+            if r.get('iur_sa') and r.get('iu_week_ended'): iu = r
+    except Exception: pass
+    rows.append(_row('forecaster', 'Insured unemployment rate, first print', 'IURSA', 'Department of Labor (weekly claims release, first prints)',
+                     'https://fred.stlouisfed.org/series/IURSA', 'weekly', (iu['iu_week_ended'] if iu else 'MISSING'), built or 'MISSING',
+                     value=(iu['iur_sa'] if iu else 'MISSING'), units='percent, seasonally adjusted', sched=('cal', 'IURSA')))
+    try: W = list(csv.DictReader(open(os.path.join(D, 'war_surge_live.csv'))))
+    except Exception: W = []
+    w = W[-1] if W else None
+    q = (w['quarter'] + '-01') if w else 'MISSING'
+    rows.append(_row('forecaster', 'Federal defense consumption and investment (war-surge veto)', 'FDEFX', 'FRED (API, every run)',
+                     'https://fred.stlouisfed.org/series/FDEFX', 'quarterly', q, built or 'MISSING',
+                     value=('%+.1f%%' % float(w['defense_g4']) if w else 'MISSING'), units='change from a year earlier', sched=('inputs', [53])))
+    qe = q
+    if w:
+        y, m = map(int, w['quarter'].split('-')); qe = '%d-%02d-01' % (y, m + 2)   # the quarter's last month: the CPI months the veto compares
+    rows.append(_row('forecaster', 'Consumer prices, not seasonally adjusted (war-surge veto)', 'CPIAUCNS', 'FRED (API, every run)',
+                     'https://fred.stlouisfed.org/series/CPIAUCNS', 'monthly', qe, built or 'MISSING',
+                     value=('%+.1f%%' % float(w['cpi_g4']) if w else 'MISSING'), units='change from a year earlier, same quarter',
+                     sched=('pub', 'bls_cpi', CAL['bls_cpi'][2])))
+    return rows
 def all_rows():
-    m, gen = mac_rows(); return disturbance_rows() + m, gen
+    m, gen = mac_rows(); return disturbance_rows() + m + forecaster_rows(), gen
