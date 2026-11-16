@@ -610,7 +610,7 @@ class Gate:
             return (a / o[max(ks)] - 1) * 100, None
         return None, 'no recipe for %s' % transform
 
-    def next_check(self, page, label, nxt, sids, through=None, freq=''):
+    def next_check(self, page, label, nxt, sids, through=None, freq='', cells=None):
         """'Next published' must be the publisher's next release day after the build, never the build day itself."""
         if not nxt or not re.match(r'\d{4}-\d\d-\d\d', nxt):
             return
@@ -656,10 +656,12 @@ class Gate:
             ok = (nxt in rel['accept']) or (nxt == bd and bd in ds)
         else:
             exp, how = None, 'no series to look the release up by'
-            ok = nxt > bd
+            # 16 Nov 2026 (1052): a time later on the build day itself is in the future, as for the archival rows (later_today): the
+            # live tools' own rows (next run 11:50 AM ET) read 'today' between midnight and their run, and held every build
+            ok = nxt > bd or (nxt == bd and cells is not None and self.later_today(cells))
             if ok:
                 self.R.add(page, label, 'next published', 'WARN', nxt, None, None, None, None,
-                           'after the build day, but no publisher calendar to confirm it (no series id on the row)'); return
+                           'after the build %s, but no publisher calendar to confirm it (no series id on the row)' % ('day' if nxt > bd else 'time')); return
         if ok:
             self.R.add(page, label, 'next published', 'PASS', nxt, None, sid, None, exp, how)
         else:
@@ -825,7 +827,7 @@ class Gate:
             elif reps:
                 # the row's own 'through' = the newest of its values
                 pass
-            self.next_check(page, label, nxt, self.row_sids(reps, idl), through)
+            self.next_check(page, label, nxt, self.row_sids(reps, idl), through, cells=rest)
             # the release calendar the build wrote must agree with the row
             c = cal.get((tool, name))
             if c and c.get('next_ny') and nxt and c['next_ny'][:10] != nxt and not reps:
