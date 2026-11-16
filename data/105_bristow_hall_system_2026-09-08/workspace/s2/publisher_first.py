@@ -294,8 +294,19 @@ def _probe_state():
     return ok, 'BLS State through %s' % ', '.join(str(max(v))[:7] for v in got.values() if v)
 
 
-WAIT_ONLY = {'bls_cpi': _probe_cpi, 'dol_claims': _probe_claims, 'bls_state': _probe_state}
-LIVE_TOOLS = {'bls_state', 'bls_empsit'}   # releases the live tools (live-tools.yml) read: a run at their slot starts the live tools
+def _probe_539():
+    """the Department's ETA 539 State file (ar539.csv, about 3:55 PM ET on the claims day): out when its last rows (Wyoming's, the file
+    is sorted by State and week; the last 1,500 bytes by an HTTP range request, not the 13 MB file) carry the week ended the Saturday
+    before the claims release"""
+    t = _today_et(); sat = t - datetime.timedelta(days=(t.weekday() + 2) % 7)
+    tail = subprocess.run(['curl', '-sS', '-m', '30', '-r', '-1500', 'https://oui.doleta.gov/unemploy/csv/ar539.csv'], capture_output=True, text=True).stdout
+    weeks = [ln.split(',')[1].strip('"') for ln in tail.splitlines() if ln.count(',') > 5 and ln.startswith('"')]
+    newest = max(weeks) if weeks else None
+    return bool(newest and newest >= sat.isoformat()), 'ETA 539 through %s (Wyoming)' % newest
+
+
+WAIT_ONLY = {'bls_cpi': _probe_cpi, 'dol_claims': _probe_claims, 'bls_state': _probe_state, 'dol_539': _probe_539}
+LIVE_TOOLS = {'bls_state', 'bls_empsit', 'dol_539'}   # releases the live tools (live-tools.yml) read: a run at their slot starts the live tools
 
 
 def default_al():
