@@ -1,0 +1,113 @@
+{
+ "_": "The one definition of the site's menu and of what a build must contain before it may be published. ops/site_menu.py writes the menu onto every built page; ops/site_contract.py holds the publish when a check fails. 16 Nov 2026: the forecaster step failed silently and the site went out with the Damage Index in its place. A tool is added to, renamed on, or removed from the site by editing this file and nowhere else.",
+ "nav": [
+  [
+   "/",
+   "Home"
+  ],
+  [
+   "/detector/",
+   "Recession Indicator"
+  ],
+  [
+   "/disturbance/",
+   "Disturbance Chronology"
+  ],
+  [
+   "/state-onset/",
+   "State Recession"
+  ],
+  [
+   "/stress-map/",
+   "Stress Map"
+  ],
+  [
+   "/forecaster/",
+   "Recession Forecaster"
+  ],
+  [
+   "/time-machine/",
+   "Time Machine"
+  ],
+  [
+   "/data/",
+   "Data"
+  ],
+  [
+   "/#papers",
+   "Papers"
+  ]
+ ],
+ "footer": [
+  [
+   "/",
+   "Home"
+  ],
+  [
+   "/detector/",
+   "Recession Indicator"
+  ],
+  [
+   "/disturbance/",
+   "Disturbance Chronology"
+  ],
+  [
+   "/state-onset/",
+   "State Recession Chronology"
+  ],
+  [
+   "/stress-map/",
+   "National Stress Map"
+  ],
+  [
+   "/forecaster/",
+   "Recession Forecaster"
+  ],
+  [
+   "/time-machine/",
+   "Time Machine"
+  ],
+  [
+   "/#papers",
+   "Papers"
+  ],
+  [
+   "/data/",
+   "Data"
+  ]
+ ],
+ "pages": [
+  "index.html",
+  "detector/index.html",
+  "disturbance/index.html",
+  "state-onset/index.html",
+  "stress-map/index.html",
+  "forecaster/index.html",
+  "forecaster/state.json",
+  "time-machine/index.html",
+  "data/index.html"
+ ],
+ "home_cards": [
+  "/detector/",
+  "/disturbance/",
+  "/state-onset/",
+  "/stress-map/",
+  "/forecaster/",
+  "/time-machine/"
+ ],
+ "forbidden": [
+  ">Damage Index<",
+  "href=\"/damage-index/\"",
+  "href:'/damage-index/'",
+  "href=\"/chronology/\"",
+  ">Chronology<"
+ ],
+ "retired_menu": [
+  "Damage Index",
+  "Chronology"
+ ],
+ "fresh_hours": {
+  "forecaster/state.json": 6
+ },
+ "live": "https://bhrrealtime.pages.dev/"
+}
