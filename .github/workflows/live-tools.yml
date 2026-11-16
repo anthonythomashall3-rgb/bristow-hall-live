@@ -22,7 +22,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "full (refresh, build, check, publish) | parity (the restored inputs as they are: build and check only, nothing published; outputs as an artifact)"
+        description: "full (refresh, build, check, publish) | parity (the restored inputs as they are: build and check only, nothing published; outputs as an artifact) | cache-parity (1052 speed: the stress map built with its county layer computed, then taken from the store; every output compared)"
         default: "full"
 
 concurrency:
@@ -48,7 +48,7 @@ jobs:
 
       - uses: actions/checkout@v5
         with:
-          ref: ${{ github.event_name == 'pull_request' && github.ref || 'main' }}
+          ref: ${{ (github.event_name == 'pull_request' || inputs.mode == 'cache-parity') && github.ref || 'main' }}
           fetch-depth: 1
 
       - uses: actions/setup-python@v6
@@ -84,10 +84,28 @@ jobs:
           # the live repository at the Mac clone's path (the stress map reads origin/main's bhs_state.json; the shadow page is written here)
           B="/Users/anthonyhall/Projects/Onset Detector Data/105_bristow_hall_system_2026-09-08"; mkdir -p "$B"; ln -sfn "$GITHUB_WORKSPACE" "$B/cloud"
 
+      # 1052 SPEED, STEP 3 (16 November 2026): the stress map's county layer (23 of its 26 minutes) is stored under the hash of its inputs and
+      # code (ops/live_tools/stress_map_cached.py) and taken from the store when they are unchanged - a State, ETA 539 or jobs release
+      # leaves them unchanged. The store is kept between runs in GitHub's cache (the newest run's copy is restored).
+      - name: the stress map's county layer from the last run (when its inputs are unchanged)
+        if: env.MODE == 'full'
+        uses: actions/cache@v5
+        with:
+          path: ${{ runner.temp }}/sm_cache
+          key: sm-county-${{ github.run_id }}
+          restore-keys: sm-county-
+
       - name: refresh, rebuild and check (ops/live_tools/run_live_tools.sh)
+        if: env.MODE != 'cache-parity'
         env:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          SM_CACHE_DIR: ${{ runner.temp }}/sm_cache
+          SM_CACHE: ${{ env.MODE == 'full' && '1' || '0' }}
         run: bash ops/live_tools/run_live_tools.sh; cat "$LT_OUT/status.json"
+
+      - name: the county layer from the store against the county layer computed (cache-parity)
+        if: env.MODE == 'cache-parity'
+        run: HOME=/Users/anthonyhall python3 ops/live_tools/sm_cache_parity.py
 
       - name: parity outputs
         if: env.MODE == 'parity'
