@@ -1,4 +1,4 @@
 {
- "mode": "warn",
- "why": "15 November 2026 (collection 1052): s2/source_gate.py compares every published figure with its publisher before each publish. 'hold' = any FAIL stops the publish (the live site keeps the last good build) and the phone is told; 'warn' = report only. It starts in 'warn' because the errors the 15 November audit found were still live when it was merged; it goes to 'hold' in a separate change once a build passes it."
+ "mode": "hold",
+ "why": "15 November 2026 (collection 1052): s2/source_gate.py compares every published figure with its publisher before each publish. 'hold' = any FAIL stops the publish (the live site keeps the last good build) and the phone is told the run was HELD; 'warn' = report only. Switched to 'hold' once a live build passed it (PR check: source-gate.yml on this file)."
 }
