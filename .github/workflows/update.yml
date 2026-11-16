@@ -658,6 +658,8 @@ jobs:
           SITE_SUB: ${{ steps.tool.outputs.site_sub }}
         working-directory: ${{ steps.tool.outputs.site_dir }}
         run: |
+          # every page names the BH icon (16 November 2026); never holds the publish
+          python3 "$GITHUB_WORKSPACE/ops/favicon_link.py" "$SITE_SUB" || true
           # the version that deployed on 21 September 2026 first, then the latest 4.x, then the latest again after a pause:
           # a bad release of the tool or a moment's trouble at Cloudflare must not keep the site from updating
           npx --yes wrangler@4.136.0 pages deploy "$SITE_SUB" --project-name bhrrealtime --branch "$PAGES_BRANCH" --commit-dirty=true \
