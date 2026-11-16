@@ -2,621 +2,621 @@
  "data/detector|10-year and 1-year treasury yields, monthly averages: GS10|GS10": {
   "period": "2026-10-01",
   "value": "5.13%",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|10-year and 1-year treasury yields, monthly averages: GS1|GS1": {
   "period": "2026-10-01",
   "value": "4.46%",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|chicago fed national activity index, three-month average|CFNAIMA3": {
   "period": "2026-09-01",
   "value": "0.03",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|cpi inflation|CPIAUCSL": {
   "period": "2026-09-01",
   "value": "3.7%",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|effective federal funds rate, monthly average: FEDFUNDS|FEDFUNDS": {
   "period": "2026-10-01",
   "value": "3.88%",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|gdpnow: GDPNOW|GDPNOW": {
   "period": "2026-11-09",
   "value": "3.48",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|industrial production: INDPRO|INDPRO": {
   "period": "2026-09-01",
   "value": "103.9506",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|initial claims and continued claims, seasonally adjusted and not: CCNSA|CCNSA": {
   "period": "2026-10-31",
   "value": "1,503,556",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|initial claims and continued claims, seasonally adjusted and not: CCSA|CCSA": {
   "period": "2026-10-31",
   "value": "1,697,000",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|initial claims and continued claims, seasonally adjusted and not: ICNSA|ICNSA": {
   "period": "2026-11-07",
   "value": "206,982",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|initial claims and continued claims, seasonally adjusted and not: ICSA|ICSA": {
   "period": "2026-11-07",
   "value": "200,000",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|insured unemployment rate|IURSA": {
   "period": "2026-10-31",
   "value": "1.1%",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|job openings: JTSJOL|JTSJOL": {
   "period": "2026-09-01",
   "value": "7,523",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|moody's baa corporate bond yield, monthly average: BAA|BAA": {
   "period": "2026-10-01",
   "value": "6.59%",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|quits rate|JTSQUR": {
   "period": "2026-09-01",
   "value": "2.1%",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|real gdp: GDPC1|GDPC1": {
   "period": "2026-07-01",
   "value": "24,611.1",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|s&p 500 daily close: SP500|SP500": {
   "period": "2026-11-13",
   "value": "7,561.67",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|sahm rule, real time: SAHMREALTIME|SAHMREALTIME": {
   "period": "2026-10-01",
   "value": "0.00",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|unemployment rate, payrolls, the unemployed count, job losers: LNS13023621|LNS13023621": {
   "period": "2026-10-01",
   "value": "3,166",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|unemployment rate, payrolls, the unemployed count, job losers: PAYEMS|PAYEMS": {
   "period": "2026-10-01",
   "value": "159,293",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|unemployment rate, payrolls, the unemployed count, job losers: UNEMPLOY|UNEMPLOY": {
   "period": "2026-10-01",
   "value": "7,068",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|unemployment rate, payrolls, the unemployed count, job losers: UNRATE|UNRATE": {
   "period": "2026-10-01",
   "value": "4.1%",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/detector|weekly economic index (lewis, mertens and stock), 13-week mean|WEI": {
   "period": "2026-11-07",
   "value": "3.08",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/disturbance|fred series cmrmtspl|CMRMTSPL": {
   "period": "2026-08-01",
   "value": "1599260.000",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/disturbance|fred series gdpc1|GDPC1": {
   "period": "2026-07-01",
   "value": "24611.077",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/disturbance|fred series indpro|INDPRO": {
   "period": "2026-09-01",
   "value": "103.9506",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/disturbance|fred series payems|PAYEMS": {
   "period": "2026-10-01",
   "value": "159293",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/disturbance|fred series unrate|UNRATE": {
   "period": "2026-10-01",
   "value": "4.1",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/disturbance|fred series w875rx1|W875RX1": {
   "period": "2026-09-01",
   "value": "17015.2",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/forecaster|insured unemployment rate, first print|IURSA": {
   "period": "2026-10-31",
   "value": "1.1",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/state-onset|consumer price index: CPIAUCSL|CPIAUCSL": {
   "period": "2026-10-01",
   "value": "337.476",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/stress-map|national payrolls by supersector: MANEMP|MANEMP": {
   "period": "2026-10-01",
   "value": "12,681",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/stress-map|national payrolls by supersector: PAYEMS|PAYEMS": {
   "period": "2026-10-01",
   "value": "159,293",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/stress-map|national payrolls by supersector: USCONS|USCONS": {
   "period": "2026-10-01",
   "value": "8,367",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/stress-map|national payrolls by supersector: USEHS|USEHS": {
   "period": "2026-10-01",
   "value": "28,058",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/stress-map|national payrolls by supersector: USFIRE|USFIRE": {
   "period": "2026-10-01",
   "value": "9,085",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/stress-map|national payrolls by supersector: USGOVT|USGOVT": {
   "period": "2026-10-01",
   "value": "23,332",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/stress-map|national payrolls by supersector: USINFO|USINFO": {
   "period": "2026-10-01",
   "value": "2,734",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/stress-map|national payrolls by supersector: USLAH|USLAH": {
   "period": "2026-10-01",
   "value": "16,964",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/stress-map|national payrolls by supersector: USMINE|USMINE": {
   "period": "2026-10-01",
   "value": "605",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/stress-map|national payrolls by supersector: USPBS|USPBS": {
   "period": "2026-10-01",
   "value": "22,604",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "data/stress-map|national payrolls by supersector: USTPU|USTPU": {
   "period": "2026-10-01",
   "value": "28,818",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|E22 leg A: insured unemployment|CCSA": {
   "period": "2026-10-31",
   "value": 1711.0,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|E22 leg S: the S&P 500 against its lowest close since the episode opened|SP500": {
   "period": "2026-11-13",
   "value": null,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|E22 legs A and S: the federal funds rate|FEDFUNDS": {
   "period": "2026-10-01",
   "value": -0.21,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|count door: initial or insured claims|ICSA": {
   "period": "2026-11-07",
   "value": 0.8635,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|count door: the unemployed count's first print against the highest of the prior 12 months'|UNEMPLOY": {
   "period": "2026-10-01",
   "value": -763.0,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|fed-shock door: the effective federal funds rate|FEDFUNDS": {
   "period": "2026-10-01",
   "value": 0.13,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|feed CCNSA|CCNSA": {
   "period": "2026-10-31",
   "value": 1503556.0,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|feed ICNSA|ICNSA": {
   "period": "2026-11-07",
   "value": 206982.0,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|job-losers door's witness: the 10-year minus 1-year Treasury spread|GS10": {
   "period": "2026-10-01",
   "value": 0.67,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|job-losers door: unemployed job losers|LNS13023621": {
   "period": "2026-09-01",
   "value": -9.67,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|route: Moody's Baa yield|BAA": {
   "period": "2026-10-01",
   "value": 0.85,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|route: S&P 500 against its close 365 days earlier|SP500": {
   "period": "2026-11-13",
   "value": 12.29,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|route: industrial production|INDPRO": {
   "period": "2026-09-01",
   "value": 0.66,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|route: insured unemployment (not seasonally adjusted|CCNSA": {
   "period": "2026-10-31",
   "value": -13.25,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|route: job openings (JOLTS) growing slower than initial claims - openings year-on-year les|JTSJOL": {
   "period": "2026-09-01",
   "value": 20.96,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|route: payrolls|PAYEMS": {
   "period": "2026-10-01",
   "value": -165.0,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "detector|route: unemployment rate|UNRATE": {
   "period": "2026-10-01",
   "value": 0.0,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "forecaster|insured unemployment rate|IURSA": {
   "period": "2026-10-31",
   "value": 1.1,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "forecaster|spread_10y_1y|GS10-GS1": {
   "period": "2026-10",
   "value": 0.67,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "forecaster|spread_10y_3m|GS10-TB3MS": {
   "period": "2026-10",
   "value": 1.08,
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "home|CPI inflation|CPIAUCSL": {
   "period": "2026-09-01",
   "value": "3.7%",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "home|Initial claims (week)|ICSA": {
   "period": "2026-11-07",
   "value": "200,000",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "home|Insured unemployment rate|IURSA": {
   "period": "2026-10-31",
   "value": "1.1%",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "home|Job openings|JTSJOL": {
   "period": "2026-09-01",
   "value": "7.5 million",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "home|Nonfarm payrolls|PAYEMS": {
   "period": "2026-10-01",
   "value": "159.3 million",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "home|Payroll growth|PAYEMS": {
   "period": "2026-10-01",
   "value": "+137,000 a month",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "home|Quits rate|JTSQUR": {
   "period": "2026-09-01",
   "value": "2.1%",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "home|Unemployed per opening|UNEMPLOY": {
   "period": "2026-09-01",
   "value": "0.94",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "home|Unemployment rate|UNRATE": {
   "period": "2026-10-01",
   "value": "4.1%",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|AK chronology: last month|AKUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|AL chronology: last month|ALUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|AR chronology: last month|ARUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|AZ chronology: last month|AZUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|CA chronology: last month|CAUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|CO chronology: last month|COUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|CT chronology: last month|CTUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|DE chronology: last month|DEUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|FL chronology: last month|FLUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|GA chronology: last month|GAUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|HI chronology: last month|HIUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|IA chronology: last month|IAUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|ID chronology: last month|IDUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|IL chronology: last month|ILUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|IN chronology: last month|INUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|KS chronology: last month|KSUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|KY chronology: last month|KYUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|LA chronology: last month|LAUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|MA chronology: last month|MAUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|MD chronology: last month|MDUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|ME chronology: last month|MEUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|MI chronology: last month|MIUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|MN chronology: last month|MNUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|MO chronology: last month|MOUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|MS chronology: last month|MSUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|MT chronology: last month|MTUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|NC chronology: last month|NCUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|ND chronology: last month|NDUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|NE chronology: last month|NEUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|NH chronology: last month|NHUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|NJ chronology: last month|NJUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|NM chronology: last month|NMUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|NV chronology: last month|NVUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|NY chronology: last month|NYUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|OH chronology: last month|OHUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|OK chronology: last month|OKUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|OR chronology: last month|ORUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|PA chronology: last month|PAUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|RI chronology: last month|RIUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|SC chronology: last month|SCUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|SD chronology: last month|SDUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|TN chronology: last month|TNUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|TX chronology: last month|TXUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|UT chronology: last month|UTUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|VA chronology: last month|VAUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|VT chronology: last month|VTUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|WA chronology: last month|WAUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|WI chronology: last month|WIUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|WV chronology: last month|WVUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "state-onset|WY chronology: last month|WYUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "stress-map|last_v4|xxUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "stress-map|prov.v4_last|xxUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  },
  "stress-map|thru.state|xxUR": {
   "period": "2026-09",
   "value": "2026-09",
-  "verified": "2026-11-16 13:08 UTC"
+  "verified": "2026-11-16 13:29 UTC"
  }
 }
