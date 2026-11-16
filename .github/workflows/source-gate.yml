@@ -31,6 +31,7 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
         run: |
           mkdir -p "$RUNNER_TEMP/sg"
           python3 "$WS/s2/source_gate.py" --live https://bhrrealtime.pages.dev --live-dir "$RUNNER_TEMP/sg/live" \
