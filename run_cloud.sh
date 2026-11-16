@@ -111,6 +111,8 @@ python3 bhs_site.py
 # has just written; on any failure it puts the last good page back. Never fails the run. Research home:
 # ~/Projects/Disturbance Indicator Data/10_chronology_site.
 python3 s2/disturbance/disturbance_site.py || true
+# THE TIME MACHINE (16 November 2026, collection 1137): the recessions and disturbances drawn above its timeline, from the chronology just re-dated; never fails the run
+python3 s2/time_machine/tm_bands.py || true
 # THE STATE RECESSION CHRONOLOGY AND DAMAGE GRADE (14 November 2026; Anthony: "publish to the live site"): writes the page
 # built in collection 1032 (s2/state_onset/page.html) over the stub bhs_site.py writes at /state-onset/; never fails the run
 python3 s2/state_onset/state_onset_site.py || true
