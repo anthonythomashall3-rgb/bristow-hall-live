@@ -37,7 +37,9 @@ BLS_URL = 'https://api.bls.gov/publicAPI/v2/timeseries/data/'
 UA = 'Mozilla/5.0 (bristow-hall live site; release-time read)'
 HERE = os.path.dirname(os.path.abspath(__file__)); WS = os.path.dirname(HERE)
 STATE = os.path.join(WS, 'cache', 'publisher_first.json')
-G17_FILE = os.path.join(WS, 'cache', 'g17_ip_sa.txt')
+import tempfile
+G17_FILE = os.path.join(tempfile.gettempdir(), 'bhr_g17_ip_sa.txt')   # this run's copy only (2.7 MB; not kept in the repository)
+_G17 = {}
 
 
 def ny_day():
@@ -47,7 +49,7 @@ def ny_day():
 
 def _load():
     try: return json.load(open(STATE))
-    except Exception: return {'columns': {}, 'g17': {}}
+    except Exception: return {'columns': {}}
 
 
 def _save(st):
@@ -97,10 +99,10 @@ def bls_series(sids, full=False, key=None):
     return {inv[b]: pd.Series(o, dtype=float).sort_index() for b, o in got.items() if o}
 
 
-def g17_fetch(st=None):
+def g17_fetch():
     """the G.17 data file, fetched only when the Board's server says it changed (If-Modified-Since); returns its text"""
     import urllib.request, urllib.error
-    st = st if st is not None else _load(); g = st.setdefault('g17', {})
+    g = _G17
     hdr = {'User-Agent': UA}
     if g.get('last_modified') and os.path.exists(G17_FILE): hdr['If-Modified-Since'] = g['last_modified']
     try:
@@ -108,7 +110,7 @@ def g17_fetch(st=None):
             txt = r.read().decode('utf-8', 'replace'); lm = r.headers.get('Last-Modified')
         if '"B50001"' not in txt: raise RuntimeError('G.17 file without B50001')
         os.makedirs(os.path.dirname(G17_FILE), exist_ok=True); open(G17_FILE, 'w').write(txt)
-        g['last_modified'] = lm; g['fetched_utc'] = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'); _save(st)
+        g['last_modified'] = lm
         return txt
     except urllib.error.HTTPError as e:
         if e.code == 304: return open(G17_FILE).read()
@@ -203,7 +205,7 @@ def append(al, day=None, series=None, say=print, backup=None, force_day=False, p
         if backup: backup(path)
         col = write_column(path, s, day, cur)
         st['columns'][col] = dict(series=s, day=day, publisher=PF[s][0], publisher_id=PF[s][1], newest=str(cur.index[-1].date()),
-                                  months=int(len(cur)), status='provisional', written_utc=datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'))
+                                  months=int(len(cur)), status='provisional', written_utc=datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'))
         done[s] = col
         say('%-14s PUBLISHER FIRST: vintage %s appended from the %s at %s UTC: data through %s (%d months); FRED cross-checks it when it posts'
             % (s, col, 'BLS API' if PF[s][0] == 'bls' else 'Federal Reserve G.17 file', st['columns'][col]['written_utc'][11:19], cur.index[-1].date(), len(cur)))
@@ -228,7 +230,7 @@ def verify(al, fred_vintage, vintage_dates, say=print, backup=None, alert=None):
             tab = pd.read_csv(path, index_col=0); tab.index = pd.to_datetime(tab.index)
             mine = pd.to_numeric(tab[col], errors='coerce') if col in tab.columns else None
             same = mine is not None and set(cur.index) <= set(tab.index) and mine.reindex(tab.index).equals(cur.reindex(tab.index).astype(float))
-            c['checked_utc'] = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+            c['checked_utc'] = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
             if same:
                 c['status'] = 'verified'; say('%-14s publisher first: %s equals FRED\'s vintage of %s on all %d months (verified)' % (s, col, day, len(cur)))
             else:
