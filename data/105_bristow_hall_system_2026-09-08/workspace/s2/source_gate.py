@@ -57,6 +57,12 @@ FED_HOLIDAYS = {'2026-01-01', '2026-01-19', '2026-02-16', '2026-05-25', '2026-06
 # units of FRED series in which the pages show words like "million": the scale of one FRED unit, in persons/units
 FRED_SCALE = {'PAYEMS': 1e3, 'JTSJOL': 1e3, 'UNEMPLOY': 1e3, 'LNS13023621': 1e3, 'ICSA': 1, 'ICNSA': 1, 'CCSA': 1, 'CCNSA': 1}
 # a FRED series that the BLS API v2 also serves (used only when FRED has not yet posted the newest period)
+# 1052 (16 Nov 2026): the BLS series behind FRED ids, for the publisher fallback when FRED cannot be read (Gate.publisher_rows)
+PUB_BLS = {'PAYEMS': 'CES0000000001', 'USMINE': 'CES1000000001', 'USCONS': 'CES2000000001', 'MANEMP': 'CES3000000001',
+           'USTPU': 'CES4000000001', 'USINFO': 'CES5000000001', 'USFIRE': 'CES5500000001', 'USPBS': 'CES6000000001',
+           'USEHS': 'CES6500000001', 'USLAH': 'CES7000000001', 'USSERV': 'CES0800000001', 'USGOVT': 'CES9000000001',
+           'UNRATE': 'LNS14000000', 'UNEMPLOY': 'LNS13000000', 'LNS13023621': 'LNS13023621', 'JTSJOL': 'JTS000000000000000JOL',
+           'JTSQUR': 'JTS000000000000000QUR', 'CPIAUCSL': 'CUSR0000SA0', 'CPIAUCNS': 'CUUR0000SA0'}
 BLS_OF = {'UNRATE': 'LNS14000000', 'PAYEMS': 'CES0000000001', 'UNEMPLOY': 'LNS13000000', 'LNS13023621': 'LNS13023621',
           'JTSJOL': 'JTS000000000000000JOL', 'JTSQUR': 'JTS000000000000000QUR', 'CPIAUCSL': 'CUSR0000SA0'}
 # month averages of daily H.15 / Moody's series: next published by the program's documented rule, not FRED's daily H.15 calendar
@@ -125,7 +131,7 @@ class Sources:
     """FRED (API with the key the build uses; fredgraph CSV without one), the BLS API v2, and QCEW open data. Every fetch is retried;
     results are cached in memory and can be saved to / loaded from a file (the self-test re-uses one fetch)."""
 
-    def __init__(self, fred_key='', bls_key='', cache=None, offline=False, budget_s=270):
+    def __init__(self, fred_key='', bls_key='', cache=None, offline=False, budget_s=420):
         self.fred_key, self.bls_key = fred_key, bls_key
         self.c = cache if cache is not None else {}
         self.offline = offline
@@ -133,11 +139,12 @@ class Sources:
         self.last_call = 0.0; self.calls = 0; self.errors = {}
         import threading; self._lock = threading.Lock(); self.spacing = 0.55   # 1052 speed: the spacing holds across threads (prefetch)
 
-    def _get(self, url, data=None, headers=None, tries=3):
+    def _get(self, url, data=None, headers=None, tries=5):
         if self.offline: raise RuntimeError('offline')
         if time.time() - self.t0 > self.budget: raise RuntimeError('time budget spent')
         err = None
         for i in range(tries):
+            if i and time.time() - self.t0 > self.budget: break
             with self._lock:
                 wait = self.spacing - (time.time() - self.last_call)     # FRED allows 120 requests a minute
                 if wait > 0: time.sleep(wait)
@@ -150,9 +157,15 @@ class Sources:
                 body = e.read().decode('utf-8', 'replace')[:300]
                 err = 'HTTP %d %s' % (e.code, body.replace(self.fred_key or '\0', '[key]'))
                 if e.code == 400 or e.code == 404: break      # a bad series id: retrying will not help
+                if e.code == 429:
+                    # 1052 (16 Nov 2026): FRED's limit is per key, and the key is shared by every job running at the moment (the
+                    # update, live-tools, a PR's checks). A 429 is a read that came too early, not a missing source: every thread
+                    # waits out the minute together (15, 30, 45, 60 s), then the read is tried again.
+                    with self._lock: self.last_call = time.time() + min(60, 15 * (i + 1)) - self.spacing
+                    continue
             except Exception as e:
                 err = type(e).__name__ + ' ' + str(e)[:120]
-            time.sleep(min(20, 4 * (i + 1)))
+            time.sleep(min(20, 3 * 2 ** i))
         raise RuntimeError(err or 'unreachable')
 
     # one call per series: every vintage of every observation since `start` (ALFRED real-time periods)
@@ -343,8 +356,32 @@ class Gate:
         k = (sid, start)
         if k not in self._s:
             rows = self.src.fred(sid, start)
+            if rows is None: rows = self.publisher_rows(sid, start)
             self._s[k] = Series(sid, rows) if rows is not None else None
         return self._s[k]
+
+    def publisher_rows(self, sid, start):
+        """1052 (16 Nov 2026): FRED could not be read after its retries. For a series the publisher serves itself - the BLS API v2
+        (labour series, CPI, the payroll supersectors) and the Fed's G.17 file (INDPRO) - the publisher's current values stand in, so
+        the figure is checked against the source of record instead of going unverified. No vintages: the values as of now, which on a
+        build's own run are the build day's. None when the publisher cannot be read either (the figure is then unverified, as before)."""
+        try:
+            if sid == 'INDPRO':
+                vals = self.src.g17() or {}
+            elif sid in PUB_BLS:
+                vals = {}
+                if PUB_BLS[sid] in BLS_OF.values():      # the bundle the gate reads anyway (value_on, bls_newest): one call for all
+                    vals = (self.src.bls(list(BLS_OF.values()), self.now.year - 1) or {}).get(PUB_BLS[sid]) or {}
+                if not vals:
+                    vals = (self.src.bls([PUB_BLS[sid]], int(start[:4])) or {}).get(PUB_BLS[sid]) or {}
+            else:
+                return None
+            rows = [['%s-01' % m, None, '9999-12-31', v] for m, v in sorted(vals.items()) if '%s-01' % m >= start]
+            if not rows: return None
+            self.R.add('sources', sid, 'source', 'WARN', detail='FRED could not be read: checked against the publisher (%s)' % ('G.17 file' if sid == 'INDPRO' else 'BLS API v2 ' + PUB_BLS[sid]))
+            return rows
+        except Exception:
+            return None
 
     def dol_series(self, st, which):
         """a State's newest DOL week as a one-observation series (which: 'ic' initial claims, 'cc' continued/insured); st='US*' = the
@@ -1108,9 +1145,9 @@ def warm_cache(path, fred_key=''):
     return {k: v for k, v in c.items() if k.split(':')[1] not in changed}
 
 
-def prefetch(out_path, keys_path=KEYS, workers=4, spacing=0.6):
-    """1052 speed: fetch, in parallel and politely (one call every `spacing` seconds across all threads: 100 a minute, under FRED's 120
-    together with the update's own few calls), every source the last gate read, into a cache the gate then starts from (--warm). The
+def prefetch(out_path, keys_path=KEYS, workers=3, spacing=1.0):
+    """1052 speed: fetch, in parallel and politely (one call every `spacing` seconds across all threads: 60 a minute, half of FRED's 120
+    for the key every job shares), every source the last gate read, into a cache the gate then starts from (--warm). The
     gate reads the same sources from the same publishers; it only no longer waits for them one by one after the build."""
     from concurrent.futures import ThreadPoolExecutor
     from zoneinfo import ZoneInfo
