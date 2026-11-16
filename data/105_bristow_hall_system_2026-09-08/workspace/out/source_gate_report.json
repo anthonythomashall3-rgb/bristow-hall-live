@@ -4,22 +4,16 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-15",
- "checked_at": "2026-11-16 02:30 UTC",
- "seconds": 237.6,
- "source_calls": 195,
- "source_errors": {
-  "GS1": "HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests.  Exceeded Rate Limit\"}",
-  "WYNAN": "HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests.  Exceeded Rate Limit\"}",
-  "FLUR": "HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests.  Exceeded Rate Limit\"}",
-  "TB3MS": "HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests.  Exceeded Rate Limit\"}"
- },
+ "checked_at": "2026-11-16 02:41 UTC",
+ "seconds": 100.1,
+ "source_calls": 180,
+ "source_errors": {},
  "counts": {
   "home": {
    "PASS": 28
   },
   "data/detector": {
-   "PASS": 67,
-   "UNVERIFIED": 1,
+   "PASS": 69,
    "WARN": 3
   },
   "data/disturbance": {
@@ -40,30 +34,27 @@
    "PASS": 13
   },
   "detector": {
-   "PASS": 57,
-   "WARN": 9,
-   "UNVERIFIED": 1
+   "PASS": 58,
+   "WARN": 9
   },
   "state-onset": {
-   "PASS": 99,
-   "UNVERIFIED": 1
+   "PASS": 100
   },
   "stress-map": {
    "PASS": 13
   },
   "forecaster": {
-   "UNVERIFIED": 2,
-   "PASS": 2,
+   "PASS": 6,
    "WARN": 1
   }
  },
  "totals": {
-  "checks": 400,
+  "checks": 403,
   "figures": 273,
   "fail": 0,
   "warn": 42,
-  "unverified": 5,
-  "passed": 347
+  "unverified": 0,
+  "passed": 355
  },
  "failures": [],
  "rows": [
@@ -838,14 +829,26 @@
   {
    "page": "data/detector",
    "label": "10-year and 1-year treasury yields, monthly averages: GS1",
-   "check": "source",
-   "status": "UNVERIFIED",
+   "check": "freshness",
+   "status": "PASS",
    "value": "4.46%",
    "period": "2026-10-01",
    "series": "GS1",
    "transform": "level",
-   "expected": null,
-   "detail": "the source could not be read; unchanged since the last verified build: it may stay"
+   "expected": "2026-10-01",
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "10-year and 1-year treasury yields, monthly averages: GS1",
+   "check": "value",
+   "status": "PASS",
+   "value": 4.46,
+   "period": "2026-10-01",
+   "series": "GS1",
+   "transform": "level",
+   "expected": 4.46,
+   "detail": ""
   },
   {
    "page": "data/detector",
@@ -3047,13 +3050,13 @@
    "page": "detector",
    "label": "job-losers door's witness: the 10-year minus 1-year Treasury spread",
    "check": "value",
-   "status": "UNVERIFIED",
+   "status": "PASS",
    "value": 0.67,
    "period": "2026-10-01",
    "series": "GS10",
    "transform": "spread:GS1",
-   "expected": null,
-   "detail": "the source has no value to recompute it from (source unreachable); unchanged since the last verified build: it may stay"
+   "expected": 0.67,
+   "detail": ""
   },
   {
    "page": "detector",
@@ -3647,13 +3650,13 @@
    "page": "state-onset",
    "label": "FL chronology: last month",
    "check": "freshness",
-   "status": "UNVERIFIED",
+   "status": "PASS",
    "value": "2026-09",
-   "period": "2026-09",
+   "period": "2026-09-01",
    "series": "FLUR",
    "transform": "month",
-   "expected": null,
-   "detail": "the source could not be read; unchanged since the last verified build: it may stay"
+   "expected": "2026-09-01",
+   "detail": ""
   },
   {
    "page": "state-onset",
@@ -4810,26 +4813,50 @@
   {
    "page": "forecaster",
    "label": "spread_10y_3m",
-   "check": "source",
-   "status": "UNVERIFIED",
+   "check": "freshness",
+   "status": "PASS",
    "value": 1.08,
-   "period": "2026-10",
+   "period": "2026-10-01",
+   "series": "GS10/TB3MS",
+   "transform": "ratio",
+   "expected": "2026-10-01",
+   "detail": ""
+  },
+  {
+   "page": "forecaster",
+   "label": "spread_10y_3m",
+   "check": "value",
+   "status": "PASS",
+   "value": 1.08,
+   "period": "2026-10-01",
    "series": "GS10-TB3MS",
-   "transform": "spread",
-   "expected": null,
-   "detail": "the source could not be read; unchanged since the last verified build: it may stay"
+   "transform": "GS10 minus TB3MS, monthly",
+   "expected": 1.08,
+   "detail": ""
   },
   {
    "page": "forecaster",
    "label": "spread_10y_1y",
-   "check": "source",
-   "status": "UNVERIFIED",
+   "check": "freshness",
+   "status": "PASS",
    "value": 0.67,
-   "period": "2026-10",
+   "period": "2026-10-01",
+   "series": "GS10/GS1",
+   "transform": "ratio",
+   "expected": "2026-10-01",
+   "detail": ""
+  },
+  {
+   "page": "forecaster",
+   "label": "spread_10y_1y",
+   "check": "value",
+   "status": "PASS",
+   "value": 0.67,
+   "period": "2026-10-01",
    "series": "GS10-GS1",
-   "transform": "spread",
-   "expected": null,
-   "detail": "the source could not be read; unchanged since the last verified build: it may stay"
+   "transform": "GS10 minus GS1, monthly",
+   "expected": 0.67,
+   "detail": ""
   },
   {
    "page": "forecaster",
