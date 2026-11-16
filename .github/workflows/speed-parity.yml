@@ -54,7 +54,12 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
-        run: python3 ops/speed/parity_source_gate.py
+        run: |
+          # three gates under the shared FRED key: run only when the gate itself changed (it slows every other job's FRED reads)
+          git fetch -q --depth 50 origin main || true
+          if [ "${{ github.event_name }}" = "pull_request" ] && ! git diff --name-only origin/main...HEAD 2>/dev/null | grep -q 'source_gate.py'; then
+            echo "source_gate.py unchanged in this pull request: the gate parity is not rerun"; exit 0; fi
+          python3 ops/speed/parity_source_gate.py
       - name: the BLS fallbacks against the BLS API, series by series (only when the shared BLS layer changes)
         if: always()
         env:
