@@ -370,6 +370,22 @@ jobs:
           print('the FRED key: %s%s' % (out['fred'], '' if out['fred'] == 'accepted' else ' (%s)' % ', '.join(str(out[x]) for x in ('http', 'why') if x in out)))
           PY
 
+      # 1052 SPEED (15 November 2026; Anthony: "the live page to update at MAXIMUM within 5 minutes"). A run the Worker started for a
+      # publisher-read slot (run_slots.json "wait", written by ops/calendar_build.py one minute after the release) asks the publisher
+      # every 30 seconds, at most 12 minutes, until the new month is out (s2/publisher_first.py: the BLS API v2, the Fed's G.17 file),
+      # so the build below reads the release the minute it appears instead of waiting for FRED's post. Never fails the run.
+      - name: wait for the publisher's release
+        if: steps.when.outputs.go == 'true' && inputs.origin == 'slot' && inputs.slot != ''
+        working-directory: ${{ steps.tool.outputs.workspace }}
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          SLOT: ${{ inputs.slot }}
+          RUN_SLOTS: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}/run_slots.json
+        run: |
+          W=$(python3 -c "import json,os;print(' '.join(next((s.get('wait') or [] for s in json.load(open(os.environ['RUN_SLOTS']))['slots'] if s.get('ny')==os.environ['SLOT']),[])))" 2>/dev/null || true)
+          if [ -z "$W" ]; then echo "the $SLOT slot reads nothing from a publisher"; exit 0; fi
+          timeout 780 python3 s2/publisher_first.py wait $W --limit 720 2>&1 | tee -a "$GITHUB_WORKSPACE/run.log" || true
+
       # UPDATE, BUILD, SITE - with a second try and the last good code behind it (ops/run.sh; 22 September 2026, collection
       # 306). run_cloud.sh is the live tool's entry (ops/tool.json); ops/run.sh runs it with a time limit, tries once more
       # after a failure, and if the code has changed since the last run that published, runs that run's code, so a broken

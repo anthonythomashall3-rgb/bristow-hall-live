@@ -1,0 +1,291 @@
+# -*- coding: utf-8 -*-
+"""THE PUBLISHER'S FIRST PRINT, READ AT RELEASE TIME (speed program 1052; Anthony 15 Nov 2026: "we need ALL releases within MINUTES",
+"the live page to update at MAXIMUM within 5 minutes"). No AI.
+
+The rule reads the Employment Situation (PAYEMS, UNRATE, UNEMPLOY, LNS13023621), JOLTS (JTSJOL) and the G.17 (INDPRO) from ALFRED
+vintage tables (27_realtime_vintages/alfred_all_vintages/<S>_all_vintages.csv). FRED posts those releases 6 to 61 minutes after the
+publisher, so until now the site waited for FRED. Here the vintage of the release day is read from the PUBLISHER itself - the BLS
+API v2 (whole history, 20-year requests) and the Federal Reserve's G.17 data file (ip_sa.txt, series B50001) - and appended to the
+table exactly as bhs_update.py's _append_vintages appends FRED's vintage: the same column name (<S>_<release day, New York>), the same
+reindex and the same CSV writer. Tested byte-identical to the FRED path on every series (ops/speed/parity_publisher_first.py).
+
+FRED STAYS THE CROSS-CHECK. Every column written here is recorded in cache/publisher_first.json as provisional. Each later run asks
+FRED for its vintage of that day; when FRED has it, the column is compared value for value. Equal: marked verified (the file is
+already what the FRED path would have written). Different: FRED's vintage replaces the column (exactly the FRED path's file), the
+difference is recorded and the phone is told. A column is written only when the publisher carries a month the table lacks.
+
+    newest(series)               the newest month the publisher carries now (one small request; None if it cannot be read)
+    wait(groups, tables, limit)  poll every 30 s until every series of the groups carries a month its table lacks, or the limit
+    append(series, al, day, ...) write the publisher's vintage of `day` into the table; returns the column name or None
+    verify(al, fred_vintage, ...) reconcile provisional columns with FRED's vintages
+"""
+import io, os, json, time, datetime, subprocess
+import pandas as pd
+
+PF = {  # series -> (publisher, publisher id, release group)
+    'PAYEMS': ('bls', 'CES0000000001', 'bls_empsit'),
+    'UNRATE': ('bls', 'LNS14000000', 'bls_empsit'),
+    'UNEMPLOY': ('bls', 'LNS13000000', 'bls_empsit'),
+    'LNS13023621': ('bls', 'LNS13023621', 'bls_empsit'),
+    'JTSJOL': ('bls', 'JTS000000000000000JOL', 'bls_jolts'),
+    'INDPRO': ('g17', 'B50001', 'fed_g17'),
+}
+GROUPS = {}
+for _s, (_p, _i, _g) in PF.items(): GROUPS.setdefault(_g, []).append(_s)
+G17_URL = 'https://www.federalreserve.gov/releases/g17/Current/ipdisk/ip_sa.txt'
+BLS_URL = 'https://api.bls.gov/publicAPI/v2/timeseries/data/'
+UA = 'Mozilla/5.0 (bristow-hall live site; release-time read)'
+HERE = os.path.dirname(os.path.abspath(__file__)); WS = os.path.dirname(HERE)
+STATE = os.path.join(WS, 'cache', 'publisher_first.json')
+import tempfile
+G17_FILE = os.path.join(tempfile.gettempdir(), 'bhr_g17_ip_sa.txt')   # this run's copy only (2.7 MB; not kept in the repository)
+_G17 = {}
+
+
+def ny_day():
+    from zoneinfo import ZoneInfo
+    return datetime.datetime.now(ZoneInfo('America/New_York')).date().isoformat()
+
+
+def _load():
+    try: return json.load(open(STATE))
+    except Exception: return {'columns': {}}
+
+
+def _save(st):
+    os.makedirs(os.path.dirname(STATE), exist_ok=True)
+    tmp = STATE + '.tmp'; json.dump(st, open(tmp, 'w'), indent=1, sort_keys=True); os.replace(tmp, STATE)
+
+
+def bls_key():
+    k = os.environ.get('BLS_API_KEY', '').strip()
+    if k: return k
+    env = os.path.join(os.path.expanduser('~'), 'mnt', 'Onset Detector Data', 'onset-detector-new-2026-08-23', 'live_data', 'config', 'local.env')
+    try:
+        for ln in open(env):
+            if ln.startswith('BLS_API_KEY='): return ln.strip().split('=', 1)[1].strip().strip('"').strip("'") or None
+    except Exception: pass
+    return None
+
+
+def _bls(ids, y0, y1, key):
+    body = {'seriesid': list(ids), 'startyear': str(y0), 'endyear': str(y1)}
+    if key: body['registrationkey'] = key
+    r = subprocess.run(['curl', '-sS', '--http1.1', '-m', '40', '-A', UA, '-X', 'POST', '-H', 'Content-Type: application/json',
+                        '-d', json.dumps(body), BLS_URL], capture_output=True, text=True)
+    if r.returncode != 0 or not r.stdout.strip(): raise RuntimeError('BLS API: curl rc %s' % r.returncode)
+    d = json.loads(r.stdout)
+    if d.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError('BLS API: %s %s' % (d.get('status'), (d.get('message') or [''])[:1]))
+    out = {}
+    for s in d['Results']['series']:
+        obs = out.setdefault(s['seriesID'], {})
+        for o in s['data']:
+            if o['period'][:1] == 'M' and o['period'] != 'M13':
+                try: obs[pd.Timestamp(int(o['year']), int(o['period'][1:]), 1)] = float(str(o['value']).replace(',', ''))
+                except ValueError: pass      # '-' (a month not collected: the 2025 lapse) is a missing month, as in FRED
+    return out
+
+
+def bls_series(sids, full=False, key=None):
+    """{series: pd.Series} from the BLS API: the whole history (full) or the last two years"""
+    key = key if key is not None else bls_key()
+    ids = [PF[s][1] for s in sids]; y1 = datetime.date.today().year
+    span = 20 if key else 10
+    spans = [(y, min(y + span - 1, y1)) for y in range(1939, y1 + 1, span)] if full else [(y1 - 1, y1)]
+    got = {}
+    for y0, ya in spans:
+        for bid, obs in _bls(ids, y0, ya, key).items(): got.setdefault(bid, {}).update(obs)
+    inv = {PF[s][1]: s for s in sids}
+    return {inv[b]: pd.Series(o, dtype=float).sort_index() for b, o in got.items() if o}
+
+
+def g17_fetch():
+    """the G.17 data file, fetched only when the Board's server says it changed (If-Modified-Since); returns its text"""
+    import urllib.request, urllib.error
+    g = _G17
+    hdr = {'User-Agent': UA}
+    if g.get('last_modified') and os.path.exists(G17_FILE): hdr['If-Modified-Since'] = g['last_modified']
+    try:
+        with urllib.request.urlopen(urllib.request.Request(G17_URL, headers=hdr), timeout=60) as r:
+            txt = r.read().decode('utf-8', 'replace'); lm = r.headers.get('Last-Modified')
+        if '"B50001"' not in txt: raise RuntimeError('G.17 file without B50001')
+        os.makedirs(os.path.dirname(G17_FILE), exist_ok=True); open(G17_FILE, 'w').write(txt)
+        g['last_modified'] = lm
+        return txt
+    except urllib.error.HTTPError as e:
+        if e.code == 304: return open(G17_FILE).read()
+        raise
+
+
+def g17_series(txt, code='B50001'):
+    obs = {}
+    for ln in txt.splitlines():
+        p = ln.split()
+        if len(p) >= 3 and p[0] == '"%s"' % code and p[1].isdigit():
+            for m, v in enumerate(p[2:14], 1):
+                try: obs[pd.Timestamp(int(p[1]), m, 1)] = float(v)
+                except ValueError: pass
+    return pd.Series(obs, dtype=float).sort_index()
+
+
+def publisher(sids, full=True, key=None):
+    """{series: the publisher's series now} for the given series"""
+    out = {}
+    b = [s for s in sids if PF[s][0] == 'bls']
+    if b: out.update(bls_series(b, full=full, key=key))
+    if any(PF[s][0] == 'g17' for s in sids):
+        g = g17_series(g17_fetch())
+        for s in sids:
+            if PF[s][0] == 'g17': out[s] = g
+    return out
+
+
+def table_newest(al, s):
+    """the newest month of the table's newest vintage, and that vintage's column"""
+    tab = pd.read_csv(os.path.join(al, '%s_all_vintages.csv' % s), index_col=0); tab.index = pd.to_datetime(tab.index)
+    col = tab.columns[-1]; v = pd.to_numeric(tab[col], errors='coerce').dropna()
+    return v.index[-1], col
+
+
+RID = {'bls_empsit': 50, 'bls_jolts': 192, 'fed_g17': 13}   # FRED's release id of each group (the release calendars are keyed by it)
+
+
+def release_days(group, extra=None):
+    """the New York days the group's release is out, from the site's release calendar (ops/calendar_build.py) and the update's
+    own leg calendar; a day is used only if one of them lists it"""
+    rid = RID[group]; days = set()
+    cal = os.path.join(WS, '..', 'site', 'public', 'ops', 'release_calendar.json')
+    try:
+        for r in json.load(open(cal)).get('rows', []):
+            if str(r.get('release_id')) == str(rid):
+                days.update(t['ny'][:10] for t in r.get('times') or [] if t.get('ny'))
+    except Exception: pass
+    try:
+        for s, e in json.load(open(os.path.join(WS, 'cache', 'leg_release_dates.json'))).items():
+            if str(e.get('rid')) == str(rid): days.update(e.get('dates') or [])
+    except Exception: pass
+    days.update(extra or [])
+    return days
+
+
+def write_column(path, s, day, cur, replace=False):
+    """bhs_update.py _append_vintages, line for line: the vintage `day` of series s as a column of its table. replace=True keeps
+    the column where it stands (a provisional column FRED corrects)."""
+    tab = pd.read_csv(path, index_col=0); tab.index = pd.to_datetime(tab.index)
+    col = f'{s}_{day.replace("-", "")}'
+    if replace and col in tab.columns:
+        tab = tab.reindex(tab.index.union(cur.index)).sort_index(); tab[col] = cur.reindex(tab.index)
+    else:
+        if col in tab.columns: tab = tab.drop(columns=[col])
+        tab = tab.reindex(tab.index.union(cur.index)).sort_index(); tab = pd.concat([tab, cur.reindex(tab.index).rename(col)], axis=1)
+    tab.index.name = 'date'; tab.to_csv(path, na_rep='')
+    return col
+
+
+def append(al, day=None, series=None, say=print, backup=None, force_day=False, pub=None):
+    """for every series whose release is out today (New York) and whose publisher carries a month the table lacks: write the
+    publisher's vintage of today. Returns {series: column}. force_day: write `day` whatever the calendar says (parity tests)."""
+    day = day or ny_day(); st = _load(); done = {}
+    want = []
+    for s in (series or list(PF)):
+        g = PF[s][2]
+        if not force_day and day not in release_days(g): continue
+        want.append(s)
+    if not want: return done
+    try: new_last = {s: v.dropna().index[-1] for s, v in (pub or publisher(want, full=False)).items() if len(v.dropna())}
+    except Exception as e: say('publisher first: the publishers could not be read (%s); FRED stays the source this run' % str(e)[:120]); return done
+    need = [s for s in want if s in new_last and new_last[s] > table_newest(al, s)[0]]
+    if not need:
+        say('publisher first: %s - no month beyond the tables yet' % ', '.join('%s %s' % (s, str(new_last.get(s, '-'))[:7]) for s in want)); return done
+    full = pub if pub is not None else publisher(need, full=True)
+    for s in need:
+        cur = full.get(s)
+        if cur is None or not len(cur.dropna()): continue
+        cur = cur.dropna(); path = os.path.join(al, '%s_all_vintages.csv' % s)
+        if backup: backup(path)
+        col = write_column(path, s, day, cur)
+        st['columns'][col] = dict(series=s, day=day, publisher=PF[s][0], publisher_id=PF[s][1], newest=str(cur.index[-1].date()),
+                                  months=int(len(cur)), status='provisional', written_utc=datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'))
+        done[s] = col
+        say('%-14s PUBLISHER FIRST: vintage %s appended from the %s at %s UTC: data through %s (%d months); FRED cross-checks it when it posts'
+            % (s, col, 'BLS API' if PF[s][0] == 'bls' else 'Federal Reserve G.17 file', st['columns'][col]['written_utc'][11:19], cur.index[-1].date(), len(cur)))
+    _save(st)
+    return done
+
+
+def verify(al, fred_vintage, vintage_dates, say=print, backup=None, alert=None):
+    """every provisional column against FRED's vintage of the same day. fred_vintage(s, day) -> pd.Series (FRED's vintage, dropna);
+    vintage_dates(s, start) -> list of ISO days. Returns the mismatches."""
+    st = _load(); bad = []
+    for col, c in sorted(st['columns'].items()):
+        if c.get('status') != 'provisional': continue
+        s, day = c['series'], c['day']
+        try:
+            if day not in (vintage_dates(s, day) or []):
+                if (datetime.date.fromisoformat(ny_day()) - datetime.date.fromisoformat(day)).days >= 3 and not c.get('told'):
+                    c['told'] = True; say('%-14s publisher first: FRED has no vintage of %s three days on; %s stays as read from the publisher' % (s, day, col))
+                continue
+            cur = fred_vintage(s, day).dropna()
+            path = os.path.join(al, '%s_all_vintages.csv' % s)
+            tab = pd.read_csv(path, index_col=0); tab.index = pd.to_datetime(tab.index)
+            mine = pd.to_numeric(tab[col], errors='coerce') if col in tab.columns else None
+            same = mine is not None and set(cur.index) <= set(tab.index) and mine.reindex(tab.index).equals(cur.reindex(tab.index).astype(float))
+            c['checked_utc'] = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+            if same:
+                c['status'] = 'verified'; say('%-14s publisher first: %s equals FRED\'s vintage of %s on all %d months (verified)' % (s, col, day, len(cur)))
+            else:
+                diff = []
+                if mine is not None:
+                    ix = tab.index.union(cur.index); a = mine.reindex(ix); b = cur.reindex(ix)
+                    diff = [str(d.date()) for d in ix if not ((pd.isna(a[d]) and pd.isna(b[d])) or a[d] == b[d])]
+                if backup: backup(path)
+                write_column(path, s, day, cur, replace=True)
+                c['status'] = 'replaced_by_fred'; c['diff_months'] = diff[:50]
+                msg = '%s: the publisher read of %s differs from FRED\'s vintage on %d month(s) (%s); FRED\'s vintage replaced it' % (s, day, len(diff), ', '.join(diff[:6]))
+                bad.append(msg); say('PUBLISHER FIRST MISMATCH ' + msg)
+                if alert:
+                    try: alert(msg)
+                    except Exception: pass
+        except Exception as e:
+            say('%-14s publisher first: FRED cross-check not done this run (%s); next run' % (s, str(e)[:100]))
+    _save(st)
+    return bad
+
+
+def default_al():
+    return os.environ.get('BHS_C1021_ALFRED') or os.path.abspath(os.path.join(WS, '..', '..', 'onset-detector-new-2026-08-23', '27_realtime_vintages', 'alfred_all_vintages'))
+
+
+def wait(groups, al=None, limit_s=720, every=30, say=print):
+    """THE RELEASE-TIME POLL: the slot starts the run a minute after the release; every `every` seconds the publisher is asked (one
+    small BLS request for the group's series; a conditional GET of the G.17 file) until each series of the groups carries a month its
+    table lacks, or `limit_s` has passed. Returns the groups that were found new. The build then runs either way."""
+    al = al or default_al(); t0 = time.time(); left = [g for g in groups if g in GROUPS]; found = []
+    base = {s: table_newest(al, s)[0] for g in left for s in GROUPS[g]}
+    while left:
+        for g in list(left):
+            try:
+                new = publisher(GROUPS[g], full=False)
+                if all(s in new and len(new[s].dropna()) and new[s].dropna().index[-1] > base[s] for s in GROUPS[g]):
+                    say('publisher wait: %s is out (%s) after %.0f s' % (g, ', '.join('%s %s' % (s, str(new[s].dropna().index[-1])[:7]) for s in GROUPS[g]), time.time() - t0))
+                    left.remove(g); found.append(g)
+            except Exception as e:
+                say('publisher wait: %s not read (%s)' % (g, str(e)[:100]))
+        if not left or time.time() - t0 + every > limit_s: break
+        time.sleep(every)
+    for g in left: say('publisher wait: %s not out after %.0f s; the build runs with what is in hand (the slot\'s look-again runs follow)' % (g, time.time() - t0))
+    return found
+
+
+if __name__ == '__main__':
+    import sys
+    a = sys.argv[1:]
+    if a[:1] == ['wait']:
+        lim = 720
+        if '--limit' in a: lim = int(a[a.index('--limit') + 1]); a = a[:a.index('--limit')] + a[a.index('--limit') + 2:]
+        wait([g for g in a[1:] if g in GROUPS], limit_s=lim)
+        sys.exit(0)
+    if a[:1] == ['append']:
+        print(append(default_al()))
+        sys.exit(0)
+    print(__doc__)

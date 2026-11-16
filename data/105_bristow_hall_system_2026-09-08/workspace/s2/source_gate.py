@@ -223,6 +223,25 @@ class Sources:
         except Exception as e:
             self.c[key + ':err'] = str(e); return None
 
+    def g17(self, code='B50001'):
+        """the Federal Reserve's G.17 data file (ip_sa.txt): {'YYYY-MM': value} of one seasonally adjusted series (B50001 = INDPRO).
+        1052 speed: the publisher's own print, read where FRED has not posted the release yet."""
+        key = 'g17:%s' % code
+        if key in self.c: return self.c[key]
+        if key + ':err' in self.c: return None
+        try:
+            out = {}
+            for ln in self._get('https://www.federalreserve.gov/releases/g17/Current/ipdisk/ip_sa.txt').splitlines():
+                p = ln.split()
+                if len(p) >= 3 and p[0] == '"%s"' % code and p[1].isdigit():
+                    for m, v in enumerate(p[2:14], 1):
+                        try: out['%s-%02d' % (p[1], m)] = float(v)
+                        except ValueError: pass
+            if not out: raise RuntimeError('G.17: no %s in the file' % code)
+            self.c[key] = out; return out
+        except Exception as e:
+            self.c[key + ':err'] = str(e); return None
+
     def dol539(self):
         """the Department of Labor's ETA 539 file (the State weekly claims the build reads), re-read: each State's newest week of
         initial claims (rptdate) and of continued claims (the reflecting week c2)."""
@@ -423,6 +442,8 @@ class Gate:
         if v is None and s.sid in BLS_OF and period not in s.cur:
             j = self.src.bls(list(BLS_OF.values()), self.now.year - 1) or {}
             v = (j.get(BLS_OF[s.sid]) or {}).get(period[:7])
+        if v is None and s.sid == 'INDPRO' and period not in s.cur:   # 1052 speed: the G.17 print before FRED posts it
+            v = (self.src.g17() or {}).get(period[:7])
         return v
 
     def compare(self, page, label, published, expected, tol, series, period, transform, detail=''):
