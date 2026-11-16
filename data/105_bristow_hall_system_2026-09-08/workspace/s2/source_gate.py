@@ -63,6 +63,7 @@ PUB_BLS = {'PAYEMS': 'CES0000000001', 'USMINE': 'CES1000000001', 'USCONS': 'CES2
            'USEHS': 'CES6500000001', 'USLAH': 'CES7000000001', 'USSERV': 'CES0800000001', 'USGOVT': 'CES9000000001',
            'UNRATE': 'LNS14000000', 'UNEMPLOY': 'LNS13000000', 'LNS13023621': 'LNS13023621', 'JTSJOL': 'JTS000000000000000JOL',
            'JTSQUR': 'JTS000000000000000QUR', 'CPIAUCSL': 'CUSR0000SA0', 'CPIAUCNS': 'CUUR0000SA0'}
+DOL_OF = {'ICSA': ('ic_week_ended', 'icsa'), 'ICNSA': ('ic_week_ended', 'icnsa'), 'IURSA': ('iu_week_ended', 'iur_sa'), 'CCSA': ('iu_week_ended', 'iusa')}
 PUB_BEA = {'GDPC1': ('T10106', '1', 'Q'), 'W875RX1': ('T20600', '36', 'M')}   # W875RX1 = Table 2.6 line 36 (found by ops/speed/parity_publisher_first.py: 33 of 33 months equal FRED's)   # 1052: NIPA table, line, frequency of the BEA series behind FRED ids (publisher fallback)
 BLS_OF = {'UNRATE': 'LNS14000000', 'PAYEMS': 'CES0000000001', 'UNEMPLOY': 'LNS13000000', 'LNS13023621': 'LNS13023621',
           'JTSJOL': 'JTS000000000000000JOL', 'JTSQUR': 'JTS000000000000000QUR', 'CPIAUCSL': 'CUSR0000SA0'}
@@ -79,6 +80,7 @@ ARCHIVAL = {
 }
 # a published estimate is allowed only here (the publisher's own nowcast is not our estimate)
 ALLOWED_ESTIMATES = {'GDPNOW'}
+PUB_ANY = set(DOL_OF) | set(PUB_BEA) | {'INDPRO'}   # 1052: series with a publisher read other than the BLS API
 
 
 # ------------------------------------------------------------------------------------------------------------------- dates
@@ -259,6 +261,25 @@ class Sources:
                 except ValueError: pass
             if not out: raise RuntimeError('BEA: no line %s in %s' % (line, table))
             self.c[key] = out; return out
+        except Exception as e:
+            self.c[key + ':err'] = str(e); return None
+
+    def dol_press(self):
+        """the Department of Labor's weekly claims release (data.pdf), read again and parsed by the update's own parser (bhs_dol_press.py):
+        {'ic_week_ended', 'icsa', 'icnsa', 'iu_week_ended', 'iur_sa', 'iusa', 'release_date'}. 1052: the claims before FRED posts them."""
+        key = 'dolpress'
+        if key in self.c: return self.c[key]
+        if key + ':err' in self.c: return None
+        try:
+            if self.offline: raise RuntimeError('offline')
+            import tempfile, subprocess, importlib.util
+            tmp = os.path.join(tempfile.mkdtemp(prefix='sg_dol_'), 'data.pdf')
+            r = subprocess.run(['curl', '-sSL', '-m', '60', '--retry', '3', '--retry-delay', '5', '-o', tmp, 'https://www.dol.gov/ui/data.pdf'], capture_output=True, text=True)
+            if r.returncode != 0 or open(tmp, 'rb').read(5) != b'%PDF-': raise RuntimeError('DOL release not fetched')
+            spec = importlib.util.spec_from_file_location('bhs_dol_press_sg', os.path.join(WS, 'bhs_dol_press.py')); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+            import pandas as _pd
+            row = m.parse(m._text(tmp), _pd.Timestamp(dt.date.today()))
+            self.c[key] = {k: row[k] for k in ('ic_week_ended', 'icsa', 'icnsa', 'iu_week_ended', 'iur_sa', 'iusa', 'release_date')}; return self.c[key]
         except Exception as e:
             self.c[key + ':err'] = str(e); return None
 
@@ -471,10 +492,10 @@ class Gate:
             self.R.add(page, label, 'freshness', 'FAIL', value, p, s.sid, transform, newest, 'no period could be read for the figure'); return
         if p > newest:
             # beyond FRED: FRED may not have posted the release yet; the BLS API decides for BLS series
-            b = self.bls_newest(s.sid)
-            if b and b >= p[:7]:
-                self.R.add(page, label, 'freshness', 'PASS', value, p, s.sid, transform, b, 'newest on the BLS API (FRED has not posted it yet)')
-            elif b is None and s.sid not in BLS_OF:
+            b = self.pub_newest(s.sid)
+            if b and b >= p[:len(b)]:
+                self.R.add(page, label, 'freshness', 'PASS', value, p, s.sid, transform, b, 'newest at the publisher (FRED has not posted it yet)')
+            elif b is None and s.sid not in BLS_OF and s.sid not in PUB_ANY:
                 self.R.add(page, label, 'freshness', 'FAIL', value, p, s.sid, transform, newest,
                            'labelled %s but the publisher has nothing after %s: carried forward or phantom' % (p, newest))
             else:
@@ -494,6 +515,15 @@ class Gate:
             return
         self.R.add(page, label, 'freshness', 'PASS', value, p, s.sid, transform, newest)
 
+    def pub_newest(self, sid):
+        """1052 speed: the newest period the PUBLISHER has, for a series read from its publisher before FRED posts it: the BLS API, the
+        G.17 file (INDPRO), the BEA API (GDPC1, W875RX1), the Department's weekly release (claims). 'YYYY-MM' (monthly) or 'YYYY-MM-DD'."""
+        if sid in BLS_OF: return self.bls_newest(sid)
+        if sid == 'INDPRO': g = self.src.g17() or {}; return max(g) if g else None
+        if sid in PUB_BEA: b = self.src.bea(*PUB_BEA[sid]) or {}; return max(b) if b else None
+        if sid in DOL_OF: d = self.src.dol_press() or {}; return d.get(DOL_OF[sid][0])
+        return None
+
     def bls_newest(self, sid):
         bid = BLS_OF.get(sid)
         if not bid: return None
@@ -509,6 +539,11 @@ class Gate:
             v = (j.get(BLS_OF[s.sid]) or {}).get(period[:7])
         if v is None and s.sid == 'INDPRO' and period not in s.cur:   # 1052 speed: the G.17 print before FRED posts it
             v = (self.src.g17() or {}).get(period[:7])
+        if v is None and s.sid in PUB_BEA and period not in s.cur:    # 1052 speed: the BEA print before FRED posts it
+            v = (self.src.bea(*PUB_BEA[s.sid]) or {}).get(period[:7])
+        if v is None and s.sid in DOL_OF and period not in s.cur:     # 1052 speed: the Department's release before FRED posts it
+            d = self.src.dol_press() or {}
+            if d.get(DOL_OF[s.sid][0]) == period[:10] and d.get(DOL_OF[s.sid][1]) not in (None, ''): v = float(d[DOL_OF[s.sid][1]])
         return v
 
     def compare(self, page, label, published, expected, tol, series, period, transform, detail=''):
