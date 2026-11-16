@@ -32,29 +32,21 @@ def bls_key():
     return k or None
 
 
-def _fetch_span(ids, y0, y1, key):
-    import urllib.request
+def _fetch_span(ids, y0, y1, key=None):
+    """{BLS id: {date: value text}} for one span, through the shared BLS layer (data/105.../workspace/s2/bls_fetch.py: the key, a second
+    key, API v1, the BLS flat files - each where it was proven equal to the API); a series none of them answers goes to FRED in the
+    scripts themselves, as before"""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'data', '105_bristow_hall_system_2026-09-08', 'workspace', 's2'))
+    import bls_fetch
+    d, served = bls_fetch.fetch(list(ids), y0, y1, chain=('bls_v2_key1', 'bls_v2_key2', 'bls_v1', 'bls_flat'))
+    for s, src in served.items():
+        if src != 'bls_v2_key1': REC['why'].setdefault('served by ' + src, 0); REC['why']['served by ' + src] += 1
     got = {}
-    for i in range(0, len(ids), 50):
-        body = {'seriesid': ids[i:i + 50], 'startyear': str(y0), 'endyear': str(y1)}
-        if key: body['registrationkey'] = key
-        d = {'Results': {'series': []}}
-        for t in range(3):
-            try:
-                req = urllib.request.Request('https://api.bls.gov/publicAPI/v2/timeseries/data/', data=json.dumps(body).encode(),
-                                             headers={'Content-Type': 'application/json', 'User-Agent': 'bristow-hall live tools'})
-                d = json.load(urllib.request.urlopen(req, timeout=60))
-                if d.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError('%s %s' % (d.get('status'), (d.get('message') or [''])[:1]))
-                break
-            except Exception as e:
-                if t == 2: d = {'Results': {'series': []}}; REC['why']['bls %d-%d batch %d' % (y0, y1, i // 50)] = str(e).replace(key or '\0', '[key]')[:160]   # those series go to FRED (the refusal repeats the key: redacted)
-                else: time.sleep(5 * (t + 1))
-        for s in d['Results']['series']:
-            rows = got.setdefault(s['seriesID'], {})
-            for o in s['data']:
-                p = o['period']
-                if p[:1] != 'M' or p == 'M13' or o['value'] in ('-', ''): continue
-                rows['%s-%s-01' % (o['year'], p[1:])] = o['value']
+    for s, rows in d.items():
+        r = got.setdefault(s, {})
+        for y, p, v, _ in rows:
+            if v in ('-', ''): continue
+            r['%s-%s-01' % (y, p[1:])] = v
     REC['bls_requests'] = REC.get('bls_requests', 0) + (len(ids) + 49) // 50
     return got
 
