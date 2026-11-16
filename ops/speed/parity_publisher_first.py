@@ -22,9 +22,15 @@ KEY = os.environ['FRED_API_KEY']
 
 
 def fred_json(path, **q):
+    import time, urllib.error
     q.update(api_key=KEY, file_type='json')
-    with urllib.request.urlopen('https://api.stlouisfed.org/fred/' + path + '?' + urllib.parse.urlencode(q), timeout=60) as r:
-        return json.load(r)
+    for i in range(5):    # the key's limit is shared with every job running now: a 429 waits out the minute
+        try:
+            with urllib.request.urlopen('https://api.stlouisfed.org/fred/' + path + '?' + urllib.parse.urlencode(q), timeout=60) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:
+            if e.code != 429 or i == 4: raise
+            time.sleep(15 * (i + 1))
 
 
 def fred_vintage(s, day):   # bhs_update.py: fred(s,realtime_start=d,realtime_end=d,observation_start='1919-01-01').dropna()
