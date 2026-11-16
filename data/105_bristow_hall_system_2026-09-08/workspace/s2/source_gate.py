@@ -131,15 +131,17 @@ class Sources:
         self.offline = offline
         self.t0 = time.time(); self.budget = budget_s
         self.last_call = 0.0; self.calls = 0; self.errors = {}
+        import threading; self._lock = threading.Lock(); self.spacing = 0.55   # 1052 speed: the spacing holds across threads (prefetch)
 
     def _get(self, url, data=None, headers=None, tries=3):
         if self.offline: raise RuntimeError('offline')
         if time.time() - self.t0 > self.budget: raise RuntimeError('time budget spent')
         err = None
         for i in range(tries):
-            wait = 0.55 - (time.time() - self.last_call)     # FRED allows 120 requests a minute
-            if wait > 0: time.sleep(wait)
-            self.last_call = time.time(); self.calls += 1
+            with self._lock:
+                wait = self.spacing - (time.time() - self.last_call)     # FRED allows 120 requests a minute
+                if wait > 0: time.sleep(wait)
+                self.last_call = time.time(); self.calls += 1
             try:
                 req = urllib.request.Request(url, data=data, headers=dict({'User-Agent': UA}, **(headers or {})))
                 with urllib.request.urlopen(req, timeout=40) as r:
@@ -1079,11 +1081,66 @@ def download_live(base, dest):
     return dest
 
 
+KEYS = os.path.join(ROOT, 'ops', 'state', 'source_gate_keys.json')
+
+
+def warm_cache(path, fred_key=''):
+    """1052 speed: the FRED sources this run's prefetch read (s2/source_gate.py --prefetch-to, started before the build while the site
+    builds). Kept: FRED answers only (observations and release calendars) of series FRED itself says it has NOT updated since the
+    prefetch (one fred/series/updates call; if that call fails nothing is kept). Everything else - a failed fetch, the BLS API, the
+    G.17 file, the ETA 539 file, QCEW, and every FRED series updated since - is fetched again by the gate, exactly as without it."""
+    from zoneinfo import ZoneInfo
+    try: c = json.load(open(path))
+    except Exception: return None
+    at = c.pop('_meta:prefetched_ct', None)
+    c = {k: v for k, v in c.items() if (k.startswith('fred:') or k.startswith('rel:')) and not k.endswith(':err') and v is not None}
+    if not at or not fred_key: return None
+    try:
+        st = (dt.datetime.strptime(at, '%Y%m%d%H%M') - dt.timedelta(minutes=5)).strftime('%Y%m%d%H%M')
+        q = urllib.parse.urlencode(dict(api_key=fred_key, file_type='json', filter_value='all', start_time=st,
+                                        end_time=(dt.datetime.now(ZoneInfo('America/Chicago')) + dt.timedelta(hours=1)).strftime('%Y%m%d%H%M'), limit=1000))
+        with urllib.request.urlopen(urllib.request.Request('https://api.stlouisfed.org/fred/series/updates?' + q, headers={'User-Agent': UA}), timeout=40) as r:
+            d = json.load(r)
+        if 'seriess' not in d or int(d.get('count', 0)) >= 1000: return None
+        changed = {x['id'] for x in d['seriess']}
+    except Exception:
+        return None
+    return {k: v for k, v in c.items() if k.split(':')[1] not in changed}
+
+
+def prefetch(out_path, keys_path=KEYS, workers=4, spacing=0.75):
+    """1052 speed: fetch, in parallel and politely (one call every `spacing` seconds across all threads, under FRED's 120 a minute
+    together with the update's own calls), every source the last gate read, into a cache the gate then starts from (--warm). The
+    gate reads the same sources from the same publishers; it only no longer waits for them one by one after the build."""
+    from concurrent.futures import ThreadPoolExecutor
+    from zoneinfo import ZoneInfo
+    keys = json.load(open(keys_path))
+    src = Sources(os.environ.get('FRED_API_KEY', '').strip(), os.environ.get('BLS_API_KEY', '').strip(), budget_s=600)
+    src.spacing = spacing
+    today = dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat()
+    def one(k):
+        p = k.split(':')
+        try:
+            if p[0] == 'fred': src.fred(p[1], p[2])
+            elif p[0] == 'rel': src.release_dates(p[1], today)
+            elif p[0] == 'bls': src.bls(p[1].split(','), int(p[2]))
+            elif p[0] == 'g17': src.g17(p[1])
+            elif p[0] == 'dol539': src.dol539()
+            elif p[0] == 'qcew': src.qcew_has(int(p[1]), int(p[2]))
+        except Exception: pass
+    t0 = time.time(); t_ct = dt.datetime.now(ZoneInfo('America/Chicago')).strftime('%Y%m%d%H%M')   # FRED's stamps are Central time
+    with ThreadPoolExecutor(max_workers=workers) as ex: list(ex.map(one, keys))
+    src.c['_meta:prefetched_ct'] = t_ct
+    src.save(out_path)
+    print('source gate prefetch: %d of %d sources in %.0fs, %d calls' % (sum(1 for k in src.c if not k.endswith(':err')) - 1, len(keys), time.time() - t0, src.calls))
+
+
 def run(site, mode='warn', pages=None, sources_in=None, sources_out=None, now=None, out=None, verified_path=None,
-        fred_key=None, bls_key=None, quiet=False, write_verified=True):
+        fred_key=None, bls_key=None, quiet=False, write_verified=True, warm=None):
     t0 = time.time()
-    cache = json.load(open(sources_in)) if sources_in and os.path.exists(sources_in) else None
-    src = Sources(fred_key if fred_key is not None else os.environ.get('FRED_API_KEY', '').strip(),
+    fk = fred_key if fred_key is not None else os.environ.get('FRED_API_KEY', '').strip()
+    cache = json.load(open(sources_in)) if sources_in and os.path.exists(sources_in) else (warm_cache(warm, fk) if warm else None)
+    src = Sources(fk,
                   bls_key if bls_key is not None else os.environ.get('BLS_API_KEY', '').strip(),
                   cache=cache, offline=bool(sources_in))
     now = now or dt.datetime.now(dt.timezone.utc)
@@ -1102,6 +1159,12 @@ def run(site, mode='warn', pages=None, sources_in=None, sources_out=None, now=No
             import traceback
             R.add(p, 'the gate itself', 'crash', 'FAIL', detail='%s: %s | %s' % (type(e).__name__, e, traceback.format_exc().splitlines()[-3][:200]))
     if sources_out: src.save(sources_out)
+    if not sources_in and write_verified:   # 1052 speed: the sources this gate read, for the next run's prefetch
+        try:
+            os.makedirs(os.path.dirname(KEYS), exist_ok=True)
+            json.dump(sorted(k for k in src.c if not k.endswith(':err')), open(KEYS, 'w'), indent=0)
+        except OSError:
+            pass
     fails = [r for r in R.rows if r['status'] == 'FAIL']
     warns = [r for r in R.rows if r['status'] == 'WARN']
     unver = [r for r in R.rows if r['status'] == 'UNVERIFIED']
@@ -1157,7 +1220,11 @@ def main():
     ap.add_argument('--now'); ap.add_argument('--out', default=os.path.join(WS, 'out', 'source_gate_report.json'))
     ap.add_argument('--verified'); ap.add_argument('--no-verified-write', action='store_true')
     ap.add_argument('--live-dir', help='where --live keeps the downloaded pages (default: a new temporary folder)')
+    ap.add_argument('--prefetch-to', help='1052 speed: fetch every source the last gate read into this file, then stop')
+    ap.add_argument('--warm', help='1052 speed: start from the sources a --prefetch-to of this run fetched (online: anything missing is fetched)')
     a = ap.parse_args()
+    if a.prefetch_to:
+        prefetch(a.prefetch_to); return
     mode = a.mode
     if not mode:
         try: mode = json.load(open(os.path.join(ROOT, 'ops', 'source_gate.json'))).get('mode', 'warn')
@@ -1171,7 +1238,7 @@ def main():
     now = dt.datetime.strptime(a.now, '%Y-%m-%d %H:%M').replace(tzinfo=dt.timezone.utc) if a.now else None
     try:
         rep = run(site, mode, a.pages.split(',') if a.pages else None, a.sources_in, a.sources_out, now, a.out, a.verified,
-                  write_verified=not a.no_verified_write and not a.live)
+                  write_verified=not a.no_verified_write and not a.live, warm=a.warm)
     except Exception as e:
         print('HOLD source gate: the gate itself failed (%s: %s); nothing is published' % (type(e).__name__, e) if mode == 'hold'
               else 'source gate (warn mode) crashed: %s: %s' % (type(e).__name__, e))
