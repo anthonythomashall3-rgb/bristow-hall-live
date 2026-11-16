@@ -205,6 +205,15 @@ def main():
     # 1052 (16 Nov 2026): FRED refuses a read (429, the key's shared limit) but the publisher answers. The figure is checked against the
     # publisher (BLS API v2) and passes, whatever the verified store says; changed to a wrong value, it is a FAIL (a mismatch), not merely held.
     cache = json.load(open(a.sources))
+    # the BLS's answer for the gate's labour bundle: the capture's own when the live check asked the BLS; otherwise (FRED was current, so
+    # the live check never needed the BLS) the same months as FRED's current UNRATE in the capture - the publisher's print, which FRED
+    # republishes unchanged - so the fallback logic is tested on every run
+    import datetime as _dt
+    bk = 'bls:%s:%d' % (','.join(sorted(G.BLS_OF.values())), _dt.date.today().year - 1)
+    if bk not in cache:
+        fr = next((v for k, v in cache.items() if k.startswith('fred:UNRATE:') and not k.endswith(':err') and v), None)
+        if fr:
+            cache[bk] = {'LNS14000000': {r[0][:7]: r[3] for r in fr if r[2] == '9999-12-31' and r[3] is not None}}
     for k in [k for k in cache if k.startswith('fred:UNRATE:')]: cache[k + ':err'] = 'HTTP 429 Too Many Requests (simulated)'; del cache[k]
     pc = os.path.join(tmp, 'fred429_sources.json'); json.dump(cache, open(pc, 'w')); json.dump({}, open(vfile, 'w'))
     r3 = G.run(a.site, mode='hold', sources_in=pc, verified_path=vfile, quiet=True, write_verified=False)
