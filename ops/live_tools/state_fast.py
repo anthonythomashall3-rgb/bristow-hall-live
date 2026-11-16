@@ -67,13 +67,14 @@ def bundle():
         return _BUNDLE
 
 
-def fredgraph_from_bls(url):
-    """the bytes FRED's fredgraph.csv?id=<SID> would return, built from the BLS API; None when the BLS has no such series"""
+def fredgraph_from_bls(url, start=None):
+    """the bytes FRED's fredgraph.csv?id=<SID> would return, built from the BLS API, from `start` (the held file's first month: the held file
+    is FRED's whole series, so FRED's own first month; the BLS can reach further back, e.g. DCURN); None when the BLS has no such series"""
     if 'fredgraph.csv?id=' not in url: return None
     sid = url.split('id=')[1].split('&')[0]
     b = BLS_OF.get(sid)
     if not b: return None
-    rows = bundle().get(b)
+    rows = [r for r in (bundle().get(b) or []) if start is None or r[0] >= start]
     if not rows: return None
     return ('observation_date,%s\n' % sid + ''.join('%s,%s\n' % r for r in rows)).encode()
 
@@ -97,11 +98,11 @@ def run_inputs():
     def refresh_csv(path, sid, flat):
         cur['path'] = path; return real_csv(path, sid, flat)
     def fetch(url, fresh_days=0):
-        b = fredgraph_from_bls(url)
+        held = _first_held(cur.get('path', ''))
+        b = fredgraph_from_bls(url, held)
         if b is not None:
             first = b.split(b'\n', 2)[1][:10].decode()
-            held = _first_held(cur.get('path', ''))
-            if held is None or first <= held:
+            if held is not None and first == held:
                 REC['bls'] += 1; return b, None
             REC['why'][url.split('id=')[1]] = 'BLS history starts %s, the held file %s: FRED' % (first, held)
         REC['fred'] += 1; return real(url, fresh_days)
@@ -116,10 +117,11 @@ def run_extra():
     def fred_replace(path, sid):
         cur['path'] = path; return real_fr(path, sid)
     def get(url, tries=3):
-        b = fredgraph_from_bls(url)
+        held = _first_held(cur.get('path', ''))
+        b = fredgraph_from_bls(url, held)
         if b is not None:
-            first = b.split(b'\n', 2)[1][:10].decode(); held = _first_held(cur.get('path', ''))
-            if held is None or first <= held:
+            first = b.split(b'\n', 2)[1][:10].decode()
+            if held is not None and first == held:
                 REC['bls'] += 1; return b
             REC['why'][url.split('id=')[1]] = 'BLS history starts %s, the held file %s: FRED' % (first, held)
         REC['fred'] += 1; return real(url, tries)

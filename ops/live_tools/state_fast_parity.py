@@ -21,12 +21,13 @@ def main():
     out = dict(series=0, identical=0, later_start=[], different=[], bls_seconds=round(tb, 1))
     for sid in sorted(sf.BLS_OF):
         url = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + sid
-        b = sf.fredgraph_from_bls(url)
         f = None
         for i in range(4):
             try: f = urllib.request.urlopen(url, timeout=60).read(); break
             except Exception: time.sleep(10 * (i + 1))
         out['series'] += 1
+        # production: the held file is FRED's whole series, so the BLS rows are taken from its first month (state_fast: start=held first)
+        b = sf.fredgraph_from_bls(url, parse(f, sid).date.iloc[0]) if f is not None else None
         if b is None or f is None: out['different'].append(dict(sid=sid, why='BLS %s, FRED %s' % (b is not None, f is not None))); continue
         A, B = parse(f, sid), parse(b, sid)
         if B.date.iloc[0] > A.date.iloc[0]:
