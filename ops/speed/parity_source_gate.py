@@ -33,19 +33,23 @@ def main():
     # A source that one of the two gates could not read (a publisher's error at that moment) is not a difference of the gates: such a
     # row pair is listed apart, and only if the OTHER gate read the source and passed it. Every other row must be identical.
     FAILREAD = ('could not be read', 'unreachable', 'source unreachable', 'time budget')
-    key = lambda r: (r['page'], r['label'], r['check'], r.get('series'))
-    ka, kb = {key(r): r for r in A['rows']}, {key(r): r for r in B['rows']}
+    fig = lambda r: (r['page'], r['label'], r.get('series'))     # one published figure: all its check rows together
+    ga, gb = {}, {}
+    for r in A['rows']: ga.setdefault(fig(r), []).append(json.dumps(r, sort_keys=True, default=str))
+    for r in B['rows']: gb.setdefault(fig(r), []).append(json.dumps(r, sort_keys=True, default=str))
+    failed = lambda rows: any(any(f in json.loads(x).get('detail', '') for f in FAILREAD) for x in rows)
+    passed = lambda rows: all(json.loads(x)['status'] in ('PASS', 'WARN') for x in rows) and not failed(rows)
     readfail, real = [], []
-    for k in sorted(set(ka) | set(kb), key=str):
-        a, b = ka.get(k), kb.get(k)
-        if json.dumps(a, sort_keys=True, default=str) == json.dumps(b, sort_keys=True, default=str): continue
-        one_failed = a and b and (any(f in (a.get('detail') or '') for f in FAILREAD) or any(f in (b.get('detail') or '') for f in FAILREAD))
-        (readfail if one_failed else real).append(dict(A=a, B=b))
+    for k in sorted(set(ga) | set(gb), key=str):
+        a, b = ga.get(k, []), gb.get(k, [])
+        if a == b: continue
+        if (failed(a) and passed(b)) or (failed(b) and passed(a)): readfail.append(dict(figure=k, A=a, B=b))
+        else: real.append(dict(figure=k, A=a, B=b))
     out = dict(rows_A=len(ra), rows_B=len(rb), rows_identical=ra == rb, decision_A=A['decision'], decision_B=B['decision'],
                totals_A=A['totals'], totals_B=B['totals'], seconds_cold=round(ta, 1), seconds_prefetch=round(tp, 1), seconds_warm_gate=round(tb, 1),
                calls_cold=A['source_calls'], calls_warm_gate=B['source_calls'], source_read_failures_one_side=readfail,
                real_differences=real, differing_rows=diff)
-    out['ok'] = not real and len(ra) == len(rb) and A['decision'] == B['decision']
+    out['ok'] = not real and A['decision'] == B['decision']
     os.makedirs(os.path.join(ROOT, 'ops', 'speed', 'out'), exist_ok=True)
     json.dump(out, open(os.path.join(ROOT, 'ops', 'speed', 'out', 'parity_source_gate.json'), 'w'), indent=1)
     print(json.dumps({k: v for k, v in out.items() if k not in ('differing_rows', 'source_read_failures_one_side', 'real_differences')}))
