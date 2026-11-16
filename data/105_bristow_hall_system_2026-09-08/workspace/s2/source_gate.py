@@ -309,6 +309,15 @@ class Gate:
         self.figures = []     # (key, value, period, status) for the verified store
 
     # ---- helpers
+    def later_today(self, cells):
+        """15 Nov 2026: a next-published time later on the build day itself is in the future. The cell reads
+        'Mon D, YYYY, H:MM AM/PM ET'; the build time is the state's built_at (ET wall clock, 'YYYY-MM-DD HH:MM')."""
+        m = re.search(r'(\d{1,2}):(\d{2}) (AM|PM) ET', re.sub(r'<[^>]+>', ' ', cells or ''))
+        b = re.search(r'\d{4}-\d{2}-\d{2}[T ](\d{2}):(\d{2})', str((getattr(self, '_S', None) or {}).get('built_at') or ''))
+        if not m or not b: return False
+        h = int(m.group(1)) % 12 + (12 if m.group(3) == 'PM' else 0)
+        return h * 60 + int(m.group(2)) > int(b.group(1)) * 60 + int(b.group(2))
+
     def S(self, sid, start='2024-06-01'):
         k = (sid, start)
         if k not in self._s:
@@ -622,8 +631,8 @@ class Gate:
             idl = [x.strip() for x in re.split(r'[,/]', ids) if x.strip()]
             if name in ARCHIVAL:
                 self.R.add(page, label, 'freshness', 'INFO', value, through, ids, None, None, 'archival: ' + ARCHIVAL[name])
-                if nxt and nxt <= self.build_day:
-                    self.R.add(page, label, 'next published', 'FAIL', nxt, detail='next published is not after the build day')
+                if nxt and (nxt < self.build_day or (nxt == self.build_day and not self.later_today(rest))):
+                    self.R.add(page, label, 'next published', 'FAIL', nxt, detail='next published is not after the build time')
                 continue
             if freq == 'static':
                 self.R.add(page, label, 'freshness', 'INFO', value, through, ids, detail='static file'); continue
