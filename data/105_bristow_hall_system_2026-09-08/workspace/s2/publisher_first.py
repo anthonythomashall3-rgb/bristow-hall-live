@@ -252,6 +252,42 @@ def verify(al, fred_vintage, vintage_dates, say=print, backup=None, alert=None):
     return bad
 
 
+# RELEASES THE BUILD READS AS BEFORE, WAITED FOR AT RELEASE TIME (1052, 16 Nov 2026). Nothing is written here for them; the slot one
+# minute after the release only waits until the source the build reads has the new period, then builds:
+#   bls_cpi     the CPI: the home tile takes a month the BLS API has ahead of FRED (s2/home_tiles.py); out when the BLS API has the
+#               month before the release month
+#   dol_claims  the weekly claims: out when FRED's ICSA reaches the week ended the Saturday before the release AND the Department's
+#               release (https://www.dol.gov/ui/data.pdf) was modified today
+def _today_et():
+    from zoneinfo import ZoneInfo
+    return datetime.datetime.now(ZoneInfo('America/New_York')).date()
+
+
+def _probe_cpi():
+    t = _today_et(); m = (pd.Timestamp(t.year, t.month, 1) - pd.DateOffset(months=1))
+    got = _bls(['CUSR0000SA0'], t.year - 1, t.year, bls_key()).get('CUSR0000SA0') or {}
+    return bool(got) and max(got) >= m, 'BLS CPI through %s' % (str(max(got))[:7] if got else '-')
+
+
+def _probe_claims():
+    import urllib.request
+    t = _today_et(); sat = t - datetime.timedelta(days=(t.weekday() + 2) % 7)
+    k = os.environ.get('FRED_API_KEY', '').strip(); fe = None
+    if k:
+        with urllib.request.urlopen('https://api.stlouisfed.org/fred/series?series_id=ICSA&file_type=json&api_key=' + k, timeout=30) as r:
+            fe = json.load(r)['seriess'][0]['observation_end']
+    # curl's own agent and a HEAD request: the Department's site answers a browser or custom agent with 403 (as bhs_dol_press.py found)
+    h = subprocess.run(['curl', '-sSI', '-m', '30', 'https://www.dol.gov/ui/data.pdf'], capture_output=True, text=True).stdout
+    lm = next((ln.split(':', 1)[1].strip() for ln in h.splitlines() if ln.lower().startswith('last-modified:')), None)
+    import email.utils
+    from zoneinfo import ZoneInfo
+    dol_today = bool(lm) and email.utils.parsedate_to_datetime(lm).astimezone(ZoneInfo('America/New_York')).date() == t
+    return bool(fe and fe >= sat.isoformat() and dol_today), 'FRED ICSA through %s, the Department release %s' % (fe, 'out today' if dol_today else 'not yet today')
+
+
+WAIT_ONLY = {'bls_cpi': _probe_cpi, 'dol_claims': _probe_claims}
+
+
 def default_al():
     return os.environ.get('BHS_C1021_ALFRED') or os.path.abspath(os.path.join(WS, '..', '..', 'onset-detector-new-2026-08-23', '27_realtime_vintages', 'alfred_all_vintages'))
 
@@ -260,11 +296,16 @@ def wait(groups, al=None, limit_s=720, every=30, say=print):
     """THE RELEASE-TIME POLL: the slot starts the run a minute after the release; every `every` seconds the publisher is asked (one
     small BLS request for the group's series; a conditional GET of the G.17 file) until each series of the groups carries a month its
     table lacks, or `limit_s` has passed. Returns the groups that were found new. The build then runs either way."""
-    al = al or default_al(); t0 = time.time(); left = [g for g in groups if g in GROUPS]; found = []
-    base = {s: table_newest(al, s)[0] for g in left for s in GROUPS[g]}
+    al = al or default_al(); t0 = time.time(); left = [g for g in groups if g in GROUPS or g in WAIT_ONLY]; found = []
+    base = {s: table_newest(al, s)[0] for g in left if g in GROUPS for s in GROUPS[g]}
     while left:
         for g in list(left):
             try:
+                if g in WAIT_ONLY:
+                    ok, what = WAIT_ONLY[g]()
+                    if ok:
+                        say('publisher wait: %s is out (%s) after %.0f s' % (g, what, time.time() - t0)); left.remove(g); found.append(g)
+                    continue
                 new = publisher(GROUPS[g], full=False)
                 if all(s in new and len(new[s].dropna()) and new[s].dropna().index[-1] > base[s] for s in GROUPS[g]):
                     say('publisher wait: %s is out (%s) after %.0f s' % (g, ', '.join('%s %s' % (s, str(new[s].dropna().index[-1])[:7]) for s in GROUPS[g]), time.time() - t0))
@@ -283,7 +324,7 @@ if __name__ == '__main__':
     if a[:1] == ['wait']:
         lim = 720
         if '--limit' in a: lim = int(a[a.index('--limit') + 1]); a = a[:a.index('--limit')] + a[a.index('--limit') + 2:]
-        wait([g for g in a[1:] if g in GROUPS], limit_s=lim)
+        wait([g for g in a[1:] if g in GROUPS or g in WAIT_ONLY], limit_s=lim)
         sys.exit(0)
     if a[:1] == ['append']:
         print(append(default_al()))

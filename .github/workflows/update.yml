@@ -379,6 +379,7 @@ jobs:
         working-directory: ${{ steps.tool.outputs.workspace }}
         env:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           SLOT: ${{ inputs.slot }}
           RUN_SLOTS: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}/run_slots.json
         run: |
