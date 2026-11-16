@@ -10,7 +10,8 @@ import os, re, sys, glob, gzip, json, time, shutil, hashlib, subprocess
 C = '/Users/anthonyhall/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12'
 HERE = os.path.dirname(os.path.abspath(__file__)); LT = os.environ.get('LT_OUT', '/tmp/lt_out'); os.makedirs(LT, exist_ok=True)
 PAT = [os.path.join(C, 'out', p) for p in ('stress_map_*', 'STRESS-MAP-*', 'county_shapes_*')] + [os.path.join(C, 'web', 'stress-map', '*')]
-CLOCK = re.compile(r'\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ|\b\d\d:\d\d:\d\d\b|"seconds?": [0-9.]+|"ms": [0-9.]+')
+# the build's own clock: its time stamps and the headless browser's page-load timings (milliseconds; they differ between any two builds)
+CLOCK = re.compile(r'\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ|\b\d\d:\d\d:\d\d\b|"(?:seconds?|ms|load_s|dom|load)": [0-9.]+')
 
 
 def snap(dst):
