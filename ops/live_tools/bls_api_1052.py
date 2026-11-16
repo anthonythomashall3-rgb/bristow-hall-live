@@ -29,28 +29,19 @@ def log(*a): print(time.strftime('%H:%M:%S'), *a, flush=True)
 
 def key():
     k = os.environ.get('BLS_API_KEY', '').strip()
-    if not k: raise SystemExit('BLS_API_KEY is not set')
+    if not k: print('BLS_API_KEY is not set: the shared layer goes to its fallbacks')
     return k
 
 def ask(sids, y0, y1, k, latest=False):
-    """one API request (<= 50 series): {sid: [(year, period, value, footnotes)]} and the API's 'no data' messages"""
-    body = {'seriesid': sids, 'registrationkey': k}
-    if latest: body['latest'] = True
-    else: body.update(startyear=str(y0), endyear=str(y1))
-    req = urllib.request.Request(API, data=json.dumps(body).encode(), headers={'Content-Type': 'application/json', 'User-Agent': 'bristow-hall-live-tools/1052'})
-    last = None
-    for i in range(4):
-        try:
-            with urllib.request.urlopen(req, timeout=120) as r: J = json.load(r)
-            if J.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError('%s %s' % (J.get('status'), [str(m)[:120] for m in (J.get('message') or [])[:2]]))
-            out = {}
-            for s in J['Results']['series']:
-                out[s['seriesID']] = [(int(d['year']), d['period'], d['value'], ','.join(f.get('code', '') for f in d.get('footnotes', []) if f and f.get('code')))
-                                      for d in s.get('data', []) if d['period'].startswith('M') and d['period'] != 'M13']
-            return out, [m for m in J.get('message', []) if 'does not exist' in m or 'No Data' in m][:5]
-        except Exception as e:
-            last = e; time.sleep(10 * (i + 1))
-    raise RuntimeError(f'BLS API failed 4 times: {type(last).__name__} {str(last)[:200]}')
+    """one request's worth (<= 50 series): {sid: [(year, period, value, footnotes)]} and the 'no data' notes. Through the shared BLS layer
+    (data/105.../workspace/s2/bls_fetch.py, 16 Nov 2026): the key, a second key, API v1, the BLS flat files, FRED - each used only where it
+    was proven equal to the API; the source of every series is printed with the run. `k` is kept for the callers."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'data', '105_bristow_hall_system_2026-09-08', 'workspace', 's2'))
+    import bls_fetch
+    d, served = bls_fetch.fetch(list(sids), y0 or None, y1 or None, latest=latest, fresh=latest)
+    if not d: raise RuntimeError('BLS: no source answered (%s)' % '; '.join(bls_fetch.LOG[-3:]))
+    out = {s: [(int(y), p, v, fn) for y, p, v, fn in rows] for s, rows in d.items()}
+    return out, ['%s: no data' % s for s in sids if not out.get(s)][:5]
 
 def read_flat(path):
     rows = {}

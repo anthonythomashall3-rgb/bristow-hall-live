@@ -37,6 +37,7 @@ G17_URL = 'https://www.federalreserve.gov/releases/g17/Current/ipdisk/ip_sa.txt'
 BLS_URL = 'https://api.bls.gov/publicAPI/v2/timeseries/data/'
 UA = 'Mozilla/5.0 (bristow-hall live site; release-time read)'
 HERE = os.path.dirname(os.path.abspath(__file__)); WS = os.path.dirname(HERE)
+import sys as _sys; _sys.path.insert(0, HERE)   # s2/bls_fetch.py
 STATE = os.path.join(WS, 'cache', 'publisher_first.json')
 import tempfile
 G17_FILE = os.path.join(tempfile.gettempdir(), 'bhr_g17_ip_sa.txt')   # this run's copy only (2.7 MB; not kept in the repository)
@@ -69,21 +70,18 @@ def bls_key():
     return None
 
 
-def _bls(ids, y0, y1, key):
-    body = {'seriesid': list(ids), 'startyear': str(y0), 'endyear': str(y1)}
-    if key: body['registrationkey'] = key
-    r = subprocess.run(['curl', '-sS', '--http1.1', '-m', '40', '-A', UA, '-X', 'POST', '-H', 'Content-Type: application/json',
-                        '-d', json.dumps(body), BLS_URL], capture_output=True, text=True)
-    if r.returncode != 0 or not r.stdout.strip(): raise RuntimeError('BLS API: curl rc %s' % r.returncode)
-    d = json.loads(r.stdout)
-    if d.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError(('BLS API: %s %s' % (d.get('status'), (d.get('message') or [''])[:1])).replace(key or '\0', '[key]'))   # the refusal repeats the key
+def _bls(ids, y0, y1, key=None, fresh=True):
+    """{BLS id: {Timestamp: value}} through the shared BLS layer (s2/bls_fetch.py: the key, a second key, API v1, the flat files, FRED;
+    the source of each series is recorded in bls_fetch.SERVED). `key` is kept for the callers; the layer reads the keys itself."""
+    import bls_fetch
+    data, served = bls_fetch.fetch(list(ids), y0, y1, fresh=fresh)
+    if not data: raise RuntimeError('BLS: no source answered (%s)' % '; '.join(bls_fetch.LOG[-3:]))
     out = {}
-    for s in d['Results']['series']:
-        obs = out.setdefault(s['seriesID'], {})
-        for o in s['data']:
-            if o['period'][:1] == 'M' and o['period'] != 'M13':
-                try: obs[pd.Timestamp(int(o['year']), int(o['period'][1:]), 1)] = float(str(o['value']).replace(',', ''))
-                except ValueError: pass      # '-' (a month not collected: the 2025 lapse) is a missing month, as in FRED
+    for s, rows in data.items():
+        obs = out.setdefault(s, {})
+        for y, p, v, _ in rows:
+            try: obs[pd.Timestamp(int(y), int(p[1:]), 1)] = float(str(v).replace(',', ''))
+            except ValueError: pass      # '-' (a month not collected: the 2025 lapse) is a missing month, as in FRED
     return out
 
 
@@ -91,11 +89,7 @@ def bls_series(sids, full=False, key=None):
     """{series: pd.Series} from the BLS API: the whole history (full) or the last two years"""
     key = key if key is not None else bls_key()
     ids = [PF[s][1] for s in sids]; y1 = datetime.date.today().year
-    span = 20 if key else 10
-    spans = [(y, min(y + span - 1, y1)) for y in range(1939, y1 + 1, span)] if full else [(y1 - 1, y1)]
-    got = {}
-    for y0, ya in spans:
-        for bid, obs in _bls(ids, y0, ya, key).items(): got.setdefault(bid, {}).update(obs)
+    got = _bls(ids, 1939 if full else y1 - 1, y1, key, fresh=not full)   # a poll asks afresh; the whole history once per run   # the shared layer splits the years and the series into requests itself
     inv = {PF[s][1]: s for s in sids}
     return {inv[b]: pd.Series(o, dtype=float).sort_index() for b, o in got.items() if o}
 

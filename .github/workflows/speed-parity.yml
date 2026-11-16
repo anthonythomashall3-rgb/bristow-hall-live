@@ -7,6 +7,7 @@ on:
     paths:
       - 'ops/speed/**'
       - 'data/105_bristow_hall_system_2026-09-08/workspace/s2/publisher_first.py'
+      - 'data/105_bristow_hall_system_2026-09-08/workspace/s2/bls_fetch.py'
       - 'data/105_bristow_hall_system_2026-09-08/workspace/s2/source_gate.py'
       - '.github/workflows/speed-parity.yml'
   workflow_dispatch:
@@ -18,11 +19,11 @@ concurrency:
 jobs:
   parity:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v5
         with:
-          fetch-depth: 1
+          fetch-depth: 50
       - uses: actions/setup-python@v6
         with:
           python-version: '3.14'
@@ -48,6 +49,19 @@ jobs:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
         run: python3 ops/speed/parity_source_gate.py
+      - name: the BLS fallbacks against the BLS API, series by series (only when the shared BLS layer changes)
+        if: always()
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
+          BLS_PARITY_OUT: ops/speed/out/bls_fallback_parity.json
+          BLS_USAGE: ops/speed/out/bls_usage.json
+        run: |
+          git fetch -q --depth 50 origin main || true
+          if [ "${{ github.event_name }}" = "pull_request" ] && ! git diff --name-only origin/main...HEAD 2>/dev/null | grep -q 'bls_fetch.py'; then
+            echo "bls_fetch.py unchanged: the BLS fallback parity is not rerun"; exit 0; fi
+          mkdir -p ops/speed/out && python3 data/105_bristow_hall_system_2026-09-08/workspace/s2/bls_fetch.py parity
       - uses: actions/upload-artifact@v4
         if: always()
         with:

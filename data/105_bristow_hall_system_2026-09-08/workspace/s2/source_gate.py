@@ -220,32 +220,32 @@ class Sources:
             self.c[key + ':err'] = str(e); return None
 
     def bls(self, ids, start_year):
+        """the BLS series through the shared layer (s2/bls_fetch.py; 16 Nov 2026): the key, a second key, API v1, the BLS flat files - in that
+        order, each used only where it was proven equal to the API (ops/state/bls_fallback_parity.json); FRED is not in the gate's chain (the
+        gate checks against the BLS where FRED has not posted). The source that answered is recorded in errors['bls_sources'] when it was
+        not the first key."""
         key = 'bls:%s:%s' % (','.join(sorted(ids)), start_year)
         if key in self.c: return self.c[key]
         if key + ':err' in self.c: return None
         try:
-            body = {'seriesid': sorted(ids), 'startyear': str(start_year), 'endyear': str(dt.date.today().year)}
-            if self.bls_key: body['registrationkey'] = self.bls_key
-            j = json.loads(self._get('https://api.bls.gov/publicAPI/v2/timeseries/data/', data=json.dumps(body).encode(),
-                                     headers={'Content-Type': 'application/json'}))
-            if j.get('status') != 'REQUEST_SUCCEEDED' and len(ids) <= 25 and dt.date.today().year - int(start_year) < 10:
-                # 1052 (16 Nov 2026): the key's daily allowance is shared by every job; when it is refused, the same data from version 1 of
-                # the API (no key; its own allowance per address, 25 series and 10 years a request)
-                self.errors['bls_v2'] = str(j.get('message') or j.get('status')).replace(self.bls_key or '\0', '[key]')[:200]   # the BLS repeats the key in its refusal
-                b1 = {'seriesid': sorted(ids), 'startyear': str(start_year), 'endyear': str(dt.date.today().year)}
-                j = json.loads(self._get('https://api.bls.gov/publicAPI/v1/timeseries/data/', data=json.dumps(b1).encode(), headers={'Content-Type': 'application/json'}))
-            if j.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError(('BLS: %s' % (j.get('message') or j.get('status'))).replace(self.bls_key or '\0', '[key]'))
+            if self.offline: raise RuntimeError('offline')
+            if time.time() - self.t0 > self.budget: raise RuntimeError('time budget spent')
+            sys.path.insert(0, HERE); import bls_fetch
+            d, served = bls_fetch.fetch(sorted(ids), int(start_year), dt.date.today().year, chain=('bls_v2_key1', 'bls_v2_key2', 'bls_v1', 'bls_flat'))
+            self.calls += 1
+            if not d: raise RuntimeError('BLS: no source answered (%s)' % '; '.join(bls_fetch.LOG[-2:]))
+            other = {k: v for k, v in served.items() if v != 'bls_v2_key1'}
+            if other: self.errors.setdefault('bls_sources', {}).update(other)
             out = {}
-            for s in j['Results']['series']:
+            for s, rows in d.items():
                 vals = {}
-                for o in s['data']:
-                    if not o['period'].startswith('M') or o['period'] == 'M13': continue
-                    try: vals['%s-%s' % (o['year'], o['period'][1:])] = float(o['value'])
+                for y, p, v, _ in rows:
+                    try: vals['%s-%s' % (y, p[1:])] = float(v)
                     except ValueError: pass
-                out[s['seriesID']] = vals
+                out[s] = vals
             self.c[key] = out; return out
         except Exception as e:
-            self.c[key + ':err'] = str(e); return None
+            self.c[key + ':err'] = str(e)[:300]; return None
 
     def bea(self, table, line, freq):
         """one NIPA line from the BEA API (key BEA_API_KEY): {'YYYY-MM': value in billions}. 1052: the publisher fallback for GDP."""
