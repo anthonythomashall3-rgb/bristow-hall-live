@@ -3,8 +3,9 @@
 .tmbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:0 0 6px}
 .tmbar input[type=date],.tmbar select,.tmbar button{font:inherit;font-size:15px;padding:7px 10px;border:1px solid #c9cfd6;border-radius:3px;background:#fff;color:#111}
 .tmbar button{cursor:pointer;color:#990000;font-weight:700}.tmbar button:hover{background:#fdf2f2}
-#tmr{width:100%;accent-color:#990000;margin:6px 0 0}
-.tmyrs{position:relative;height:18px;color:#666;font-size:12px;margin:0 8px 16px}.tmyrs span{position:absolute;transform:translateX(-50%)}
+#tmr{width:100%;accent-color:#990000;margin:2px 0 0}
+#tms{display:block;width:100%;height:74px;cursor:pointer;margin-top:10px;touch-action:none}
+.tmsl{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:#555;margin:8px 0 16px}.tmsl span{display:inline-flex;align-items:center;gap:6px}
 .tmst{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 0 6px}
 .tmbox{border:1px solid #dfe4ea;padding:13px 15px}
 .tmbox .k{font-style:italic;color:#444;font-size:13px}
@@ -32,8 +33,9 @@
   <select id="tmj" aria-label="Jump to"><option value="">Jump to&hellip;</option></select>
   <button id="tmtoday">Today</button>
 </div>
+<svg id="tms" role="img" aria-label="Timeline with recessions and disturbances"></svg>
 <input type="range" id="tmr" aria-label="Date slider">
-<div class="tmyrs" id="tmyrs"></div>
+<div class="tmsl" id="tmsl"></div>
 <div class="tmst">
   <div class="tmbox"><div class="k">Bristow-Hall Rule, as it stood that day</div><div class="s" id="tmrs">&nbsp;</div><div class="d" id="tmrd"></div></div>
   <div class="tmbox"><div class="k">NBER committee, as announced by that day</div><div class="s" id="tmns">&nbsp;</div><div class="d" id="tmnd"></div></div>
@@ -51,7 +53,29 @@ const dn=s=>Math.round((Date.parse(s+'T00:00:00Z')-E0)/DAY), iso=n=>new Date(E0+
 const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const fd=s=>{const a=s.split('-');return MN[+a[1]-1]+' '+(+a[2])+', '+a[0]}, fm=s=>{const a=s.split('-');return MN[+a[1]-1]+' '+a[0]};
 const TODAY=iso(Math.floor(Date.now()/DAY)), MIN='1948-01-01';
-let META=null, D={}, STATE=null, cur=TODAY, sel=0;
+let META=null, D={}, STATE=null, BANDS=null, cur=TODAY, sel=0;
+// the recessions and disturbances above the timeline (bands.json, re-dated at every update run), drawn as on the stress map
+const HATCH='<pattern id="PAT" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#b9c0c7" stroke-width="2"/></pattern>';
+const mS=m=>dn(m+'-01'), mE=m=>{ if(!m) return dn(TODAY); const y=+m.slice(0,4), k=+m.slice(5,7); return dn(k===12?(y+1)+'-01-01':y+'-'+String(k+1).padStart(2,'0')+'-01'); };
+function bandRects(X,T,h,lo,hi,id){ let s=''; if(!BANDS) return s;
+  for(const k of ['R','RB','D']) for(const b of BANDS.bands){ if(b[0]!==k) continue; let a=mS(b[1]), e=mE(b[2]); if(e<=lo||a>=hi) continue; a=Math.max(a,lo); e=Math.min(e,hi);
+    const x=X(a).toFixed(1), w=Math.max(1,X(e)-X(a)).toFixed(1);
+    if(k==='R') s+='<rect x="'+x+'" y="'+T+'" width="'+w+'" height="'+h+'" fill="#d5d9de"/>';
+    if(k==='RB') s+='<rect x="'+x+'" y="'+T+'" width="'+w+'" height="'+h+'" fill="url(#'+id+')" stroke="#9aa3ad" stroke-width="1"/>';
+    if(k==='D') s+='<rect x="'+x+'" y="'+(T+.75)+'" width="'+w+'" height="'+(h-1.5)+'" fill="#1f4e79" fill-opacity=".07" stroke="#1f4e79" stroke-width="1" stroke-dasharray="4 3"/>'; }
+  return s; }
+let SX=null;
+function strip(){ const svg=$('#tms'), W=svg.clientWidth||900, H=74, L=8, R=8, T=4, B=18, h=H-T-B, n0=dn(MIN), n1=dn(TODAY);
+  svg.setAttribute('viewBox','0 0 '+W+' '+H); const X=n=>L+(W-L-R)*(n-n0)/(n1-n0); SX={L:L,w:W-L-R,W:W,n0:n0,n1:n1};
+  let s='<defs>'+HATCH.replace('PAT','tmhs')+'</defs>'+bandRects(X,T,h,n0,n1,'tmhs');
+  if(BANDS){ const d=BANDS.line.date, v=BANDS.line.dev; let lo=Math.min(...v.filter(x=>x!=null)), hi=Math.max(...v.filter(x=>x!=null)), p='';
+    for(let i=0;i<d.length;i++){ if(v[i]==null) continue; const n=mS(d[i])+15; if(n<n0) continue; p+=(p?'L':'M')+X(n).toFixed(1)+' '+(T+h*(1-(v[i]-lo)/(hi-lo))).toFixed(1); }
+    s+='<path d="'+p+'" fill="none" stroke="#990000" stroke-width="1.2" pointer-events="none"/>'; }
+  for(let y=1950;y<=+TODAY.slice(0,4);y+=10){ const x=X(dn(y+'-01-01')).toFixed(1); s+='<line x1="'+x+'" x2="'+x+'" y1="'+(H-B)+'" y2="'+(H-B+4)+'" stroke="#666"/><text x="'+x+'" y="'+(H-3)+'" font-size="11" fill="#555" text-anchor="middle">'+y+'</text>'; }
+  const xc=X(dn(cur)).toFixed(1); s+='<line id="tmcur" x1="'+xc+'" x2="'+xc+'" y1="'+(T-2)+'" y2="'+(H-B+2)+'" stroke="#111" stroke-width="2" pointer-events="none"/>';
+  svg.innerHTML=s;
+  const sw=k=>'<svg width="26" height="14" viewBox="0 0 26 14"><defs>'+HATCH.replace('PAT','tml'+k)+'</defs>'+(k==='R'?'<rect width="26" height="14" fill="#d5d9de"/>':k==='RB'?'<rect x=".5" y=".5" width="25" height="13" fill="url(#tmlRB)" stroke="#9aa3ad"/>':k==='D'?'<rect x=".5" y=".5" width="25" height="13" fill="#1f4e79" fill-opacity=".07" stroke="#1f4e79" stroke-dasharray="4 3"/>':'<line x1="0" y1="7" x2="26" y2="7" stroke="#990000" stroke-width="1.5"/>')+'</svg>';
+  $('#tmsl').innerHTML='<span>'+sw('R')+'Recession (NBER dates)</span><span>'+sw('RB')+'Recession dated by the program</span><span>'+sw('D')+'Disturbance</span><span>'+sw('L')+'Economic activity against its trend</span>'; }
 // a period's value as known on day n: the last published value whose vintage day is <= n (nothing published later can show)
 function asof(seq,n){ if(seq[0]>n) return null; let lo=0,hi=seq.length/2-1; while(lo<hi){const m=(lo+hi+1)>>1; if(seq[2*m]<=n) lo=m; else hi=m-1;} return seq[2*lo+1]; }
 // index of the newest period published by day n (a period is known once its first vintage day is <= n)
@@ -97,28 +121,31 @@ function chart(n){
   let y0=Math.min(...ys), y1=Math.max(...ys); if(y0===y1){y0-=1;y1+=1} const pad=(y1-y0)*.08; y0-=pad; y1+=pad;
   const x0=P[0][0], x1=P[P.length-1][0]||x0+1, X=d=>L+(W-L-R)*(d-x0)/Math.max(1,x1-x0), Y=v=>T+(H-T-B)*(1-(v-y0)/(y1-y0));
   const path=k=>{let d='',pen=false; for(const p of P){ if(p[k]==null){pen=false;continue} d+=(pen?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[k]).toFixed(1); pen=true } return d};
-  let g=''; for(let t=0;t<=4;t++){ const v=y0+(y1-y0)*t/4, y=Y(v); g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="#eef1f4"/><text x="'+(L-7)+'" y="'+(y+4)+'" text-anchor="end" font-size="11.5" fill="#666">'+v.toLocaleString('en-US',{maximumFractionDigits:row.dec})+'</text>'; }
+  let g='<defs>'+HATCH.replace('PAT','tmch')+'</defs>'+bandRects(X,T,H-T-B,x0,x1,'tmch'); for(let t=0;t<=4;t++){ const v=y0+(y1-y0)*t/4, y=Y(v); g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="#eef1f4"/><text x="'+(L-7)+'" y="'+(y+4)+'" text-anchor="end" font-size="11.5" fill="#666">'+v.toLocaleString('en-US',{maximumFractionDigits:row.dec})+'</text>'; }
   const yA=+iso(x0).slice(0,4), yB=+iso(x1).slice(0,4), st=Math.max(1,Math.ceil((yB-yA)/8));
   for(let y=yA+1;y<=yB;y+=st){ const x=X(dn(y+'-01-01')); if(x>L&&x<W-R) g+='<line x1="'+x+'" x2="'+x+'" y1="'+T+'" y2="'+(H-B)+'" stroke="#f3f5f7"/><text x="'+x+'" y="'+(H-9)+'" text-anchor="middle" font-size="11.5" fill="#666">'+y+'</text>'; }
   if(y0<0&&y1>0) g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(0)+'" y2="'+Y(0)+'" stroke="#c9cfd6"/>';
   svg.innerHTML=g+'<path d="'+path(2)+'" fill="none" stroke="#9aa3ad" stroke-width="2"/><path d="'+path(1)+'" fill="none" stroke="#990000" stroke-width="2.2"/>';
 }
 function go(d,push){ if(!/^\d{4}-\d\d-\d\d$/.test(d)) return; if(d<MIN) d=MIN; if(d>TODAY) d=TODAY; cur=d; const n=dn(d);
-  $('#tmd').value=d; $('#tmr').value=n; $('#tmh').textContent=fd(d); status(n); if(META){ table(n); chart(n); }
+  $('#tmd').value=d; $('#tmr').value=n; { const c=$('#tmcur'); if(c&&SX){ const x=(SX.L+SX.w*(n-SX.n0)/(SX.n1-SX.n0)).toFixed(1); c.setAttribute('x1',x); c.setAttribute('x2',x); } } $('#tmh').textContent=fd(d); status(n); if(META){ table(n); chart(n); }
   if(push!==false) history.replaceState(null,'','#'+d); }
 function boot(){
   const r=$('#tmr'); r.min=dn(MIN); r.max=dn(TODAY); r.step=1; $('#tmd').max=TODAY;
-  const y=$('#tmyrs'); for(let t=1950;t<=+TODAY.slice(0,4);t+=10){ const s=document.createElement('span'); s.textContent=t; s.style.left=(100*(dn(t+'-01-01')-dn(MIN))/(dn(TODAY)-dn(MIN)))+'%'; y.appendChild(s); }
+  { const sv=$('#tms'); let down=false; const at=e=>{ if(!SX) return; const r=sv.getBoundingClientRect(), x=(e.clientX-r.left)*SX.W/r.width; go(iso(Math.round(SX.n0+Math.max(0,Math.min(1,(x-SX.L)/SX.w))*(SX.n1-SX.n0)))); };
+    sv.addEventListener('pointerdown',e=>{ down=true; sv.setPointerCapture(e.pointerId); at(e); }); sv.addEventListener('pointermove',e=>{ if(down) at(e); }); sv.addEventListener('pointerup',()=>{ down=false; }); sv.addEventListener('pointercancel',()=>{ down=false; }); }
+  strip();
   r.addEventListener('input',()=>go(iso(+r.value))); $('#tmd').addEventListener('change',e=>go(e.target.value));
   $('#tmp').onclick=()=>go(iso(dn(cur)-1)); $('#tmn').onclick=()=>go(iso(dn(cur)+1)); $('#tmtoday').onclick=()=>go(TODAY);
   $('#tmj').addEventListener('change',e=>{ if(e.target.value) go(e.target.value); e.target.value=''; });
   $('#tmb').addEventListener('click',e=>{ const tr=e.target.closest('tr'); if(tr){ sel=+tr.dataset.k; go(cur); } });
-  window.addEventListener('resize',()=>{ if(META) chart(dn(cur)); });
+  window.addEventListener('resize',()=>{ strip(); if(META) chart(dn(cur)); });
   document.addEventListener('keydown',e=>{ if(e.target.tagName==='INPUT'&&e.target.type==='date') return; if(e.key==='ArrowLeft') go(iso(dn(cur)-1)); if(e.key==='ArrowRight') go(iso(dn(cur)+1)); });
   const h=location.hash.slice(1); go(/^\d{4}-\d\d-\d\d$/.test(h)?h:TODAY,false);
   fetch('/bhs_state.json').then(r=>r.json()).then(s=>{ STATE=s; const j=$('#tmj');
     for(const e of (s.chronology||[]).slice().reverse()){ if(!e.open_pub) continue; const o=document.createElement('option'); o.value=e.open_pub; o.textContent='Recession called '+fd(e.open_pub); j.appendChild(o); }
     go(cur,false); }).catch(()=>{});
+  fetch('bands.json').then(r=>r.json()).then(b=>{ BANDS=b; strip(); if(META) chart(dn(cur)); }).catch(()=>{});
   fetch('tm.json').then(r=>r.json()).then(m=>Promise.all([...new Set(m.rows.flatMap(x=>x.ids))].map(id=>fetch('d/'+id+'.json').then(r=>r.json()).then(j=>{D[id]=j}))).then(()=>{ META=m; go(cur,false); }));
 }
 boot();
