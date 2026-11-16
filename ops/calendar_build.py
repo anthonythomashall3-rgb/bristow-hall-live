@@ -84,7 +84,8 @@ OFFICIAL_CLOSE_HM = '20:15' # used only while FRED's posting clock for SP500 is 
 MARKET_CLOSE_HM = '16:00'   # the NYSE close: an SP500 post before it is not the day's official close
 MERGE_MIN = 15          # slots closer than this are one run
 # 1052 speed (15 Nov 2026): FRED release id -> the publisher group s2/publisher_first.py reads at release time (BLS API v2, the G.17 file)
-PUBLISHER_FIRST = {'50': 'bls_empsit', '192': 'bls_jolts', '13': 'fed_g17', '10': 'bls_cpi', '180': 'dol_claims'}
+PUBLISHER_FIRST = {'50': 'bls_empsit', '192': 'bls_jolts', '13': 'fed_g17', '10': 'bls_cpi', '180': 'dol_claims', '112': 'bls_state'}
+LIVE_TOOLS_GROUPS = {'bls_state', 'bls_empsit'}   # a slot waiting for these also starts live-tools.yml (State onset, stress map: State LAUS/CES, CES national)
 PUBLISHER_FIRST_MIN = 1  # the publisher-read run starts this many minutes after the release, then polls the publisher (update.yml)
 PUBLISHER_WARM_MIN = 20  # and a run this many minutes before it does the day's first (full) refresh, so the release run is incremental
 MIN_FUTURE = 3          # every row always knows at least its next three releases
@@ -1035,7 +1036,8 @@ def schedule(cal, state, pending):
         else:
             groups.append([t, t, [w], [pfg] if pfg else []])
     return [dict({'ny': t.strftime('%Y-%m-%d %H:%M'), 'utc': t.astimezone(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
-                  'why': list(dict.fromkeys(w))}, **({'wait': list(dict.fromkeys(p))} if p else {})) for _, t, w, p in groups]
+                  'why': list(dict.fromkeys(w))}, **({'wait': list(dict.fromkeys(p))} if p else {}),
+                 **({'live_tools': True} if set(p) & LIVE_TOOLS_GROUPS else {})) for _, t, w, p in groups]
 
 
 def write_slots(slots, state):

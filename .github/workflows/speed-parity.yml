@@ -33,6 +33,14 @@ jobs:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
         run: python3 ops/speed/parity_publisher_first.py
+      - name: the release-time probes and the State first-print capture answer (smoke test; nothing kept)
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: |
+          cd data/105_bristow_hall_system_2026-09-08/workspace
+          python3 -c "import sys;sys.path.insert(0,'s2');import publisher_first as p;[print(g, f()) for g, f in p.WAIT_ONLY.items()]"
+          cd "$GITHUB_WORKSPACE" && python3 ops/speed/state_first_prints.py --force && head -3 data/state_industry_first_prints/sm_first_prints.csv && wc -l data/state_industry_first_prints/sm_first_prints.csv
       - name: the source gate with its prefetch against the gate as it runs today, check for check
         if: always()
         env:

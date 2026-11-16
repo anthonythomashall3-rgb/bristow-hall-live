@@ -147,7 +147,7 @@ def table_newest(al, s):
     return v.index[-1], col
 
 
-RID = {'bls_empsit': 50, 'bls_jolts': 192, 'fed_g17': 13}   # FRED's release id of each group (the release calendars are keyed by it)
+RID = {'bls_empsit': 50, 'bls_jolts': 192, 'fed_g17': 13, 'bls_state': 112, 'bls_cpi': 10, 'dol_claims': 180}   # FRED's release id of each group (the release calendars are keyed by it)
 
 
 def release_days(group, extra=None):
@@ -285,7 +285,17 @@ def _probe_claims():
     return bool(fe and fe >= sat.isoformat() and dol_today), 'FRED ICSA through %s, the Department release %s' % (fe, 'out today' if dol_today else 'not yet today')
 
 
-WAIT_ONLY = {'bls_cpi': _probe_cpi, 'dol_claims': _probe_claims}
+def _probe_state():
+    """State Employment and Unemployment (BLS, 10:00): out when the BLS API has the month before the release month for a State's
+    unemployment rate (LAUS) and payrolls (CES State); the live tools (State onset, stress map) read these"""
+    t = _today_et(); m = (pd.Timestamp(t.year, t.month, 1) - pd.DateOffset(months=1))
+    got = _bls(['LASST060000000000003', 'SMS06000000000000001'], t.year - 1, t.year, bls_key())
+    ok = len(got) == 2 and all(v and max(v) >= m for v in got.values())
+    return ok, 'BLS State through %s' % ', '.join(str(max(v))[:7] for v in got.values() if v)
+
+
+WAIT_ONLY = {'bls_cpi': _probe_cpi, 'dol_claims': _probe_claims, 'bls_state': _probe_state}
+LIVE_TOOLS = {'bls_state', 'bls_empsit'}   # releases the live tools (live-tools.yml) read: a run at their slot starts the live tools
 
 
 def default_al():
