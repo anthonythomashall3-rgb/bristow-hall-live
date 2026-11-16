@@ -354,6 +354,19 @@ def _probe_539():
     return bool(newest and newest >= sat.isoformat()), 'ETA 539 through %s (Wyoming)' % newest
 
 
+def _probe_fred(g):
+    """fred:<SID>:<release time, New York, YYYYMMDDHHMM>: out when FRED's last_updated stamp for the series is at or after the release"""
+    import urllib.request
+    from zoneinfo import ZoneInfo
+    _, sid, rel = g.split(':')
+    k = os.environ.get('FRED_API_KEY', '').strip()
+    with urllib.request.urlopen('https://api.stlouisfed.org/fred/series?series_id=%s&file_type=json&api_key=%s' % (sid, k), timeout=30) as r:
+        lu = json.load(r)['seriess'][0]['last_updated']          # '2026-11-23 07:36:02-06'
+    t = datetime.datetime.strptime(lu[:19], '%Y-%m-%d %H:%M:%S').replace(tzinfo=datetime.timezone(datetime.timedelta(hours=int(lu[19:]))))
+    r0 = datetime.datetime.strptime(rel, '%Y%m%d%H%M').replace(tzinfo=ZoneInfo('America/New_York'))
+    return t >= r0 - datetime.timedelta(minutes=2), 'FRED %s updated %s' % (sid, lu)
+
+
 WAIT_ONLY = {'bls_cpi': _probe_cpi, 'dol_claims': _probe_claims, 'bls_state': _probe_state, 'dol_539': _probe_539}
 LIVE_TOOLS = {'bls_state', 'bls_empsit', 'dol_539'}   # releases the live tools (live-tools.yml) read: a run at their slot starts the live tools
 
@@ -366,13 +379,13 @@ def wait(groups, al=None, limit_s=720, every=30, say=print):
     """THE RELEASE-TIME POLL: the slot starts the run a minute after the release; every `every` seconds the publisher is asked (one
     small BLS request for the group's series; a conditional GET of the G.17 file) until each series of the groups carries a month its
     table lacks, or `limit_s` has passed. Returns the groups that were found new. The build then runs either way."""
-    al = al or default_al(); t0 = time.time(); left = [g for g in groups if g in GROUPS or g in WAIT_ONLY]; found = []
+    al = al or default_al(); t0 = time.time(); left = [g for g in groups if g in GROUPS or g in WAIT_ONLY or g.startswith('fred:')]; found = []
     base = {s: table_newest(al, s)[0] for g in left if g in GROUPS for s in GROUPS[g]}
     while left:
         for g in list(left):
             try:
-                if g in WAIT_ONLY:
-                    ok, what = WAIT_ONLY[g]()
+                if g in WAIT_ONLY or g.startswith('fred:'):
+                    ok, what = WAIT_ONLY[g]() if g in WAIT_ONLY else _probe_fred(g)
                     if ok:
                         say('publisher wait: %s is out (%s) after %.0f s' % (g, what, time.time() - t0)); left.remove(g); found.append(g)
                     continue

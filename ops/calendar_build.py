@@ -87,6 +87,7 @@ MERGE_MIN = 15          # slots closer than this are one run
 PUBLISHER_FIRST = {'53': 'bea_gdp', '50': 'bls_empsit', '192': 'bls_jolts', '13': 'fed_g17', '10': 'bls_cpi', '180': 'dol_claims', '112': 'bls_state'}
 LIVE_TOOLS_GROUPS = {'bls_state', 'bls_empsit', 'dol_539'}
 ETA539_HM = '15:56'     # the Department's ETA 539 State file follows the claims release the same day at about 3:55 PM ET (measured)   # a slot waiting for these also starts live-tools.yml (State onset, stress map: State LAUS/CES, CES national)
+FRED_POLL = {'219', '465', '456', '386'}   # CFNAI, WEI, the Sahm rule, GDPNow: run at release +1, polling FRED for the post (1052 speed)
 PUBLISHER_FIRST_MIN = 1  # the publisher-read run starts this many minutes after the release, then polls the publisher (update.yml)
 PUBLISHER_WARM_MIN = 20  # and a run this many minutes before it does the day's first (full) refresh, so the release run is incremental
 MIN_FUTURE = 3          # every row always knows at least its next three releases
@@ -983,6 +984,14 @@ def schedule(cal, state, pending):
             why = '%s (%s ET%s%s)' % (r['short'], t.strftime('%I:%M %p').lstrip('0'),
                                       ('; FRED by about %s' % (t + dt.timedelta(minutes=lag)).strftime('%I:%M %p').lstrip('0')) if lag > LAG_MIN else '',
                                       ', expected' if x.get('expected') else '')
+            # 1052 speed (16 Nov 2026): a release read from FRED whose producer the update does not read itself (CFNAI, the WEI, the
+            # Sahm rule, GDPNow) is no longer run at FRED's usual post plus 5 minutes: its run starts 1 minute after the release and
+            # polls FRED until the series is posted (wait group fred:<SID>:<release time>), at most 12 minutes; the slot count is unchanged
+            rid_ = str(r.get('release_id') or '')
+            if rid_ in FRED_POLL:
+                sid_ = re.split(r'[^A-Za-z0-9_]', r['ids'].strip())[0].upper()
+                raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), why + '; polled on FRED', 'fred:%s:%s' % (sid_, t.strftime('%Y%m%d%H%M'))))
+                continue
             raw.append((run_t, why))
             # 1052 SPEED (15 November 2026; Anthony: "the live page to update at MAXIMUM within 5 minutes"): a release the update reads
             # from its publisher (s2/publisher_first.py) gets a run one minute after the release, which polls the publisher until the
