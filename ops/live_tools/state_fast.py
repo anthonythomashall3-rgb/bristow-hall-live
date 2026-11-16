@@ -32,49 +32,83 @@ def bls_key():
     return k or None
 
 
-def bundle():
-    """{BLS id: [(date 'YYYY-MM-01', value text as the BLS prints it)]} for every series above, once per process"""
+def _fetch_span(ids, y0, y1, key):
+    import urllib.request
+    got = {}
+    for i in range(0, len(ids), 50):
+        body = {'seriesid': ids[i:i + 50], 'startyear': str(y0), 'endyear': str(y1)}
+        if key: body['registrationkey'] = key
+        d = {'Results': {'series': []}}
+        for t in range(3):
+            try:
+                req = urllib.request.Request('https://api.bls.gov/publicAPI/v2/timeseries/data/', data=json.dumps(body).encode(),
+                                             headers={'Content-Type': 'application/json', 'User-Agent': 'bristow-hall live tools'})
+                d = json.load(urllib.request.urlopen(req, timeout=60))
+                if d.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError('%s %s' % (d.get('status'), (d.get('message') or [''])[:1]))
+                break
+            except Exception as e:
+                if t == 2: d = {'Results': {'series': []}}; REC['why']['bls %d-%d batch %d' % (y0, y1, i // 50)] = str(e)[:160]   # those series go to FRED
+                else: time.sleep(5 * (t + 1))
+        for s in d['Results']['series']:
+            rows = got.setdefault(s['seriesID'], {})
+            for o in s['data']:
+                p = o['period']
+                if p[:1] != 'M' or p == 'M13' or o['value'] in ('-', ''): continue
+                rows['%s-%s-01' % (o['year'], p[1:])] = o['value']
+    REC['bls_requests'] = REC.get('bls_requests', 0) + (len(ids) + 49) // 50
+    return got
+
+
+def spans(which):
+    """{'y0-y1': {BLS id: {date: value text}}} for the asked spans, each read once per run (shared through $SF_BUNDLE by both scripts).
+    The BLS key's daily allowance (500 requests) is shared by every job: a run with no new month asks only the newest span (5 requests)."""
     with _LOCK:
-        if _BUNDLE: return _BUNDLE
         f = os.environ.get('SF_BUNDLE')
-        if f and os.path.exists(f) and time.time() - os.path.getmtime(f) < 1800:   # read once by 'bundle' for both scripts (this run)
-            _BUNDLE.update({k: [tuple(r) for r in v] for k, v in json.load(open(f)).items()}); return _BUNDLE
-        import urllib.request
-        ids = sorted(set(BLS_OF.values())); key = bls_key(); got = {}
-        for i in range(0, len(ids), 50):
-            for y0, y1 in SPANS:
-                body = {'seriesid': ids[i:i + 50], 'startyear': str(y0), 'endyear': str(y1)}
-                if key: body['registrationkey'] = key
-                for t in range(3):
-                    try:
-                        req = urllib.request.Request('https://api.bls.gov/publicAPI/v2/timeseries/data/', data=json.dumps(body).encode(),
-                                                     headers={'Content-Type': 'application/json', 'User-Agent': 'bristow-hall live tools'})
-                        d = json.load(urllib.request.urlopen(req, timeout=60))
-                        if d.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError('%s %s' % (d.get('status'), (d.get('message') or [''])[:1]))
-                        break
-                    except Exception as e:
-                        if t == 2: d = {'Results': {'series': []}}; REC['why']['bls %d-%d batch %d' % (y0, y1, i // 50)] = str(e)[:160]   # those series go to FRED
-                        time.sleep(5 * (t + 1))
-                for s in d['Results']['series']:
-                    rows = got.setdefault(s['seriesID'], {})
-                    for o in s['data']:
-                        p = o['period']
-                        if p[:1] != 'M' or p == 'M13' or o['value'] in ('-', ''): continue
-                        rows['%s-%s-01' % (o['year'], p[1:])] = o['value']
-        for k, v in got.items(): _BUNDLE[k] = sorted(v.items())
-        if f:
-            tmp = f + '.tmp'; json.dump(_BUNDLE, open(tmp, 'w')); os.replace(tmp, f)
-        return _BUNDLE
+        if not _BUNDLE and f and os.path.exists(f) and time.time() - os.path.getmtime(f) < 1800:
+            _BUNDLE.update(json.load(open(f)))
+        want = ['%d-%d' % s for s in which]; miss = [s for s in which if '%d-%d' % s not in _BUNDLE]
+        if miss:
+            ids = sorted(set(BLS_OF.values())); key = bls_key()
+            for y0, y1 in miss: _BUNDLE['%d-%d' % (y0, y1)] = _fetch_span(ids, y0, y1, key)
+            if f:
+                tmp = f + '.tmp'; json.dump(_BUNDLE, open(tmp, 'w')); os.replace(tmp, f)
+        return {k: _BUNDLE[k] for k in want}
 
 
-def fredgraph_from_bls(url, start=None):
+def bundle():
+    """every span (the whole history)"""
+    return spans(SPANS)
+
+
+def _series(b, which):
+    out = {}
+    for sp in spans(which).values(): out.update(sp.get(b, {}))
+    return sorted(out.items())
+
+
+def fredgraph_from_bls(url, start=None, held_path=None):
     """the bytes FRED's fredgraph.csv?id=<SID> would return, built from the BLS API, from `start` (the held file's first month: the held file
-    is FRED's whole series, so FRED's own first month; the BLS can reach further back, e.g. DCURN); None when the BLS has no such series"""
+    is FRED's whole series, so FRED's own first month; the BLS can reach further back, e.g. DCURN); None when the BLS has no such series.
+    With held_path: when the BLS's newest span carries exactly the held file's months and values (no new month, no revision in it), the held
+    file itself is handed back (the script then finds it identical) and the older spans are not asked."""
     if 'fredgraph.csv?id=' not in url: return None
     sid = url.split('id=')[1].split('&')[0]
     b = BLS_OF.get(sid)
     if not b: return None
-    rows = [r for r in (bundle().get(b) or []) if start is None or r[0] >= start]
+    if held_path and os.path.exists(held_path):
+        recent = _series(b, [SPANS[-1]])
+        if recent:
+            y0 = '%d-01-01' % SPANS[-1][0]
+            held = [ln.split(',') for ln in open(held_path).read().splitlines()[1:] if ln[:10] >= y0]
+            try:
+                same = len(held) == len(recent) and all(h[0][:10] == r[0] and float(h[1]) == float(r[1]) for h, r in zip(held, recent))
+            except (ValueError, IndexError):
+                same = False
+            if same:
+                REC['unchanged'] = REC.get('unchanged', 0) + 1
+                txt = open(held_path).read().splitlines()
+                return ('observation_date,%s\n' % sid + ''.join(ln + '\n' for ln in txt[1:])).encode()
+    rows = [r for r in _series(b, SPANS) if start is None or r[0] >= start]
     if not rows: return None
     return ('observation_date,%s\n' % sid + ''.join('%s,%s\n' % r for r in rows)).encode()
 
@@ -99,7 +133,7 @@ def run_inputs():
         cur['path'] = path; return real_csv(path, sid, flat)
     def fetch(url, fresh_days=0):
         held = _first_held(cur.get('path', ''))
-        b = fredgraph_from_bls(url, held)
+        b = fredgraph_from_bls(url, held, cur.get('path'))
         if b is not None:
             first = b.split(b'\n', 2)[1][:10].decode()
             if held is not None and first == held:
@@ -118,7 +152,7 @@ def run_extra():
         cur['path'] = path; return real_fr(path, sid)
     def get(url, tries=3):
         held = _first_held(cur.get('path', ''))
-        b = fredgraph_from_bls(url, held)
+        b = fredgraph_from_bls(url, held, cur.get('path'))
         if b is not None:
             first = b.split(b'\n', 2)[1][:10].decode()
             if held is not None and first == held:
@@ -133,7 +167,7 @@ if __name__ == '__main__':
     what = (sys.argv[1:] or ['both'])[0]
     t0 = time.time()
     try:
-        if what == 'bundle': bundle(); rc = 0; print('state_fast bundle: %d BLS series' % len(_BUNDLE))
+        if what == 'bundle': spans([SPANS[-1]]); rc = 0; print('state_fast: the newest span read (%d requests)' % REC.get('bls_requests', 0))
         elif what == 'inputs': rc = run_inputs()
         elif what == 'extra': rc = run_extra()
         else: raise SystemExit('inputs | extra')
