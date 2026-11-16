@@ -53,7 +53,31 @@ def pre_state(src, dst):
     tab.index.name = 'date'; tab.to_csv(dst, na_rep='')
 
 
+def bea_discover():
+    """which NIPA table and line FRED's W875RX1 is: every line of Table 2.6 (monthly) against FRED's current values, last 24 months"""
+    try:
+        d = fred_json('series/observations', series_id='W875RX1', observation_start='2024-01-01')
+        f = {o['date']: float(o['value']) for o in d['observations'] if o['value'] != '.'}
+        import urllib.request as U, urllib.parse as P
+        for tb in ('T20600',):
+            q = P.urlencode(dict(UserID=os.environ['BEA_API_KEY'], method='GetData', datasetname='NIPA', TableName=tb, Frequency='M', Year='2024,2025,2026', ResultFormat='JSON'))
+            res = json.load(U.urlopen('https://apps.bea.gov/api/data?' + q, timeout=90))['BEAAPI']['Results']
+            res = res[0] if isinstance(res, list) else res
+            lines = {}
+            for o in res['Data']:
+                m = '%s-%s-01' % (o['TimePeriod'][:4], o['TimePeriod'][5:7])
+                try: v = float(o['DataValue'].replace(',', '')) * 10 ** int(o.get('UNIT_MULT') or 0) / 1e9
+                except Exception: continue
+                lines.setdefault((o['LineNumber'], o['LineDescription'], o.get('CL_UNIT'), o.get('UNIT_MULT')), {})[m] = v
+            for k, s in lines.items():
+                ix = [m for m in s if m in f]
+                if ix and all(abs(s[m] - f[m]) < 0.05 for m in ix): print('W875RX1 = %s line %s (%s; %s; mult %s): %d months equal' % (tb, k[0], k[1], k[2], k[3], len(ix)))
+    except Exception as e:
+        print('BEA discovery failed:', e)
+
+
 def main():
+    bea_discover()
     out = {'series': {}, 'ok': True}
     tmp = tempfile.mkdtemp(prefix='pf_parity_')
     pub = pf.publisher(list(pf.PF), full=True)

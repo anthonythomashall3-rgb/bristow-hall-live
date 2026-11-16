@@ -322,12 +322,14 @@ jobs:
           FRED_API_KEY: ${{ (github.ref_name != 'main' && inputs.simulate == 'bad_fred_key') && 'abcdefghijklmnopqrstuvwxyz012345' || secrets.FRED_API_KEY }}
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+          BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
         run: |
           mkdir -p data/onset-detector-new-2026-08-23/live_data/config
           {
             echo "FRED_API_KEY=$FRED_API_KEY"
             echo "BLS_API_KEY=$BLS_API_KEY"
             echo "EIA_API_KEY=$EIA_API_KEY"
+            echo "BEA_API_KEY=$BEA_API_KEY"
           } > data/onset-detector-new-2026-08-23/live_data/config/local.env
           chmod 600 data/onset-detector-new-2026-08-23/live_data/config/local.env
 
@@ -380,6 +382,7 @@ jobs:
         env:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
           SLOT: ${{ inputs.slot }}
           RUN_SLOTS: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}/run_slots.json
         run: |
@@ -596,6 +599,7 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
           SITE: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}
         run: |
           set +e

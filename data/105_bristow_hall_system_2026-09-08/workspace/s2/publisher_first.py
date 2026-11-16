@@ -29,6 +29,7 @@ PF = {  # series -> (publisher, publisher id, release group)
     'LNS13023621': ('bls', 'LNS13023621', 'bls_empsit'),
     'JTSJOL': ('bls', 'JTS000000000000000JOL', 'bls_jolts'),
     'INDPRO': ('g17', 'B50001', 'fed_g17'),
+    'GDPC1': ('bea', 'T10106:1:Q', 'bea_gdp'),   # BEA NIPA Table 1.1.6, line 1 (real GDP, chained dollars), quarterly; needs BEA_API_KEY
 }
 GROUPS = {}
 for _s, (_p, _i, _g) in PF.items(): GROUPS.setdefault(_g, []).append(_s)
@@ -128,9 +129,48 @@ def g17_series(txt, code='B50001'):
     return pd.Series(obs, dtype=float).sort_index()
 
 
+def bea_key():
+    k = os.environ.get('BEA_API_KEY', '').strip()
+    if k: return k
+    env = os.path.join(os.path.expanduser('~'), 'mnt', 'Onset Detector Data', 'onset-detector-new-2026-08-23', 'live_data', 'config', 'local.env')
+    try:
+        for ln in open(env):
+            if ln.startswith('BEA_API_KEY='): return ln.strip().split('=', 1)[1].strip().strip('"').strip("'") or None
+    except Exception: pass
+    return None
+
+
+def bea_series(table, line, freq, years='ALL', key=None):
+    """one NIPA line from the BEA API, in FRED's units (billions: the API's value x 10^UNIT_MULT / 10^9, in exact decimal arithmetic)"""
+    from decimal import Decimal
+    import urllib.request, urllib.parse
+    key = key or bea_key()
+    if not key: raise RuntimeError('no BEA_API_KEY')
+    q = urllib.parse.urlencode(dict(UserID=key, method='GetData', datasetname='NIPA', TableName=table, Frequency=freq, Year=years, ResultFormat='JSON'))
+    with urllib.request.urlopen(urllib.request.Request('https://apps.bea.gov/api/data?' + q, headers={'User-Agent': UA}), timeout=90) as r:
+        d = json.load(r)
+    res = d.get('BEAAPI', {}).get('Results', {})
+    if isinstance(res, list): res = res[0]
+    if 'Error' in res or 'Data' not in res: raise RuntimeError('BEA API: %s' % str(res.get('Error') or d)[:160])
+    obs = {}
+    for o in res['Data']:
+        if str(o.get('LineNumber')) != str(line): continue
+        v = str(o.get('DataValue', '')).replace(',', '')
+        try: x = Decimal(v) * (Decimal(10) ** int(o.get('UNIT_MULT') or 0)) / (Decimal(10) ** 9)
+        except Exception: continue
+        tp = o['TimePeriod']
+        m = pd.Timestamp(int(tp[:4]), (int(tp[5]) - 1) * 3 + 1, 1) if 'Q' in tp else pd.Timestamp(int(tp[:4]), int(tp[5:7]), 1)
+        obs[m] = float(str(x.normalize()))
+    return pd.Series(obs, dtype=float).sort_index()
+
+
 def publisher(sids, full=True, key=None):
     """{series: the publisher's series now} for the given series"""
     out = {}
+    for s in sids:
+        if PF[s][0] == 'bea':
+            tb, ln, fq = PF[s][1].split(':'); y = datetime.date.today().year
+            out[s] = bea_series(tb, ln, fq, 'ALL' if full else '%d,%d' % (y - 1, y))
     b = [s for s in sids if PF[s][0] == 'bls']
     if b: out.update(bls_series(b, full=full, key=key))
     if any(PF[s][0] == 'g17' for s in sids):
@@ -140,6 +180,15 @@ def publisher(sids, full=True, key=None):
     return out
 
 
+def _differs(al, s, cur=None):
+    """the publisher's values now differ from the table's newest vintage on a period both carry (a revision released today)"""
+    if cur is None: cur = publisher([s], full=False)[s]
+    tab = pd.read_csv(os.path.join(al, '%s_all_vintages.csv' % s), index_col=0); tab.index = pd.to_datetime(tab.index)
+    old = pd.to_numeric(tab[tab.columns[-1]], errors='coerce').dropna(); cur = cur.dropna()
+    ix = old.index.intersection(cur.index)
+    return bool(len(ix)) and bool((old.loc[ix] != cur.loc[ix]).any())
+
+
 def table_newest(al, s):
     """the newest month of the table's newest vintage, and that vintage's column"""
     tab = pd.read_csv(os.path.join(al, '%s_all_vintages.csv' % s), index_col=0); tab.index = pd.to_datetime(tab.index)
@@ -147,7 +196,7 @@ def table_newest(al, s):
     return v.index[-1], col
 
 
-RID = {'bls_empsit': 50, 'bls_jolts': 192, 'fed_g17': 13, 'bls_state': 112, 'bls_cpi': 10, 'dol_claims': 180}   # FRED's release id of each group (the release calendars are keyed by it)
+RID = {'bea_gdp': 53, 'bls_empsit': 50, 'bls_jolts': 192, 'fed_g17': 13, 'bls_state': 112, 'bls_cpi': 10, 'dol_claims': 180}   # FRED's release id of each group (the release calendars are keyed by it)
 
 
 def release_days(group, extra=None):
@@ -194,7 +243,7 @@ def append(al, day=None, series=None, say=print, backup=None, force_day=False, p
     if not want: return done
     try: new_last = {s: v.dropna().index[-1] for s, v in (pub or publisher(want, full=False)).items() if len(v.dropna())}
     except Exception as e: say('publisher first: the publishers could not be read (%s); FRED stays the source this run' % str(e)[:120]); return done
-    need = [s for s in want if s in new_last and new_last[s] > table_newest(al, s)[0]]
+    need = [s for s in want if s in new_last and (new_last[s] > table_newest(al, s)[0] or (PF[s][0] == 'bea' and _differs(al, s, (pub or {}).get(s) if pub else None)))]
     if not need:
         say('publisher first: %s - no month beyond the tables yet' % ', '.join('%s %s' % (s, str(new_last.get(s, '-'))[:7]) for s in want)); return done
     full = pub if pub is not None else publisher(need, full=True)
@@ -328,7 +377,7 @@ def wait(groups, al=None, limit_s=720, every=30, say=print):
                         say('publisher wait: %s is out (%s) after %.0f s' % (g, what, time.time() - t0)); left.remove(g); found.append(g)
                     continue
                 new = publisher(GROUPS[g], full=False)
-                if all(s in new and len(new[s].dropna()) and new[s].dropna().index[-1] > base[s] for s in GROUPS[g]):
+                if all(s in new and len(new[s].dropna()) and (new[s].dropna().index[-1] > base[s] or (PF[s][0] == 'bea' and _differs(al, s, new[s]))) for s in GROUPS[g]):
                     say('publisher wait: %s is out (%s) after %.0f s' % (g, ', '.join('%s %s' % (s, str(new[s].dropna().index[-1])[:7]) for s in GROUPS[g]), time.time() - t0))
                     left.remove(g); found.append(g)
             except Exception as e:
