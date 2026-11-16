@@ -4,12 +4,10 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-16",
- "checked_at": "2026-11-16 10:31 UTC",
- "seconds": 3.2,
- "source_calls": 4,
- "source_errors": {
-  "bls_v2": "['Request could not be serviced, as the daily threshold for total number of requests allocated to the user with registration key [key] has been reached.']"
- },
+ "checked_at": "2026-11-16 13:08 UTC",
+ "seconds": 2.2,
+ "source_calls": 3,
+ "source_errors": {},
  "counts": {
   "home": {
    "PASS": 28
