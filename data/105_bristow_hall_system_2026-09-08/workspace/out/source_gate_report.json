@@ -1,11 +1,11 @@
 {
  "gate": "source gate (s2/source_gate.py, collection 1052)",
  "mode": "warn",
- "decision": "WARN-ONLY (would hold)",
+ "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-15",
- "checked_at": "2026-11-15 23:41 UTC",
- "seconds": 95.3,
+ "checked_at": "2026-11-16 01:30 UTC",
+ "seconds": 96.0,
  "source_calls": 171,
  "source_errors": {},
  "counts": {
@@ -27,8 +27,7 @@
   "data/stress-map": {
    "WARN": 11,
    "INFO": 5,
-   "PASS": 27,
-   "FAIL": 2
+   "PASS": 27
   },
   "detector": {
    "PASS": 58,
@@ -46,39 +45,14 @@
   }
  },
  "totals": {
-  "checks": 387,
+  "checks": 385,
   "figures": 267,
-  "fail": 2,
+  "fail": 0,
   "warn": 37,
   "unverified": 0,
   "passed": 342
  },
- "failures": [
-  {
-   "page": "data/stress-map",
-   "label": "state boundaries, 2024 (drawn from the census file)",
-   "check": "next published",
-   "status": "FAIL",
-   "value": "2026-11-15",
-   "period": null,
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "next published is not after the build day"
-  },
-  {
-   "page": "data/stress-map",
-   "label": "county boundaries, 2024",
-   "check": "next published",
-   "status": "FAIL",
-   "value": "2026-11-15",
-   "period": null,
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "next published is not after the build day"
-  }
- ],
+ "failures": [],
  "rows": [
   {
    "page": "home",
@@ -2446,18 +2420,6 @@
   },
   {
    "page": "data/stress-map",
-   "label": "state boundaries, 2024 (drawn from the census file)",
-   "check": "next published",
-   "status": "FAIL",
-   "value": "2026-11-15",
-   "period": null,
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "next published is not after the build day"
-  },
-  {
-   "page": "data/stress-map",
    "label": "county boundaries, 2024",
    "check": "freshness",
    "status": "INFO",
@@ -2467,18 +2429,6 @@
    "transform": null,
    "expected": null,
    "detail": "archival: static map geometry"
-  },
-  {
-   "page": "data/stress-map",
-   "label": "county boundaries, 2024",
-   "check": "next published",
-   "status": "FAIL",
-   "value": "2026-11-15",
-   "period": null,
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "next published is not after the build day"
   },
   {
    "page": "detector",

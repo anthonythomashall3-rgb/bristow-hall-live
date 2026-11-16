@@ -1,5 +1,5 @@
 {
- "built": "2026-11-15T23:41:09Z",
+ "built": "2026-11-16T01:30:09Z",
  "size": [
   1200,
   760
@@ -43,11 +43,11 @@
   },
   "/forecaster/": {
    "png": "/forecaster/card.png",
-   "sha256": "adbdda00f45d174335c6746c6e9053d6eb733d8f18825b2706ebc381eff4a7be",
+   "sha256": "b93da363714a5ee31ad87628d06c6497aa4d8b7b2dededf4f1427e3741e74af5",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1648,
+   "colours": 1661,
    "share_not_main": 0.2197
   },
   "/chronology/": {
