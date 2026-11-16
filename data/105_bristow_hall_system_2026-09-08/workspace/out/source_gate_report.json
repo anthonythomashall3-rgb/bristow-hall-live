@@ -4,19 +4,23 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-15",
- "checked_at": "2026-11-16 01:54 UTC",
- "seconds": 156.2,
- "source_calls": 176,
+ "checked_at": "2026-11-16 02:30 UTC",
+ "seconds": 237.6,
+ "source_calls": 195,
  "source_errors": {
-  "USMINE": "HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests.  Exceeded Rate Limit\"}"
+  "GS1": "HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests.  Exceeded Rate Limit\"}",
+  "WYNAN": "HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests.  Exceeded Rate Limit\"}",
+  "FLUR": "HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests.  Exceeded Rate Limit\"}",
+  "TB3MS": "HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests.  Exceeded Rate Limit\"}"
  },
  "counts": {
   "home": {
    "PASS": 28
   },
   "data/detector": {
-   "PASS": 68,
-   "WARN": 4
+   "PASS": 67,
+   "UNVERIFIED": 1,
+   "WARN": 3
   },
   "data/disturbance": {
    "PASS": 18
@@ -29,31 +33,37 @@
   "data/stress-map": {
    "WARN": 11,
    "INFO": 5,
-   "PASS": 25,
-   "UNVERIFIED": 1
+   "PASS": 27
+  },
+  "data/forecaster": {
+   "WARN": 5,
+   "PASS": 13
   },
   "detector": {
    "PASS": 57,
-   "WARN": 10
+   "WARN": 9,
+   "UNVERIFIED": 1
   },
   "state-onset": {
-   "PASS": 100
+   "PASS": 99,
+   "UNVERIFIED": 1
   },
   "stress-map": {
    "PASS": 13
   },
   "forecaster": {
-   "PASS": 6,
+   "UNVERIFIED": 2,
+   "PASS": 2,
    "WARN": 1
   }
  },
  "totals": {
-  "checks": 384,
-  "figures": 267,
+  "checks": 400,
+  "figures": 273,
   "fail": 0,
-  "warn": 39,
-  "unverified": 1,
-  "passed": 338
+  "warn": 42,
+  "unverified": 5,
+  "passed": 347
  },
  "failures": [],
  "rows": [
@@ -828,26 +838,14 @@
   {
    "page": "data/detector",
    "label": "10-year and 1-year treasury yields, monthly averages: GS1",
-   "check": "freshness",
-   "status": "PASS",
+   "check": "source",
+   "status": "UNVERIFIED",
    "value": "4.46%",
    "period": "2026-10-01",
    "series": "GS1",
    "transform": "level",
-   "expected": "2026-10-01",
-   "detail": ""
-  },
-  {
-   "page": "data/detector",
-   "label": "10-year and 1-year treasury yields, monthly averages: GS1",
-   "check": "value",
-   "status": "PASS",
-   "value": 4.46,
-   "period": "2026-10-01",
-   "series": "GS1",
-   "transform": "level",
-   "expected": 4.46,
-   "detail": ""
+   "expected": null,
+   "detail": "the source could not be read; unchanged since the last verified build: it may stay"
   },
   {
    "page": "data/detector",
@@ -889,13 +887,13 @@
    "page": "data/detector",
    "label": "sahm rule, real time",
    "check": "next published",
-   "status": "WARN",
+   "status": "PASS",
    "value": "2026-12-04",
    "period": null,
    "series": "SAHMREALTIME",
    "transform": null,
-   "expected": null,
-   "detail": "the release calendar could not be read; next is after the build day"
+   "expected": "2026-12-04",
+   "detail": "FRED release 456 (Sahm Rule Recession Indicator)"
   },
   {
    "page": "data/detector",
@@ -1992,14 +1990,26 @@
   {
    "page": "data/stress-map",
    "label": "national payrolls by supersector: USMINE",
-   "check": "source",
-   "status": "UNVERIFIED",
+   "check": "freshness",
+   "status": "PASS",
    "value": "605",
    "period": "2026-10-01",
    "series": "USMINE",
    "transform": "level",
-   "expected": null,
-   "detail": "the source could not be read; unchanged since the last verified build: it may stay"
+   "expected": "2026-10-01",
+   "detail": ""
+  },
+  {
+   "page": "data/stress-map",
+   "label": "national payrolls by supersector: USMINE",
+   "check": "value",
+   "status": "PASS",
+   "value": 605.0,
+   "period": "2026-10-01",
+   "series": "USMINE",
+   "transform": "level",
+   "expected": 605.0,
+   "detail": ""
   },
   {
    "page": "data/stress-map",
@@ -2422,6 +2432,222 @@
    "detail": "archival: static map geometry"
   },
   {
+   "page": "data/forecaster",
+   "label": "10-year treasury yield, monthly average",
+   "check": "value",
+   "status": "WARN",
+   "value": "5.13",
+   "period": "2026-10-31",
+   "series": "gs10",
+   "transform": "derived",
+   "expected": null,
+   "detail": "a derived value with no recipe here: not recomputed (listed as remaining risk)"
+  },
+  {
+   "page": "data/forecaster",
+   "label": "10-year treasury yield, monthly average",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "5.13",
+   "period": "2026-10-01",
+   "series": "GS10",
+   "transform": "file",
+   "expected": "2026-10-01",
+   "detail": ""
+  },
+  {
+   "page": "data/forecaster",
+   "label": "10-year treasury yield, monthly average",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-12-01",
+   "period": null,
+   "series": "GS10",
+   "transform": null,
+   "expected": "2026-12-01",
+   "detail": "the month average is posted the first business day after the month"
+  },
+  {
+   "page": "data/forecaster",
+   "label": "1-year treasury yield, monthly average",
+   "check": "value",
+   "status": "WARN",
+   "value": "4.46",
+   "period": "2026-10-31",
+   "series": "gs1",
+   "transform": "derived",
+   "expected": null,
+   "detail": "a derived value with no recipe here: not recomputed (listed as remaining risk)"
+  },
+  {
+   "page": "data/forecaster",
+   "label": "1-year treasury yield, monthly average",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "4.46",
+   "period": "2026-10-01",
+   "series": "GS1",
+   "transform": "file",
+   "expected": "2026-10-01",
+   "detail": ""
+  },
+  {
+   "page": "data/forecaster",
+   "label": "1-year treasury yield, monthly average",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-12-01",
+   "period": null,
+   "series": "GS1",
+   "transform": null,
+   "expected": "2026-12-01",
+   "detail": "the month average is posted the first business day after the month"
+  },
+  {
+   "page": "data/forecaster",
+   "label": "3-month treasury bill rate, monthly average",
+   "check": "value",
+   "status": "WARN",
+   "value": "4.05",
+   "period": "2026-10-31",
+   "series": "tb3ms",
+   "transform": "derived",
+   "expected": null,
+   "detail": "a derived value with no recipe here: not recomputed (listed as remaining risk)"
+  },
+  {
+   "page": "data/forecaster",
+   "label": "3-month treasury bill rate, monthly average",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "4.05",
+   "period": "2026-10-01",
+   "series": "TB3MS",
+   "transform": "file",
+   "expected": "2026-10-01",
+   "detail": ""
+  },
+  {
+   "page": "data/forecaster",
+   "label": "3-month treasury bill rate, monthly average",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-12-01",
+   "period": null,
+   "series": "TB3MS",
+   "transform": null,
+   "expected": "2026-12-01",
+   "detail": "the month average is posted the first business day after the month"
+  },
+  {
+   "page": "data/forecaster",
+   "label": "insured unemployment rate, first print",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "1.1",
+   "period": "2026-10-31",
+   "series": "IURSA",
+   "transform": "level",
+   "expected": "2026-10-31",
+   "detail": ""
+  },
+  {
+   "page": "data/forecaster",
+   "label": "insured unemployment rate, first print",
+   "check": "value",
+   "status": "PASS",
+   "value": 1.1,
+   "period": "2026-10-31",
+   "series": "IURSA",
+   "transform": "level",
+   "expected": 1.1,
+   "detail": ""
+  },
+  {
+   "page": "data/forecaster",
+   "label": "insured unemployment rate, first print",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-11-19",
+   "period": null,
+   "series": "IURSA",
+   "transform": null,
+   "expected": "2026-11-19",
+   "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
+  },
+  {
+   "page": "data/forecaster",
+   "label": "consumer prices, not seasonally adjusted (war-surge veto)",
+   "check": "value",
+   "status": "WARN",
+   "value": "337.511",
+   "period": "2026-10-01",
+   "series": "cpiaucns",
+   "transform": "derived",
+   "expected": null,
+   "detail": "a derived value with no recipe here: not recomputed (listed as remaining risk)"
+  },
+  {
+   "page": "data/forecaster",
+   "label": "consumer prices, not seasonally adjusted (war-surge veto)",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "337.511",
+   "period": "2026-10-01",
+   "series": "CPIAUCNS",
+   "transform": "file",
+   "expected": "2026-10-01",
+   "detail": ""
+  },
+  {
+   "page": "data/forecaster",
+   "label": "consumer prices, not seasonally adjusted (war-surge veto)",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-12-10",
+   "period": null,
+   "series": "CPIAUCNS",
+   "transform": null,
+   "expected": "2026-12-10",
+   "detail": "FRED release 10 (Consumer Price Index)"
+  },
+  {
+   "page": "data/forecaster",
+   "label": "federal defense consumption and investment (war-surge veto)",
+   "check": "value",
+   "status": "WARN",
+   "value": "1233.234",
+   "period": "2026-07-01",
+   "series": "fdefx",
+   "transform": "derived",
+   "expected": null,
+   "detail": "a derived value with no recipe here: not recomputed (listed as remaining risk)"
+  },
+  {
+   "page": "data/forecaster",
+   "label": "federal defense consumption and investment (war-surge veto)",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "1233.234",
+   "period": "2026-07-01",
+   "series": "FDEFX",
+   "transform": "file",
+   "expected": "2026-07-01",
+   "detail": ""
+  },
+  {
+   "page": "data/forecaster",
+   "label": "federal defense consumption and investment (war-surge veto)",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-11-25",
+   "period": null,
+   "series": "FDEFX",
+   "transform": null,
+   "expected": "2026-11-25",
+   "detail": "FRED release 53 (Gross Domestic Product)"
+  },
+  {
    "page": "detector",
    "label": "route: insured unemployment (not seasonally adjusted",
    "check": "freshness",
@@ -2821,13 +3047,13 @@
    "page": "detector",
    "label": "job-losers door's witness: the 10-year minus 1-year Treasury spread",
    "check": "value",
-   "status": "PASS",
+   "status": "UNVERIFIED",
    "value": 0.67,
    "period": "2026-10-01",
    "series": "GS10",
    "transform": "spread:GS1",
-   "expected": 0.67,
-   "detail": ""
+   "expected": null,
+   "detail": "the source has no value to recompute it from (source unreachable); unchanged since the last verified build: it may stay"
   },
   {
    "page": "detector",
@@ -3217,13 +3443,13 @@
    "page": "detector",
    "label": "feed: Sahm rule, real time (the comparator on the speed panel) (next)",
    "check": "next published",
-   "status": "WARN",
+   "status": "PASS",
    "value": "2026-12-04",
    "period": null,
    "series": "SAHMREALTIME",
    "transform": null,
-   "expected": null,
-   "detail": "the release calendar could not be read; next is after the build day"
+   "expected": "2026-12-04",
+   "detail": "FRED release 456 (Sahm Rule Recession Indicator)"
   },
   {
    "page": "state-onset",
@@ -3421,13 +3647,13 @@
    "page": "state-onset",
    "label": "FL chronology: last month",
    "check": "freshness",
-   "status": "PASS",
+   "status": "UNVERIFIED",
    "value": "2026-09",
-   "period": "2026-09-01",
+   "period": "2026-09",
    "series": "FLUR",
    "transform": "month",
-   "expected": "2026-09-01",
-   "detail": ""
+   "expected": null,
+   "detail": "the source could not be read; unchanged since the last verified build: it may stay"
   },
   {
    "page": "state-onset",
@@ -4584,50 +4810,26 @@
   {
    "page": "forecaster",
    "label": "spread_10y_3m",
-   "check": "freshness",
-   "status": "PASS",
+   "check": "source",
+   "status": "UNVERIFIED",
    "value": 1.08,
-   "period": "2026-10-01",
-   "series": "GS10/TB3MS",
-   "transform": "ratio",
-   "expected": "2026-10-01",
-   "detail": ""
-  },
-  {
-   "page": "forecaster",
-   "label": "spread_10y_3m",
-   "check": "value",
-   "status": "PASS",
-   "value": 1.08,
-   "period": "2026-10-01",
+   "period": "2026-10",
    "series": "GS10-TB3MS",
-   "transform": "GS10 minus TB3MS, monthly",
-   "expected": 1.08,
-   "detail": ""
+   "transform": "spread",
+   "expected": null,
+   "detail": "the source could not be read; unchanged since the last verified build: it may stay"
   },
   {
    "page": "forecaster",
    "label": "spread_10y_1y",
-   "check": "freshness",
-   "status": "PASS",
+   "check": "source",
+   "status": "UNVERIFIED",
    "value": 0.67,
-   "period": "2026-10-01",
-   "series": "GS10/GS1",
-   "transform": "ratio",
-   "expected": "2026-10-01",
-   "detail": ""
-  },
-  {
-   "page": "forecaster",
-   "label": "spread_10y_1y",
-   "check": "value",
-   "status": "PASS",
-   "value": 0.67,
-   "period": "2026-10-01",
+   "period": "2026-10",
    "series": "GS10-GS1",
-   "transform": "GS10 minus GS1, monthly",
-   "expected": 0.67,
-   "detail": ""
+   "transform": "spread",
+   "expected": null,
+   "detail": "the source could not be read; unchanged since the last verified build: it may stay"
   },
   {
    "page": "forecaster",

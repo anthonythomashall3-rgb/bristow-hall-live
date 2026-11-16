@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-15 20:52",
+ "built_at": "2026-11-15 21:29",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-16T01:54:02Z",
+ "generated_utc": "2026-11-16T02:30:52Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -2196,6 +2196,87 @@
      "expected": true,
      "ny": "2027-01-08 10:00",
      "utc": "2027-01-08T15:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-12-10",
+   "confirmed_through": "2026-12-10",
+   "fred_clock": "09:10",
+   "freq": "monthly",
+   "ids": "cpiaucns",
+   "link": "/forecaster/",
+   "name": "consumer prices, not seasonally adjusted (war-surge veto)",
+   "next_expected": false,
+   "next_ny": "2026-12-10 08:30",
+   "read_lag_min": 50,
+   "release_id": 10,
+   "short": "CPI",
+   "slots": true,
+   "source": "FRED release 10 (Consumer Price Index)",
+   "through": "2026-10-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-10 08:30",
+     "utc": "2026-11-10T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-10 08:30",
+     "utc": "2026-12-10T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-12 08:30",
+     "utc": "2027-01-12T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-09 08:30",
+     "utc": "2027-02-09T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-11-25",
+   "confirmed_through": "2026-12-23",
+   "fred_clock": "08:51",
+   "freq": "monthly",
+   "ids": "fdefx",
+   "link": "/forecaster/",
+   "name": "federal defense consumption and investment (war-surge veto)",
+   "next_expected": false,
+   "next_ny": "2026-11-25 08:30",
+   "read_lag_min": 23,
+   "release_id": 53,
+   "short": "GDP (BEA)",
+   "slots": true,
+   "source": "FRED release 53 (Gross Domestic Product)",
+   "through": "2026-07-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-25 08:30",
+     "utc": "2026-11-25T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 08:30",
+     "utc": "2026-12-23T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-28 08:30",
+     "utc": "2027-01-28T13:30:00Z"
     }
    ],
    "waiting_since_due": null
