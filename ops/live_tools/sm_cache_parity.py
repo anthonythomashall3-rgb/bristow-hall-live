@@ -21,7 +21,8 @@ def snap(dst):
                 b = open(f, 'rb').read()
                 if f.endswith('.gz'): b = gzip.decompress(b)
                 k = os.path.relpath(f, C); got[k] = b
-                q = os.path.join(dst, k); os.makedirs(os.path.dirname(q), exist_ok=True); open(q, 'wb').write(b)
+                if len(b) < 20_000_000:   # the small files kept for the record (the county tables are compared, not kept)
+                    q = os.path.join(dst, k); os.makedirs(os.path.dirname(q), exist_ok=True); open(q, 'wb').write(b)
     return got
 
 
