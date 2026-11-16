@@ -1,5 +1,5 @@
 {
- "at": "2026-11-16T13:39:12Z",
+ "at": "2026-11-16T13:47:25Z",
  "cards": {
   "/detector/": {
    "img": "/detector/card.png?v=c5ce6d43",
@@ -32,7 +32,7 @@
    "ok": true
   },
   "/time-machine/": {
-   "img": "/time-machine/card.png?v=c62dd7af",
+   "img": "/time-machine/card.png?v=387630ad",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
