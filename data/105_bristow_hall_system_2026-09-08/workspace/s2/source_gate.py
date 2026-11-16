@@ -228,7 +228,13 @@ class Sources:
             if self.bls_key: body['registrationkey'] = self.bls_key
             j = json.loads(self._get('https://api.bls.gov/publicAPI/v2/timeseries/data/', data=json.dumps(body).encode(),
                                      headers={'Content-Type': 'application/json'}))
-            if j.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError('BLS: %s' % (j.get('message') or j.get('status')))
+            if j.get('status') != 'REQUEST_SUCCEEDED' and len(ids) <= 25 and dt.date.today().year - int(start_year) < 10:
+                # 1052 (16 Nov 2026): the key's daily allowance is shared by every job; when it is refused, the same data from version 1 of
+                # the API (no key; its own allowance per address, 25 series and 10 years a request)
+                self.errors['bls_v2'] = str(j.get('message') or j.get('status')).replace(self.bls_key or '\0', '[key]')[:200]   # the BLS repeats the key in its refusal
+                b1 = {'seriesid': sorted(ids), 'startyear': str(start_year), 'endyear': str(dt.date.today().year)}
+                j = json.loads(self._get('https://api.bls.gov/publicAPI/v1/timeseries/data/', data=json.dumps(b1).encode(), headers={'Content-Type': 'application/json'}))
+            if j.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError(('BLS: %s' % (j.get('message') or j.get('status'))).replace(self.bls_key or '\0', '[key]'))
             out = {}
             for s in j['Results']['series']:
                 vals = {}
@@ -419,8 +425,8 @@ class Gate:
                 vals = {}
                 if PUB_BLS[sid] in BLS_OF.values():      # the bundle the gate reads anyway (value_on, bls_newest): one call for all
                     vals = (self.src.bls(list(BLS_OF.values()), self.now.year - 1) or {}).get(PUB_BLS[sid]) or {}
-                if not vals:
-                    vals = (self.src.bls([PUB_BLS[sid]], int(start[:4])) or {}).get(PUB_BLS[sid]) or {}
+                if not vals:   # one request for every supersector series (cached), not one per series: the key's daily allowance is shared
+                    vals = (self.src.bls(sorted(set(PUB_BLS.values()) - set(BLS_OF.values())), int(start[:4])) or {}).get(PUB_BLS[sid]) or {}
             else:
                 return None
             rows = [['%s-01' % m, None, '9999-12-31', v] for m, v in sorted(vals.items()) if '%s-01' % m >= start]
@@ -486,7 +492,10 @@ class Gate:
         p = period
         newest = s.newest
         if need_lag:      # a transformation that needs an earlier observation: the newest period it can be computed for
-            ok = [d for d in s.dates if need_lag(d) in s.cur and s.cur.get(need_lag(d)) is not None]
+            def _has(d):
+                k = need_lag(d)
+                return any(s.cur.get(x) is not None for x in k) if isinstance(k, list) else (k in s.cur and s.cur.get(k) is not None)
+            ok = [d for d in s.dates if _has(d)]
             newest = ok[-1] if ok else newest
         if p is None:
             self.R.add(page, label, 'freshness', 'FAIL', value, p, s.sid, transform, newest, 'no period could be read for the figure'); return
@@ -957,6 +966,11 @@ class Gate:
                 self.unverified('detector', lab, r.get('reading'), pk, sid, tr, 'the source could not be read'); continue
             need = None
             if lag and kind == 'month': need = (lambda L: (lambda d: madd(d[:7], -L) + '-01'))(lag)
+            # 16 Nov 2026 (1052): a reading against the highest (lowest) of the PRIOR 12 MONTHS needs a month of that window, not the month
+            # exactly 12 back: October 2025 was never collected (the lapse in appropriations), and UNEMPLOY's October 2026 reading - published
+            # 6 November - was held as 'carried forward' because the gate asked for October 2025 itself
+            if lag and kind == 'month' and (tr in ('vs_high12', 'vs_high12_pct', 'vs_low12') or obj.startswith("count door: the unemployed count's first print")):
+                need = (lambda L: (lambda d: [madd(d[:7], -k) + '-01' for k in range(1, L + 1)]))(lag)
             if lag and kind == 'week': need = (lambda L: (lambda d: (D(d) - dt.timedelta(weeks=L)).isoformat()))(lag)
             self.fresh('detector', lab, s, pk, kind, r.get('reading'), tr or 'reading', need)
             if tr and r.get('reading') is not None:
