@@ -83,6 +83,10 @@ OFFICIAL_CLOSE_RID = 189    # FRED SP500 (S&P Dow Jones Indices' official close)
 OFFICIAL_CLOSE_HM = '20:15' # used only while FRED's posting clock for SP500 is unknown
 MARKET_CLOSE_HM = '16:00'   # the NYSE close: an SP500 post before it is not the day's official close
 MERGE_MIN = 15          # slots closer than this are one run
+# 1052 speed (15 Nov 2026): FRED release id -> the publisher group s2/publisher_first.py reads at release time (BLS API v2, the G.17 file)
+PUBLISHER_FIRST = {'50': 'bls_empsit', '192': 'bls_jolts', '13': 'fed_g17'}
+PUBLISHER_FIRST_MIN = 1  # the publisher-read run starts this many minutes after the release, then polls the publisher (update.yml)
+PUBLISHER_WARM_MIN = 20  # and a run this many minutes before it does the day's first (full) refresh, so the release run is incremental
 MIN_FUTURE = 3          # every row always knows at least its next three releases
 RETRY_MIN = (10, 30, 90)    # a release due and not in is looked for again 10, 30 and 90 minutes after it was found missing
 SLOT_BACK, SLOT_AHEAD = 3, 21
@@ -978,6 +982,14 @@ def schedule(cal, state, pending):
                                       ('; FRED by about %s' % (t + dt.timedelta(minutes=lag)).strftime('%I:%M %p').lstrip('0')) if lag > LAG_MIN else '',
                                       ', expected' if x.get('expected') else '')
             raw.append((run_t, why))
+            # 1052 SPEED (15 November 2026; Anthony: "the live page to update at MAXIMUM within 5 minutes"): a release the update reads
+            # from its publisher (s2/publisher_first.py) gets a run one minute after the release, which polls the publisher until the
+            # new month is out; the FRED run above stays for everything still read from FRED
+            pfg = PUBLISHER_FIRST.get(str(r.get('release_id') or ''))
+            if pfg and lag > 0:
+                raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), '%s (%s ET; read from the publisher)' % (r['short'], t.strftime('%I:%M %p').lstrip('0')), pfg))
+                # the day's first run pulls every series (bhs_update.py FULL); it is done before the release, so the release run is quick
+                raw.append((t - dt.timedelta(minutes=PUBLISHER_WARM_MIN), "the day's full refresh before %s (%s ET)" % (r['short'], t.strftime('%I:%M %p').lstrip('0'))))
     d = lo.date()
     oc = official_close_hm()
     while d <= hi.date():
@@ -1009,18 +1021,21 @@ def schedule(cal, state, pending):
             t = s0 + dt.timedelta(minutes=mnt)
             if t > nowx and t.hour < 20:
                 raw.append((t, 'look again: %s (due %s, not yet posted)' % (p['short'], p['due_ny'][11:])))
-    raw = [(t, w) for t, w in raw if lo <= t <= hi]
+    raw = [(x[0], x[1], x[2] if len(x) > 2 else None) for x in raw if lo <= x[0] <= hi]
     raw.sort(key=lambda x: x[0])
-    groups = []                                          # [first time, run time, reasons]
-    for t, w in raw:
+    groups = []                                          # [first time, run time, reasons, publisher groups to wait for]
+    for t, w, pfg in raw:
         t = t.replace(second=0, microsecond=0)            # to the minute (to 5 minutes until 23 October 2026: the Worker ticks every minute, 411)
-        if groups and (t - groups[-1][0]).total_seconds() <= MERGE_MIN * 60 and t.date() == groups[-1][0].date():
+        # a publisher-read run (1052 speed) is never merged with a FRED-read run: merging would hold it to the later time
+        if (groups and (t - groups[-1][0]).total_seconds() <= MERGE_MIN * 60 and t.date() == groups[-1][0].date()
+                and bool(pfg) == bool(groups[-1][3])):
             groups[-1][1] = max(t, groups[-1][1])            # the run waits for the latest release of its group
             groups[-1][2].append(w)
+            if pfg: groups[-1][3].append(pfg)
         else:
-            groups.append([t, t, [w]])
-    return [{'ny': t.strftime('%Y-%m-%d %H:%M'), 'utc': t.astimezone(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
-             'why': list(dict.fromkeys(w))} for _, t, w in groups]
+            groups.append([t, t, [w], [pfg] if pfg else []])
+    return [dict({'ny': t.strftime('%Y-%m-%d %H:%M'), 'utc': t.astimezone(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
+                  'why': list(dict.fromkeys(w))}, **({'wait': list(dict.fromkeys(p))} if p else {})) for _, t, w, p in groups]
 
 
 def write_slots(slots, state):

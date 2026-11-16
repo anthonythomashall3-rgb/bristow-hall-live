@@ -435,6 +435,22 @@ def _append_vintages(s):
 for s in ['PAYEMS','GDPC1','GDPNOW','INDPRO','PERMIT','UNEMPLOY','LNS13023621','UNRATE','JTSJOL']:   # UNEMPLOY/LNS13023621 for C1021 (1022)   # PERMIT from 781 (moved from _monthly_vintage above)
     try: _append_vintages(s)
     except Exception as e: say(f'{s:14s} vintages NOT refreshed ({e})'); _FAILED.add(s)
+# ---- 1052 speed (15 November 2026; Anthony: "the live page to update at MAXIMUM within 5 minutes"): THE PUBLISHER'S FIRST PRINT AT
+# ---- RELEASE TIME. On the release day of the Employment Situation, JOLTS or the G.17, the vintage of the day is read from the BLS
+# ---- API / the Fed's G.17 file as soon as the publisher has it, written exactly as the FRED path above writes it (byte-identical:
+# ---- ops/speed/parity_publisher_first.py), and cross-checked against FRED's vintage of the same day on every later run (FRED's
+# ---- vintage replaces it if they ever differ, and the phone is told). s2/publisher_first.py.
+try:
+    sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2')); import publisher_first as _pf
+    def _pf_vintage(s_,d_): return fred(s_,realtime_start=d_,realtime_end=d_,observation_start='1919-01-01').dropna()
+    def _pf_vdates(s_,st_):
+        d_=_fred_json(f'https://api.stlouisfed.org/fred/series/vintagedates?series_id={s_}&api_key={KEY}&file_type=json&realtime_start={st_}&realtime_end=9999-12-31')
+        if d_ is None: raise RuntimeError('FRED did not answer')
+        return d_.get('vintage_dates',[])
+    def _pf_alert(m_): subprocess.run(['bash',os.path.join('s2','alert.sh'),'PUBLISHER FIRST MISMATCH',m_],timeout=90)
+    _pf.verify(AL,_pf_vintage,_pf_vdates,say=say,backup=backup,alert=_pf_alert)
+    _pf.append(AL,say=say,backup=backup)   # FRED's stamps are not touched: FRED's own post is still pulled, and then cross-checks
+except Exception as e: say(f'publisher first: not run ({e}); FRED stays the source this run')
 # ---- 1043 (11 November 2026; Anthony: every source has a backup wherever possible): THE LABOUR VINTAGE TABLES' SECOND SOURCE. When
 # ---- FRED failed for a labour series above, the Bureau of Labor Statistics' own API is read; if it carries a month the table lacks,
 # ---- that print is appended as a vintage named by today (never earlier than the release: causal-late at worst). Tested equal to
