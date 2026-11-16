@@ -76,7 +76,7 @@ def _bls(ids, y0, y1, key):
                         '-d', json.dumps(body), BLS_URL], capture_output=True, text=True)
     if r.returncode != 0 or not r.stdout.strip(): raise RuntimeError('BLS API: curl rc %s' % r.returncode)
     d = json.loads(r.stdout)
-    if d.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError('BLS API: %s %s' % (d.get('status'), (d.get('message') or [''])[:1]))
+    if d.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError(('BLS API: %s %s' % (d.get('status'), (d.get('message') or [''])[:1])).replace(key or '\0', '[key]'))   # the refusal repeats the key
     out = {}
     for s in d['Results']['series']:
         obs = out.setdefault(s['seriesID'], {})

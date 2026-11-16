@@ -231,10 +231,10 @@ class Sources:
             if j.get('status') != 'REQUEST_SUCCEEDED' and len(ids) <= 25 and dt.date.today().year - int(start_year) < 10:
                 # 1052 (16 Nov 2026): the key's daily allowance is shared by every job; when it is refused, the same data from version 1 of
                 # the API (no key; its own allowance per address, 25 series and 10 years a request)
-                self.errors['bls_v2'] = str(j.get('message') or j.get('status'))[:200]
+                self.errors['bls_v2'] = str(j.get('message') or j.get('status')).replace(self.bls_key or '\0', '[key]')[:200]   # the BLS repeats the key in its refusal
                 b1 = {'seriesid': sorted(ids), 'startyear': str(start_year), 'endyear': str(dt.date.today().year)}
                 j = json.loads(self._get('https://api.bls.gov/publicAPI/v1/timeseries/data/', data=json.dumps(b1).encode(), headers={'Content-Type': 'application/json'}))
-            if j.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError('BLS: %s' % (j.get('message') or j.get('status')))
+            if j.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError(('BLS: %s' % (j.get('message') or j.get('status'))).replace(self.bls_key or '\0', '[key]'))
             out = {}
             for s in j['Results']['series']:
                 vals = {}
