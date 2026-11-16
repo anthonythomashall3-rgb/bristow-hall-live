@@ -45,16 +45,29 @@ def main():
         if a == b: continue
         if (failed(a) and passed(b)) or (failed(b) and passed(a)): readfail.append(dict(figure=k, A=a, B=b))
         else: real.append(dict(figure=k, A=a, B=b))
+    # THE NOISE FLOOR: a figure that still differs is re-checked against a SECOND cold gate (as today). If the second cold gate agrees
+    # with the warm one, or differs from the first cold one too, the difference is the publishers' answers at that moment (a read that
+    # failed and a fallback series taken), not the prefetch.
+    noise, unexplained = [], []
+    if real:
+        A2 = sg.run(SITE, 'warn', out=os.path.join(tmp, 'A2.json'), verified_path=ver, quiet=True, write_verified=False)
+        g2 = {}
+        for r in A2['rows']: g2.setdefault(fig(r), []).append(json.dumps(r, sort_keys=True, default=str))
+        for d in real:
+            k = d['figure']; a2 = g2.get(k, [])
+            (noise if (a2 == d['B'] or a2 != d['A']) else unexplained).append(dict(d, A2=a2))
     out = dict(rows_A=len(ra), rows_B=len(rb), rows_identical=ra == rb, decision_A=A['decision'], decision_B=B['decision'],
                totals_A=A['totals'], totals_B=B['totals'], seconds_cold=round(ta, 1), seconds_prefetch=round(tp, 1), seconds_warm_gate=round(tb, 1),
                calls_cold=A['source_calls'], calls_warm_gate=B['source_calls'], source_read_failures_one_side=readfail,
-               real_differences=real, differing_rows=diff)
-    out['ok'] = not real and A['decision'] == B['decision']
+               real_differences=real, cold_vs_cold_noise=noise, unexplained=unexplained, differing_rows=diff)
+    out['ok'] = not unexplained and A['decision'] == B['decision'] and A['totals']['fail'] == B['totals']['fail']
     os.makedirs(os.path.join(ROOT, 'ops', 'speed', 'out'), exist_ok=True)
     json.dump(out, open(os.path.join(ROOT, 'ops', 'speed', 'out', 'parity_source_gate.json'), 'w'), indent=1)
-    print(json.dumps({k: v for k, v in out.items() if k not in ('differing_rows', 'source_read_failures_one_side', 'real_differences')}))
-    print('rows differing only because one gate could not read a source at that moment: %d; real differences: %d' % (len(readfail), len(real)))
-    for d in real[:6]: print('REAL', json.dumps(d, default=str)[:400])
+    print(json.dumps({k: v for k, v in out.items() if k not in ('differing_rows', 'source_read_failures_one_side', 'real_differences', 'cold_vs_cold_noise', 'unexplained')}))
+    print('figures differing: %d where one gate could not read a source; %d more, of which %d also differ between two cold gates (noise) and %d unexplained'
+          % (len(readfail), len(real), len(noise), len(unexplained)))
+    for d in unexplained[:6]: print('UNEXPLAINED', json.dumps(d, default=str)[:500])
+    for d in noise[:6]: print('NOISE', json.dumps(d, default=str)[:300])
     for d in diff[:6]: print('DIFF', d[:300])
     print('PARITY', 'PASS' if out['ok'] else 'FAIL')
     sys.exit(0 if out['ok'] else 1)
