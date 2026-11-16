@@ -10,6 +10,7 @@ on:
       - 'data/105_bristow_hall_system_2026-09-08/workspace/s2/bls_fetch.py'
       - 'data/105_bristow_hall_system_2026-09-08/workspace/s2/source_gate.py'
       - '.github/workflows/speed-parity.yml'
+      - 'ops/live_tools/state_fast*.py'
   workflow_dispatch:
 permissions:
   contents: read
@@ -43,12 +44,22 @@ jobs:
           cd data/105_bristow_hall_system_2026-09-08/workspace
           python3 -c "import sys;sys.path.insert(0,'s2');import publisher_first as p;[print(g, f()) for g, f in p.WAIT_ONLY.items()];print('fred:GDPNOW (posted 9 Nov 12:02)', p._probe_fred('fred:GDPNOW:202611091202'));print('fred:GDPNOW (a release in 2030)', p._probe_fred('fred:GDPNOW:203001021202'))"
           cd "$GITHUB_WORKSPACE" && python3 ops/speed/state_first_prints.py --force && head -3 data/state_industry_first_prints/sm_first_prints.csv && wc -l data/state_industry_first_prints/sm_first_prints.csv
+      - name: the State inputs from the BLS API against FRED's fredgraph files, series by series
+        if: always()
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: python3 ops/live_tools/state_fast_parity.py
       - name: the source gate with its prefetch against the gate as it runs today, check for check
         if: always()
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
-        run: python3 ops/speed/parity_source_gate.py
+        run: |
+          # three gates under the shared FRED key: run only when the gate itself changed (it slows every other job's FRED reads)
+          git fetch -q --depth 50 origin main || true
+          if [ "${{ github.event_name }}" = "pull_request" ] && ! git diff --name-only origin/main...HEAD 2>/dev/null | grep -q 'source_gate.py'; then
+            echo "source_gate.py unchanged in this pull request: the gate parity is not rerun"; exit 0; fi
+          python3 ops/speed/parity_source_gate.py
       - name: the BLS fallbacks against the BLS API, series by series (only when the shared BLS layer changes)
         if: always()
         env:
