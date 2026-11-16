@@ -18,6 +18,7 @@ def parse(b, sid):
 
 def main():
     t = time.time(); sf.bundle(); tb = time.time() - t
+    if sf.REC['why']: print('BLS API answers missing (those series would go to FRED):', json.dumps(sf.REC['why'])[:800])
     out = dict(series=0, identical=0, later_start=[], different=[], bls_seconds=round(tb, 1))
     for sid in sorted(sf.BLS_OF):
         url = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + sid

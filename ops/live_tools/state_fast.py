@@ -50,10 +50,10 @@ def bundle():
                         req = urllib.request.Request('https://api.bls.gov/publicAPI/v2/timeseries/data/', data=json.dumps(body).encode(),
                                                      headers={'Content-Type': 'application/json', 'User-Agent': 'bristow-hall live tools'})
                         d = json.load(urllib.request.urlopen(req, timeout=60))
-                        if d.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError(d.get('status'))
+                        if d.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError('%s %s' % (d.get('status'), (d.get('message') or [''])[:1]))
                         break
-                    except Exception:
-                        if t == 2: d = {'Results': {'series': []}}
+                    except Exception as e:
+                        if t == 2: d = {'Results': {'series': []}}; REC['why']['bls %d-%d batch %d' % (y0, y1, i // 50)] = str(e)[:160]   # those series go to FRED
                         time.sleep(5 * (t + 1))
                 for s in d['Results']['series']:
                     rows = got.setdefault(s['seriesID'], {})
