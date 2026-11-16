@@ -20,7 +20,8 @@ def snap(dst):
             if os.path.isfile(f):
                 b = open(f, 'rb').read()
                 if f.endswith('.gz'): b = gzip.decompress(b)
-                got[os.path.relpath(f, C)] = b
+                k = os.path.relpath(f, C); got[k] = b
+                q = os.path.join(dst, k); os.makedirs(os.path.dirname(q), exist_ok=True); open(q, 'wb').write(b)
     return got
 
 
@@ -35,7 +36,12 @@ def build(cache, label):
 
 def main():
     shutil.rmtree(os.path.join(LT, 'sm_cache_parity_store'), ignore_errors=True)
+    # the same starting point for both builds: the build compares its v1 tests with those of the run before it, so the out/ and web/
+    # folders are put back as they were before A
+    pre = os.path.join(LT, 'pre'); shutil.rmtree(pre, ignore_errors=True)
+    for d in ('out', os.path.join('web', 'stress-map')): shutil.copytree(os.path.join(C, d), os.path.join(pre, d))
     rcA, tA, recA = build('0', 'A full (county layer computed)'); A = snap(os.path.join(LT, 'A'))
+    for d in ('out', os.path.join('web', 'stress-map')): shutil.rmtree(os.path.join(C, d)); shutil.copytree(os.path.join(pre, d), os.path.join(C, d))
     rcB, tB, recB = build('1', 'B incremental (county layer from the store)'); B = snap(os.path.join(LT, 'B'))
     same, clock_only, diff = [], [], []
     for k in sorted(set(A) | set(B)):
