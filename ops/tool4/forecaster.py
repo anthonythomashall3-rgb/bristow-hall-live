@@ -208,7 +208,17 @@ state = dict(tool='Real-Time National Recession Forecaster (Tool 4, rule H2, col
              inputs_fresh=dict(fred=sorted(fresh)), log=LOG)
 
 # ---------- the page ----------
-shell = open(os.path.join(SITE, 'chronology', 'index.html'), encoding='utf-8').read()
+# The shell (style, masthead, footer) comes from the first built page that carries all three. It was /chronology/ alone until
+# 16 Nov 2026, when the Time Machine took that page's place and this step died on the missing file (the site then published
+# with the Damage Index stub). No single page is relied on now; ops/site_contract.py holds the publish if this step ever fails.
+shell = None
+for _p in ('damage-index', 'time-machine', 'disturbance', 'detector', 'data', 'state-onset', 'stress-map'):
+    _f = os.path.join(SITE, _p, 'index.html')
+    if not os.path.exists(_f): continue
+    _t = open(_f, encoding='utf-8').read()
+    if all(re.search(rx, _t, re.S) for rx in (r'<style>.*?</style>', r'<header class="bh">.*?</header>', r'<div class="foot">.*?</div></div>')):
+        shell = _t; log('page shell from /%s/' % _p); break
+assert shell, 'no built page carries the style, masthead and footer the forecaster page needs'
 style = re.search(r'<style>.*?</style>', shell, re.S).group(0)
 header = re.search(r'<header class="bh">.*?</header>', shell, re.S).group(0)
 footer = re.search(r'<div class="foot">.*?</div></div>', shell, re.S).group(0)

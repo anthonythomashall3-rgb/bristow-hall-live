@@ -487,6 +487,12 @@ jobs:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python3 ops/tool4/forecaster.py 2>&1 | tee -a "$GITHUB_WORKSPACE/run.log"; exit ${PIPESTATUS[0]}
 
+      # ONE MENU FOR EVERY PAGE (16 Nov 2026): the masthead and footer menus of every built page written from ops/site_contract.json,
+      # after the last page is written. The pages' own copies had drifted (State and stress map still said Damage Index and Chronology).
+      - name: one menu on every page
+        if: steps.when.outputs.go == 'true'
+        run: python3 ops/site_menu.py --site "$GITHUB_WORKSPACE/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}" 2>&1 | tee -a "$GITHUB_WORKSPACE/run.log"; exit ${PIPESTATUS[0]}
+
       - name: the home cards, a picture of each tool as it is now
         id: cards
         if: steps.when.outputs.go == 'true'
@@ -630,6 +636,16 @@ jobs:
           python3 s2/source_gate.py --site "$SITE" $WARM --cache-out "$RUNNER_TEMP/gate_cache/sources.json" 2>&1 | tee "$RUNNER_TEMP/source_gate.log"; rc=${PIPESTATUS[0]}
           grep -E '^(HOLD source gate|source gate)' "$RUNNER_TEMP/source_gate.log" | tail -1 >> "$GITHUB_WORKSPACE/run.log"
           exit $rc
+
+      # THE SITE CONTRACT (16 Nov 2026; Anthony: "MAKE SURE NO ISSUES LIKE THIS EVER HAPPEN AGAIN"). The forecaster step died on a page the
+      # Time Machine had removed, the step is allowed to fail, and the site went out with the Damage Index in the forecaster's place. Now
+      # nothing is published unless every page, menu entry and home card in ops/site_contract.json is in the build, every menu link leads
+      # somewhere, the forecaster was rebuilt by this run, and nothing on the live menu has gone missing. A failure stops the publish
+      # (the live site keeps its last good build) and the run's message carries the reason. No AI.
+      - name: the site contract (every tool in its place, or nothing is published)
+        id: contract
+        if: steps.when.outputs.go == 'true'
+        run: python3 ops/site_contract.py --site "$GITHUB_WORKSPACE/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}" 2>&1 | tee -a "$GITHUB_WORKSPACE/run.log"; exit ${PIPESTATUS[0]}
 
       - name: publish to Cloudflare Pages
         id: publish
