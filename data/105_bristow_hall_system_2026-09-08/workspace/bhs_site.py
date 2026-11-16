@@ -121,9 +121,6 @@ _STUBS=[
  ('damage-index','Damage Index',
   'A Richter scale for recessions: how deep, how broad, and where — not only when.',
   'Dating a recession says when; it does not say how much. The index measures the depth of the fall and the breadth of the states and industries carrying it on one scale fixed in advance, so that two recessions can be compared without hindsight about either, and so that a disturbance a national date hides — one state, one industry — still has a number. It is the subject of Paper 3, <i>The Damage Index: A Richter Scale for Recessions</i>.'),
- ('chronology','Business-Cycle Chronology',
-  'The program’s dated chronology of peaks and troughs beside the committee’s and the OECD’s.',
-  'The rule’s own peaks and troughs, 1948 to today, set beside the National Bureau’s and the OECD’s, with the days each was called and the days each was announced. The material exists in the record; the page is what remains.'),
 ]
 for _slug,_name,_tag,_body in _STUBS:
     _nav=_header.replace(' aria-current="page"','').replace('href="/%s/"'%_slug,'href="/%s/" aria-current="page"'%_slug)
@@ -140,6 +137,19 @@ for _slug,_name,_tag,_body in _STUBS:
     os.makedirs(os.path.join(SITE,'public',_slug),exist_ok=True)
     open(os.path.join(SITE,'public',_slug,'index.html'),'w',encoding='utf-8').write(_p)
 print('stub pages built:',', '.join('/'+s+'/' for s,_,_,_ in _STUBS))
+
+# ---- /time-machine/ (collection 1137, 16 November 2026; Anthony: in the chronology's place): pick any day, see what the data showed that day.
+# The body is s2/time_machine/page.html; the data files (public/time-machine/d/*.json, tm.json) are written by s2/time_machine/tm_build.py.
+_tmd=os.path.join(os.path.dirname(os.path.abspath(__file__)),'s2','time_machine')
+_tm_nav=_header.replace(' aria-current="page"','').replace('href="/time-machine/"','href="/time-machine/" aria-current="page"')
+_tm=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+     '<title>Bristow-Hall Business Cycle Program — Time Machine</title>\n'+_style+'\n</head>\n<body>\n'+_tm_nav+'\n'
+     +open(os.path.join(_tmd,'page.html'),encoding='utf-8').read()+'\n'+_footer+'\n</body>\n</html>\n')
+os.makedirs(os.path.join(SITE,'public','time-machine'),exist_ok=True)
+open(os.path.join(SITE,'public','time-machine','index.html'),'w',encoding='utf-8').write(_tm)
+open(os.path.join(SITE,'public','time-machine','thumb.svg'),'w',encoding='utf-8').write(open(os.path.join(_tmd,'thumb.svg'),encoding='utf-8').read())
+open(os.path.join(SITE,'public','_redirects'),'w').write('/chronology /time-machine/ 301\n/chronology/* /time-machine/ 301\n')
+print('time machine page built')
 
 # ---- /data/ : every series the site stands on, one table, sortable (17 September 2026) ----
 # Rows: the series the rule reads (the state's `feeds`), the front page's readings (collection 109's tiles) and every

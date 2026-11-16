@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bristow-Hall Business Cycle Program — Time Machine</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:#1c1c1c;font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;font-size:15px;line-height:1.55}
+a{color:#990000;text-decoration:none} a:hover{text-decoration:underline}
+.inner{width:90%;max-width:1800px;margin:0 auto;padding:0}
+/* USC */
+.bh{background:#fff;border-top:5px solid #FFCC00;border-bottom:2px solid #990000}
+.bhrow{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:14px 0;width:90%;max-width:1800px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:13px;color:#990000}
+.mono{width:52px;height:52px;background:#990000;color:#fff;font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:24px;display:flex;align-items:center;justify-content:center;position:relative;border-radius:3px;flex:none}
+.mono span{position:absolute;left:10px;right:10px;bottom:7px;height:3px;background:#FFCC00}
+.wm .l1{font-weight:800;letter-spacing:.15em;font-size:16px;color:#990000;line-height:1.15}
+.wm .l2{letter-spacing:.28em;font-size:11.5px;color:#990000;font-weight:700;line-height:1.15;margin-top:3px}
+.nav{display:flex;flex-wrap:wrap;gap:15px;font-size:11.5px;font-weight:700;letter-spacing:.05em}
+.nav a{color:#990000;text-transform:uppercase;padding:4px 0;border-bottom:2px solid transparent;white-space:nowrap}
+.nav a:hover{border-bottom-color:#cfd6de;text-decoration:none}
+.nav a[aria-current="page"]{border-bottom-color:#FFCC00}
+.hero{text-align:center;padding:38px 0 10px}
+.hero h1{font-size:34px;line-height:1.18;font-weight:700;color:#990000;margin:0 0 12px;letter-spacing:-.01em}
+.hero .tag{font-size:18px;color:#333;margin:0;max-width:none}
+.lede{font-size:15.5px;color:#333;margin:22px 0 0;max-width:none;text-align:center}
+.by{color:#666;font-size:13px;margin:12px 0 0;text-align:center}
+h2{font-size:25px;font-weight:700;color:#111;margin:40px 0 0}
+.rule{border-bottom:3px solid #990000;margin:6px 0 16px}
+.tiles{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #dfe4ea;border-left:1px solid #dfe4ea}
+.tile{border-right:1px solid #dfe4ea;border-bottom:1px solid #dfe4ea;padding:11px 13px;min-height:92px}
+.tile .lab{font-style:italic;color:#444;font-size:13px;line-height:1.3}
+.tile .val{margin-top:5px;font-size:15px}
+.tile .val b{font-weight:700;font-size:17px;color:#111}
+.tile .sub{color:#666;font-size:12.5px;margin-top:3px}
+.tile .lnk{margin-top:5px;font-size:12.5px}
+.tools{display:grid;gap:18px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{border:1px solid #dfe4ea;padding:13px;display:flex;flex-direction:column;gap:10px;background:#fff}
+.badge{display:inline-block;font-size:10.5px;letter-spacing:.12em;font-weight:700;padding:3px 8px;border-radius:2px;align-self:flex-start}
+.badge.live{color:#166534;background:#e8f3ec;border:1px solid #cfe3d6}
+.badge.dev{color:#7a5200;background:#fbf4e6;border:1px solid #eadfc4}
+.thumb{border:1px solid #e6e9ed;background:#fff;height:150px;width:100%;display:block}
+img.thumb{height:auto;aspect-ratio:2.3/1;object-fit:cover;object-position:center}  /* 15 Nov 2026 11:41 PT (Anthony): each card shows its whole chart or map, filling the card width */
+.thumb.ph{background:repeating-linear-gradient(135deg,#fcfdfe,#fcfdfe 10px,#f3f5f8 10px,#f3f5f8 20px);border-style:solid}
+.card .name{font-weight:700;font-size:16px;color:#990000}
+.card .desc{color:#555;font-size:13.5px}
+.papers{border-top:1px solid #dfe4ea}
+.paper{border-bottom:1px solid #dfe4ea;padding:13px 0;display:flex;gap:16px;flex-wrap:wrap;align-items:baseline}
+.paper .t{font-weight:700;font-size:15.5px;color:#990000;flex:1 1 460px}
+.paper .a{color:#555;font-size:13px;flex:0 1 340px}
+.foot{background:#990000;color:#f3e3e3;margin-top:48px;padding:26px 0 30px}
+.foot .t{font-weight:800;letter-spacing:.12em;font-size:13.5px;color:#FFCC00}
+.foot .s{font-size:13px;margin-top:7px;color:#edcaca}
+.foot a{color:#f3e3e3}
+.foot .links{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 18px;margin-top:16px;font-size:13.5px;font-weight:700}
+.foot .links a{white-space:nowrap}
+@media (max-width:1100px){ .tiles{grid-template-columns:repeat(3,1fr)} .tools{grid-template-columns:repeat(2,minmax(0,1fr))} .hero h1{font-size:28px} }
+@media (max-width:720px){ .tiles{grid-template-columns:repeat(2,1fr)} .tools{grid-template-columns:1fr} .hero h1{font-size:24px} .hero .tag{font-size:16px} }
+</style>
+</head>
+<body>
+<header class="bh"><div class="bhrow">
+  <div class="logo" aria-label="Bristow-Hall Business Cycle Program"><div class="mono">BH<span></span></div><div class="wm"><div class="l1">BRISTOW-HALL</div><div class="l2">BUSINESS CYCLE PROGRAM</div></div></div>
+  <nav class="nav" aria-label="Sections">
+    <a href="/">Home</a>
+    <a href="/detector/">Recession Indicator</a>
+    <a href="/disturbance/">Disturbance Chronology</a>
+    <a href="/state-onset/">State Recession</a>
+    <a href="/stress-map/">Stress Map</a>
+    <a href="/damage-index/">Damage Index</a>
+    <a href="/time-machine/" aria-current="page">Time Machine</a>
+    <a href="/data/">Data</a>
+    <a href="/#papers">Papers</a>
+  </nav>
+</div></header>
+<style>
+.tm h1{font-size:30px;color:#990000;margin:34px 0 14px;line-height:1.2}
+.tmbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:0 0 6px}
+.tmbar input[type=date],.tmbar select,.tmbar button{font:inherit;font-size:15px;padding:7px 10px;border:1px solid #c9cfd6;border-radius:3px;background:#fff;color:#111}
+.tmbar button{cursor:pointer;color:#990000;font-weight:700}.tmbar button:hover{background:#fdf2f2}
+#tmr{width:100%;accent-color:#990000;margin:6px 0 0}
+.tmyrs{position:relative;height:18px;color:#666;font-size:12px;margin:0 8px 16px}.tmyrs span{position:absolute;transform:translateX(-50%)}
+.tmst{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 0 6px}
+.tmbox{border:1px solid #dfe4ea;padding:13px 15px}
+.tmbox .k{font-style:italic;color:#444;font-size:13px}
+.tmbox .s{font-size:21px;font-weight:700;margin-top:3px;color:#111}
+.tmbox .s.rec{color:#990000}.tmbox .s.ok{color:#166534}
+.tmbox .d{color:#555;font-size:13.5px;margin-top:2px;min-height:20px}
+.tmt{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:4px}
+.tmt th{text-align:left;font-weight:700;color:#222;border-bottom:2px solid #990000;padding:9px 10px 7px;background:#faf7f7;white-space:nowrap}
+.tmt th.num,.tmt td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tmt td{padding:10px;border-bottom:1px solid #dfe4ea}
+.tmt tbody tr{cursor:pointer}.tmt tbody tr:hover{background:#fdf7f7}.tmt tbody tr.on{background:#fbf1f1}
+.tmt .u{color:#666;font-size:12px;margin-left:6px}.tmt .na{color:#999}
+.tmt .up{color:#166534}.tmt .dn{color:#990000}
+#tmc{width:100%;height:340px;display:block;border:1px solid #e6e9ed;margin-top:8px}
+.tmleg{display:flex;gap:20px;font-size:13px;color:#333;margin-top:8px;flex-wrap:wrap}
+.tmleg i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:6px}
+.tmsrc{color:#666;font-size:12.5px;margin-top:10px}
+@media(max-width:760px){.tmst{grid-template-columns:1fr}}
+</style>
+<div class="inner tm">
+<h1>Time Machine</h1>
+<div class="tmbar">
+  <input type="date" id="tmd" min="1948-01-01" aria-label="Date">
+  <button id="tmp" aria-label="One day back">&#9664;</button><button id="tmn" aria-label="One day forward">&#9654;</button>
+  <select id="tmj" aria-label="Jump to"><option value="">Jump to&hellip;</option></select>
+  <button id="tmtoday">Today</button>
+</div>
+<input type="range" id="tmr" aria-label="Date slider">
+<div class="tmyrs" id="tmyrs"></div>
+<div class="tmst">
+  <div class="tmbox"><div class="k">Bristow-Hall Rule, as it stood that day</div><div class="s" id="tmrs">&nbsp;</div><div class="d" id="tmrd"></div></div>
+  <div class="tmbox"><div class="k">NBER committee, as announced by that day</div><div class="s" id="tmns">&nbsp;</div><div class="d" id="tmnd"></div></div>
+</div>
+<h2 id="tmh">&nbsp;</h2><div class="rule"></div>
+<table class="tmt"><thead><tr><th>Series</th><th>Latest period</th><th class="num">Known that day</th><th class="num">Known today</th><th class="num">Revision</th></tr></thead><tbody id="tmb"></tbody></table>
+<svg id="tmc" role="img" aria-label="Chart"></svg>
+<div class="tmleg"><span><i style="background:#990000"></i><span id="tml1"></span></span><span><i style="background:#9aa3ad"></i>As known today</span></div>
+<div class="tmsrc">Source: <a href="https://alfred.stlouisfed.org/" target="_blank" rel="noopener">ALFRED, Federal Reserve Bank of St. Louis &#8599;</a> &middot; initial claims before May 28, 2009: <a href="https://oui.doleta.gov/unemploy/claims_arch.asp" target="_blank" rel="noopener">Department of Labor weekly releases &#8599;</a></div>
+</div>
+<script>
+(function(){
+const $=s=>document.querySelector(s), DAY=86400000, E0=Date.UTC(1970,0,1);
+const dn=s=>Math.round((Date.parse(s+'T00:00:00Z')-E0)/DAY), iso=n=>new Date(E0+n*DAY).toISOString().slice(0,10);
+const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const fd=s=>{const a=s.split('-');return MN[+a[1]-1]+' '+(+a[2])+', '+a[0]}, fm=s=>{const a=s.split('-');return MN[+a[1]-1]+' '+a[0]};
+const TODAY=iso(Math.floor(Date.now()/DAY)), MIN='1948-01-01';
+let META=null, D={}, STATE=null, cur=TODAY, sel=0;
+// a period's value as known on day n: the last published value whose vintage day is <= n (nothing published later can show)
+function asof(seq,n){ if(seq[0]>n) return null; let lo=0,hi=seq.length/2-1; while(lo<hi){const m=(lo+hi+1)>>1; if(seq[2*m]<=n) lo=m; else hi=m-1;} return seq[2*lo+1]; }
+// index of the newest period published by day n (a period is known once its first vintage day is <= n)
+function lastKnown(s,n){ for(let i=s.obs.length-1;i>=0;i--) if(s.v[i][0]<=n) return i; return -1; }
+function val(row,s,i,n){ const a=asof(s.v[i],n); if(a==null) return null;
+  const lag=row.tf==='diff'||row.tf==='qann'?1:row.tf==='yoy'?12:0; if(!lag) return a*row.scale;
+  if(i<lag) return null; const b=asof(s.v[i-lag],n); if(b==null||b===0) return null;
+  return row.tf==='diff'?(a-b)*row.scale:row.tf==='qann'?(Math.pow(a/b,4)-1)*100:(a/b-1)*100; }
+function pick(row,n){ for(const id of row.ids){ const s=D[id]; if(!s) continue; const i=lastKnown(s,n); if(i>=0) return [s,i]; } return [null,-1]; }
+const fmt=(row,x)=>x==null?'<span class="na">&mdash;</span>':(x<0?'\u2212':'')+Math.abs(x).toLocaleString('en-US',{minimumFractionDigits:row.dec,maximumFractionDigits:row.dec});
+function plabel(row,s,i){ const d=iso(s.obs[i]); if(row.tf==='qann') return d.slice(0,4)+' Q'+(Math.floor((+d.slice(5,7)-1)/3)+1); if(row.ids[0]==='ICSA') return 'Week ended '+fd(d); return fm(d); }
+function status(n){
+  if(!STATE) return; const d=iso(n); let open=null;
+  for(const e of STATE.chronology||[]){ if(e.open_pub&&e.open_pub<=d&&(!e.close_pub||e.close_pub>d)) open=e; }
+  let lastc=null; for(const e of STATE.chronology||[]){ if(e.close_pub&&e.close_pub<=d) lastc=e; }
+  $('#tmrs').textContent=open?'Recession':'No recession'; $('#tmrs').className='s '+(open?'rec':'ok');
+  $('#tmrd').textContent=open?('Called '+fd(open.open_pub)):(lastc?('Last recession ended '+fd(lastc.close_pub)):'');
+  // the committee: only what it had announced by that day
+  let ns='No recession announced', nd='', cls='ok';
+  const A=(STATE.announcements||[]).filter(a=>a.peak_ann||a.trough_ann);
+  const first=A.length?A.map(a=>a.peak_ann||a.trough_ann).sort()[0]:null;
+  if(!first||d<first){ ns='—'; nd=first?('The committee’s first announcement came '+fd(first)):''; cls=''; }
+  else{ let pk=null,tr=null; for(const a of A){ if(a.peak_ann&&a.peak_ann<=d&&(!pk||a.peak_ann>pk.peak_ann)) pk=a; if(a.trough_ann&&a.trough_ann<=d&&(!tr||a.trough_ann>tr.trough_ann)) tr=a; }
+    if(pk&&(!tr||tr.trough_ann<pk.peak_ann)){ ns='Recession'; cls='rec'; nd='Peak '+fm(pk.peak+'-01')+', announced '+fd(pk.peak_ann); }
+    else if(tr){ nd='Last trough '+fm(tr.trough+'-01')+', announced '+fd(tr.trough_ann); } }
+  $('#tmns').textContent=ns; $('#tmns').className='s '+cls; $('#tmnd').textContent=nd;
+}
+function table(n){
+  const NOW=dn(TODAY)+1; let h='';
+  META.rows.forEach((row,k)=>{ const [s,i]=pick(row,n); let then=null,now=null,per='<span class="na">&mdash;</span>';
+    if(s){ then=val(row,s,i,n); now=val(row,s,i,NOW); per=plabel(row,s,i); }
+    let rev='<span class="na">&mdash;</span>'; if(then!=null&&now!=null){ const q=Math.pow(10,row.dec), r=(Math.round(now*q)-Math.round(then*q))/q, z=r===0; rev=z?'0':('<span class="'+(r>0?'up':'dn')+'">'+(r>0?'+':'−')+fmt(row,Math.abs(r))+'</span>'); }
+    h+='<tr data-k="'+k+'"'+(k===sel?' class="on"':'')+'><td>'+row.label+'<span class="u">'+row.unit+'</span></td><td>'+per+'</td><td class="num"><b>'+fmt(row,then)+'</b></td><td class="num">'+fmt(row,now)+'</td><td class="num">'+rev+'</td></tr>'; });
+  $('#tmb').innerHTML=h;
+}
+function chart(n){
+  const row=META.rows[sel], [s,i]=pick(row,n), svg=$('#tmc'), W=svg.clientWidth||900, H=340, L=52, R=14, T=14, B=28;
+  svg.setAttribute('viewBox','0 0 '+W+' '+H); $('#tml1').textContent=row.label+', as known '+fd(iso(n));
+  if(!s){ svg.innerHTML='<text x="'+W/2+'" y="'+H/2+'" text-anchor="middle" fill="#999" font-size="14">Not yet published on this day</text>'; return; }
+  const NOW=dn(TODAY)+1, per=row.ids[0]==='ICSA'?156:row.tf==='qann'?32:84, a=Math.max(0,i-per+1), P=[];
+  for(let j=a;j<=i;j++) P.push([s.obs[j],val(row,s,j,n),val(row,s,j,NOW)]);
+  const ys=P.flatMap(p=>[p[1],p[2]]).filter(v=>v!=null); if(!ys.length){ svg.innerHTML=''; return; }
+  let y0=Math.min(...ys), y1=Math.max(...ys); if(y0===y1){y0-=1;y1+=1} const pad=(y1-y0)*.08; y0-=pad; y1+=pad;
+  const x0=P[0][0], x1=P[P.length-1][0]||x0+1, X=d=>L+(W-L-R)*(d-x0)/Math.max(1,x1-x0), Y=v=>T+(H-T-B)*(1-(v-y0)/(y1-y0));
+  const path=k=>{let d='',pen=false; for(const p of P){ if(p[k]==null){pen=false;continue} d+=(pen?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[k]).toFixed(1); pen=true } return d};
+  let g=''; for(let t=0;t<=4;t++){ const v=y0+(y1-y0)*t/4, y=Y(v); g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="#eef1f4"/><text x="'+(L-7)+'" y="'+(y+4)+'" text-anchor="end" font-size="11.5" fill="#666">'+v.toLocaleString('en-US',{maximumFractionDigits:row.dec})+'</text>'; }
+  const yA=+iso(x0).slice(0,4), yB=+iso(x1).slice(0,4), st=Math.max(1,Math.ceil((yB-yA)/8));
+  for(let y=yA+1;y<=yB;y+=st){ const x=X(dn(y+'-01-01')); if(x>L&&x<W-R) g+='<line x1="'+x+'" x2="'+x+'" y1="'+T+'" y2="'+(H-B)+'" stroke="#f3f5f7"/><text x="'+x+'" y="'+(H-9)+'" text-anchor="middle" font-size="11.5" fill="#666">'+y+'</text>'; }
+  if(y0<0&&y1>0) g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(0)+'" y2="'+Y(0)+'" stroke="#c9cfd6"/>';
+  svg.innerHTML=g+'<path d="'+path(2)+'" fill="none" stroke="#9aa3ad" stroke-width="2"/><path d="'+path(1)+'" fill="none" stroke="#990000" stroke-width="2.2"/>';
+}
+function go(d,push){ if(!/^\d{4}-\d\d-\d\d$/.test(d)) return; if(d<MIN) d=MIN; if(d>TODAY) d=TODAY; cur=d; const n=dn(d);
+  $('#tmd').value=d; $('#tmr').value=n; $('#tmh').textContent=fd(d); status(n); if(META){ table(n); chart(n); }
+  if(push!==false) history.replaceState(null,'','#'+d); }
+function boot(){
+  const r=$('#tmr'); r.min=dn(MIN); r.max=dn(TODAY); r.step=1; $('#tmd').max=TODAY;
+  const y=$('#tmyrs'); for(let t=1950;t<=+TODAY.slice(0,4);t+=10){ const s=document.createElement('span'); s.textContent=t; s.style.left=(100*(dn(t+'-01-01')-dn(MIN))/(dn(TODAY)-dn(MIN)))+'%'; y.appendChild(s); }
+  r.addEventListener('input',()=>go(iso(+r.value))); $('#tmd').addEventListener('change',e=>go(e.target.value));
+  $('#tmp').onclick=()=>go(iso(dn(cur)-1)); $('#tmn').onclick=()=>go(iso(dn(cur)+1)); $('#tmtoday').onclick=()=>go(TODAY);
+  $('#tmj').addEventListener('change',e=>{ if(e.target.value) go(e.target.value); e.target.value=''; });
+  $('#tmb').addEventListener('click',e=>{ const tr=e.target.closest('tr'); if(tr){ sel=+tr.dataset.k; go(cur); } });
+  window.addEventListener('resize',()=>{ if(META) chart(dn(cur)); });
+  document.addEventListener('keydown',e=>{ if(e.target.tagName==='INPUT'&&e.target.type==='date') return; if(e.key==='ArrowLeft') go(iso(dn(cur)-1)); if(e.key==='ArrowRight') go(iso(dn(cur)+1)); });
+  const h=location.hash.slice(1); go(/^\d{4}-\d\d-\d\d$/.test(h)?h:TODAY,false);
+  fetch('/bhs_state.json').then(r=>r.json()).then(s=>{ STATE=s; const j=$('#tmj');
+    for(const e of (s.chronology||[]).slice().reverse()){ if(!e.open_pub) continue; const o=document.createElement('option'); o.value=e.open_pub; o.textContent='Recession called '+fd(e.open_pub); j.appendChild(o); }
+    go(cur,false); }).catch(()=>{});
+  fetch('tm.json').then(r=>r.json()).then(m=>Promise.all([...new Set(m.rows.flatMap(x=>x.ids))].map(id=>fetch('d/'+id+'.json').then(r=>r.json()).then(j=>{D[id]=j}))).then(()=>{ META=m; go(cur,false); }));
+}
+boot();
+})();
+</script>
+
+<div class="foot"><div class="inner">
+  <div class="t">BRISTOW-HALL BUSINESS CYCLE PROGRAM</div>
+  <div class="s">Real-time dating of the American business cycle.</div>
+  <div class="links"><a href="/">Home</a><a href="/detector/">Recession Indicator</a><a href="/disturbance/">Disturbance Chronology</a><a href="/state-onset/">State Recession Chronology</a><a href="/stress-map/">National Stress Map</a><a href="/damage-index/">Damage Index</a><a href="/time-machine/">Time Machine</a><a href="/#papers">Papers</a><a href="/data/">Data</a></div>
+</div></div>
+</body>
+</html>

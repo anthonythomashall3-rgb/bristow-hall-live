@@ -63,7 +63,7 @@ img.thumb{height:auto;aspect-ratio:2.3/1;object-fit:cover;object-position:center
     <a href="/state-onset/">State Recession</a>
     <a href="/stress-map/">Stress Map</a>
     <a href="/damage-index/">Damage Index</a>
-    <a href="/chronology/">Chronology</a>
+    <a href="/time-machine/">Time Machine</a>
     <a href="/data/">Data</a>
     <a href="/#papers">Papers</a>
   </nav>
@@ -92,7 +92,7 @@ img.thumb{height:auto;aspect-ratio:2.3/1;object-fit:cover;object-position:center
 <div class="foot"><div class="inner">
   <div class="t">BRISTOW-HALL BUSINESS CYCLE PROGRAM</div>
   <div class="s">Real-time dating of the American business cycle.</div>
-  <div class="links"><a href="/">Home</a><a href="/detector/">Recession Indicator</a><a href="/disturbance/">Disturbance Chronology</a><a href="/state-onset/">State Recession Chronology</a><a href="/stress-map/">National Stress Map</a><a href="/damage-index/">Damage Index</a><a href="/chronology/">Chronology</a><a href="/#papers">Papers</a><a href="/data/">Data</a></div>
+  <div class="links"><a href="/">Home</a><a href="/detector/">Recession Indicator</a><a href="/disturbance/">Disturbance Chronology</a><a href="/state-onset/">State Recession Chronology</a><a href="/stress-map/">National Stress Map</a><a href="/damage-index/">Damage Index</a><a href="/time-machine/">Time Machine</a><a href="/#papers">Papers</a><a href="/data/">Data</a></div>
 </div></div>
 
 <script>
@@ -127,7 +127,7 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;',
    {n:'State Recession Chronology and Damage Grade',s:'live',href:'/state-onset/',img:'/state-onset/thumb.svg',d:'Recessions and disturbances in each of the fifty states since 1979, dated as the nation is, each with a damage grade.'},
    {n:'National Stress Map',s:'live',href:'/stress-map/',img:'/stress-map/thumb.svg',d:'Recession and disturbance damage across the fifty States and their counties, on one color scale, month by month since 1947.'},
    {n:'Damage Index',s:'dev',href:'/damage-index/',d:'A Richter scale for recessions: how deep, how broad, and where - not only when.'},
-   {n:'Business-Cycle Chronology',s:'dev',href:'/chronology/',d:'The program’s dated chronology of peaks and troughs beside the committee’s and the OECD’s.'}
+   {n:'Time Machine',s:'live',href:'/time-machine/',img:'/time-machine/thumb.svg',d:'Pick any day since 1948 and see the data exactly as it was known that day.'}
   ];
   document.getElementById('tools').innerHTML=T.map(t=>{
     const head=t.s==='live'?'<span class="badge live">LIVE</span>':'<span class="badge dev">IN DEVELOPMENT</span>';
