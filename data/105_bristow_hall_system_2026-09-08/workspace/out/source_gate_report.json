@@ -4,17 +4,19 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-15",
- "checked_at": "2026-11-16 01:37 UTC",
- "seconds": 95.1,
- "source_calls": 171,
- "source_errors": {},
+ "checked_at": "2026-11-16 01:54 UTC",
+ "seconds": 156.2,
+ "source_calls": 176,
+ "source_errors": {
+  "USMINE": "HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests.  Exceeded Rate Limit\"}"
+ },
  "counts": {
   "home": {
    "PASS": 28
   },
   "data/detector": {
-   "PASS": 69,
-   "WARN": 3
+   "PASS": 68,
+   "WARN": 4
   },
   "data/disturbance": {
    "PASS": 18
@@ -27,11 +29,12 @@
   "data/stress-map": {
    "WARN": 11,
    "INFO": 5,
-   "PASS": 27
+   "PASS": 25,
+   "UNVERIFIED": 1
   },
   "detector": {
-   "PASS": 58,
-   "WARN": 9
+   "PASS": 57,
+   "WARN": 10
   },
   "state-onset": {
    "PASS": 100
@@ -45,12 +48,12 @@
   }
  },
  "totals": {
-  "checks": 385,
+  "checks": 384,
   "figures": 267,
   "fail": 0,
-  "warn": 37,
-  "unverified": 0,
-  "passed": 342
+  "warn": 39,
+  "unverified": 1,
+  "passed": 338
  },
  "failures": [],
  "rows": [
@@ -886,13 +889,13 @@
    "page": "data/detector",
    "label": "sahm rule, real time",
    "check": "next published",
-   "status": "PASS",
+   "status": "WARN",
    "value": "2026-12-04",
    "period": null,
    "series": "SAHMREALTIME",
    "transform": null,
-   "expected": "2026-12-04",
-   "detail": "FRED release 456 (Sahm Rule Recession Indicator)"
+   "expected": null,
+   "detail": "the release calendar could not be read; next is after the build day"
   },
   {
    "page": "data/detector",
@@ -1989,26 +1992,14 @@
   {
    "page": "data/stress-map",
    "label": "national payrolls by supersector: USMINE",
-   "check": "freshness",
-   "status": "PASS",
+   "check": "source",
+   "status": "UNVERIFIED",
    "value": "605",
    "period": "2026-10-01",
    "series": "USMINE",
    "transform": "level",
-   "expected": "2026-10-01",
-   "detail": ""
-  },
-  {
-   "page": "data/stress-map",
-   "label": "national payrolls by supersector: USMINE",
-   "check": "value",
-   "status": "PASS",
-   "value": 605.0,
-   "period": "2026-10-01",
-   "series": "USMINE",
-   "transform": "level",
-   "expected": 605.0,
-   "detail": ""
+   "expected": null,
+   "detail": "the source could not be read; unchanged since the last verified build: it may stay"
   },
   {
    "page": "data/stress-map",
@@ -3226,13 +3217,13 @@
    "page": "detector",
    "label": "feed: Sahm rule, real time (the comparator on the speed panel) (next)",
    "check": "next published",
-   "status": "PASS",
+   "status": "WARN",
    "value": "2026-12-04",
    "period": null,
    "series": "SAHMREALTIME",
    "transform": null,
-   "expected": "2026-12-04",
-   "detail": "FRED release 456 (Sahm Rule Recession Indicator)"
+   "expected": null,
+   "detail": "the release calendar could not be read; next is after the build day"
   },
   {
    "page": "state-onset",
