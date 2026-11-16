@@ -321,6 +321,8 @@ jobs:
           # writes a well-formed key FRED has never issued in place of the secret, so the drill never touches the real key
           FRED_API_KEY: ${{ (github.ref_name != 'main' && inputs.simulate == 'bad_fred_key') && 'abcdefghijklmnopqrstuvwxyz012345' || secrets.FRED_API_KEY }}
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
           BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
         run: |
@@ -328,6 +330,8 @@ jobs:
           {
             echo "FRED_API_KEY=$FRED_API_KEY"
             echo "BLS_API_KEY=$BLS_API_KEY"
+            echo "BLS_API_KEY_2=$BLS_API_KEY_2"
+            echo "BLS_CONTACT=$BLS_CONTACT"
             echo "EIA_API_KEY=$EIA_API_KEY"
             echo "BEA_API_KEY=$BEA_API_KEY"
           } > data/onset-detector-new-2026-08-23/live_data/config/local.env
@@ -381,6 +385,8 @@ jobs:
         working-directory: ${{ steps.tool.outputs.workspace }}
         env:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
           SLOT: ${{ inputs.slot }}
@@ -412,6 +418,8 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
         run: |
           rm -f "$RUNNER_TEMP/gate_prefetch.json"
           nohup python3 s2/source_gate.py --prefetch-to "$RUNNER_TEMP/gate_prefetch.json" --prev "$RUNNER_TEMP/gate_cache/sources.json" > "$RUNNER_TEMP/gate_prefetch.log" 2>&1 &
@@ -609,6 +617,8 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
           BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
           SITE: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}
         run: |
@@ -659,6 +669,8 @@ jobs:
         continue-on-error: true
         env:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
         run: python3 ops/speed/state_first_prints.py
 
       # TEST BUILDS ARE DELETED AFTER THEIR TEST (audit-0924, 24 September 2026; Anthony: "Auto-delete"); live builds after 30 days (409). A test branch

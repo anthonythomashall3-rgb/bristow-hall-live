@@ -101,6 +101,8 @@ jobs:
         if: env.MODE != 'cache-parity'
         env:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
           SM_CACHE_DIR: ${{ runner.temp }}/sm_cache
           SM_CACHE: ${{ env.MODE == 'full' && '1' || '0' }}
         run: bash ops/live_tools/run_live_tools.sh; cat "$LT_OUT/status.json"
@@ -141,6 +143,8 @@ jobs:
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
           ALERT_NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: |
           set +e
