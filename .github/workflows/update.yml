@@ -638,6 +638,15 @@ jobs:
           LT=$(python3 -c "import json,os;print(next((1 for s in json.load(open(os.environ['RUN_SLOTS']))['slots'] if s.get('ny')==os.environ['SLOT'] and s.get('live_tools')),0))" 2>/dev/null || echo 0)
           if [ "$LT" = "1" ]; then gh workflow run live-tools.yml --ref main -f mode=full && echo "live-tools.yml started for the $SLOT release"; else echo "the $SLOT slot does not feed the live tools"; fi
 
+      # 1052 SPEED, STEP 5 (16 November 2026): THE STATE PAYROLLS BY INDUSTRY AS FIRST PRINTED, recorded on each BLS State release day
+      # (ops/speed/state_first_prints.py; add-only file data/state_industry_first_prints/sm_first_prints.csv, committed with the build)
+      - name: record the State industry first prints (BLS State release days)
+        if: steps.when.outputs.go == 'true' && steps.publish.outcome == 'success' && env.OPS_TEST != '1'
+        continue-on-error: true
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: python3 ops/speed/state_first_prints.py
+
       # TEST BUILDS ARE DELETED AFTER THEIR TEST (audit-0924, 24 September 2026; Anthony: "Auto-delete"); live builds after 30 days (409). A test branch
       # publishes a preview at its own public address; one older than two hours has had its test, so it is deleted and no
       # stale copy of the site stays public. Runs after every publish; never fails the run.
