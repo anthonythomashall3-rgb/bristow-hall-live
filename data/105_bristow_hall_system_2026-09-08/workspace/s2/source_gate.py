@@ -63,7 +63,7 @@ PUB_BLS = {'PAYEMS': 'CES0000000001', 'USMINE': 'CES1000000001', 'USCONS': 'CES2
            'USEHS': 'CES6500000001', 'USLAH': 'CES7000000001', 'USSERV': 'CES0800000001', 'USGOVT': 'CES9000000001',
            'UNRATE': 'LNS14000000', 'UNEMPLOY': 'LNS13000000', 'LNS13023621': 'LNS13023621', 'JTSJOL': 'JTS000000000000000JOL',
            'JTSQUR': 'JTS000000000000000QUR', 'CPIAUCSL': 'CUSR0000SA0', 'CPIAUCNS': 'CUUR0000SA0'}
-PUB_BEA = {'GDPC1': ('T10106', '1', 'Q')}   # 1052: NIPA table, line, frequency of the BEA series behind FRED ids (publisher fallback)
+PUB_BEA = {'GDPC1': ('T10106', '1', 'Q'), 'W875RX1': ('T20600', '36', 'M')}   # W875RX1 = Table 2.6 line 36 (found by ops/speed/parity_publisher_first.py: 33 of 33 months equal FRED's)   # 1052: NIPA table, line, frequency of the BEA series behind FRED ids (publisher fallback)
 BLS_OF = {'UNRATE': 'LNS14000000', 'PAYEMS': 'CES0000000001', 'UNEMPLOY': 'LNS13000000', 'LNS13023621': 'LNS13023621',
           'JTSJOL': 'JTS000000000000000JOL', 'JTSQUR': 'JTS000000000000000QUR', 'CPIAUCSL': 'CUSR0000SA0'}
 # month averages of daily H.15 / Moody's series: next published by the program's documented rule, not FRED's daily H.15 calendar

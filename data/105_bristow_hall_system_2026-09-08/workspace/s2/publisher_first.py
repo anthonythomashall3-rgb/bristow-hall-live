@@ -257,7 +257,7 @@ def append(al, day=None, series=None, say=print, backup=None, force_day=False, p
                                   months=int(len(cur)), status='provisional', written_utc=datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'))
         done[s] = col
         say('%-14s PUBLISHER FIRST: vintage %s appended from the %s at %s UTC: data through %s (%d months); FRED cross-checks it when it posts'
-            % (s, col, 'BLS API' if PF[s][0] == 'bls' else 'Federal Reserve G.17 file', st['columns'][col]['written_utc'][11:19], cur.index[-1].date(), len(cur)))
+            % (s, col, {'bls': 'BLS API', 'bea': 'BEA API', 'g17': 'Federal Reserve G.17 file'}[PF[s][0]], st['columns'][col]['written_utc'][11:19], cur.index[-1].date(), len(cur)))
     _save(st)
     return done
 
