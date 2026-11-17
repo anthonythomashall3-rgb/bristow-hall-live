@@ -75,10 +75,10 @@ class Miss(Exception):
 
 
 def _swap(t, pairs, what):
-    """exact replacements, each found exactly n times, or Miss"""
+    """exact replacements, each found exactly n times (n may be a tuple of the counts allowed), or Miss"""
     for old, new, n in pairs:
         c = t.count(old)
-        if c != n: raise Miss('%s: %r found %d time(s), expected %d' % (what, old[:90], c, n))
+        if c not in (n if isinstance(n, tuple) else (n,)): raise Miss('%s: %r found %d time(s), expected %s' % (what, old[:90], c, n))
         t = t.replace(old, new)
     return t
 
@@ -95,6 +95,9 @@ STATE_TEXT = [
     ("units:'Damage grade, 0 to 10'", "units:'Grade, 0 to 10, 3.00 = recession'", 1),
     # the peak label of each run: runs above damage 1.00 before, the same runs now (1.5 x 1.00)
     ('const v=k<N?SER.values[k]:null; if(v!==null&&v!==undefined&&v>1){', 'const v=k<N?SER.values[k]:null; if(v!==null&&v!==undefined&&v>1.5){', 1),
+    # the Notes sheet of the page's Excel download named the national index and its old units (found by the site sweep, 16 Nov 2026 18:12 PT);
+    # the page's own units now. Allowed to be absent: a later State page may no longer carry the line.
+    ("['Units','Index, 1.00 = recession, 0\\u201310 damage']", "['Units','Grade, 0 to 10, 3.00 = recession']", (0, 1)),
 ]
 
 
