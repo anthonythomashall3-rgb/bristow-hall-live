@@ -609,6 +609,7 @@ def project(ds, rid, today, need):
     return out
 
 
+G17_REVISION_HM = '12:00'
 AGENCY_FOR = {13: 'g17'}      # FRED release -> the agency page that lists its days further ahead
 
 
@@ -637,7 +638,12 @@ def fred_times(rid, dates, today):
     gaps = sorted((b - a).days for a, b in zip(ds, ds[1:]))
     med = gaps[len(gaps) // 2] if gaps else 30
     freq = 'weekly' if med <= 8 else ('monthly' if med <= 45 else 'irregular')
-    out = [(at(d, hm or '08:30'), False) for d in ds] + [(at(d, hm or '08:30'), True) for d, _ in project(ds, rid, today, MIN_FUTURE)]
+    # 1116i (17 Nov 2026; Anthony: "close the thing still open"): THE G.17 ANNUAL REVISION IS ISSUED AT NOON. The Board's G.17 page: "The monthly releases are issued at 9:15 a.m. The annual revision is issued at noon" (24 November 2026; the 2025 one: "For release at 12:00 noon (EST) November 24, 2025"). A G.17 day FRED lists that the Board's monthly schedule (ops/cache/agency_calendars.json) does not, in a year that schedule covers, is the annual revision: 12:00, not 9:15.
+    rev = set()
+    if rid == 13:
+        agl = set(agency_dates('g17', False, today)); yrs = {x[:4] for x in agl}
+        rev = {d for d in ds if agl and d.isoformat()[:4] in yrs and d.isoformat() not in agl}
+    out = [(at(d, G17_REVISION_HM if d in rev else (hm or '08:30')), False) for d in ds] + [(at(d, hm or '08:30'), True) for d, _ in project(ds, rid, today, MIN_FUTURE)]
     return out, hm is not None, freq, rid not in NO_SLOT, TIME_NOTE.get(rid)
 
 

@@ -1394,7 +1394,11 @@ if _e: NEXT[1]['date']=_e
 NEXT.append(dict(date=next((c['date'] for c in CAL if c['kind']=='h15'),'weekly'),what='H.15 week (commercial paper and bill rates), Federal Reserve, 4:15 PM ET on the first business day after the week'))
 NEXT=[n for n in NEXT if not n['what'].startswith(('Housing starts','H.15 week'))]   # C1021 (1022): starts and the paper spread are no longer read
 NEXT[1]['what']='Employment Situation (unemployment rate, payrolls, the unemployed count, job losers), BLS, 8:30 ET'
-NEXT.append(dict(date=_nxg17(),what='G.17 Industrial Production (the route\'s production pillar), Federal Reserve, 9:15 ET'))
+def _g17_what(_d):   # 1116i (17 Nov 2026): the annual revision is issued at noon (bhs_schedule._g17_revision), the monthly release at 9:15
+    try: _rv=_bs._g17_revision(datetime.date.fromisoformat(str(_d)[:10]))
+    except Exception: _rv=False
+    return 'G.17 Industrial Production (the route\'s production pillar), Federal Reserve, '+('the annual revision, 12:00 noon ET' if _rv else '9:15 ET')
+NEXT.append(dict(date=_nxg17(),what=_g17_what(_nxg17())))
 NEXT.append(dict(date=(pd.Timestamp(_CV['BAA']['month']+'-01')+pd.DateOffset(months=2)).replace(day=7).date().isoformat(),what='Baa yield, monthly average (FRED BAA), read the 7th of the next month'))
 NEXT.append(dict(date=(pd.Timestamp(_CV['FS']['month']+'-01')+pd.DateOffset(months=2)).replace(day=1).date().isoformat(),what='Federal funds effective rate, monthly average (FRED FEDFUNDS), and the 10-year and 1-year Treasury yields (GS10, GS1): the month\'s average known the day after month end'))
 NEXT.sort(key=lambda z:(0,z['date']) if len(z['date'])==10 else (1,z['date']))

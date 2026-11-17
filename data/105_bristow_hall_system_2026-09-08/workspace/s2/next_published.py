@@ -58,6 +58,13 @@ def _at(day, hm):
     return dt.datetime(y, m, d, h, mi, tzinfo=ET)
 
 
+# 1116i (17 Nov 2026; Anthony: "close the thing still open"): THE G.17 ANNUAL REVISION IS ISSUED AT NOON (the Board's G.17 page: "The monthly releases are issued at 9:15 a.m. The annual revision is issued at noon"). A G.17 day FRED lists that the Board's monthly schedule (ops/cache/agency_calendars.json) does not, in a year that schedule covers, is the annual revision: 12:00, not 9:15.
+_AG17 = set(((_j(os.path.join(REPO, 'ops', 'cache', 'agency_calendars.json'), {}) or {}).get('g17') or {}).get('dates') or [])
+def _hm(rid, day):
+    if rid == 13 and _AG17 and day[:4] in {x[:4] for x in _AG17} and day[:10] not in _AG17: return '12:00'
+    return TIMES[RID_PUB[rid]]['hm']
+
+
 def _days(rid, extra=()):
     return sorted(set(((FRD.get(str(rid)) or {}).get('dates') or []) if rid else []) | set(extra))
 
@@ -76,10 +83,10 @@ def from_calendar(ids):
     if r is None:
         first = re.split(r'[,/ ]+', str(ids).strip())[0].upper()
         rid = (SER.get(first) or {}).get('release_id')
-        return [_at(d, TIMES[RID_PUB[rid]]['hm']) for d in _days(rid)] if rid in RID_PUB else []
+        return [_at(d, _hm(rid, d)) for d in _days(rid)] if rid in RID_PUB else []
     rid = r.get('release_id')
     if rid in RID_PUB:
-        return [_at(d, TIMES[RID_PUB[rid]]['hm']) for d in _days(rid, [t['ny'][:10] for t in r.get('times', []) if not t.get('expected')])]
+        return [_at(d, _hm(rid, d)) for d in _days(rid, [t['ny'][:10] for t in r.get('times', []) if not t.get('expected')])]
     src = str(r.get('source', ''))
     if 'rule_day7' in src:   # Baa: FRED posts the month's average the first business day of the next month (measured clock), the days of the H.15 monthly post
         days = [t['ny'][:10] for t in (CALR.get('fedfunds') or {}).get('times', [])]
@@ -92,7 +99,7 @@ def upcoming(spec, now=None, inputs=()):
     now = now or dt.datetime.now(ET); k = spec[0]
     if k == 'pub': ts = publisher(spec[1], now, spec[2] if len(spec) > 2 else ())
     elif k == 'cal': ts = from_calendar(spec[1])
-    elif k == 'inputs': ts = sorted(t for rid in spec[1] if rid in RID_PUB for t in [_at(d, TIMES[RID_PUB[rid]]['hm']) for d in _days(rid)])
+    elif k == 'inputs': ts = sorted(t for rid in spec[1] if rid in RID_PUB for t in [_at(d, _hm(rid, d)) for d in _days(rid)])
     elif k == 'static': ts = cron_times('live-tools.yml', now)
     elif k == 'derived_state':   # the first live-tools run after the next release of any input of the State chain
         nxt = min([t for t in inputs if t > now] or [now]); ts = cron_times('live-tools.yml', nxt)

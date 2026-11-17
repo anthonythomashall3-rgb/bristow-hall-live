@@ -123,10 +123,23 @@ NAMES['g17']='G.17 industrial production (Federal Reserve, 9:15 ET)'
 # stopped at KeyError 'GDPNOW'. GDPC1 (BEA, 8:30 ET) gets its time; a series with no set time (GDPNOW posts when the
 # Atlanta Fed reruns its model; the hourly refresh reads it) is skipped by the job's slots instead of crashing them.
 TIMES['GDPC1']='08:30'; NAMES['GDPC1']='GDP (BEA, 8:30 ET)'
+# 1116i (17 Nov 2026; Anthony: "close the thing still open"): THE G.17 ANNUAL REVISION IS ISSUED AT NOON (the Board's G.17 page: "The monthly releases are issued at 9:15 a.m. The annual revision is issued at noon"). A G.17 day FRED lists that the Board's monthly schedule (ops/cache/agency_calendars.json) does not, in a year that schedule covers, is the annual revision: 12:00, not 9:15.
+def _g17_cache(name,key):
+    try:
+        import json as _j
+        return set(((_j.load(open(os.path.join(HERE,'..','..','..','ops','cache',name))).get(key) or {}).get('dates')) or [])
+    except Exception: return set()
+def _g17_fred():
+    t=datetime.date.today().isoformat()
+    return {datetime.date.fromisoformat(d) for d in _g17_cache('fred_release_dates.json','13') if d>=t}
+def _g17_revision(day):
+    ag=_g17_cache('agency_calendars.json','g17'); d=day.isoformat()
+    return bool(ag) and d[:4] in {x[:4] for x in ag} and d not in ag
 def _g17_days():
     # C1021 (1022): the G.17 release days from cache/release_schedule.csv (INDPRO, FRED release 13, fetched by bhs_calendar_fetch.py);
     # the retired activity opener's file is read only if the schedule has none
     out={d for d,ss in dated().items() if 'INDPRO' in ss}
+    out|=_g17_fred()   # 1116i: the days FRED's calendar lists that the one-day-a-month schedule file lacks (the annual revision)
     if out: return out
     try:
         import json as _j
@@ -194,7 +207,8 @@ def calendar(days):
         d=today+datetime.timedelta(days=i)
         for k,exp in events(d):
             if k not in WHAT: continue          # the daily close runs are not releases; the page lists releases
-            out.append(dict(date=d.isoformat(),time=TIMES[k],kind=KIND[k],what=WHAT[k],expected=exp))
+            _rv=(k=='g17' and _g17_revision(d))
+            out.append(dict(date=d.isoformat(),time=('12:00' if _rv else TIMES[k]),kind=KIND[k],what=WHAT[k]+(' - the annual revision, issued at noon' if _rv else ''),expected=exp))
     return out
 
 # ---- the launchd job ----
