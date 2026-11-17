@@ -1,5 +1,5 @@
 {
- "built": "2026-11-16T14:09:23Z",
+ "built": "2026-11-17T00:19:10Z",
  "size": [
   1200,
   760
@@ -43,11 +43,11 @@
   },
   "/forecaster/": {
    "png": "/forecaster/card.png",
-   "sha256": "b93da363714a5ee31ad87628d06c6497aa4d8b7b2dededf4f1427e3741e74af5",
+   "sha256": "df026cd2eddfacae9c1a872be67ceee9d91bef14a028fa2c863896d4210b9150",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1661,
+   "colours": 1663,
    "share_not_main": 0.2197
   },
   "/time-machine/": {
@@ -61,12 +61,12 @@
   },
   "/data/": {
    "png": "/data/card.png",
-   "sha256": "369b1b9561c91ee5a623b4d5c732be1db2c8b0a5c633b3e5460f900f838e22d7",
+   "sha256": "45f945f3ebfbb71cfdcf20b325bc47ee902e790b7f3e2b30868a7d262255c9c5",
    "on_home": false,
    "w": 1200,
    "h": 522,
-   "colours": 1760,
-   "share_not_main": 0.126
+   "colours": 1765,
+   "share_not_main": 0.1259
   }
  }
 }

@@ -4,17 +4,20 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-16",
- "checked_at": "2026-11-16 14:10 UTC",
- "seconds": 2.4,
- "source_calls": 3,
+ "checked_at": "2026-11-17 00:21 UTC",
+ "seconds": 2.0,
+ "source_calls": 4,
  "source_errors": {},
  "counts": {
   "home": {
    "PASS": 28
   },
+  "sources": {
+   "WARN": 1
+  },
   "data/detector": {
-   "PASS": 69,
-   "WARN": 3
+   "WARN": 4,
+   "PASS": 68
   },
   "data/disturbance": {
    "PASS": 18
@@ -34,14 +37,14 @@
    "PASS": 13
   },
   "detector": {
-   "PASS": 58,
-   "WARN": 9
+   "PASS": 55,
+   "WARN": 12
   },
   "state-onset": {
    "PASS": 100
   },
   "stress-map": {
-   "PASS": 13
+   "PASS": 10
   },
   "forecaster": {
    "PASS": 6,
@@ -49,12 +52,12 @@
   }
  },
  "totals": {
-  "checks": 403,
-  "figures": 273,
+  "checks": 401,
+  "figures": 271,
   "fail": 0,
-  "warn": 42,
+  "warn": 47,
   "unverified": 0,
-  "passed": 355
+  "passed": 348
  },
  "failures": [],
  "rows": [
@@ -395,16 +398,28 @@
    "detail": ""
   },
   {
+   "page": "sources",
+   "label": "SP500",
+   "check": "source",
+   "status": "WARN",
+   "value": null,
+   "period": null,
+   "series": null,
+   "transform": null,
+   "expected": null,
+   "detail": "FRED has not posted the close of 2026-11-16 yet: checked against the chart feed the page names (Yahoo Finance ^GSPC)"
+  },
+  {
    "page": "data/detector",
    "label": "s&p 500 daily close: SP500",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": "7,561.67",
    "period": "2026-11-13",
    "series": "SP500",
    "transform": "level",
-   "expected": "2026-11-13",
-   "detail": ""
+   "expected": "2026-11-16",
+   "detail": "a newer period (2026-11-16) was published 2026-11-16, on or after the build day: the next run takes it"
   },
   {
    "page": "data/detector",
@@ -423,7 +438,7 @@
    "label": "s&p 500 daily close",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-16",
+   "value": "2026-11-17",
    "period": null,
    "series": "SP500",
    "transform": null,
@@ -1563,12 +1578,12 @@
    "label": "state claims and payments, eta 5159",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-16",
+   "value": "2026-11-17",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1707,12 +1722,12 @@
    "label": "bristow-hall state chronology v4",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-16",
+   "value": "2026-11-17",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1731,12 +1746,12 @@
    "label": "bristow-hall state damage line v4",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-16",
+   "value": "2026-11-17",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -2247,12 +2262,12 @@
    "label": "bristow-hall state chronology v4",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-16",
+   "value": "2026-11-17",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2271,12 +2286,12 @@
    "label": "bristow-hall state damage line v4",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-16",
+   "value": "2026-11-17",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2726,13 +2741,13 @@
    "page": "detector",
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": 12.29,
    "period": "2026-11-13",
    "series": "SP500",
    "transform": "sp_yoy",
-   "expected": "2026-11-13",
-   "detail": ""
+   "expected": "2026-11-16",
+   "detail": "a newer period (2026-11-16) was published 2026-11-16, on or after the build day: the next run takes it"
   },
   {
    "page": "detector",
@@ -3146,13 +3161,13 @@
    "page": "detector",
    "label": "E22 leg S: the S&P 500 against its lowest close since the episode opened",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": null,
    "period": "2026-11-13",
    "series": "SP500",
    "transform": "reading",
-   "expected": "2026-11-13",
-   "detail": ""
+   "expected": "2026-11-16",
+   "detail": "a newer period (2026-11-16) was published 2026-11-16, on or after the build day: the next run takes it"
   },
   {
    "page": "detector",
@@ -3254,13 +3269,13 @@
    "page": "detector",
    "label": "current through: sp500",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": "2026-11-13",
    "period": "2026-11-13",
    "series": "SP500",
    "transform": "through",
-   "expected": "2026-11-13",
-   "detail": ""
+   "expected": "2026-11-16",
+   "detail": "a newer period (2026-11-16) was published 2026-11-16, on or after the build day: the next run takes it"
   },
   {
    "page": "detector",
@@ -4047,11 +4062,11 @@
    "label": "MS claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-10-31",
-   "period": "2026-10-31",
+   "value": "2026-11-07",
+   "period": "2026-11-07",
    "series": "DOL539:MS:ic",
    "transform": "week",
-   "expected": "2026-10-31",
+   "expected": "2026-11-07",
    "detail": ""
   },
   {
@@ -4095,11 +4110,11 @@
    "label": "NC claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-10-31",
-   "period": "2026-10-31",
+   "value": "2026-11-07",
+   "period": "2026-11-07",
    "series": "DOL539:NC:ic",
    "transform": "week",
-   "expected": "2026-10-31",
+   "expected": "2026-11-07",
    "detail": ""
   },
   {
@@ -4215,11 +4230,11 @@
    "label": "NM claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-10-31",
-   "period": "2026-10-31",
+   "value": "2026-11-07",
+   "period": "2026-11-07",
    "series": "DOL539:NM:ic",
    "transform": "week",
-   "expected": "2026-10-31",
+   "expected": "2026-11-07",
    "detail": ""
   },
   {
@@ -4725,42 +4740,6 @@
    "transform": null,
    "expected": null,
    "detail": ""
-  },
-  {
-   "page": "stress-map",
-   "label": "carried MS",
-   "check": "carried forward",
-   "status": "PASS",
-   "value": "2026-10-31",
-   "period": "2026-10-31",
-   "series": "MSICLAIMS",
-   "transform": "week",
-   "expected": "2026-10-31",
-   "detail": "labelled on the page (Amendment 4): the State's newest published week"
-  },
-  {
-   "page": "stress-map",
-   "label": "carried NC",
-   "check": "carried forward",
-   "status": "PASS",
-   "value": "2026-10-31",
-   "period": "2026-10-31",
-   "series": "NCICLAIMS",
-   "transform": "week",
-   "expected": "2026-10-31",
-   "detail": "labelled on the page (Amendment 4): the State's newest published week"
-  },
-  {
-   "page": "stress-map",
-   "label": "carried NM",
-   "check": "carried forward",
-   "status": "PASS",
-   "value": "2026-10-31",
-   "period": "2026-10-31",
-   "series": "NMICLAIMS",
-   "transform": "week",
-   "expected": "2026-10-31",
-   "detail": "labelled on the page (Amendment 4): the State's newest published week"
   },
   {
    "page": "stress-map",

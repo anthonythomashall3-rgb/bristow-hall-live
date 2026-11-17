@@ -1,11 +1,11 @@
 {
  "built_at": "2026-11-16 09:09",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-16T14:10:25Z",
+ "generated_utc": "2026-11-17T00:20:06Z",
  "rows": [
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-16",
+   "build_next": "2026-11-17",
    "confirmed_through": "2027-03-08",
    "fred_clock": null,
    "freq": "daily",
@@ -13,7 +13,7 @@
    "link": "/detector/",
    "name": "s&p 500 daily close",
    "next_expected": false,
-   "next_ny": "2026-11-16 16:00",
+   "next_ny": "2026-11-17 16:00",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the S&P 500 close",
@@ -429,7 +429,7 @@
      "utc": "2027-03-08T21:00:00Z"
     }
    ],
-   "waiting_since_due": null
+   "waiting_since_due": "2026-11-16 16:00"
   },
   {
    "agrees_with_build": true,
@@ -957,11 +957,6 @@
    "time_known": true,
    "time_note": "FRED's posting clock, the median of its last nine posts (the Bureau publishes the jobs report at 8:30)",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-06 09:36",
-     "utc": "2026-11-06T14:36:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-12-04 09:36",
