@@ -308,6 +308,27 @@ class Sources:
         except Exception as e:
             self.c[key + ':err'] = str(e); return None
 
+    def spx(self):
+        """1116 (16 Nov 2026): the S&P 500's daily closes from the chart feed the site itself reads and names on its data page (Yahoo
+        Finance ^GSPC): {'YYYY-MM-DD': close, 2 decimals}. FRED posts SP500 hours after the 4 PM close, so the 16:20 ET slot's build
+        (close of 16 Nov) was held three times as 'carried forward or phantom' against FRED's 13 Nov. A day still trading is left out."""
+        key = 'spx'
+        if key in self.c: return self.c[key]
+        if key + ':err' in self.c: return None
+        try:
+            r = json.loads(self._get('https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=1mo&interval=1d',
+                                     headers={'User-Agent': 'Mozilla/5.0'}, tries=3))['chart']['result'][0]
+            off = int(r['meta'].get('gmtoffset') or 0); out = {}
+            for t, c in zip(r['timestamp'], r['indicators']['quote'][0]['close']):
+                if c is not None: out[dt.datetime.fromtimestamp(t + off, dt.timezone.utc).date().isoformat()] = round(float(c), 2)
+            end = ((r['meta'].get('currentTradingPeriod') or {}).get('regular') or {}).get('end')
+            if end and time.time() < end:      # the session of that day has not closed: its bar is not a close
+                out.pop(dt.datetime.fromtimestamp(end + off, dt.timezone.utc).date().isoformat(), None)
+            if not out: raise RuntimeError('chart feed: no closes')
+            self.c[key] = out; return out
+        except Exception as e:
+            self.c[key + ':err'] = str(e); return None
+
     def dol539(self):
         """the Department of Labor's ETA 539 file (the State weekly claims the build reads), re-read: each State's newest week of
         initial claims (rptdate) and of continued claims (the reflecting week c2)."""
@@ -408,6 +429,14 @@ class Gate:
         if k not in self._s:
             rows = self.src.fred(sid, start)
             if rows is None: rows = self.publisher_rows(sid, start)
+            if sid == 'SP500' and rows is not None:
+                # 1116: closes FRED has not posted yet are read from the chart feed the page names (Sources.spx), so the close-slot
+                # build is checked against a source instead of being held until FRED posts in the evening
+                last = max([r[0] for r in rows if r[3] is not None] or [''])
+                extra = [[d, d, '9999-12-31', v] for d, v in sorted((self.src.spx() or {}).items()) if d > last]   # a close is published on its own day
+                if extra:
+                    rows = [r for r in rows if r[0] <= last] + extra
+                    self.R.add('sources', 'SP500', 'source', 'WARN', detail='FRED has not posted the close of %s yet: checked against the chart feed the page names (Yahoo Finance ^GSPC)' % extra[-1][0])
             self._s[k] = Series(sid, rows) if rows is not None else None
         return self._s[k]
 
