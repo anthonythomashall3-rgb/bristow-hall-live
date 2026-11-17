@@ -110,6 +110,10 @@ cp out/bhs_state.json ../bhs_state.json
 # on 17 Nov by a revision the data page could never catch up with: s2/disturbance/fred_refresh.py). The chronology step below then uses
 # these same files. If the download fails the old files stand and the chronology step downloads as before. Never fails the run.
 if python3 s2/disturbance/fred_refresh.py; then export BHS_DIST_FRED_READY=1; else export BHS_DIST_FRED_READY=0; fi
+# 1116g (17 November 2026; Anthony: "Check ntfy and fix the issue"): FRED's release calendar is asked BEFORE the site build too, so the
+# pages' "next published" days are this run's (FRED listed the G.17 annual revision of 24 Nov in the afternoon; the pages said 16 Dec and
+# the gate held the 4:20 PM update twice). Never fails the run.
+python3 "$HERE/ops/calendar_refresh.py" || true
 python3 bhs_site.py
 # THE NATIONAL DISTURBANCE CHRONOLOGY (9 November 2026; Anthony: "make the disturbance indicator autoupdating forever"):
 # re-dates every disturbance from current FRED data by the fixed rule and writes /disturbance/ over the stub bhs_site.py

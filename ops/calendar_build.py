@@ -534,7 +534,11 @@ GLITCH = []          # releases whose FRED answer looked wrong this run (reporte
 def release_dates(rid, cache, allow_fetch, today):
     key = str(rid)
     ent = cache.get(key)
-    fresh = ent and ent.get('fetched') == today.isoformat() and ent.get('span', 0) >= 400 and not FORCE[0]
+    # 1116g (17 Nov 2026; Anthony: "Check ntfy and fix the issue"): FRED's calendar is asked again at every run, not once a day (an
+    # answer under 15 minutes old stands, for the Worker's retries). On 17 Nov FRED listed the G.17 annual revision (24 Nov) in the
+    # afternoon; the cache of that morning still said 16 Dec, the source gate reads FRED live, and it held the 4:20 PM update twice.
+    fresh = ent and ent.get('fetched') == today.isoformat() and ent.get('span', 0) >= 400 and not FORCE[0] \
+        and time.time() - float(ent.get('fetched_at') or 0) < 15 * 60
     if allow_fetch and not fresh:
         try:
             j = fred('release/dates', release_id=rid, include_release_dates_with_no_data='true',
@@ -552,7 +556,7 @@ def release_dates(rid, cache, allow_fetch, today):
                 ent = dict(ent, suspect={'dates': ds, 'day': today.isoformat()})
                 cache[key] = ent
             else:
-                cache[key] = {'fetched': today.isoformat(), 'dates': ds, 'span': 430}
+                cache[key] = {'fetched': today.isoformat(), 'fetched_at': int(time.time()), 'dates': ds, 'span': 430}
                 ent = cache[key]
         except Exception as e:
             print('calendar: FRED release %s not refreshed (%s); the cached days stand' % (rid, e))
@@ -616,7 +620,9 @@ def fred_times(rid, dates, today):
         ag = [d for d in ag if d >= today - dt.timedelta(days=430)]
         if ag:
             months = {(d.year, d.month) for d in ag}
-            ds = sorted(set(ag) | {d for d in ds if (d.year, d.month) not in months})
+            # 1116g: a coming day FRED lists that the agency's page does not (the G.17 annual revision, 24 Nov 2026: the Board's
+            # release-dates page lists only the monthly releases) is a release day too; the source gate checks against FRED's list
+            ds = sorted(set(ag) | {d for d in ds if (d.year, d.month) not in months or d > today})
     window = [d for d in ds if today - dt.timedelta(days=30) <= d <= today]
     if len(window) > 12:                         # a date every business day: not a release calendar
         return None
