@@ -295,8 +295,8 @@
 },
 {
 "name": "feed reading matches the readings table: Industrial production (the production pi",
-"got": "0.66",
-"want": "0.66",
+"got": "-0.43",
+"want": "-0.43",
 "status": "PASS",
 "gate": "soft"
 },
@@ -869,8 +869,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-17 08:58', '2026-11-17 08:58')",
-"want": "('2026-11-17 08:58', '2026-11-17 08:58')",
+"got": "('2026-11-17 09:39', '2026-11-17 09:39')",
+"want": "('2026-11-17 09:39', '2026-11-17 09:39')",
 "status": "PASS",
 "gate": "hard"
 },

@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-11-17T13:57:12Z",
+ "checked_utc": "2026-11-17T14:40:11Z",
  "release": {},
  "row_tokens": {
   "feed|BAA": "2026-10|6.59",
@@ -24,7 +24,7 @@
   "feed|ICSA, CCSA, ICNSA, CCNSA|Initial claims and continued claims, seasonally adjusted and not (the route's insured-unemployment pillar, the count door's claims condition, the closer)": "2026-11-07|200,000; 1,697,000; 206,982; 1,503,556",
   "feed|ICSA, CCSA, IURSA": "2026-10-31|189,000; 1,718,000; 1.1",
   "feed|INDPRO": "2026-09|103.9506",
-  "feed|INDPRO|Industrial production (the production pillar)": "2026-09|103.9506",
+  "feed|INDPRO|Industrial production (the production pillar)": "2026-10|103.3954",
   "feed|JTSJOL": "2026-09|7,523",
   "feed|JTSJOL, CLF16OV": "2026-09-01|7,523; 170,683",
   "feed|JTSJOL|Job openings (the help-wanted pillar: openings growing slower than claims)": "2026-09|7,523",
@@ -91,7 +91,7 @@
   "row|rule|GDPNOW|GDPNow": "2026-11-09|3.48",
   "row|rule|GS10, GS1|10-year and 1-year Treasury yields, monthly averages": "2026-10|5.13; 4.46",
   "row|rule|ICSA, CCSA, ICNSA, CCNSA|Initial claims and continued claims, seasonally adjusted and not": "2026-11-07|200,000; 1,697,000; 206,982; 1,503,556",
-  "row|rule|INDPRO|Industrial production": "2026-09|103.9506",
+  "row|rule|INDPRO|Industrial production": "2026-10|103.3954",
   "row|rule|JTSJOL|Job openings": "2026-09|7,523",
   "row|rule|SAHMREALTIME|Sahm rule, real time": "2026-10|0.00",
   "row|rule|SP500|S&P 500 daily close": "2026-11-16|7,416.59",

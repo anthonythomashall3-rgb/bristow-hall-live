@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-17 08:58",
+ "built_at": "2026-11-17 09:39",
  "version": "C1021+E22",
  "census_date": "2026-11-17",
  "feeds": [
@@ -47,10 +47,10 @@
    "series": "INDPRO",
    "source": "Federal Reserve, G.17 Industrial Production and Capacity Utilization (ALFRED INDPRO, each month as first printed)",
    "every": "Monthly - about the 16th, 9:15 AM ET",
-   "through": "2026-09",
+   "through": "2026-10",
    "next": "2026-12-16",
    "link": "https://www.federalreserve.gov/releases/g17/current/",
-   "value": "103.9506",
+   "value": "103.3954",
    "backup": "the FRED current file of INDPRO (flagged: revised values), then the G.17 release text",
    "format_check": "c1021.py: the newest G.17 print within its ALFRED vintage; the vintage history appended and checked (bhs_update)",
    "auto": "yes"
@@ -158,7 +158,7 @@
   {
    "channel": "industrial production, the newest G.17 print (the production pillar)",
    "status": "current",
-   "last": "2026-10-16",
+   "last": "2026-11-17",
    "limit_days": 45,
    "substitute": null
   },
@@ -216,14 +216,14 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
-   "PAYEMS": "FRED API",
-   "UNRATE": "FRED API",
    "JTSJOL": "FRED API",
+   "PAYEMS": "FRED API",
    "UNEMPLOY": "FRED API",
+   "UNRATE": "FRED API",
    "JTSQUR": "FRED API",
+   "IURSA": "FRED API",
    "CPIAUCSL": "FRED API",
-   "ICSA": "FRED API",
-   "IURSA": "FRED API"
+   "ICSA": "FRED API"
   },
   "compared_with_bls": [
    "UNRATE",
