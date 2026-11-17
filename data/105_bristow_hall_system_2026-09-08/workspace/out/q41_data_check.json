@@ -456,7 +456,7 @@
 },
 {
 "name": "feed is not dated in the future: GDPNow (the output dimension's bridge fo",
-"got": "2026-11-09",
+"got": "2026-11-17",
 "want": "<= 2026-11-17",
 "status": "PASS",
 "gate": "soft"
@@ -869,8 +869,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-17 10:15', '2026-11-17 10:15')",
-"want": "('2026-11-17 10:15', '2026-11-17 10:15')",
+"got": "('2026-11-17 12:06', '2026-11-17 12:06')",
+"want": "('2026-11-17 12:06', '2026-11-17 12:06')",
 "status": "PASS",
 "gate": "hard"
 },
