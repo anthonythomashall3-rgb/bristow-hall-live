@@ -60,6 +60,10 @@ def disturbance_rows():
     ser = next(ast.literal_eval(n.value) for n in ast.parse(open(py).read()).body if isinstance(n, ast.Assign) and any(getattr(t, 'id', '') == 'SERIES' for t in n.targets))
     try: built = json.load(open(os.path.join(D, 'out', 'chronology.json'))).get('built', '')
     except Exception: built = ''
+    try:   # 1116h (17 Nov 2026): the files are read before the site build now (fred_refresh.py); their own read time, when it is the newer
+        at = json.load(open(os.path.join(D, 'out', 'fred_refreshed.json'))).get('at', '')
+        if at > built: built = at
+    except Exception: pass
     rows = []
     for s in ser:
         f = os.path.join(D, 'out', 'fred_latest', s + '.csv'); ds = []; vs = []

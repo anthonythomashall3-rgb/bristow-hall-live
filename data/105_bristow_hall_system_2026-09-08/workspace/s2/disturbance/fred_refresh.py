@@ -79,6 +79,10 @@ def main():
     os.makedirs(DEST, exist_ok=True)
     for s in SERIES: os.replace(os.path.join(TMP, s + '.csv'), os.path.join(DEST, s + '.csv'))
     shutil.rmtree(TMP, ignore_errors=True)
+    # 1116h (17 Nov 2026; Anthony: "fix everything else"): when the six files were read, in the chronology's own clock and layout, for the
+    # data page's "Refreshed" column (it showed the chronology's last build, one run behind: s2/tool_inputs.py disturbance_rows)
+    import datetime as _dt, json as _json
+    _json.dump({'at': _dt.datetime.now().isoformat(timespec='seconds')}, open(os.path.join(H, 'out', 'fred_refreshed.json'), 'w'))
     print('disturbance series refreshed before the site build: %s' % ', '.join(SERIES))
 
 

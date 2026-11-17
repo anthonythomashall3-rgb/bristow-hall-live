@@ -1259,22 +1259,28 @@ def add(side,name,series,line,through=None,nxt=''):
     elif nxt=='survey': nxt=nxt_survey(dt)
     R.append(dict(side=side,object=name,reading=round(v,4),line=line,ratio=round(v/line,3) if line else None,through=through or dt,next=nxt))
 _CV=C1021['values']; _nxj=first_fri(today)
+# 1116h (17 November 2026; Anthony: "fix everything else"): EVERY NEXT DAY IS THE EARLIER OF THE SCHEDULE FILE AND FRED'S CALENDAR AT
+# THIS BUILD. The schedule file (cache/release_schedule.csv) holds one day per reference month, fetched once a day; FRED's calendar
+# (ops/cache/fred_release_dates.json, asked just before this build by ops/calendar_refresh.py) is what the source gate checks against.
+# A day FRED lists that the file lacks (the G.17 annual revision of 24 November 2026 held two updates) is taken at once, for the
+# jobs report, JOLTS, GDP and GDPNow as for the G.17. Housing starts are left out: FRED's release 27 lists the new-home sales day too.
+_FRED_REL={'INDPRO':13,'UNRATE':50,'JTSJOL':192,'GDPC1':53,'GDPNOW':386}
+def _fred_next(series):
+    try:
+        _ds=(json.load(open(os.path.join('..','..','..','ops','cache','fred_release_dates.json'))).get(str(_FRED_REL[series])) or {}).get('dates') or []
+        _ds=sorted(str(_x)[:10] for _x in _ds if str(_x)[:10]>str(today)[:10])
+        return _ds[0] if _ds else None
+    except Exception: return None
+def _earlier(series,sched):
+    _c=[_x for _x in (sched,_fred_next(series)) if _x]
+    return min(_c) if _c else None
 def _c1sched(series):   # the published schedule (cache/release_schedule.csv) when it reaches past today
     try:
         c=pd.read_csv('cache/release_schedule.csv'); c=c[c['series']==series]; d=pd.to_datetime(c['release_date'],errors='coerce').dropna(); d=d[d>pd.Timestamp(today)]
-        return d.min().date().isoformat() if len(d) else None
-    except Exception: return None
-def _nxg17():   # the G.17's next release day: the published schedule, else the first weekday on or after the 16th
-    # 1116g (17 November 2026; Anthony: "Check ntfy and fix the issue"): the EARLIER of the schedule file's next day and the next day
-    # FRED's calendar lists at this build. The schedule file holds one day per
-    # reference month, so the G.17 annual revision (24 November 2026, listed by FRED the afternoon of 17 November) was never in it:
-    # the detector said 16 December, the source gate reads FRED, and the 4:20 PM update was held.
-    # (the activity opener no longer runs, so its g17_dates are old: the calendar read is ops/cache/fred_release_dates.json, release 13,
-    # which ops/calendar_refresh.py asks FRED for just before this build)
-    try: _frd=list((json.load(open(os.path.join('..','..','..','ops','cache','fred_release_dates.json'))).get('13') or {}).get('dates') or [])
-    except Exception: _frd=[]
-    _c=[_x for _x in [_c1sched('INDPRO')]+_frd if _x and str(_x)[:10]>str(today)[:10]]
-    return min(str(_x)[:10] for _x in _c) if _c else _ao_next()
+        return _earlier(series,d.min().date().isoformat() if len(d) else None)
+    except Exception: return _fred_next(series)
+def _nxg17():   # the G.17's next release day: the earlier of the schedule and FRED's calendar (1116g, 1116h), else the first weekday on or after the 16th
+    return _c1sched('INDPRO') or _ao_next()
 def _c1row(name,val,line,through,nxt,kind):
     if isinstance(through,str) and len(through)==7:   # 8 Nov 2026 (Anthony: exact days): a month is in hand through its last day
         import calendar as _cal1; through='%s-%02d'%(through,_cal1.monthrange(int(through[:4]),int(through[5:7]))[1])
@@ -1373,8 +1379,8 @@ NEXT=[dict(date=nxt_claims(lastv(RAW['I'])[1],12),what='Weekly claims (initial c
 def _sched(series):
     try:
         c=pd.read_csv('cache/release_schedule.csv'); c=c[c['series']==series]; d=pd.to_datetime(c['release_date'],errors='coerce').dropna(); d=d[d>pd.Timestamp(today)]
-        return d.min().date().isoformat() if len(d) else None
-    except Exception: return None
+        return _earlier(series,d.min().date().isoformat() if len(d) else None)   # 1116h
+    except Exception: return _fred_next(series)
 def _usual(through,months,day):
     t=pd.Timestamp(through)+pd.DateOffset(months=months); t=t.replace(day=min(day,28))
     while t<=pd.Timestamp(today): t=(t+pd.DateOffset(months=1)).replace(day=min(day,28))
