@@ -71,6 +71,8 @@ else
   fi
   # v3.73 (23 September 2026, collection 333; collection 331): the committee watch, once a day; a dating the chronology file lacks raises a flag, moves nothing; never fails the run
   if [ "$(cat cache/chronology_watch_on 2>/dev/null)" != "$(date +%F)" ]; then python3 s2/chronology_watch.py && date +%F > cache/chronology_watch_on || true; fi
+  # 1116g (17 November 2026): FRED's release calendar is asked before the build as well (the detector's next G.17 day reads it)
+  python3 "$HERE/ops/calendar_refresh.py" || true
   python3 bhs_build.py
   # 818 (22 October 2026): a run through a FRED outage publishes what it has and says so in the state; the Worker reads
   # refresh_incomplete from run_slots.json and starts the next try itself (every 30 minutes) until a run refreshes in full

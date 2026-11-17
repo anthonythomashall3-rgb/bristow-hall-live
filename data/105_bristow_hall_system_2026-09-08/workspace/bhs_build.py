@@ -1266,10 +1266,14 @@ def _c1sched(series):   # the published schedule (cache/release_schedule.csv) wh
     except Exception: return None
 def _nxg17():   # the G.17's next release day: the published schedule, else the first weekday on or after the 16th
     # 1116g (17 November 2026; Anthony: "Check ntfy and fix the issue"): the EARLIER of the schedule file's next day and the next day
-    # FRED's calendar lists at this build (s2/activity_opener.py g17_dates, asked every build). The schedule file holds one day per
+    # FRED's calendar lists at this build. The schedule file holds one day per
     # reference month, so the G.17 annual revision (24 November 2026, listed by FRED the afternoon of 17 November) was never in it:
     # the detector said 16 December, the source gate reads FRED, and the 4:20 PM update was held.
-    _c=[_x for _x in [_c1sched('INDPRO')]+list(_AO_ST.get('g17_dates') or []) if _x and str(_x)[:10]>str(today)[:10]]
+    # (the activity opener no longer runs, so its g17_dates are old: the calendar read is ops/cache/fred_release_dates.json, release 13,
+    # which ops/calendar_refresh.py asks FRED for just before this build)
+    try: _frd=list((json.load(open(os.path.join('..','..','..','ops','cache','fred_release_dates.json'))).get('13') or {}).get('dates') or [])
+    except Exception: _frd=[]
+    _c=[_x for _x in [_c1sched('INDPRO')]+_frd if _x and str(_x)[:10]>str(today)[:10]]
     return min(str(_x)[:10] for _x in _c) if _c else _ao_next()
 def _c1row(name,val,line,through,nxt,kind):
     if isinstance(through,str) and len(through)==7:   # 8 Nov 2026 (Anthony: exact days): a month is in hand through its last day
