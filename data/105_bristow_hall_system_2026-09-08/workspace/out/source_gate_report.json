@@ -3,10 +3,10 @@
  "mode": "hold",
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
- "build_day": "2026-11-16",
- "checked_at": "2026-11-17 11:00 UTC",
- "seconds": 75.6,
- "source_calls": 62,
+ "build_day": "2026-11-17",
+ "checked_at": "2026-11-17 13:59 UTC",
+ "seconds": 2.3,
+ "source_calls": 4,
  "source_errors": {},
  "counts": {
   "home": {
@@ -34,9 +34,8 @@
    "PASS": 13
   },
   "detector": {
-   "PASS": 57,
-   "WARN": 9,
-   "UNVERIFIED": 1
+   "PASS": 58,
+   "WARN": 9
   },
   "state-onset": {
    "PASS": 100
@@ -54,8 +53,8 @@
   "figures": 270,
   "fail": 0,
   "warn": 42,
-  "unverified": 1,
-  "passed": 351
+  "unverified": 0,
+  "passed": 352
  },
  "failures": [],
  "rows": [
@@ -389,7 +388,7 @@
    "check": "matches the detector",
    "status": "PASS",
    "value": 0.429,
-   "period": "2026-11-16",
+   "period": "2026-11-17",
    "series": "BHRREALTIME",
    "transform": "the detector reading",
    "expected": 0.429,
@@ -428,7 +427,7 @@
    "period": null,
    "series": "SP500",
    "transform": null,
-   "expected": "2026-11-17",
+   "expected": "2026-11-18",
    "detail": "the next NYSE trading day"
   },
   {
@@ -464,7 +463,7 @@
    "period": null,
    "series": "GDPNOW",
    "transform": null,
-   "expected": "2026-11-17",
+   "expected": "2026-11-18",
    "detail": "FRED release 386 (GDPNow)"
   },
   {
@@ -1112,7 +1111,7 @@
    "period": null,
    "series": "INDPRO",
    "transform": null,
-   "expected": "2026-11-17",
+   "expected": "2026-12-16",
    "detail": "FRED release 13 (G.17 Industrial Production and Capacity Utilization)"
   },
   {
@@ -1364,7 +1363,7 @@
    "period": null,
    "series": "INDPRO",
    "transform": null,
-   "expected": "2026-11-17",
+   "expected": "2026-12-16",
    "detail": "FRED release 13 (G.17 Industrial Production and Capacity Utilization)"
   },
   {
@@ -1569,7 +1568,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1713,7 +1712,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1737,7 +1736,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1953,7 +1952,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2253,7 +2252,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2277,7 +2276,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2728,7 +2727,7 @@
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "freshness",
    "status": "PASS",
-   "value": 10.13,
+   "value": 11.15,
    "period": "2026-11-16",
    "series": "SP500",
    "transform": "sp_yoy",
@@ -2739,13 +2738,13 @@
    "page": "detector",
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "value",
-   "status": "UNVERIFIED",
-   "value": 10.13,
+   "status": "PASS",
+   "value": 11.15,
    "period": "2026-11-16",
    "series": "SP500",
    "transform": "sp_yoy",
-   "expected": null,
-   "detail": "the source has no value to recompute it from (missing); unchanged since the last verified build: it may stay"
+   "expected": 11.1531,
+   "detail": ""
   },
   {
    "page": "detector",
@@ -2776,11 +2775,11 @@
    "label": "route: industrial production (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-17",
+   "value": "2026-12-16",
    "period": null,
    "series": "INDPRO",
    "transform": null,
-   "expected": "2026-11-17",
+   "expected": "2026-12-16",
    "detail": "FRED release 13 (G.17 Industrial Production and Capacity Utilization)"
   },
   {
@@ -3280,7 +3279,7 @@
    "label": "current through: search",
    "check": "freshness",
    "status": "WARN",
-   "value": "2026-11-15",
+   "value": "2026-11-16",
    "period": null,
    "series": null,
    "transform": null,
@@ -3293,10 +3292,10 @@
    "check": "phantom",
    "status": "PASS",
    "value": 0.429,
-   "period": "2026-11-16",
+   "period": "2026-11-17",
    "series": "BHRREALTIME",
    "transform": null,
-   "expected": "2026-11-16",
+   "expected": "2026-11-17",
    "detail": ""
   },
   {
@@ -3305,7 +3304,7 @@
    "check": "cadence",
    "status": "PASS",
    "value": 0.429,
-   "period": "2026-11-16",
+   "period": "2026-11-17",
    "series": null,
    "transform": null,
    "expected": null,
@@ -3364,11 +3363,11 @@
    "label": "feed: Industrial production (the production pillar) (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-17",
+   "value": "2026-12-16",
    "period": null,
    "series": "INDPRO",
    "transform": null,
-   "expected": "2026-11-17",
+   "expected": "2026-12-16",
    "detail": "FRED release 13 (G.17 Industrial Production and Capacity Utilization)"
   },
   {
@@ -3416,7 +3415,7 @@
    "period": null,
    "series": "SP500",
    "transform": null,
-   "expected": "2026-11-17",
+   "expected": "2026-11-18",
    "detail": "the next NYSE trading day"
   },
   {
@@ -3436,11 +3435,11 @@
    "label": "feed: GDPNow (the output dimension's bridge for the quarter not ye (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-17",
+   "value": "2026-11-18",
    "period": null,
    "series": "GDPNOW",
    "transform": null,
-   "expected": "2026-11-17",
+   "expected": "2026-11-18",
    "detail": "FRED release 386 (GDPNow)"
   },
   {

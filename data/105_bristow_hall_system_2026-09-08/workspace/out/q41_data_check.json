@@ -100,63 +100,63 @@
 {
 "name": "tile: Unemployment rate next release is not in the past",
 "got": "2026-12-04",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Nonfarm payrolls next release is not in the past",
 "got": "2026-12-04",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Payroll growth next release is not in the past",
 "got": "2026-12-04",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Initial claims (week) next release is not in the past",
 "got": "2026-11-19",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Insured unemployment rate next release is not in the past",
 "got": "2026-11-19",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Job openings next release is not in the past",
 "got": "2026-12-01",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Unemployed per opening next release is not in the past",
 "got": "2026-12-01",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Quits rate next release is not in the past",
 "got": "2026-12-01",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: CPI inflation next release is not in the past",
 "got": "2026-12-10",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -219,14 +219,14 @@
 {
 "name": "feed is not dated in the future: Initial claims and continued claims, sea",
 "got": "2026-11-07",
-"want": "<= 2026-11-16",
+"want": "<= 2026-11-17",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Initial claims and continued claims, sea",
 "got": "2026-11-19",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -254,7 +254,7 @@
 {
 "name": "feed next release is not in the past: Unemployment rate, payrolls, the unemplo",
 "got": "2026-12-04",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -282,7 +282,7 @@
 {
 "name": "feed next release is not in the past: Job openings (the help-wanted pillar: op",
 "got": "2026-12-01",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -309,8 +309,8 @@
 },
 {
 "name": "feed next release is not in the past: Industrial production (the production pi",
-"got": "2026-11-17",
-"want": ">= 2026-11-16",
+"got": "2026-12-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -338,7 +338,7 @@
 {
 "name": "feed next release is not in the past: Moody's Baa corporate bond yield, monthl",
 "got": "2026-12-07",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -366,7 +366,7 @@
 {
 "name": "feed next release is not in the past: Effective federal funds rate, monthly av",
 "got": "2026-12-01",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -394,7 +394,7 @@
 {
 "name": "feed next release is not in the past: 10-year and 1-year Treasury yields, mont",
 "got": "2026-12-01",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -407,8 +407,8 @@
 },
 {
 "name": "feed reading matches the readings table: S&P 500 daily close (the market pillar: ",
-"got": "10.13",
-"want": "10.13",
+"got": "11.15",
+"want": "11.15",
 "status": "PASS",
 "gate": "soft"
 },
@@ -422,14 +422,14 @@
 {
 "name": "feed is not dated in the future: S&P 500 daily close (the market pillar: ",
 "got": "2026-11-16",
-"want": "<= 2026-11-16",
+"want": "<= 2026-11-17",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: S&P 500 daily close (the market pillar: ",
 "got": "2026-11-17",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -443,7 +443,7 @@
 {
 "name": "feed next release is not in the past: Real GDP (the damage grade's output dime",
 "got": "2026-11-25",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -457,14 +457,14 @@
 {
 "name": "feed is not dated in the future: GDPNow (the output dimension's bridge fo",
 "got": "2026-11-09",
-"want": "<= 2026-11-16",
+"want": "<= 2026-11-17",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: GDPNow (the output dimension's bridge fo",
-"got": "2026-11-17",
-"want": ">= 2026-11-16",
+"got": "2026-11-18",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -478,7 +478,7 @@
 {
 "name": "feed next release is not in the past: Sahm rule, real time (the comparator on ",
 "got": "2026-12-04",
-"want": ">= 2026-11-16",
+"want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -505,7 +505,7 @@
 },
 {
 "name": "feed value date: ICNSA newest week within the weekly cadence",
-"got": "9",
+"got": "10",
 "want": "5-14 days",
 "status": "PASS",
 "gate": "hard"
@@ -526,7 +526,7 @@
 },
 {
 "name": "feed value date: CCNSA newest week within the weekly cadence",
-"got": "16",
+"got": "17",
 "want": "12-21 days",
 "status": "PASS",
 "gate": "hard"
@@ -554,8 +554,8 @@
 },
 {
 "name": "headline date = last day of the daily series",
-"got": "2026-11-16",
-"want": "2026-11-16",
+"got": "2026-11-17",
+"want": "2026-11-17",
 "status": "PASS",
 "gate": "soft"
 },
@@ -645,8 +645,8 @@
 },
 {
 "name": "E22: the ender ran today (out/e22_state.json)",
-"got": "2026-11-16",
-"want": "2026-11-16",
+"got": "2026-11-17",
+"want": "2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -659,8 +659,8 @@
 },
 {
 "name": "C1021: the starter ran today (out/c1021_state.json)",
-"got": "2026-11-16",
-"want": "2026-11-16",
+"got": "2026-11-17",
+"want": "2026-11-17",
 "status": "PASS",
 "gate": null
 },
@@ -869,15 +869,15 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-16 21:24', '2026-11-16 21:24')",
-"want": "('2026-11-16 21:24', '2026-11-16 21:24')",
+"got": "('2026-11-17 08:58', '2026-11-17 08:58')",
+"want": "('2026-11-17 08:58', '2026-11-17 08:58')",
 "status": "PASS",
 "gate": "hard"
 },
 {
 "name": "front-page tiles fetched today",
-"got": "2026-11-16",
-"want": "2026-11-16",
+"got": "2026-11-17",
+"want": "2026-11-17",
 "status": "PASS",
 "gate": null
 },

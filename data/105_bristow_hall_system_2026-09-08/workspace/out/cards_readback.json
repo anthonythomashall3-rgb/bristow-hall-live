@@ -1,8 +1,8 @@
 {
- "at": "2026-11-17T11:02:36Z",
+ "at": "2026-11-17T14:00:29Z",
  "cards": {
   "/detector/": {
-   "img": "/detector/card.png?v=46eec56a",
+   "img": "/detector/card.png?v=28c28e60",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
