@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-16T10:29:18Z",
+ "generated_at": "2026-11-17T00:18:02Z",
  "generator": "s2/tool_inputs_mac.py (run on the Mac)",
  "tools": {
   "stress-map": {
@@ -31,7 +31,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-16T10:04Z",
+     "refreshed": "2026-11-17T00:14Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": {
       "values": [
@@ -60,7 +60,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-16T10:04Z",
+     "refreshed": "2026-11-17T00:14Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": {
       "vlist": [
@@ -1184,8 +1184,8 @@
      "url": "/detector/",
      "freq": "daily",
      "release": "derived_detector",
-     "through": "2026-11-16 01:47",
-     "refreshed": "2026-11-16T10:05Z",
+     "through": "2026-11-16 09:09",
+     "refreshed": "2026-11-17T00:15Z",
      "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/data/live_chronology/bhs_state_origin_main.json",
      "held": {
       "value": "Closed since Oct 2024",
@@ -2942,7 +2942,7 @@
      "freq": "monthly",
      "release": "eta5159",
      "through": "2026-10-31",
-     "refreshed": "2026-11-15T18:51Z",
+     "refreshed": "2026-11-17T00:14Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar5159.csv",
      "held": {
       "vlist": [
@@ -2959,8 +2959,8 @@
         "10,135"
        ],
        [
-        "AR (Sep 30, 2026)",
-        "4,756"
+        "AR",
+        "5,136"
        ],
        [
         "CA",
@@ -3165,7 +3165,7 @@
      "freq": "weekly",
      "release": "eta539",
      "through": "2026-11-07",
-     "refreshed": "2026-11-15T18:51Z",
+     "refreshed": "2026-11-17T00:14Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar539.csv",
      "held": {
       "vlist": [
@@ -3266,8 +3266,8 @@
         "6,341; 33,045"
        ],
        [
-        "MS (Oct 31, 2026)",
-        "789; 5,535"
+        "MS",
+        "961; 5,419"
        ],
        [
         "MO",
@@ -3294,16 +3294,16 @@
         "12,488; 85,115"
        ],
        [
-        "NM (Oct 31, 2026)",
-        "791; 8,453"
+        "NM",
+        "967; 8,699"
        ],
        [
         "NY",
         "14,569; 139,493"
        ],
        [
-        "NC (Oct 31, 2026)",
-        "2,741; 16,649"
+        "NC",
+        "3,273; 16,625"
        ],
        [
         "ND",
@@ -4788,7 +4788,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-16T10:04Z",
+     "refreshed": "2026-11-17T00:14Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": {
       "values": [
@@ -4817,7 +4817,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-16T10:04Z",
+     "refreshed": "2026-11-17T00:14Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": {
       "vlist": [
