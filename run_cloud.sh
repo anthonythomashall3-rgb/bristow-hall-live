@@ -105,6 +105,11 @@ if [ "${BHS_DRILL:-no}" = "yes" ]; then bash s2/alert.sh "FIRE DRILL" "A drill f
 # the bundle happened to carry. A run that succeeds while publishing yesterday is worse than one that fails.
 cp out/bhs_state.json ../site/bhs_state.json
 cp out/bhs_state.json ../bhs_state.json
+# 1141 (17 November 2026; Anthony: "ensure that we fix the issue and that this never happens again"): the disturbance chronology's six
+# FRED series are downloaded BEFORE the site build, so the data page shows this run's read, not the last run's (three updates were held
+# on 17 Nov by a revision the data page could never catch up with: s2/disturbance/fred_refresh.py). The chronology step below then uses
+# these same files. If the download fails the old files stand and the chronology step downloads as before. Never fails the run.
+if python3 s2/disturbance/fred_refresh.py; then export BHS_DIST_FRED_READY=1; else export BHS_DIST_FRED_READY=0; fi
 python3 bhs_site.py
 # THE NATIONAL DISTURBANCE CHRONOLOGY (9 November 2026; Anthony: "make the disturbance indicator autoupdating forever"):
 # re-dates every disturbance from current FRED data by the fixed rule and writes /disturbance/ over the stub bhs_site.py

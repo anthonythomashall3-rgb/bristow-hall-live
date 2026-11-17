@@ -584,7 +584,7 @@ class Gate:
             if d.get(DOL_OF[s.sid][0]) == period[:10] and d.get(DOL_OF[s.sid][1]) not in (None, ''): v = float(d[DOL_OF[s.sid][1]])
         return v
 
-    def compare(self, page, label, published, expected, tol, series, period, transform, detail=''):
+    def compare(self, page, label, published, expected, tol, series, period, transform, detail='', read_at_build=False):
         if expected is None:
             return self.unverified(page, label, published, period, series, transform,
                                    'the source has no value to recompute it from (%s)' % (detail or 'missing observation'), 'value')
@@ -594,6 +594,26 @@ class Gate:
         if abs(pv - expected) <= tol:
             self.R.add(page, label, 'value', 'PASS', fmt(pv), period, series, transform, fmt(expected), detail)
         else:
+            # 1141 (17 Nov 2026; Anthony: "ensure that we fix the issue and that this never happens again"): A SERIES LEVEL AS THE
+            # BUILD READ IT (the data page's rows), WHEN FRED REVISED THE VALUE ON THE BUILD DAY. The second hold of the day was the
+            # same thing from the other side: a site-only run re-rendered the committed (8:58) state after FRED had posted. The 9:15 ET G.17 build read FRED INDPRO at 9:17 (September
+            # 103.9506); FRED posted the release at about 9:19 (September revised to 103.8458) and the gate, reading FRED two minutes
+            # after the build, held the update on a figure that was right when it was read. For such a row the value FRED carried
+            # until the build day is accepted when FRED's revision is dated the build day or later: a WARN, as for a newer period
+            # published on the build day (fresh()), and the next run takes the revised value. A value that matches neither is a FAIL.
+            if read_at_build and isinstance(series, str):
+                try:
+                    s = self.S(series); bd = self.build_day
+                    before = (D(bd) - dt.timedelta(days=1)).isoformat()
+                    old = s.on(before).get(period) if s is not None and s.rows and s.rows[0][1] is not None else None
+                    revised = [rs for d, rs, re_, v in s.rows if d == period and rs is not None and rs >= bd] if old is not None else []
+                    if old is not None and revised and abs(pv - old) <= tol:
+                        self.R.add(page, label, 'value', 'WARN', fmt(pv), period, series, transform, fmt(expected),
+                                   'published %s = FRED until %s; FRED revised it to %s on %s, on or after the build day: the next run takes it'
+                                   % (fmt(pv), before, fmt(expected), min(revised)))
+                        return
+                except Exception:
+                    pass
             self.R.add(page, label, 'value', 'FAIL', fmt(pv), period, series, transform, fmt(expected),
                        'published %s, the source gives %s (%s)%s' % (fmt(pv), fmt(expected), transform, ('; ' + detail) if detail else ''))
 
@@ -823,7 +843,7 @@ class Gate:
                     self.unverified(page, '%s: %s' % (label, sid), vtxt, pk, sid, 'level', 'the source could not be read'); continue
                 self.fresh(page, '%s: %s' % (label, sid), s, pk, freq, vtxt, 'level')
                 exp, why = self.recompute('level', [sid], pk, self.build_day)
-                self.compare(page, '%s: %s' % (label, sid), pn[0] if pn else None, exp, pn[1] if pn else 0, sid, pk, 'level', why or '')
+                self.compare(page, '%s: %s' % (label, sid), pn[0] if pn else None, exp, pn[1] if pn else 0, sid, pk, 'level', why or '', read_at_build=True)
                 self.remember(page, '%s: %s' % (label, sid), sid, vtxt, pk)
             # --- a single value on the row
             if not vals:
@@ -851,7 +871,7 @@ class Gate:
                     else:
                         self.fresh(page, label, s, pk, freq, value, 'level')
                         exp, why = self.recompute('level', [sid], pk, self.build_day)
-                        self.compare(page, label, pn[0] if pn else None, exp, pn[1] if pn else 0, sid, pk, 'level', why or '')
+                        self.compare(page, label, pn[0] if pn else None, exp, pn[1] if pn else 0, sid, pk, 'level', why or '', read_at_build=True)
                         self.remember(page, label, sid, value, pk)
                 else:
                     # a derived reading or a file: the period is checked against its inputs; the value is listed as not source-checked

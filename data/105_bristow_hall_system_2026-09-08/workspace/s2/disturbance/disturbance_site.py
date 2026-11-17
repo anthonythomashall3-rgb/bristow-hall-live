@@ -71,8 +71,10 @@ def thumb(J, W=420, Hh=150, pad=5):
 def build():
     prevf = os.path.join(OUT, 'chronology.json')
     prev = json.load(open(prevf))['episodes'] if os.path.exists(prevf) else None
-    r = subprocess.run([sys.executable, os.path.join(H, 'disturbance_chronology.py'), '--fred',
-                        '--fred-dir', os.path.join(OUT, 'fred_latest'), '--out', OUT],
+    # 1141 (17 Nov 2026): when run_cloud.sh has just downloaded the six series (fred_refresh.py, before the site build), date from those
+    # same files, so the data page and the chronology show one read; otherwise download here, as before
+    src = ['--data', os.path.join(OUT, 'fred_latest')] if os.environ.get('BHS_DIST_FRED_READY') == '1' else ['--fred', '--fred-dir', os.path.join(OUT, 'fred_latest')]
+    r = subprocess.run([sys.executable, os.path.join(H, 'disturbance_chronology.py')] + src + ['--out', OUT],
                        capture_output=True, text=True, timeout=600)
     if r.returncode != 0: raise RuntimeError('chronology failed: ' + r.stderr[-800:])
     J = json.load(open(os.path.join(OUT, 'chronology.json')))
