@@ -190,7 +190,7 @@ def table_newest(al, s):
     return v.index[-1], col
 
 
-RID = {'bea_gdp': 53, 'bls_empsit': 50, 'bls_jolts': 192, 'fed_g17': 13, 'bls_state': 112, 'bls_cpi': 10, 'dol_claims': 180}   # FRED's release id of each group (the release calendars are keyed by it)
+RID = {'bea_pi': 54, 'bea_gdp': 53, 'bls_empsit': 50, 'bls_jolts': 192, 'fed_g17': 13, 'bls_state': 112, 'bls_cpi': 10, 'dol_claims': 180}   # FRED's release id of each group (the release calendars are keyed by it)
 
 
 def release_days(group, extra=None):

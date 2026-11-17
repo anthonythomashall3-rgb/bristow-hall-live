@@ -16,6 +16,47 @@ from disturbance_chronology import SERIES
 DEST = os.path.join(H, 'out', 'fred_latest'); TMP = DEST + '.tmp'
 
 
+# 1052 speed (17 Nov 2026): ON A RELEASE DAY THE PUBLISHER'S OWN SERIES. At the release run FRED has not posted yet, so its file carried
+# the month before (and, at the G.17, September before its revision): the data page's disturbance rows and the chronology showed the
+# old numbers while the detector had the new release, and the source gate held the build (17 Nov, 9:16 ET). A series whose release is
+# out today and whose publisher now differs from FRED's file is written from the publisher (s2/publisher_first.py: the G.17 file, the
+# BLS through s2/bls_fetch.py, the BEA API), in fredgraph's layout; FRED's file replaces it whole once FRED posts the same numbers.
+# Parity: ops/speed/parity_disturbance_overlay.py (the publisher's series equal to FRED's once FRED has posted).
+OVERLAY = {'INDPRO': 'fed_g17', 'PAYEMS': 'bls_empsit', 'UNRATE': 'bls_empsit', 'GDPC1': 'bea_gdp', 'W875RX1': 'bea_pi'}
+
+
+def _num(v):
+    return ('%d' % v) if float(v).is_integer() else repr(float(v))
+
+
+def publisher_overlay(d):
+    try:
+        sys.path.insert(0, os.path.dirname(H)); import publisher_first as pf, pandas as pd, io
+    except Exception as e:
+        print('publisher overlay: not run (%s)' % e); return
+    day = pf.ny_day()
+    for s, g in OVERLAY.items():
+        try:
+            if g not in pf.RID or day not in pf.release_days(g): continue
+            if s == 'W875RX1':
+                cur = pf.bea_series('T20600', '36', 'M')
+            else:
+                cur = pf.publisher([s], full=True)[s]
+            cur = cur.dropna()
+            f = os.path.join(d, s + '.csv'); fr = pd.read_csv(f); fr.columns = ['date', 'v']; fr['v'] = pd.to_numeric(fr.v, errors='coerce'); fr = fr.dropna()
+            fs = pd.Series(fr.v.values, index=pd.to_datetime(fr.date))
+            ix = fs.index.intersection(cur.index)
+            newer = len(cur) and cur.index[-1] > fs.index[-1]
+            revised = [str(x.date()) for x in ix if fs[x] != cur[x]]
+            if not newer and not revised: continue
+            cur = cur[cur.index >= fs.index[0]]   # FRED's own first month
+            open(f, 'w').write('observation_date,%s\n' % s + ''.join('%s,%s\n' % (x.strftime('%Y-%m-%d'), _num(v)) for x, v in cur.items()))
+            print('publisher overlay: %s from the publisher (%s through %s%s); FRED had through %s' % (s, g, cur.index[-1].strftime('%Y-%m'),
+                  ('; revised ' + ', '.join(revised[-3:])) if revised else '', fs.index[-1].strftime('%Y-%m')))
+        except Exception as e:
+            print('publisher overlay: %s not read from the publisher (%s); FRED\'s file stands' % (s, str(e)[:120]))
+
+
 def main():
     shutil.rmtree(TMP, ignore_errors=True); os.makedirs(TMP)
     for s in SERIES:
@@ -32,6 +73,7 @@ def main():
             shutil.rmtree(TMP, ignore_errors=True)
             print('disturbance series not refreshed before the site build (%s could not be read): the chronology step downloads them itself' % s); sys.exit(1)
         open(os.path.join(TMP, s + '.csv'), 'wb').write(body)
+    publisher_overlay(TMP)
     os.makedirs(DEST, exist_ok=True)
     for s in SERIES: os.replace(os.path.join(TMP, s + '.csv'), os.path.join(DEST, s + '.csv'))
     shutil.rmtree(TMP, ignore_errors=True)
