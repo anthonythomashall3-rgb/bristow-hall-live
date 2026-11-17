@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-17 09:39",
+ "built_at": "2026-11-17 10:15",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-17T14:41:18Z",
+ "generated_utc": "2026-11-17T15:16:42Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -672,7 +672,7 @@
    "agrees_with_build": true,
    "build_next": "2026-12-16",
    "confirmed_through": "2027-12-16",
-   "fred_clock": "09:21",
+   "fred_clock": "09:20",
    "freq": "monthly",
    "ids": "indpro",
    "link": "/detector/",
