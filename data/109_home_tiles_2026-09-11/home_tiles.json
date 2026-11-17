@@ -145,12 +145,12 @@
   "routes": {
    "JTSJOL": "FRED API",
    "PAYEMS": "FRED API",
-   "JTSQUR": "FRED API",
-   "UNRATE": "FRED API",
    "UNEMPLOY": "FRED API",
    "CPIAUCSL": "FRED API",
+   "JTSQUR": "FRED API",
+   "IURSA": "FRED API",
    "ICSA": "FRED API",
-   "IURSA": "FRED API"
+   "UNRATE": "FRED API"
   },
   "compared": [
    "UNRATE",
