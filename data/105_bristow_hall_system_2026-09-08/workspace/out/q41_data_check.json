@@ -869,8 +869,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-16 20:17', '2026-11-16 20:17')",
-"want": "('2026-11-16 20:17', '2026-11-16 20:17')",
+"got": "('2026-11-16 20:32', '2026-11-16 20:32')",
+"want": "('2026-11-16 20:32', '2026-11-16 20:32')",
 "status": "PASS",
 "gate": "hard"
 },
@@ -1034,5 +1034,40 @@
 "want": "[]",
 "status": "PASS",
 "gate": "hard"
+},
+{
+"name": "one scale: every recession day reads 3.00 or more and every other day below 3.00",
+"got": "[]",
+"want": "[]",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "one scale: the state names its scale (recession line 3.00)",
+"got": "3.0",
+"want": "3.0",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "one scale: every recession grades 3.00 or more",
+"got": "[]",
+"want": "[]",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "one scale: the State page and the stress map are on the scale",
+"got": "0",
+"want": "0",
+"status": "PASS",
+"gate": null
+},
+{
+"name": "one scale: every disturbance grades below 3.00 and every recession window 3.00 or more",
+"got": "[]",
+"want": "[]",
+"status": "PASS",
+"gate": null
 }
 ]
