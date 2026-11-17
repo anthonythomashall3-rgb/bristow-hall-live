@@ -22,7 +22,9 @@ DEST = os.path.join(H, 'out', 'fred_latest'); TMP = DEST + '.tmp'
 # out today and whose publisher now differs from FRED's file is written from the publisher (s2/publisher_first.py: the G.17 file, the
 # BLS through s2/bls_fetch.py, the BEA API), in fredgraph's layout; FRED's file replaces it whole once FRED posts the same numbers.
 # Parity: ops/speed/parity_disturbance_overlay.py (the publisher's series equal to FRED's once FRED has posted).
-OVERLAY = {'INDPRO': 'fed_g17', 'PAYEMS': 'bls_empsit', 'UNRATE': 'bls_empsit', 'GDPC1': 'bea_gdp', 'W875RX1': 'bea_pi'}
+OVERLAY = {'INDPRO': 'fed_g17', 'PAYEMS': 'bls_empsit', 'UNRATE': 'bls_empsit', 'GDPC1': 'bea_gdp'}
+# W875RX1 is not here: BEA's Table 2.6 line 36 is not FRED's W875RX1 to the last digit (parity, 17 Nov 2026: 1959 months differ), so it
+# stays FRED's, as CMRMTSPL (FRED's own computation) does
 
 
 def _num(v):
