@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-17 17:02",
+ "built_at": "2026-11-17 17:53",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-17T22:03:10Z",
+ "generated_utc": "2026-11-17T22:54:08Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -678,8 +678,8 @@
    "link": "/detector/",
    "name": "industrial production",
    "next_expected": false,
-   "next_ny": "2026-11-24 09:15",
-   "read_lag_min": 6,
+   "next_ny": "2026-11-24 12:00",
+   "read_lag_min": 0,
    "release_id": 13,
    "short": "industrial production (G.17)",
    "slots": true,
@@ -695,8 +695,8 @@
     },
     {
      "expected": false,
-     "ny": "2026-11-24 09:15",
-     "utc": "2026-11-24T14:15:00Z"
+     "ny": "2026-11-24 12:00",
+     "utc": "2026-11-24T17:00:00Z"
     },
     {
      "expected": false,
@@ -2021,8 +2021,8 @@
    "link": "/stress-map/",
    "name": "national disturbance register v3.2",
    "next_expected": false,
-   "next_ny": "2026-11-24 09:15",
-   "read_lag_min": 6,
+   "next_ny": "2026-11-24 12:00",
+   "read_lag_min": 0,
    "release_id": 13,
    "short": "industrial production (G.17)",
    "slots": true,
@@ -2038,8 +2038,8 @@
     },
     {
      "expected": false,
-     "ny": "2026-11-24 09:15",
-     "utc": "2026-11-24T14:15:00Z"
+     "ny": "2026-11-24 12:00",
+     "utc": "2026-11-24T17:00:00Z"
     },
     {
      "expected": false,
