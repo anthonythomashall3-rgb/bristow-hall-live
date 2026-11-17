@@ -122,7 +122,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-10-31)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-11-16 20:23', '2026-11-16 20:23')  want=('2026-11-16 20:23', '2026-11-16 20:23')
+PASS  public state copies are this build  got=('2026-11-16 20:38', '2026-11-16 20:38')  want=('2026-11-16 20:38', '2026-11-16 20:38')
 PASS  front-page tiles fetched today  got=2026-11-16  want=2026-11-16
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]
@@ -146,3 +146,8 @@ PASS  data page: the search terms are on Google's own scale  got=[]  want=[]
 PASS  data page: every percent carries its % sign  got=[]  want=[]
 PASS  units: every front-page tile is a number  got=[]  want=[]
 PASS  units: no published page prints a placeholder (n/a, NaN, None, null)  got=[]  want=[]
+PASS  one scale: every recession day reads 3.00 or more and every other day below 3.00  got=[]  want=[]
+PASS  one scale: the state names its scale (recession line 3.00)  got=3.0  want=3.0
+PASS  one scale: every recession grades 3.00 or more  got=[]  want=[]
+PASS  one scale: the State page and the stress map are on the scale  got=0  want=0
+PASS  one scale: every disturbance grades below 3.00 and every recession window 3.00 or more  got=[]  want=[]

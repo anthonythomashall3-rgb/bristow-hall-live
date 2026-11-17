@@ -1,8 +1,8 @@
 {
- "at": "2026-11-17T01:25:28Z",
+ "at": "2026-11-17T01:40:44Z",
  "cards": {
   "/detector/": {
-   "img": "/detector/card.png?v=c5ce6d43",
+   "img": "/detector/card.png?v=46eec56a",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
@@ -14,7 +14,7 @@
    "ok": true
   },
   "/state-onset/": {
-   "img": "/state-onset/card.png?v=8ff4b131",
+   "img": "/state-onset/card.png?v=556dfde4",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true

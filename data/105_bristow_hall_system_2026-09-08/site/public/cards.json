@@ -1,5 +1,5 @@
 {
- "built": "2026-11-17T01:23:40Z",
+ "built": "2026-11-17T01:38:57Z",
  "size": [
   1200,
   760
@@ -7,12 +7,12 @@
  "cards": {
   "/detector/": {
    "png": "/detector/card.png",
-   "sha256": "c5ce6d43ebf78e12567ba25c8c32f292e1a96fc5f2300453d0b1d4e9297b186b",
+   "sha256": "46eec56a4809c571094b671bf78f377c38388737dfdaf5f8805c7792f6f516bf",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 720,
-   "share_not_main": 0.2256
+   "colours": 830,
+   "share_not_main": 0.2666
   },
   "/disturbance/": {
    "png": "/disturbance/card.png",
@@ -25,12 +25,12 @@
   },
   "/state-onset/": {
    "png": "/state-onset/card.png",
-   "sha256": "8ff4b1317bf767e70432426df7a35477f45296c462869d4ced5a2b917d0d6a1c",
+   "sha256": "556dfde43281e82116904be823eed8cb2ad126276d8bc8afcd53c0015f8f3844",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 573,
-   "share_not_main": 0.3049
+   "colours": 704,
+   "share_not_main": 0.3074
   },
   "/stress-map/": {
    "png": "/stress-map/card.png",
