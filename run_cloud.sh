@@ -119,6 +119,10 @@ python3 s2/state_onset/state_onset_site.py || true
 # THE NATIONAL STRESS MAP (15 November 2026; Anthony: "ENSURE THAT EVERYTHING IS LIVE UPDATING"): writes the page built in collection 1052
 # (s2/stress_map/page.html, committed by the Mac job com.bristowhall.stressmap1052 after its checks pass) over the stub bhs_site.py writes at /stress-map/; never fails the run
 python3 s2/stress_map/stress_map_site.py || true
+# THE ONE SCALE (16 November 2026, collection 1140; Anthony: "recessions and disturbances are on the same scale ... recessions should start when
+# it crosses the threshold of 3"): the State page and the stress map, built by code outside this repository, are placed on the scale the indicator
+# and the disturbance chronology publish (s2/one_scale.py); a page that cannot be converted keeps its last converted copy; never fails the run
+python3 s2/one_scale.py pages || true
 # THE RUN SLOTS (21 September 2026, collection 278): the release times at which the Cloudflare Worker and the Mac start the
 # next runs, published with the site (site/public/run_slots.json); never fails the run
 python3 s2/run_slots.py || true

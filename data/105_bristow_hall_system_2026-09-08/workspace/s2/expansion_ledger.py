@@ -9,7 +9,8 @@ to chronology/expansions.jsonl and rewrites nothing."""
 import os, sys, json, datetime
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def line_for(year, S):
-    d = S['series']['dates']; v = S['series']['values']; ph = S['series']['phase']; br = S['series']['branch']
+    d = S['series']['dates']; ph = S['series']['phase']; br = S['series']['branch']
+    v = [None if x is None else min(0.99, x) for x in S['series']['reading']]   # 1140: the ledger keeps the share of conditions met (1.00 = a call); series.values is on the one scale (3.00 = a call)
     ix = [i for i, x in enumerate(d) if x.startswith(str(year))]
     if not ix: return None
     open_days = sum(1 for i in ix if ph[i] == 'open')

@@ -34,9 +34,13 @@ import argparse, datetime as dt, json, os, sys, urllib.request
 import numpy as np, pandas as pd
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DAMAGE_CUT = 2.0   # register v3.2: the grade at or above which a window is a recession (Anthony, 14 Nov 2026 05:35 PT: '2.0')
+DAMAGE_CUT = 2.0   # register v3.2: the damage at or above which a window is a recession (Anthony, 14 Nov 2026 05:35 PT: '2.0')
+# THE ONE SCALE (collection 1140, 16 Nov 2026; Anthony: "recessions and disturbances are on the same scale"): 'damage' is the damage grade as before
+# (0 to 10; the class is still read from it against DAMAGE_CUT); 'grade' is that damage on the scale the live indicator uses, where a recession
+# begins at 3.00 - 1.5 x damage for a disturbance, 3 + 0.7 x damage for a recession (s2/one_scale.py).
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.dirname(HERE))      # live system: s2/damage_dimensions.py, the site's own grader (v3.76)
+from one_scale import grade as _one1140         # 1140: the damage grade on the one scale
 try:
     import damage_dimensions as dd
 except ImportError:                             # the research folder carries a verbatim copy
@@ -260,7 +264,7 @@ def main():
                          status=status, status_v3_1=status_v3_1, dev_fall_pp=round(f, 2), sahm_max=round(smax, 2), sahm_rerise=rerise,
                          ur_rise_pp=round(float(ex.max()), 2), ip_fall_pct=round(q['pt'], 2), gdp_fall_pct=round(o['pt'], 2),
                          L=round(L, 2), O=round(o['score'], 2), P=round(q['score'], 2),
-                         grade=round(dd.grade(L, o['score'], q['score']), 2), provisional=bool(prov),
+                         damage=g_, grade=_one1140(g_), provisional=bool(prov),
                          recession_months_inside=rec_in, passes_DD=bool(f >= DD_MIN), passes_DC=bool(smax < SAHM_C1)))
     T = pd.DataFrame(rows)
     os.makedirs(a.out, exist_ok=True)
