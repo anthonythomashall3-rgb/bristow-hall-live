@@ -32,6 +32,7 @@ def main():
             R['state_site'] = subprocess.run([sys.executable, 's2/state_onset/state_onset_site.py'], cwd=wsd, capture_output=True, text=True).stdout[-300:]
             R['stress_site'] = subprocess.run([sys.executable, 's2/stress_map/stress_map_site.py'], cwd=wsd, capture_output=True, text=True).stdout[-300:]
             if 'page NOT written' in R['stress_site']: raise RuntimeError('stress_map_site.py did not write the page: ' + R['stress_site'])
+            R['one_scale'] = subprocess.run([sys.executable, 's2/one_scale.py', 'pages'], cwd=wsd, capture_output=True, text=True).stdout[-400:]   # 1140: both pages on the one scale (recession line 3.00), as run_cloud.sh does
         R['ok'] = True
     except Exception as e:
         R['ok'] = False; R['error'] = f'{type(e).__name__}: {e}'[:1000]

@@ -1204,14 +1204,14 @@ from decimal import Decimal as _DEC, ROUND_HALF_UP as _HALFUP   # 1035: the grad
 for _e in EP:   # the record table shows each recession's damage score (17 September 2026)
     if not _e.get('open_pub'): continue
     _a=pd.Timestamp(_e['open_pub']); _b=pd.Timestamp(_e['close_pub']) if _e.get('close_pub') else pd.Timestamp(today)
-    if _a in _DMG_CUM: _e['damage_score']=round(_damage3(_b,_a),1); _e['grade']=float(_DEC(round(1.0+0.9*_damage3(_b,_a),3)).quantize(_DEC('0.01'),rounding=_HALFUP));   # 1035: the grade exactly as the site shows it (the index on the close day, stored to 3 decimals, shown as toFixed(2)); 1.00 at the call, 10 for 1929-33
+    if _a in _DMG_CUM: _e['damage_score']=round(_damage3(_b,_a),1); _e['grade']=float(_DEC(round(3.0+0.7*_damage3(_b,_a),3)).quantize(_DEC('0.01'),rounding=_HALFUP));   # 1035: the grade exactly as the site shows it (the index on the close day, stored to 3 decimals, shown as toFixed(2)); 1.00 at the call, 10 for 1929-33
     if _a in _DMG_CUM: _e['damage_pm']=round(_DMG_CUM[_a][3],1); _e['damage_depth']=round(_DMG_CUM[_a][4],1); _e.update(_DIM_EP.get(_a,{}))   # v3.73: the grade in three dimensions
-DMG=[]
+DMG=[]; _DMG1140={}   # 1140: each recession day's damage, unrounded, for the one scale (the block before the state is written)
 for i,d in enumerate(DD):
     if DP[i]=='open' and d>=SITE_START:
         ep=[(a,b) for a,b in _EPD if a<=d<=b]
         if ep:
-            a,b=ep[0]; dmg=_damage3(d,a); DMG.append(round(dmg,2)); DV[i]=1.0+0.9*dmg; continue   # v3.73: the grade in three dimensions; 1035 (10 Nov 2026, Anthony: 'make both the website and the paper on a scale of 10'): the index is 1 + 0.9 x the grade, 1.00 at the call and 10 at the damage of 1929-33
+            a,b=ep[0]; dmg=_damage3(d,a); DMG.append(round(dmg,2)); DV[i]=1.0+0.9*dmg; _DMG1140[d]=dmg; continue   # v3.73: the grade in three dimensions; 1035 (10 Nov 2026, Anthony: 'make both the website and the paper on a scale of 10'): the index is 1 + 0.9 x the grade, 1.00 at the call and 10 at the damage of 1929-33
     DMG.append(None)
 print('v3.73 grade at the close, by episode (labour, output, production -> grade):',[(a.date().isoformat(),_DIM_EP.get(a,{}).get('damage_labour'),_DIM_EP.get(a,{}).get('damage_output'),_DIM_EP.get(a,{}).get('damage_production'),round(_damage3(b,a),2)) for a,b in _EPD if a in _DMG_CUM])
 print('damage at the close, by episode (score of 10; point-months; depth):',[(a.date().isoformat(),round(_damage(b,a),2),round(_DMG_CUM[a][3],1),round(_DMG_CUM[a][4],1)) for a,b in _EPD if a in _DMG_CUM],'| weekly rows',len(_DMG_ROWS),'nowcast rows',sum(1 for r in _DMG_ROWS if r['how']=='nowcast'))
@@ -1814,7 +1814,7 @@ state['near_misses']=dict(line=0.80,spells=NEAR_MISSES,note='spells outside an e
 if REV_DRILL.get('active'): state['revision_drill']=_json_safe({k:v for k,v in REV_DRILL.items() if k!='paths'})   # collection 334: a drill build says so
 if BADPRINT.get('active'): state['bad_print_drill']=_json_safe({k:v for k,v in BADPRINT.items() if k!='file'})   # collection 378: a drilled build says so
 state['payroll_backstop']=_json_safe(dict(collection='323_payroll_backstop_closer_e38_2026-09-22',rule='three consecutive payroll gains in one vintage and the three-month unemployment rate 0.3 under its high since the open, on the employment situation release day, ninety days into an episode no other closer has closed',**PB_ST))
-state['damage']=_json_safe(dict(form='three dimensions (v3.73, collection 327): the mean of labour (unemployment depth x point-months), output (real GDP peak-to-trough x cumulative loss) and production (industrial production, the same), each the log of the geometric mean with 1929-33 at 10; the index inside a recession is 1 + 0.9 x the grade, 1.00 at the call and 10 at 1929-33 (collection 1035, 10 Nov 2026)',anchors=_DIM_ANCH,status=_DIM_NOTE,consensus='196: 75 of 78 pairs ordered as the six-measure consensus, Spearman 0.978'))
+state['damage']=_json_safe(dict(form='three dimensions (v3.73, collection 327): the mean of labour (unemployment depth x point-months), output (real GDP peak-to-trough x cumulative loss) and production (industrial production, the same), each the log of the geometric mean with 1929-33 at 10; the index inside a recession is 3 + 0.7 x the grade, 3.00 at the call and 10 at 1929-33; outside a recession it is 3 x the share of conditions met, at most 2.99 (the one scale, collection 1140, 16 Nov 2026)',anchors=_DIM_ANCH,status=_DIM_NOTE,consensus='196: 75 of 78 pairs ordered as the six-measure consensus, Spearman 0.978'))
 state['chronology_watch']=dict(lesson_pending=os.path.exists(os.path.join('chronology','lesson_pending.json')),pending=(json.load(open(os.path.join('chronology','lesson_pending.json'))) if os.path.exists(os.path.join('chronology','lesson_pending.json')) else None),entries=(len((json.load(open(os.path.join('chronology','announcements.json'))) or {}).get('recessions') or []) if os.path.exists(os.path.join('chronology','announcements.json')) else 0))
 state['realtime_note']=(state.get('realtime_note') or '')+' v3.73 (23 September 2026, collection 333): the damage grade in three dimensions - labour (unemployment depth x point-months), output (real GDP peak-to-trough x cumulative loss inside the episode; GDPNow for the unprinted quarter) and production (industrial production, the same) - each on the logarithmic scale with 1929-33 at 10 and averaged, which orders 75 of 78 pairs of the thirteen episodes as the ex-post consensus does; the payroll backstop closer (three payroll gains and the unemployment rate turned down 0.3, ninety days into a recession no other closer has ended - never first on the record); the state breadth re-arms only below 0.25 (E31b); the claims and the vacancy channels carry their own substitutes through a dark release (the states\' ETA 539 file; the Indeed postings index for at most two JOLTS months); the committee watch reads the NBER\'s announcements and raises a flag for a dating lesson.'
 state['realtime_note']=(state.get('realtime_note') or '')+' v3.62 (21 September 2026): Core v6 - the activity opener (industrial production as published 2.5 log points below its twelve-month high with the S&P 500 20 per cent below its 250-day high, the lines a causal walk from 1948 chose) may open a recession the labour core has not yet seen; since 1948 it has not fired outside a recession, and since 1956 never before the labour core, so it changes no call on this record.'
@@ -1949,6 +1949,23 @@ state.setdefault('notes',{})['objects_precise']=dict(   # v3.76 (collections 432
     closer_c_rate='the insured rate\'s four-week mean is rounded to a tenth before its fall from the 26-week maximum is taken',
     k_release='a close by K is dated by the release of the continued-claims week that fired (the week + 12 days)',
     vacancy_before_2010='the vacancy rate before July 2010 is the Petrosky-Nadeau and Zhang reconstruction (help-wanted index, then JOLTS as now published), not a print')
+# ---- ONE SCALE (collection 1140, 16 Nov 2026; Anthony: "recessions and disturbances are on the same scale ... recessions should start when it
+# ---- crosses the threshold of 3"): the line the state publishes is 3 x the share of conditions met outside a recession (at most 2.99) and
+# ---- 3 + 0.7 x the damage grade inside one (3.00 on the call day, 10 at the damage of 1929-33); a disturbance grades 1.5 x its damage, below
+# ---- 3.00 (s2/one_scale.py). Nothing above this block moves: the rule, its calls, its dates, the near-miss log and the damage arithmetic read
+# ---- the line on its old footing (1.00 = a call), exactly as before; only the numbers the state publishes are placed on the one scale here.
+# ---- series.reading (the share, 1.00 = a call), series.damage and the episodes' damage_score are published unchanged.
+import importlib.util as _iu1140; _sp1140=_iu1140.spec_from_file_location('one_scale',os.path.join('s2','one_scale.py')); _os1140=_iu1140.module_from_spec(_sp1140); _sp1140.loader.exec_module(_os1140)
+def _one1140(t,v,r,ph):
+    if t in _DMG1140: return _os1140.index_recession(_DMG1140[t])            # a recession day: 3 + 0.7 x the damage so far
+    if ph=='open' or v>=1.0: return 3.0+(7.0/9.0)*(max(v,1.0)-1.0)             # a recession day without a damage row (none today): the same map from the old line
+    return _os1140.index_quiet(r if (v>=0.99-1e-12 and r>=v) else v)           # outside: 3 x the share, at most 2.99
+state['series']['values']=[round(_one1140(t,float(v),float(r),p),3) for t,v,r,p in zip(SERIES_D.index,SERIES_D['value'],SERIES_D['reading'],SERIES_D['phase'])]
+state['series_monthly']['values']=[round(3.0 if (p=='open' or float(v)>=1.0) else _os1140.index_quiet(float(r) if (float(v)>=0.99-1e-12 and float(r)>=float(v)) else float(v)),3) for v,r,p in zip(SERIES['value'],SERIES['reading'],SERIES['phase'])]
+state['scale']=dict(name='one scale',line=3.0,collection='1140_one_scale_recession_at_3_site_papers_2026-11-16',
+    indicator='outside a recession 3 x the share of conditions met (series.reading), at most 2.99; inside one 3 + 0.7 x the damage grade (series.damage), 3.00 on the call day and 10 at the damage of 1929-33',
+    disturbance='1.5 x the damage grade, below 3.00',recession='3 + 0.7 x the damage grade')
+assert len(state['series']['values'])==len(state['series']['dates']) and all((x>=3.0) if p=='open' else (x<3.0) for x,p in zip(state['series']['values'],state['series']['phase']) if p in ('open','')), '1140: the published line is at or above 3.00 on the days the rule holds a recession open and below it on every other day'
 json.dump(state,open(os.path.join(LIVE,'bhs_state.json'),'w'),allow_nan=False)
 json.dump(state,open('out/bhs_state.json','w'),allow_nan=False)
 _tick('state written')
