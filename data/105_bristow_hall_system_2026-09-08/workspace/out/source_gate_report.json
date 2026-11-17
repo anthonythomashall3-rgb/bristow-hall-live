@@ -4,8 +4,8 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-16",
- "checked_at": "2026-11-17 00:21 UTC",
- "seconds": 2.0,
+ "checked_at": "2026-11-17 00:34 UTC",
+ "seconds": 2.7,
  "source_calls": 4,
  "source_errors": {},
  "counts": {
@@ -16,8 +16,8 @@
    "WARN": 1
   },
   "data/detector": {
-   "WARN": 4,
-   "PASS": 68
+   "PASS": 69,
+   "WARN": 3
   },
   "data/disturbance": {
    "PASS": 18
@@ -37,8 +37,8 @@
    "PASS": 13
   },
   "detector": {
-   "PASS": 55,
-   "WARN": 12
+   "PASS": 58,
+   "WARN": 9
   },
   "state-onset": {
    "PASS": 100
@@ -55,9 +55,9 @@
   "checks": 401,
   "figures": 271,
   "fail": 0,
-  "warn": 47,
+  "warn": 43,
   "unverified": 0,
-  "passed": 348
+  "passed": 352
  },
  "failures": [],
  "rows": [
@@ -413,24 +413,24 @@
    "page": "data/detector",
    "label": "s&p 500 daily close: SP500",
    "check": "freshness",
-   "status": "WARN",
-   "value": "7,561.67",
-   "period": "2026-11-13",
+   "status": "PASS",
+   "value": "7,416.59",
+   "period": "2026-11-16",
    "series": "SP500",
    "transform": "level",
    "expected": "2026-11-16",
-   "detail": "a newer period (2026-11-16) was published 2026-11-16, on or after the build day: the next run takes it"
+   "detail": ""
   },
   {
    "page": "data/detector",
    "label": "s&p 500 daily close: SP500",
    "check": "value",
    "status": "PASS",
-   "value": 7561.67,
-   "period": "2026-11-13",
+   "value": 7416.59,
+   "period": "2026-11-16",
    "series": "SP500",
    "transform": "level",
-   "expected": 7561.67,
+   "expected": 7416.59,
    "detail": ""
   },
   {
@@ -2741,24 +2741,24 @@
    "page": "detector",
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "freshness",
-   "status": "WARN",
-   "value": 12.29,
-   "period": "2026-11-13",
+   "status": "PASS",
+   "value": 10.13,
+   "period": "2026-11-16",
    "series": "SP500",
    "transform": "sp_yoy",
    "expected": "2026-11-16",
-   "detail": "a newer period (2026-11-16) was published 2026-11-16, on or after the build day: the next run takes it"
+   "detail": ""
   },
   {
    "page": "detector",
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "value",
    "status": "PASS",
-   "value": 12.29,
-   "period": "2026-11-13",
+   "value": 10.13,
+   "period": "2026-11-16",
    "series": "SP500",
    "transform": "sp_yoy",
-   "expected": 12.2891,
+   "expected": 10.1347,
    "detail": ""
   },
   {
@@ -3161,13 +3161,13 @@
    "page": "detector",
    "label": "E22 leg S: the S&P 500 against its lowest close since the episode opened",
    "check": "freshness",
-   "status": "WARN",
+   "status": "PASS",
    "value": null,
-   "period": "2026-11-13",
+   "period": "2026-11-16",
    "series": "SP500",
    "transform": "reading",
    "expected": "2026-11-16",
-   "detail": "a newer period (2026-11-16) was published 2026-11-16, on or after the build day: the next run takes it"
+   "detail": ""
   },
   {
    "page": "detector",
@@ -3269,20 +3269,20 @@
    "page": "detector",
    "label": "current through: sp500",
    "check": "freshness",
-   "status": "WARN",
-   "value": "2026-11-13",
-   "period": "2026-11-13",
+   "status": "PASS",
+   "value": "2026-11-16",
+   "period": "2026-11-16",
    "series": "SP500",
    "transform": "through",
    "expected": "2026-11-16",
-   "detail": "a newer period (2026-11-16) was published 2026-11-16, on or after the build day: the next run takes it"
+   "detail": ""
   },
   {
    "page": "detector",
    "label": "current through: spread",
    "check": "freshness",
    "status": "WARN",
-   "value": "2026-11-06",
+   "value": "2026-11-13",
    "period": null,
    "series": null,
    "transform": null,
@@ -3426,7 +3426,7 @@
    "label": "feed: S&P 500 daily close (the market pillar: below its close a ye (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-16",
+   "value": "2026-11-17",
    "period": null,
    "series": "SP500",
    "transform": null,

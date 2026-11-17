@@ -1,19 +1,22 @@
-    0.3s  FRED change check: 112 series tracked; 39 changed since last pulled (47 updated since 07:59 CT): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
-    1.9s  home tiles: second source: 8 series compared with the BLS and the Department of Labor, 0 mismatch
-    1.9s  home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Nov 7, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-11-19, IURSA 2026-11-19, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
-    2.1s  PAYEMS         no new vintage since 2026-11-06 (through 2026-10-01)
-    2.4s  GDPC1          no new vintage since 2026-10-29 (through 2026-07-01)
-    2.7s  GDPNOW         no new vintage since 2026-11-09 (through 2026-10-01)
-    2.9s  UNEMPLOY       no new vintage since 2026-11-06 (through 2026-10-01)
-    3.1s  LNS13023621    no new vintage since 2026-11-06 (through 2026-10-01)
-    3.4s  c1021 claims NSA first prints: unchanged
-    3.6s  indeed postings  4942 rows, last 2026-11-06
-    3.7s  relcal_HOUST: unchanged (through 2026-09)
-    3.8s  relcal_UNRATE: unchanged (through 2026-10)
-    3.8s  relcal_JTSJOL: unchanged (through 2026-09)
-    3.8s  vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
-    4.1s  S&P 500: nothing new (through 2026-11-13)
-    5.1s  Sahm gap: unchanged (through 2026-10-01)
-    5.1s  insured rate base: unchanged (through 2026-10-31)
-    5.1s  ---- the damage index's unemployment rate ----
-    5.1s  left as they stand: 82 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
+    8.8s  FRED change check: 112 series tracked; 41 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
+   10.5s  home tiles: second source: 8 series compared with the BLS and the Department of Labor, 0 mismatch
+   10.5s  home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Nov 7, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-11-19, IURSA 2026-11-19, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
+   10.8s  WTB3MS         2026-11-06 -> 2026-11-13  (3802 obs)
+   11.2s  DCPN30         2026-11-12 -> 2026-11-13  (7028 obs)
+   11.6s  PAYEMS         no new vintage since 2026-11-06 (through 2026-10-01)
+   12.2s  GDPC1          no new vintage since 2026-10-29 (through 2026-07-01)
+   12.8s  GDPNOW         no new vintage since 2026-11-09 (through 2026-10-01)
+   13.2s  UNEMPLOY       no new vintage since 2026-11-06 (through 2026-10-01)
+   13.6s  LNS13023621    no new vintage since 2026-11-06 (through 2026-10-01)
+   15.0s  c1021 claims NSA first prints: unchanged
+   15.2s  indeed postings  4942 rows, last 2026-11-06
+   15.2s  relcal_HOUST: unchanged (through 2026-09)
+   15.3s  relcal_UNRATE: unchanged (through 2026-10)
+   15.3s  relcal_JTSJOL: unchanged (through 2026-09)
+   15.3s  vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
+   15.8s  S&P 500: 1 day(s) appended, through 2026-11-16 (0 official, 1 from the feed)
+   16.6s  Sahm gap: unchanged (through 2026-10-01)
+   16.6s  insured rate base: unchanged (through 2026-10-31)
+   16.6s  ---- the damage index's unemployment rate ----
+   16.6s  left as they stand: 80 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
+   16.6s  FRED stamps: 2 series recorded as pulled

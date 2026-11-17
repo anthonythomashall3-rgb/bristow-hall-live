@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-16T14:09:16",
+ "built_at": "2026-11-17T00:32:12",
  "standing": {
   "state": "closed",
   "since": "2024-10-01",
@@ -22,7 +22,7 @@
    "on": false,
    "since": "2021-04-10",
    "data_through": "2026-10-31",
-   "reporting": 1,
+   "reporting": 51,
    "states_accelerating": [],
    "unit": "states of 51 whose 13-week average insured rate is >= 0.20 pp above a year earlier",
    "vintage": "ETA 539 c8/c18 by c2, administrative, unrevised",
@@ -79,7 +79,7 @@
   "weeks_on": 0,
   "gate_passed": false,
   "would_open_on": null,
-  "data_through": "2026-11-05",
+  "data_through": "2026-11-12",
   "calls": [
    "1970-04-23",
    "1974-07-25",
