@@ -309,7 +309,7 @@
 },
 {
 "name": "feed next release is not in the past: Industrial production (the production pi",
-"got": "2026-12-16",
+"got": "2026-11-24",
 "want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
@@ -407,8 +407,8 @@
 },
 {
 "name": "feed reading matches the readings table: S&P 500 daily close (the market pillar: ",
-"got": "11.15",
-"want": "11.15",
+"got": "10.01",
+"want": "10.01",
 "status": "PASS",
 "gate": "soft"
 },
@@ -421,14 +421,14 @@
 },
 {
 "name": "feed is not dated in the future: S&P 500 daily close (the market pillar: ",
-"got": "2026-11-16",
+"got": "2026-11-17",
 "want": "<= 2026-11-17",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: S&P 500 daily close (the market pillar: ",
-"got": "2026-11-17",
+"got": "2026-11-18",
 "want": ">= 2026-11-17",
 "status": "PASS",
 "gate": null
@@ -869,8 +869,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-17 12:06', '2026-11-17 12:06')",
-"want": "('2026-11-17 12:06', '2026-11-17 12:06')",
+"got": "('2026-11-17 16:51', '2026-11-17 16:51')",
+"want": "('2026-11-17 16:51', '2026-11-17 16:51')",
 "status": "PASS",
 "gate": "hard"
 },

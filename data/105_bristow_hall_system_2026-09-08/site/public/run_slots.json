@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-17 12:06",
+ "built_at": "2026-11-17 16:51",
  "fallback": "weekdays 08:35, 09:45, 10:15, 16:20 and 20:10 (New York time), used only if this list cannot be read",
- "generated_utc": "2026-11-17T17:08:03Z",
+ "generated_utc": "2026-11-17T21:53:06Z",
  "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes after each release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close at 4:20 PM and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
  "refresh_incomplete": null,
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
@@ -240,6 +240,30 @@
    ]
   },
   {
+   "ny": "2026-11-24 08:55",
+   "utc": "2026-11-24T13:55:00Z",
+   "why": [
+    "the day's full refresh before industrial production (G.17) (9:15 AM ET)"
+   ]
+  },
+  {
+   "ny": "2026-11-24 09:16",
+   "utc": "2026-11-24T14:16:00Z",
+   "wait": [
+    "fed_g17"
+   ],
+   "why": [
+    "industrial production (G.17) (9:15 AM ET; read from the publisher)"
+   ]
+  },
+  {
+   "ny": "2026-11-24 09:26",
+   "utc": "2026-11-24T14:26:00Z",
+   "why": [
+    "industrial production (G.17) (9:15 AM ET; FRED by about 9:21 AM)"
+   ]
+  },
+  {
    "ny": "2026-11-24 16:20",
    "utc": "2026-11-24T21:20:00Z",
    "why": [
@@ -280,8 +304,7 @@
     "weekly claims (8:30 AM ET)",
     "fred series w875rx1 (8:30 AM ET)",
     "fred series cmrmtspl (8:30 AM ET)",
-    "state building permits, units (8:30 AM ET)",
-    "national disturbance register v3.2 (8:30 AM ET)"
+    "state building permits, units (8:30 AM ET)"
    ]
   },
   {
@@ -573,6 +596,13 @@
    ],
    "why": [
     "GDPNow (12:02 PM ET); polled on FRED"
+   ]
+  },
+  {
+   "ny": "2026-12-08 16:20",
+   "utc": "2026-12-08T21:20:00Z",
+   "why": [
+    "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
    ]
   }
  ],

@@ -1,10 +1,10 @@
 {
  "came_in": [
   {
-   "came_in": "2026-11-17 12:08",
-   "due_ny": "2026-11-17 12:02",
-   "ids": "gdpnow",
-   "short": "GDPNow"
+   "came_in": "2026-11-17 16:53",
+   "due_ny": "2026-11-17 16:00",
+   "ids": "sp500",
+   "short": "the S&P 500 close"
   }
  ],
  "early": {
@@ -43,7 +43,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-17 12:03",
+ "last_check_ny": "2026-11-17 16:48",
  "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }
