@@ -81,7 +81,7 @@ if 'GT_REL' in globals():
     _S=live['series']; _i={d:i for i,d in enumerate(_S['dates'])}
     _d20=[o[0] for o in opens if o[1].startswith('2020')][0]; _k=_i.get(_d20)
     row(f'daily line, the 2020 open day ({_d20}): the sudden stop (branch K) at or above 1.00, not held',(_S['branch'][_k],_S['reading'][_k]>=1.0) if _k is not None else None,('K',True))
-    _held20=[(d,round(r,3)) for d,v,r in zip(_S['dates'],_S['values'],_S['reading']) if d.startswith('2020-03') and v==1.0 and r<1.0]
+    _held20=[(d,round(r,3)) for d,v,r in zip(_S['dates'],_S['values'],_S['reading']) if d.startswith('2020-03') and v==3.0 and r<1.0]   # 1140: the published line holds 3.00 where it held 1.00
     row('daily line, March 2020: no day held at 1.00 under its reading before or on the open day (held days after it, inside the open call, listed for the record: '+str([h for h in _held20 if h[0]>_d20])+')',[h for h in _held20 if h[0]<=_d20],[])
     _crash=(1-_SPX/_SPX.rolling(20,min_periods=10).max())*100
     _TT=(GT_TERMS if 'GT_TERMS' in globals() else {'unemp':(GT_DAY,GT7,GT_REL)})     # v3.29: the strongest term's reading each day
@@ -106,8 +106,8 @@ if 'GT_REL' in globals():
     _bad=[]
     for e in live['episodes']:
         k=_i.get(e['open_pub']); kc=_i.get(e['close_pub']) if e.get('close_pub') else None
-        okk=(k is not None and k>0 and _S['values'][k-1]<1.0 and _S['values'][k]>=1.0 and _S['reading'][k]>=1.0-1e-9)
-        okc=(kc is None) or (kc+1<len(_S['values']) and _S['values'][kc]>=1.0 and _S['values'][kc+1]<1.0)
+        okk=(k is not None and k>0 and _S['values'][k-1]<3.0 and _S['values'][k]>=3.0 and _S['reading'][k]>=1.0-1e-9)   # 1140: the published line crosses 3.00; the reading (the share) crosses 1.00
+        okc=(kc is None) or (kc+1<len(_S['values']) and _S['values'][kc]>=3.0 and _S['values'][kc+1]<3.0)
         if not (okk and okc): _bad.append((e['open_pub'],e.get('close_pub'),okk,okc,_S['reading'][k] if k is not None else None))
     row('daily line: crosses 1.00 on every walked open day by its own reading, and drops after every close day',_bad,[])
     _m24=[e for e in live['episodes'] if e['open_month'].startswith('2024')]

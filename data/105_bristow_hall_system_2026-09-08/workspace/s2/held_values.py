@@ -267,7 +267,7 @@ def held(path, fs):
     if 'out_v3_2_damage_cut/chronology.csv' in b:
         with open(f, newline='') as h: rows = list(csv.DictReader(h))
         r = max(rows, key=lambda r: r['peak'])
-        txt = '%s from the %s peak%s: %s, grade %s%s' % ('Open' if r['open'] == 'True' else 'Closed', per(r['peak']), '' if r['open'] == 'True' else ' to the %s trough' % per(r['trough']),
+        txt = '%s from the %s peak%s: %s, damage %s%s' % ('Open' if r['open'] == 'True' else 'Closed', per(r['peak']), '' if r['open'] == 'True' else ' to the %s trough' % per(r['trough']),
                                                      r['status'], r['grade'], ', provisional' if r['provisional'] == 'True' else '')
         return dict(value=txt, units='the register\'s latest dated row', period=r.get('payroll_latest_month') or r['peak'])
     if 'bhs_state' in os.path.basename(b):
