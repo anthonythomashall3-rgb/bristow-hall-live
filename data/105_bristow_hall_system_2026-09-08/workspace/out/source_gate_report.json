@@ -4,20 +4,20 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-18",
- "checked_at": "2026-11-18 12:44 UTC",
- "seconds": 3.2,
+ "checked_at": "2026-11-18 17:07 UTC",
+ "seconds": 2.9,
  "source_calls": 4,
  "source_errors": {},
  "counts": {
   "home": {
    "PASS": 28
   },
-  "sources": {
-   "WARN": 1
-  },
   "data/detector": {
    "PASS": 69,
    "WARN": 3
+  },
+  "sources": {
+   "WARN": 1
   },
   "data/disturbance": {
    "PASS": 18
@@ -398,6 +398,42 @@
    "detail": ""
   },
   {
+   "page": "data/detector",
+   "label": "gdpnow: GDPNOW",
+   "check": "value",
+   "status": "PASS",
+   "value": 3.21,
+   "period": "2026-10-01",
+   "series": "GDPNOW",
+   "transform": "level (newest update)",
+   "expected": 3.2093,
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "gdpnow: GDPNOW",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "3.21",
+   "period": "2026-11-18",
+   "series": "GDPNOW",
+   "transform": "update day",
+   "expected": "2026-11-18",
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "gdpnow",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-11-25",
+   "period": null,
+   "series": "GDPNOW",
+   "transform": null,
+   "expected": "2026-11-25",
+   "detail": "FRED release 386 (GDPNow)"
+  },
+  {
    "page": "sources",
    "label": "SP500",
    "check": "source",
@@ -444,42 +480,6 @@
    "transform": null,
    "expected": "2026-11-19",
    "detail": "the next NYSE trading day"
-  },
-  {
-   "page": "data/detector",
-   "label": "gdpnow: GDPNOW",
-   "check": "value",
-   "status": "PASS",
-   "value": 3.38,
-   "period": "2026-10-01",
-   "series": "GDPNOW",
-   "transform": "level (newest update)",
-   "expected": 3.3842,
-   "detail": ""
-  },
-  {
-   "page": "data/detector",
-   "label": "gdpnow: GDPNOW",
-   "check": "freshness",
-   "status": "PASS",
-   "value": "3.38",
-   "period": "2026-11-17",
-   "series": "GDPNOW",
-   "transform": "update day",
-   "expected": "2026-11-17",
-   "detail": ""
-  },
-  {
-   "page": "data/detector",
-   "label": "gdpnow",
-   "check": "next published",
-   "status": "PASS",
-   "value": "2026-11-18",
-   "period": null,
-   "series": "GDPNOW",
-   "transform": null,
-   "expected": "2026-11-25",
-   "detail": "FRED release 386 (GDPNow)"
   },
   {
    "page": "data/detector",
