@@ -1,12 +1,5 @@
 {
- "came_in": [
-  {
-   "came_in": "2026-11-18 16:26",
-   "due_ny": "2026-11-18 16:00",
-   "ids": "sp500",
-   "short": "the S&P 500 close"
-  }
- ],
+ "came_in": [],
  "early": {
   "aliclaims ... wyiclaims": {
    "at": "2026-11-15 18:41",
@@ -43,7 +36,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-18 16:21",
+ "last_check_ny": "2026-11-18 18:13",
  "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }
