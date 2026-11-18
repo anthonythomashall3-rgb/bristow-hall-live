@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-17 20:22",
+ "built_at": "2026-11-18 07:31",
  "version": "C1021+E22",
- "census_date": "2026-11-17",
+ "census_date": "2026-11-18",
  "feeds": [
   {
    "feed": "Initial claims and continued claims, seasonally adjusted and not (the route's insured-unemployment pillar, the count door's claims condition, the closer)",
@@ -126,7 +126,7 @@
    "source": "Federal Reserve Bank of Atlanta, GDPNow (FRED GDPNOW, every update as a vintage)",
    "every": "Several times a month, on the days of the releases it reads (FRED carries each update between about 10:30 AM and 1 PM ET); the Atlanta Fed posts its schedule",
    "through": "2026-11-17",
-   "next": "2026-11-18",
+   "next": "2026-11-25",
    "link": "https://www.atlantafed.org/cqer/research/gdpnow",
    "value": "3.38",
    "backup": "the Atlanta Fed page; the last printed quarter carried",
@@ -216,12 +216,12 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
-   "UNRATE": "FRED API",
-   "JTSJOL": "FRED API",
    "PAYEMS": "FRED API",
+   "JTSJOL": "FRED API",
+   "UNRATE": "FRED API",
    "UNEMPLOY": "FRED API",
-   "JTSQUR": "FRED API",
    "CPIAUCSL": "FRED API",
+   "JTSQUR": "FRED API",
    "ICSA": "FRED API",
    "IURSA": "FRED API"
   },

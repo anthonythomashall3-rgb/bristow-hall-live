@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-11-18T10:27:48Z",
+ "checked_utc": "2026-11-18T12:30:42Z",
  "release": {},
  "row_tokens": {
   "feed|BAA": "2026-10|6.59",
@@ -385,7 +385,7 @@
   "https://fred.stlouisfed.org/series/ICSA": {
    "alerted": null,
    "code": null,
-   "day": "2026-11-17",
+   "day": "2026-11-18",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -426,7 +426,7 @@
   "https://fred.stlouisfed.org/series/PAYEMS": {
    "alerted": null,
    "code": null,
-   "day": "2026-11-17",
+   "day": "2026-11-18",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -450,7 +450,7 @@
   "https://fred.stlouisfed.org/series/UNEMPLOY": {
    "alerted": null,
    "code": null,
-   "day": "2026-11-17",
+   "day": "2026-11-18",
    "final": null,
    "status": "ok",
    "via": "FRED API"
@@ -458,7 +458,7 @@
   "https://fred.stlouisfed.org/series/UNRATE": {
    "alerted": null,
    "code": null,
-   "day": "2026-11-17",
+   "day": "2026-11-18",
    "final": null,
    "status": "ok",
    "via": "FRED API"

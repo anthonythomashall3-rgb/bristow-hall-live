@@ -1,5 +1,5 @@
 {
- "built": "2026-11-18T10:27:56Z",
+ "built": "2026-11-18T12:32:00Z",
  "size": [
   1200,
   760
@@ -7,12 +7,12 @@
  "cards": {
   "/detector/": {
    "png": "/detector/card.png",
-   "sha256": "733e649a0d8d83b85183eb7564827c252d4134d0cb364759c186fcfb26daceca",
+   "sha256": "4eb9af1a81ed84887e0aed12713870336b7c157af56c8b4e3071bdb47f73f965",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 839,
-   "share_not_main": 0.2666
+   "colours": 831,
+   "share_not_main": 0.2667
   },
   "/disturbance/": {
    "png": "/disturbance/card.png",
@@ -61,12 +61,12 @@
   },
   "/data/": {
    "png": "/data/card.png",
-   "sha256": "b22bdfe3932c78e4cf9be0c1faedc8b9bd471372dee167dbe81c85a5752e6366",
+   "sha256": "21d6781e6c63f007d5f6f00d0700aa1d7b093f7d7b4b739da01c1d3379d0dcdf",
    "on_home": false,
    "w": 1200,
    "h": 522,
-   "colours": 1760,
-   "share_not_main": 0.1259
+   "colours": 1766,
+   "share_not_main": 0.126
   }
  }
 }
