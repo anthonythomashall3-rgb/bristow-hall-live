@@ -4,7 +4,7 @@ serves - every episode's open and close day and branches, the chronology, the st
 calendar's next days and the build stamps may differ; nothing else may. Prints the verdict; exits 0 always; the caller notifies.
 Usage: python3 ops/rebuild_check.py <rebuilt bhs_state.json> [live url]"""
 import json, math, sys, urllib.request, os
-p = sys.argv[1]; url = sys.argv[2] if len(sys.argv) > 2 else 'https://bhrrealtime.pages.dev/detector/bhs_state.json'
+p = sys.argv[1]; url = sys.argv[2] if len(sys.argv) > 2 else 'https://bristowhallsystem.pages.dev/detector/bhs_state.json'
 b = json.load(open(p))
 a = json.load(urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'bhr-rebuild-check'}), timeout=60))
 def same(x, y):

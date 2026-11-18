@@ -33,7 +33,7 @@ ops/source_gate.json ({"mode": "warn"|"hold"}) unless --mode is given.
 Usage (from the repository root or anywhere):
   python3 source_gate.py --site <site/public> [--mode warn|hold] [--pages home,data,detector,state,stress,forecaster]
                          [--sources-in cache.json] [--sources-out cache.json] [--now 'YYYY-MM-DD HH:MM'] [--out report.json]
-  python3 source_gate.py --live https://bhrrealtime.pages.dev ...      (downloads the live pages first)
+  python3 source_gate.py --live https://bristowhallsystem.pages.dev ...      (downloads the live pages first)
 """
 import argparse, calendar, copy, datetime as dt, html as htmlmod, json, math, os, re, sys, time, urllib.error, urllib.parse, urllib.request
 

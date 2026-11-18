@@ -2,7 +2,7 @@ name: source gate (the live site against the publishers, and the gate's own test
 
 # 15 NOVEMBER 2026 (collection 1052; Anthony: "make sure that there are NEVER anymore data errors that will EVER happen again").
 # The source gate (workspace/s2/source_gate.py) runs inside update.yml before every publish and inside live-tools.yml before its
-# commit. This workflow checks the gate itself: it reads the LIVE site (https://bhrrealtime.pages.dev), checks every published figure
+# commit. This workflow checks the gate itself: it reads the LIVE site (https://bristowhallsystem.pages.dev), checks every published figure
 # against FRED/ALFRED and the BLS API, then runs the self-test (deliberately broken copies of the live build reproducing the 15 November
 # errors, each of which must be caught). It never publishes anything. Runs on a pull request that changes the gate, and by hand.
 on:
@@ -34,7 +34,7 @@ jobs:
           BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
         run: |
           mkdir -p "$RUNNER_TEMP/sg"
-          python3 "$WS/s2/source_gate.py" --live https://bhrrealtime.pages.dev --live-dir "$RUNNER_TEMP/sg/live" \
+          python3 "$WS/s2/source_gate.py" --live https://bristowhallsystem.pages.dev --live-dir "$RUNNER_TEMP/sg/live" \
             --sources-out "$RUNNER_TEMP/sg/sources.json" --out "$RUNNER_TEMP/sg/live_report.json"
       - name: the gate's own test (broken copies of the live build must be caught; an outage must not freeze the site)
         if: always()

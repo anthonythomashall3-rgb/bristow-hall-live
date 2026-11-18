@@ -1,0 +1,21 @@
+name: old address redirect (bhrrealtime to bristowhallsystem)
+# 18 November 2026: the site was renamed Bristow-Hall System and moved to https://bristowhallsystem.pages.dev.
+# Run by hand once, after the new address is live: the old address then sends every page to the same page at the new one.
+on:
+  workflow_dispatch:
+jobs:
+  redirect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: publish the redirect to the old project
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          mkdir old && printf '/* https://bristowhallsystem.pages.dev/:splat 301\n' > old/_redirects
+          printf '<!doctype html><meta http-equiv="refresh" content="0;url=https://bristowhallsystem.pages.dev/"><a href="https://bristowhallsystem.pages.dev/">Bristow-Hall System</a>\n' > old/index.html
+          npx --yes wrangler@4 pages deploy old --project-name bhrrealtime --branch main --commit-dirty=true

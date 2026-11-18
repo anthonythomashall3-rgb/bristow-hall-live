@@ -18,7 +18,7 @@ def key(name):
 LOG = open(os.path.join(OUT, 'alt.log'), 'a')
 def log(*a):
     s = time.strftime('%H:%M:%S ') + ' '.join(str(x) for x in a); LOG.write(s + '\n'); LOG.flush(); print(s, flush=True)
-UA = {'User-Agent': 'Mozilla/5.0 (research collector; contact https://bhrrealtime.pages.dev)'}
+UA = {'User-Agent': 'Mozilla/5.0 (research collector; contact https://bristowhallsystem.pages.dev)'}
 def get(u, timeout=120):
     req = urllib.request.Request(u, headers=UA)
     with urllib.request.urlopen(req, timeout=timeout) as r: return r.read()

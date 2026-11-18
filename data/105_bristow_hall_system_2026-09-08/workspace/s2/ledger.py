@@ -30,7 +30,7 @@ W = os.getcwd()
 COL = os.path.dirname(W)
 LEDGER = os.path.join(COL, 'live', 'FORWARD-LEDGER.jsonl')
 STATE = os.path.join('out', 'bhs_state.json')
-SITE = 'https://bhrrealtime.pages.dev'
+SITE = 'https://bristowhallsystem.pages.dev'
 CAPTURE = [SITE + '/bhs_state.json', SITE + '/detector/']
 
 

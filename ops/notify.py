@@ -40,8 +40,8 @@ DEFAULT_TOOL = {'workspace': 'data/105_bristow_hall_system_2026-09-08/workspace'
                 'state': 'data/105_bristow_hall_system_2026-09-08/site/public/bhs_state.json',
                 'data_page': 'data/105_bristow_hall_system_2026-09-08/site/public/data/index.html',
                 'run_slots': 'data/105_bristow_hall_system_2026-09-08/site/public/run_slots.json',
-                'run_log': 'run.log', 'site_url': 'https://bhrrealtime.pages.dev',
-                'indicator_url': 'https://bhrrealtime.pages.dev/detector/'}
+                'run_log': 'run.log', 'site_url': 'https://bristowhallsystem.pages.dev',
+                'indicator_url': 'https://bristowhallsystem.pages.dev/detector/'}
 try:
     TOOL = dict(DEFAULT_TOOL, **json.load(open(os.path.join(OPS, 'tool.json'))))
 except Exception:                              # a broken tool.json must never silence the message

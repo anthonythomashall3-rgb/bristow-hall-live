@@ -61,7 +61,7 @@ _mtime() {
   [ -n "$m" ] || { m=$(stat -c %Y "$1" 2>/dev/null); case "$m" in (*[!0-9]*|"") m="";; esac; }
   echo "${m:-$NOW}"
 }
-SITE="https://bhrrealtime.pages.dev/bhs_state.json"
+SITE="https://bristowhallsystem.pages.dev/bhs_state.json"
 cd "$WS" 2>/dev/null || { echo "$(date -u +%FT%TZ) FAULT no workspace at $WS" >> "$HOME/watchdog-fallback.log"; exit 1; }
 mkdir -p "$COL/live" cache 2>/dev/null
 date -u +%s > "$WS/cache/watchdog_last"   # heartbeat: proves the job fired even if a later check dies

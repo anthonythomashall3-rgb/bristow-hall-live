@@ -1,4 +1,4 @@
-# Hover test (18 Sep 2026): slow sweeps at 1Y/5Y/10Y/Max must land on every observation; fast sweep keeps the marker at the pointer. Needs Playwright + Chromium. Usage: python3 test_detector_ui_hover_2026-09-18.py https://bhrrealtime.pages.dev/detector/
+# Hover test (18 Sep 2026): slow sweeps at 1Y/5Y/10Y/Max must land on every observation; fast sweep keeps the marker at the pointer. Needs Playwright + Chromium. Usage: python3 test_detector_ui_hover_2026-09-18.py https://bristowhallsystem.pages.dev/detector/
 import sys,asyncio,json
 from playwright.async_api import async_playwright
 page_file=sys.argv[1]; mode=sys.argv[2] if len(sys.argv)>2 else 'all'

@@ -9,8 +9,8 @@
  "home_page": "data/105_bristow_hall_system_2026-09-08/site/public/index.html",
  "run_slots": "data/105_bristow_hall_system_2026-09-08/site/public/run_slots.json",
  "run_log": "run.log",
- "site_url": "https://bhrrealtime.pages.dev",
- "indicator_url": "https://bhrrealtime.pages.dev/detector/",
+ "site_url": "https://bristowhallsystem.pages.dev",
+ "indicator_url": "https://bristowhallsystem.pages.dev/detector/",
  "indicator_name": "Bristow-Hall Rule (C1021) recession indicator",
  "indicator_unit": "3.00 = recession",
  "restore_before_retry": [

@@ -32,7 +32,7 @@ EC = 'https://www.census.gov/econ_getzippedfile/?programCode='
 C2 = 'https://www2.census.gov/'
 BLS = 'https://download.bls.gov/pub/time.series/'
 FRB = 'https://www.federalreserve.gov/releases/g17/'
-UA = {'User-Agent': 'Bristow-Hall recession research (+https://bhrrealtime.pages.dev)'}
+UA = {'User-Agent': 'Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)'}
 HL = 'https://raw.githubusercontent.com/hiring-lab/job_postings_tracker/master/US/'
 
 

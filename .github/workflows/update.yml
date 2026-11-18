@@ -107,7 +107,7 @@ jobs:
           ET = ZoneInfo('America/New_York'); now = datetime.datetime.now(ET); NOW = now.strftime('%Y-%m-%d %H:%M')
           def get(p):
               # a named client: the site answers 403 to Python's default user agent (found 21 September 2026)
-              req = urllib.request.Request('https://bhrrealtime.pages.dev/%s?t=%d' % (p, time.time()), headers={'User-Agent': 'bhr-dispatch-gate'})
+              req = urllib.request.Request('https://bristowhallsystem.pages.dev/%s?t=%d' % (p, time.time()), headers={'User-Agent': 'bhr-dispatch-gate'})
               with urllib.request.urlopen(req, timeout=20) as r:
                   return r.read().decode('utf-8', 'replace')
           slots, built = [], None
@@ -680,9 +680,11 @@ jobs:
           python3 "$GITHUB_WORKSPACE/ops/favicon_link.py" "$SITE_SUB" || true
           # the version that deployed on 21 September 2026 first, then the latest 4.x, then the latest again after a pause:
           # a bad release of the tool or a moment's trouble at Cloudflare must not keep the site from updating
-          npx --yes wrangler@4.136.0 pages deploy "$SITE_SUB" --project-name bhrrealtime --branch "$PAGES_BRANCH" --commit-dirty=true \
-            || npx --yes wrangler@4 pages deploy "$SITE_SUB" --project-name bhrrealtime --branch "$PAGES_BRANCH" --commit-dirty=true \
-            || { sleep 30; npx --yes wrangler@4 pages deploy "$SITE_SUB" --project-name bhrrealtime --branch "$PAGES_BRANCH" --commit-dirty=true; }
+          # the site moved to bristowhallsystem.pages.dev on 18 November 2026: make the Pages project if it is not there yet (a no-op after the first run)
+          npx --yes wrangler@4 pages project create bristowhallsystem --production-branch main >/dev/null 2>&1 || true
+          npx --yes wrangler@4.136.0 pages deploy "$SITE_SUB" --project-name bristowhallsystem --branch "$PAGES_BRANCH" --commit-dirty=true \
+            || npx --yes wrangler@4 pages deploy "$SITE_SUB" --project-name bristowhallsystem --branch "$PAGES_BRANCH" --commit-dirty=true \
+            || { sleep 30; npx --yes wrangler@4 pages deploy "$SITE_SUB" --project-name bristowhallsystem --branch "$PAGES_BRANCH" --commit-dirty=true; }
 
       # 1052 SPEED (16 November 2026): A RELEASE THE LIVE TOOLS READ STARTS THEM. A slot run whose release feeds the State onset page and the
       # stress map (run_slots.json "live_tools": the BLS State release, the Employment Situation) starts live-tools.yml as soon as the
@@ -728,7 +730,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import datetime, json, os, urllib.request
-          base = 'https://api.cloudflare.com/client/v4/accounts/%s/pages/projects/bhrrealtime/deployments' % os.environ['CLOUDFLARE_ACCOUNT_ID']
+          base = 'https://api.cloudflare.com/client/v4/accounts/%s/pages/projects/bristowhallsystem/deployments' % os.environ['CLOUDFLARE_ACCOUNT_ID']
           hdr = {'Authorization': 'Bearer ' + os.environ['CLOUDFLARE_API_TOKEN']}
           def call(url, method='GET'):
               return json.load(urllib.request.urlopen(urllib.request.Request(url, method=method, headers=hdr), timeout=30))

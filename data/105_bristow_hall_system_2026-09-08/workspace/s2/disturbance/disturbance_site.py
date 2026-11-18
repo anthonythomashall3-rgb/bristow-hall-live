@@ -99,7 +99,7 @@ def build():
     if prev is not None:
         closed, msgs = changes(prev, J['episodes'])
         if msgs:
-            msg = ' '.join(msgs) + ' Data through %s. https://bhrrealtime.pages.dev/disturbance/' % J['composite_last_month']
+            msg = ' '.join(msgs) + ' Data through %s. https://bristowhallsystem.pages.dev/disturbance/' % J['composite_last_month']
             print('disturbance chronology: CHANGED:', msg)
             subprocess.run(['bash', os.path.join(WS, 's2', 'alert.sh'), 'DISTURBANCE EPISODE CLOSED' if closed else 'DISTURBANCE CHRONOLOGY CHANGED', msg], timeout=90)
 

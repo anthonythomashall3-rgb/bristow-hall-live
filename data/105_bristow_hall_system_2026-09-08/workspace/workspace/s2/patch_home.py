@@ -11,7 +11,7 @@ else:
     a='<header class="bh"><div class="inner bhrow">\n  <div class="logo" aria-label="The Bristow-Hall System"><div class="mono">BH<span></span></div><div class="wm"><div class="l1">BRISTOW-HALL</div><div class="l2">SYSTEM</div></div></div>\n</div></header>'
     assert t.count(a)==1, 'masthead not found'
     b=('<header class="bh"><div class="inner bhrow">\n'
-       '  <div class="logo" aria-label="Bristow-Hall Business Cycle Program"><div class="mono">BH<span></span></div><div class="wm"><div class="l1">BRISTOW-HALL</div><div class="l2">BUSINESS CYCLE PROGRAM</div></div></div>\n'
+       '  <div class="logo" aria-label="Bristow-Hall System"><div class="mono">BH<span></span></div><div class="wm"><div class="l1">BRISTOW-HALL</div><div class="l2">BUSINESS CYCLE PROGRAM</div></div></div>\n'
        '  <nav class="nav" aria-label="Sections"><a href="/">Home</a><a href="/detector/" aria-current="page">Detector</a></nav>\n'
        '</div></header>')
     t=t.replace(a,b)

@@ -18,7 +18,7 @@ What it checks, in order:
 import os, sys, json, re, subprocess, datetime, urllib.request, urllib.error, socket
 import concurrent.futures as cf
 
-SITE = 'https://bhrrealtime.pages.dev'
+SITE = 'https://bristowhallsystem.pages.dev'
 PAGES = ['/', '/detector/', '/data/', '/time-machine/', '/damage-index/', '/disturbance/',
          '/state-onset/', '/stress-map/']
 JSONS = ['/bhs_state.json', '/detector/bhs_state.json']

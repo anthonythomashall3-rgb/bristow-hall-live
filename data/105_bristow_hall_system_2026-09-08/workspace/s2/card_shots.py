@@ -8,12 +8,12 @@ takes a screenshot of the page as built (1200 x 760, the top of the page), write
 it (img:'/<tool>/card.png?v=<sha8>'; the fixed pictures and the drawn sparkline are no longer used). Writes ../site/public/cards.json.
 Exit 1 - and the workflow then publishes nothing - when a screenshot is missing or blank (fewer than 12 colours, or under 3% of the
 picture differing from its most common colour).
-  --readback  reads https://bhrrealtime.pages.dev/ back: every card's picture must be the one the build behind the live site wrote (same sha256 as its /cards.json) and must match
+  --readback  reads https://bristowhallsystem.pages.dev/ back: every card's picture must be the one the build behind the live site wrote (same sha256 as its /cards.json) and must match
               a fresh screenshot of the live tool page taken now (at most 3% of pixels differing). Writes out/cards_readback.json; exit 1 if not.
 Usage: python3 s2/card_shots.py [--readback]"""
 import os, re, sys, json, time, zlib, struct, shutil, hashlib, threading, subprocess, http.server, socketserver, functools, urllib.request
 H = os.path.dirname(os.path.abspath(__file__)); WS = os.path.dirname(H); SITE = os.path.abspath(os.path.join(WS, '..', 'site', 'public'))
-LIVE = 'https://bhrrealtime.pages.dev'; W, HH = 1200, 760; ASPECT = 2.3; TOP, CH_ = 145, round(1200 / 2.3)   # the card = rows 145..575: below the site masthead, the page's own title and chart (about the card's 2.8:1)
+LIVE = 'https://bristowhallsystem.pages.dev'; W, HH = 1200, 760; ASPECT = 2.3; TOP, CH_ = 145, round(1200 / 2.3)   # the card = rows 145..575: below the site masthead, the page's own title and chart (about the card's 2.8:1)
 EXTRA = ['/data/']
 # 15 Nov 2026 11:32 PT (Anthony: "show the actual graphs of the tools on the home page and the visuals of the tools"): a tool with a chart or
 # map has its card made from that element alone (Playwright element screenshot, 2x); a page without one (in development) keeps the page shot.
