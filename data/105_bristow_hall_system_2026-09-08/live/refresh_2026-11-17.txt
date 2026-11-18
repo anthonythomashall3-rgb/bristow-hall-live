@@ -1,4 +1,4 @@
-FRED change check: 112 series tracked; 39 changed since last pulled (2 updated since 16:00 CT): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
+FRED change check: 112 series tracked; 39 changed since last pulled (0 updated since 16:52 CT): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
 home tiles: second source: 8 series compared with the BLS and the Department of Labor, 0 mismatch
 home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Nov 7, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-11-19, IURSA 2026-11-19, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
 PAYEMS         no new vintage since 2026-11-06 (through 2026-10-01)
@@ -8,7 +8,7 @@ UNEMPLOY       no new vintage since 2026-11-06 (through 2026-10-01)
 LNS13023621    no new vintage since 2026-11-06 (through 2026-10-01)
 publisher first: INDPRO 2026-10 - no month beyond the tables yet
 c1021 claims NSA first prints: unchanged
-indeed postings  4942 rows, last 2026-11-06
+indeed postings  4956 rows, last 2026-11-13
 relcal_HOUST: unchanged (through 2026-09)
 relcal_UNRATE: unchanged (through 2026-10)
 relcal_JTSJOL: unchanged (through 2026-09)

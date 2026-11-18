@@ -1,5 +1,5 @@
 {
- "at": "2026-11-17T23:48:01Z",
+ "at": "2026-11-18T01:24:28Z",
  "cards": {
   "/detector/": {
    "img": "/detector/card.png?v=733e649a",
@@ -26,7 +26,7 @@
    "ok": true
   },
   "/forecaster/": {
-   "img": "/forecaster/card.png?v=df026cd2",
+   "img": "/forecaster/card.png?v=8b4b33e3",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
