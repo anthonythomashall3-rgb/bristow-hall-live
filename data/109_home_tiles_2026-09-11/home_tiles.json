@@ -143,8 +143,8 @@
  ],
  "source_check": {
   "routes": {
-   "PAYEMS": "FRED API",
    "UNRATE": "FRED API",
+   "PAYEMS": "FRED API",
    "JTSJOL": "FRED API",
    "UNEMPLOY": "FRED API",
    "CPIAUCSL": "FRED API",
