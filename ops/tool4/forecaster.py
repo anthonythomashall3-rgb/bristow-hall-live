@@ -267,7 +267,7 @@ page = f'''<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bristow-Hall Business Cycle Program — Real-Time National Recession Forecaster</title>
+<title>Bristow-Hall System — Real-Time National Recession Forecaster</title>
 {style}
 <style>
 .fc{{margin:30px 0 0}} .fc h1{{font-size:30px;color:#990000;margin:0 0 8px;line-height:1.2}} .fc .tag{{font-size:17px;color:#333;margin:0 0 16px}}

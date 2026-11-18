@@ -78,7 +78,7 @@ _STUBS=[
 for _slug,_name,_tag,_body in _STUBS:
     _nav=_header.replace(' aria-current="page"','').replace('href="/%s/"'%_slug,'href="/%s/" aria-current="page"'%_slug)
     _p=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
-        '<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Bristow-Hall Business Cycle Program — '+_name+'</title>\n'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Bristow-Hall System — '+_name+'</title>\n'
         +_style+'\n<style>.stub{max-width:none;margin:38px 0 0}.stub h1{font-size:30px;color:#990000;margin:0 0 10px;line-height:1.2}'
         '.stub .tag{font-size:17px;color:#333;margin:0 0 18px;max-width:none}.stub p{color:#333;margin:0 0 14px}'
         '.stub .back{margin-top:26px;font-size:14px}</style>\n</head>\n<body>\n'
@@ -121,7 +121,7 @@ _tile_rows=''.join(_row(t.get('lab'),('https://fred.stlouisfed.org/series/'+t['s
                         ('FRED series '+t['sid']) if t.get('sid') else 'FRED',None,t.get('sub')) for t in _tiles)
 _nav_data=_header.replace(' aria-current="page"','').replace('href="/data/"','href="/data/" aria-current="page"')
 _datapage=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
- '<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Bristow-Hall Business Cycle Program — Data</title>\n'
+ '<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Bristow-Hall System — Data</title>\n'
  +_style+'\n<style>.dtab{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}'
  '.dtab th{text-align:left;font-weight:700;color:#222;border-bottom:2px solid #990000;padding:9px 10px 7px;background:#faf7f7;white-space:nowrap}'
  '.dtab th.num,.dtab td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}'

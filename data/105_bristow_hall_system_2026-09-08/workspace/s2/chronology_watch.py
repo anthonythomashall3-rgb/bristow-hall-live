@@ -10,7 +10,7 @@ PAGES={'table':'https://www.nber.org/research/data/us-business-cycle-expansions-
        'announcements':'https://www.nber.org/research/business-cycle-dating/business-cycle-dating-committee-announcements'}
 MON={m:i for i,m in enumerate(['january','february','march','april','may','june','july','august','september','october','november','december'],1)}
 def fetch(u):
-    req=urllib.request.Request(u,headers={'User-Agent':'bhrrealtime chronology watch (python-urllib)'})
+    req=urllib.request.Request(u,headers={'User-Agent':'bristowhallsystem chronology watch (python-urllib)'})
     return urllib.request.urlopen(req,timeout=60).read().decode('utf-8','replace')
 def months_in(text):
     """every 'Month YYYY' in the page, as YYYY-MM, in order"""

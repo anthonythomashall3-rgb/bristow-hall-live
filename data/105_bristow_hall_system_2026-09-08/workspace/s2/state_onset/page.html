@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bristow-Hall Business Cycle Program — State Recession Chronology and Damage Grade</title>
+<title>Bristow-Hall System — State Recession Chronology and Damage Grade</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#ffffff;color:#222222;font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;font-size:15px;line-height:1.55}
@@ -175,7 +175,7 @@ details{margin-top:22px} summary{cursor:pointer;color:#990000;font-size:15px}
 
 
 <header class="bh"><div class="bhrow">
-  <div class="logo" aria-label="Bristow-Hall Business Cycle Program"><div class="mono">BH<span></span></div><div class="wm"><div class="l1">BRISTOW-HALL</div><div class="l2">BUSINESS CYCLE PROGRAM</div></div></div>
+  <div class="logo" aria-label="Bristow-Hall System"><div class="mono">BH<span></span></div><div class="wm"><div class="l1">BRISTOW-HALL</div><div class="l2">BUSINESS CYCLE PROGRAM</div></div></div>
   <nav class="nav" aria-label="Sections"><a href="/">Home</a><a href="/detector/">Recession Indicator</a><a href="/disturbance/">Disturbance Indicator</a><a href="/state-onset/" aria-current="page">State Recession</a><a href="/stress-map/">Stress Map</a><a href="/damage-index/">Damage Index</a><a href="/chronology/">Chronology</a><a href="/data/">Data</a><a href="/#papers">Papers</a></nav>
 </div></header>
 <div class="inner" id="top">
@@ -691,7 +691,7 @@ const SITE = true;
 (function(){
   const $=s=>document.querySelector(s); const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const fm=s=>MON[+s.slice(5,7)-1]+' '+s.slice(0,4);
-  document.title='Bristow-Hall Business Cycle Program — State Recession Chronology and Damage Grade: '+STNAME;
+  document.title='Bristow-Hall System — State Recession Chronology and Damage Grade: '+STNAME;
   $('#h1t').textContent='State Recession Chronology and Damage Grade: '+STNAME; $('#h1c').textContent='('+CODE+')'; $('#stname').textContent=STNAME;
   const menu=$('#stmenu'), btn=$('#stbtn');
   Object.keys(ALL).sort((a,b)=>ALL[a].name.localeCompare(ALL[b].name)).forEach(k=>{ const a=document.createElement('a'); a.setAttribute('role','menuitem'); a.textContent=ALL[k].name; a.href='#'+k; if(k===ST) a.setAttribute('aria-current','true');

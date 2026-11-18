@@ -1,5 +1,5 @@
 # audit_site.py - THE LIVE SITE AGAINST THE RECORD AND THE LAB, independently of bhs_build.py. Fetches bhs_state.json from
-# bhrrealtime.pages.dev and compares it with the built copy; the walked episodes with the walk's diary (cache/<var>_prog.pkl);
+# bristowhallsystem.pages.dev and compares it with the built copy; the walked episodes with the walk's diary (cache/<var>_prog.pkl);
 # the frozen episodes with the frozen run at the walk-end lines; the lines with cache/<var>_carry.pkl; the version and walk
 # with cache/bhs_version.json; every 'through' date with the lab's own series; every object's latest reading with a
 # recomputation from the lab's objects (exact tenths where the object is one-decimal); the 'next' dates with their rule;
@@ -12,7 +12,7 @@ sys.path.insert(0,os.getcwd()); sys.argv=[WALK,'1962','2026',VAR]
 _MARK="# ---- the walk "+"itself"
 with contextlib.redirect_stdout(io.StringIO()): exec(open(WALK).read().split(_MARK)[0])
 p=pickle.load(open(f'cache/{VAR}_carry.pkl','rb')); pg=pickle.load(open(f'cache/{VAR}_prog.pkl','rb'))
-live=json.loads(subprocess.run(['curl','-s','-m','60',f'https://bhrrealtime.pages.dev/bhs_state.json?a={datetime.datetime.now().timestamp()}'],capture_output=True,text=True).stdout)
+live=json.loads(subprocess.run(['curl','-s','-m','60',f'https://bristowhallsystem.pages.dev/bhs_state.json?a={datetime.datetime.now().timestamp()}'],capture_output=True,text=True).stdout)
 built=json.load(open('out/bhs_state.json'))
 L=[]; fails=0
 def row(name,got,exp,ok=None):
@@ -118,5 +118,5 @@ if 'GT_REL' in globals():
     import importlib.util as _ilu; _sp=_ilu.spec_from_file_location('bhs_schedule',os.path.join(os.getcwd(),'bhs_schedule.py')); _bs=_ilu.module_from_spec(_sp); _sp.loader.exec_module(_bs)
     _h,_m=_bs.local_hm(_tom,'16:20'); row(f'launchd: the close run at 4:20 PM ET on the next weekday ({_tom}) is scheduled',any(e['Month']==_tom.month and e['Day']==_tom.day and e['Hour']==_h and e['Minute']==_m for e in _pl['StartCalendarInterval']),True)
 out=os.path.join(os.path.dirname(os.getcwd()),f'AUDIT-SITE-{VERSION}-{datetime.date.today()}.md')
-open(out,'w').write(f"# The live site audited against the record and the lab — {VERSION} ({WALK}), {datetime.datetime.utcnow():%Y-%m-%d %H:%M} UTC\n\nbhrrealtime.pages.dev/bhs_state.json fetched and compared with the built copy, the walk's diary, the frozen run, the walk-end lines, the lab's series and an independent recomputation of every reading (s2/audit_site.py).\n\n| check | site | expected | |\n|---|---|---|---|\n"+"\n".join(L)+f"\n\n**{len(L)-fails}/{len(L)} PASS**\n")
+open(out,'w').write(f"# The live site audited against the record and the lab — {VERSION} ({WALK}), {datetime.datetime.utcnow():%Y-%m-%d %H:%M} UTC\n\nbristowhallsystem.pages.dev/bhs_state.json fetched and compared with the built copy, the walk's diary, the frozen run, the walk-end lines, the lab's series and an independent recomputation of every reading (s2/audit_site.py).\n\n| check | site | expected | |\n|---|---|---|---|\n"+"\n".join(L)+f"\n\n**{len(L)-fails}/{len(L)} PASS**\n")
 print("\n".join(L)); print(f'{len(L)-fails}/{len(L)} PASS -> {out}')

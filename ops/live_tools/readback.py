@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""LIVE TOOLS ON GITHUB (1052, 15 Nov 2026; no AI): after the site deploy, read the live pages back from https://bhrrealtime.pages.dev:
+"""LIVE TOOLS ON GITHUB (1052, 15 Nov 2026; no AI): after the site deploy, read the live pages back from https://bristowhallsystem.pages.dev:
   /stress-map/  1052 code/page_check_1052.py stress, the layers' months must equal this run's build (--expect-thru)
   /state-onset/ 1052 code/page_check_1052.py state: all 50 States render (no script error, 1979 start, 0-10 axis, episode rows)
   /shadow/      the page's text equals the page this run committed (build stamps aside)
@@ -7,7 +7,7 @@
   home cards    every card's picture is the deploying build's (sha256 of /cards.json) and matches a fresh screenshot of the live tool page
 Retries for up to 15 minutes (Cloudflare can take minutes). Writes $LT_OUT/readback.json; exit 1 if any check fails."""
 import os, re, sys, json, time, subprocess, urllib.request
-LIVE = 'https://bhrrealtime.pages.dev'; ROOT = os.path.expanduser('~/Projects/Onset Detector Data')
+LIVE = 'https://bristowhallsystem.pages.dev'; ROOT = os.path.expanduser('~/Projects/Onset Detector Data')
 C52 = os.path.join(ROOT, '1052_stress_map_fix_parse_collect_2026-11-12'); CHECK = os.path.join(C52, 'code/page_check_1052.py')
 WT = os.environ.get('GITHUB_WORKSPACE') or os.getcwd(); WS = 'data/105_bristow_hall_system_2026-09-08/workspace'; SITE = 'data/105_bristow_hall_system_2026-09-08/site/public'
 OUTD = os.environ.get('LT_OUT') or '/tmp'

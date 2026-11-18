@@ -11,7 +11,7 @@ _SELF="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 COL="$(cd "$_SELF/.." && pwd)"
 [ -d "$COL/workspace" ] || COL="$HOME/mnt/Onset Detector Data/105_bristow_hall_system_2026-09-08"
 ENV="$HOME/mnt/Onset Detector Data/onset-detector-new-2026-08-23/live_data/config/local.env"
-PROJECT="bhrrealtime"
+PROJECT="bristowhallsystem"
 if [ -f "$ENV" ]; then
   T="$(grep -m1 '^CLOUDFLARE_API_TOKEN=' "$ENV" | cut -d= -f2- | tr -d '"' | tr -d "'")"; A="$(grep -m1 '^CLOUDFLARE_ACCOUNT_ID=' "$ENV" | cut -d= -f2- | tr -d '"' | tr -d "'")"
   if [ -n "$T" ] && [ -n "$A" ]; then export CLOUDFLARE_API_TOKEN="$T"; export CLOUDFLARE_ACCOUNT_ID="$A"; fi

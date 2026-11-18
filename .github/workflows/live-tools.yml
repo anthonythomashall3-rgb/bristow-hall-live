@@ -6,7 +6,7 @@ name: live tools (state-onset, stress-map, data page rows, shadow)
 # and pushed here. This workflow runs the same scripts on GitHub: the files they read are kept as release assets (ops/live_tools/state.py,
 # add-only), restored at the Mac's own paths, refreshed from the publishers (FRED, Philadelphia Fed, BLS API v2, QCEW open data, DOL),
 # rebuilt, checked, committed only when every check passes and something changed, deployed by the site workflow (update.yml, mode site)
-# and read back from https://bhrrealtime.pages.dev. Each script in ops/live_tools/ says what it does in its first lines.
+# and read back from https://bristowhallsystem.pages.dev. Each script in ops/live_tools/ says what it does in its first lines.
 on:
   schedule:
     # after the morning releases (BLS 8:30 ET State and county LAUS, State payrolls, CES, QCEW; DOL claims 8:30 ET Thursday; the

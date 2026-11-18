@@ -4,7 +4,7 @@
  "fresh_hours": 20,
  "loop_sleep_hours": 1,
  "http": {
-  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36 (research data collector; contact https://bhrrealtime.pages.dev)",
+  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36 (research data collector; contact https://bristowhallsystem.pages.dev)",
   "timeout": 120,
   "retries": 4
  },
@@ -7567,7 +7567,7 @@
      "url": "https://data.bls.gov/cew/data/files/2025/csv/2025_qtrly_by_area.zip",
      "out": "qcew_2025_by_area.zip",
      "headers": {
-      "User-Agent": "Bristow-Hall recession research (+https://bhrrealtime.pages.dev)"
+      "User-Agent": "Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)"
      },
      "fresh_hours": 800
     },
@@ -7575,7 +7575,7 @@
      "url": "https://data.bls.gov/cew/data/files/2025/csv/2025_qtrly_by_industry.zip",
      "out": "qcew_2025_by_industry.zip",
      "headers": {
-      "User-Agent": "Bristow-Hall recession research (+https://bhrrealtime.pages.dev)"
+      "User-Agent": "Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)"
      },
      "fresh_hours": 800
     },
@@ -7750,14 +7750,14 @@
      "out": "ppi_by_industry.txt.gz",
      "stream": true,
      "headers": {
-      "User-Agent": "Bristow-Hall recession research (+https://bhrrealtime.pages.dev)"
+      "User-Agent": "Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)"
      }
     },
     {
      "url": "https://download.bls.gov/pub/time.series/pc/pc.industry",
      "out": "ppi_industry_codes.txt",
      "headers": {
-      "User-Agent": "Bristow-Hall recession research (+https://bhrrealtime.pages.dev)"
+      "User-Agent": "Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)"
      },
      "min_bytes": 1000
     },
@@ -7766,7 +7766,7 @@
      "out": "ppi_by_commodity.txt.gz",
      "stream": true,
      "headers": {
-      "User-Agent": "Bristow-Hall recession research (+https://bhrrealtime.pages.dev)"
+      "User-Agent": "Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)"
      }
     },
     {
@@ -7774,7 +7774,7 @@
      "out": "import_export_prices.txt.gz",
      "stream": true,
      "headers": {
-      "User-Agent": "Bristow-Hall recession research (+https://bhrrealtime.pages.dev)"
+      "User-Agent": "Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)"
      }
     },
     {
@@ -7782,7 +7782,7 @@
      "out": "import_export_price_series.txt.gz",
      "stream": true,
      "headers": {
-      "User-Agent": "Bristow-Hall recession research (+https://bhrrealtime.pages.dev)"
+      "User-Agent": "Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)"
      }
     },
     {
@@ -7790,14 +7790,14 @@
      "out": "industry_productivity.txt.gz",
      "stream": true,
      "headers": {
-      "User-Agent": "Bristow-Hall recession research (+https://bhrrealtime.pages.dev)"
+      "User-Agent": "Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)"
      }
     },
     {
      "url": "https://download.bls.gov/pub/time.series/sm/sm.industry",
      "out": "sae_industry_codes.txt",
      "headers": {
-      "User-Agent": "Bristow-Hall recession research (+https://bhrrealtime.pages.dev)"
+      "User-Agent": "Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)"
      },
      "min_bytes": 1000
     }
@@ -7844,7 +7844,7 @@
      "url": "https://www.sec.gov/files/dera/data/financial-statement-data-sets/2026q2.zip",
      "out": "sec_financial_statements_2026q2.zip",
      "headers": {
-      "User-Agent": "Bristow-Hall recession research (+https://bhrrealtime.pages.dev)"
+      "User-Agent": "Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)"
      },
      "fresh_hours": 2000
     },
@@ -7852,7 +7852,7 @@
      "url": "https://www.sec.gov/files/dera/data/financial-statement-data-sets/2026q1.zip",
      "out": "sec_financial_statements_2026q1.zip",
      "headers": {
-      "User-Agent": "Bristow-Hall recession research (+https://bhrrealtime.pages.dev)"
+      "User-Agent": "Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)"
      },
      "fresh_hours": 2000
     },
@@ -7860,7 +7860,7 @@
      "url": "https://www.sec.gov/files/dera/data/financial-statement-data-sets/2025q4.zip",
      "out": "sec_financial_statements_2025q4.zip",
      "headers": {
-      "User-Agent": "Bristow-Hall recession research (+https://bhrrealtime.pages.dev)"
+      "User-Agent": "Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)"
      },
      "fresh_hours": 2000
     },
@@ -7868,7 +7868,7 @@
      "url": "https://www.sec.gov/files/company_tickers.json",
      "out": "sec_company_tickers.json",
      "headers": {
-      "User-Agent": "Bristow-Hall recession research (+https://bhrrealtime.pages.dev)"
+      "User-Agent": "Bristow-Hall recession research (+https://bristowhallsystem.pages.dev)"
      }
     }
    ]

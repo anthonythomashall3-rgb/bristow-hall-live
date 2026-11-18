@@ -46,7 +46,7 @@ P('The Bristow-Hall Rule dates both ends of a United States recession from labor
   'forward — each January from 1962 to 2026, from the recessions the National Bureau had announced by then — so no '
   'line has ever seen the case it is scored on. Since 1962 the rule has opened nine of nine recessions with no '
   'false alarm, a median of seven days before the peak month ended, and closed all nine. It runs live at '
-  'bhrrealtime.pages.dev.',
+  'bristowhallsystem.pages.dev.',
   left=0.5,right=0.5,after=11,lead=Pt(12.5))
 
 P('1. The problem with a committee',bold=True,align='left',before=2,after=4,lead=Pt(13))

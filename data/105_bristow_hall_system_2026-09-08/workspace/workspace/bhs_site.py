@@ -101,7 +101,7 @@ _STUBS=[
 for _slug,_name,_tag,_body in _STUBS:
     _nav=_header.replace(' aria-current="page"','').replace('href="/%s/"'%_slug,'href="/%s/" aria-current="page"'%_slug)
     _p=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
-        '<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Bristow-Hall Business Cycle Program — '+_name+'</title>\n'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Bristow-Hall System — '+_name+'</title>\n'
         +_style+'\n<style>.stub{max-width:none;margin:38px 0 0}.stub h1{font-size:30px;color:#990000;margin:0 0 10px;line-height:1.2}'
         '.stub .tag{font-size:17px;color:#333;margin:0 0 18px;max-width:none}.stub p{color:#333;margin:0 0 14px}'
         '.stub .back{margin-top:26px;font-size:14px}</style>\n</head>\n<body>\n'
@@ -202,7 +202,7 @@ _legend=''
 _stale_line=('<p class="dlede">Stale past its own cadence: '+_esc(', '.join(_stale))+'.</p>') if _stale else ''
 _nav_data=_header.replace(' aria-current="page"','').replace('href="/data/"','href="/data/" aria-current="page"')
 _datapage=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
- '<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Bristow-Hall Business Cycle Program — Data</title>\n'
+ '<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Bristow-Hall System — Data</title>\n'
  +_style+'\n<style>.dtab{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}'
  '.dtab th{text-align:left;font-weight:700;color:#222;border-bottom:2px solid #990000;padding:9px 10px 7px;background:#faf7f7;white-space:nowrap;cursor:pointer;user-select:none}'
  '.dtab th:hover{background:#fdf2f2}.dtab th.on::after{content:" \\25BC";font-size:9px;color:#990000}.dtab th.on.asc::after{content:" \\25B2"}'
@@ -245,7 +245,7 @@ except Exception: _wix={}
 _wrows=''.join('<tr><td><b><a href="'+_esc(u)+'" target="_blank" rel="noopener">'+_esc(n)+' &#8599;</a></b></td><td class="id">'+s+'</td>'
                +'<td class="num">'+('{:,}'.format(int(_wix[s].get('n') or 0)) if s in _wix else '')+'</td><td class="num">'+(_fmtd(str(_wix[s].get('to') or '')[:10]) if s in _wix and _wix[s].get('to') else '')+'</td></tr>' for s,n,u in _WARN_STATES)
 _warnpage=('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
- '<title>Bristow-Hall Business Cycle Program — WARN notices, the 25 states</title>\n'+_style+'\n<style>.dtab{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}'
+ '<title>Bristow-Hall System — WARN notices, the 25 states</title>\n'+_style+'\n<style>.dtab{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}'
  '.dtab th{text-align:left;font-weight:700;color:#222;border-bottom:2px solid #990000;padding:9px 10px 7px;background:#faf7f7;white-space:nowrap}'
  '.dtab th.num,.dtab td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}.dtab td{padding:9px 10px;border-bottom:1px solid #dfe4ea;vertical-align:top}'
  '.dtab td.id{font-family:Menlo,Consolas,monospace;font-size:12.5px;color:#222}</style>\n</head>\n<body>\n'+_nav_data+'\n<div class="inner">'

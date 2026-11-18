@@ -1,6 +1,6 @@
 # Bristow-Hall Rule: the live update
 
-This repository runs the live update of the Bristow-Hall Rule recession indicator, https://bhrrealtime.pages.dev.
+This repository runs the live update of the Bristow-Hall Rule recession indicator, https://bristowhallsystem.pages.dev.
 Each run fetches the data released that day, rebuilds the indicator, checks what it built, and publishes the site.
 Runs start at the release times (a Cloudflare Worker, `worker/`), with GitHub's own schedule as a second line.
 
