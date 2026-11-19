@@ -12,6 +12,19 @@ ROOT = os.path.expanduser('~/Projects/Onset Detector Data'); C52 = os.path.join(
 sys.path.insert(0, os.path.join(C52, 'code')); import publish_live_pages_1052 as P
 WT = os.environ.get('GITHUB_WORKSPACE') or os.getcwd(); P.WT = WT
 OUTD = os.environ.get('LT_OUT') or '/tmp'
+def sync_detail():
+    """1150 (19 Nov 2026): the stress map's factor files (cf/<State>.js) and county jobs by industry (ci/<county>.js), built by
+    1052 code/stress_map_detail_1150.py beside the page, go straight to the site folder the page is served from; only a changed file is written."""
+    n = 0
+    for d in ('cf', 'ci'):
+        src = os.path.join(C52, 'web', 'stress-map', d); dst = os.path.join(WT, P.SITE, 'public', 'stress-map', d)
+        if not os.path.isdir(src): continue
+        os.makedirs(dst, exist_ok=True)
+        for f in sorted(os.listdir(src)):
+            if not f.endswith('.js'): continue
+            b = open(os.path.join(src, f), 'rb').read(); q = os.path.join(dst, f)
+            if not os.path.exists(q) or open(q, 'rb').read() != b: open(q, 'wb').write(b); n += 1
+    return n
 def main():
     R = dict(run=time.strftime('%Y-%m-%dT%H:%M:%S%z'), changed=[])
     try:
@@ -19,6 +32,8 @@ def main():
         if P.put(P.STATE_PAGE, f'{P.WS}/s2/state_onset/page.html'): ch.append('state-onset')
         if P.put(P.STRESS_PAGE, f'{P.WS}/s2/stress_map/page.html'): ch.append('stress-map')
         if P.put(P.SM_SITE, f'{P.WS}/s2/stress_map/stress_map_site.py'): ch.append('stress_map_site.py')
+        R['detail_files_changed'] = sync_detail()
+        if R['detail_files_changed']: ch.append('stress-map-detail')
         assert P.RUNLINE in open(os.path.join(WT, 'run_cloud.sh')).read(), 'run_cloud.sh has no stress map line'
         tj = os.path.join(WT, P.WS, 's2', 'tool_inputs_mac.json'); old_tj = open(tj).read() if os.path.exists(tj) else ''
         r = subprocess.run([sys.executable, 's2/tool_inputs_mac.py'], cwd=os.path.join(WT, P.WS), capture_output=True, text=True, timeout=600)

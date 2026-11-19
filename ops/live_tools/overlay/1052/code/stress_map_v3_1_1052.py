@@ -88,10 +88,11 @@ V4T = pd.read_csv(os.path.join(V4D, 'out/BH-STATE-CHRONOLOGY-V4-1032.csv')); V4J
 X = pd.read_excel(os.path.join(V4D, 'data/philly/coincident-revised.xls'), sheet_name='Indexes'); X = X.set_index(pd.to_datetime(X.iloc[:, 0])).iloc[:, 1:].astype(float)
 STS = [c for c in X.columns if len(c) == 2 and c != 'US']; assert len(STS) == 50 and 'DC' not in STS
 LAST = pd.Timestamp(V4J['through'] + '-01'); assert X.index[-1] == LAST
+V4UR = {}   # 19 Nov 2026 (1150): the labour input of each State-month is kept for the page's factors panel
 V4 = {}; repro = {'states_line_identical': 0, 'states_windows_identical': 0, 'differences': []}
 for st in STS:
     y = X[st].dropna(); u = pd.read_csv(os.path.join(DI, '03_data/state/fred_state_ur', f'{st}UR.csv')); UR = pd.Series(u.iloc[:, 1].astype(float).values, index=pd.to_datetime(u.iloc[:, 0])).dropna()
-    R, ln, dev = run_v4(st, y, UR, LAST); V4[st] = dict(R=R, ln=ln, dev=dev)
+    R, ln, dev = run_v4(st, y, UR, LAST); V4[st] = dict(R=R, ln=ln, dev=dev); V4UR[st] = UR
     pub = dict(V4J['states'][st]['line']); mine = ln
     if pub == mine: repro['states_line_identical'] += 1
     else: repro['differences'].append((st, 'line', sum(1 for k in set(pub) | set(mine) if pub.get(k) != mine.get(k))))
@@ -190,14 +191,15 @@ for st in STS:
             lay = 'L0'
             if m < PAYSTART[st]:
                 rows.append(dict(st=st, month=k, layer='L0', period_status='no_data', period_peak='', period_trough='', provisional='', grade='', deviation_pp='', deviation_sd='', colour_value='', band='grey', colour_hex='#d5d9de')); continue
-            P = L0P[st]; ln = L0[st]['ln']; dv = L0[st]['dev']; last = PAY[st].index[-1]
+            P = L0P[st]; ln = L0[st]['ln']; dv = L0[st]['dev']; last = PAY[st].index[-1]; _li = K * IUR[st]
         else:
-            lay = 'v4'; P = V4P.get(st, []); ln = dict(V4J['states'][st]['line']); dv = V4[st]['dev']; last = LAST
+            lay = 'v4'; P = V4P.get(st, []); ln = dict(V4J['states'][st]['line']); dv = V4[st]['dev']; last = LAST; _li = V4UR[st]
         q = in_period(P, m, last); g = float(ln.get(k, 0.0)) if q is not None else 0.0
         d = float(dv[m]); dsd = d / QSD[(st, lay)]; s = colour_value(q is not None, g, dsd); stt = q['status'] if q is not None else 'none'
         if stt == 'recession': s = min(s, -3.0)   # C1: every recession month at least red
         rows.append(dict(st=st, month=k, layer=lay, period_status=stt, period_peak=ym(q['p']) if q else '', period_trough=(ym(q['t']) if q and q['t'] is not None else ('open' if q else '')),
-                         provisional=(bool(q['provisional']) if q else ''), grade=round(g, 2), deviation_pp=round(d, 3), deviation_sd=round(dsd, 3), colour_value=round(s, 3), band=band(stt, g, s), colour_hex=hexof(s)))
+                         provisional=(bool(q['provisional']) if q else ''), grade=round(g, 2), deviation_pp=round(d, 3), deviation_sd=round(dsd, 3), colour_value=round(s, 3), band=band(stt, g, s), colour_hex=hexof(s),
+                         labour_input=(round(float(_li[m]), 2) if m in _li.index and np.isfinite(_li[m]) else '')))
 M = pd.DataFrame(rows); os.makedirs(OUT, exist_ok=True); M.to_csv(os.path.join(OUT, 'stress_map_v3_1_state_month.csv'), index=False)
 M['m'] = pd.to_datetime(M.month + '-01'); M['inp'] = M.period_status.isin(['recession', 'disturbance']); M['rec'] = M.period_status == 'recession'; M['has'] = M.period_status != 'no_data'
 M['g'] = pd.to_numeric(M.grade, errors='coerce')
