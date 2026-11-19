@@ -1,7 +1,7 @@
 {
  "built_at": "2026-11-19 16:09",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-19T21:11:37Z",
+ "generated_utc": "2026-11-19T21:19:43Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -907,11 +907,6 @@
    "time_known": true,
    "time_note": "the rule reads the month's Baa average on the 7th of the next month (the first business day on or after it); FRED posts it earlier",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-09 16:15",
-     "utc": "2026-11-09T21:15:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-12-07 16:15",
