@@ -101,7 +101,7 @@ img.thumb{height:auto;aspect-ratio:2.3/1;object-fit:cover;object-position:center
 .tmleg{display:flex;gap:20px;font-size:13px;color:#333;margin-top:8px;flex-wrap:wrap}
 .tmleg i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:6px}
 .tmsrc{color:#666;font-size:12.5px;margin-top:10px}
-@media(max-width:760px){.tmst{grid-template-columns:1fr}}
+@media(max-width:760px){.tmst{grid-template-columns:1fr}.tmt{display:block;overflow-x:auto}}
 </style>
 <div class="inner tm">
 <h1>Time Machine</h1>
@@ -173,7 +173,8 @@ function status(n){
   $('#tmrd').textContent=open?('Called '+fd(open.open_pub)):(lastc?('Last recession ended '+fd(lastc.close_pub)):'');
   // the committee: only what it had announced by that day
   let ns='No recession announced', nd='', cls='ok';
-  const A=(STATE.announcements||[]).filter(a=>a.peak_ann||a.trough_ann);
+  const C0='1980-06-03';   // the committee was formed in 1978 and first announced a date on June 3, 1980; earlier NBER dates were not its announcements
+  const A=(STATE.announcements||[]).map(a=>({peak:a.peak,trough:a.trough,peak_ann:a.peak_ann&&a.peak_ann>=C0?a.peak_ann:null,trough_ann:a.trough_ann&&a.trough_ann>=C0?a.trough_ann:null})).filter(a=>a.peak_ann||a.trough_ann);
   const first=A.length?A.map(a=>a.peak_ann||a.trough_ann).sort()[0]:null;
   if(!first||d<first){ ns='—'; nd=first?('The committee’s first announcement came '+fd(first)):''; cls=''; }
   else{ let pk=null,tr=null; for(const a of A){ if(a.peak_ann&&a.peak_ann<=d&&(!pk||a.peak_ann>pk.peak_ann)) pk=a; if(a.trough_ann&&a.trough_ann<=d&&(!tr||a.trough_ann>tr.trough_ann)) tr=a; }

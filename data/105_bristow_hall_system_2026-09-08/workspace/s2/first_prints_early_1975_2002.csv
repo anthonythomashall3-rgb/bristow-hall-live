@@ -242,7 +242,7 @@ sa_uiug-30112079483118_0148,,399000,404000,407000,,3.2,2709000,3589000,sa-table,
 sa_uiug-30112079483118_0206,,409000,399000,414000,,3.2,2727000,3493000,sa-table-rev,1980-03-18,1980-03-08,1980-03-01,sa-table-rev1,the issue's reference week is the following week: a one-week revision;release day = the week's own (the year's median lag); the level is the print of 1980-03-25
 sa_uiug-30112079483118_0234,,444000,409000,398000,,3.3,2786000,3465000,sa-table-rev,1980-03-25,1980-03-15,1980-03-08,sa-table-rev1,release day assumed (nine days after the week);release day = the week's own (the year's median lag); the level is the print of 1980-03-24
 sa_uiug-30112079483118_0234,,473000,444000,393000,,,2852000,3413000,sa-table,1980-03-31,1980-03-22,1980-03-15,sa-table,release day assumed (nine days after the week)
-sa_uiug-30112079483118_0260,,492000,393000,400000,,3.4,2867000,3634000,sa-table,1980-04-07,1980-03-29,1980-03-22,sa-table,release day assumed (nine days after the week)
+sa_uiug-30112079483118_0260,,492000,472000,400000,,3.4,2867000,3634000,sa-table,1980-04-07,1980-03-29,1980-03-22,sa-table,release day assumed (nine days after the week)
 sa_google_LQX96X7jmLUC_RA1-PA2,,490000,,450000,,,2866000,,sa-table,1980-04-15,1980-04-05,1980-03-29,sa-table (Google Books v.35 page RA1-PA2),iusa from the current series
 sa_google_LQX96X7jmLUC_RA2-PA9,,574000,490000,535000,,3.5,3009000,3244000,sa-table,1980-04-22,1980-04-12,1980-04-05,sa-table (Google Books v.35 page RA2-PA9),
 sa_google_LQX96X7jmLUC_RA4-PA9,,605000,574000,494000,,,3135000,3295000,sa-table,1980-04-29,1980-04-19,1980-04-12,sa-table (Google Books v.35 page RA4-PA9),
@@ -253,7 +253,7 @@ sa_google_LQX96X7jmLUC_RA8-PA9,,675000,,539000,,,3417000,,sa-table,1980-05-27,19
 sa_google_LQX96X7jmLUC_RA8-PA22,,673000,,326000,,,3544000,,sa-table,1980-06-03,1980-05-24,1980-05-17,sa-table (Google Books v.35 page RA8-PA22),iusa from the current series
 sa_google_LQX96X7jmLUC_RA9-PA13,,625000,673000,477000,,4.3,3729000,3270000,sa-table,1980-06-11,1980-05-31,1980-05-24,sa-table (Google Books v.35 page RA9-PA13),
 sa_google_LQX96X7jmLUC_RA10-PA5,,675000,,563000,,,3731000,,sa-table,1980-06-16,1980-06-07,1980-05-31,sa-table (Google Books v.35 page RA10-PA5),iusa from the current series
-sa_google_LQX96X7jmLUC_RA11-PA9,,599000,563000,512000,,,3896000,3448000,sa-table,1980-06-23,1980-06-14,1980-06-07,sa-table (Google Books v.35 page RA11-PA9),
+sa_google_LQX96X7jmLUC_RA11-PA9,,599000,675000,512000,,,3896000,3448000,sa-table,1980-06-23,1980-06-14,1980-06-07,sa-table (Google Books v.35 page RA11-PA9),
 sa_google_LQX96X7jmLUC_RA13-PP9,,610000,,529000,,4.7,4005000,3448000,sa-table,1980-07-01,1980-06-21,1980-06-14,sa-table (Google Books v.35 page RA13-PP9),
 sa_google_LQX96X7jmLUC_RA13-PA9,,614000,,564000,,,3858000,,sa-table,1980-07-09,1980-06-28,1980-06-21,sa-table (Google Books v.35 page RA13-PA9),iusa from the current series
 sa_google_LQX96X7jmLUC_RA14-PA9,,518000,614000,585000,,,4068000,3401000,sa-table,1980-07-16,1980-07-05,1980-06-28,sa-table (Google Books v.35 page RA14-PA9),
@@ -1012,7 +1012,7 @@ news_ien.35556028749620_00000231,,322000,316000,,,2.4,2594000,,news,1994-12-08,1
 news_ien.35556028749620_00000237,,323000,324000,,,2.2,2424000,,news,1994-12-15,1994-12-10,1994-12-03,news,
 news_ien.35556028749620_00000243,,326000,323000,,,2.3,2505000,,news,1994-12-22,1994-12-17,1994-12-10,news,
 news_ien.35556028749620_00000247,,322000,325000,,,2.3,2520000,,news,1994-12-29,1994-12-24,1994-12-17,news,
-news_ien.35556028749620_00000251,,335000,321,,,2.4,2554000,,news,1995-01-09,1994-12-31,1994-12-24,news,
+news_ien.35556028749620_00000251,,335000,321000,,,2.4,2554000,,news,1995-01-09,1994-12-31,1994-12-24,news,
 news_uiug.30112048639733_00000001,,355000,338000,,,2.3,2510000,,news,1995-01-12,1995-01-07,1994-12-31,news,
 news_msu.31293026746622_00000197,,323000,354000,,,2.3,2450000,,news,1995-01-19,1995-01-14,1995-01-07,news,
 news_ien.35556028749620_00000269,,325000,338000,,,2.4,2573000,,news,1995-01-26,1995-01-21,1995-01-14,news,

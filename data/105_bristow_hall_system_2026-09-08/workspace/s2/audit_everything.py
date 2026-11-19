@@ -19,7 +19,7 @@ import os, sys, json, re, subprocess, datetime, urllib.request, urllib.error, so
 import concurrent.futures as cf
 
 SITE = 'https://bristowhallsystem.pages.dev'
-PAGES = ['/', '/detector/', '/data/', '/time-machine/', '/damage-index/', '/disturbance/',
+PAGES = ['/', '/detector/', '/data/', '/time-machine/', '/forecaster/', '/margins/', '/disturbance/',
          '/state-onset/', '/stress-map/']
 JSONS = ['/bhs_state.json', '/detector/bhs_state.json']
 QUIET = '--quiet' in sys.argv
