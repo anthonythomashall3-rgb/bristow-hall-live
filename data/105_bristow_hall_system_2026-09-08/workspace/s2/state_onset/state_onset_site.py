@@ -77,6 +77,8 @@ def main():
             t = re.sub(r'<header class="bh">.*?</header>', lambda m: nav, t, count=1, flags=re.S)
         # the footer is NOT swapped: the first 'foot' block in this page is the chart's own (it holds the legend and the full-screen button)
     os.makedirs(os.path.dirname(PAGE), exist_ok=True)
+    t = t.replace('Bristow-Hall Business Cycle Program', 'Bristow-Hall System')      # the site's name since 18 November 2026 (1141); the page is built outside this step
+    if 'table.calls{display:block' not in t: t = t.replace('</head>', '<style>@media(max-width:760px){table.calls{display:block;overflow-x:auto}}</style></head>', 1)   # a phone: the table scrolls, the page does not
     open(PAGE, 'w', encoding='utf-8').write(t)
     try:
         open(os.path.join(os.path.dirname(PAGE), 'thumb.svg'), 'w', encoding='utf-8').write(thumb(t))

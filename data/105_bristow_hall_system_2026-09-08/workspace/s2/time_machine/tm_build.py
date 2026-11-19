@@ -79,6 +79,9 @@ def claims_before_alfred(d):
         if 'rev' in (r.get('kind') or '') or not r.get('release_date') or not r.get('ic_week_ended') or not r.get('icsa'): continue
         rd, wk = dn(r['release_date']), dn(r['ic_week_ended'])
         if rd >= first or rd < wk: continue
+        ok = lambda x: 50000 <= float(x) <= 2000000          # a weekly print outside this band before 2009 is a misread number (19 Nov 2026: 321 for 321,000)
+        if not ok(r['icsa']): print('refused: initial claims of %s in the release of %s' % (r['icsa'], r['release_date'])); continue
+        if r.get('icsa_prev_rev') and not ok(r['icsa_prev_rev']): print('refused: a revised figure of %s in the release of %s' % (r['icsa_prev_rev'], r['release_date'])); r['icsa_prev_rev'] = ''
         add.setdefault(wk, {})[rd] = float(r['icsa'])
         if r.get('icsa_prev_rev'): add.setdefault(wk - 7, {}).setdefault(rd, float(r['icsa_prev_rev']))
     ix = {o: i for i, o in enumerate(d['obs'])}; n = 0
