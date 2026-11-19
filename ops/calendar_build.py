@@ -86,6 +86,7 @@ MERGE_MIN = 15          # slots closer than this are one run
 # 1052 speed (15 Nov 2026): FRED release id -> the publisher group s2/publisher_first.py reads at release time (BLS API v2, the G.17 file)
 PUBLISHER_FIRST = {'53': 'bea_gdp', '50': 'bls_empsit', '192': 'bls_jolts', '13': 'fed_g17', '10': 'bls_cpi', '180': 'dol_claims', '112': 'bls_state'}
 LIVE_TOOLS_GROUPS = {'bls_state', 'bls_empsit', 'dol_539'}
+ETA539_AGAIN_MIN = (20, 40, 60)   # 19 Nov 2026: the file's Last-Modified said 3:50 PM ET, but the Department served the old file until after 4:23 PM (live-tools 21:13Z and 21:23Z read it unchanged); the 3:56 run looks again 20, 40 and 60 minutes later, each polling up to 12 minutes
 ETA539_HM = '15:56'     # the Department's ETA 539 State file follows the claims release the same day at about 3:55 PM ET (measured)   # a slot waiting for these also starts live-tools.yml (State onset, stress map: State LAUS/CES, CES national)
 FRED_POLL = {'219', '465', '456', '386'}   # CFNAI, WEI, the Sahm rule, GDPNow: run at release +1, polling FRED for the post (1052 speed)
 PUBLISHER_FIRST_MIN = 1  # the publisher-read run starts this many minutes after the release, then polls the publisher (update.yml)
@@ -1011,6 +1012,8 @@ def schedule(cal, state, pending):
             pfg = PUBLISHER_FIRST.get(str(r.get('release_id') or ''))
             if str(r.get('release_id') or '') == '180':   # 1052 speed: the ETA 539 State file the same afternoon (the live tools read it)
                 raw.append((at(t.date(), ETA539_HM), "the Department's ETA 539 State file (3:55 PM ET; read from the Department)", 'dol_539'))
+                for mnt in ETA539_AGAIN_MIN:
+                    raw.append((at(t.date(), ETA539_HM) + dt.timedelta(minutes=mnt), "look again: the Department's ETA 539 State file (due 3:55 PM ET)", 'dol_539'))
             if pfg:
                 raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), '%s (%s ET; read from the publisher)' % (r['short'], t.strftime('%I:%M %p').lstrip('0')), pfg))
                 # the day's first run pulls every series (bhs_update.py FULL); it is done before the release, so the release run is quick

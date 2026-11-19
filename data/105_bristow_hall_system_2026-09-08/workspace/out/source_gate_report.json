@@ -4,8 +4,8 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-19",
- "checked_at": "2026-11-19 21:19 UTC",
- "seconds": 2.5,
+ "checked_at": "2026-11-19 21:57 UTC",
+ "seconds": 3.4,
  "source_calls": 4,
  "source_errors": {},
  "counts": {
@@ -16,8 +16,8 @@
    "WARN": 1
   },
   "data/detector": {
-   "WARN": 4,
-   "PASS": 68
+   "PASS": 69,
+   "WARN": 3
   },
   "data/disturbance": {
    "PASS": 18
@@ -37,8 +37,8 @@
    "WARN": 5
   },
   "detector": {
-   "PASS": 55,
-   "WARN": 12
+   "PASS": 58,
+   "WARN": 9
   },
   "state-onset": {
    "PASS": 100
@@ -55,9 +55,9 @@
   "checks": 401,
   "figures": 271,
   "fail": 0,
-  "warn": 47,
+  "warn": 43,
   "unverified": 0,
-  "passed": 348
+  "passed": 352
  },
  "failures": [],
  "rows": [
@@ -413,24 +413,24 @@
    "page": "data/detector",
    "label": "s&p 500 daily close: SP500",
    "check": "freshness",
-   "status": "WARN",
-   "value": "7,323.63",
-   "period": "2026-11-18",
+   "status": "PASS",
+   "value": "7,175.83",
+   "period": "2026-11-19",
    "series": "SP500",
    "transform": "level",
    "expected": "2026-11-19",
-   "detail": "a newer period (2026-11-19) was published 2026-11-19, on or after the build day: the next run takes it"
+   "detail": ""
   },
   {
    "page": "data/detector",
    "label": "s&p 500 daily close: SP500",
    "check": "value",
    "status": "PASS",
-   "value": 7323.63,
-   "period": "2026-11-18",
+   "value": 7175.83,
+   "period": "2026-11-19",
    "series": "SP500",
    "transform": "level",
-   "expected": 7323.63,
+   "expected": 7175.83,
    "detail": ""
   },
   {
@@ -660,6 +660,42 @@
    "transform": null,
    "expected": "2026-11-25",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
+  },
+  {
+   "page": "data/detector",
+   "label": "states with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
+   "check": "value",
+   "status": "WARN",
+   "value": "0",
+   "period": "2026-11-07",
+   "series": "alinsuredur ... wyinsuredur",
+   "transform": "derived",
+   "expected": null,
+   "detail": "a derived value with no recipe here: not recomputed (listed as remaining risk)"
+  },
+  {
+   "page": "data/detector",
+   "label": "states with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "0",
+   "period": "2026-11-07",
+   "series": "DOL539:US*:cc",
+   "transform": "file",
+   "expected": "2026-11-07",
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "states with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-11-25",
+   "period": null,
+   "series": "ALINSUREDUR",
+   "transform": null,
+   "expected": "2026-11-20",
+   "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
   },
   {
    "page": "data/detector",
@@ -1020,42 +1056,6 @@
    "transform": null,
    "expected": "2026-12-04",
    "detail": "FRED release 456 (Sahm Rule Recession Indicator)"
-  },
-  {
-   "page": "data/detector",
-   "label": "states with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
-   "check": "value",
-   "status": "WARN",
-   "value": "0",
-   "period": "2026-10-31",
-   "series": "alinsuredur ... wyinsuredur",
-   "transform": "derived",
-   "expected": null,
-   "detail": "a derived value with no recipe here: not recomputed (listed as remaining risk)"
-  },
-  {
-   "page": "data/detector",
-   "label": "states with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
-   "check": "freshness",
-   "status": "PASS",
-   "value": "0",
-   "period": "2026-10-31",
-   "series": "DOL539:US*:cc",
-   "transform": "file",
-   "expected": "2026-10-31",
-   "detail": ""
-  },
-  {
-   "page": "data/detector",
-   "label": "states with the insured rate accelerating (13-week average at least 0.20 point above a year earlier)",
-   "check": "next published",
-   "status": "PASS",
-   "value": "2026-11-25",
-   "period": null,
-   "series": "ALINSUREDUR",
-   "transform": null,
-   "expected": "2026-11-20",
-   "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
   },
   {
    "page": "data/detector",
@@ -1495,10 +1495,10 @@
    "check": "freshness",
    "status": "PASS",
    "value": "",
-   "period": "2026-11-07",
+   "period": "2026-11-14",
    "series": "DOL539:US*:ic",
    "transform": "file",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -1519,10 +1519,10 @@
    "check": "freshness",
    "status": "PASS",
    "value": "",
-   "period": "2026-11-07",
+   "period": "2026-11-14",
    "series": "DOL539:US*:ic",
    "transform": "file",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -1630,7 +1630,7 @@
    "period": "2026-10",
    "series": "ALINSUREDUR",
    "transform": "monthly from weekly",
-   "expected": "2026-10",
+   "expected": "2026-11",
    "detail": ""
   },
   {
@@ -2741,24 +2741,24 @@
    "page": "detector",
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "freshness",
-   "status": "WARN",
-   "value": 10.26,
-   "period": "2026-11-18",
+   "status": "PASS",
+   "value": 8.03,
+   "period": "2026-11-19",
    "series": "SP500",
    "transform": "sp_yoy",
    "expected": "2026-11-19",
-   "detail": "a newer period (2026-11-19) was published 2026-11-19, on or after the build day: the next run takes it"
+   "detail": ""
   },
   {
    "page": "detector",
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "value",
    "status": "PASS",
-   "value": 10.26,
-   "period": "2026-11-18",
+   "value": 8.03,
+   "period": "2026-11-19",
    "series": "SP500",
    "transform": "sp_yoy",
-   "expected": 10.2598,
+   "expected": 8.03459,
    "detail": ""
   },
   {
@@ -3161,13 +3161,13 @@
    "page": "detector",
    "label": "E22 leg S: the S&P 500 against its lowest close since the episode opened",
    "check": "freshness",
-   "status": "WARN",
+   "status": "PASS",
    "value": null,
-   "period": "2026-11-18",
+   "period": "2026-11-19",
    "series": "SP500",
    "transform": "reading",
    "expected": "2026-11-19",
-   "detail": "a newer period (2026-11-19) was published 2026-11-19, on or after the build day: the next run takes it"
+   "detail": ""
   },
   {
    "page": "detector",
@@ -3269,13 +3269,13 @@
    "page": "detector",
    "label": "current through: sp500",
    "check": "freshness",
-   "status": "WARN",
-   "value": "2026-11-18",
-   "period": "2026-11-18",
+   "status": "PASS",
+   "value": "2026-11-19",
+   "period": "2026-11-19",
    "series": "SP500",
    "transform": "through",
    "expected": "2026-11-19",
-   "detail": "a newer period (2026-11-19) was published 2026-11-19, on or after the build day: the next run takes it"
+   "detail": ""
   },
   {
    "page": "detector",
@@ -3426,7 +3426,7 @@
    "label": "feed: S&P 500 daily close (the market pillar: below its close a ye (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-19",
+   "value": "2026-11-20",
    "period": null,
    "series": "SP500",
    "transform": null,
@@ -3486,11 +3486,11 @@
    "label": "AK claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:AK:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3510,11 +3510,11 @@
    "label": "AL claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:AL:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3534,11 +3534,11 @@
    "label": "AR claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:AR:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3558,11 +3558,11 @@
    "label": "AZ claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:AZ:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3582,11 +3582,11 @@
    "label": "CA claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:CA:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3606,11 +3606,11 @@
    "label": "CO claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:CO:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3630,11 +3630,11 @@
    "label": "CT claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:CT:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3654,11 +3654,11 @@
    "label": "DE claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:DE:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3678,11 +3678,11 @@
    "label": "FL claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:FL:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3702,11 +3702,11 @@
    "label": "GA claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:GA:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3726,11 +3726,11 @@
    "label": "HI claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:HI:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3750,11 +3750,11 @@
    "label": "IA claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:IA:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3774,11 +3774,11 @@
    "label": "ID claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:ID:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3798,11 +3798,11 @@
    "label": "IL claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:IL:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3822,11 +3822,11 @@
    "label": "IN claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:IN:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3846,11 +3846,11 @@
    "label": "KS claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:KS:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3870,11 +3870,11 @@
    "label": "KY claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:KY:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3894,11 +3894,11 @@
    "label": "LA claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:LA:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3918,11 +3918,11 @@
    "label": "MA claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:MA:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3942,11 +3942,11 @@
    "label": "MD claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:MD:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3966,11 +3966,11 @@
    "label": "ME claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:ME:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -3990,11 +3990,11 @@
    "label": "MI claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:MI:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4014,11 +4014,11 @@
    "label": "MN claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:MN:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4038,11 +4038,11 @@
    "label": "MO claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:MO:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4062,11 +4062,11 @@
    "label": "MS claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:MS:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4086,11 +4086,11 @@
    "label": "MT claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:MT:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4110,11 +4110,11 @@
    "label": "NC claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:NC:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4134,11 +4134,11 @@
    "label": "ND claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:ND:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4158,11 +4158,11 @@
    "label": "NE claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:NE:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4182,11 +4182,11 @@
    "label": "NH claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:NH:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4206,11 +4206,11 @@
    "label": "NJ claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:NJ:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4230,11 +4230,11 @@
    "label": "NM claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:NM:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4254,11 +4254,11 @@
    "label": "NV claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:NV:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4278,11 +4278,11 @@
    "label": "NY claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:NY:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4302,11 +4302,11 @@
    "label": "OH claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:OH:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4326,11 +4326,11 @@
    "label": "OK claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:OK:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4350,11 +4350,11 @@
    "label": "OR claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:OR:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4374,11 +4374,11 @@
    "label": "PA claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:PA:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4398,11 +4398,11 @@
    "label": "RI claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:RI:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4422,11 +4422,11 @@
    "label": "SC claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:SC:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4446,11 +4446,11 @@
    "label": "SD claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:SD:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4470,11 +4470,11 @@
    "label": "TN claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:TN:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4494,11 +4494,11 @@
    "label": "TX claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:TX:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4518,11 +4518,11 @@
    "label": "UT claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:UT:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4542,11 +4542,11 @@
    "label": "VA claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:VA:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4566,11 +4566,11 @@
    "label": "VT claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:VT:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4590,11 +4590,11 @@
    "label": "WA claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:WA:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4614,11 +4614,11 @@
    "label": "WI claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:WI:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4638,11 +4638,11 @@
    "label": "WV claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:WV:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4662,11 +4662,11 @@
    "label": "WY claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "DOL539:WY:ic",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {
@@ -4710,11 +4710,11 @@
    "label": "provisional weeks through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-07",
-   "period": "2026-11-07",
+   "value": "2026-11-14",
+   "period": "2026-11-14",
    "series": "xxICLAIMS",
    "transform": "week",
-   "expected": "2026-11-07",
+   "expected": "2026-11-14",
    "detail": ""
   },
   {

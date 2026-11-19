@@ -1,5 +1,5 @@
 {
- "built": "2026-11-19T21:18:09Z",
+ "built": "2026-11-19T21:55:53Z",
  "size": [
   1200,
   760
@@ -34,11 +34,11 @@
   },
   "/stress-map/": {
    "png": "/stress-map/card.png",
-   "sha256": "82619fd6cfd0681db328f0873af0e6ab9b90cc4e18d5843bdee33379d7c6048b",
+   "sha256": "13b93f4ef6db05a8f5fbd173b8fbfa395bd8360d47bf66902ca444c3c9f92a2c",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1530,
+   "colours": 1423,
    "share_not_main": 0.3409
   },
   "/forecaster/": {
@@ -61,11 +61,11 @@
   },
   "/data/": {
    "png": "/data/card.png",
-   "sha256": "ab0c278df65ce57099581bb167d96dcfd8241c10cd4f4cad6b7cff3515c7f1b9",
+   "sha256": "7282bf54e4cae1afe658ea8e7e388b61ca1b595b848022bb195eb82bdb512987",
    "on_home": false,
    "w": 1200,
    "h": 522,
-   "colours": 1759,
+   "colours": 1758,
    "share_not_main": 0.126
   }
  }

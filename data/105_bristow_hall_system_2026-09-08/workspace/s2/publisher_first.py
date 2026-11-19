@@ -412,7 +412,7 @@ if __name__ == '__main__':
     if a[:1] == ['wait']:
         lim = 720
         if '--limit' in a: lim = int(a[a.index('--limit') + 1]); a = a[:a.index('--limit')] + a[a.index('--limit') + 2:]
-        wait([g for g in a[1:] if g in GROUPS or g in WAIT_ONLY], limit_s=lim)
+        wait([g for g in a[1:] if g in GROUPS or g in WAIT_ONLY or g.startswith('fred:')], limit_s=lim)   # 19 Nov 2026: fred:<SID>:<time> groups were dropped here, so FRED-polled slots never waited
         sys.exit(0)
     if a[:1] == ['append']:
         print(append(default_al()))
