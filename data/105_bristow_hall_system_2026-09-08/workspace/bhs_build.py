@@ -1237,14 +1237,25 @@ SERIES=SERIES[SERIES.index>=SITE_START]
 def lastv(s): s=s.dropna(); return float(s.iloc[-1]), s.index[-1].date().isoformat()
 def nxt_thu(d):
     d=pd.Timestamp(d); return (d+pd.offsets.Week(weekday=3)).date().isoformat()
+def _claims_day(t):
+    # 19 November 2026: the claims release is not always a Thursday (the Wednesday before Thanksgiving; 24 and 31 December 2025).
+    # The day FRED's calendar lists for the week of Thursday t (release 180, ops/cache/fred_release_dates.json, the file the source
+    # gate checks against) is taken when there is one; a fixed Thursday held every update from the release of 19 November 2026
+    # (the page said 26 November, the publisher 25 November). Without the file, or with no listed day that week, the Thursday stands.
+    try:
+        import json as _jc
+        _ds=(_jc.load(open(os.path.join('..','..','..','ops','cache','fred_release_dates.json'))).get('180') or {}).get('dates') or []
+        _c=[pd.Timestamp(str(_x)[:10]) for _x in _ds]; _c=[_x for _x in _c if -1<=(t-_x).days<=3]
+        return min(_c,key=lambda _x:abs((t-_x).days)) if _c else t
+    except Exception: return t
 def nxt_claims(through,days=12):
     # the Thursday whose release carries the week after the last week in hand (claims: week end + 12 days; the insured week
     # and the state rates: + 19). A release day already past whose data are not yet in hand stays the 'next' (marked pending).
     t=pd.Timestamp(through)+pd.Timedelta(days=days)
     # audit-0924 (24 Sep 2026): a Thursday already gone by is not printed as the next release with '(released; not yet
     # posted)' - the next Thursday is. A feed that stops arriving is for the checks and the watchdogs, not for the page.
-    while t<pd.Timestamp(today): t=t+pd.Timedelta(days=7)
-    return t.date().isoformat()
+    while _claims_day(t)<pd.Timestamp(today): t=t+pd.Timedelta(days=7)
+    return _claims_day(t).date().isoformat()
 def first_fri(d):
     m=(pd.Timestamp(d)+pd.offsets.MonthBegin(1)); f=m+pd.offsets.Week(weekday=4) if m.weekday()!=4 else m; return f.date().isoformat()
 R=[]
