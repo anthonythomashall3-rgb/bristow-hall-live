@@ -1,0 +1,41 @@
+# THE STANDING SERIES CHECK (19 November 2026). Every series file the starter and the ender read is checked on its own
+# (ops/series_check.py: the same date twice, unreadable dates, missing periods, jumps by a factor of 5, single points far from
+# both neighbours, cells 5 times off the rows around them). A hard finding that is not in ops/series_check_known.json fails the
+# run, and GitHub's own notice of a failed run is the alert. Runs each Monday and by hand. It publishes nothing, commits
+# nothing and needs no secret (a private file that is absent is reported as absent).
+name: series check (the rule's input files)
+on:
+  schedule:
+    - cron: '37 9 * * 1'   # off the hour
+  workflow_dispatch:
+concurrency: series-check
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+          cache: pip
+      - run: pip install --quiet --retries 10 --timeout 60 -r requirements.txt
+      - name: check every input series
+        run: |
+          set -o pipefail
+          python3 ops/series_check.py --out "$RUNNER_TEMP/series_check.json" | tee "$RUNNER_TEMP/series_check.txt"
+      - name: the report
+        if: always()
+        run: |
+          { echo '```'; cat "$RUNNER_TEMP/series_check.txt" 2>/dev/null; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: series-check
+          path: ${{ runner.temp }}/series_check.json
+          retention-days: 90

@@ -10,6 +10,10 @@ shown later to have been said then:
       built_at        the build's own stamp
       version, walk   the rule of record
       freeze_id       the freeze the running files match (or 'DRIFTED' with the count, from s2/freeze.py --check)
+      rule_id         sha256 over the files that decide a call; build_id over the files that publish them (s2/rule_id.py);
+                      live/RULE-IDS.jsonl names every file behind each identity the first time it is seen
+      tools           the other live tools on the day: each published page's sha256, the forecaster's status, the stress
+                      map's newest month, its red figure and each State's letter
       standing        state, since, dated, leg
       reading         the day's reading and the branch carrying it
       through         the last observation of each object the rule reads
@@ -134,6 +138,39 @@ def freeze_state():
         return 'CHECK FAILED: ' + type(e).__name__
 
 
+def rule_ids():
+    """the rule's and the build's identities (s2/rule_id.py, 19 November 2026); a line is written without them if they cannot be made"""
+    try:
+        sys.path.insert(0, os.path.join(W, 's2')); import rule_id
+        return rule_id.ids(register=True)
+    except Exception as e:
+        return dict(rule_id='UNKNOWN: ' + type(e).__name__, build_id=None)
+
+
+def other_tools():
+    """the other live tools on the day (19 November 2026): the sha256 of each published page, with the forecaster's status and the
+    stress map's newest month and its red figure and each State's letter, so the same receipt that fixes the indicator's line fixes what every
+    other tool said that day. A page that is missing or cannot be read is named as such; nothing here can stop the line."""
+    import re
+    pub = os.path.join(COL, 'site', 'public'); out = {}
+    for name, rel in (('state_recession', 'state-onset/index.html'), ('stress_map', 'stress-map/index.html'), ('forecaster', 'forecaster/state.json'),
+                      ('forecaster_page', 'forecaster/index.html'), ('disturbance', 'disturbance/index.html'), ('time_machine', 'time-machine/index.html')):
+        f = os.path.join(pub, rel)
+        try: out[name] = dict(file=rel, sha256=sha(f), bytes=os.path.getsize(f))
+        except Exception as e: out[name] = dict(file=rel, sha256=None, why=type(e).__name__)
+    try:
+        j = json.load(open(os.path.join(pub, 'forecaster', 'state.json')))
+        out['forecaster'].update(status=j.get('status'), built=j.get('built'), last_close=j.get('last_close'))
+    except Exception: pass
+    try:
+        m = re.search(r'<script[^>]*id="data"[^>]*>(.*?)</script>', open(os.path.join(pub, 'stress-map', 'index.html'), encoding='utf-8').read(), re.S)
+        j = json.loads(m.group(1))
+        out['stress_map'].update(last=j.get('last'), built=j.get('built'), red=(j.get('red') or [None])[-1],
+                                 states={k: (v.get('s') or ' ')[-1] + (v.get('b') or ' ')[-1] for k, v in sorted((j.get('states') or {}).items())})
+    except Exception: pass
+    return out
+
+
 def main():
     if '--tail' in sys.argv:
         n = int(sys.argv[sys.argv.index('--tail') + 1])
@@ -160,6 +197,8 @@ def main():
         'at': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
         'built_at': built_at, 'built': s.get('built'), 'version': s.get('version'), 'walk': s.get('walk'),
         'freeze_id': freeze_state(),
+        **rule_ids(),                 # rule_id, build_id (19 November 2026): the identity of the files that decide a call
+        'tools': other_tools(),       # the other live tools' pages on the day (19 November 2026)
         'standing': s.get('standing'),
         'reading': (round(float(vals[-1]), 4) if vals else None),
         'reading_day': (se.get('dates') or [None])[-1],
