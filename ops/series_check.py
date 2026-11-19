@@ -144,8 +144,10 @@ def main():
                files_checked=sum(1 for s in seen if s.get('present')), files_absent=[s['file'] for s in seen if not s.get('present')],
                hard_new=len(hard_new), soft=sum(1 for f in out if not f['check'].startswith('H')))
     if '--accept' in sys.argv:
-        json.dump(dict(_what='findings read and accepted on the day named; ops/series_check.py fails only on a hard finding that is not here',
-                       accepted=rep['at'], known=sorted(key(f) for f in out)), open(KNOWN, 'w'), indent=1)
+        keep = json.load(open(KNOWN)) if os.path.exists(KNOWN) else {}       # the notes a person wrote beside the list stay
+        keep.update(_what='findings read and accepted on the day named; ops/series_check.py fails only on a hard finding that is not here',
+                    accepted=rep['at'], known=sorted(key(f) for f in out))
+        json.dump(keep, open(KNOWN, 'w'), indent=1)
     dst = sys.argv[sys.argv.index('--out') + 1] if '--out' in sys.argv else os.path.join(ROOT, 'ops', 'state', 'series_check.json')
     json.dump(rep, open(dst, 'w'), indent=1)
     print('series check: %d files checked, %d absent (private or not yet built), %d findings (%d hard and new)' % (rep['files_checked'], len(rep['files_absent']), len(out), len(hard_new)))

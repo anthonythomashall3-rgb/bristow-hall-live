@@ -192,7 +192,7 @@ sa_coo-31924054239193_0612,,347000,347000,313000,,3.2,2350000,2903000,sa-table,1
 sa_coo-31924054239193_0638,,341000,349000,296000,,,2322000,2777000,sa-table,1979-04-02,1979-03-24,1979-03-17,sa-table,release day assumed (nine days after the week)
 sa_coo-31924054239193_0688,,361000,341000,300000,,,2295000,2663000,sa-table-rev,1979-04-09,1979-03-31,1979-03-24,sa-table-rev1,the issue's reference week is the following week: a one-week revision;release day = the week's own (the year's median lag); the level is the print of 1979-04-16
 sa_coo-31924054239193_0712,,469000,361000,450000,,,2293000,2557000,sa-table-rev,1979-04-16,1979-04-07,1979-03-31,sa-table-rev1,the issue's reference week is the following week: a one-week revision;release day assumed (nine days after the week)
-sa_coo-31924054239193_0766,,488000,,424000,,2.9,1298000,2502000,sa-table-rev,1979-04-23,1979-04-14,1979-04-07,sa-table-rev1,the issue's reference week is the following week: a one-week revision;release day = the week's own (the year's median lag); the level is the print of 1979-05-07
+sa_coo-31924054239193_0766,,488000,,424000,,2.9,2298000,2502000,sa-table-rev,1979-04-23,1979-04-14,1979-04-07,sa-table-rev1,the issue's reference week is the following week: a one-week revision;release day = the week's own (the year's median lag); the level is the print of 1979-05-07
 sa_coo-31924054239193_0792,,421000,488000,341000,,3.6,2436000,2540000,sa-table-rev,1979-04-30,1979-04-21,1979-04-14,sa-table-rev2,release day assumed (nine days after the week)
 sa_coo-31924054239193_0792,,374000,421000,304000,,2.9,2405000,2451000,sa-table-rev,1979-05-07,1979-04-28,1979-04-21,sa-table-rev1,release day assumed (nine days after the week)
 sa_coo-31924054239193_0792,,358000,374000,308000,,2.9,2352000,2322000,sa-table,1979-05-14,1979-05-05,1979-04-28,sa-table,release day assumed (nine days after the week)
@@ -266,7 +266,7 @@ sa_google_LQX96X7jmLUC_RA21-PA9,,497000,,436000,,,3862000,,sa-table,1980-08-26,1
 sa_google_LQX96X7jmLUC_RA23-PA2,,513000,497000,412000,,4.4,3799000,3491000,sa-table,1980-09-03,1980-08-23,1980-08-16,sa-table (Google Books v.35 page RA23-PA2),release day assumed (ten days after the week)
 sa_google_LQX96X7jmLUC_RA24-PA4,,526000,513000,407000,,4.4,3769000,3384000,sa-table,1980-09-10,1980-08-30,1980-08-23,sa-table (Google Books v.35 page RA24-PA4),
 sa_google_LQX96X7jmLUC_RA25-PA9,,493000,513000,374000,,4.3,3685000,3129000,sa-table,1980-09-16,1980-09-06,1980-08-30,sa-table (Google Books v.35 page RA25-PA9),release day assumed (ten days after the week)
-sa_google_LQX96X7jmLUC_RA26-PA12,,542000,,416000,,4.5,1876000,3252000,sa-table,1980-09-24,1980-09-13,1980-09-06,sa-table (Google Books v.35 page RA26-PA12),
+sa_google_LQX96X7jmLUC_RA26-PA12,,542000,,416000,,4.5,3876000,3252000,sa-table,1980-09-24,1980-09-13,1980-09-06,sa-table (Google Books v.35 page RA26-PA12),
 sa_google_LQX96X7jmLUC_RA27-PA9,,486000,540000,382000,,4.4,3769000,4168000,sa-table,1980-09-30,1980-09-20,1980-09-13,sa-table (Google Books v.35 page RA27-PA9),release day assumed (ten days after the week)
 sa_google_LQX96X7jmLUC_RA28-PA9,,471000,485000,364000,,4.4,3811000,3068000,sa-table,1980-10-07,1980-09-27,1980-09-20,sa-table (Google Books v.35 page RA28-PA9),
 sa_uiug-30112079483084_0052,,467000,471000,411000,,4.4,3771000,2987000,sa-table-rev,1980-10-14,1980-10-04,1980-09-27,sa-table-rev1,the issue's reference week is the following week: a one-week revision;release day = the week's own (the year's median lag); the level is the print of 1980-10-22
@@ -713,7 +713,7 @@ news_msu.31293026746598_00000161,,336000,319000,,,2.1,2106000,,news,1989-03-23,1
 news_msu.31293026746598_00000163,,322000,,,,2.2,2166000,,news,1989-03-30,1989-03-18,1989-03-11,news,
 news_uiug.30112066686533_00000355,,317000,322000,,,2.1,2137000,,news,1989-04-06,1989-03-25,1989-03-18,news,
 news_msu.31293026746598_00000167,,318000,317000,,,2.1,2155000,,news,1989-04-13,1989-04-01,1989-03-25,news,
-news_msu.31293026746598_00000169,,320000,318000,,,2.1,213355000,,news,1989-04-20,1989-04-08,1989-04-01,news,
+news_msu.31293026746598_00000169,,320000,318000,,,2.1,2133000,,news,1989-04-20,1989-04-08,1989-04-01,news,
 news_msu.31293026746598_00000171,,288000,320000,,,2.1,2127000,,news,1989-04-27,1989-04-15,1989-04-08,news,
 news_msu.31293026746598_00000173,,303000,288000,,,2.1,2146000,,news,1989-05-04,1989-04-22,1989-04-15,news,
 news_msu.31293026746598_00000175,,290000,303000,,,2.1,2083000,,news,1989-05-11,1989-04-29,1989-04-22,news,
