@@ -394,7 +394,7 @@ jobs:
         run: |
           W=$(python3 -c "import json,os;print(' '.join(next((s.get('wait') or [] for s in json.load(open(os.environ['RUN_SLOTS']))['slots'] if s.get('ny')==os.environ['SLOT']),[])))" 2>/dev/null || true)
           if [ -z "$W" ]; then echo "the $SLOT slot reads nothing from a publisher"; exit 0; fi
-          timeout 780 python3 s2/publisher_first.py wait $W --limit 720 2>&1 | tee -a "$GITHUB_WORKSPACE/run.log" || true
+          timeout 780 python3 s2/publisher_first.py wait $W --limit 720 2>&1 | tee -a "$GITHUB_WORKSPACE/run.log" "$RUNNER_TEMP/pf_wait.log" || true   # pf_wait.log: ops/run.sh empties run.log
 
       # 1052 SPEED: THE SOURCE GATE'S SOURCES, FETCHED WHILE THE SITE BUILDS. The gate (below, before the publish) used to fetch its ~180
       # sources one by one after the build, 100-155 s on the release path. They are fetched here in the background, in parallel and under
@@ -698,6 +698,25 @@ jobs:
           RUN_SLOTS: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}/run_slots.json
         run: |
           LT=$(python3 -c "import json,os;print(next((1 for s in json.load(open(os.environ['RUN_SLOTS']))['slots'] if s.get('ny')==os.environ['SLOT'] and s.get('live_tools')),0))" 2>/dev/null || echo 0)
+          # 19 Nov 2026: an ETA 539 slot starts the live tools only when its poll found the Department's new week and the State page does not
+          # already carry it (s2/tool_inputs_mac.json, committed by live-tools.yml); otherwise the slot's look-again runs (20, 40, 60 min) start them.
+          # On 19 Nov the 3:56 PM run started them while the Department still served the old file, and they took nothing.
+          if [ "$LT" = "1" ]; then LT=$(python3 - <<'PY'
+          import json, os, re, datetime
+          from zoneinfo import ZoneInfo
+          slot = next(s for s in json.load(open(os.environ['RUN_SLOTS']))['slots'] if s.get('ny') == os.environ['SLOT'])
+          if 'dol_539' not in (slot.get('wait') or []): print(1); raise SystemExit
+          try: log = open(os.path.join(os.environ['RUNNER_TEMP'], 'pf_wait.log'), errors='replace').read()
+          except OSError: log = ''
+          if not re.search(r'publisher wait: dol_539 is out', log): print(0); raise SystemExit
+          t = datetime.datetime.now(ZoneInfo('America/New_York')).date(); sat = (t - datetime.timedelta(days=(t.weekday() + 2) % 7)).isoformat()
+          try:
+              ti = json.load(open(os.path.join(os.environ['GITHUB_WORKSPACE'], 'data/105_bristow_hall_system_2026-09-08/workspace/s2/tool_inputs_mac.json')))
+              thru = max(str(r.get('through') or '') for r in ti['tools']['state-onset']['rows'] if r.get('key') == 'data/dol/ar539.csv')
+          except Exception: thru = ''
+          print(0 if thru >= sat else 1)
+          PY
+          ) || LT=1; [ "$LT" = "1" ] || echo "the $SLOT slot: the ETA 539 week is not out yet, or the State page already carries it: live tools not started"; fi
           if [ "$LT" = "1" ]; then gh workflow run live-tools.yml --ref main -f mode=full && echo "live-tools.yml started for the $SLOT release"; else echo "the $SLOT slot does not feed the live tools"; fi
 
       # 1052 SPEED, STEP 5 (16 November 2026): THE STATE PAYROLLS BY INDUSTRY AS FIRST PRINTED, recorded on each BLS State release day
