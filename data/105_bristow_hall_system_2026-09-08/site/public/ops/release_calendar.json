@@ -1,11 +1,11 @@
 {
- "built_at": "2026-11-19 15:16",
+ "built_at": "2026-11-19 16:09",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-19T20:17:55Z",
+ "generated_utc": "2026-11-19T21:11:37Z",
  "rows": [
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-19",
+   "build_next": "2026-11-20",
    "confirmed_through": "2027-03-11",
    "fred_clock": null,
    "freq": "daily",
@@ -13,7 +13,7 @@
    "link": "/detector/",
    "name": "s&p 500 daily close",
    "next_expected": false,
-   "next_ny": "2026-11-19 16:00",
+   "next_ny": "2026-11-20 16:00",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the S&P 500 close",
@@ -1644,7 +1644,7 @@
   },
   {
    "agrees_with_build": false,
-   "build_next": "2026-11-19",
+   "build_next": "2026-11-25",
    "confirmed_through": "2026-12-25",
    "fred_clock": null,
    "freq": "weekly",
@@ -1707,7 +1707,7 @@
   },
   {
    "agrees_with_build": false,
-   "build_next": "2026-11-19",
+   "build_next": "2026-11-25",
    "confirmed_through": "2026-12-25",
    "fred_clock": null,
    "freq": "weekly",
