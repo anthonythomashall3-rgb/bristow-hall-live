@@ -24,7 +24,7 @@ ROWS = [
     dict(label='Real GDP, growth on the quarter at an annual rate', ids=['GDPC1', 'GNPC96'], tf='qann', unit='percent', dec=1, scale=1),
     dict(label='Industrial production, change on the year', ids=['INDPRO'], tf='yoy', unit='percent', dec=1, scale=1),
     dict(label='Housing starts, annual rate', ids=['HOUST'], tf='level', unit='thousands', dec=0, scale=1),
-    dict(label='Consumer prices, change on the year', ids=['CPIAUCSL'], tf='yoy', unit='percent', dec=1, scale=1),
+    dict(label='Consumer prices, change on the year', ids=['CPIAUCNS', 'CPIAUCSL'], tf='yoy', unit='percent', dec=1, scale=1),
 ]
 EPOCH = datetime.date(1970, 1, 1)
 def dn(s): return (datetime.date.fromisoformat(s) - EPOCH).days
