@@ -32,7 +32,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-19 11:30",
+ "last_check_ny": "2026-11-19 14:39",
  "pending": [
   {
    "due_ny": "2026-11-19 08:30",
@@ -42,6 +42,15 @@
    "since_ny": "2026-11-19 09:14",
    "through_before": "2026-10-31",
    "value_before": "0"
+  },
+  {
+   "due_ny": "2026-11-19 11:30",
+   "expected_day": false,
+   "ids": "wei",
+   "short": "weekly economic index (lewis, mertens an",
+   "since_ny": "2026-11-19 14:44",
+   "through_before": "2026-11-07",
+   "value_before": "3.08"
   }
  ],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
