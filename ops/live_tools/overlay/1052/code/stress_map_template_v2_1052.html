@@ -208,6 +208,7 @@ function idxV(s){return abs_(s)-abs_(view.start);} function mkV(i){return mkA(ab
 function idxN(s){return abs_(s)-abs_(J.start);}
 var seam=idxN(J.seam);
 // provisional months (PREREG-1052 v3 Amendments 2 and 3): after v4's last month, from the weekly State claims (labor only), the newest month to date
+// 1152 (19 Nov 2026): a State in a period still open at v4's last month keeps that month's grade and color in the provisional months (PV.held)
 var PV=J.prov||{}, pvA=PV.first?idxN(PV.first):1e9;
 function dL(s){var p=s.split('-');return MS[+p[1]-1]+' '+(+p[2])+', '+p[0];}
 // Amendment 4: a State with no week of a provisional month yet carries its newest published week
@@ -313,7 +314,7 @@ function stStatus(st,k){var ni=idxN(k),c=J.states[st];if(ni<0||ni>=J.n)return 'n
  if(code==='G')return 'no State payroll series yet';
  var lay=ni>=pvA?'provisional, weekly State claims, labor only':(ni>=seam?'State chronology v4':'pre-1979 State layer');
  var cn='';
- if(ni>=pvA&&code!=='N'&&cn&&(code==='R'||code==='D')){var pr2=null;c.per.forEach(function(q){if(q[5]==='v4'&&idxN(q[0])<=ni&&q[1]==='open')pr2=q;});return 'in a '+(code==='R'?'recession':'disturbance')+(pr2?' since '+ym(pr2[0]):'')+' (provisional, weekly State claims, labor only, running grade '+f2(c.g[ni]/100)+')'+cn;}
+ if(ni>=pvA&&(code==='R'||code==='D')){var pr2=null;c.per.forEach(function(q){if(q[5]==='v4'&&idxN(q[0])<=ni&&q[1]==='open')pr2=q;});return 'in a '+(code==='R'?'recession':'disturbance')+(pr2?' since '+ym(pr2[0]):'')+' (provisional: the grade of '+ymL(PV.v4_last)+', '+f2(c.g[ni]/100)+', held until the State indexes are published)'+cn;}
  if(ni>=pvA&&code==='N')return (cn?'':'')+'in no open period (provisional, weekly State claims: rise in the insured unemployment rate, labor grade '+f2(c.g[ni]/100)+')'+cn;
  if(code==='R'||code==='D'){var pr=null;c.per.forEach(function(q){if(q[5]===(ni>=seam?'v4':'L0')&&idxN(q[0])<=ni&&(q[1]==='open'||idxN(q[1])>=ni))pr=q;});
   return 'in a '+(code==='R'?'recession':'disturbance')+(pr?' since '+ym(pr[0]):'')+' ('+lay+', running grade '+f2(c.g[ni]/100)+')';}
