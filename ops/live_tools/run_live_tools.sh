@@ -32,6 +32,11 @@ if [ "${MODE:-full}" != "parity" ]; then
   step "State page other inputs" $PY "$OPS/state_fast.py" extra || say "other State inputs refresh returned non-zero (held files kept)"
   wait $SI
 fi
+# 19 Nov 2026 (collection 1149, Anthony: "do all three"): the tool code changed that day is carried in the repo (ops/live_tools/overlay) and laid over the
+# restored state before the tools run: the State page's last column is the fall against trend; the stress map starts each period where the State page does.
+for d in 1032_state_recession_indicator_all_states_dc_2026-11-09:1032 1052_stress_map_fix_parse_collect_2026-11-12:1052; do
+  for f in "$OPS/overlay/${d##*:}/code/"*.py; do cmp -s "$f" "$P/${d%%:*}/code/$(basename "$f")" || { cp "$f" "$P/${d%%:*}/code/" && say "overlay: $(basename "$f")"; }; done
+done
 step "1032 routine step 2" $PY code/state_v4_rebuild_1052.py || STOP="1032 routine step 2 (six scripts or a check) failed"
 [ -z "$STOP" ] && { step "State page render" $PY code/page_check_1052.py state "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/web/state-onset/index.html" || STOP="State page render check failed"; }
 [ -z "$STOP" ] && { step "stress map v3.1" $PY "$OPS/stress_map_cached.py" --all --procs "$(nproc)" || STOP="stress map v3.1 build failed"; }
