@@ -159,8 +159,12 @@ function asof(seq,n){ if(seq[0]>n) return null; let lo=0,hi=seq.length/2-1; whil
 // index of the newest period published by day n (a period is known once its first vintage day is <= n)
 function lastKnown(s,n){ for(let i=s.obs.length-1;i>=0;i--) if(s.v[i][0]<=n) return i; return -1; }
 function val(row,s,i,n){ const a=asof(s.v[i],n); if(a==null) return null;
-  const lag=row.tf==='diff'||row.tf==='qann'?1:row.tf==='yoy'?12:0; if(!lag) return a*row.scale;
-  if(i<lag) return null; const b=asof(s.v[i-lag],n); if(b==null||b===0) return null;
+  const mo=row.tf==='diff'?1:row.tf==='qann'?3:row.tf==='yoy'?12:0; if(!mo) return a*row.scale;
+  // the earlier period is found by its date, never by counting rows: a period that was never published (October 2025 consumer prices) leaves no row,
+  // and where it is the base the change does not exist (the BLS published no 12-month change for October 2026)
+  const d=new Date(E0+s.obs[i]*DAY), t=Math.round((Date.UTC(d.getUTCFullYear(),d.getUTCMonth()-mo,1)-E0)/DAY);
+  if(!s.ix){ s.ix=new Map(); for(let j=0;j<s.obs.length;j++) s.ix.set(s.obs[j],j); }
+  const k=s.ix.get(t); if(k==null) return null; const b=asof(s.v[k],n); if(b==null||b===0) return null;
   return row.tf==='diff'?(a-b)*row.scale:row.tf==='qann'?(Math.pow(a/b,4)-1)*100:(a/b-1)*100; }
 function pick(row,n){ for(const id of row.ids){ const s=D[id]; if(!s) continue; const i=lastKnown(s,n); if(i>=0) return [s,i]; } return [null,-1]; }
 const fmt=(row,x)=>x==null?'<span class="na">&mdash;</span>':(x<0?'\u2212':'')+Math.abs(x).toLocaleString('en-US',{minimumFractionDigits:row.dec,maximumFractionDigits:row.dec});
