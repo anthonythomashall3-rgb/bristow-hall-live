@@ -286,7 +286,7 @@ function describe(st,i){var c=J.states[st], k=mkA(abs_(J.start)+i), code=c.s[i],
  if(code==='G') return h+'No State payroll series yet (it begins '+ym(c.start)+').';
  var lay=i>=seam?'State chronology v4':'pre-1979 layer (payrolls and insured unemployment)';
  if(code==='R'||code==='D'){var pr=null;c.per.forEach(function(q){if(q[5]===(i>=seam?'v4':'L0')&&idxN(q[0])<=i&&(q[1]==='open'?true:idxN(q[1])>=i))pr=q;});
-   h+=(code==='R'?'In a <b>recession</b> period':'In a <b>disturbance</b> period')+(pr?' (peak '+ym(pr[0])+', trough '+ym(pr[1])+(pr[4]?', provisional':'')+')':'')+'<br>Running damage grade <b>'+f2(c.g[i]/100)+'</b>'+(pr?(pr[1]==='open'?'':' (grade at the trough '+f2(pr[3])+')'):'')+'<br>';
+   h+=(code==='R'?'In a <b>recession</b> period':'In a <b>disturbance</b> period')+(pr?' (start '+ym(pr[0])+', trough '+ym(pr[1])+(pr[4]?', provisional':'')+')':'')+'<br>Running damage grade <b>'+f2(c.g[i]/100)+'</b>'+(pr?(pr[1]==='open'?'':' (grade at the trough '+f2(pr[3])+')'):'')+'<br>';
  } else h+='No period open. Index '+(c.d[i]>=0?'above':'below')+' its trend by <b>'+f2(Math.abs(c.d[i]/100))+'</b> of its quiet-record SD<br>';
  return h+'Color: '+BC[c.b[i]]+' · '+lay;}
 function describeC(f,i){var nm=D.shapes[f][0], k=mkV(i), code=D.s[f][i], h='<b>'+esc(nm)+'</b>, '+STN[view.st]+', '+ymL(k)+'<br>';
@@ -295,7 +295,7 @@ function describeC(f,i){var nm=D.shapes[f][0], k=mkV(i), code=D.s[f][i], h='<b>'
  if(code==='U')return h+'Labor damage grade <b>'+f2(D.v[f][i]/100)+'</b> (rise of the unemployment rate over its lowest rate of the previous 12 months)<br>Color: '+BC[D.b[f][i]]+lo;
  if(code==='V')return h+'No rise of the unemployment rate over its lowest rate of the previous 12 months (labor damage grade under 0.05)<br>Color: '+BC[D.b[f][i]]+lo;
  if(code==='R'||code==='D'){var pr=null;(D.per[f]||[]).forEach(function(q){if(idxV(q[0])<=i&&(q[1]==='open'||idxV(q[1])>=i))pr=q;});
-   h+=(code==='R'?'In a <b>recession</b> period':'In a <b>disturbance</b> period')+(pr?' (peak '+ym(pr[0])+', trough '+ym(pr[1])+(pr[4]?', provisional':'')+')':'')+'<br>Running damage grade <b>'+f2(D.v[f][i]/100)+'</b>'+(pr&&pr[1]!=='open'?' (grade at the trough '+f2(pr[3])+')':'')+'<br>';
+   h+=(code==='R'?'In a <b>recession</b> period':'In a <b>disturbance</b> period')+(pr?' (start '+ym(pr[0])+', trough '+ym(pr[1])+(pr[4]?', provisional':'')+')':'')+'<br>Running damage grade <b>'+f2(D.v[f][i]/100)+'</b>'+(pr&&pr[1]!=='open'?' (grade at the trough '+f2(pr[3])+')':'')+'<br>';
  } else h+='No period open. Employment '+(D.v[f][i]>=0?'above':'below')+' its trend by <b>'+f2(Math.abs(D.v[f][i]/100))+'</b> of its quiet-record SD<br>';
  return h+'Color: '+BC[D.b[f][i]]+' · county layer C0 (QCEW employment, LAUS unemployment rate)'+lo;}
 function renderNation(){var g='';Object.keys(J.shapes).sort().forEach(function(st){g+='<path data-id="'+st+'" d="'+J.shapes[st]+'"/>';});layer.setAttribute('class','');layer.innerHTML=g;hl.innerHTML='';
