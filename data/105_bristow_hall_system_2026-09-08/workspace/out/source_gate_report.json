@@ -3,10 +3,10 @@
  "mode": "hold",
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
- "build_day": "2026-11-18",
- "checked_at": "2026-11-19 10:37 UTC",
- "seconds": 42.8,
- "source_calls": 62,
+ "build_day": "2026-11-19",
+ "checked_at": "2026-11-19 12:57 UTC",
+ "seconds": 1.8,
+ "source_calls": 4,
  "source_errors": {},
  "counts": {
   "home": {
@@ -199,7 +199,7 @@
    "period": null,
    "series": "ICSA",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-25",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -235,7 +235,7 @@
    "period": null,
    "series": "IURSA",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-25",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -388,7 +388,7 @@
    "check": "matches the detector",
    "status": "PASS",
    "value": 0.857,
-   "period": "2026-11-18",
+   "period": "2026-11-19",
    "series": "BHRREALTIME",
    "transform": "the detector reading",
    "expected": 0.857,
@@ -427,7 +427,7 @@
    "period": null,
    "series": "SP500",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-20",
    "detail": "the next NYSE trading day"
   },
   {
@@ -571,7 +571,7 @@
    "period": null,
    "series": "ICSA",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-25",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -619,7 +619,7 @@
    "period": null,
    "series": "WEI",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-25",
    "detail": "FRED release 465 (Weekly Economic Index (Lewis-Mertens-Stock))"
   },
   {
@@ -967,7 +967,7 @@
    "period": null,
    "series": "IURSA",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-25",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -1003,7 +1003,7 @@
    "period": null,
    "series": "CCNSA",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-25",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -1039,7 +1039,7 @@
    "period": null,
    "series": "ALINSUREDUR",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-20",
    "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -1495,7 +1495,7 @@
    "period": null,
    "series": "ALICLAIMS",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-20",
    "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -1519,7 +1519,7 @@
    "period": null,
    "series": "ALICLAIMS",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-20",
    "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -1568,7 +1568,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1627,7 +1627,7 @@
    "period": null,
    "series": "ALINSUREDUR",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-20",
    "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -1712,7 +1712,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1736,7 +1736,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1952,7 +1952,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2252,7 +2252,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2276,7 +2276,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2575,7 +2575,7 @@
    "period": null,
    "series": "IURSA",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-25",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -2683,7 +2683,7 @@
    "period": null,
    "series": "CCNSA",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-25",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -2727,7 +2727,7 @@
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "freshness",
    "status": "PASS",
-   "value": 10.67,
+   "value": 10.26,
    "period": "2026-11-18",
    "series": "SP500",
    "transform": "sp_yoy",
@@ -2739,11 +2739,11 @@
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "value",
    "status": "PASS",
-   "value": 10.67,
+   "value": 10.26,
    "period": "2026-11-18",
    "series": "SP500",
    "transform": "sp_yoy",
-   "expected": 10.6737,
+   "expected": 10.2598,
    "detail": ""
   },
   {
@@ -2959,7 +2959,7 @@
    "period": null,
    "series": "ICSA",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-25",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -3103,7 +3103,7 @@
    "period": null,
    "series": "CCSA",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-25",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -3279,7 +3279,7 @@
    "label": "current through: search",
    "check": "freshness",
    "status": "WARN",
-   "value": "2026-11-17",
+   "value": "2026-11-18",
    "period": null,
    "series": null,
    "transform": null,
@@ -3292,10 +3292,10 @@
    "check": "phantom",
    "status": "PASS",
    "value": 0.857,
-   "period": "2026-11-18",
+   "period": "2026-11-19",
    "series": "BHRREALTIME",
    "transform": null,
-   "expected": "2026-11-18",
+   "expected": "2026-11-19",
    "detail": ""
   },
   {
@@ -3304,7 +3304,7 @@
    "check": "cadence",
    "status": "PASS",
    "value": 0.857,
-   "period": "2026-11-18",
+   "period": "2026-11-19",
    "series": null,
    "transform": null,
    "expected": null,
@@ -3331,7 +3331,7 @@
    "period": null,
    "series": "ICSA",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-25",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -3415,7 +3415,7 @@
    "period": null,
    "series": "SP500",
    "transform": null,
-   "expected": "2026-11-19",
+   "expected": "2026-11-20",
    "detail": "the next NYSE trading day"
   },
   {
