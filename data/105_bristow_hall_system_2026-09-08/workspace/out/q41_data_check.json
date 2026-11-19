@@ -120,14 +120,14 @@
 },
 {
 "name": "tile: Initial claims (week) next release is not in the past",
-"got": "2026-11-19",
+"got": "2026-11-25",
 "want": ">= 2026-11-19",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Insured unemployment rate next release is not in the past",
-"got": "2026-11-19",
+"got": "2026-11-25",
 "want": ">= 2026-11-19",
 "status": "PASS",
 "gate": null
@@ -869,8 +869,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-19 09:45', '2026-11-19 09:45')",
-"want": "('2026-11-19 09:45', '2026-11-19 09:45')",
+"got": "('2026-11-19 10:46', '2026-11-19 10:46')",
+"want": "('2026-11-19 10:46', '2026-11-19 10:46')",
 "status": "PASS",
 "gate": "hard"
 },
