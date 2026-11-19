@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-19 10:51",
+ "built_at": "2026-11-19 11:33",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-19T15:59:03Z",
+ "generated_utc": "2026-11-19T16:35:22Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -695,7 +695,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-19",
+   "build_next": "2026-11-25",
    "confirmed_through": "2026-12-31",
    "fred_clock": "11:39",
    "freq": "weekly",
@@ -703,7 +703,7 @@
    "link": "/detector/",
    "name": "weekly economic index (lewis, mertens and stock), 13-week mean",
    "next_expected": false,
-   "next_ny": "2026-11-19 11:30",
+   "next_ny": "2026-11-25 11:30",
    "read_lag_min": 10,
    "release_id": 465,
    "short": "weekly economic index (lewis, mertens an",
