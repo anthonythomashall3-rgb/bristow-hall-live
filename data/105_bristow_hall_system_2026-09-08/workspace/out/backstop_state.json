@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-19T13:26:33",
+ "built_at": "2026-11-19T14:13:30",
  "standing": {
   "state": "closed",
   "since": "2024-10-01",
@@ -8,11 +8,11 @@
  },
  "rules": {
   "SOS_NSA": {
-   "reading": -0.114,
+   "reading": -0.116,
    "line": 0.2,
    "on": false,
    "since": "2023-12-16",
-   "data_through": "2026-10-31",
+   "data_through": "2026-11-07",
    "unit": "pp, 52-week change of the 26-week average of CCNSA/COVEMP",
    "vintage": "administrative, unrevised (one-tick margin measured in collection 248)"
   },
