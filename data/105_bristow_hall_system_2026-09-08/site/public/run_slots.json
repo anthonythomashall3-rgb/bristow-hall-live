@@ -1,18 +1,11 @@
 {
- "built_at": "2026-11-19 16:09",
+ "built_at": "2026-11-19 16:55",
  "fallback": "weekdays 08:35, 09:45, 10:15, 16:20 and 20:10 (New York time), used only if this list cannot be read",
- "generated_utc": "2026-11-19T21:19:43Z",
+ "generated_utc": "2026-11-19T21:57:28Z",
  "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes after each release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close at 4:20 PM and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
  "refresh_incomplete": null,
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
  "slots": [
-  {
-   "ny": "2026-11-16 16:20",
-   "utc": "2026-11-16T21:20:00Z",
-   "why": [
-    "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
-   ]
-  },
   {
    "ny": "2026-11-16 20:20",
    "utc": "2026-11-17T01:20:00Z",
@@ -138,10 +131,43 @@
    ]
   },
   {
+   "live_tools": true,
+   "ny": "2026-11-19 16:16",
+   "utc": "2026-11-19T21:16:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
+   ]
+  },
+  {
    "ny": "2026-11-19 16:20",
    "utc": "2026-11-19T21:20:00Z",
    "why": [
     "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-11-19 16:36",
+   "utc": "2026-11-19T21:36:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-11-19 16:56",
+   "utc": "2026-11-19T21:56:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
    ]
   },
   {
@@ -338,10 +364,43 @@
    ]
   },
   {
+   "live_tools": true,
+   "ny": "2026-11-25 16:16",
+   "utc": "2026-11-25T21:16:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
+   ]
+  },
+  {
    "ny": "2026-11-25 16:20",
    "utc": "2026-11-25T21:20:00Z",
    "why": [
     "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-11-25 16:36",
+   "utc": "2026-11-25T21:36:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-11-25 16:56",
+   "utc": "2026-11-25T21:56:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
    ]
   },
   {
@@ -495,10 +554,43 @@
    ]
   },
   {
+   "live_tools": true,
+   "ny": "2026-12-03 16:16",
+   "utc": "2026-12-03T21:16:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
+   ]
+  },
+  {
    "ny": "2026-12-03 16:20",
    "utc": "2026-12-03T21:20:00Z",
    "why": [
     "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-03 16:36",
+   "utc": "2026-12-03T21:36:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-03 16:56",
+   "utc": "2026-12-03T21:56:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
    ]
   },
   {
@@ -681,6 +773,46 @@
    ],
    "why": [
     "the Department's ETA 539 State file (3:55 PM ET; read from the Department)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-10 16:16",
+   "utc": "2026-12-10T21:16:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
+   ]
+  },
+  {
+   "ny": "2026-12-10 16:20",
+   "utc": "2026-12-10T21:20:00Z",
+   "why": [
+    "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-10 16:36",
+   "utc": "2026-12-10T21:36:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-10 16:56",
+   "utc": "2026-12-10T21:56:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
    ]
   }
  ],
