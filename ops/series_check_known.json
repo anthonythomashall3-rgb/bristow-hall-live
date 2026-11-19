@@ -1,0 +1,43 @@
+{
+ "_what": "findings read and accepted on the day named; ops/series_check.py fails only on a hard finding that is not here",
+ "accepted": "2026-11-19T04:54:08Z",
+ "known": [
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/FEDFUNDS.csv|S1|1|2020-04-01",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/ICNSA.csv|S1|1|2020-03-21",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/claims_nsa_first_prints.csv [icnsa]|S1|1|2020-03-21",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icnsa]|S1|1|2020-03-21",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa]|S1|1|2020-03-21",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]|H4|30|1994-12-31",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]|S1|52|1994-12-31",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]|S2|25|1994-12-31",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [iusa]|H4|1|1989-04-01",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [iusa]|S1|2|1989-04-01",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [iusa]|S2|5|1977-01-15",
+  "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [ic_rtsa]|H4|1|2022-03-12",
+  "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [ic_rtsa]|S1|3|2020-03-21",
+  "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [iu_nsa]|S2|2|1947-11-29",
+  "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [iu_rtsa]|H4|1|1989-04-01",
+  "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [iu_rtsa]|S1|2|1989-04-01",
+  "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [iu_rtsa]|S2|7|1951-12-01",
+  "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_rate_history.csv|S1|1|2020-04-01",
+  "data/45_dol_first_prints_2026-09/national_first_prints.csv [icnsa]|S1|1|2020-03-21",
+  "data/45_dol_first_prints_2026-09/national_first_prints.csv [icsa]|S1|1|2020-03-21",
+  "data/45_dol_first_prints_2026-09/national_first_prints.csv [icsa_prev_rev]|H4|29|2014-06-07",
+  "data/45_dol_first_prints_2026-09/national_first_prints.csv [icsa_prev_rev]|S1|50|2014-06-07",
+  "data/45_dol_first_prints_2026-09/national_first_prints.csv [icsa_prev_rev]|S2|24|2014-06-07",
+  "data/45_dol_first_prints_2026-09/national_first_prints.csv [iusa]|S2|1|2020-07-18",
+  "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/INDPRO_all_vintages.csv|V1|854|1919-01-01",
+  "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/LNS13023621_all_vintages.csv [first prints]|S1|1|2020-04-01",
+  "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/LNS13023621_all_vintages.csv|H3|1|2025-10-01",
+  "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/UNEMPLOY_all_vintages.csv|H3|1|2025-10-01",
+  "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/UNRATE_all_vintages.csv|H3|1|2025-10-01"
+ ],
+ "open_defects": {
+  "e22_history.csv iu_rtsa 1989-04-01 = 213355000 and national_first_prints iusa (release 1989-04-20, kind news)": "a misread number (about 2.13 million expected); outside every episode, so no close of E22 reads it; the right first print is not held in this repository",
+  "e22_history.csv ic_rtsa 2022-03-12 = 2.2": "made from the initial-claims cell of 2 corrected on 19 Nov 2026 in collection 45; outside every episode; the frozen chain was not rebuilt",
+  "e22_history.csv iu_rtsa 1979-04-07 = 1298000, 1980-09-06 = 1876000 (soft S2)": "each about half the unadjusted figure printed beside it (2502000, 3252000): a first digit misread; outside every episode",
+  "e22_history.csv iu_nsa 1947-11-29 = 2756000, 1951-12-01 = 2018000 (soft S2)": "one week far above both neighbours; outside every episode",
+  "national_first_prints icsa_prev_rev: 1994-12-31 = 321 and 29 cells 2014-2019 of about 2 million": "the revised-previous-week column took the wrong number from the release; no part of the rule reads this column",
+  "UNRATE, UNEMPLOY, LNS13023621 newest vintage, October 2025 empty": "the household survey was not collected that month; not an error"
+ }
+}

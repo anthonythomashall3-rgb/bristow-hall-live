@@ -95,3 +95,17 @@ Push it to a branch (never `main`) and start the workflow on that branch:
 A branch run publishes a Cloudflare **preview** (never the site), pushes to its own branch, writes no ledger line, opens
 no issue, and sends its message to the test topic `(the OPS_TEST_TOPIC secret)` (read it with
 `curl -s https://ntfy.sh/(the OPS_TEST_TOPIC secret)/json?poll=1`).
+
+## The standing series check (19 November 2026)
+
+`ops/series_check.py` reads every series file the starter and the ender read and checks each on its own: the same date
+twice, unreadable dates, missing periods, jumps by a factor of 5, single points far from both neighbours, and cells 5 times
+off the rows around them. `.github/workflows/series-check.yml` runs it each Monday and by hand; it publishes nothing and
+commits nothing. A hard finding that is not in `ops/series_check_known.json` fails the run. After reading a new finding:
+correct the cell at its source, or run `python3 ops/series_check.py --accept` and commit the known file. The first run found
+initial claims of 2 for the week of 12 March 2022 (collection 45, read from the release PDF; the first print is 202,894).
+
+## The rule's identity in the forward ledger (19 November 2026)
+
+Each ledger line carries `rule_id` and `build_id` (`s2/rule_id.py`) and `tools` (the other live tools' pages on the day).
+`live/RULE-IDS.jsonl` gains a line the first time an identity is seen, with every file's sha256.
