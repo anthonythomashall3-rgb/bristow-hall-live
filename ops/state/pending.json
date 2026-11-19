@@ -1,17 +1,5 @@
 {
- "came_in": [
-  {
-   "came_in": "2026-11-19 09:24",
-   "due_ny": "2026-11-19 08:30",
-   "expected_day": false,
-   "ids": "ccnsa / covemp",
-   "short": "weekly claims",
-   "since_ny": "2026-11-19 09:14",
-   "through_before": "2026-10-31",
-   "through_now": "2026-11-07",
-   "value_before": "-0.114"
-  }
- ],
+ "came_in": [],
  "early": {
   "aliclaims ... wyiclaims": {
    "at": "2026-11-15 18:41",
@@ -44,7 +32,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-19 09:19",
+ "last_check_ny": "2026-11-19 09:42",
  "pending": [
   {
    "due_ny": "2026-11-19 08:30",
