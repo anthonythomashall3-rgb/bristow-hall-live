@@ -41,7 +41,6 @@ def main():
             nav = hd.group(0).replace(' aria-current="page"', '').replace('href="/stress-map/"', 'href="/stress-map/" aria-current="page"')
             t = re.sub(r'<header class="bh">.*?</header>', lambda _: nav, t, count=1, flags=re.S)
     os.makedirs(os.path.dirname(PAGE), exist_ok=True)
-    t = t.replace('Bristow-Hall Business Cycle Program', 'Bristow-Hall System')      # the site's name since 18 November 2026 (1141); the page is built outside this step
     open(PAGE, 'w', encoding='utf-8').write(t)
     try:
         open(os.path.join(os.path.dirname(PAGE), 'thumb.svg'), 'w', encoding='utf-8').write(thumb(J))
