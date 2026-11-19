@@ -4,8 +4,8 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-19",
- "checked_at": "2026-11-19 14:14 UTC",
- "seconds": 2.4,
+ "checked_at": "2026-11-19 14:24 UTC",
+ "seconds": 3.0,
  "source_calls": 4,
  "source_errors": {},
  "counts": {
@@ -13,8 +13,8 @@
    "PASS": 28
   },
   "data/detector": {
-   "PASS": 68,
-   "WARN": 4
+   "PASS": 69,
+   "WARN": 3
   },
   "data/disturbance": {
    "PASS": 18
@@ -52,9 +52,9 @@
   "checks": 400,
   "figures": 270,
   "fail": 0,
-  "warn": 43,
+  "warn": 42,
   "unverified": 0,
-  "passed": 351
+  "passed": 352
  },
  "failures": [],
  "rows": [
@@ -612,6 +612,42 @@
   },
   {
    "page": "data/detector",
+   "label": "insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)",
+   "check": "value",
+   "status": "WARN",
+   "value": "-0.116",
+   "period": "2026-11-07",
+   "series": "ccnsa / covemp",
+   "transform": "derived",
+   "expected": null,
+   "detail": "a derived value with no recipe here: not recomputed (listed as remaining risk)"
+  },
+  {
+   "page": "data/detector",
+   "label": "insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "-0.116",
+   "period": "2026-11-07",
+   "series": "CCNSA",
+   "transform": "file",
+   "expected": "2026-11-07",
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-11-25",
+   "period": null,
+   "series": "CCNSA",
+   "transform": null,
+   "expected": "2026-11-25",
+   "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
+  },
+  {
+   "page": "data/detector",
    "label": "weekly economic index (lewis, mertens and stock), 13-week mean",
    "check": "freshness",
    "status": "PASS",
@@ -969,42 +1005,6 @@
    "transform": null,
    "expected": "2026-12-04",
    "detail": "FRED release 456 (Sahm Rule Recession Indicator)"
-  },
-  {
-   "page": "data/detector",
-   "label": "insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)",
-   "check": "value",
-   "status": "WARN",
-   "value": "-0.114",
-   "period": "2026-10-31",
-   "series": "ccnsa / covemp",
-   "transform": "derived",
-   "expected": null,
-   "detail": "a derived value with no recipe here: not recomputed (listed as remaining risk)"
-  },
-  {
-   "page": "data/detector",
-   "label": "insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)",
-   "check": "freshness",
-   "status": "WARN",
-   "value": "-0.114",
-   "period": "2026-10-31",
-   "series": "CCNSA",
-   "transform": "file",
-   "expected": "2026-11-07",
-   "detail": "a newer period (2026-11-07) was published 2026-11-19, on or after the build day: the next run takes it"
-  },
-  {
-   "page": "data/detector",
-   "label": "insured unemployment rate, not seasonally adjusted (52-week change of the 26-week average)",
-   "check": "next published",
-   "status": "PASS",
-   "value": "2026-11-25",
-   "period": null,
-   "series": "CCNSA",
-   "transform": null,
-   "expected": "2026-11-25",
-   "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
    "page": "data/detector",

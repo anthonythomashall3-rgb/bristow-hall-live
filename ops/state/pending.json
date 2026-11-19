@@ -1,16 +1,15 @@
 {
  "came_in": [
   {
-   "came_in": "2026-11-19 09:14",
+   "came_in": "2026-11-19 09:24",
    "due_ny": "2026-11-19 08:30",
-   "ids": "icsa, ccsa, icnsa, ccnsa",
-   "short": "weekly claims"
-  },
-  {
-   "came_in": "2026-11-19 09:14",
-   "due_ny": "2026-11-19 08:30",
-   "ids": "iursa",
-   "short": "weekly claims"
+   "expected_day": false,
+   "ids": "ccnsa / covemp",
+   "short": "weekly claims",
+   "since_ny": "2026-11-19 09:14",
+   "through_before": "2026-10-31",
+   "through_now": "2026-11-07",
+   "value_before": "-0.114"
   }
  ],
  "early": {
@@ -45,17 +44,8 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-19 09:09",
+ "last_check_ny": "2026-11-19 09:19",
  "pending": [
-  {
-   "due_ny": "2026-11-19 08:30",
-   "expected_day": false,
-   "ids": "ccnsa / covemp",
-   "short": "weekly claims",
-   "since_ny": "2026-11-19 09:14",
-   "through_before": "2026-10-31",
-   "value_before": "-0.114"
-  },
   {
    "due_ny": "2026-11-19 08:30",
    "expected_day": false,
