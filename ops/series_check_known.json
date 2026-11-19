@@ -1,15 +1,15 @@
 {
  "_what": "findings read and accepted on the day named; ops/series_check.py fails only on a hard finding that is not here",
- "accepted": "2026-11-19T10:11:33Z",
+ "accepted": "2026-11-19T13:24:32Z",
  "known": [
   "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/FEDFUNDS.csv|S1|1|2020-04-01",
   "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/ICNSA.csv|S1|1|2020-03-21",
   "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/claims_nsa_first_prints.csv [icnsa]|S1|1|2020-03-21",
   "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icnsa]|S1|1|2020-03-21",
   "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa]|S1|1|2020-03-21",
-  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]|H4|30|1994-12-31",
-  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]|S1|52|1994-12-31",
-  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]|S2|25|1994-12-31",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]|H4|29|2014-06-07",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]|S1|50|2014-06-07",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]|S2|24|2014-06-07",
   "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [iusa]|S2|2|1977-01-15",
   "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [ic_rtsa]|H4|1|2022-03-12",
   "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [ic_rtsa]|S1|3|2020-03-21",
@@ -31,8 +31,8 @@
  "open_defects": {
   "e22_history.csv ic_rtsa 2022-03-12 = 2.2": "made from the initial-claims cell of 2 corrected on 19 Nov 2026 in collection 45; outside every episode; the frozen chain was not rebuilt",
   "e22_history.csv iu_nsa 1947-11-29 = 2756000, 1951-12-01 = 2018000 (soft S2)": "one week far above both neighbours; outside every episode; collection 59 own transcription holds 1045743 for 1 December 1951 and no figure for 29 November 1947: not proven, not corrected",
-  "national_first_prints icsa_prev_rev: 1994-12-31 = 321 and 29 cells 2014-2019 of about 2 million": "the revised-previous-week column took the wrong number from the release; no part of the rule reads this column",
-  "UNRATE, UNEMPLOY, LNS13023621 newest vintage, October 2025 empty": "the household survey was not collected that month; not an error"
+  "UNRATE, UNEMPLOY, LNS13023621 newest vintage, October 2025 empty": "the household survey was not collected that month; not an error",
+  "national_first_prints icsa_prev_rev: 29 cells of 2014-2019 of about 2 million": "the revised-previous-week column took the wrong number from the release; after 28 May 2009 nothing reads this column (the Time Machine uses ALFRED from that day); the cell of 31 Dec 1994 (321) was corrected on 19 Nov 2026"
  },
  "corrected_2026_11_19": {
   "insured unemployment SA, week of 1 April 1989: 213355000 -> 2133000": "the release of 20 April 1989 prints \"2,13355,000 ... a decrease of 25,000 from the prior week's ... revised level of 2,158,000\", and the release of 27 April restates the week at 2,133,000 (collection 399, msu.31293026746598 pages 169 and 171)",
