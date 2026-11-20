@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-20 09:43",
+ "built_at": "2026-11-20 10:15",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-20T14:44:37Z",
+ "generated_utc": "2026-11-20T15:16:30Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -1836,7 +1836,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-20",
+   "build_next": "2026-12-18",
    "confirmed_through": "2026-12-18",
    "fred_clock": "13:06",
    "freq": "monthly",
@@ -1844,7 +1844,7 @@
    "link": "/state-onset/",
    "name": "state payrolls by industry, as first published",
    "next_expected": false,
-   "next_ny": "2026-11-20 10:00",
+   "next_ny": "2026-12-18 10:00",
    "read_lag_min": 186,
    "release_id": 112,
    "short": "state payrolls by industry, as first pub",
@@ -1879,7 +1879,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-20",
+   "build_next": "2026-12-18",
    "confirmed_through": "2026-12-18",
    "fred_clock": "13:06",
    "freq": "monthly",
@@ -1887,7 +1887,7 @@
    "link": "/state-onset/",
    "name": "state unemployment rates, 50 states and dc",
    "next_expected": false,
-   "next_ny": "2026-11-20 10:00",
+   "next_ny": "2026-12-18 10:00",
    "read_lag_min": 186,
    "release_id": 112,
    "short": "state unemployment rates, 50 states and ",
@@ -1922,7 +1922,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-20",
+   "build_next": "2026-12-18",
    "confirmed_through": "2026-12-18",
    "fred_clock": "13:06",
    "freq": "monthly",
@@ -1930,7 +1930,7 @@
    "link": "/state-onset/",
    "name": "state payrolls and unemployment rates, not seasonally adjusted",
    "next_expected": false,
-   "next_ny": "2026-11-20 10:00",
+   "next_ny": "2026-12-18 10:00",
    "read_lag_min": 186,
    "release_id": 112,
    "short": "state payrolls and unemployment rates, n",
@@ -2139,7 +2139,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-20",
+   "build_next": "2026-12-18",
    "confirmed_through": "2026-12-18",
    "fred_clock": "13:06",
    "freq": "monthly",
@@ -2147,7 +2147,7 @@
    "link": "/stress-map/",
    "name": "state payroll employment, not seasonally adjusted (history layer before 1979-07)",
    "next_expected": false,
-   "next_ny": "2026-11-20 10:00",
+   "next_ny": "2026-12-18 10:00",
    "read_lag_min": 186,
    "release_id": 112,
    "short": "state payroll employment, not seasonally",
