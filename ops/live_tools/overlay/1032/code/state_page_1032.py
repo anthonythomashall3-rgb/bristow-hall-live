@@ -237,6 +237,10 @@ _m1 = re.search(r"'<line x1=\"'\+ml\+'\" x2=\"'\+\(W-mr\)\+'\" y1=\"'\+ysL\(1\)\
 rep('<div class="speed" id="speed">', '<div class="speed" id="speed" style="grid-template-columns:minmax(0,580px)">')
 rep('<div class="pan"><h3>Troughs', '<div class="pan" style="display:none"><h3>Troughs')
 # 14 Nov 2026 (Anthony 00:21 PT): the dashed call lines are taken off the graph
+# 1159 (20 Nov 2026): a State whose newest month holds no grade yet (the October rate was out at BLS, the October payrolls not) stopped the whole page
+# ("Cannot read properties of null (reading 'toFixed')"; 24 States failed the render check in run 44766448481). The line now shows the newest month that holds a grade.
+rep("$('#obs').innerHTML=(ld.length>7?fmtD(ld):fmtM(ld))+': <b>'+lv.toFixed(2)+'</b>'",
+    "$('#obs').innerHTML=(()=>{ let k=N-1; while(k>0&&(SER.values[k]===null||SER.values[k]===undefined||!isFinite(SER.values[k]))) k--; const d=SER.dates[k], v=SER.values[k]; return (d.length>7?fmtD(d):fmtM(d))+': <b>'+((v===null||v===undefined||!isFinite(v))?'\\u2014':(+v).toFixed(2))+'</b>'; })()")
 rep('<p class="sub">Months after the end of the peak month (for 2024, the peak month Paper 1 gives*)</p>', '<p class="sub">Months after the end of the peak month</p>')
 rep('<p class="sub">Months after the end of the trough month (for 2024, the trough month Paper 1 gives*)</p>', '<p class="sub">Months after the end of the trough month (the day the rule turned off)</p>')
 sahmcite = re.search(r'<p class="sum" style="color:#2e8b57">The Sahm rule:.*?</p>', h, flags=re.S); assert sahmcite; h = h.replace(sahmcite.group(0), '<p class="sum" id="stmiss"></p>')
