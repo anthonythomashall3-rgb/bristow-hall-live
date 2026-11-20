@@ -116,6 +116,12 @@ if python3 s2/disturbance/fred_refresh.py; then export BHS_DIST_FRED_READY=1; el
 # pages' "next published" days are this run's (FRED listed the G.17 annual revision of 24 Nov in the afternoon; the pages said 16 Dec and
 # the gate held the 4:20 PM update twice). Never fails the run.
 python3 "$HERE/ops/calendar_refresh.py" || true
+# THE BACKSTOP TIER (20 September 2026, collection 249): three outside zero-false-alarm rules run as a SHADOW tier beside
+# the rule - they never open, move or close an episode. Writes out/backstop_state.json and site/public/detector/backstop.json. A
+# failure here never fails the run. 1052 speed (19 Nov 2026): run BEFORE the site build - the data page's backstop rows read
+# out/backstop_state.json, and run after it they showed the last run's week (the ETA 539 week of 14 Nov was held by the gate:
+# "shows 2026-10-31 but 2026-11-07 was published", update run 44621366959, whose own backstop had read 2026-11-07).
+[ "$MODE" = "site" ] || python3 s2/backstop.py || true
 python3 bhs_site.py
 # THE NATIONAL DISTURBANCE CHRONOLOGY (9 November 2026; Anthony: "make the disturbance indicator autoupdating forever"):
 # re-dates every disturbance from current FRED data by the fixed rule and writes /disturbance/ over the stub bhs_site.py
@@ -140,10 +146,6 @@ python3 s2/run_slots.py || true
 # THE WATCHDOG (v3.67, 22 September 2026, collection 295): a stale channel, an opener that did not run, a late breadth month or
 # an FOMC calendar about to end is alerted (s2/alert.sh), once in three days while it lasts; never fails the run
 [ "$MODE" = "site" ] || python3 s2/watchdog.py || true
-# THE BACKSTOP TIER (20 September 2026, collection 249): three outside zero-false-alarm rules run as a SHADOW tier beside
-# the rule - they never open, move or close an episode. Writes out/backstop_state.json and site/public/backstop/. A
-# failure here never fails the run.
-[ "$MODE" = "site" ] || python3 s2/backstop.py || true
 # collection 335 (23 September 2026; plan L5, L7, item 18): the shadow scoreboard after the tier; on the first run of a new year the expansion ledger; never fail the run
 [ "$MODE" = "site" ] || python3 s2/scoreboard.py || true
 [ "$MODE" = "site" ] || python3 s2/data_census.py || true   # collection 337: the data census

@@ -21,7 +21,7 @@ NAME = {'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ', 'Arkansas': 'AR', 'Cal
         'Wisconsin': 'WI', 'Wyoming': 'WY'}
 CES = [('PAYEMS', 'CES0000000001'), ('USMINE', 'CES1000000001'), ('USCONS', 'CES2000000001'), ('MANEMP', 'CES3000000001'), ('USTPU', 'CES4000000001'),
        ('USINFO', 'CES5000000001'), ('USFIRE', 'CES5500000001'), ('USPBS', 'CES6000000001'), ('USEHS', 'CES6500000001'), ('USLAH', 'CES7000000001'),
-       ('USSERV', 'CES0800000001'), ('USGOVT', 'CES9000000001')]
+       ('USSERV', 'CES8000000001'), ('USGOVT', 'CES9000000001')]
 MON = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split()
 
 

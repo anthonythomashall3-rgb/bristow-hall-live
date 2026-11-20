@@ -1,0 +1,419 @@
+{
+ "at": "2026-11-19T20:21:33Z",
+ "files": [
+  {
+   "file": "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/UNRATE_all_vintages.csv",
+   "kind": "vintage",
+   "present": true,
+   "rows": 946,
+   "first": "1948-01-01",
+   "last": "2026-10-01",
+   "freq": "M"
+  },
+  {
+   "file": "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/PAYEMS_all_vintages.csv",
+   "kind": "vintage",
+   "present": true,
+   "rows": 1054,
+   "first": "1939-01-01",
+   "last": "2026-10-01",
+   "freq": "M"
+  },
+  {
+   "file": "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/UNEMPLOY_all_vintages.csv",
+   "kind": "vintage",
+   "present": true,
+   "rows": 946,
+   "first": "1948-01-01",
+   "last": "2026-10-01",
+   "freq": "M"
+  },
+  {
+   "file": "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/LNS13023621_all_vintages.csv",
+   "kind": "vintage",
+   "present": true,
+   "rows": 718,
+   "first": "1967-01-01",
+   "last": "2026-10-01",
+   "freq": "M"
+  },
+  {
+   "file": "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/JTSJOL_all_vintages.csv",
+   "kind": "vintage",
+   "present": true,
+   "rows": 310,
+   "first": "2000-12-01",
+   "last": "2026-09-01",
+   "freq": "M"
+  },
+  {
+   "file": "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/INDPRO_all_vintages.csv",
+   "kind": "vintage",
+   "present": true,
+   "rows": 1294,
+   "first": "1919-01-01",
+   "last": "2026-10-01",
+   "freq": "M"
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/FEDFUNDS.csv",
+   "kind": "long",
+   "present": true,
+   "rows": 868,
+   "first": "1954-07-01",
+   "last": "2026-10-01",
+   "freq": "M"
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/GS10.csv",
+   "kind": "long",
+   "present": true,
+   "rows": 883,
+   "first": "1953-04-01",
+   "last": "2026-10-01",
+   "freq": "M"
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/GS1.csv",
+   "kind": "long",
+   "present": true,
+   "rows": 883,
+   "first": "1953-04-01",
+   "last": "2026-10-01",
+   "freq": "M"
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/ICNSA.csv",
+   "kind": "long",
+   "present": true,
+   "rows": 3124,
+   "first": "1967-01-07",
+   "last": "2026-11-14",
+   "freq": "W"
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/CCNSA.csv",
+   "kind": "long",
+   "present": true,
+   "rows": 3123,
+   "first": "1967-01-07",
+   "last": "2026-11-07",
+   "freq": "W"
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/BAA.csv",
+   "kind": "long",
+   "present": false
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_rate_history.csv",
+   "kind": "long",
+   "present": true,
+   "rows": 1113,
+   "first": "1934-01-01",
+   "last": "2026-09-01",
+   "freq": "M"
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv",
+   "kind": "weekly_table",
+   "present": true,
+   "rows": 4211,
+   "first": "1946-01-17",
+   "last": "2026-09-24"
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/claims_nsa_first_prints.csv",
+   "kind": "weekly_table",
+   "present": true,
+   "rows": 2798,
+   "first": "2000-01-06",
+   "last": "2026-11-19"
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv",
+   "kind": "weekly_table",
+   "present": true,
+   "rows": 2677,
+   "first": "1975-08-11",
+   "last": "2026-11-19"
+  },
+  {
+   "file": "data/45_dol_first_prints_2026-09/national_first_prints.csv",
+   "kind": "weekly_table",
+   "present": true,
+   "rows": 1258,
+   "first": "2002-10-17",
+   "last": "2026-11-19"
+  }
+ ],
+ "findings": [
+  {
+   "file": "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/UNRATE_all_vintages.csv",
+   "check": "H3",
+   "n": 1,
+   "first": "2025-10-01",
+   "note": "empty cells inside the newest vintage",
+   "known": true
+  },
+  {
+   "file": "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/UNEMPLOY_all_vintages.csv",
+   "check": "H3",
+   "n": 1,
+   "first": "2025-10-01",
+   "note": "empty cells inside the newest vintage",
+   "known": true
+  },
+  {
+   "file": "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/LNS13023621_all_vintages.csv [first prints]",
+   "check": "S1",
+   "n": 1,
+   "first": "2020-04-01",
+   "note": "a jump by a factor of 5 or more",
+   "known": true
+  },
+  {
+   "file": "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/LNS13023621_all_vintages.csv",
+   "check": "H3",
+   "n": 1,
+   "first": "2025-10-01",
+   "note": "empty cells inside the newest vintage",
+   "known": true
+  },
+  {
+   "file": "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/INDPRO_all_vintages.csv",
+   "check": "V1",
+   "n": 854,
+   "first": "1919-01-01",
+   "note": "newest vintage against first print differs by a factor of 2 or more (a rebased index does this; anything else is a unit change)",
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/FEDFUNDS.csv",
+   "check": "S1",
+   "n": 1,
+   "first": "2020-04-01",
+   "note": "a jump by a factor of 5 or more",
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/ICNSA.csv",
+   "check": "S1",
+   "n": 1,
+   "first": "2020-03-21",
+   "note": "a jump by a factor of 5 or more",
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_rate_history.csv",
+   "check": "S1",
+   "n": 1,
+   "first": "2020-04-01",
+   "note": "a jump by a factor of 5 or more",
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [iu_nsa]",
+   "check": "S2",
+   "n": 2,
+   "first": "1947-11-29",
+   "note": "a single point far from both neighbours that comes straight back",
+   "all": [
+    "1947-11-29",
+    "1951-12-01"
+   ],
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [iu_rtsa]",
+   "check": "S2",
+   "n": 4,
+   "first": "1951-12-01",
+   "note": "a single point far from both neighbours that comes straight back",
+   "all": [
+    "1951-12-01",
+    "1977-01-15",
+    "1979-01-20",
+    "2020-07-18"
+   ],
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [ic_rtsa]",
+   "check": "H4",
+   "n": 1,
+   "first": "2022-03-12",
+   "note": "a cell 5 times above or below the 9 rows around it: 2022-03-12 = 2.202737",
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [ic_rtsa]",
+   "check": "S1",
+   "n": 3,
+   "first": "2020-03-21",
+   "note": "a jump by a factor of 5 or more",
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/claims_nsa_first_prints.csv [icnsa]",
+   "check": "S1",
+   "n": 1,
+   "first": "2020-03-21",
+   "note": "a jump by a factor of 5 or more",
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa]",
+   "check": "S1",
+   "n": 1,
+   "first": "2020-03-21",
+   "note": "a jump by a factor of 5 or more",
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]",
+   "check": "H4",
+   "n": 29,
+   "first": "2014-06-07",
+   "note": "a cell 5 times above or below the 9 rows around it: 2014-06-07 = 2603000, 2014-10-18 = 2389000, 2015-05-23 = 2211000, 2016-03-05 = 2257000, 2016-06-04 = 2172000, 2017-04-01 = 2052000, 2017-07-22 = 1977000, 2017-08-26 = 1954000, 2018-09-22 = 1645000, 2018-11-03 = 1631000, 2019-01-19 = 1737000, 2019-01-26 = 1713000, 2019-02-09 = 1736000, 2019-03-02 = 1",
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]",
+   "check": "S1",
+   "n": 50,
+   "first": "2014-06-07",
+   "note": "a jump by a factor of 5 or more",
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]",
+   "check": "S2",
+   "n": 24,
+   "first": "2014-06-07",
+   "note": "a single point far from both neighbours that comes straight back",
+   "all": [
+    "2014-06-07",
+    "2014-10-18",
+    "2015-05-23",
+    "2016-03-05",
+    "2016-06-04",
+    "2017-04-01",
+    "2017-07-22",
+    "2017-08-26",
+    "2018-09-22",
+    "2018-11-03",
+    "2019-02-02",
+    "2019-02-09",
+    "2019-02-16",
+    "2019-03-02",
+    "2019-08-03",
+    "2020-01-04",
+    "2020-01-11",
+    "2020-02-01",
+    "2022-07-23",
+    "2023-05-20"
+   ],
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icnsa]",
+   "check": "S1",
+   "n": 1,
+   "first": "2020-03-21",
+   "note": "a jump by a factor of 5 or more",
+   "known": true
+  },
+  {
+   "file": "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [iusa]",
+   "check": "S2",
+   "n": 2,
+   "first": "1977-01-15",
+   "note": "a single point far from both neighbours that comes straight back",
+   "all": [
+    "1977-01-15",
+    "2020-07-18"
+   ],
+   "known": true
+  },
+  {
+   "file": "data/45_dol_first_prints_2026-09/national_first_prints.csv [icsa]",
+   "check": "S1",
+   "n": 1,
+   "first": "2020-03-21",
+   "note": "a jump by a factor of 5 or more",
+   "known": true
+  },
+  {
+   "file": "data/45_dol_first_prints_2026-09/national_first_prints.csv [icsa_prev_rev]",
+   "check": "H4",
+   "n": 29,
+   "first": "2014-06-07",
+   "note": "a cell 5 times above or below the 9 rows around it: 2014-06-07 = 2603000, 2014-10-18 = 2389000, 2015-05-23 = 2211000, 2016-03-05 = 2257000, 2016-06-04 = 2172000, 2017-04-01 = 2052000, 2017-07-22 = 1977000, 2017-08-26 = 1954000, 2018-09-22 = 1645000, 2018-11-03 = 1631000, 2019-01-19 = 1737000, 2019-01-26 = 1713000, 2019-02-09 = 1736000, 2019-03-02 = 1",
+   "known": true
+  },
+  {
+   "file": "data/45_dol_first_prints_2026-09/national_first_prints.csv [icsa_prev_rev]",
+   "check": "S1",
+   "n": 50,
+   "first": "2014-06-07",
+   "note": "a jump by a factor of 5 or more",
+   "known": true
+  },
+  {
+   "file": "data/45_dol_first_prints_2026-09/national_first_prints.csv [icsa_prev_rev]",
+   "check": "S2",
+   "n": 24,
+   "first": "2014-06-07",
+   "note": "a single point far from both neighbours that comes straight back",
+   "all": [
+    "2014-06-07",
+    "2014-10-18",
+    "2015-05-23",
+    "2016-03-05",
+    "2016-06-04",
+    "2017-04-01",
+    "2017-07-22",
+    "2017-08-26",
+    "2018-09-22",
+    "2018-11-03",
+    "2019-02-02",
+    "2019-02-09",
+    "2019-02-16",
+    "2019-03-02",
+    "2019-08-03",
+    "2020-01-04",
+    "2020-01-11",
+    "2020-02-01",
+    "2022-07-23",
+    "2023-05-20"
+   ],
+   "known": true
+  },
+  {
+   "file": "data/45_dol_first_prints_2026-09/national_first_prints.csv [icnsa]",
+   "check": "S1",
+   "n": 1,
+   "first": "2020-03-21",
+   "note": "a jump by a factor of 5 or more",
+   "known": true
+  },
+  {
+   "file": "data/45_dol_first_prints_2026-09/national_first_prints.csv [iusa]",
+   "check": "S2",
+   "n": 1,
+   "first": "2020-07-18",
+   "note": "a single point far from both neighbours that comes straight back",
+   "all": [
+    "2020-07-18"
+   ],
+   "known": true
+  }
+ ],
+ "files_checked": 16,
+ "files_absent": [
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/BAA.csv"
+ ],
+ "hard_new": 0,
+ "soft": 19
+}

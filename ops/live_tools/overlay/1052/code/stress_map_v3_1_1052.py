@@ -88,10 +88,11 @@ V4T = pd.read_csv(os.path.join(V4D, 'out/BH-STATE-CHRONOLOGY-V4-1032.csv')); V4J
 X = pd.read_excel(os.path.join(V4D, 'data/philly/coincident-revised.xls'), sheet_name='Indexes'); X = X.set_index(pd.to_datetime(X.iloc[:, 0])).iloc[:, 1:].astype(float)
 STS = [c for c in X.columns if len(c) == 2 and c != 'US']; assert len(STS) == 50 and 'DC' not in STS
 LAST = pd.Timestamp(V4J['through'] + '-01'); assert X.index[-1] == LAST
+V4UR = {}   # 19 Nov 2026 (1150): the labour input of each State-month is kept for the page's factors panel
 V4 = {}; repro = {'states_line_identical': 0, 'states_windows_identical': 0, 'differences': []}
 for st in STS:
     y = X[st].dropna(); u = pd.read_csv(os.path.join(DI, '03_data/state/fred_state_ur', f'{st}UR.csv')); UR = pd.Series(u.iloc[:, 1].astype(float).values, index=pd.to_datetime(u.iloc[:, 0])).dropna()
-    R, ln, dev = run_v4(st, y, UR, LAST); V4[st] = dict(R=R, ln=ln, dev=dev)
+    R, ln, dev = run_v4(st, y, UR, LAST); V4[st] = dict(R=R, ln=ln, dev=dev); V4UR[st] = UR
     pub = dict(V4J['states'][st]['line']); mine = ln
     if pub == mine: repro['states_line_identical'] += 1
     else: repro['differences'].append((st, 'line', sum(1 for k in set(pub) | set(mine) if pub.get(k) != mine.get(k))))
@@ -190,14 +191,15 @@ for st in STS:
             lay = 'L0'
             if m < PAYSTART[st]:
                 rows.append(dict(st=st, month=k, layer='L0', period_status='no_data', period_peak='', period_trough='', provisional='', grade='', deviation_pp='', deviation_sd='', colour_value='', band='grey', colour_hex='#d5d9de')); continue
-            P = L0P[st]; ln = L0[st]['ln']; dv = L0[st]['dev']; last = PAY[st].index[-1]
+            P = L0P[st]; ln = L0[st]['ln']; dv = L0[st]['dev']; last = PAY[st].index[-1]; _li = K * IUR[st]
         else:
-            lay = 'v4'; P = V4P.get(st, []); ln = dict(V4J['states'][st]['line']); dv = V4[st]['dev']; last = LAST
+            lay = 'v4'; P = V4P.get(st, []); ln = dict(V4J['states'][st]['line']); dv = V4[st]['dev']; last = LAST; _li = V4UR[st]
         q = in_period(P, m, last); g = float(ln.get(k, 0.0)) if q is not None else 0.0
         d = float(dv[m]); dsd = d / QSD[(st, lay)]; s = colour_value(q is not None, g, dsd); stt = q['status'] if q is not None else 'none'
         if stt == 'recession': s = min(s, -3.0)   # C1: every recession month at least red
         rows.append(dict(st=st, month=k, layer=lay, period_status=stt, period_peak=ym(q['p']) if q else '', period_trough=(ym(q['t']) if q and q['t'] is not None else ('open' if q else '')),
-                         provisional=(bool(q['provisional']) if q else ''), grade=round(g, 2), deviation_pp=round(d, 3), deviation_sd=round(dsd, 3), colour_value=round(s, 3), band=band(stt, g, s), colour_hex=hexof(s)))
+                         provisional=(bool(q['provisional']) if q else ''), grade=round(g, 2), deviation_pp=round(d, 3), deviation_sd=round(dsd, 3), colour_value=round(s, 3), band=band(stt, g, s), colour_hex=hexof(s),
+                         labour_input=(round(float(_li[m]), 2) if m in _li.index and np.isfinite(_li[m]) else '')))
 M = pd.DataFrame(rows); os.makedirs(OUT, exist_ok=True); M.to_csv(os.path.join(OUT, 'stress_map_v3_1_state_month.csv'), index=False)
 M['m'] = pd.to_datetime(M.month + '-01'); M['inp'] = M.period_status.isin(['recession', 'disturbance']); M['rec'] = M.period_status == 'recession'; M['has'] = M.period_status != 'no_data'
 M['g'] = pd.to_numeric(M.grade, errors='coerce')
@@ -313,7 +315,11 @@ print('\n'.join(HEAD + T + SN))
 
 # ---------------- PROVISIONAL MONTHS (PREREG-1052 v3 Amendment 2, Anthony 15 Nov 09:34 PT "it should at least go to October"; Amendment 3, 09:36 PT: through the current
 # month, month to date). After v4's last month, through the month of the newest DOL ETA 539 week (1032 data/dol/ar539.csv; c19 = the State's insured unemployment
-# rate, rptdate = the week-ending date): labour input = k x the State insured rate (monthly mean of the weeks ending in the month, seasonally adjusted as v1 by sa_log;
+# rate, rptdate = the week-ending date). 1152 (19 Nov 2026, Anthony: "do it"): A STATE IN A v4 PERIOD STILL OPEN AT v4's LAST MONTH KEEPS THAT MONTH'S GRADE, COLOUR
+# AND BAND in every provisional month (held=True), until v4 reaches the month. Before, such a State was graded from the insured rate alone, summed since the period
+# began; that grade does not join the v4 grade (the mean of labour and output): September to October 2026 New York went 2.10 to 5.51 and Alabama 2.76 to 0.41, and
+# four States classed as disturbances were painted red (RECORD-1151). The sentence about the running labour grade below describes what was replaced. The rest is
+# unchanged: labour input = k x the State insured rate (monthly mean of the weeks ending in the month, seasonally adjusted as v1 by sa_log;
 # a month still running is the mean of the weeks published so far, at least one). A State in a v4 period still open at v4's last month keeps it, with the running grade
 # of the labour dimension alone (rise over the period's base = the lowest k x insured rate of the 12 months before its peak); a State in no open period is coloured from
 # the labour score computed fresh (rise over the lowest of the previous 12 months), yellow under 0.05, no green side. Replaced by v4 when v4 reaches the month (the
@@ -352,10 +358,15 @@ def open_at(st, m):
     for q in V4P.get(st, []):
         if q['p'] <= m and (q['t'] is None or q['t'] >= m): return q
     return None
+HELD0 = M[(M.month == ym(LAST)) & M.period_status.isin(['recession', 'disturbance'])].set_index('st')   # 1152: each State's v4 row at v4's last month
 PROWS = []
 for st in STS:
     q = open_at(st, LAST); q = q if (q is not None and q['t'] is None) else None
     for m in PM:
+        if q is not None and st in HELD0.index:   # 1152: the open period keeps v4's last grade, colour and band
+            h0 = HELD0.loc[st]
+            PROWS.append(dict(st=st, month=ym(m), layer='provisional', period_status=q['status'], period_peak=ym(q['p']), period_trough='open', provisional=True, grade=h0.grade,
+                              deviation_pp='', deviation_sd='', colour_value=h0.colour_value, band=h0.band, colour_hex=h0.colour_hex, carried=False, carried_week='', held=True)); continue
         cw = CARRIED.get(st) and ym(m) in CARRIED[st]['months']
         pc = prov_cell(st, m, q, carried=bool(cw))
         if pc is None:
@@ -370,18 +381,22 @@ MB4 = M.set_index(['st', 'month']).band; CK = []
 for m in pd.date_range(LAST - pd.DateOffset(months=23), LAST, freq='MS'):
     agree = 0; n_ = 0
     for st in STS:
-        q = open_at(st, m - pd.DateOffset(months=1)); pc = prov_cell(st, m, q)
+        q = open_at(st, m - pd.DateOffset(months=1))
+        if q is not None:   # 1152: held from the month before
+            n_ += 1; agree += MB4[(st, ym(m - pd.DateOffset(months=1)))] == MB4[(st, ym(m))]; continue
+        pc = prov_cell(st, m, q)
         if pc is None: continue
         stt, g, s = pc
         b = band(stt if stt != 'none' or g < NODMG else 'disturbance', g, s) if (stt != 'none' or g >= NODMG) else 'yellow'; n_ += 1; agree += b == MB4[(st, ym(m))]
     CK.append(dict(month=ym(m), states=n_, agree=agree, share=round(agree / n_, 3) if n_ else None))
 ck_ok = sum(1 for c in CK if c['share'] is not None and c['share'] >= 0.70)
 PROV = dict(first=ym(PM[0]) if len(PM) else None, last=ym(PM[-1]) if len(PM) else None, months=[ym(m) for m in PM], mtd=bool(MTD and len(PM)), weeks_through=WLAST.strftime('%Y-%m-%d'),
-            weeks_in_last=int(W5[W5.m == PLAST].w.nunique()), v4_last=ym(LAST), k=K, carried=CARRIED, grey_cells=sum(1 for r in PROWS if r['band'] == 'grey'), check24=dict(bar=0.70, months_at_or_above=ck_ok, of=len(CK), rows=CK))
+            weeks_in_last=int(W5[W5.m == PLAST].w.nunique()), v4_last=ym(LAST), k=K, carried=CARRIED, held=sorted({r['st'] for r in PROWS if r.get('held')}), grey_cells=sum(1 for r in PROWS if r['band'] == 'grey'), check24=dict(bar=0.70, months_at_or_above=ck_ok, of=len(CK), rows=CK))
 json.dump(PROV, open(os.path.join(OUT, 'stress_map_v3_1_provisional_1052.json'), 'w'), indent=1)
 open(os.path.join(OUT, 'STRESS-MAP-V3_1-STATE-TESTS-1052.txt'), 'a').write(
     f"\nPROVISIONAL MONTHS (Amendments 2 and 3): {PROV['months'] or 'none'} from the DOL ETA 539 weekly State insured rate (weeks through {PROV['weeks_through']}"
     f"{', the last month to date' if PROV['mtd'] else ''}); labour dimension only; replaced by v4 when published.\n"
+    f"HELD (1152): a State in a v4 period open at {ym(LAST)} keeps that month's grade, colour and band: {', '.join(PROV['held']) or 'none'}.\n"
     f"CARRIED (Amendment 4): " + ('; '.join(f"{st} week {v['week']} carried into {', '.join(v['months'])}" for st, v in sorted(CARRIED.items())) or 'none') + f"; grey provisional cells {PROV['grey_cells']}.\n"
     f"CHECK-24 (reported, not tuned): in {ck_ok} of the last {len(CK)} v4 months the provisional colour band equals v4's in at least 70% of States; by month: "
     + ', '.join(f"{c['month']} {c['share']}" for c in CK) + '\n')

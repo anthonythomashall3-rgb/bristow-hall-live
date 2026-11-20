@@ -34,9 +34,16 @@ if [ "${MODE:-full}" != "parity" ]; then
 fi
 # 19 Nov 2026 (collection 1149, Anthony: "do all three"): the tool code changed that day is carried in the repo (ops/live_tools/overlay) and laid over the
 # restored state before the tools run: the State page's last column is the fall against trend; the stress map starts each period where the State page does.
-for d in 1032_state_recession_indicator_all_states_dc_2026-11-09:1032 1052_stress_map_fix_parse_collect_2026-11-12:1052; do
-  for f in "$OPS/overlay/${d##*:}/code/"*.py; do cmp -s "$f" "$P/${d%%:*}/code/$(basename "$f")" || { cp "$f" "$P/${d%%:*}/code/" && say "overlay: $(basename "$f")"; }; done
+for d in 1032_state_recession_indicator_all_states_dc_2026-11-09:1032 1052_stress_map_fix_parse_collect_2026-11-12:1052 823_live_release_readiness_2026-10-23:823; do   # 823 since 1153: the shadow page's 2024 row is Paper 1's, not the NBER's
+  ( cd "$OPS/overlay/${d##*:}" && find . -type f ! -name '*.md' | sed 's#^\./##' ) | while read -r f; do
+    cmp -s "$OPS/overlay/${d##*:}/$f" "$P/${d%%:*}/$f" || { mkdir -p "$(dirname "$P/${d%%:*}/$f")" && cp "$OPS/overlay/${d##*:}/$f" "$P/${d%%:*}/$f" && say "overlay: $f"; }
+  done
 done
+# 1150 (19 Nov 2026): county jobs by industry (QCEW) for the stress map's county panel, kept to the newest quarter; never stops the run
+# (in a parity run only when none is held yet: the first run reads 1990 on from the BLS files)
+if [ "${MODE:-full}" != "parity" ] || ! ls "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry_county/"*.csv.gz >/dev/null 2>&1; then
+  step "QCEW county by industry" $PY code/qcew_county_ind_refresh_1150.py || say "QCEW county by industry refresh returned non-zero (held files kept)"
+fi
 step "1032 routine step 2" $PY code/state_v4_rebuild_1052.py || STOP="1032 routine step 2 (six scripts or a check) failed"
 [ -z "$STOP" ] && { step "State page render" $PY code/page_check_1052.py state "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/web/state-onset/index.html" || STOP="State page render check failed"; }
 [ -z "$STOP" ] && { step "stress map v3.1" $PY "$OPS/stress_map_cached.py" --all --procs "$(nproc)" || STOP="stress map v3.1 build failed"; }
@@ -48,6 +55,9 @@ print('stress map gate: state', s, 'county q2-q4', [c['q2'], c['q3'], c['q4']], 
 EOF
 } || { [ -z "$STOP" ] && STOP="stress map tests failed (beyond the known limits P1, Q1)"; }
 [ -z "$STOP" ] && { step "stress map render" $PY code/page_check_1052.py stress "$C/web/stress-map/index.html" || STOP="stress map render check failed"; }
+# 1150: the factor files and county jobs by industry the page reads when a State or a county is opened
+[ -z "$STOP" ] && { step "stress map detail" $PY code/stress_map_detail_1150.py || STOP="stress map detail files failed their checks"; }
+[ -z "$STOP" ] && { step "county view check" $PY code/county_view_check_1150.py "$C" "$C/out/county_view_check_1150.json" || STOP="stress map county view check failed"; }
 SH=ok
 if [ "${MODE:-full}" != "parity" ]; then
   cd "$P"

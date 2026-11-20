@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bristow-Hall Business Cycle Program — National Stress Map</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:#1c1c1c;font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;font-size:15px;line-height:1.55}
+a{color:#990000;text-decoration:none} a:hover{text-decoration:underline}
+.inner{width:90%;max-width:1800px;margin:0 auto;padding:0}
+.bh{background:#fff;border-top:5px solid #FFCC00;border-bottom:2px solid #990000}
+.bhrow{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:14px 0;width:90%;max-width:1800px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:13px;color:#990000}
+.mono{width:52px;height:52px;background:#990000;color:#fff;font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:24px;display:flex;align-items:center;justify-content:center;position:relative;border-radius:3px;flex:none}
+.mono span{position:absolute;left:10px;right:10px;bottom:7px;height:3px;background:#FFCC00}
+.wm .l1{font-weight:800;letter-spacing:.15em;font-size:16px;color:#990000;line-height:1.15}
+.wm .l2{letter-spacing:.28em;font-size:11.5px;color:#990000;font-weight:700;line-height:1.15;margin-top:3px}
+.nav{display:flex;flex-wrap:wrap;gap:15px;font-size:11.5px;font-weight:700;letter-spacing:.05em}
+.nav a{color:#990000;text-transform:uppercase;padding:4px 0;border-bottom:2px solid transparent;white-space:nowrap}
+.nav a:hover{border-bottom-color:#cfd6de;text-decoration:none}
+.nav a[aria-current="page"]{border-bottom-color:#FFCC00}
+.badge{display:inline-block;font-size:10.5px;letter-spacing:.12em;font-weight:700;padding:3px 8px;border-radius:2px;align-self:flex-start}
+.badge.live{color:#166534;background:#e8f3ec;border:1px solid #cfe3d6}
+.head{margin:38px 0 0}
+.head h1{font-size:30px;color:#990000;margin:10px 0 10px;line-height:1.2}
+.head .tag{font-size:17px;color:#333;margin:0}
+.head .by{color:#666;font-size:13px;margin:10px 0 0}
+h2{font-size:25px;font-weight:700;color:#111;margin:40px 0 0}
+.rule{border-bottom:3px solid #990000;margin:6px 0 16px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #dfe4ea;border-left:1px solid #dfe4ea}
+.tile{border-right:1px solid #dfe4ea;border-bottom:1px solid #dfe4ea;padding:11px 13px;min-height:92px}
+.tile .lab{font-style:italic;color:#444;font-size:13px;line-height:1.3}
+.tile .val{margin-top:5px;font-size:15px}
+.tile .val b{font-weight:700;font-size:17px;color:#111}
+.tile .sub{color:#666;font-size:12.5px;margin-top:3px}
+.chartbox{border:1px solid #dfe4ea;padding:12px 12px 6px}
+.chartbox svg{display:block;width:100%;height:auto}
+.chartscroll{overflow-x:auto}
+@media (max-width:720px){.chartbox svg{min-width:760px}}
+.legend{display:flex;flex-wrap:wrap;gap:18px;font-size:12.5px;color:#444;margin:8px 2px 2px}
+.legend i{display:inline-block;width:14px;height:10px;margin-right:6px;vertical-align:-1px}
+.note{color:#555;font-size:13px;margin:8px 0 0}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{text-align:left;font-weight:700;color:#111;border-bottom:2px solid #990000;padding:7px 8px;white-space:nowrap;font-size:13px}
+td{border-bottom:1px solid #dfe4ea;padding:7px 8px;vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.open td{background:#fbf8ee}
+.tw{overflow-x:auto}
+.grade{font-weight:700}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;padding:1px 6px;border-radius:2px;white-space:nowrap}
+.pill.set{color:#166534;background:#e8f3ec;border:1px solid #cfe3d6}
+.pill.prov{color:#7a5200;background:#fbf4e6;border:1px solid #eadfc4}
+.defs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid #dfe4ea;border-left:1px solid #dfe4ea}
+.def{border-right:1px solid #dfe4ea;border-bottom:1px solid #dfe4ea;padding:12px 14px}
+.def .k{font-weight:700;color:#990000;font-size:14px}
+.def p{margin:5px 0 0;color:#333;font-size:14px}
+.prose p{color:#333;margin:0 0 12px;max-width:none}/* 15 Nov 06:23 PT (Anthony): text spans the page width, as on /detector/ and /state-onset/ */
+.foot{background:#990000;color:#f3e3e3;margin-top:48px;padding:26px 0 30px}
+.foot .t{font-weight:800;letter-spacing:.12em;font-size:13.5px;color:#FFCC00}
+.foot .s{font-size:13px;margin-top:7px;color:#edcaca}
+.foot a{color:#f3e3e3}
+.foot .links{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 18px;margin-top:16px;font-size:13.5px;font-weight:700}
+.foot .links a{white-space:nowrap}
+@media (max-width:1100px){ .tiles{grid-template-columns:repeat(2,1fr)} .head h1{font-size:26px} }
+@media (max-width:720px){ .tiles{grid-template-columns:repeat(2,1fr)} .defs{grid-template-columns:1fr} .head h1{font-size:23px} .head .tag{font-size:15.5px} }
+/* stress map */
+.tl{border:1px solid #dfe4ea;padding:12px 14px 10px;margin-top:18px;position:relative}
+.tlrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.tlmonth{font-size:26px;font-weight:700;color:#990000;min-width:190px}
+.btn{font:inherit;font-size:13px;font-weight:700;letter-spacing:.05em;color:#fff;background:#990000;border:0;border-radius:3px;padding:7px 14px;cursor:pointer}
+.btn.sec{background:#fff;color:#990000;border:1px solid #990000}
+.tlnote{font-size:12.5px;color:#555}
+#strip{display:block;width:100%;height:auto;cursor:pointer;margin-top:10px}
+#slider{display:block;width:100%;height:auto;margin:2px 0 0;cursor:pointer;touch-action:none;outline:none}
+#slider:focus-visible{outline:2px solid #990000;outline-offset:2px}
+.mapwrap{display:grid;grid-template-columns:minmax(0,3fr) minmax(260px,1fr);gap:18px;margin-top:14px}
+.mapbox{border:1px solid #dfe4ea;padding:8px;position:relative}
+#map{display:block;width:100%;height:auto}
+.side{border:1px solid #dfe4ea;padding:12px 14px}
+.side h3{margin:0 0 6px;font-size:15px;color:#111}
+.shares{width:100%;font-size:13.5px} .shares td{padding:4px 6px} .shares i{display:inline-block;width:14px;height:10px;margin-right:6px;vertical-align:-1px}
+.pick{font-size:13.5px;color:#333;margin-top:12px;border-top:1px solid #dfe4ea;padding-top:10px;min-height:120px}
+.scale{margin:10px 2px 0}
+.scale .bar{height:14px;border:1px solid #cfd6de}
+.scale .ticks{position:relative;height:30px;font-size:11.5px;color:#444}
+.scale .ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap;top:2px}
+.scale .ticks span:first-child{transform:none}
+.scale .ticks span:last-child{transform:translateX(-100%)}
+.scale .ends{display:flex;justify-content:space-between;font-size:12px;color:#555;margin-top:2px}
+@media (max-width:1000px){.mapwrap{grid-template-columns:1fr}}
+/* v2 */
+details.method{margin:34px 0 0;border-top:1px solid #dfe4ea;padding-top:10px}
+details.method summary{cursor:pointer;color:#990000;font-weight:700;font-size:14px}
+.binfo{font-size:13px;color:#333;margin-top:6px;min-height:20px}
+.binfo b{color:#990000}
+.mapnote{font-size:13px;color:#7a5200;background:#fbf4e6;border:1px solid #eadfc4;padding:4px 8px;margin:0 0 6px}
+#layer path{stroke:#fff;stroke-width:.8;cursor:pointer}
+#layer.cty path{stroke-width:.35}
+#hl path{pointer-events:none}
+.thru{font-size:12.5px;color:#333;margin-top:6px;display:flex;flex-wrap:wrap;gap:6px 18px}
+.thru b{color:#990000}
+.slegend{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:12.5px;color:#444;margin:6px 2px 0;align-items:center}
+.slegend svg{vertical-align:-3px;margin-right:6px}
+.viewbar{display:none;align-items:center;gap:14px;margin:14px 0 0;flex-wrap:wrap}
+.viewbar h2{margin:0;font-size:22px;color:#990000}
+.viewbar .tlnote{max-width:900px}
+.stline{font-size:13.5px;color:#333;margin:8px 0 0;border-top:1px solid #dfe4ea;padding-top:8px}
+.ind{margin-top:22px}
+.ind h3{font-size:17px;margin:0 0 4px;color:#111}
+#indtab td.c{width:120px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+#indtab td.n{width:120px}
+.indnote{font-size:12.5px;color:#555;margin-top:6px}
+</style>
+</head>
+<body>
+<header class="bh"><div class="bhrow">
+  <div class="logo" aria-label="Bristow-Hall Business Cycle Program"><div class="mono">BH<span></span></div><div class="wm"><div class="l1">BRISTOW-HALL</div><div class="l2">BUSINESS CYCLE PROGRAM</div></div></div>
+  <nav class="nav" aria-label="Sections">
+    <a href="/">Home</a>
+    <a href="/detector/">Recession Indicator</a>
+    <a href="/disturbance/">Disturbance Indicator</a>
+    <a href="/state-onset/">State Recession</a>
+    <a href="/stress-map/" aria-current="page">Stress Map</a>
+    <a href="/damage-index/">Damage Index</a>
+    <a href="/chronology/">Chronology</a>
+    <a href="/data/">Data</a>
+    <a href="/#papers">Papers</a>
+  </nav>
+</div></header>
+
+<div class="inner">
+<div class="head">
+  <span class="badge live">RETROSPECTIVE · UPDATED MONTHLY</span>
+  <h1>National Stress Map</h1>
+  <p class="tag">Every State, every month since 1947: red where a recession or disturbance is doing damage, green where activity runs above its trend. Click a State for its counties and industries.</p>
+  <p class="by" id="vintage"></p>
+</div>
+
+<div class="viewbar" id="viewbar"><h2 id="vtitle"></h2><span class="tlnote" id="vnote"></span></div>
+
+<div class="tl">
+  <div class="tlrow">
+    <div class="tlmonth" id="mlabel"></div>
+    <button class="btn" id="play" type="button">PLAY</button>
+    <button class="btn sec" id="speed" type="button">SPEED 1×</button>
+    <span class="tlnote" id="tlnote">Drag the slider, click the strip, or use the arrow keys.</span>
+  </div>
+  <svg id="strip" viewBox="0 0 1200 70" role="img" aria-label="Timeline with the national register's recessions and disturbances"></svg>
+  <svg id="slider" viewBox="0 0 1200 22" role="slider" tabindex="0" aria-label="Month" aria-valuemin="0"><line id="sltrack" y1="11" y2="11" stroke="#d5d9de" stroke-width="6" stroke-linecap="round"/><line id="slfill" y1="11" y2="11" stroke="#990000" stroke-width="6" stroke-linecap="round"/><circle id="slknob" cy="11" r="8" fill="#990000" stroke="#fff" stroke-width="2"/></svg>
+  <div class="binfo" id="binfo"></div>
+  <div class="slegend" id="slegend"></div>
+  <div class="thru" id="thru"></div>
+</div>
+
+<div class="mapwrap">
+  <div class="mapbox">
+    <button class="btn" id="back" type="button" style="display:none;margin:2px 0 8px 2px">← Back to the United States</button>
+    <svg id="map" viewBox="0 0 960 600" role="img" aria-label="Map colored by stress"><g id="layer"></g><g id="sel" pointer-events="none"></g><g id="hl" pointer-events="none"></g></svg>
+    <div class="mapnote" id="mapnote" style="display:none"></div>
+    <div class="scale">
+      <div class="bar" id="sbar"></div>
+      <div class="ticks" id="sticks"></div>
+      <div class="ends"><span>Damage inside a recession or disturbance (running grade)</span><span>No period open: index against its trend (own quiet-record SD)</span></div>
+      <div class="legend"><span><i style="background:#d5d9de"></i><span id="graynote">No State payroll series yet</span></span></div>
+    </div>
+  </div>
+  <div class="side">
+    <h3 id="shh">States in each band</h3>
+    <table class="shares" id="shares"></table>
+    <div class="stline" id="stline" style="display:none"></div>
+    <table class="shares" id="fact"></table>
+    <div class="pick" id="pick"><span style="color:#666">Hover over a State to read it; click it to open its counties.</span></div>
+  </div>
+</div>
+
+<div class="ind">
+  <h3 id="indh">Payroll jobs by industry</h3>
+  <div class="tw"><table id="indtab"></table></div>
+  <div class="indnote" id="indnote"></div>
+</div>
+
+<h2>How the map is colored</h2><div class="rule"></div>
+<div class="prose" id="desc"></div>
+
+<details class="method"><summary>Method</summary><div class="prose" id="method"></div></details>
+
+</div>
+<div class="foot"><div class="inner">
+  <div class="t">BRISTOW-HALL BUSINESS CYCLE PROGRAM</div>
+  <div class="s">Real-time dating of the American business cycle.</div>
+  <div class="links"><a href="/">Home</a><a href="/detector/">Recession Indicator</a><a href="/disturbance/">Disturbance Indicator</a><a href="/state-onset/">State Recession Indicator</a><a href="/stress-map/">National Stress Map</a><a href="/damage-index/">Damage Index</a><a href="/chronology/">Chronology</a><a href="/#papers">Papers</a><a href="/data/">Data</a></div>
+</div></div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function(){
+var J=JSON.parse(document.getElementById('data').textContent), V=J.v2, NS='http://www.w3.org/2000/svg';
+var MO=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var MS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function ym(s){if(!s||s==='open')return 'open';var p=s.split('-');return MS[+p[1]-1]+' '+p[0];}
+function ymL(s){var p=s.split('-');return MO[+p[1]-1]+' '+p[0];}
+function f2(x){return (x==null||isNaN(x))?'–':(+x).toFixed(2);}
+function abs_(s){var p=s.split('-');return (+p[0])*12+(+p[1]-1);}
+function mkA(a){var y=Math.floor(a/12),m=a%12;return y+'-'+(m<9?'0':'')+(m+1);}
+var NAT={start:J.start,n:J.n}, view={mode:'nation',st:null,start:J.start,n:J.n}, D=null, curM=J.last, CACHE={};
+function idxV(s){return abs_(s)-abs_(view.start);} function mkV(i){return mkA(abs_(view.start)+i);}
+function idxN(s){return abs_(s)-abs_(J.start);}
+var seam=idxN(J.seam);
+// provisional months (PREREG-1052 v3 Amendments 2 and 3): after v4's last month, from the weekly State claims (labor only), the newest month to date
+// 1152 (19 Nov 2026): a State in a period still open at v4's last month keeps that month's grade and color in the provisional months (PV.held)
+var PV=J.prov||{}, pvA=PV.first?idxN(PV.first):1e9;
+function dL(s){var p=s.split('-');return MS[+p[1]-1]+' '+(+p[2])+', '+p[0];}
+// Amendment 4: a State with no week of a provisional month yet carries its newest published week
+var PC=PV.carried||{};
+function carriedNote(){var by={};Object.keys(PC).sort().forEach(function(st){(by[PC[st].week]=by[PC[st].week]||[]).push(st);});
+ return Object.keys(by).sort().map(function(w){return by[w].join(', ')+': newest week not yet reported; last reported week ('+dL(w)+') used';}).join('; ');}
+function provLab(k){if(!PV.first||idxN(k)<pvA)return '';return (PV.mtd&&k===PV.last)?' - provisional, month to date (weeks through '+dL(PV.weeks_through)+')':' - provisional, from weekly State claims; replaced when the State indexes are published';}
+document.getElementById('vintage').textContent='Built '+V.built+' by the program\'s scripts; no number on this page is set by hand.';
+document.getElementById('thru').innerHTML='<span><b>Data through</b></span><span>States: '+ymL(V.thru.state)+' (State chronology v4)'+(PV.first?'; provisional '+ymL(PV.first)+(PV.last!==PV.first?' to '+ymL(PV.last):'')+' from weekly State claims'+(PV.mtd?' (month to date, weeks through '+dL(PV.weeks_through)+')':''):'')+'</span><span>County jobs through '+ymL(V.thru.county_qcew)+'; after '+ymL(V.thru.county_qcew)+' counties are colored from the rise in their unemployment rate alone, through '+ymL(V.thru.county_laus)+'</span><span>Payroll jobs by industry: nation '+ymL(V.thru.ind_nat)+' (CES), States '+ymL(V.thru.ind_st)+'</span>';
+var svg=document.getElementById('map'), layer=document.getElementById('layer'), hl=document.getElementById('hl'), P={};
+// color scale bar (v1)
+var stops=[];for(var i=0;i<J.pal.length;i+=4)stops.push(J.pal[i]+' '+(i/(J.pal.length-1)*100).toFixed(1)+'%');
+document.getElementById('sbar').style.background='linear-gradient(90deg,'+stops.join(',')+')';
+var TK=[[-4,'grade 4.0'],[-3,'2.0 (recession bar)'],[-2,'1.0'],[-1,'0.05 · −1 SD'],[0,'at trend'],[1,'+1 SD'],[2,'+2 SD']];
+document.getElementById('sticks').innerHTML=TK.map(function(t){return '<span style="left:'+((t[0]+4)/6*100).toFixed(1)+'%">'+t[1]+'</span>';}).join('');
+// strip legend
+var HATCH='<pattern id="PAT" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#b9c0c7" stroke-width="2"/></pattern>';
+function sw(k){var s='<svg width="26" height="14" viewBox="0 0 26 14"><defs>'+HATCH.replace('PAT','PL'+k)+'</defs>';
+ if(k==='R')s+='<rect x="0" y="0" width="26" height="14" fill="#d5d9de"/>';
+ if(k==='D1')s+='<rect x=".5" y=".5" width="25" height="13" fill="#1f4e79" fill-opacity=".07" stroke="#1f4e79" stroke-dasharray="4 3"/>';
+ if(k==='RB')s+='<rect x=".5" y=".5" width="25" height="13" fill="url(#PLRB)" stroke="#9aa3ad" stroke-width="1"/>';
+ if(k==='L')s+='<line x1="0" y1="7" x2="26" y2="7" stroke="#990000" stroke-width="1.5"/>';
+ if(k==='G2')s+='<line x1="0" y1="7" x2="26" y2="7" stroke="#b9c0c7" stroke-width="1" stroke-dasharray="2 3"/>';
+ return s+'</svg>';}
+
+function legendHTML(){return '<span>'+sw('R')+'Recession (NBER dates, as on the live Recession Indicator)</span><span>'+sw('RB')+'Recession dated by the program (hatched, as on the live Recession Indicator)</span><span>'+sw('D1')+'Disturbance (register v3.2, class 1 and class 2)</span><span>'+sw('L')+(CT?'Damage of the county':view.mode==='nation'?'Mean damage grade of the States, weighted by State payroll jobs':'Mean damage grade of the State\'s counties, weighted by county labor force')+' (0 to its highest value)</span><span>'+sw('G2')+'2.0 = recession damage</span>';}
+// strip
+var st_=document.getElementById('strip'),W=1200,H=70,L=26,R=26,T=4,B=18;
+function X(i){return L+i/(view.n)*(W-L-R);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function drawStrip(){var N=view.n,s='<defs>'+HATCH.replace('PAT','hatch')+'</defs>',h=H-T-B;
+ ['R','RB','D1','D2'].forEach(function(k){V.bands.forEach(function(b){if(b[0]!==k)return;var a=idxV(b[1]),e=b[2]?idxV(b[2])+1:N;if(e<=0||a>=N)return;a=Math.max(0,a);e=Math.min(N,e);
+  var x=X(a).toFixed(1),w=(X(e)-X(a)).toFixed(1),at=' data-k="'+k+'" data-a="'+b[1]+'" data-b="'+(b[2]||'open')+'"',tt='';
+  if(k==='R')s+='<rect'+at+' x="'+x+'" y="'+T+'" width="'+w+'" height="'+h+'" fill="#d5d9de">'+tt+'</rect>';
+  if(k==='RB')s+='<rect'+at+' x="'+x+'" y="'+T+'" width="'+w+'" height="'+h+'" fill="url(#hatch)" stroke="#9aa3ad" stroke-width="1"/>';
+  if(k==='D1')s+='<rect'+at+' x="'+x+'" y="'+(T+.75)+'" width="'+w+'" height="'+(h-1.5)+'" fill="#1f4e79" fill-opacity=".07" stroke="#1f4e79" stroke-width="1" stroke-dasharray="4 3">'+tt+'</rect>';
+  if(k==='D2')s+='<rect'+at+' x="'+x+'" y="'+(T+.75)+'" width="'+w+'" height="'+(h-1.5)+'" fill="#1f4e79" fill-opacity=".07" stroke="#1f4e79" stroke-width="1" stroke-dasharray="4 3">'+tt+'</rect>';
+});});
+ if(view.mode==='nation'&&PV.first&&pvA<N){var xa=X(pvA).toFixed(1),xw=(X(N)-X(pvA)).toFixed(1);s+='<rect data-prov="1" pointer-events="none" x="'+xa+'" y="'+T+'" width="'+xw+'" height="'+(H-T-B)+'" fill="url(#hatch)" fill-opacity=".45" stroke="none"></rect>';}
+ var red=view.mode==='nation'?J.red:(CT?ctyLine(CT):D.red),d='',ymax=0;red.forEach(function(v){if(v!=null&&v>ymax)ymax=v;});ymax=Math.max(ymax,1);
+ if(ymax>=200)s+='<line x1="'+X(0).toFixed(1)+'" x2="'+X(N).toFixed(1)+'" y1="'+(H-B-200/ymax*h).toFixed(1)+'" y2="'+(H-B-200/ymax*h).toFixed(1)+'" stroke="#b9c0c7" stroke-width="1" stroke-dasharray="2 3" pointer-events="none"/>';
+ for(var i=0;i<N;i++){var v=red[i];if(v==null)continue;d+=(d?'L':'M')+X(i+.5).toFixed(1)+' '+(H-B-v/ymax*h).toFixed(1);}
+ if(d)s+='<path data-line="1" d="'+d+'" fill="none" stroke="#990000" stroke-width="1.2" pointer-events="none"/>';
+ var y0=+view.start.slice(0,4),y1=+mkV(N-1).slice(0,4),step=view.mode==='nation'?10:5;
+ for(var yr=Math.ceil(y0/step)*step;yr<=y1;yr+=step){var xx=X(idxV(yr+'-01'));if(xx<L)continue;s+='<line x1="'+xx.toFixed(1)+'" x2="'+xx.toFixed(1)+'" y1="'+(H-B)+'" y2="'+(H-B+4)+'" stroke="#666"/><text x="'+xx.toFixed(1)+'" y="'+(H-3)+'" font-size="11" fill="#555" text-anchor="middle">'+yr+'</text>';}
+ s+='<line id="cur" x1="0" x2="0" y1="'+(T-2)+'" y2="'+(H-B+2)+'" stroke="#111" stroke-width="2" pointer-events="none"/>';
+ st_.innerHTML=s; document.getElementById('slegend').innerHTML=legendHTML();}
+var slEl=document.getElementById('slider'), sl={value:0,max:0};
+function drawKnob(i){var x0=X(0),x1=X(view.n),xi=X(i+.5);var t=document.getElementById('sltrack'),f=document.getElementById('slfill'),k=document.getElementById('slknob');
+ t.setAttribute('x1',x0.toFixed(2));t.setAttribute('x2',x1.toFixed(2));f.setAttribute('x1',x0.toFixed(2));f.setAttribute('x2',xi.toFixed(2));k.setAttribute('cx',xi.toFixed(2));
+ slEl.setAttribute('aria-valuemax',view.n-1);slEl.setAttribute('aria-valuenow',i);slEl.setAttribute('aria-valuetext',ymL(mkV(i)));}
+function monthAt(ev,el){var r=el.getBoundingClientRect();return Math.round(((ev.clientX-r.left)/r.width*W-L)/(W-L-R)*view.n-.5);}
+var dragging=false;
+slEl.addEventListener('pointerdown',function(e){dragging=true;slEl.setPointerCapture(e.pointerId);slEl.focus();draw(monthAt(e,slEl));});
+slEl.addEventListener('pointermove',function(e){if(dragging)draw(monthAt(e,slEl));});
+slEl.addEventListener('pointerup',function(){dragging=false;});
+slEl.addEventListener('keydown',function(e){var d={ArrowRight:1,ArrowUp:1,ArrowLeft:-1,ArrowDown:-1,PageUp:12,PageDown:-12}[e.key];
+ if(e.key==='Home'){draw(0);e.preventDefault();return;} if(e.key==='End'){draw(view.n-1);e.preventDefault();return;}
+ if(d){draw(+sl.value+d);e.preventDefault();}});
+// industry
+function indS(p){if(p==null)return null;if(p<=-3)return Math.max(-4,-3+(p+3)/3);if(p>=3)return 2;var xs=[-3,-1,0,1,3],ys=[-3,-2,0,1,2];for(var k=0;k<4;k++)if(p<=xs[k+1])return ys[k]+(ys[k+1]-ys[k])*(p-xs[k])/(xs[k+1]-xs[k]);return 2;}
+function indC(p10){if(p10==null)return '#d5d9de';var s=indS(p10/10);return J.pal[Math.round((s+4)/0.05)];}
+function inkFor(p10){return (p10!=null&&p10/10<=-3)?'#fff':'#111';}
+function pc(p10){return p10==null?'–':((p10>0?'+':p10<0?'−':'')+Math.abs(p10/10).toFixed(1)+'%');}
+function indTable(I,i,where){var la=I.latest,rows='<tr><th>Industry (supersector)</th><th class="n">12-month change, '+ym(mkV(i))+'</th><th class="n">Jobs, '+ym(mkV(i))+' (thousands)</th><th class="n">Latest held: '+ym(la.month)+(I.latest.prelim.indexOf(la.month)>=0?' (preliminary)':'')+'</th></tr>';
+ I.codes.forEach(function(c){var p=I.pct[c][i],l=I.lvl[c][i],q=la.pct[c];
+  rows+='<tr'+(c==='00'?' style="font-weight:700"':'')+'><td>'+V.ind_names[c]+'</td><td class="c" style="background:'+indC(p)+';color:'+inkFor(p)+'">'+pc(p)+'</td><td class="n">'+(l==null?'–':(l/10).toLocaleString('en-US',{maximumFractionDigits:1}))+'</td><td class="c" style="background:'+indC(q)+';color:'+inkFor(q)+'">'+pc(q)+'</td></tr>';});
+ document.getElementById('indtab').innerHTML=rows;
+ document.getElementById('indh').textContent='Payroll jobs by industry, '+where+', '+ymL(mkV(i));
+ document.getElementById('indnote').textContent=(view.mode==='nation'?'BLS establishment survey (CES), national supersectors':'BLS State payrolls by supersector (SM)')+', seasonally adjusted, current vintage. Color: 12-month percent change; cut points −3% red, −1% orange, 0 yellow, +1% light green, +3% deep green. Data held through '+ymL(la.month)+'.';}
+// shares
+var BN=[['D','deep red','Deep red: grade 4.0 or more',J.pal[0]],['r','red','Red: grade 2.0 to 4.0',J.pal[20]],['o','orange','Orange: period under 2.0, or index below trend',J.pal[60]],['y','yellow','Yellow: near trend, no damage',J.pal[80]],['l','light green','Light green: above trend',J.pal[100]],['g','green','Green: well above trend',J.pal[120]]];
+var BC={D:'deep red',r:'red',o:'orange',y:'yellow',l:'light green',g:'green',x:'no data'};
+var shT=document.getElementById('shares'), STN=J.names, pinned=null;
+function describe(st,i){var c=J.states[st], k=mkA(abs_(J.start)+i), code=c.s[i], h='<b>'+STN[st]+'</b>, '+ymL(k)+'<br>';
+ if(code==='G') return h+'No State payroll series yet (it begins '+ym(c.start)+').';
+ var lay=i>=seam?'State chronology v4':'pre-1979 layer (payrolls and insured unemployment)';
+ if(code==='R'||code==='D'){var pr=null;c.per.forEach(function(q){if(q[5]===(i>=seam?'v4':'L0')&&idxN(q[0])<=i&&(q[1]==='open'?true:idxN(q[1])>=i))pr=q;});
+   h+=(code==='R'?'In a <b>recession</b> period':'In a <b>disturbance</b> period')+(pr?' (start '+ym(pr[0])+', trough '+ym(pr[1])+(pr[4]?', provisional':'')+')':'')+'<br>Running damage grade <b>'+f2(c.g[i]/100)+'</b>'+(pr?(pr[1]==='open'?'':' (grade at the trough '+f2(pr[3])+')'):'')+'<br>';
+ } else h+='No period open. Index '+(c.d[i]>=0?'above':'below')+' its trend by <b>'+f2(Math.abs(c.d[i]/100))+'</b> of its quiet-record SD<br>';
+ return h+'Color: '+BC[c.b[i]]+' · '+lay;}
+function describeC(f,i){var nm=D.shapes[f][0], k=mkV(i), code=D.s[f][i], h='<b>'+esc(nm)+'</b>, '+STN[view.st]+', '+ymL(k)+'<br>';
+ if(code==='G'){var sg=D.segs[f];return h+'Gray: no county value this month (missing in QCEW or LAUS; never filled), or fewer than 60 months held in both.'+(sg.length?'<br>Months held in both inputs: '+sg.map(function(x){return ym(x[0])+(x[0]===x[1]?'':'–'+ym(x[1]));}).join(', '):'<br>No month held in both inputs.');}
+ var lo=abs_(k)>abs_(V.cqlast)?'<br><i>County jobs published through '+ym(V.cqlast)+': after '+ym(V.cqlast)+' counties are colored from the rise in their unemployment rate alone (no period dated).</i>':'';
+ if(code==='U')return h+'Labor damage grade <b>'+f2(D.v[f][i]/100)+'</b> (rise of the unemployment rate over its lowest rate of the previous 12 months)<br>Color: '+BC[D.b[f][i]]+lo;
+ if(code==='V')return h+'No rise of the unemployment rate over its lowest rate of the previous 12 months (labor damage grade under 0.05)<br>Color: '+BC[D.b[f][i]]+lo;
+ if(code==='R'||code==='D'){var pr=null;(D.per[f]||[]).forEach(function(q){if(idxV(q[0])<=i&&(q[1]==='open'||idxV(q[1])>=i))pr=q;});
+   h+=(code==='R'?'In a <b>recession</b> period':'In a <b>disturbance</b> period')+(pr?' (start '+ym(pr[0])+', trough '+ym(pr[1])+(pr[4]?', provisional':'')+')':'')+'<br>Running damage grade <b>'+f2(D.v[f][i]/100)+'</b>'+(pr&&pr[1]!=='open'?' (grade at the trough '+f2(pr[3])+')':'')+'<br>';
+ } else h+='No period open. Employment '+(D.v[f][i]>=0?'above':'below')+' its trend by <b>'+f2(Math.abs(D.v[f][i]/100))+'</b> of its quiet-record SD<br>';
+ return h+'Color: '+BC[D.b[f][i]]+' · county layer C0 (QCEW employment, LAUS unemployment rate)'+lo;}
+function renderNation(){var g='';Object.keys(J.shapes).sort().forEach(function(st){g+='<path data-id="'+st+'" d="'+J.shapes[st]+'"/>';});layer.setAttribute('class','');layer.innerHTML=g;hl.innerHTML='';
+ P={};Array.prototype.forEach.call(layer.children,function(p){P[p.dataset.id]=p;});}
+function renderState(){var g='';D.order.forEach(function(f){g+='<path data-id="'+f+'" d="'+D.shapes[f][1]+'"/>';});layer.setAttribute('class','cty');layer.innerHTML=g;hl.innerHTML='';
+ P={};Array.prototype.forEach.call(layer.children,function(p){P[p.dataset.id]=p;});}
+function gapLab(k){return V.gapm&&V.gapm[k]?ymL(k)+': '+V.gapm[k]:null;}
+function shownIdx(i){if(view.mode!=='state')return i;var j=i;while(j>0&&V.gapm&&V.gapm[mkV(j)])j--;return j;}
+function bandInfo(k){var a=abs_(k),L_=[];V.bands.forEach(function(b){if(abs_(b[1])<=a&&(!b[2]||a<=abs_(b[2]))){
+  var nm={R:'recession (NBER dates)',RB:'recession dated by the program',D1:'disturbance (class 1)',D2:'jobless-recovery disturbance (class 2)'}[b[0]];
+  L_.push(b[2]?'in the '+nm+' of '+ym(b[1])+' to '+ym(b[2]):'in the '+nm+' that began '+ym(b[1])+' (open)');}});
+ return L_.length?L_.join('; also '):'no national recession or disturbance';}
+function stStatus(st,k){var ni=idxN(k),c=J.states[st];if(ni<0||ni>=J.n)return 'no State value this month';var code=c.s[ni];
+ if(code==='G'&&ni>=pvA)return 'provisional: no week of the weekly State claims published for this State in this month yet';
+ if(code==='G')return 'no State payroll series yet';
+ var lay=ni>=pvA?'provisional, weekly State claims, labor only':(ni>=seam?'State chronology v4':'pre-1979 State layer');
+ var cn='';
+ if(ni>=pvA&&(code==='R'||code==='D')){var pr2=null;c.per.forEach(function(q){if(q[5]==='v4'&&idxN(q[0])<=ni&&q[1]==='open')pr2=q;});return 'in a '+(code==='R'?'recession':'disturbance')+(pr2?' since '+ym(pr2[0]):'')+' (provisional: running grade '+f2(c.g[ni]/100)+', held from '+ymL(PV.v4_last)+' until the State indexes are published)'+cn;}
+ if(ni>=pvA&&code==='N')return (cn?'':'')+'in no open period (provisional, weekly State claims: rise in the insured unemployment rate, labor grade '+f2(c.g[ni]/100)+')'+cn;
+ if(code==='R'||code==='D'){var pr=null;c.per.forEach(function(q){if(q[5]===(ni>=seam?'v4':'L0')&&idxN(q[0])<=ni&&(q[1]==='open'||idxN(q[1])>=ni))pr=q;});
+  return 'in a '+(code==='R'?'recession':'disturbance')+(pr?' since '+ym(pr[0]):'')+' ('+lay+', running grade '+f2(c.g[ni]/100)+')';}
+ return 'in no recession or disturbance ('+lay+'; index '+(c.d[ni]>=0?'above':'below')+' trend by '+f2(Math.abs(c.d[ni]/100))+' SD)';}
+function natCounts(k){var ni=idxN(k),r=0,d=0;if(ni<0||ni>=J.n)return '';Object.keys(J.states).forEach(function(st){var c=J.states[st].s[ni];if(c==='R')r++;else if(c==='D')d++;});
+ return '; '+r+' States in a recession, '+d+' in a disturbance';}
+function info(i){var k=mkV(i),g=gapLab(k),h=view.mode==='state'?'<b>'+STN[view.st]+', '+ym(k)+'</b> – '+stStatus(view.st,k)+'; nation: '+bandInfo(k):'<b>'+ym(k)+'</b> – nation: '+bandInfo(k)+natCounts(k);
+ if(g)h+='. <b>'+g+'; line joined across the month</b>'+(view.mode==='state'?'; the county map shows '+ymL(mkV(shownIdx(i)))+' colors (display only)':'');
+ document.getElementById('binfo').innerHTML=h;
+ var mn=document.getElementById('mapnote');if(g&&view.mode==='state'){mn.style.display='block';mn.textContent=g+'. Colors shown are '+ymL(mkV(shownIdx(i)))+'\'s (display only; the data files keep '+ym(k)+' as missing).';}else mn.style.display='none';}
+function draw(i){i=Math.max(0,Math.min(view.n-1,i));sl.value=i;drawKnob(i);var k=mkV(i);curM=k;
+ document.getElementById('mlabel').textContent=ymL(k)+provLab(k);
+ var x=X(i+.5).toFixed(1),cl=document.getElementById('cur');cl.setAttribute('x1',x);cl.setAttribute('x2',x);info(i);
+ if(view.mode==='nation'){
+  Object.keys(P).forEach(function(st){var c=J.states[st].c[i];P[st].setAttribute('fill',c<0?'#d5d9de':J.pal[c]);});
+  var sh=J.share[i];
+  shT.innerHTML=BN.map(function(b,j){return '<tr><td><i style="background:'+b[3]+'"></i>'+b[2]+'</td><td class="n">'+sh[j]+'</td></tr>';}).join('')+(sh[6]?'<tr><td><i style="background:#d5d9de"></i>No data yet</td><td class="n">'+sh[6]+'</td></tr>':'');
+  document.getElementById('shh').textContent='States in each band, '+ym(k);
+  if(pinned) document.getElementById('pick').innerHTML=describe(pinned,i);
+  indTable(V.ind_nat,i,'United States');
+ } else {
+  var cnt={D:0,r:0,o:0,y:0,l:0,g:0,x:0};
+  var si=shownIdx(i);D.order.forEach(function(f){var c=D.c[f][si];P[f].setAttribute('fill',c<0?'#d5d9de':J.pal[c]);cnt[D.b[f][si]]++;});
+  shT.innerHTML=BN.map(function(b){return '<tr><td><i style="background:'+b[3]+'"></i>'+b[2]+'</td><td class="n">'+cnt[b[0]]+'</td></tr>';}).join('')+'<tr><td><i style="background:#d5d9de"></i>Gray: no value (gap or before the data)</td><td class="n">'+cnt.x+'</td></tr>';
+  document.getElementById('shh').textContent='Counties in each band, '+ym(mkV(si))+(si!==i?' (shown for '+ym(k)+')':'')+' ('+D.order.length+' counties)';
+  var ni=idxN(k);document.getElementById('stline').innerHTML=CT?'<b>'+esc(D.shapes[CT][0])+', '+ym(k)+'</b> – '+cStatus(CT,si)+'. Color: '+BC[D.b[CT][si]]:'<b>'+STN[view.st]+', '+ym(k)+'</b> – '+stStatus(view.st,k)+'. Color: '+(ni<J.n?BC[J.states[view.st].b[ni]]:'–');
+  if(pinned&&D.c[pinned]) document.getElementById('pick').innerHTML=describeC(pinned,si);
+  if(CT)cIndTable(CT,i);else indTable(D.ind,i,STN[view.st]);
+ }facts(i);}
+// hover: raise an outline copy of the hovered shape (every ring of it) above all others; removed on mouse-out
+function showHL(t){hl.innerHTML='';var p=document.createElementNS(NS,'path');p.setAttribute('d',t.getAttribute('d'));p.setAttribute('fill','none');p.setAttribute('stroke','#000');
+ p.setAttribute('stroke-width','2');p.setAttribute('stroke-linejoin','round');p.setAttribute('vector-effect','non-scaling-stroke');hl.appendChild(p);svg.appendChild(hl);}
+function clearHL(){hl.innerHTML='';}
+svg.addEventListener('mouseover',function(e){var t=e.target;if(t.dataset&&t.dataset.id&&t.parentNode===layer)showHL(t);});
+svg.addEventListener('mouseout',function(e){var t=e.target;if(t.dataset&&t.dataset.id&&e.relatedTarget!==t)clearHL();});
+var pickEl=document.getElementById('pick');
+function pickDefault(){return pinned?(view.mode==='state'?describeC(pinned,+sl.value):describe(pinned,+sl.value)):'<span style="color:#666">'+(view.mode==='nation'?'Hover over a State to read it here; click it to open its counties.':'Hover over a county to read it here; click it to open it.')+'</span>';}
+svg.addEventListener('mousemove',function(e){var t=e.target;if(!t.dataset||!t.dataset.id||t.parentNode!==layer){pickEl.innerHTML=pickDefault();return;}
+ pickEl.innerHTML=view.mode==='nation'?describe(t.dataset.id,+sl.value)+'<br><i>Click to open its counties</i>':describeC(t.dataset.id,shownIdx(+sl.value));});
+svg.addEventListener('mouseleave',function(){pickEl.innerHTML=pickDefault();clearHL();});
+// 1150 (19 Nov 2026): a county opens like a State. Factors (State and county) from cf/<State>.js, county jobs by industry from ci/<county>.js
+var FX={}, IX={}, CT=null, selG=document.getElementById('sel');
+function GR(g,b){return (typeof G1==='function')?G1(g,RD(b)):g/100;}
+// the files are scripts (cf/AL.js calls __SMD.cf('AL',{...})), so the page also works opened from disk
+var WAIT={};window.__SMD={cf:function(k,j){FX[k]=j;},ci:function(k,j){IX[k]=j;}};
+function load(dir,k,C){if(C[k])return Promise.resolve(C[k]);var id=dir+'/'+k;if(WAIT[id])return WAIT[id];
+ WAIT[id]=new Promise(function(res){var s=document.createElement('script');s.onload=function(){res(C[k]||null);};s.onerror=function(){if(dir==='ci')C[k]={none:1};delete WAIT[id];res(C[k]||null);};s.src=id+'.js';document.head.appendChild(s);});return WAIT[id];}
+function getF(st){return load('cf',st,FX);}
+function getI(f){return load('ci',f,IX);}
+function at(a,i){return (a&&i>=0&&i<a.length)?a[i]:null;}
+function sgn(x,d,u){return x==null?'–':((x>0?'+':x<0?'−':'')+Math.abs(x).toFixed(d)+u);}
+function num(x){return x==null?'–':x.toLocaleString('en-US');}
+function factRows(R){return R.map(function(r){return '<tr><td>'+r[0]+'</td><td class="n">'+r[1]+'</td></tr>';}).join('');}
+function facts(i){var el=document.getElementById('fact'),F=view.mode==='state'?FX[view.st]:null;if(!F){el.innerHTML='';return;}
+ if(CT){var c=F.c[CT]||{},u=at(c.u,i),u0=at(c.u,i-12),e=at(c.e,i),e0=at(c.e,i-12),p=at(c.p,i);
+  el.innerHTML=factRows([['Unemployment rate',u==null?'–':(u/10).toFixed(1)+'%'],['Change, 12 months',(u==null||u0==null)?'–':sgn((u-u0)/10,1,' points')],['Labor force',num(at(c.l,i))],['Jobs',num(e)],['Change, 12 months',(e==null||!e0)?'–':sgn((e/e0-1)*100,1,'%')],['Jobs against trend',p==null?'–':sgn(p/100,2,'%')]]);return;}
+ var s=F.state,ni=idxN(mkV(i)),us=at(s.u,ni),us0=at(s.u,ni-12),ps=at(s.p,ni);
+ el.innerHTML=factRows([[ni<seam?'Unemployment rate (from the insured rate)':'Unemployment rate',us==null?'–':(us/100).toFixed(1)+'%'],['Change, 12 months',(us==null||us0==null)?'–':sgn((us-us0)/100,1,' points')],[ni<seam?'Payroll jobs against trend':'Index against trend',ps==null?'–':sgn(ps/100,2,'%')]]);}
+function ctyLine(f){return D.v[f].map(function(v,i){var s=D.s[f][i];return s==='G'?null:((s==='R'||s==='D'||s==='U')?v:0);});}
+function cStatus(f,i){var code=D.s[f][i];if(code==='G')return 'no county value this month';
+ if(code==='R'||code==='D'){var pr=null;(D.per[f]||[]).forEach(function(q){if(idxV(q[0])<=i&&(q[1]==='open'||idxV(q[1])>=i))pr=q;});
+  return 'in a '+(code==='R'?'recession':'disturbance')+(pr?' since '+ym(pr[0]):'')+' (grade '+f2(GR(D.v[f][i],D.b[f][i]))+')';}
+ if(code==='U'||code==='V')return 'no period dated (unemployment rate alone, grade '+f2(GR(code==='U'?D.v[f][i]:0,D.b[f][i]))+')';
+ return 'in no recession or disturbance (jobs '+(D.v[f][i]>=0?'above':'below')+' trend by '+f2(Math.abs(D.v[f][i]/100))+' SD)';}
+function cIndTable(f,i){var I=IX[f];document.getElementById('indh').textContent='Jobs by industry, '+D.shapes[f][0]+', '+STN[view.st]+', '+ymL(mkV(i));
+ if(!I||I.none){document.getElementById('indtab').innerHTML=I?'<tr><td>No jobs by industry held for this county.</td></tr>':'';document.getElementById('indnote').textContent='';return;}
+ function ch(a,j){var x=at(a,j),y=at(a,j-12);return (x==null||!y)?null:Math.round((x/y-1)*1000);}
+ var li=I.n-1,rows='<tr><th>Industry (supersector)</th><th class="n">12-month change, '+ym(mkV(i))+'</th><th class="n">Jobs, '+ym(mkV(i))+'</th><th class="n">Latest held: '+ym(I.last)+'</th></tr>';
+ I.codes.forEach(function(c){var a=I.v[c];if(c==='1029'&&!a)return;var p=ch(a,i),q=ch(a,li);
+  rows+='<tr'+(c==='10'?' style="font-weight:700"':'')+'><td>'+I.names[c]+'</td><td class="c" style="background:'+indC(p)+';color:'+inkFor(p)+'">'+pc(p)+'</td><td class="n">'+num(at(a,i))+'</td><td class="c" style="background:'+indC(q)+';color:'+inkFor(q)+'">'+pc(q)+'</td></tr>';});
+ document.getElementById('indtab').innerHTML=rows;
+ document.getElementById('indnote').textContent='BLS Quarterly Census of Employment and Wages (QCEW): private supersectors and government, not seasonally adjusted; a dash where BLS withholds the figure. Color: 12-month percent change; cut points −3% red, −1% orange, 0 yellow, +1% light green, +3% deep green. Data held through '+ymL(I.last)+'.';}
+function markCT(){selG.innerHTML='';if(!CT||!P[CT])return;var p=document.createElementNS(NS,'path');p.setAttribute('d',P[CT].getAttribute('d'));p.setAttribute('fill','none');p.setAttribute('stroke','#990000');
+ p.setAttribute('stroke-width','2.5');p.setAttribute('stroke-linejoin','round');p.setAttribute('vector-effect','non-scaling-stroke');selG.appendChild(p);}
+function openCounty(f){if(view.mode!=='state'||!D.c[f])return Promise.resolve();stop();CT=f;pinned=f;document.getElementById('vtitle').textContent=D.shapes[f][0]+', '+STN[view.st];
+ document.getElementById('back').textContent='← Back to '+STN[view.st];markCT();drawStrip();draw(+sl.value);return getI(f).then(function(){if(CT===f)draw(+sl.value);});}
+function closeCounty(){CT=null;pinned=null;selG.innerHTML='';document.getElementById('vtitle').textContent=STN[view.st]+': counties';document.getElementById('back').textContent='← Back to the United States';drawStrip();draw(+sl.value);}
+function b64gunzip(s){var bin=atob(s),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+ return new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream('gzip'))).text().then(JSON.parse);}
+function undelta(a){for(var i=1;i<a.length;i++)a[i]+=a[i-1];return a;}
+function getState(st){if(CACHE[st])return Promise.resolve(CACHE[st]);return b64gunzip(V.st[st]).then(function(d){d.order.forEach(function(f){undelta(d.c[f]);undelta(d.v[f]);});CACHE[st]=d;return d;});}
+function openState(st){stop();getF(st).then(function(){if(view.st===st)facts(+sl.value);});return getState(st).then(function(d){D=d;var m=curM;CT=null;selG.innerHTML='';document.getElementById('back').textContent='← Back to the United States';view={mode:'state',st:st,start:V.cstart,n:V.cn};pinned=null;
+ renderState();sl.max=view.n-1;drawStrip();
+ document.getElementById('viewbar').style.display='flex';document.getElementById('back').style.display='inline-block';document.getElementById('vtitle').textContent=STN[st]+': counties';
+ document.getElementById('vnote').textContent='Timeline cut to the counties\' range, '+ymL(V.cstart)+' to '+ymL(V.clast)+'; county jobs through '+ymL(V.cqlast)+'; after '+ymL(V.cqlast)+' counties are colored from the rise in their unemployment rate alone. Same color scale and method as the State map.';
+ document.getElementById('graynote').textContent='Gray: no county value (a gap in QCEW or LAUS; never filled)';
+ document.getElementById('stline').style.display='block';
+ document.getElementById('pick').innerHTML='<span style="color:#666">Hover over a county to read it; click it to open it.</span>';
+ var i=idxV(m);draw(i<0?0:(i>=view.n?view.n-1:i));});}
+function closeState(){stop();var m=curM;CT=null;selG.innerHTML='';view={mode:'nation',st:null,start:J.start,n:J.n};D=null;pinned=null;renderNation();sl.max=view.n-1;drawStrip();
+ document.getElementById('viewbar').style.display='none';document.getElementById('back').style.display='none';document.getElementById('graynote').textContent='No State payroll series yet';document.getElementById('stline').style.display='none';
+ document.getElementById('pick').innerHTML='<span style="color:#666">Hover over a State to read it; click it to open its counties.</span>';var i=idxV(m);draw(i<0?0:(i>=view.n?view.n-1:i));}
+document.getElementById('back').addEventListener('click',function(){if(CT)closeCounty();else closeState();});
+document.addEventListener('keydown',function(e){if((e.key==='Escape'||e.key==='Esc')&&view.mode==='state'){if(CT)closeCounty();else closeState();}});
+svg.addEventListener('click',function(e){var t=e.target;if(!t.dataset||!t.dataset.id||t.parentNode!==layer)return;
+ if(view.mode==='nation'){openState(t.dataset.id);return;}
+ openCounty(t.dataset.id);document.getElementById('pick').innerHTML=describeC(pinned,shownIdx(+sl.value));});
+
+st_.addEventListener('click',function(e){var r=st_.getBoundingClientRect();var i=Math.round(((e.clientX-r.left)/r.width*W-L)/(W-L-R)*view.n-.5);draw(i);});
+var timer=null, SP=[[1,120],[2,60],[4,30]], spi=0;
+function stop(){clearInterval(timer);timer=null;document.getElementById('play').textContent='PLAY';}
+document.getElementById('play').addEventListener('click',function(){if(timer){stop();return;}
+ if(+sl.value>=view.n-1)draw(0); this.textContent='PAUSE'; timer=setInterval(function(){if(+sl.value>=view.n-1){stop();return;}draw(+sl.value+1);},SP[spi][1]);});
+document.getElementById('speed').addEventListener('click',function(){spi=(spi+1)%SP.length;this.textContent='SPEED '+SP[spi][0]+'×';if(timer){stop();document.getElementById('play').click();}});
+document.getElementById('desc').innerHTML=V.short;document.getElementById('method').innerHTML=J.desc+V.desc;
+renderNation();sl.max=view.n-1;drawStrip();draw(view.n-1);
+window.__SM={align:function(){var c=document.getElementById('cur').getBoundingClientRect(),k=document.getElementById('slknob').getBoundingClientRect();return {line:c.left+c.width/2,knob:k.left+k.width/2};},gapm:V.gapm,geom:{W:W,L:L,R:R},view:function(){return {mode:view.mode,st:view.st,start:view.start,n:view.n};},setMonth:function(m){draw(idxV(m));},openState:openState,closeState:closeState,openCounty:openCounty,closeCounty:closeCounty,county:function(){return CT;},ready:true};
+})();
+</script>
+</body>
+</html>
