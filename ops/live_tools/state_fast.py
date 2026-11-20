@@ -40,7 +40,7 @@ def _fetch_span(ids, y0, y1, key=None):
     import bls_fetch
     d, served = bls_fetch.fetch(list(ids), y0, y1, chain=('bls_v2_key1', 'bls_v2_key2', 'bls_v1', 'bls_flat'))
     for s, src in served.items():
-        if src != 'bls_v2_key1': REC['why'].setdefault('served by ' + src, 0); REC['why']['served by ' + src] += 1
+        if src not in ('bls_v2_key1', 'bls_v2_test'): REC['why'].setdefault('served by ' + src, 0); REC['why']['served by ' + src] += 1
     got = {}
     for s, rows in d.items():
         r = got.setdefault(s, {})

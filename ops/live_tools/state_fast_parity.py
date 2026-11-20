@@ -17,8 +17,16 @@ def parse(b, sid):
 
 
 def main():
-    t = time.time(); sf.bundle(); tb = time.time() - t
+    t = time.time(); b = sf.bundle(); tb = time.time() - t
     if sf.REC['why']: print('BLS API answers missing (those series would go to FRED):', json.dumps(sf.REC['why'])[:800])
+    if not any(b.values()):
+        # 20 Nov 2026: no BLS source answered at all - this run cannot compare anything; say why instead of 205 'BLS False' lines. A test
+        # run reads the BLS with its own key (BLS_API_KEY_TEST, s2/bls_fetch.py BLS_ROLE=test), never the live site's
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'data', '105_bristow_hall_system_2026-09-08', 'workspace', 's2'))
+        import bls_fetch
+        print('STATE FAST PARITY FAIL: the BLS answered none of the %d series (role %s; key %s; %s). Nothing was compared.' % (
+            len(sf.BLS_OF), bls_fetch.ROLE, 'set' if bls_fetch.key_of('bls_v2_key1') else 'MISSING (BLS_API_KEY_TEST for a test run)', '; '.join(bls_fetch.LOG[-4:])[:600]))
+        sys.exit(1)
     out = dict(series=0, identical=0, later_start=[], different=[], bls_seconds=round(tb, 1))
     for sid in sorted(sf.BLS_OF):
         url = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + sid

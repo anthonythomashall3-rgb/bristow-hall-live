@@ -19,7 +19,14 @@ jobs:
     timeout-minutes: 20
     env:
       WS: data/105_bristow_hall_system_2026-09-08/workspace
+      # 20 Nov 2026: a check of the gate never spends the live site's BLS allowance: its own key (BLS_API_KEY_TEST), then API v1; the
+      # production key is not in this workflow, and s2/bls_fetch.py refuses to read it in a test run
+      BLS_ROLE: test
+      BLS_API_KEY_TEST: ${{ secrets.BLS_API_KEY_TEST }}
+      BLS_RUN_BUDGET: '40'
     steps:
+      - name: the run's own BLS count (never the live site's files)
+        run: echo "BLS_USAGE=$RUNNER_TEMP/bls_usage_test.json" >> "$GITHUB_ENV"
       - uses: actions/checkout@v5
         with:
           fetch-depth: 1
@@ -30,7 +37,6 @@ jobs:
       - name: the live site against its sources
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
           BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
         run: |
           mkdir -p "$RUNNER_TEMP/sg"

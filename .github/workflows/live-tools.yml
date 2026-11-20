@@ -42,9 +42,19 @@ jobs:
       MODE: ${{ github.event_name == 'pull_request' && 'parity' || inputs.mode || 'full' }}
       GH_TOKEN: ${{ github.token }}
       PYTHONUNBUFFERED: '1'
+      # 20 Nov 2026 (the BLS allowance): only a full run on main reads the BLS with the live site's keys; a pull request, a parity or a
+      # cache-parity run is a test (BLS_ROLE=test: its own key BLS_API_KEY_TEST, then API v1; s2/bls_fetch.py never reads the production
+      # key in a test run). A full run counts its requests in ops/state/bls_usage_live_tools.json, committed at the end of the run, so the
+      # 80% alert and the guard's ceiling (s2/bls_fetch.py) see what the live tools spent; the run may make at most BLS_RUN_BUDGET requests
+      # on a key (the county LAUS refresh is ~126 of them on its release day) before the chain falls to its next source
+      BLS_ROLE: ${{ (github.event_name == 'pull_request' || (inputs.mode || 'full') != 'full') && 'test' || 'production' }}
+      BLS_RUN_BUDGET: '200'
     steps:
       - name: where the run keeps its record
-        run: echo "LT_OUT=$RUNNER_TEMP/lt_out" >> "$GITHUB_ENV"
+        run: |
+          echo "LT_OUT=$RUNNER_TEMP/lt_out" >> "$GITHUB_ENV"
+          if [ "$BLS_ROLE" = production ]; then echo "BLS_USAGE=$GITHUB_WORKSPACE/ops/state/bls_usage_live_tools.json" >> "$GITHUB_ENV"
+          else echo "BLS_USAGE=$RUNNER_TEMP/bls_usage_test.json" >> "$GITHUB_ENV"; fi
 
       - uses: actions/checkout@v5
         with:
@@ -100,8 +110,9 @@ jobs:
       - name: refresh, rebuild and check (ops/live_tools/run_live_tools.sh)
         if: env.MODE != 'cache-parity'
         env:
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
-          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_API_KEY: ${{ env.BLS_ROLE == 'production' && secrets.BLS_API_KEY || '' }}
+          BLS_API_KEY_2: ${{ env.BLS_ROLE == 'production' && secrets.BLS_API_KEY_2 || '' }}
+          BLS_API_KEY_TEST: ${{ env.BLS_ROLE == 'test' && secrets.BLS_API_KEY_TEST || '' }}
           BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
           SM_CACHE_DIR: ${{ runner.temp }}/sm_cache
           SM_CACHE: ${{ env.MODE == 'full' && '1' || '0' }}
@@ -142,8 +153,9 @@ jobs:
         working-directory: data/105_bristow_hall_system_2026-09-08/workspace
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
-          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_API_KEY: ${{ env.BLS_ROLE == 'production' && secrets.BLS_API_KEY || '' }}
+          BLS_API_KEY_2: ${{ env.BLS_ROLE == 'production' && secrets.BLS_API_KEY_2 || '' }}
+          BLS_API_KEY_TEST: ${{ env.BLS_ROLE == 'test' && secrets.BLS_API_KEY_TEST || '' }}
           BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
           ALERT_NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: |
@@ -156,6 +168,7 @@ jobs:
         id: commit
         if: env.MODE == 'full'
         run: |
+          cp ops/state/bls_usage_live_tools.json "$LT_OUT/" 2>/dev/null || true     # the run's BLS count, before the tree is put back (kept by the last step)
           WS=data/105_bristow_hall_system_2026-09-08/workspace; SITE=data/105_bristow_hall_system_2026-09-08/site
           if [ "${{ steps.pages.outputs.pages_ok }}" = "True" ]; then
             git add -A $WS/s2/state_onset $WS/s2/stress_map $SITE/public/state-onset $SITE/public/stress-map $WS/s2/tool_inputs_mac.json
@@ -218,6 +231,25 @@ jobs:
         if: always() && env.MODE == 'full'
         run: |
           if [ -f "$LT_OUT/restored.json" ]; then python3 ops/live_tools/state.py delta; else echo "the state was not restored, nothing to keep"; fi
+
+      # 20 Nov 2026: the live tools' BLS requests, kept on main (their own file: update.yml writes bls_usage.json, so the two never collide),
+      # so the next run of any job counts them toward the 80% alert and the guard's ceiling (s2/bls_fetch.py). Never fails the run.
+      - name: keep the BLS request count (ops/state/bls_usage_live_tools.json)
+        if: always() && env.MODE == 'full'
+        continue-on-error: true
+        run: |
+          F=ops/state/bls_usage_live_tools.json; SRC="$LT_OUT/bls_usage_live_tools.json"; [ -f "$SRC" ] || SRC="$GITHUB_WORKSPACE/$F"
+          [ -f "$SRC" ] || { echo "no BLS request counted in this run"; exit 0; }
+          cp "$SRC" "$RUNNER_TEMP/bls_usage_keep.json"; cat "$RUNNER_TEMP/bls_usage_keep.json"
+          W="$RUNNER_TEMP/usage_wt"; git fetch -q origin main && git worktree add -q --detach "$W" origin/main && cd "$W"
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 data/105_bristow_hall_system_2026-09-08/workspace/s2/bls_fetch.py keep "$RUNNER_TEMP/bls_usage_keep.json" "$F"
+            git add "$F"; git diff --cached --quiet && { echo "the count on main is current"; exit 0; }
+            git commit -q -m "BLS requests of the live tools, run ${{ github.run_id }} (ops/state/bls_usage_live_tools.json)" && git push -q origin HEAD:main && { echo "kept"; exit 0; }
+            sleep 15
+          done
+          echo "the count was not kept"; exit 1
 
       - name: the run's record
         if: always()

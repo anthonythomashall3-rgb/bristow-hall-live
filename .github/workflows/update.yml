@@ -76,6 +76,12 @@ jobs:
     # released. The steps that need New York or UTC set it themselves.
     env:
       TZ: America/Chicago
+      # THE BLS ALLOWANCE (20 Nov 2026): a run on main is the live site's (the production keys, counted in ops/state/bls_usage.json);
+      # a run on any other branch is a test (s2/bls_fetch.py: its own key BLS_API_KEY_TEST, never the production key). At most
+      # BLS_RUN_BUDGET requests on a key in one run, and no job passes BLS_DAILY_CEILING over the day or the last 24 hours; past either,
+      # the chain falls to its next source before the key is run out
+      BLS_ROLE: ${{ github.ref_name == 'main' && 'production' || 'test' }}
+      BLS_RUN_BUDGET: '80'
       # TEST MODE (22 September 2026, collection 306): a run on any branch other than main publishes a Cloudflare preview
       # (the branch's own address, never the site), pushes to its own branch, skips the forward ledger and the account
       # checks, opens no issue, and sends its notification to a test topic instead of Anthony's phone.
@@ -320,8 +326,9 @@ jobs:
           # the planted-key drill (23 September 2026, collection 356; risks register R6): on a test branch only, simulate=bad_fred_key
           # writes a well-formed key FRED has never issued in place of the secret, so the drill never touches the real key
           FRED_API_KEY: ${{ (github.ref_name != 'main' && inputs.simulate == 'bad_fred_key') && 'abcdefghijklmnopqrstuvwxyz012345' || secrets.FRED_API_KEY }}
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
-          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_API_KEY: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY || '' }}       # 20 Nov 2026: a run off main is a test (BLS_ROLE)
+          BLS_API_KEY_2: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY_2 || '' }}
+          BLS_API_KEY_TEST: ${{ github.ref_name != 'main' && secrets.BLS_API_KEY_TEST || '' }}
           BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
           BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
@@ -331,6 +338,7 @@ jobs:
             echo "FRED_API_KEY=$FRED_API_KEY"
             echo "BLS_API_KEY=$BLS_API_KEY"
             echo "BLS_API_KEY_2=$BLS_API_KEY_2"
+            echo "BLS_API_KEY_TEST=$BLS_API_KEY_TEST"
             echo "BLS_CONTACT=$BLS_CONTACT"
             echo "EIA_API_KEY=$EIA_API_KEY"
             echo "BEA_API_KEY=$BEA_API_KEY"
@@ -384,8 +392,9 @@ jobs:
         if: steps.when.outputs.go == 'true' && inputs.origin == 'slot' && inputs.slot != ''
         working-directory: ${{ steps.tool.outputs.workspace }}
         env:
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
-          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_API_KEY: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY || '' }}       # 20 Nov 2026: a run off main is a test (BLS_ROLE)
+          BLS_API_KEY_2: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY_2 || '' }}
+          BLS_API_KEY_TEST: ${{ github.ref_name != 'main' && secrets.BLS_API_KEY_TEST || '' }}
           BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
@@ -417,8 +426,9 @@ jobs:
         working-directory: ${{ steps.tool.outputs.workspace }}
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
-          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_API_KEY: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY || '' }}       # 20 Nov 2026: a run off main is a test (BLS_ROLE)
+          BLS_API_KEY_2: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY_2 || '' }}
+          BLS_API_KEY_TEST: ${{ github.ref_name != 'main' && secrets.BLS_API_KEY_TEST || '' }}
           BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
         run: |
           rm -f "$RUNNER_TEMP/gate_prefetch.json"
@@ -622,8 +632,9 @@ jobs:
         working-directory: ${{ steps.tool.outputs.workspace }}
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
-          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_API_KEY: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY || '' }}       # 20 Nov 2026: a run off main is a test (BLS_ROLE)
+          BLS_API_KEY_2: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY_2 || '' }}
+          BLS_API_KEY_TEST: ${{ github.ref_name != 'main' && secrets.BLS_API_KEY_TEST || '' }}
           BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
           BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
           SITE: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}
@@ -725,8 +736,9 @@ jobs:
         if: steps.when.outputs.go == 'true' && steps.publish.outcome == 'success' && env.OPS_TEST != '1'
         continue-on-error: true
         env:
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
-          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
+          BLS_API_KEY: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY || '' }}       # 20 Nov 2026: a run off main is a test (BLS_ROLE)
+          BLS_API_KEY_2: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY_2 || '' }}
+          BLS_API_KEY_TEST: ${{ github.ref_name != 'main' && secrets.BLS_API_KEY_TEST || '' }}
           BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
         run: python3 ops/speed/state_first_prints.py
 

@@ -94,11 +94,18 @@ def _fredgraph(sid):
     return s
 _BLS={}
 def _bls_all():
+    # 20 Nov 2026: counted and guarded by the shared BLS layer (s2/bls_fetch.py: the run's budget, the ceiling over every job, a refusal
+    # today, and a test run never sends the production key); a guarded request is not made and FRED stands alone this run, as before
+    import re; sys.path.insert(0,os.path.dirname(os.path.abspath(globals().get('__file__') or os.path.join(MNT,'105_bristow_hall_system_2026-09-08','workspace','s2','home_tiles.py')))); import bls_fetch as _bf
+    _k=(_bf.key_of('bls_v2_key1') or None) if _bf.ROLE=='test' else _BKEY
+    _kn=_bf.keyname_of('bls_v2_key1') if _k else 'bls_v1'
+    _bf._guard(_kn); _bf._count(_kn)
     y=datetime.date.today().year
     body={'seriesid':list(BLS_ID.values()),'startyear':str(y-2),'endyear':str(y)}
-    if _BKEY: body['registrationkey']=_BKEY
+    if _k: body['registrationkey']=_k
     r=subprocess.run(['curl','-sSL','-m','30','-X','POST','-H','Content-Type: application/json','-d',json.dumps(body),'https://api.bls.gov/publicAPI/v2/timeseries/data/'],capture_output=True,text=True)
     d=json.loads(r.stdout)
+    if d.get('status')!='REQUEST_SUCCEEDED' and re.search(r'threshold|key|daily|exceed',' '.join(str(m) for m in (d.get('message') or [])),re.I): _bf._refused(_kn,' '.join(str(m) for m in d.get('message') or []))
     assert d.get('status')=='REQUEST_SUCCEEDED', 'BLS API: '+str(d.get('status'))
     inv={v:k for k,v in BLS_ID.items()}
     for srs in d['Results']['series']:

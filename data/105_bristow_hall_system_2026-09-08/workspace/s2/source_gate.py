@@ -234,7 +234,7 @@ class Sources:
             d, served = bls_fetch.fetch(sorted(ids), int(start_year), dt.date.today().year, chain=('bls_v2_key1', 'bls_v2_key2', 'bls_v1', 'bls_flat'))
             self.calls += 1
             if not d: raise RuntimeError('BLS: no source answered (%s)' % '; '.join(bls_fetch.LOG[-2:]))
-            other = {k: v for k, v in served.items() if v != 'bls_v2_key1'}
+            other = {k: v for k, v in served.items() if v not in ('bls_v2_key1', 'bls_v2_test')}
             if other: self.errors.setdefault('bls_sources', {}).update(other)
             out = {}
             for s, rows in d.items():
