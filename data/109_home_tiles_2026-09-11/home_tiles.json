@@ -144,13 +144,13 @@
  "source_check": {
   "routes": {
    "UNRATE": "FRED API",
+   "PAYEMS": "FRED API",
    "JTSJOL": "FRED API",
    "UNEMPLOY": "FRED API",
-   "CPIAUCSL": "FRED API",
    "JTSQUR": "FRED API",
-   "IURSA": "FRED API",
+   "CPIAUCSL": "FRED API",
    "ICSA": "FRED API",
-   "PAYEMS": "FRED API"
+   "IURSA": "FRED API"
   },
   "compared": [
    "ICSA",
