@@ -1,14 +1,14 @@
 {
- "at": "2026-11-20T01:41:03Z",
+ "at": "2026-11-20T02:44:10Z",
  "cards": {
   "/detector/": {
-   "img": "/detector/card.png?v=cd7fb2fb",
+   "img": "/detector/card.png?v=9bc01fd4",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/disturbance/": {
-   "img": "/disturbance/card.png?v=57f65cac",
+   "img": "/disturbance/card.png?v=15a21b3c",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
@@ -26,13 +26,13 @@
    "ok": true
   },
   "/forecaster/": {
-   "img": "/forecaster/card.png?v=7f2c764e",
+   "img": "/forecaster/card.png?v=25e21a2d",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/time-machine/": {
-   "img": "/time-machine/card.png?v=387630ad",
+   "img": "/time-machine/card.png?v=5706d66c",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true

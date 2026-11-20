@@ -3,7 +3,7 @@
  "requests": {
   "bls_v2_key1": 19,
   "bls_v2_key2": 1,
-  "bls_v1": 2
+  "bls_v1": 3
  },
  "alerted": {},
  "refused": {

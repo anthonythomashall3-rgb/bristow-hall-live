@@ -1,5 +1,5 @@
 {
- "built": "2026-11-19T19:38:39",
+ "built": "2026-11-19T20:41:37",
  "data": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/workspace/s2/disturbance/out/fred_latest",
  "composite_last_month": "2026-10",
  "weights": {
@@ -86,7 +86,7 @@
    "source": "NBER"
   },
   {
-   "peak": "2024-04",
+   "peak": "2024-02",
    "trough": "2024-08",
    "source": "Paper 1"
   }
@@ -675,7 +675,7 @@
    "post_high_month": "2025-03",
    "post_high_dev": 0.5942,
    "fall_since_post_high": 1.15,
-   "payroll_prerec_peak_k": 157530,
+   "payroll_prerec_peak_k": 157238,
    "payroll_latest_k": 159293,
    "payroll_latest_month": "2026-10",
    "payroll_ever_below_peak": false,
@@ -699,7 +699,7 @@
    "grade": 4.49,
    "provisional": true,
    "recession_months_inside": [
-    "2024-04..2024-08"
+    "2024-02..2024-08"
    ],
    "passes_DD": true,
    "passes_DC": false
