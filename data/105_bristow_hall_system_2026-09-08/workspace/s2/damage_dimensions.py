@@ -15,8 +15,9 @@ each candidate ranked by height) it orders 75 of 78 pairs as the consensus does 
 (0.938). The three pairs it misses are pairs the consensus itself has nearly tied. No weight was fitted: the three dimensions carry
 equal weight, and inside each dimension depth and duration carry equal weight, exactly as the labour grade always did.
 
-Windows. The episode is the rule's own: the call month to the close month (the open episode: to today). Output: the quarters from the
-one before the call's quarter to the close's quarter; the peak anywhere in that span, the trough after it. Production: the months from
+Windows. The episode is the rule's own: the call month to the close month (the open episode: to today). Output: the quarters from
+four before the call's quarter to the close's quarter; the peak anywhere in that span, the trough after it and not before the quarter
+before the call's (1154, 19 Nov 2026; before, the span began one quarter before the call's). Production: the months from
 twelve before the call month to the close month; the peak anywhere in that span, the trough after it and not before the call month.
 The Depression on the same arithmetic: GDP 26.3 per cent and 298.5 per cent x quarters (collection 196, annual real GDP 1929-33 x 4);
 industrial production 53.6 per cent and 1413 per cent x months (INDPRO, August 1929 to March 1933, computed in 327).
@@ -78,14 +79,17 @@ def pt_and_cum(seg, not_before=None):
 def output_dimension(G, call, through, nowcast=None, today=None):
     """real GDP inside the episode from the quarter before the call's quarter to `through`'s quarter. A quarter inside the span that has
     not printed is bridged by the nowcast when it is the nowcast's own quarter; further unprinted quarters are not guessed."""
-    q0 = qstart(call) - pd.DateOffset(months=3); q1 = qstart(through)
+    # 1154 (19 Nov 2026, Anthony: "yes", one basis): the peak may lie up to four quarters before the call's quarter (as production looks twelve
+    # months back); the trough still not before the quarter before the call's. Before, the span began one quarter before the call's quarter, so
+    # a late call cut the peak off: 2020 read 7.88 per cent (from 2020 Q1) against the 9.09 from 2019 Q4, and 1953-54 read 1.98 against 2.54.
+    nb = qstart(call) - pd.DateOffset(months=3); q0 = qstart(call) - pd.DateOffset(months=12); q1 = qstart(through)
     seg = G[(G.index >= q0) & (G.index <= q1)].copy(); used_now = False
     if nowcast is not None and len(seg) and q1 > seg.index.max():
         nq = qstart(nowcast['quarter'])
         if nq == seg.index.max() + pd.DateOffset(months=3) and nq <= q1:
             seg[nq] = float(seg.iloc[-1]) * (1.0 + nowcast['rate'] / 100.0) ** 0.25; seg = seg.sort_index(); used_now = True
     if len(seg) < 2: return dict(pt=0.0, cum=0.0, score=0.0, quarters=int(len(seg)), nowcast=used_now, through=(str(seg.index.max().date()) if len(seg) else None))
-    pt, cum = pt_and_cum(seg)
+    pt, cum = pt_and_cum(seg, not_before=nb)
     return dict(pt=round(float(pt), 4), cum=round(float(cum), 4), score=round(float(score2(pt, cum, DEP["gdp_pt"], DEP["gdp_cum"])), 4), quarters=int(len(seg)), nowcast=used_now, through=str(seg.index.max().date()))
 
 def production_dimension(I, call, through):

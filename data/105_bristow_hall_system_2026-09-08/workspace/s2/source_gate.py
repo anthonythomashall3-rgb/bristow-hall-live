@@ -1180,8 +1180,19 @@ class Gate:
                 v = thru['county_laus']
                 self.R.add('stress-map', 'thru.county_laus', 'freshness', 'PASS' if v == nm else 'FAIL', v, v, 'LAUCN060370000000003', 'month', nm,
                            '' if v == nm else ('stale' if v < nm else 'after the newest county month'))
+                # 1155 (19 Nov 2026): the checked month is kept in the verified store under the key unverified() reads. It never was, so a
+                # day the BLS API could not be read held the stress map as "new since the last verified build" although the month had not
+                # changed (live-tools run 44654906993: key 1 over its daily threshold, key 2 refused as invalid).
+                if v == nm: self.remember('stress-map', 'thru.county_laus', 'BLS LAUS county', v, v)
             else:
-                self.unverified('stress-map', 'thru.county_laus', thru['county_laus'], thru['county_laus'], 'BLS LAUS county', 'month', 'the BLS API could not be read', 'freshness')
+                # 1155: FRED republishes the same BLS series (Los Angeles County, CALOSA7URN). When the BLS API cannot be read and FRED's newest
+                # month IS the page's month, the month is verified from FRED. FRED can only pass it: a FRED that is behind proves nothing.
+                f = self.S('CALOSA7URN', '%d-01-01' % (self.now.year - 1)); v = thru['county_laus']
+                if f is not None and f.dates and str(f.newest)[:7] == str(v)[:7]:
+                    self.R.add('stress-map', 'thru.county_laus', 'freshness', 'PASS', v, v, 'CALOSA7URN', 'month', str(f.newest)[:7], 'the BLS API could not be read; FRED carries the same month')
+                    self.remember('stress-map', 'thru.county_laus', 'BLS LAUS county', v, v)
+                else:
+                    self.unverified('stress-map', 'thru.county_laus', thru['county_laus'], thru['county_laus'], 'BLS LAUS county', 'month', 'the BLS API could not be read', 'freshness')
         cq = V.get('cqlast') or thru.get('county_qcew')
         if cq:
             y, mo = int(cq[:4]), int(cq[5:7]); q = (mo - 1) // 3 + 1

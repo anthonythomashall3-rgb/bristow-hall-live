@@ -10,7 +10,7 @@ TREND      Hodrick-Prescott filter on log index, lambda 133,107.94 (the OECD's m
 DATING     Bry-Boschan on the deviation. Union dating (floor fix, register v3.1): every window from the OECD parameters
            (window +-5, minimum phase 5, minimum cycle 15), plus every window from the measurement floor (+-2, phase 2,
            cycle 6) that passes D-D and overlaps no 5-month window.
-CLASSIFY   R  Recession: the window contains an NBER recession month or Paper 1's 2024-04..2024-08 (a slowdown that runs
+CLASSIFY   R  Recession: the window contains an NBER recession month or Paper 1's 2024 recession, March to August 2024 (a slowdown that runs
               into a recession with no growth-cycle expansion between is that recession's run-up, D-B).
            D-D Real: deviation fall peak to trough >= 1.0 percentage point.
            Class 1 disturbance: not R, passes D-D, and max Sahm indicator from peak to trough + 3 months < 0.50 (D-C).
@@ -50,7 +50,8 @@ SERIES = ['PAYEMS', 'INDPRO', 'W875RX1', 'CMRMTSPL', 'UNRATE', 'GDPC1']
 NBER = [('1948-11', '1949-10'), ('1953-07', '1954-05'), ('1957-08', '1958-04'), ('1960-04', '1961-02'),
         ('1969-12', '1970-11'), ('1973-11', '1975-03'), ('1980-01', '1980-07'), ('1981-07', '1982-11'),
         ('1990-07', '1991-03'), ('2001-03', '2001-11'), ('2007-12', '2009-06'), ('2020-02', '2020-04')]
-PAPER1 = [('2024-04', '2024-08')]          # Paper 1's 2024 recession (ruling 3)
+PAPER1 = [('2024-02', '2024-08')]          # Paper 1's 2024 recession, as the NBER rows are written: peak month, trough month. Paper 1 (V3.4 on): starts March 2024,
+                                           # so the peak is February (1154, 19 Nov 2026, Anthony: "Peak Feb, starts March"; was 2024-04, ruling 3)
 RECESSIONS = NBER + PAPER1
 LAMBDA = 133107.94
 DD_MIN = 1.0      # D-D

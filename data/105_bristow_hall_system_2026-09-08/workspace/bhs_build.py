@@ -1682,6 +1682,12 @@ _FOUR_P=('1948-11','1953-07','1957-08','1960-04'); _FOUR_T=('1949-10','1954-05',
 for _k in _FOUR_P: ANN[_k]=None
 for _k in _FOUR_T: TANN[_k]=None
 _ANN_SRC={'1948-11':'Moore (1955), The Diffusion of Business Cycles: the first NBER publication carrying the date','1953-07':'Moore (1955), The Diffusion of Business Cycles: the first NBER publication carrying the date','1957-08':'Moore (1958), Measuring Recessions, JASA: the first NBER publication carrying the date'}
+# 1154 (19 Nov 2026, Anthony: "Peak Feb, starts March"): Paper 1 (V3.4 on) dates the 2024 recession's start to March 2024, so its peak month,
+# the last month before it, is February 2024 - the month C1021's own record already scores against (s2/c1021_record.json: "2024-01-05 vs the
+# Feb-2024 peak", -55 days). The walk's preamble still carries April 2024 (the dating of Paper 1 before V3.4); it scores nothing in C1021, and
+# from here on PK only labels the pages (the announcements panel, state['nber']: the chart bands, the stress map strip, the Time Machine, the forecaster's record).
+PK=list(PK)
+if pd.Timestamp(PK[12]).strftime('%Y-%m')=='2024-04': PK[12]=pd.Timestamp('2024-02-01')
 ANNS=[]
 for e in epis:
     om=pd.Timestamp(e['open_month']+'-01'); hit=[i for i in range(13) if abs((om.year-PK[i].year)*12+om.month-PK[i].month)<=9]

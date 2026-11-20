@@ -10,7 +10,7 @@ unless the war-surge veto is on (federal defense spending growing 10 or more poi
 latest vintage on the day; collection 561). After each recession end called by the live Recession Indicator (its close day), a curve
 counts again only once it has been at or above zero, route 2 needs a new curve signal after the close, and insured unemployment must
 have fallen to or below its year-earlier level once. Calls within 182 days form one warning.
-Record (in sample, collection 1118): every recession 1957-2024 warned 28 to 516 days before the end of its peak month, no false alarm
+Record (in sample, collection 1118): every recession 1957-2024 warned 28 to 516 days before the end of its peak month (2024 against the April peak then used; 455 against February, 1154), no false alarm
 1953-2026. 1948 and 1953 lie before the rule's data (no unpegged short-term Treasury rate before April 1953).
 
 Inputs: FRED API (GS10, GS1, TB3MS; FDEFX, CPIAUCNS for the veto's live days) with FRED_API_KEY from the environment; the live tool's
