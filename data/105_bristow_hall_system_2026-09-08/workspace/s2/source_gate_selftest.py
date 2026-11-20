@@ -85,6 +85,24 @@ def mutations(src_cache, build_day):
             J['prov']['last'] = G.madd(J['prov']['last'], 1); J['last'] = J['prov']['last']
             return t[:m.start(2)] + json.dumps(J, separators=(',', ':')) + t[m.end(2):]
         edit(site, 'stress-map/index.html', g)
+    def v4_months(k):
+        # 1052 (20 Nov 2026): move the stress map's State chronology v4 month (thru.state, last_v4, prov.v4_last) by k months
+        def g(t):
+            m = re.search(r'(<script[^>]*id="data"[^>]*>)(.*?)(</script>)', t, re.S); J = json.loads(m.group(2))
+            J['v2']['thru']['state'] = G.madd(J['v2']['thru']['state'], k); J['last_v4'] = G.madd(J['last_v4'], k)
+            J['prov']['v4_last'] = G.madd(J['prov']['v4_last'], k)
+            return t[:m.start(2)] + json.dumps(J, separators=(',', ':')) + t[m.end(2):]
+        return lambda site: edit(site, 'stress-map/index.html', g)
+    def m_state_stale(site):
+        # 1052 (20 Nov 2026): CA's chart a month short of the newest month both its v4 inputs (rate and coincident index) have
+        def f(t):
+            i = t.find('const ALL = ') + 12; ALL, n = json.JSONDecoder().raw_decode(t[i:])
+            s = ALL['CA']['series']
+            for k in ('dates', 'values', 'reading', 'damage', 'phase', 'branch'):
+                if isinstance(s.get(k), list) and s[k]: s[k].pop()
+            ALL['CA']['now']['last_month'] = s['dates'][-1]
+            return t[:i] + json.dumps(ALL, separators=(',', ':')) + t[i + n:]
+        edit(site, 'state-onset/index.html', f)
     def m_nextday(site):
         edit(site, 'data/index.html', lambda t: data_row(t, 'unrate, payems, unemploy, lns13023621',
                                                          lambda r: re.sub(r'data-next="[^"]*"', 'data-next="%s"' % build_day, r)))
@@ -101,6 +119,14 @@ def mutations(src_cache, build_day):
                     ('home', 'Initial claims (week)', 'freshness')]),
         ('phantom_month', 'a phantom carried-forward month on /state-onset/ (and a provisional month after the newest week on /stress-map/)',
          m_phantom, [('state-onset', 'CA chronology', 'phantom'), ('stress-map', 'provisional last month', 'phantom')]),
+        # v4 needs the State unemployment rate AND the Philadelphia Fed coincident index: its newest month is the min over the two.
+        # One month behind that (every v4 input has a newer month) is still stale; one month past it (a month the index lacks) is phantom.
+        ('v4_stale', 'the stress map\'s State chronology v4 a month behind the newest month every v4 input has (truly stale)', v4_months(-1),
+         [('stress-map', 'thru.state', 'freshness'), ('stress-map', 'last_v4', 'freshness'), ('stress-map', 'prov.v4_last', 'freshness')]),
+        ('v4_past_inputs', 'the stress map\'s State chronology v4 a month past the newest month every v4 input has', v4_months(1),
+         [('stress-map', 'thru.state', 'phantom'), ('stress-map', 'last_v4', 'phantom'), ('stress-map', 'prov.v4_last', 'phantom')]),
+        ('state_v4_stale', 'a State chart a month behind the newest month both its v4 inputs have (truly stale)', m_state_stale,
+         [('state-onset', 'CA chronology', 'freshness')]),
         ('build_day_next', "'Next published' = the build day, not the publisher's release", m_nextday,
          [('data/detector', 'unemployment rate', 'next published'), ('home', 'Unemployment rate', 'next published')]),
         ('stale_row', 'a data-page row held through a stale month while a newer release existed', m_stale_row,
@@ -231,6 +257,31 @@ def main():
     print('  %-22s %s  the same, the tile changed (4.4%%): %s (a mismatch with the publisher)' % ('fred429_mismatch', 'CAUGHT' if o4 else 'MISSED', st4))
     allok &= o3 and o4
     out['fred429'] = {'unchanged': st3, 'unchanged_ok': o3, 'changed': st4, 'changed_caught': o4}
+    # 1052 (20 Nov 2026): the stress map's v4 month is checked against the newest month BOTH v4 inputs have (the State unemployment rate
+    # and the Philadelphia Fed coincident index). The unbroken build, with every State rate AND every coincident index (FRED and the
+    # Philadelphia Fed's file) given the month after the page's v4 month, published the day before the build: v4 is then truly stale.
+    m = re.search(r'<script[^>]*id="data"[^>]*>(.*?)</script>', open(os.path.join(a.site, 'stress-map', 'index.html'), encoding='utf-8').read(), re.S)
+    v4 = (json.loads(m.group(1)).get('v2') or {}).get('thru', {}).get('state') if m else None
+    st5 = []
+    if v4:
+        nxt = G.madd(v4, 1); prev = (G.D(bd) - G.dt.timedelta(days=1)).isoformat()
+        cache = json.load(open(a.sources)); n5 = 0
+        for k in list(cache):
+            q = k.split(':')
+            if len(q) == 3 and q[0] == 'fred' and re.fullmatch(r'[A-Z]{2}(UR|PHCI)', q[1]) and isinstance(cache[k], list) and cache[k]:
+                if not any(r[0][:7] == nxt for r in cache[k]):
+                    cache[k] = cache[k] + [[nxt + '-01', prev, '9999-12-31', cache[k][-1][3]]]; n5 += 1
+        cache['philly:newest'] = nxt; cache.pop('philly:newest:err', None)
+        nc = os.path.join(tmp, 'v4_inputs_newer_sources.json'); json.dump(cache, open(nc, 'w')); json.dump({}, open(vfile, 'w'))
+        r5 = G.run(a.site, mode='hold', sources_in=nc, verified_path=vfile, quiet=True, write_verified=False)
+        st5 = [(x['label'], x['status'], x['check']) for x in r5['rows'] if x['page'] == 'stress-map' and x['label'] in ('thru.state', 'last_v4', 'prov.v4_last')]
+        o5 = n5 > 0 and len(st5) == 3 and all(s == 'FAIL' and c == 'freshness' for _, s, c in st5) and r5['decision'] == 'HOLD'
+    else:
+        o5 = False
+    print('  %-22s %s  every State rate and coincident index has %s, the stress map\'s v4 shows %s: %s (held)' % (
+        'v4_all_inputs_newer', 'CAUGHT' if o5 else 'MISSED', G.madd(v4, 1) if v4 else '?', v4, st5))
+    allok &= o5
+    out['v4_all_inputs_newer'] = {'v4': v4, 'rows': st5, 'caught': o5}
     out['all_caught'] = bool(allok)
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
     json.dump(out, open(a.out, 'w'), indent=1, default=str)
