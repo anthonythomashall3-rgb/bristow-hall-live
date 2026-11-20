@@ -308,6 +308,25 @@ class Sources:
         except Exception as e:
             self.c[key + ':err'] = str(e); return None
 
+    def philly_newest(self):
+        """1052 (20 Nov 2026): the newest month of the Philadelphia Fed's own State coincident index file (coincident-revised.xls, the
+        file the State chronology v4 reads: 1052 code/state_inputs_refresh_1052.py PHILLY_URL), 'YYYY-MM'; read where FRED (release 109)
+        has not posted the indexes yet. None when it cannot be read (FRED's <ST>PHCI then decides alone)."""
+        key = 'philly:newest'
+        if key in self.c: return self.c[key]
+        if key + ':err' in self.c or self.offline: return None
+        try:
+            import io, pandas as pd
+            with urllib.request.urlopen(urllib.request.Request(
+                    'https://www.philadelphiafed.org/-/media/frbp/assets/surveys-and-data/coincident/coincident-revised.xls',
+                    headers={'User-Agent': UA}), timeout=60) as r:
+                X = pd.read_excel(io.BytesIO(r.read()), sheet_name='Indexes')
+            d = pd.to_datetime(X.iloc[:, 0], errors='coerce').dropna()
+            if not len(d): raise RuntimeError('no month in the file')
+            self.c[key] = str(d.max().date())[:7]; return self.c[key]
+        except Exception as e:
+            self.c[key + ':err'] = str(e)[:200]; return None
+
     def spx(self):
         """1116 (16 Nov 2026): the S&P 500's daily closes from the chart feed the site itself reads and names on its data page (Yahoo
         Finance ^GSPC): {'YYYY-MM-DD': close, 2 decimals}. FRED posts SP500 hours after the 4 PM close, so the 16:20 ET slot's build
@@ -1085,21 +1104,36 @@ class Gate:
         i = t.find('const ALL = ')
         if i < 0: self.R.add('state-onset', 'data', 'inventory', 'FAIL', detail='no state data on the page'); return
         ALL, _ = json.JSONDecoder().raw_decode(t[i + 12:])
+        # 1052 (20 Nov 2026): the chart is the v4 damage grade, which needs the State's unemployment rate AND the Philadelphia Fed State
+        # coincident index (see stress_map below): its last month must be the newest month BOTH have (min over the two inputs)
+        pf = self.src.philly_newest()
         for st, a in sorted(ALL.items()):
             ur = self.S(st + 'UR', '2025-01-01')
+            ph = self.S(st + 'PHCI', '2025-01-01')
             ser = a.get('series') or {}
             dates = ser.get('dates') or []
             last = dates[-1] if dates else None
             lab = '%s chronology: last month' % st
             if ur is None or not ur.dates:
                 self.unverified('state-onset', lab, last, last, st + 'UR', 'month', 'the source could not be read', 'freshness')
+            elif (ph is None or not ph.dates) and not pf:
+                self.unverified('state-onset', lab, last, last, st + 'UR', 'month', 'the State coincident index (v4\'s other input) could not be read', 'freshness')
             else:
                 newest = mkey(ur.newest)
-                if last and last > newest:
-                    self.R.add('state-onset', lab, 'phantom', 'FAIL', last, last, st + 'UR', None, newest,
-                               'a point for %s but the newest State unemployment rate is %s: carried forward' % (last, newest))
-                else:
+                pn = max([x for x in (mkey(ph.newest) if ph and ph.dates else None, pf) if x])
+                if last and last > min(newest, pn):
+                    self.R.add('state-onset', lab, 'phantom', 'FAIL', last, last, st + 'UR', None, min(newest, pn),
+                               'a point for %s but the newest month both v4 inputs have is %s (State unemployment rate %s, coincident index %s): carried forward'
+                               % (last, min(newest, pn), newest, pn))
+                elif newest <= pn:
                     self.fresh('state-onset', lab, ur, (last or '') + '-01', 'monthly', last, 'month')
+                elif ph and ph.dates and mkey(ph.newest) == pn:
+                    self.fresh('state-onset', lab, ph, (last or '') + '-01', 'monthly', last, 'month')
+                elif last == pn:
+                    self.R.add('state-onset', lab, 'freshness', 'PASS', last, last, st + 'PHCI', 'month', pn, 'newest in the Philadelphia Fed\'s file (FRED has not posted it yet)')
+                else:
+                    self.R.add('state-onset', lab, 'freshness', 'FAIL', last, last, st + 'PHCI', 'month', pn,
+                               'stale: both v4 inputs have %s (the Philadelphia Fed\'s file)' % pn)
                 for k, v in (('now.last_month', (a.get('now') or {}).get('last_month')), ('dg.rt', (a.get('dg') or {}).get('rt')),
                              ('sahm: last month', ((a.get('sahm') or {}).get('dates') or [None])[-1])):
                     if v and v > newest:
@@ -1127,14 +1161,29 @@ class Gate:
         ics = {st: (self.dol_series(st, 'ic') or self.S(st + 'ICLAIMS', '2026-01-01')) for st in STATES}
         um = [mkey(s.newest) for s in urs.values() if s and s.dates]
         iw = {st: s.newest for st, s in ics.items() if s and s.dates}
-        if um:
-            nm = max(um)
+        # 1052 (20 Nov 2026): the State chronology v4 month needs BOTH its inputs: the State unemployment rate AND the Philadelphia Fed
+        # State coincident index (v4 ends at the index file's last month: 1032 state_chronology_v4_growth_cycle_a198_1032.py 'last =
+        # X.index[-1]'; stress_map_v3_1_1052.py asserts it; the provisional months start after it). The BLS State release comes about two
+        # weeks before the indexes, so between the two v4 cannot move: the newest month v4 can reach is the MIN over its inputs of each
+        # input's newest published month. Stale below it, phantom above it.
+        phs = [self.S(st + 'PHCI', '2025-01-01') for st in STATES if st != 'DC']
+        pm = [mkey(s.newest) for s in phs if s and s.dates]
+        pf = self.src.philly_newest()
+        if pf: pm.append(pf)
+        if um and pm:
+            nu, np_ = max(um), max(pm); nm = min(nu, np_)
+            why = 'State unemployment rates through %s, State coincident indexes through %s' % (nu, np_)
             for k, v in (('thru.state', thru.get('state')), ('last_v4', J.get('last_v4')), ('prov.v4_last', PV.get('v4_last'))):
                 if not v: continue
-                st = 'PASS' if v == nm else ('FAIL' if v > nm else 'FAIL')
-                self.R.add('stress-map', k, 'freshness' if v < nm else 'phantom' if v > nm else 'freshness', st, v, v, 'xxUR', 'month', nm,
-                           '' if st == 'PASS' else ('stale: the States have %s' % nm if v < nm else 'after the newest State month %s' % nm))
+                st = 'PASS' if v == nm else 'FAIL'
+                self.R.add('stress-map', k, 'freshness' if v < nm else 'phantom' if v > nm else 'freshness', st, v, v, 'xxUR+xxPHCI', 'month', nm,
+                           ('v4 inputs: ' + why) if st == 'PASS' else ('stale: every v4 input has %s (%s)' % (nm, why) if v < nm
+                                                                     else 'after the newest month every v4 input has, %s (%s)' % (nm, why)))
                 self.remember('stress-map', k, 'xxUR', v, v)
+        elif um:
+            for k in ('thru.state', 'last_v4', 'prov.v4_last'):
+                v = thru.get('state') if k == 'thru.state' else J.get('last_v4') if k == 'last_v4' else PV.get('v4_last')
+                if v: self.unverified('stress-map', k, v, v, 'xxUR', 'month', 'no State coincident index (v4\'s other input) could be read', 'freshness')
         else:
             self.unverified('stress-map', 'thru.state', thru.get('state'), thru.get('state'), 'xxUR', 'month', 'no State rate could be read', 'freshness')
         if iw:

@@ -100,7 +100,10 @@ for st in R.STATES:
     ser_rule = ser_vals; _dm = dict(_V4L['states'][st]['line']); ser_vals = [(_dm.get(mm[:7]) if mm[:7] > _V4L['through'] else (_dm.get(mm[:7]) or 0.0)) for mm in ser_dates]
     # 15 Nov 2026 (1052, for 1032): the series end at the State's own data month (dg.rt = the v4 line's unemployment_through for the State); the last grade is
     # no longer held forward to the claims' last month (that drew a phantom point one month past the data on /state-onset/)
-    _rt = _V4L['unemployment_through'][st]; _keep = [i for i, mm in enumerate(ser_dates) if mm[:7] <= _rt]
+    # 20 Nov 2026 (1052): the grade is v4's, which needs BOTH the State unemployment rate and the Philadelphia Fed index: the series end at the
+    # newest month both have (min of the two). The BLS State release comes about two weeks before the index; a month past the index has no grade
+    # (null: the page's script cannot draw it, 24 States failed to render on 20 Nov 2026 15:49Z) and stays off the chart until v4 reaches it
+    _rt = min(_V4L['unemployment_through'][st], _V4L['through']); _keep = [i for i, mm in enumerate(ser_dates) if mm[:7] <= _rt]
     ser_dates = [ser_dates[i] for i in _keep]; ser_vals = [ser_vals[i] for i in _keep]; ser_claims = [ser_claims[i] for i in _keep]; ser_rule = [ser_rule[i] for i in _keep]
     for c, rts in _grp:
         mo = str((c - pd.Timedelta(days=35)).to_period('M')); rt = '; '.join(dict.fromkeys(x for r in rts for x in r.split('; ')))
@@ -189,7 +192,7 @@ for st in R.STATES:
                'nber': nb, 'episodes': eps, 'announcements': ann, 'notcalled': notcalled,
                'sahm': {'dates': [k for k in cid if k[:7] >= '1979-01'], 'values': [ci[k][0] for k in cid if k[:7] >= '1979-01']}, 'sahm_other': [],
                'through': {'claims': ic.dropna().index.max().strftime('%Y-%m-%d')}, 'notes': {},
-               'now': d['now'], 'signal_on': _live(LASTD),
+               'now': dict(d['now'], last_month=ser_dates[-1][:7] if ser_dates else d['now']['last_month']), 'signal_on': _live(LASTD),
                'record': rec, 'calls_view': calls_view, 'claims': {'dates': ser_dates, 'values': ser_claims}, 'rule': {'dates': ser_dates, 'values': ser_rule}}
     ALL[st].update({'episodes': [], 'announcements': [], 'notcalled': [], 'calls_view': [], 'record': {}, 'claims': {'dates': [], 'values': []}, 'rule': {'dates': [], 'values': []}, 'signal_on': False})
 import collections as _co
