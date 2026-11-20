@@ -4,10 +4,14 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-19",
- "checked_at": "2026-11-20 00:05 UTC",
- "seconds": 3.4,
+ "checked_at": "2026-11-20 01:02 UTC",
+ "seconds": 2.1,
  "source_calls": 4,
- "source_errors": {},
+ "source_errors": {
+  "bls_sources": {
+   "LAUCN060370000000003": "bls_v1"
+  }
+ },
  "counts": {
   "home": {
    "PASS": 28
