@@ -1,13 +1,31 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-11-19 19:05",
+   "due_ny": "2026-11-19 08:30",
+   "expected_day": false,
+   "ids": "alinsuredur ... wyinsuredur",
+   "short": "weekly claims",
+   "since_ny": "2026-11-19 09:14",
+   "through_before": "2026-10-31",
+   "through_now": "2026-11-07",
+   "value_before": "0"
+  },
+  {
+   "came_in": "2026-11-19 19:05",
+   "due_ny": "2026-11-19 16:00",
+   "ids": "sp500",
+   "short": "the S&P 500 close"
+  }
+ ],
  "early": {
   "aliclaims ... wyiclaims": {
-   "at": "2026-11-15 18:41",
-   "through": "2026-11-07"
+   "at": "2026-11-19 19:05",
+   "through": "2026-11-14"
   },
-  "payems, indpro, w875rx1, cmrmtspl, unrate, gdpc1": {
-   "at": "2026-11-15 16:50",
-   "through": "2026-10-31"
+  "aliclaims ... wyiclaims, alcclaims ... wycclaims": {
+   "at": "2026-11-19 19:05",
+   "through": "2026-11-14"
   }
  },
  "expired": [
@@ -32,17 +50,8 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-19 16:14",
+ "last_check_ny": "2026-11-19 19:00",
  "pending": [
-  {
-   "due_ny": "2026-11-19 08:30",
-   "expected_day": false,
-   "ids": "alinsuredur ... wyinsuredur",
-   "short": "weekly claims",
-   "since_ny": "2026-11-19 09:14",
-   "through_before": "2026-10-31",
-   "value_before": "0"
-  },
   {
    "due_ny": "2026-11-19 11:30",
    "expected_day": false,
