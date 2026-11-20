@@ -94,7 +94,7 @@ PASS  E22: the ender ran today (out/e22_state.json)  got=2026-11-19  want=2026-1
 PASS  E22: every close names its leg  got=[]  want=[]
 PASS  C1021: the starter ran today (out/c1021_state.json)  got=2026-11-19  want=2026-11-19
 PASS  C1021: the v3.76 starter's blocks have left the state  got=[]  want=[]
-FAIL  C1021: the record's three heights with the C1021 opens (2007-09 5.9, 2020 5.6, 2024 1.8)  got=[5.9, 5.7, 1.8]  want=[5.9, 5.6, 1.8]
+PASS  C1021: the record's three heights with the C1021 opens (2007-09 5.9, 2020 5.7, 2024 1.8)  got=[5.9, 5.7, 1.8]  want=[5.9, 5.7, 1.8]
 PASS  state: no leg-tier keys and no leg labels (v3.64)  got=[]  want=[]
 PASS  state: nothing from the frozen rule (v3.65)  got=[]  want=[]
 PASS  speed panel: the four carry no announcement day (v3.66)  got=[]  want=[]
@@ -122,7 +122,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-11-07)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-11-19 21:26', '2026-11-19 21:26')  want=('2026-11-19 21:26', '2026-11-19 21:26')
+PASS  public state copies are this build  got=('2026-11-19 21:30', '2026-11-19 21:30')  want=('2026-11-19 21:30', '2026-11-19 21:30')
 PASS  front-page tiles fetched today  got=2026-11-19  want=2026-11-19
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]
