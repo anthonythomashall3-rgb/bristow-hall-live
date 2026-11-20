@@ -4,9 +4,9 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-20",
- "checked_at": "2026-11-20 15:26 UTC",
- "seconds": 3.0,
- "source_calls": 4,
+ "checked_at": "2026-11-20 16:23 UTC",
+ "seconds": 143.4,
+ "source_calls": 229,
  "source_errors": {},
  "counts": {
   "home": {
@@ -23,14 +23,14 @@
    "PASS": 18
   },
   "data/state-onset": {
-   "PASS": 23,
-   "WARN": 13,
+   "PASS": 19,
+   "WARN": 17,
    "INFO": 1
   },
   "data/stress-map": {
-   "WARN": 11,
+   "WARN": 12,
    "INFO": 5,
-   "PASS": 29
+   "PASS": 28
   },
   "data/forecaster": {
    "PASS": 13,
@@ -44,7 +44,8 @@
    "PASS": 100
   },
   "stress-map": {
-   "PASS": 10
+   "PASS": 9,
+   "WARN": 1
   },
   "forecaster": {
    "PASS": 6,
@@ -55,9 +56,9 @@
   "checks": 403,
   "figures": 272,
   "fail": 0,
-  "warn": 43,
+  "warn": 49,
   "unverified": 0,
-  "passed": 354
+  "passed": 348
  },
  "failures": [],
  "rows": [
@@ -1697,13 +1698,13 @@
    "page": "data/state-onset",
    "label": "state payrolls by industry, as first published",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": "",
    "period": "2026-09-01",
    "series": "ALNA",
    "transform": "file",
-   "expected": "2026-09-01",
-   "detail": ""
+   "expected": "2026-10-01",
+   "detail": "a newer period (2026-10-01) was published 2026-11-20, on or after the build day: the next run takes it"
   },
   {
    "page": "data/state-onset",
@@ -1757,13 +1758,13 @@
    "page": "data/state-onset",
    "label": "state payroll employment, 50 states and dc",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": "",
    "period": "2026-09-01",
    "series": "ALNA",
    "transform": "file",
-   "expected": "2026-09-01",
-   "detail": ""
+   "expected": "2026-10-01",
+   "detail": "a newer period (2026-10-01) was published 2026-11-20, on or after the build day: the next run takes it"
   },
   {
    "page": "data/state-onset",
@@ -1781,13 +1782,13 @@
    "page": "data/state-onset",
    "label": "state unemployment rates, 50 states and dc",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": "",
    "period": "2026-09-01",
    "series": "ALUR",
    "transform": "file",
-   "expected": "2026-09-01",
-   "detail": ""
+   "expected": "2026-10-01",
+   "detail": "a newer period (2026-10-01) was published 2026-11-20, on or after the build day: the next run takes it"
   },
   {
    "page": "data/state-onset",
@@ -1805,13 +1806,13 @@
    "page": "data/state-onset",
    "label": "state payrolls and unemployment rates, not seasonally adjusted",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": "",
    "period": "2026-09-01",
    "series": "ALNAN",
    "transform": "file",
-   "expected": "2026-09-01",
-   "detail": ""
+   "expected": "2026-10-01",
+   "detail": "a newer period (2026-10-01) was published 2026-11-20, on or after the build day: the next run takes it"
   },
   {
    "page": "data/state-onset",
@@ -2381,13 +2382,13 @@
    "page": "data/stress-map",
    "label": "state unemployment rates, 50 states and dc",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": "",
    "period": "2026-09-01",
    "series": "ALUR",
    "transform": "file",
-   "expected": "2026-09-01",
-   "detail": ""
+   "expected": "2026-10-01",
+   "detail": "a newer period (2026-10-01) was published 2026-11-20, on or after the build day: the next run takes it"
   },
   {
    "page": "data/stress-map",
@@ -3500,7 +3501,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "AKUR",
+   "series": "AKPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3524,7 +3525,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "ALUR",
+   "series": "ALPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3548,7 +3549,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "ARUR",
+   "series": "ARPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3572,7 +3573,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "AZUR",
+   "series": "AZPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3596,7 +3597,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "CAUR",
+   "series": "CAPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3620,7 +3621,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "COUR",
+   "series": "COPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3644,7 +3645,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "CTUR",
+   "series": "CTPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3668,7 +3669,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "DEUR",
+   "series": "DEPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3692,7 +3693,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "FLUR",
+   "series": "FLPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3716,7 +3717,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "GAUR",
+   "series": "GAPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3740,7 +3741,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "HIUR",
+   "series": "HIPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3764,7 +3765,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "IAUR",
+   "series": "IAPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3788,7 +3789,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "IDUR",
+   "series": "IDPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3812,7 +3813,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "ILUR",
+   "series": "ILPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3836,7 +3837,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "INUR",
+   "series": "INPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3860,7 +3861,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "KSUR",
+   "series": "KSPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3884,7 +3885,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "KYUR",
+   "series": "KYPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3908,7 +3909,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "LAUR",
+   "series": "LAPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3932,7 +3933,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "MAUR",
+   "series": "MAPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3956,7 +3957,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "MDUR",
+   "series": "MDPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -3980,7 +3981,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "MEUR",
+   "series": "MEPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4004,7 +4005,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "MIUR",
+   "series": "MIPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4028,7 +4029,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "MNUR",
+   "series": "MNPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4052,7 +4053,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "MOUR",
+   "series": "MOPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4076,7 +4077,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "MSUR",
+   "series": "MSPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4100,7 +4101,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "MTUR",
+   "series": "MTPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4124,7 +4125,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "NCUR",
+   "series": "NCPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4148,7 +4149,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "NDUR",
+   "series": "NDPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4172,7 +4173,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "NEUR",
+   "series": "NEPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4196,7 +4197,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "NHUR",
+   "series": "NHPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4220,7 +4221,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "NJUR",
+   "series": "NJPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4244,7 +4245,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "NMUR",
+   "series": "NMPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4268,7 +4269,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "NVUR",
+   "series": "NVPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4292,7 +4293,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "NYUR",
+   "series": "NYPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4316,7 +4317,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "OHUR",
+   "series": "OHPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4340,7 +4341,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "OKUR",
+   "series": "OKPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4364,7 +4365,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "ORUR",
+   "series": "ORPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4388,7 +4389,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "PAUR",
+   "series": "PAPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4412,7 +4413,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "RIUR",
+   "series": "RIPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4436,7 +4437,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "SCUR",
+   "series": "SCPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4460,7 +4461,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "SDUR",
+   "series": "SDPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4484,7 +4485,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "TNUR",
+   "series": "TNPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4508,7 +4509,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "TXUR",
+   "series": "TXPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4532,7 +4533,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "UTUR",
+   "series": "UTPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4556,7 +4557,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "VAUR",
+   "series": "VAPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4580,7 +4581,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "VTUR",
+   "series": "VTPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4604,7 +4605,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "WAUR",
+   "series": "WAPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4628,7 +4629,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "WIUR",
+   "series": "WIPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4652,7 +4653,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "WVUR",
+   "series": "WVPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4676,7 +4677,7 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09-01",
-   "series": "WYUR",
+   "series": "WYPHCI",
    "transform": "month",
    "expected": "2026-09-01",
    "detail": ""
@@ -4700,10 +4701,10 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09",
-   "series": "xxUR",
+   "series": "xxUR+xxPHCI",
    "transform": "month",
    "expected": "2026-09",
-   "detail": ""
+   "detail": "v4 inputs: State unemployment rates through 2026-10, State coincident indexes through 2026-09"
   },
   {
    "page": "stress-map",
@@ -4712,10 +4713,10 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09",
-   "series": "xxUR",
+   "series": "xxUR+xxPHCI",
    "transform": "month",
    "expected": "2026-09",
-   "detail": ""
+   "detail": "v4 inputs: State unemployment rates through 2026-10, State coincident indexes through 2026-09"
   },
   {
    "page": "stress-map",
@@ -4724,10 +4725,10 @@
    "status": "PASS",
    "value": "2026-09",
    "period": "2026-09",
-   "series": "xxUR",
+   "series": "xxUR+xxPHCI",
    "transform": "month",
    "expected": "2026-09",
-   "detail": ""
+   "detail": "v4 inputs: State unemployment rates through 2026-10, State coincident indexes through 2026-09"
   },
   {
    "page": "stress-map",
@@ -4781,13 +4782,13 @@
    "page": "stress-map",
    "label": "thru.ind_st",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": "2026-09",
    "period": "2026-09-01",
    "series": "ALNA",
    "transform": "month",
-   "expected": "2026-09-01",
-   "detail": ""
+   "expected": "2026-10-01",
+   "detail": "a newer period (2026-10-01) was published 2026-11-20, on or after the build day: the next run takes it"
   },
   {
    "page": "stress-map",
