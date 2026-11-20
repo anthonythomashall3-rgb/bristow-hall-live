@@ -6,7 +6,7 @@ ROOT = '/Users/anthonyhall/Projects/Onset Detector Data'
 PUB = glob.glob(ROOT + '/105_*/cloud/data/105_bristow_hall_system_2026-09-08/site/public')[0]
 S = json.load(open(glob.glob(ROOT + '/823_*/out/live_state_823.json')[0]))
 NB = [('1948-11', '1949-10'), ('1953-07', '1954-05'), ('1957-08', '1958-04'), ('1960-04', '1961-02'), ('1969-12', '1970-11'), ('1973-11', '1975-03'),
-      ('1980-01', '1980-07'), ('1981-07', '1982-11'), ('1990-07', '1991-03'), ('2001-03', '2001-11'), ('2007-12', '2009-06'), ('2020-02', '2020-04'), ('2024-03', '2024-08')]
+      ('1980-01', '1980-07'), ('1981-07', '1982-11'), ('1990-07', '1991-03'), ('2001-03', '2001-11'), ('2007-12', '2009-06'), ('2020-02', '2020-04'), ('2024-02', '2024-08')]   # 2024: Paper 1 - starts March 2024, so the peak month is February (1154)
 def fd(s): return dt.date.fromisoformat(s[:10]).strftime('%b %-d, %Y') if s else 'open'
 def fm(m): return dt.date.fromisoformat(m + '-01').strftime('%b %Y')
 # 1153 (19 Nov 2026): the NBER has dated no recession in 2024; the last row of NB is Paper 1's (Hall and Bristow: onset March 2024, end August 2024) and says so
