@@ -22,4 +22,4 @@ peak,trough,open,months,dating,status,status_v3_1,dev_fall_pp,sahm_max,sahm_reri
 2015-01,2016-05,False,16,OECD 5/15,disturbance_class1,disturbance_class1,1.86,0.1,,0.1,5.21,0.0,0.2,0.0,5.14,1.78,2.67,False,[],True,True,,,,,,,,,,
 2019-01,2020-04,False,15,OECD 5/15,recession,recession,12.23,9.43,,11.1,18.77,9.09,5.42,5.28,6.16,5.62,6.93,False,['2020-02..2020-04'],True,False,,,,,,,,,,
 2021-11,2022-06,False,7,OECD 5/15,disturbance_class1,disturbance_class1,1.32,0.0,0.0,0.0,0.67,0.25,0.0,0.59,1.08,0.56,0.84,False,[],True,True,,,,,,,,,,
-2024-06,,True,28,OECD 5/15,recession,recession,1.14,0.53,,1.0,1.71,0.0,3.64,0.0,2.74,2.13,4.49,True,['2024-04..2024-08'],True,False,2024-08,2024-09,0.587,2025-03,0.5942,1.15,157530.0,159293.0,2026-10,False
+2024-06,,True,28,OECD 5/15,recession,recession,1.14,0.53,,1.0,1.71,0.0,3.64,0.0,2.74,2.13,4.49,True,['2024-02..2024-08'],True,False,2024-08,2024-09,0.587,2025-03,0.5942,1.15,157238.0,159293.0,2026-10,False

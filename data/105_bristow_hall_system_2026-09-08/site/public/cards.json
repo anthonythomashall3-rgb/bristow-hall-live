@@ -1,5 +1,5 @@
 {
- "built": "2026-11-20T00:04:09Z",
+ "built": "2026-11-20T01:20:12Z",
  "size": [
   1200,
   760
@@ -7,21 +7,21 @@
  "cards": {
   "/detector/": {
    "png": "/detector/card.png",
-   "sha256": "cd7fb2fbb7d183f310da508108b9ff3e92db36352bea28c3cfbebb8326614ea6",
+   "sha256": "9bc01fd40816e0a53d5462f0707574ef3f550c899870c6c948eea88a7af27751",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 839,
-   "share_not_main": 0.2685
+   "colours": 847,
+   "share_not_main": 0.269
   },
   "/disturbance/": {
    "png": "/disturbance/card.png",
-   "sha256": "57f65cac78ba132a68916cf8d44a19f9636fb7cd17fefcc26ac9013abedde365",
+   "sha256": "15a21b3c6e516b03608d0743d9f91489bc1514920bad599d4462e71e2765035e",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1176,
-   "share_not_main": 0.388
+   "colours": 1178,
+   "share_not_main": 0.3904
   },
   "/state-onset/": {
    "png": "/state-onset/card.png",
@@ -43,21 +43,21 @@
   },
   "/forecaster/": {
    "png": "/forecaster/card.png",
-   "sha256": "7f2c764ebc2a3022771b95c15fb7dccaa975583063598bafc7815a0104a54798",
+   "sha256": "25e21a2d87f396f13e31cb17bfa03c401969ffd9f1d2486e09722c5d6744d6f9",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1681,
-   "share_not_main": 0.2187
+   "colours": 1682,
+   "share_not_main": 0.221
   },
   "/time-machine/": {
    "png": "/time-machine/card.png",
-   "sha256": "387630ade40f43487ea8fea482f986396a057302be5871205c0b5099716862d2",
+   "sha256": "5706d66cffffb1f990af0a0158bc039d2dc4a74bb1161a8783ef1cfdd27b8068",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 835,
-   "share_not_main": 0.178
+   "colours": 841,
+   "share_not_main": 0.1829
   },
   "/data/": {
    "png": "/data/card.png",

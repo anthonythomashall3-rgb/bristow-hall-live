@@ -97,10 +97,10 @@
    "first": "the rule"
   },
   {
-   "peak": "2024-04",
+   "peak": "2024-02",
    "trough": "2024-08",
    "window": [
-    "2023-12-30",
+    "2023-10-30",
     "2024-10-01"
    ],
    "daters": {
@@ -121,12 +121,12 @@
      "days_after_tool": null
     },
     "Michez": {
-     "call": null,
-     "days_after_tool": null
+     "call": "2023-11-03",
+     "days_after_tool": -63
     }
    },
    "tool": "2024-01-05",
-   "first": "the rule"
+   "first": "Michez"
   }
  ],
  "false_alarms": {
@@ -139,7 +139,6 @@
   "LMSI30": [],
   "CFNAI": [],
   "Michez": [
-   "2023-11-03",
    "2025-12-16"
   ],
   "the rule": []
@@ -149,11 +148,11 @@
   "SOS_NSA": 0,
   "LMSI30": 0,
   "CFNAI": 0,
-  "Michez": 0,
-  "the rule": 4
+  "Michez": 1,
+  "the rule": 3
  },
  "since": "1994-01-01",
- "built_at": "2026-11-20T00:04:05Z",
+ "built_at": "2026-11-20T01:20:06Z",
  "note": "evidence, never a lesson: the outside rules on the programme's real-time data (collection 249, scored in 275), carried forward by the live tier; a call counts for a recession inside [-122, +31] days of the peak and trough months' ends, else it is a false alarm; the jury (three of five within a month) was tested and refused as a lesson source (collection 335)",
  "jury": {
   "rule": "a provisional lesson when at least three of the five non-NBER daters call a peak within one month of one another and the committee has not spoken",
