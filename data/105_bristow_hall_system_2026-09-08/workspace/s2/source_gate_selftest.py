@@ -52,7 +52,44 @@ def data_row(t, ids, fn):
     return t[:m.start()] + fn(m.group(0)) + t[m.end():]
 
 
-def mutations(src_cache, build_day):
+def _expected(base, page, prefix, check='freshness'):
+    """the newest period the gate found at the source for a figure of the unbroken build (its report's `expected`), or None"""
+    for r in (base or {}).get('rows') or []:
+        if r['page'] == page and r['label'].startswith(prefix) and r['check'] == check and r.get('expected'):
+            return str(r['expected'])
+    return None
+
+
+def _month_end(ym):
+    import calendar
+    y, m = int(ym[:4]), int(ym[5:7]); return '%04d-%02d-%02d' % (y, m, calendar.monthrange(y, m)[1])
+
+
+def frozen_dates(site, base):
+    """THE DATES OF THE frozen_label_date CASE, DERIVED FROM THE LIVE BUILD (20 Nov 2026). The case used to carry them as text ('week
+    ending Nov 14, 2026', '2026-11-30', '2026-09-12'); on 20 Nov the live claims tile itself read 'week ending Nov 14, 2026', the copy could
+    not be broken and the self-test failed. Now, from the unbroken build and the gate's own report on it (the newest period at the source):
+      the claims tile        labelled one week AFTER the newest real week (the later of the tile's own week and the source's newest)
+      the fed-shock reading  labelled through the end of the month AFTER the newest real month
+      current through claims frozen nine weeks BEFORE the real week (a date the publisher has long passed)
+    so the labels are always later (or earlier) than anything the source has, whatever the date of the build."""
+    import datetime as _d
+    t = open(os.path.join(site, 'index.html'), encoding='utf-8').read(); i = t.find('const H=') + 8; H, _ = json.JSONDecoder().raw_decode(t[i:])
+    wk_tile = G.label_period(tile(H, 'Initial claims (week)').get('sub') or '')
+    wk_src = _expected(base, 'home', 'Initial claims (week)')
+    wk = max(x for x in (wk_tile, wk_src) if x)
+    later = _d.date.fromisoformat(wk[:10]) + _d.timedelta(days=7)
+    _, _, _, S = load_S(site)
+    r = next(x for x in S['readings'] if x['object'].startswith('fed-shock door'))
+    m_src = _expected(base, 'detector', 'fed-shock door')
+    m = max(x[:7] for x in (r.get('through') or '', m_src or '') if x)
+    th_real = (S.get('through') or {}).get('claims') or wk
+    return {'tile_sub': 'week ending %s %d, %d' % (G.MON[later.month - 1], later.day, later.year), 'tile_week': later.isoformat(),
+            'reading_through': _month_end(G.madd(m, 1)), 'claims_through': (_d.date.fromisoformat(th_real[:10]) - _d.timedelta(weeks=9)).isoformat(),
+            'real': {'tile_week': wk_tile, 'source_week': wk_src, 'reading_through': r.get('through'), 'source_month': m_src, 'claims_through': th_real}}
+
+
+def mutations(src_cache, build_day, base=None):
     """(name, what the audit found, function(site) that breaks a copy, the checks that must FAIL: (page prefix, label part, check))"""
     def m_cpi(site):
         home_tiles(site, lambda H: tile(H, 'CPI inflation').update(val='3.9%'))
@@ -63,13 +100,15 @@ def mutations(src_cache, build_day):
         save_S(site, S)
         edit(site, 'data/index.html', lambda t: re.sub(r'<b>[\d,]+</b><span class="u">ICNSA', '<b>170,626</b><span class="u">ICNSA', t))
     def m_frozen(site):
-        # the reading frozen in September but labelled the newest month / week
+        # a reading frozen earlier but labelled a period later than the source has; the current-through date frozen weeks back (the
+        # dates are derived from the live build and the gate's report on it: frozen_dates)
+        fd = frozen_dates(site, base); print('  %-22s the dates of the broken copy, derived from the live build: %s' % ('frozen_label_date', fd))
         t, a, b, S = load_S(site)
         r = next(x for x in S['readings'] if x['object'].startswith('fed-shock door'))
-        r['through'] = '2026-11-30'
-        S['through']['claims'] = '2026-09-12'
+        r['through'] = fd['reading_through']
+        S['through']['claims'] = fd['claims_through']
         save_S(site, S)
-        home_tiles(site, lambda H: tile(H, 'Initial claims (week)').update(sub='week ending Nov 14, 2026'))
+        home_tiles(site, lambda H: tile(H, 'Initial claims (week)').update(sub=fd['tile_sub']))
     def m_phantom(site):
         def f(t):
             i = t.find('const ALL = ') + 12; ALL, n = json.JSONDecoder().raw_decode(t[i:])
@@ -152,7 +191,7 @@ def main():
     out = {'base': {'checks': base['totals']['checks'], 'fail': len(B)}, 'mutations': []}
     print('the unbroken build (same sources): %d checks, %d FAIL' % (base['totals']['checks'], len(B)))
     allok = True
-    for name, what, fn, must in mutations(None, bd):
+    for name, what, fn, must in mutations(None, bd, base):
         d = os.path.join(tmp, name); shutil.copytree(a.site, d)
         try:
             fn(d)

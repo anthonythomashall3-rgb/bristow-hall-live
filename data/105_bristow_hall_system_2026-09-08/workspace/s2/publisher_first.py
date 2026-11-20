@@ -85,6 +85,18 @@ def _bls(ids, y0, y1, key=None, fresh=True):
     return out
 
 
+def bls_newest(ids):
+    """{BLS id: pd.Timestamp of its newest month}: ONE request with latest=true for all the ids (20 Nov 2026: what a release-time poll
+    needs - is the new month out - asked as the smallest request the API has, never a history)"""
+    import bls_fetch
+    data, served = bls_fetch.fetch(list(ids), latest=True, fresh=True)
+    out = {}
+    for s, rows in data.items():
+        ms = [pd.Timestamp(int(y), int(p[1:]), 1) for y, p, v, _ in rows if str(v).strip() not in ('', '-')]
+        if ms: out[s] = max(ms)
+    return out
+
+
 def bls_series(sids, full=False, key=None):
     """{series: pd.Series} from the BLS API: the whole history (full) or the last two years"""
     key = key if key is not None else bls_key()
@@ -307,8 +319,8 @@ def _today_et():
 
 def _probe_cpi():
     t = _today_et(); m = (pd.Timestamp(t.year, t.month, 1) - pd.DateOffset(months=1))
-    got = _bls(['CUSR0000SA0'], t.year - 1, t.year, bls_key()).get('CUSR0000SA0') or {}
-    return bool(got) and max(got) >= m, 'BLS CPI through %s' % (str(max(got))[:7] if got else '-')
+    n = bls_newest(['CUSR0000SA0']).get('CUSR0000SA0')
+    return n is not None and n >= m, 'BLS CPI through %s' % (str(n)[:7] if n is not None else '-')
 
 
 def _probe_claims():
@@ -333,9 +345,9 @@ def _probe_state():
     """State Employment and Unemployment (BLS, 10:00): out when the BLS API has the month before the release month for a State's
     unemployment rate (LAUS) and payrolls (CES State); the live tools (State onset, stress map) read these"""
     t = _today_et(); m = (pd.Timestamp(t.year, t.month, 1) - pd.DateOffset(months=1))
-    got = _bls(['LASST060000000000003', 'SMS06000000000000001'], t.year - 1, t.year, bls_key())
-    ok = len(got) == 2 and all(v and max(v) >= m for v in got.values())
-    return ok, 'BLS State through %s' % ', '.join(str(max(v))[:7] for v in got.values() if v)
+    got = bls_newest(['LASST060000000000003', 'SMS06000000000000001'])
+    ok = len(got) == 2 and all(v >= m for v in got.values())
+    return ok, 'BLS State through %s' % ', '.join(str(v)[:7] for v in got.values())
 
 
 def _probe_539():
@@ -380,19 +392,46 @@ def default_al():
     return os.environ.get('BHS_C1021_ALFRED') or os.path.abspath(os.path.join(WS, '..', '..', 'onset-detector-new-2026-08-23', '27_realtime_vintages', 'alfred_all_vintages'))
 
 
+BLS_WAIT = {'bls_cpi', 'bls_state'} | {g for g, ss in GROUPS.items() if all(PF[s][0] == 'bls' for s in ss)}   # polls that ask the BLS API
+BLS_POLL_MAX = int(os.environ.get('BLS_POLL_MAX') or 8)   # BLS polls a group may make in one wait (20 Nov 2026; was up to 24, one each 30 s)
+
+
+def _poll_due(n, t_last, every):
+    """a BLS poll is due: every `every` seconds for the first four (the first two minutes, when the API posts the release), then every
+    three times that; never more than BLS_POLL_MAX in one wait"""
+    if n >= BLS_POLL_MAX: return False
+    return t_last is None or time.time() - t_last >= (every if n < 4 else 3 * every) - 1
+
+
 def wait(groups, al=None, limit_s=720, every=30, say=print):
-    """THE RELEASE-TIME POLL: the slot starts the run a minute after the release; every `every` seconds the publisher is asked (one
-    small BLS request for the group's series; a conditional GET of the G.17 file) until each series of the groups carries a month its
-    table lacks, or `limit_s` has passed. Returns the groups that were found new. The build then runs either way."""
+    """THE RELEASE-TIME POLL: the slot starts the run a minute after the release; the publisher is asked (for the BLS: ONE request with
+    latest=true for the group's series - the newest month and nothing else; a conditional GET of the G.17 file) until each series of the
+    groups carries a month its table lacks, or `limit_s` has passed. A BLS group is asked every `every` seconds for its first four polls,
+    then every 3 x `every`, at most BLS_POLL_MAX times (20 Nov 2026: the BLS key's 500 a day are shared by every job; a poll every 30 s for
+    12 minutes was 24 requests a group). Returns the groups that were found new. The build then runs either way."""
     al = al or default_al(); t0 = time.time(); left = [g for g in groups if g in GROUPS or g in WAIT_ONLY or g.startswith('fred:')]; found = []
     base = {s: table_newest(al, s)[0] for g in left if g in GROUPS for s in GROUPS[g]}
+    polls = {g: 0 for g in left}; last = {g: None for g in left}
     while left:
         for g in list(left):
+            if g in BLS_WAIT:
+                if not _poll_due(polls[g], last[g], every):
+                    if polls[g] >= BLS_POLL_MAX:
+                        say('publisher wait: %s not out after %d BLS polls (BLS_POLL_MAX); the build runs with what is in hand (the slot\'s look-again runs follow)' % (g, polls[g]))
+                        left.remove(g)
+                    continue
+                polls[g] += 1; last[g] = time.time()
             try:
                 if g in WAIT_ONLY or g.startswith('fred:'):
                     ok, what = WAIT_ONLY[g]() if g in WAIT_ONLY else _probe_fred(g)
                     if ok:
                         say('publisher wait: %s is out (%s) after %.0f s' % (g, what, time.time() - t0)); left.remove(g); found.append(g)
+                    continue
+                if g in BLS_WAIT:
+                    nw = bls_newest([PF[s][1] for s in GROUPS[g]]); newest = {s: nw.get(PF[s][1]) for s in GROUPS[g]}
+                    if all(newest[s] is not None and newest[s] > base[s] for s in GROUPS[g]):
+                        say('publisher wait: %s is out (%s) after %.0f s' % (g, ', '.join('%s %s' % (s, str(newest[s])[:7]) for s in GROUPS[g]), time.time() - t0))
+                        left.remove(g); found.append(g)
                     continue
                 new = publisher(GROUPS[g], full=False)
                 if all(s in new and len(new[s].dropna()) and (new[s].dropna().index[-1] > base[s] or (PF[s][0] == 'bea' and _differs(al, s, new[s]))) for s in GROUPS[g]):

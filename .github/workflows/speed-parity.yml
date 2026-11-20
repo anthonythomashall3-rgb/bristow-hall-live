@@ -12,6 +12,8 @@ on:
       - 'data/105_bristow_hall_system_2026-09-08/workspace/s2/source_gate.py'
       - '.github/workflows/speed-parity.yml'
       - 'ops/live_tools/state_fast*.py'
+      - 'data/105_bristow_hall_system_2026-09-08/workspace/s2/home_tiles.py'
+      - 'data/105_bristow_hall_system_2026-09-08/workspace/s2/second_source.py'
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,7 +24,18 @@ jobs:
   parity:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
+    # 20 Nov 2026: a test never spends the live site's BLS allowance. These runs read the BLS through their own key (BLS_API_KEY_TEST,
+    # counted as bls_v2_test in the run's own file), then API v1; the production keys BLS_API_KEY and BLS_API_KEY_2 are not in this
+    # workflow at all, and s2/bls_fetch.py refuses to read them in a test run (BLS_ROLE=test; also on any pull request). On 19 Nov six
+    # runs of this workflow (about 57 requests each on the production key) ran the key out at 19:10 ET, and the 20 Nov State release
+    # waited for FRED.
+    env:
+      BLS_ROLE: test
+      BLS_API_KEY_TEST: ${{ secrets.BLS_API_KEY_TEST }}
+      BLS_RUN_BUDGET: '90'
     steps:
+      - name: the run's own BLS count (never the live site's files)
+        run: echo "BLS_USAGE=$RUNNER_TEMP/bls_usage_test.json" >> "$GITHUB_ENV"
       - uses: actions/checkout@v5
         with:
           fetch-depth: 50
@@ -34,27 +47,22 @@ jobs:
       - name: the publisher's first print against the FRED path, byte for byte
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
           BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
         run: python3 ops/speed/parity_publisher_first.py
       - name: the release-time probes and the State first-print capture answer (smoke test; nothing kept)
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
         run: |
           cd data/105_bristow_hall_system_2026-09-08/workspace
           python3 -c "import sys;sys.path.insert(0,'s2');import publisher_first as p;[print(g, f()) for g, f in p.WAIT_ONLY.items()];print('fred:GDPNOW (posted 9 Nov 12:02)', p._probe_fred('fred:GDPNOW:202611091202'));print('fred:GDPNOW (a release in 2030)', p._probe_fred('fred:GDPNOW:203001021202'))"
           cd "$GITHUB_WORKSPACE" && python3 ops/speed/state_first_prints.py --force && head -3 data/state_industry_first_prints/sm_first_prints.csv && wc -l data/state_industry_first_prints/sm_first_prints.csv
       - name: the State inputs from the BLS API against FRED's fredgraph files, series by series
         if: always()
-        env:
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
         run: python3 ops/live_tools/state_fast_parity.py
       - name: the source gate with its prefetch against the gate as it runs today, check for check
         if: always()
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
         run: |
           # three gates under the shared FRED key: run only when the gate itself changed (it slows every other job's FRED reads)
           git fetch -q --depth 50 origin main || true
@@ -65,22 +73,24 @@ jobs:
         if: always()
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
           BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
         run: python3 ops/speed/parity_disturbance_overlay.py
       - name: the BLS fallbacks against the BLS API, series by series (only when the shared BLS layer changes)
         if: always()
         env:
-          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
-          BLS_API_KEY_2: ${{ secrets.BLS_API_KEY_2 }}
           BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
           BLS_PARITY_OUT: ops/speed/out/bls_fallback_parity.json
-          BLS_USAGE: ops/speed/out/bls_usage.json
         run: |
           git fetch -q --depth 50 origin main || true
           if [ "${{ github.event_name }}" = "pull_request" ] && ! git diff --name-only origin/main...HEAD 2>/dev/null | grep -q 'bls_fetch.py'; then
             echo "bls_fetch.py unchanged: the BLS fallback parity is not rerun"; exit 0; fi
           mkdir -p ops/speed/out && python3 data/105_bristow_hall_system_2026-09-08/workspace/s2/bls_fetch.py parity
+      - name: the BLS allowance guard (no request to the BLS; a stand-in API)
+        if: always()
+        run: python3 ops/speed/bls_guard_selftest.py
+      - name: the run's BLS requests
+        if: always()
+        run: mkdir -p ops/speed/out && cp "$BLS_USAGE" ops/speed/out/bls_usage_test.json 2>/dev/null; cat "$BLS_USAGE" 2>/dev/null || echo "no BLS request in this run"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

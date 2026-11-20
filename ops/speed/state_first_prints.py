@@ -26,16 +26,28 @@ def main():
     if '--force' not in sys.argv and today not in pf.release_days('bls_state'):
         print('State first prints: %s is not a State release day; nothing recorded' % today); return
     ids = ['SMS%s00000%s01' % (f, s) for f in FIPS for s in SUPER]
-    key = pf.bls_key(); y = datetime.date.today().year; got = {}
-    for i in range(0, len(ids), 50):
-        got.update(pf._bls(ids[i:i + 50], y - 1, y, key))
     have = set()
     if os.path.exists(OUT):
         for r in csv.DictReader(open(OUT)): have.add((r['series_id'], r['month'], r['kind']))
-    now = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
-    rows = []
     import pandas as pd
     t0 = pf._today_et(); want = (pd.Timestamp(t0.year, t0.month, 1) - pd.DateOffset(months=1))   # the month this release first prints
+    # 20 Nov 2026 (the BLS key's 500 a day are shared by every job): a series whose first print of this month is already recorded is not
+    # asked again (the file is add-only: nothing of it could change), and before the 714 series are asked, ONE latest=true request per
+    # 50 States' total payrolls (2 requests) asks whether the release is out at all; a run before 10:00 ET used to ask all 15 requests
+    todo = [i for i in ids if (i, str(want)[:7], 'first_print') not in have]
+    if not todo:
+        print('State first prints: all %d series already recorded for %s; nothing asked' % (len(ids), str(want)[:7])); return
+    tot = ['SMS%s00000000000001' % f for f in FIPS]
+    nw = {}
+    for i in range(0, len(tot), 50): nw.update(pf.bls_newest(tot[i:i + 50]))
+    if not any(v >= want for v in nw.values()):
+        print('State first prints: the release of %s is not out yet (newest total payrolls %s in %d States); nothing asked, nothing recorded' % (
+            str(want)[:7], max((str(v)[:7] for v in nw.values()), default='-'), len(nw))); return
+    key = pf.bls_key(); y = datetime.date.today().year; got = {}
+    for i in range(0, len(todo), 50):
+        got.update(pf._bls(todo[i:i + 50], y - 1, y, key))
+    now = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+    rows = []
     late = 0
     for sid, obs in sorted(got.items()):
         ms = sorted(obs)
@@ -53,7 +65,7 @@ def main():
         if new: w.writeheader()
         w.writerows(rows)
     newest = max((r['month'] for r in rows if r['kind'] == 'first_print'), default='-')
-    print('State first prints: %d series read, %d rows recorded (first prints of %s) in %s; %d series not yet at %s' % (len(got), len(rows), newest, os.path.relpath(OUT, ROOT), late, str(want)[:7]))
+    print('State first prints: %d series read (%d already recorded), %d rows recorded (first prints of %s) in %s; %d series not yet at %s' % (len(got), len(ids) - len(todo), len(rows), newest, os.path.relpath(OUT, ROOT), late, str(want)[:7]))
 
 
 if __name__ == '__main__':

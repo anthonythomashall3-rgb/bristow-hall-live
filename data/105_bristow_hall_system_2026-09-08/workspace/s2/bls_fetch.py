@@ -18,8 +18,23 @@ equal. Never mixed silently: the source that served each series is returned, kep
 
 Usage is cut and counted: each request is answered once per run (BLS_CACHE_DIR, shared by the scripts of one run, 30 minutes); requests
 carry 50 series; every API request is counted per key and per Eastern day in $BLS_USAGE (default ops/state/bls_usage.json) and the phone
-hears once a day when a key passes 80% of its 500 (ALERT_NTFY_TOPIC or NTFY_TOPIC)."""
-import os, io, re, sys, json, time, hashlib, datetime, threading, urllib.request, urllib.error
+hears once a day when a key passes 80% of its 500 (ALERT_NTFY_TOPIC or NTFY_TOPIC).
+
+THE ALLOWANCE IS GUARDED (20 Nov 2026; the key rotated on 16 Nov was refused from 19:10 ET on 19 Nov until after the 10:00 ET State release
+of 20 Nov, with no request of ours between midnight and 05:11 ET: the BLS's day is not New York's, so the guard counts a rolling 24 hours too):
+  - BLS_ROLE=test (a pull request, a parity or self-test run, a run off main): the production key BLS_API_KEY is never read, from the
+    environment or from local.env; the key slot is BLS_API_KEY_TEST (counted as bls_v2_test in the run's own file), then API v1, and so on
+  - every request on a key goes through allow(): refused when the BLS refused the key today, when this run has made BLS_RUN_BUDGET
+    requests on it (default 60; shared by the run's scripts through BLS_RUN_FILE), or when the key's count over the day or the last 24
+    hours, summed over every writer's file (ops/state/bls_usage*.json: update.yml writes bls_usage.json, live-tools.yml
+    bls_usage_live_tools.json), has reached BLS_DAILY_CEILING (default 450 of the 500); a refusal by the guard moves the series down the
+    chain exactly as a refusal by the BLS does, so the key is never run out by us
+  - counts are written under a file lock (the gate's prefetch runs beside the build), with hourly buckets for the rolling 24 hours, and
+    every process prints the requests it made on each source when it ends ("bls_fetch: requests this process ..."), so a run's log
+    carries its count"""
+import os, io, re, sys, json, glob, time, atexit, hashlib, datetime, threading, urllib.request, urllib.error
+try: import fcntl
+except ImportError: fcntl = None
 
 V2 = 'https://api.bls.gov/publicAPI/v2/timeseries/data/'
 V1 = 'https://api.bls.gov/publicAPI/v1/timeseries/data/'
@@ -32,6 +47,26 @@ CACHE_DIR = os.environ.get('BLS_CACHE_DIR') or os.path.join(os.environ.get('RUNN
 _LOCK = threading.RLock(); _FLAT = {}; SERVED = {}; LOG = []
 FRED_OF = {}
 CHAIN = ('bls_v2_key1', 'bls_v2_key2', 'bls_v1', 'bls_flat', 'fred')
+ROLE = 'test' if (os.environ.get('BLS_ROLE', '').strip().lower() == 'test' or os.environ.get('GITHUB_EVENT_NAME') == 'pull_request') else 'production'
+RUN_BUDGET = int(os.environ.get('BLS_RUN_BUDGET') or 60)              # requests on one key in one run (every script of the run together)
+CEILING = int(os.environ.get('BLS_DAILY_CEILING') or 450)             # requests on one key over the day or the last 24 hours, every writer
+SHARED_GLOB = os.path.join(ROOT, 'ops', 'state', 'bls_usage*.json')   # every writer's counts (update.yml, live-tools.yml)
+_RUN_ID = os.environ.get('BLS_RUN_ID') or ('%s-%s' % (os.environ['GITHUB_RUN_ID'], os.environ.get('GITHUB_RUN_ATTEMPT', '1')) if os.environ.get('GITHUB_RUN_ID') else 'pid%d' % os.getpid())
+RUN_FILE = os.environ.get('BLS_RUN_FILE') or os.path.join(CACHE_DIR, 'run_usage_%s.json' % _RUN_ID)
+MINE = {}; _GUARDED = set()
+
+
+def keyname_of(slot):
+    """the name a key slot is counted under: a test run's key is its own (bls_v2_test), never the production key's"""
+    if ROLE == 'test' and slot == 'bls_v2_key1': return 'bls_v2_test'
+    return slot
+
+
+def key_of(slot):
+    """the key of a slot; a test run never reads the production keys (BLS_API_KEY, BLS_API_KEY_2), from the environment or local.env"""
+    if ROLE == 'test':
+        return _env('BLS_API_KEY_TEST') if slot == 'bls_v2_key1' else ''
+    return _env('BLS_API_KEY' if slot == 'bls_v2_key1' else 'BLS_API_KEY_2')
 
 
 def register_fred(m):
@@ -52,7 +87,7 @@ def _env(name):
 
 def _redact(s):
     s = str(s)
-    for k in (_env('BLS_API_KEY'), _env('BLS_API_KEY_2'), _env('BLS_CONTACT')):
+    for k in (_env('BLS_API_KEY'), _env('BLS_API_KEY_2'), _env('BLS_API_KEY_TEST'), _env('BLS_CONTACT')):
         if k: s = s.replace(k, '[redacted]')
     return s
 
@@ -62,28 +97,117 @@ def _eastern_day():
     return datetime.datetime.now(ZoneInfo('America/New_York')).date().isoformat()
 
 
-def _count(keyname, n=1):
-    """n more requests on `keyname` today (Eastern day); an alert once a day at 80% of a key's allowance"""
+class _Locked:
+    """an exclusive lock on <USAGE>.lock across the run's processes (the gate's prefetch counts beside the build)"""
+    def __enter__(self):
+        _LOCK.acquire(); self.f = None
+        if fcntl:
+            try:
+                os.makedirs(os.path.dirname(USAGE), exist_ok=True); self.f = open(USAGE + '.lock', 'a'); fcntl.flock(self.f, fcntl.LOCK_EX)
+            except OSError: self.f = None
+        return self
+    def __exit__(self, *a):
+        try:
+            if self.f: fcntl.flock(self.f, fcntl.LOCK_UN); self.f.close()
+        finally: _LOCK.release()
+
+
+def _hour():
+    return datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H')
+
+
+def _load_usage(path=None):
+    try: U = json.load(open(path or USAGE))
+    except Exception: U = {}
+    if not isinstance(U, dict): U = {}
+    return U
+
+
+def _today(U):
+    """U with its day's counts reset at a new New York day (the hourly buckets of the last 24 hours are kept across the change)"""
     day = _eastern_day()
+    if U.get('day') != day:
+        U = {'day': day, 'requests': {}, 'alerted': {}, 'refused': {}, 'hourly': U.get('hourly') or {}}
+    for k in ('requests', 'alerted', 'refused', 'hourly'): U.setdefault(k, {})
+    cut = (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=24)).strftime('%Y-%m-%dT%H')
+    for k in list(U['hourly']):
+        U['hourly'][k] = {h: n for h, n in U['hourly'][k].items() if h >= cut}
+        if not U['hourly'][k]: del U['hourly'][k]
+    return U
+
+
+def shared_counts(keyname):
+    """(requests on keyname today, requests on it in the last 24 hours), summed over every writer's file and this run's own file"""
+    day = _eastern_day(); cut = (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=24)).strftime('%Y-%m-%dT%H')
+    files = set(glob.glob(SHARED_GLOB)) | {USAGE}
+    d = r = 0
+    for f in files:
+        if not os.path.exists(f): continue
+        U = _load_usage(f)
+        if U.get('day') == day: d += int((U.get('requests') or {}).get(keyname, 0))
+        r += sum(int(n) for h, n in ((U.get('hourly') or {}).get(keyname) or {}).items() if h >= cut)
+    return d, r
+
+
+def _run_count(keyname, n=0):
+    """requests on keyname in this run (every script of the run: RUN_FILE); n > 0 adds"""
     with _LOCK:
-        try: U = json.load(open(USAGE))
-        except Exception: U = {}
-        if U.get('day') != day: U = {'day': day, 'requests': {}, 'alerted': {}, 'refused': {}}
+        try: R = json.load(open(RUN_FILE))
+        except Exception: R = {}
+        if n:
+            R[keyname] = R.get(keyname, 0) + n
+            try:
+                os.makedirs(os.path.dirname(RUN_FILE), exist_ok=True); tmp = RUN_FILE + '.%d.tmp' % os.getpid()
+                json.dump(R, open(tmp, 'w')); os.replace(tmp, RUN_FILE)
+            except OSError: pass
+        return R.get(keyname, 0)
+
+
+class Guarded(RuntimeError):
+    """our own guard stopped a request on a key (the run's budget, the daily ceiling): the chain moves on; the key is not marked refused"""
+
+
+def allow(keyname):
+    """None when one more request on keyname may be made now, else the reason it may not"""
+    if keyname.startswith('bls_v2') or keyname == 'bls_v1':
+        if _refused_today(keyname): return 'refused by the BLS today'
+    if not keyname.startswith('bls_v2'): return None
+    if _run_count(keyname) >= RUN_BUDGET: return 'this run has made its %d requests on it (BLS_RUN_BUDGET)' % RUN_BUDGET
+    d, r = shared_counts(keyname)
+    if max(d, r) >= CEILING: return '%d requests today, %d in the last 24 hours, counted by every job: the ceiling is %d of the %d (BLS_DAILY_CEILING)' % (d, r, CEILING, DAILY)
+    return None
+
+
+def _guard(keyname):
+    why = allow(keyname)
+    if why:
+        if keyname not in _GUARDED:
+            _GUARDED.add(keyname); print('bls_fetch: %s not asked (%s); the next source in the chain serves' % (keyname, why), flush=True)
+        LOG.append('%s guarded: %s' % (keyname, why)); raise Guarded(why)
+
+
+def _count(keyname, n=1):
+    """n more requests on `keyname` today (Eastern day) and this hour; an alert once a day at 80% of a key's allowance, on the count of
+    every writer"""
+    with _Locked():
+        U = _today(_load_usage())
         U['requests'][keyname] = U['requests'].get(keyname, 0) + n
-        c = U['requests'][keyname]
-        if keyname.startswith('bls_v2') and c >= 0.8 * DAILY and not U['alerted'].get(keyname):
-            U['alerted'][keyname] = True
-            _alert('BLS key %s: %d of its %d requests today counted here (80%%); the fallbacks take over when it is refused' % (keyname, c, DAILY))
+        hb = U['hourly'].setdefault(keyname, {}); hb[_hour()] = hb.get(_hour(), 0) + n
         _save_usage(U)
-        return c
+    MINE[keyname] = MINE.get(keyname, 0) + n; _run_count(keyname, n)
+    d, r = shared_counts(keyname); c = max(d, r)
+    if keyname.startswith('bls_v2') and c >= 0.8 * DAILY:
+        with _Locked():
+            U = _today(_load_usage()); first = not U['alerted'].get(keyname)
+            if first: U['alerted'][keyname] = True; _save_usage(U)
+        if first: _alert('BLS key %s: %d of its %d requests today (%d in the last 24 hours) counted by every job (80%%); the guard stops at %d and the fallbacks take over' % (keyname, d, DAILY, r, CEILING))
+    return c
 
 
 def _refused(keyname, why):
-    with _LOCK:
-        try: U = json.load(open(USAGE))
-        except Exception: U = {}
-        if U.get('day') != _eastern_day(): U = {'day': _eastern_day(), 'requests': {}, 'alerted': {}, 'refused': {}}
-        first = keyname not in U.setdefault('refused', {})
+    with _Locked():
+        U = _today(_load_usage())
+        first = keyname not in U['refused']
         U['refused'][keyname] = _redact(why)[:200]
         _save_usage(U)
     if first: _alert('BLS %s refused today (%s); the next source in the chain serves' % (keyname, _redact(why)[:120]))
@@ -97,9 +221,18 @@ def _save_usage(U):
 
 
 def _refused_today(keyname):
-    try:
-        U = json.load(open(USAGE)); return U.get('day') == _eastern_day() and keyname in (U.get('refused') or {})
-    except Exception: return False
+    """the BLS refused the key today, as recorded by any writer (a fresh runner learns it from the committed files)"""
+    day = _eastern_day()
+    for f in set(glob.glob(SHARED_GLOB)) | {USAGE}:
+        U = _load_usage(f) if os.path.exists(f) else {}
+        if U.get('day') == day and keyname in (U.get('refused') or {}): return True
+    return False
+
+
+@atexit.register
+def _say_mine():
+    if MINE: print('bls_fetch: requests this process (%s role, run %s): %s; this run so far: %s' % (
+        ROLE, _RUN_ID, ', '.join('%s %d' % kv for kv in sorted(MINE.items())), ', '.join('%s %d' % (k, _run_count(k)) for k in sorted(MINE))), flush=True)
 
 
 def _alert(msg):
@@ -152,6 +285,7 @@ def _api(version, keyname, key, ids, y0, y1, latest=False, fresh=False):
             def one():
                 last = None
                 for t in range(3):
+                    _guard(keyname)     # the run's budget, the shared ceiling, a refusal today: down the chain before the key runs out
                     try:
                         _count(keyname)
                         req = urllib.request.Request(url, data=json.dumps(body).encode(), headers={'Content-Type': 'application/json', 'User-Agent': _ua()})
@@ -297,9 +431,9 @@ def fetch(ids, y0=None, y1=None, latest=False, chain=CHAIN, fresh=False):
         if not left: break
         try:
             if src in ('bls_v2_key1', 'bls_v2_key2'):
-                key = _env('BLS_API_KEY' if src == 'bls_v2_key1' else 'BLS_API_KEY_2')
-                if not key or _refused_today(src): continue
-                got = _api(2, src, key, left, y0, y1, latest, fresh)
+                key = key_of(src); kn = keyname_of(src)
+                if not key or _refused_today(kn): continue
+                got = _api(2, kn, key, left, y0, y1, latest, fresh)
             else:
                 use = [i for i in left if eligible(src, i)]
                 if not use: continue
@@ -312,17 +446,19 @@ def fetch(ids, y0=None, y1=None, latest=False, chain=CHAIN, fresh=False):
                     got = _flat(use, y0, y1, latest)
                 else: got = _fred(use, y0, y1, latest)
         except Refused as e:
-            _refused(src, e); LOG.append('%s refused: %s' % (src, _redact(e)[:160])); continue
+            kn = keyname_of(src); _refused(kn, e); LOG.append('%s refused: %s' % (kn, _redact(e)[:160])); continue
+        except Guarded as e:
+            continue
         except Exception as e:
             LOG.append('%s failed: %s' % (src, _redact(e)[:160])); continue
         for k, rows in got.items():
             if k in left:
-                data[k] = sorted(set(rows), key=lambda r: (r[0], r[1]), reverse=True); served[k] = src
+                data[k] = sorted(set(rows), key=lambda r: (r[0], r[1]), reverse=True); served[k] = keyname_of(src)
         left = [i for i in left if i not in served]
     SERVED.update(served)
     by = {}
     for k, v in served.items(): by[v] = by.get(v, 0) + 1
-    if any(v != 'bls_v2_key1' for v in served.values()) or left:
+    if any(v != 'bls_v2_key1' for v in served.values()) or left or ROLE == 'test':
         print('bls_fetch: %d series - %s%s' % (len(ids), ', '.join('%d from %s' % (n, s) for s, n in sorted(by.items())),
                                                ('; %d unanswered' % len(left)) if left else ''), flush=True)
     return data, served
@@ -435,6 +571,30 @@ def parity():
     return rep
 
 
+def keep(mine, target):
+    """the run's count file `mine` written over `target` (main's copy), never lowering a count main already holds: per key the larger of
+    the two for the same New York day (the run started from main's copy, so its counts are the larger unless another writer wrote the
+    same file meanwhile), the larger of each hourly bucket, every refusal and alert of either"""
+    A = _load_usage(mine); B = _load_usage(target) if os.path.exists(target) else {}
+    if not A: return
+    if B.get('day') and A.get('day') and B['day'] > A['day']: A, B = B, A
+    out = {'day': A.get('day'), 'requests': dict(A.get('requests') or {}), 'alerted': dict(A.get('alerted') or {}), 'refused': dict(A.get('refused') or {}), 'hourly': {}}
+    if B.get('day') == A.get('day'):
+        for k, n in (B.get('requests') or {}).items(): out['requests'][k] = max(n, out['requests'].get(k, 0))
+        for k, v in (B.get('alerted') or {}).items(): out['alerted'][k] = out['alerted'].get(k) or v
+        for k, v in (B.get('refused') or {}).items(): out['refused'].setdefault(k, v)
+    for src in (A, B):
+        for k, hb in (src.get('hourly') or {}).items():
+            o = out['hourly'].setdefault(k, {})
+            for h, n in hb.items(): o[h] = max(n, o.get(h, 0))
+    cut = (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=48)).strftime('%Y-%m-%dT%H')
+    out['hourly'] = {k: {h: n for h, n in sorted(v.items()) if h >= cut} for k, v in out['hourly'].items()}
+    os.makedirs(os.path.dirname(os.path.abspath(target)), exist_ok=True)
+    json.dump(out, open(target, 'w'), indent=1)
+    print('bls_fetch keep: %s -> %s: %s' % (mine, target, out['requests']))
+
+
 if __name__ == '__main__':
     if sys.argv[1:2] == ['parity']: parity()
+    elif sys.argv[1:2] == ['keep'] and len(sys.argv) == 4: keep(sys.argv[2], sys.argv[3])
     else: print(__doc__)

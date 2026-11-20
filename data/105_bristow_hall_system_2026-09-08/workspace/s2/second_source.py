@@ -54,11 +54,19 @@ def treasury_monthly(col, years):
 
 BLS_ID = {'UNRATE': 'LNS14000000', 'PAYEMS': 'CES0000000001', 'UNEMPLOY': 'LNS13000000', 'LNS13023621': 'LNS13023621', 'JTSJOL': 'JTS000000000000000JOL'}
 def bls_series(sids, key=None, years=3):
+    # 20 Nov 2026: counted and guarded by the shared BLS layer (s2/bls_fetch.py); a test run never sends the production key
+    import os, sys as _s; _s.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import bls_fetch as _bf
+    if _bf.ROLE == 'test': key = _bf.key_of('bls_v2_key1') or None
+    kn = _bf.keyname_of('bls_v2_key1') if key else 'bls_v1'
+    _bf._guard(kn); _bf._count(kn)
     y = datetime.date.today().year
     body = {'seriesid': [BLS_ID[s] for s in sids], 'startyear': str(y - years + 1), 'endyear': str(y)}
     if key: body['registrationkey'] = key
     d = json.loads(_curl('https://api.bls.gov/publicAPI/v2/timeseries/data/', post=json.dumps(body)))
-    if d.get('status') != 'REQUEST_SUCCEEDED': raise RuntimeError('BLS API: %s' % d.get('status'))
+    if d.get('status') != 'REQUEST_SUCCEEDED':
+        msg = ' '.join(str(m) for m in (d.get('message') or []))
+        if any(w in msg.lower() for w in ('threshold', 'key', 'daily', 'exceed')): _bf._refused(kn, msg)
+        raise RuntimeError('BLS API: %s' % d.get('status'))
     inv = {v: k for k, v in BLS_ID.items()}; out = {}
     for srs in d['Results']['series']:
         obs = {}
