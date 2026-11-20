@@ -4,9 +4,9 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-19",
- "checked_at": "2026-11-20 02:43 UTC",
- "seconds": 2.6,
- "source_calls": 4,
+ "checked_at": "2026-11-20 10:42 UTC",
+ "seconds": 38.0,
+ "source_calls": 63,
  "source_errors": {
   "bls_sources": {
    "LAUCN060370000000003": "bls_v1"
@@ -34,7 +34,7 @@
   "data/stress-map": {
    "WARN": 11,
    "INFO": 5,
-   "PASS": 27
+   "PASS": 29
   },
   "data/forecaster": {
    "PASS": 13,
@@ -56,12 +56,12 @@
   }
  },
  "totals": {
-  "checks": 401,
-  "figures": 271,
+  "checks": 403,
+  "figures": 272,
   "fail": 0,
   "warn": 43,
   "unverified": 0,
-  "passed": 352
+  "passed": 354
  },
  "failures": [],
  "rows": [
@@ -2223,6 +2223,30 @@
    "series": "USLAH",
    "transform": "level",
    "expected": 16964.0,
+   "detail": ""
+  },
+  {
+   "page": "data/stress-map",
+   "label": "national payrolls by supersector: USSERV",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "6,045",
+   "period": "2026-10-01",
+   "series": "USSERV",
+   "transform": "level",
+   "expected": "2026-10-01",
+   "detail": ""
+  },
+  {
+   "page": "data/stress-map",
+   "label": "national payrolls by supersector: USSERV",
+   "check": "value",
+   "status": "PASS",
+   "value": 6045.0,
+   "period": "2026-10-01",
+   "series": "USSERV",
+   "transform": "level",
+   "expected": 6045.0,
    "detail": ""
   },
   {

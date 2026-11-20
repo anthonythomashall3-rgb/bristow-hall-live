@@ -1,13 +1,14 @@
 {
- "day": "2026-11-19",
+ "day": "2026-11-20",
  "requests": {
-  "bls_v2_key1": 19,
+  "bls_v2_key1": 1,
   "bls_v2_key2": 1,
-  "bls_v1": 3
+  "bls_v1": 19
  },
  "alerted": {},
  "refused": {
   "bls_v2_key1": "Request could not be serviced, as the daily threshold for total number of requests allocated to the user with registration key [redacted] has been reached.",
-  "bls_v2_key2": "The key:[redacted] provided by the User is invalid. Please provide a proper key for the operation to be successful"
+  "bls_v2_key2": "The key:[redacted] provided by the User is invalid. Please provide a proper key for the operation to be successful",
+  "bls_v1": "Request could not be serviced, as the daily threshold for total number of requests allocated to the user with registration key  has been reached."
  }
 }

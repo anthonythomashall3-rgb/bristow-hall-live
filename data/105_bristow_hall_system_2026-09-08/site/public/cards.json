@@ -1,5 +1,5 @@
 {
- "built": "2026-11-20T02:41:44Z",
+ "built": "2026-11-20T10:39:14Z",
  "size": [
   1200,
   760
@@ -34,11 +34,11 @@
   },
   "/stress-map/": {
    "png": "/stress-map/card.png",
-   "sha256": "13b93f4ef6db05a8f5fbd173b8fbfa395bd8360d47bf66902ca444c3c9f92a2c",
+   "sha256": "d5ba26e1faa36d269dbe76250e2faa6d76cb15919b54b502c0fd26d5d3c3e9e8",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1423,
+   "colours": 1391,
    "share_not_main": 0.3409
   },
   "/forecaster/": {
