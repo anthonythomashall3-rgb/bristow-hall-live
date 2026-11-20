@@ -1,19 +1,28 @@
 {
- "came_in": [],
- "early": {
-  "alna ... wyna": {
-   "at": "2026-11-20 11:40",
-   "through": "2026-10-01"
+ "came_in": [
+  {
+   "came_in": "2026-11-20 11:40",
+   "due_ny": "2026-11-20 10:00",
+   "early": true,
+   "ids": "alna ... wyna",
+   "short": "state payroll employment, 50 states and "
   },
-  "alnan ... wynan, alurn ... wyurn": {
-   "at": "2026-11-20 11:40",
-   "through": "2026-10-01"
+  {
+   "came_in": "2026-11-20 11:40",
+   "due_ny": "2026-11-20 10:00",
+   "early": true,
+   "ids": "alur ... wyur",
+   "short": "state unemployment rates, 50 states and "
   },
-  "alur ... wyur": {
-   "at": "2026-11-20 11:40",
-   "through": "2026-10-01"
+  {
+   "came_in": "2026-11-20 11:40",
+   "due_ny": "2026-11-20 10:00",
+   "early": true,
+   "ids": "alnan ... wynan, alurn ... wyurn",
+   "short": "state payrolls and unemployment rates, n"
   }
- },
+ ],
+ "early": {},
  "expired": [
   {
    "due_ny": "2026-10-20 10:00",
@@ -36,7 +45,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-20 13:04",
+ "last_check_ny": "2026-11-20 13:11",
  "pending": [
   {
    "due_ny": "2026-11-19 11:30",
@@ -46,6 +55,15 @@
    "since_ny": "2026-11-19 14:44",
    "through_before": "2026-11-07",
    "value_before": "3.08"
+  },
+  {
+   "due_ny": "2026-11-20 10:00",
+   "expected_day": false,
+   "ids": "alnan ... wynan",
+   "short": "state payroll employment, not seasonally",
+   "since_ny": "2026-11-20 13:16",
+   "through_before": "2026-09-01",
+   "value_before": ""
   }
  ],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
