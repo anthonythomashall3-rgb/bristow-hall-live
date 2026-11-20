@@ -37,12 +37,14 @@
 
 // the deployed code's version: every workflow run compares it with the repository's copy of this file, so a starter
 // redeployed from an old clone is caught (22 September 2026, collection 306)
-const VERSION = '2026-11-12 (bristow-hall-live; C1021 starter; queue-stall recovery; ghost runs passed)';   // 1022: the starter for the C1021 version of the tool
+const VERSION = '2026-11-19 (bristow-hall-live; C1021 starter; queue-stall recovery; ghost runs passed; day cap 40)';   // 1022: the starter for the C1021 version of the tool
 const REPO = 'anthonythomashall3-rgb/bristow-hall-live';
 const WORKFLOW = 'update.yml';
-const SITE = 'https://bhrrealtime.pages.dev';
+const SITE = 'https://bristowhallsystem.pages.dev';   // 1155: the site's address since 18 Nov 2026 (the old one only redirects)
 const MAX_PER_SLOT = 3;                  // starts for one slot, then wait for the next slot
-const MAX_PER_DAY = 10;                  // starts in one New York day: a fault that repeats must not burn the month's Actions minutes
+const MAX_PER_DAY = 40;                  // starts in one New York day. 1155 (19 Nov 2026): was 10, and 19 Nov listed 10 slots - with the retries of the held runs the cap was
+                                         // used up by the afternoon and the 8:20 PM slot (the S&P 500 official close) was not started ("10 starts today already"). 25 Nov lists 12
+                                         // slots before any retry. The per-slot cap (3) still stops a fault that repeats; the repository is public, so Actions minutes are free.
 const RETRY_GAP_MS = 8 * 60000;          // after a run ends without moving the site, wait this long before the next start
 const INCOMPLETE_GAP_MS = 30 * 60000;    // 818: a build that published through a FRED outage (refresh_incomplete) is tried again this often
 const MAX_INCOMPLETE_PER_DAY = 20;       // 818: starts after incomplete builds in one New York day (the repository is public: Actions minutes are free)
