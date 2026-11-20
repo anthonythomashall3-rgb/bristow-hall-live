@@ -367,10 +367,14 @@ function getI(f){return load('ci',f,IX);}
 function at(a,i){return (a&&i>=0&&i<a.length)?a[i]:null;}
 function sgn(x,d,u){return x==null?'–':((x>0?'+':x<0?'−':'')+Math.abs(x).toFixed(d)+u);}
 function num(x){return x==null?'–':x.toLocaleString('en-US');}
+var BORROWED={'15005':'Maui County\u2019s (BLS publishes Kalawao inside Maui County)'}; /* 1157: stress_map_v2_1052.py BORROW, the one county with no figures of its own in any month */
 function factRows(R){return R.map(function(r){return '<tr><td>'+r[0]+'</td><td class="n">'+r[1]+'</td></tr>';}).join('');}
 function facts(i){var el=document.getElementById('fact'),F=view.mode==='state'?FX[view.st]:null;if(!F){el.innerHTML='';return;}
- if(CT){var c=F.c[CT]||{},u=at(c.u,i),u0=at(c.u,i-12),e=at(c.e,i),e0=at(c.e,i-12),p=at(c.p,i);
-  el.innerHTML=factRows([['Unemployment rate',u==null?'–':(u/10).toFixed(1)+'%'],['Change, 12 months',(u==null||u0==null)?'–':sgn((u-u0)/10,1,' points')],['Labor force',num(at(c.l,i))],['Jobs',num(e)],['Change, 12 months',(e==null||!e0)?'–':sgn((e/e0-1)*100,1,'%')],['Jobs against trend',p==null?'–':sgn(p/100,2,'%')]]);return;}
+ if(CT){var c=F.c[CT]||{},u=at(c.u,i),u0=at(c.u,i-12),e=at(c.e,i),e0=at(c.e,i-12),p=at(c.p,i),jl='';
+  /* 1157: a month after the last published county jobs month (QCEW comes out about five months late) shows the latest published month, named, instead of dashes */
+  if(e==null&&c.e){var le=-1;for(var k=c.e.length-1;k>=0;k--)if(c.e[k]!=null){le=k;break;}
+   if(le>=0&&le<i){e=at(c.e,le);e0=at(c.e,le-12);if(p==null)p=at(c.p,le);jl=' ('+ym(mkV(le))+', latest published)';}}
+  el.innerHTML=factRows([['Unemployment rate',u==null?'–':(u/10).toFixed(1)+'%'],['Change, 12 months',(u==null||u0==null)?'–':sgn((u-u0)/10,1,' points')],['Labor force',num(at(c.l,i))],['Jobs'+jl,num(e)],['Change, 12 months'+jl,(e==null||!e0)?'–':sgn((e/e0-1)*100,1,'%')],['Jobs against trend'+jl,p==null?'–':sgn(p/100,2,'%')]].concat(BORROWED[CT]?[['Figures shown',BORROWED[CT]]]:[]));return;}
  var s=F.state,ni=idxN(mkV(i)),us=at(s.u,ni),us0=at(s.u,ni-12),ps=at(s.p,ni);
  el.innerHTML=factRows([[ni<seam?'Unemployment rate (from the insured rate)':'Unemployment rate',us==null?'–':(us/100).toFixed(1)+'%'],['Change, 12 months',(us==null||us0==null)?'–':sgn((us-us0)/100,1,' points')],[ni<seam?'Payroll jobs against trend':'Index against trend',ps==null?'–':sgn(ps/100,2,'%')]]);}
 function ctyLine(f){return D.v[f].map(function(v,i){var s=D.s[f][i];return s==='G'?null:((s==='R'||s==='D'||s==='U')?v:0);});}
@@ -382,7 +386,8 @@ function cStatus(f,i){var code=D.s[f][i];if(code==='G')return 'no county value t
 function cIndTable(f,i){var I=IX[f];document.getElementById('indh').textContent='Jobs by industry, '+D.shapes[f][0]+', '+STN[view.st]+', '+ymL(mkV(i));
  if(!I||I.none){document.getElementById('indtab').innerHTML=I?'<tr><td>No jobs by industry held for this county.</td></tr>':'';document.getElementById('indnote').textContent='';return;}
  function ch(a,j){var x=at(a,j),y=at(a,j-12);return (x==null||!y)?null:Math.round((x/y-1)*1000);}
- var li=I.n-1,rows='<tr><th>Industry (supersector)</th><th class="n">12-month change, '+ym(mkV(i))+'</th><th class="n">Jobs, '+ym(mkV(i))+'</th><th class="n">Latest held: '+ym(I.last)+'</th></tr>';
+ var li=I.n-1;if(i>li){i=li;document.getElementById('indh').textContent='Jobs by industry, '+D.shapes[f][0]+', '+STN[view.st]+', '+ymL(I.last)+' (latest published)';} /* 1157 */
+ var rows='<tr><th>Industry (supersector)</th><th class="n">12-month change, '+ym(mkV(i))+'</th><th class="n">Jobs, '+ym(mkV(i))+'</th><th class="n">Latest held: '+ym(I.last)+'</th></tr>';
  I.codes.forEach(function(c){var a=I.v[c];if(c==='1029'&&!a)return;var p=ch(a,i),q=ch(a,li);
   rows+='<tr'+(c==='10'?' style="font-weight:700"':'')+'><td>'+I.names[c]+'</td><td class="c" style="background:'+indC(p)+';color:'+inkFor(p)+'">'+pc(p)+'</td><td class="n">'+num(at(a,i))+'</td><td class="c" style="background:'+indC(q)+';color:'+inkFor(q)+'">'+pc(q)+'</td></tr>';});
  document.getElementById('indtab').innerHTML=rows;
