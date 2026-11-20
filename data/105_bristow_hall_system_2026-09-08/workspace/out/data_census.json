@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-19 21:41",
+ "built_at": "2026-11-20 08:35",
  "version": "C1021+E22",
- "census_date": "2026-11-19",
+ "census_date": "2026-11-20",
  "feeds": [
   {
    "feed": "Initial claims and continued claims, seasonally adjusted and not (the route's insured-unemployment pillar, the count door's claims condition, the closer)",
@@ -217,13 +217,13 @@
  "tiles": {
   "routes": {
    "UNRATE": "FRED API",
-   "JTSJOL": "FRED API",
    "PAYEMS": "FRED API",
+   "JTSJOL": "FRED API",
+   "JTSQUR": "FRED API",
    "UNEMPLOY": "FRED API",
    "CPIAUCSL": "FRED API",
-   "JTSQUR": "FRED API",
-   "IURSA": "FRED API",
-   "ICSA": "FRED API"
+   "ICSA": "FRED API",
+   "IURSA": "FRED API"
   },
   "compared_with_bls": [
    "ICSA",

@@ -1,5 +1,4 @@
 [
-"bls:LAUCN060370000000003:2025",
 "dol539",
 "fred:AKUR:2025-01-01",
 "fred:ALBPPRIV:2025-01-01",
@@ -14,6 +13,7 @@
 "fred:AZUR:2025-01-01",
 "fred:BAA:2024-06-01",
 "fred:CABPPRIV:2025-01-01",
+"fred:CALOSA7URN:2025-01-01",
 "fred:CANA:2025-01-01",
 "fred:CANAN:2025-01-01",
 "fred:CAOTOT:2025-01-01",
