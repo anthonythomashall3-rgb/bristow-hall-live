@@ -1,6 +1,19 @@
 {
  "came_in": [],
- "early": {},
+ "early": {
+  "alna ... wyna": {
+   "at": "2026-11-20 11:40",
+   "through": "2026-10-01"
+  },
+  "alnan ... wynan, alurn ... wyurn": {
+   "at": "2026-11-20 11:40",
+   "through": "2026-10-01"
+  },
+  "alur ... wyur": {
+   "at": "2026-11-20 11:40",
+   "through": "2026-10-01"
+  }
+ },
  "expired": [
   {
    "due_ny": "2026-10-20 10:00",
@@ -23,7 +36,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-20 11:14",
+ "last_check_ny": "2026-11-20 11:35",
  "pending": [
   {
    "due_ny": "2026-11-19 11:30",

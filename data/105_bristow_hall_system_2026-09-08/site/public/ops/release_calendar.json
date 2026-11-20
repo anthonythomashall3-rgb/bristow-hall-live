@@ -1,7 +1,7 @@
 {
  "built_at": "2026-11-20 11:17",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-20T16:19:23Z",
+ "generated_utc": "2026-11-20T16:40:28Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -1760,6 +1760,135 @@
   },
   {
    "agrees_with_build": true,
+   "build_next": "2026-12-18",
+   "confirmed_through": "2026-12-18",
+   "fred_clock": "10:53",
+   "freq": "monthly",
+   "ids": "alna ... wyna",
+   "link": "/state-onset/",
+   "name": "state payroll employment, 50 states and dc",
+   "next_expected": false,
+   "next_ny": "2026-12-18 10:00",
+   "read_lag_min": 186,
+   "release_id": 112,
+   "short": "state payroll employment, 50 states and ",
+   "slots": true,
+   "source": "FRED release 112 (State Employment and Unemployment)",
+   "through": "2026-10-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-20 10:00",
+     "utc": "2026-11-20T15:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 10:00",
+     "utc": "2026-12-18T15:00:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 10:00",
+     "utc": "2027-01-08T15:00:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-22 10:00",
+     "utc": "2027-02-22T15:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-12-18",
+   "confirmed_through": "2026-12-18",
+   "fred_clock": "10:53",
+   "freq": "monthly",
+   "ids": "alur ... wyur",
+   "link": "/state-onset/",
+   "name": "state unemployment rates, 50 states and dc",
+   "next_expected": false,
+   "next_ny": "2026-12-18 10:00",
+   "read_lag_min": 186,
+   "release_id": 112,
+   "short": "state unemployment rates, 50 states and ",
+   "slots": true,
+   "source": "FRED release 112 (State Employment and Unemployment)",
+   "through": "2026-10-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-20 10:00",
+     "utc": "2026-11-20T15:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 10:00",
+     "utc": "2026-12-18T15:00:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 10:00",
+     "utc": "2027-01-08T15:00:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-22 10:00",
+     "utc": "2027-02-22T15:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "2026-12-18",
+   "confirmed_through": "2026-12-18",
+   "fred_clock": "10:53",
+   "freq": "monthly",
+   "ids": "alnan ... wynan, alurn ... wyurn",
+   "link": "/state-onset/",
+   "name": "state payrolls and unemployment rates, not seasonally adjusted",
+   "next_expected": false,
+   "next_ny": "2026-12-18 10:00",
+   "read_lag_min": 186,
+   "release_id": 112,
+   "short": "state payrolls and unemployment rates, n",
+   "slots": true,
+   "source": "FRED release 112 (State Employment and Unemployment)",
+   "through": "2026-10-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-20 10:00",
+     "utc": "2026-11-20T15:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-18 10:00",
+     "utc": "2026-12-18T15:00:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-08 10:00",
+     "utc": "2027-01-08T15:00:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-22 10:00",
+     "utc": "2027-02-22T15:00:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
    "build_next": "2026-11-25",
    "confirmed_through": "2026-12-23",
    "fred_clock": null,
@@ -1830,135 +1959,6 @@
      "expected": true,
      "ny": "2027-01-08 08:30",
      "utc": "2027-01-08T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-12-18",
-   "confirmed_through": "2026-12-18",
-   "fred_clock": "13:06",
-   "freq": "monthly",
-   "ids": "alna ... wyna",
-   "link": "/state-onset/",
-   "name": "state payrolls by industry, as first published",
-   "next_expected": false,
-   "next_ny": "2026-12-18 10:00",
-   "read_lag_min": 186,
-   "release_id": 112,
-   "short": "state payrolls by industry, as first pub",
-   "slots": true,
-   "source": "FRED release 112 (State Employment and Unemployment)",
-   "through": "2026-09-30",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-20 10:00",
-     "utc": "2026-11-20T15:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-18 10:00",
-     "utc": "2026-12-18T15:00:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-08 10:00",
-     "utc": "2027-01-08T15:00:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-02-22 10:00",
-     "utc": "2027-02-22T15:00:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-12-18",
-   "confirmed_through": "2026-12-18",
-   "fred_clock": "13:06",
-   "freq": "monthly",
-   "ids": "alur ... wyur",
-   "link": "/state-onset/",
-   "name": "state unemployment rates, 50 states and dc",
-   "next_expected": false,
-   "next_ny": "2026-12-18 10:00",
-   "read_lag_min": 186,
-   "release_id": 112,
-   "short": "state unemployment rates, 50 states and ",
-   "slots": true,
-   "source": "FRED release 112 (State Employment and Unemployment)",
-   "through": "2026-09-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-20 10:00",
-     "utc": "2026-11-20T15:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-18 10:00",
-     "utc": "2026-12-18T15:00:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-08 10:00",
-     "utc": "2027-01-08T15:00:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-02-22 10:00",
-     "utc": "2027-02-22T15:00:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-12-18",
-   "confirmed_through": "2026-12-18",
-   "fred_clock": "13:06",
-   "freq": "monthly",
-   "ids": "alnan ... wynan, alurn ... wyurn",
-   "link": "/state-onset/",
-   "name": "state payrolls and unemployment rates, not seasonally adjusted",
-   "next_expected": false,
-   "next_ny": "2026-12-18 10:00",
-   "read_lag_min": 186,
-   "release_id": 112,
-   "short": "state payrolls and unemployment rates, n",
-   "slots": true,
-   "source": "FRED release 112 (State Employment and Unemployment)",
-   "through": "2026-09-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-20 10:00",
-     "utc": "2026-11-20T15:00:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-18 10:00",
-     "utc": "2026-12-18T15:00:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-08 10:00",
-     "utc": "2027-01-08T15:00:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-02-22 10:00",
-     "utc": "2027-02-22T15:00:00Z"
     }
    ],
    "waiting_since_due": null
@@ -2141,7 +2141,7 @@
    "agrees_with_build": true,
    "build_next": "2026-12-18",
    "confirmed_through": "2026-12-18",
-   "fred_clock": "13:06",
+   "fred_clock": "10:53",
    "freq": "monthly",
    "ids": "alnan ... wynan",
    "link": "/stress-map/",
