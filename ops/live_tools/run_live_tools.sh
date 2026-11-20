@@ -34,7 +34,7 @@ if [ "${MODE:-full}" != "parity" ]; then
 fi
 # 19 Nov 2026 (collection 1149, Anthony: "do all three"): the tool code changed that day is carried in the repo (ops/live_tools/overlay) and laid over the
 # restored state before the tools run: the State page's last column is the fall against trend; the stress map starts each period where the State page does.
-for d in 1032_state_recession_indicator_all_states_dc_2026-11-09:1032 1052_stress_map_fix_parse_collect_2026-11-12:1052; do
+for d in 1032_state_recession_indicator_all_states_dc_2026-11-09:1032 1052_stress_map_fix_parse_collect_2026-11-12:1052 823_live_release_readiness_2026-10-23:823; do   # 823 since 1153: the shadow page's 2024 row is Paper 1's, not the NBER's
   ( cd "$OPS/overlay/${d##*:}" && find . -type f ! -name '*.md' | sed 's#^\./##' ) | while read -r f; do
     cmp -s "$OPS/overlay/${d##*:}/$f" "$P/${d%%:*}/$f" || { mkdir -p "$(dirname "$P/${d%%:*}/$f")" && cp "$OPS/overlay/${d##*:}/$f" "$P/${d%%:*}/$f" && say "overlay: $f"; }
   done
