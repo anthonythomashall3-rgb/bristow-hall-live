@@ -529,6 +529,12 @@ def parity():
     U = universe(); y1 = datetime.date.today().year; y0 = y1 - 2
     base, served = fetch(U, y0, y1, chain=('bls_v2_key1', 'bls_v2_key2'))
     B = {k: _last24(v) for k, v in base.items() if v}
+    if not B:
+        # 20 Nov 2026: the API v2 answered nothing (no key, a refused or invalid key): nothing can be compared. Stop before writing, so the
+        # parity record in use is never replaced by an empty one (which would make every fallback ineligible), and fail
+        print('BLS FALLBACK PARITY NOT RUN: the BLS API v2 answered none of the %d series (role %s, key %s; %s)' % (
+            len(U), ROLE, 'set' if key_of('bls_v2_key1') else 'missing', '; '.join(LOG[-3:])[:400]))
+        sys.exit(1)
     rep = {'checked_utc': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'base': 'BLS API v2', 'series': len(B),
            'window': 'the last 24 months the API carries, per series'}
     def compare(name, got, ids):

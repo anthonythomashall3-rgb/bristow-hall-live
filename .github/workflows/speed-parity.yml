@@ -90,7 +90,9 @@ jobs:
         run: python3 ops/speed/bls_guard_selftest.py
       - name: the run's BLS requests
         if: always()
-        run: mkdir -p ops/speed/out && cp "$BLS_USAGE" ops/speed/out/bls_usage_test.json 2>/dev/null; cat "$BLS_USAGE" 2>/dev/null || echo "no BLS request in this run"
+        run: |
+          mkdir -p ops/speed/out
+          if [ -f "$BLS_USAGE" ]; then cp "$BLS_USAGE" ops/speed/out/bls_usage_test.json; cat "$BLS_USAGE"; else echo "no BLS API request in this run"; fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
