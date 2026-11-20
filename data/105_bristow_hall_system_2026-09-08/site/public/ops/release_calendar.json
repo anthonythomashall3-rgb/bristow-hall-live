@@ -1,11 +1,11 @@
 {
- "built_at": "2026-11-20 14:48",
+ "built_at": "2026-11-20 16:22",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-20T19:49:42Z",
+ "generated_utc": "2026-11-20T21:24:12Z",
  "rows": [
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-20",
+   "build_next": "2026-11-23",
    "confirmed_through": "2027-03-12",
    "fred_clock": null,
    "freq": "daily",
@@ -13,13 +13,13 @@
    "link": "/detector/",
    "name": "s&p 500 daily close",
    "next_expected": false,
-   "next_ny": "2026-11-20 16:00",
+   "next_ny": "2026-11-23 16:00",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the S&P 500 close",
    "slots": false,
    "source": "rule: nyse_close",
-   "through": "2026-11-19",
+   "through": "2026-11-20",
    "time_known": true,
    "time_note": "the market close",
    "times": [

@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-11-20T13:34:06Z",
+ "checked_utc": "2026-11-20T21:22:40Z",
  "release": {},
  "row_tokens": {
   "feed|BAA": "2026-10|6.59",
@@ -31,7 +31,7 @@
   "feed|LAUS state rates (51)": "2026-09-01|12%",
   "feed|SAHMREALTIME": "2026-10|0.00",
   "feed|SAHMREALTIME|Sahm rule, real time (the comparator on the speed panel)": "2026-10|0.00",
-  "feed|SP500|S&P 500 daily close (the market pillar: below its close a year earlier; a confirmation of the claims closer)": "2026-11-19|7,175.83",
+  "feed|SP500|S&P 500 daily close (the market pillar: below its close a year earlier; a confirmation of the claims closer)": "2026-11-20|6,910.39",
   "feed|UNRATE, AWHMAN, NDMANEMP, PAYEMS": "2026-10-01|4.1; 41.8; 4,753; 159,293",
   "feed|UNRATE, PAYEMS, UNEMPLOY, LNS13023621": "2026-10|4.1; 159,293; 7,068; 3,166",
   "feed|UNRATE, PAYEMS, UNEMPLOY, LNS13023621|Unemployment rate, payrolls, the unemployed count, job losers (the household pillar, the payroll pillar, the count door, the job-losers door)": "2026-10|4.1; 159,293; 7,068; 3,166",
@@ -94,7 +94,7 @@
   "row|rule|INDPRO|Industrial production": "2026-10|103.3954",
   "row|rule|JTSJOL|Job openings": "2026-09|7,523",
   "row|rule|SAHMREALTIME|Sahm rule, real time": "2026-10|0.00",
-  "row|rule|SP500|S&P 500 daily close": "2026-11-19|7,175.83",
+  "row|rule|SP500|S&P 500 daily close": "2026-11-20|6,910.39",
   "row|rule|UNRATE, PAYEMS, UNEMPLOY, LNS13023621|Unemployment rate, payrolls, the unemployed count, job losers": "2026-10|4.1; 159,293; 7,068; 3,166",
   "row|rule|^GSPC|S&P 500 daily close": "2026-11-13|7,561.67",
   "tile|CPI inflation": "3.7%|year over year, Sep 2026",
