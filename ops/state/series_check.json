@@ -1,5 +1,5 @@
 {
- "at": "2026-11-19T20:21:33Z",
+ "at": "2026-11-21T13:37:47Z",
  "files": [
   {
    "file": "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/UNRATE_all_vintages.csv",
@@ -213,25 +213,12 @@
    "known": true
   },
   {
-   "file": "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [iu_nsa]",
-   "check": "S2",
-   "n": 2,
-   "first": "1947-11-29",
-   "note": "a single point far from both neighbours that comes straight back",
-   "all": [
-    "1947-11-29",
-    "1951-12-01"
-   ],
-   "known": true
-  },
-  {
    "file": "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [iu_rtsa]",
    "check": "S2",
-   "n": 4,
-   "first": "1951-12-01",
+   "n": 3,
+   "first": "1977-01-15",
    "note": "a single point far from both neighbours that comes straight back",
    "all": [
-    "1951-12-01",
     "1977-01-15",
     "1979-01-20",
     "2020-07-18"
@@ -240,16 +227,8 @@
   },
   {
    "file": "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [ic_rtsa]",
-   "check": "H4",
-   "n": 1,
-   "first": "2022-03-12",
-   "note": "a cell 5 times above or below the 9 rows around it: 2022-03-12 = 2.202737",
-   "known": true
-  },
-  {
-   "file": "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [ic_rtsa]",
    "check": "S1",
-   "n": 3,
+   "n": 1,
    "first": "2020-03-21",
    "note": "a jump by a factor of 5 or more",
    "known": true
@@ -415,5 +394,5 @@
   "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/BAA.csv"
  ],
  "hard_new": 0,
- "soft": 19
+ "soft": 18
 }
