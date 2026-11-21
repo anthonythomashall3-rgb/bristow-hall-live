@@ -29,7 +29,7 @@
  "open_defects": {
   "UNRATE, UNEMPLOY, LNS13023621 newest vintage, October 2025 empty": "the household survey was not collected that month; not an error",
   "national_first_prints icsa_prev_rev: 29 cells of 2014-2019 of about 2 million": "the revised-previous-week column took the wrong number from the release; after 28 May 2009 nothing reads this column (the Time Machine uses ALFRED from that day); the cell of 31 Dec 1994 (321) was corrected on 19 Nov 2026",
-  "e22_history.csv iu_nsa, October to December 1947: 5 other weeks differ from the Weekly Supplement": "printed (thousands, State programs): 11 Oct 735, 18 Oct 752, 25 Oct 750, 1 Nov 728, 8 Nov 711, 15 Nov 744, 22 Nov 725, 6 Dec 786, 13 Dec 786; the chain holds 754, 752, 728, 728, 746, 725, none, 786, 782; outside every episode; not changed (collection 1161)"
+  "e22_history.csv iu_nsa 1946 to 1951: not yet all read against the print": "251 of about 312 weeks read (collection 1161): 145 equal, 34 within 1.5 per cent, 22 missing in the chain, 50 further off, of which 20 corrected on 21 Nov 2026; 23 of the rest are unrounded figures from another source; e22.py with every one of the 106 set to the print: all 13 opens and closes identical"
  },
  "corrected_2026_11_19": {
   "insured unemployment SA, week of 1 April 1989: 213355000 -> 2133000": "the release of 20 April 1989 prints \"2,13355,000 ... a decrease of 25,000 from the prior week's ... revised level of 2,158,000\", and the release of 27 April restates the week at 2,133,000 (collection 399, msu.31293026746598 pages 169 and 171)",
@@ -40,5 +40,8 @@
   "e22_history.csv iu_nsa, week of 29 November 1947: 2756000 -> 756000": "the Survey of Current Business Weekly Supplement of 26 December 1947 prints State programs \"r756\" (revised; the r was read as a 2); the issue of 19 December prints 753 and that of 2 January 1948 prints 756 (FRASER scb_weekly_19471219, 19471226, 19480102)",
   "e22_history.csv iu_nsa, week of 1 December 1951: 2018000 -> 1019000 (iu_rtsa scaled by the same week's factor 1.12775: 2275801 -> 1149178)": "the Weekly Supplements of 28 December 1951 and 4 January 1952 print State programs 1,019 and total 1,052 (FRASER scb_weekly_19511228, bstat_01041952)",
   "e22_history.csv ic_rtsa, week of 12 March 2022: 2.2 -> 223461": "the cell was made from the initial-claims cell of 2 corrected to 202,894 on 19 Nov 2026; scaled by the same week's factor 1.10137; the frozen chain's later factors were not rebuilt"
+ },
+ "corrected_2026_11_21b": {
+  "e22_history.csv iu_nsa, 20 weeks of 1946 to 1951 set to the Survey of Current Business Weekly Supplement's print (19 from the column printed a year later, 8 Jan 1949 from the first print)": "1946-03-16 1256 -> 1814; 1946-06-22 1220 -> 1345; 1946-08-03 1157 -> 1125; 1946-10-26 691 -> 891; 1946-11-09 735 -> 845; 1946-11-16 752 -> 876; 1946-11-23 916 -> 848; 1946-11-30 728 -> 916; 1946-12-21 786 -> 855; 1946-12-28 766 -> 950; 1947-01-04 1210 -> 1110; 1947-05-10 1240 -> 1140; 1947-05-31 1262 -> 1161; 1947-07-26 1157 -> 1137; 1947-10-25 728 -> 750; 1948-10-02 601 -> 801; 1949-01-08 1003 -> 1546; 1950-10-28 818 -> 795; 1951-09-01 816 -> 884; 1951-12-15 979 -> 1021 (thousands; collection 1161, out/chain_vs_print_1946_1951.csv; the seasonally adjusted cell of the same week, where there is one, scaled by the same ratio)"
  }
 }
