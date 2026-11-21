@@ -31,6 +31,9 @@ if [ "${MODE:-full}" != "parity" ]; then
   # stress map's disturbance register (from the repo copy the cloud update rebuilds); add-only, see the script's first lines
   step "State page other inputs" $PY "$OPS/state_fast.py" extra || say "other State inputs refresh returned non-zero (held files kept)"
   wait $SI
+  # 1161 (21 Nov 2026): "State payrolls by industry, as first published" was never refreshed, so the day after each State release the
+  # source gate held every full build; the newest month is appended from the BLS series bls_api_1052.py already keeps (add-only)
+  step "State industry first prints" $PY "$OPS/state_industry_first_prints_1161.py" || say "State industry first prints returned non-zero (held file kept)"
 fi
 # 19 Nov 2026 (collection 1149, Anthony: "do all three"): the tool code changed that day is carried in the repo (ops/live_tools/overlay) and laid over the
 # restored state before the tools run: the State page's last column is the fall against trend; the stress map starts each period where the State page does.
