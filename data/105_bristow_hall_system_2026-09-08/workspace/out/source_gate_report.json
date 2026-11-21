@@ -4,8 +4,8 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-20",
- "checked_at": "2026-11-21 01:23 UTC",
- "seconds": 3.9,
+ "checked_at": "2026-11-21 10:28 UTC",
+ "seconds": 2.8,
  "source_calls": 4,
  "source_errors": {},
  "counts": {
@@ -2007,6 +2007,18 @@
   },
   {
    "page": "data/stress-map",
+   "label": "county unemployment rates and labor force, 3,143 counties (bls flat file)",
+   "check": "next published",
+   "status": "WARN",
+   "value": "2026-12-02",
+   "period": null,
+   "series": null,
+   "transform": null,
+   "expected": null,
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+  },
+  {
+   "page": "data/stress-map",
    "label": "national payrolls by supersector: PAYEMS",
    "check": "freshness",
    "status": "PASS",
@@ -2388,18 +2400,6 @@
    "transform": null,
    "expected": "2026-12-04",
    "detail": "FRED release 109 (State Coincident Indexes)"
-  },
-  {
-   "page": "data/stress-map",
-   "label": "county unemployment rates and labor force, 3,143 counties (bls flat file)",
-   "check": "next published",
-   "status": "WARN",
-   "value": "2026-12-02",
-   "period": null,
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -4794,12 +4794,12 @@
    "label": "thru.county_laus",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-09",
-   "period": "2026-09",
-   "series": "CALOSA7URN",
+   "value": "2026-10",
+   "period": "2026-10",
+   "series": "LAUCN060370000000003",
    "transform": "month",
-   "expected": "2026-09",
-   "detail": "the BLS API could not be read; FRED carries the same month"
+   "expected": "2026-10",
+   "detail": ""
   },
   {
    "page": "stress-map",

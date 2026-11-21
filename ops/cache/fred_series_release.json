@@ -79,12 +79,12 @@
   "release_id": null
  },
  "CCNSA": {
-  "fetched": "2026-10-22",
+  "fetched": "2026-11-21",
   "name": "Unemployment Insurance Weekly Claims Report",
   "release_id": 180
  },
  "CCSA": {
-  "fetched": "2026-10-22",
+  "fetched": "2026-11-21",
   "name": "Unemployment Insurance Weekly Claims Report",
   "release_id": 180
  },
@@ -95,7 +95,7 @@
   "release_id": null
  },
  "CFNAIMA3": {
-  "fetched": "2026-10-22",
+  "fetched": "2026-11-21",
   "name": "Chicago Fed National Activity Index",
   "release_id": 219
  },
@@ -122,7 +122,7 @@
   "release_id": null
  },
  "COVEMP": {
-  "fetched": "2026-10-22",
+  "fetched": "2026-11-21",
   "name": "Unemployment Insurance Weekly Claims Report",
   "release_id": 180
  },
@@ -132,7 +132,7 @@
   "release_id": 10
  },
  "CPIAUCSL": {
-  "fetched": "2026-10-22",
+  "fetched": "2026-11-21",
   "name": "Consumer Price Index",
   "release_id": 10
  },
@@ -214,12 +214,12 @@
   "release_id": 180
  },
  "ICSA": {
-  "fetched": "2026-10-22",
+  "fetched": "2026-11-21",
   "name": "Unemployment Insurance Weekly Claims Report",
   "release_id": 180
  },
  "INDPRO": {
-  "fetched": "2026-10-22",
+  "fetched": "2026-11-21",
   "name": "G.17 Industrial Production and Capacity Utilization",
   "release_id": 13
  },
@@ -236,7 +236,7 @@
   "release_id": null
  },
  "IURSA": {
-  "fetched": "2026-10-22",
+  "fetched": "2026-11-21",
   "name": "Unemployment Insurance Weekly Claims Report",
   "release_id": 180
  },
@@ -247,12 +247,12 @@
   "release_id": null
  },
  "JTSJOL": {
-  "fetched": "2026-10-22",
+  "fetched": "2026-11-21",
   "name": "Job Openings and Labor Turnover Survey",
   "release_id": 192
  },
  "JTSQUR": {
-  "fetched": "2026-10-22",
+  "fetched": "2026-11-21",
   "name": "Job Openings and Labor Turnover Survey",
   "release_id": 192
  },
@@ -290,7 +290,7 @@
   "release_id": null
  },
  "PAYEMS": {
-  "fetched": "2026-10-22",
+  "fetched": "2026-11-21",
   "name": "Employment Situation",
   "release_id": 50
  },
@@ -324,7 +324,7 @@
   "release_id": null
  },
  "SAHMREALTIME": {
-  "fetched": "2026-10-22",
+  "fetched": "2026-11-21",
   "name": "Sahm Rule Recession Indicator",
   "release_id": 456
  },
@@ -369,7 +369,7 @@
   "release_id": 50
  },
  "UNRATE": {
-  "fetched": "2026-10-22",
+  "fetched": "2026-11-21",
   "name": "Employment Situation",
   "release_id": 50
  },
