@@ -652,8 +652,8 @@ jobs:
       # times because Mississippi, North Carolina and New Mexico still carried the week of 31 Oct: live-tools.yml, which refreshes the
       # State data, rests on GitHub's schedule, and its 16:50 UTC start came 7 h 40 min late. When the source gate holds a build and any
       # of its failures is on the State onset page or the stress map, this run starts live-tools.yml itself; live-tools refreshes the
-      # State data and, when it has committed, starts the site deploy (update.yml, mode site), which publishes. At most one start in
-      # 3 hours (a State figure the refresh cannot bring forward must not start a loop). No AI.
+      # State data and, when it has committed, starts the site deploy (update.yml, mode site), which publishes. At most two starts by
+      # the workflows in 3 hours (a State figure the refresh cannot bring forward must not start a loop). No AI.
       - name: a hold on State figures starts the live tools
         if: always() && steps.srcgate.outcome == 'failure' && github.ref_name == 'main'
         continue-on-error: true
@@ -662,8 +662,15 @@ jobs:
         run: |
           if ! grep -qE '^ *FAIL +(data/)?(state-onset|stress-map) ' "$RUNNER_TEMP/source_gate.log" 2>/dev/null; then echo "the hold is not on State figures: nothing to start"; exit 0; fi
           SINCE=$(date -u -d '3 hours ago' +%Y-%m-%dT%H:%M:%SZ)
-          N=$(gh run list -R "$GITHUB_REPOSITORY" --workflow live-tools.yml -L 20 --json createdAt,event -q "[.[] | select(.createdAt >= \"$SINCE\" and .event != \"pull_request\")] | length")
-          if [ "${N:-0}" != "0" ]; then echo "live-tools.yml already started in the last 3 hours ($N): not started again"; exit 0; fi
+          # 1160 (20 Nov 2026): the guard counted every live-tools run of the last 3 hours, so a run started by hand or by GitHub's
+          # schedule used it up and the hold of 15:38Z on the October State release started nothing. Now: nothing is started while a
+          # live-tools run is queued or under way (it will read the same data); otherwise only the starts made by the workflows
+          # themselves (actor github-actions[bot]) count, and two are allowed in 3 hours. The loop the guard exists for stays closed.
+          RUNS=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/live-tools.yml/runs?per_page=30" 2>/dev/null || echo '{"workflow_runs":[]}')
+          BUSY=$(printf '%s' "$RUNS" | jq '[.workflow_runs[] | select(.event != "pull_request" and (.status == "queued" or .status == "in_progress" or .status == "waiting" or .status == "pending" or .status == "requested"))] | length')
+          if [ "${BUSY:-0}" != "0" ]; then echo "a live-tools.yml run is queued or under way ($BUSY): not started again"; exit 0; fi
+          N=$(printf '%s' "$RUNS" | jq --arg s "$SINCE" '[.workflow_runs[] | select(.created_at >= $s and .event == "workflow_dispatch" and .actor.login == "github-actions[bot]")] | length')
+          if [ "${N:-0}" -ge 2 ]; then echo "live-tools.yml already started by the workflows twice in the last 3 hours ($N): not started again"; exit 0; fi
           gh workflow run live-tools.yml -R "$GITHUB_REPOSITORY" --ref main -f mode=full && echo "State figures stale: live-tools.yml started; it deploys the site when it has refreshed them" | tee -a "$GITHUB_WORKSPACE/run.log"
 
       # THE SITE CONTRACT (16 Nov 2026; Anthony: "MAKE SURE NO ISSUES LIKE THIS EVER HAPPEN AGAIN"). The forecaster step died on a page the
