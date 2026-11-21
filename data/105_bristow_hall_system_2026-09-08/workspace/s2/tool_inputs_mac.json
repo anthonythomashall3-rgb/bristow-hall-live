@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-20T16:37:11Z",
+ "generated_at": "2026-11-21T10:24:22Z",
  "generator": "s2/tool_inputs_mac.py (run on the Mac)",
  "tools": {
   "stress-map": {
@@ -31,7 +31,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-20T16:33Z",
+     "refreshed": "2026-11-21T10:00Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": {
       "values": [
@@ -60,7 +60,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-10",
-     "refreshed": "2026-11-20T16:33Z",
+     "refreshed": "2026-11-21T10:00Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": {
       "vlist": [
@@ -1184,8 +1184,8 @@
      "url": "/detector/",
      "freq": "daily",
      "release": "derived_detector",
-     "through": "2026-11-20 11:17",
-     "refreshed": "2026-11-20T16:34Z",
+     "through": "2026-11-20 20:22",
+     "refreshed": "2026-11-21T10:01Z",
      "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/data/live_chronology/bhs_state_origin_main.json",
      "held": {
       "value": "Closed since Oct 2024",
@@ -1202,24 +1202,24 @@
      "url": "https://download.bls.gov/pub/time.series/la/",
      "freq": "monthly",
      "release": "bls_metro",
-     "through": "2026-09",
-     "refreshed": "2026-11-15T18:49Z",
+     "through": "2026-10",
+     "refreshed": "2026-11-21T10:00Z",
      "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/laus_county.txt.gz",
      "held": {
       "values": [
        [
         "U.S., from the county file",
-        "4.0%",
-        "unemployment rate, labor-force-weighted over 3,143 counties, not seasonally adjusted"
+        "3.9%",
+        "unemployment rate, labor-force-weighted over 3 counties, not seasonally adjusted"
        ],
        [
         "U.S., from the county file",
-        "170,297,925",
+        "6,900,965",
         "labor force, persons (sum of the counties)"
        ]
       ],
       "units": "BLS LAUS county flat file",
-      "period": "2026-09"
+      "period": "2026-10"
      },
      "refresh": "each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)"
     },
@@ -1302,7 +1302,7 @@
      "freq": "monthly",
      "release": "fred:50",
      "through": "2026-10",
-     "refreshed": "2026-11-20T13:33Z",
+     "refreshed": "2026-11-21T09:58Z",
      "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/ces_all.txt.gz",
      "held": {
       "values": [
@@ -1381,7 +1381,7 @@
      "freq": "monthly",
      "release": "bls_state",
      "through": "2026-10",
-     "refreshed": "2026-11-20T16:08Z",
+     "refreshed": "2026-11-21T09:58Z",
      "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/state_metro_payrolls_all.txt.gz",
      "held": {
       "vlist": [
@@ -3170,7 +3170,7 @@
      "freq": "weekly",
      "release": "eta539",
      "through": "2026-11-14",
-     "refreshed": "2026-11-19T21:34Z",
+     "refreshed": "2026-11-20T22:52Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar539.csv",
      "held": {
       "vlist": [
@@ -4793,7 +4793,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-20T16:33Z",
+     "refreshed": "2026-11-21T10:00Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": {
       "values": [
@@ -4822,7 +4822,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-10",
-     "refreshed": "2026-11-20T16:33Z",
+     "refreshed": "2026-11-21T10:00Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": {
       "vlist": [
