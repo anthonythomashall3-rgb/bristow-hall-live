@@ -29,7 +29,7 @@
  "open_defects": {
   "UNRATE, UNEMPLOY, LNS13023621 newest vintage, October 2025 empty": "the household survey was not collected that month; not an error",
   "national_first_prints icsa_prev_rev: 29 cells of 2014-2019 of about 2 million": "the revised-previous-week column took the wrong number from the release; after 28 May 2009 nothing reads this column (the Time Machine uses ALFRED from that day); the cell of 31 Dec 1994 (321) was corrected on 19 Nov 2026",
-  "e22_history.csv iu_nsa 1946 to 1951: not yet all read against the print": "251 of about 312 weeks read (collection 1161): 145 equal, 34 within 1.5 per cent, 22 missing in the chain, 50 further off, of which 20 corrected on 21 Nov 2026; 23 of the rest are unrounded figures from another source; e22.py with every one of the 106 set to the print: all 13 opens and closes identical"
+  "e22_history.csv iu_nsa 1946 to 1951 against the print (305 of 313 weeks read, 299 with the figure printed a year later)": "after the corrections of 21 Nov 2026: 20 rounded weeks differ from the final print by under 1 per cent (1 to 20 thousand; not changed, to be read again at higher magnification); 38 weeks hold unrounded figures from another source (Anthony to rule); 22 weeks are empty in the chain and their final print is read (filling them leaves every open and close as it is and turns the two_prints flag of the 1948-49 episode from false to true; not filled); 8 weeks of 1946 not read"
  },
  "corrected_2026_11_19": {
   "insured unemployment SA, week of 1 April 1989: 213355000 -> 2133000": "the release of 20 April 1989 prints \"2,13355,000 ... a decrease of 25,000 from the prior week's ... revised level of 2,158,000\", and the release of 27 April restates the week at 2,133,000 (collection 399, msu.31293026746598 pages 169 and 171)",
@@ -43,5 +43,8 @@
  },
  "corrected_2026_11_21b": {
   "e22_history.csv iu_nsa, 20 weeks of 1946 to 1951 set to the Survey of Current Business Weekly Supplement's print (19 from the column printed a year later, 8 Jan 1949 from the first print)": "1946-03-16 1256 -> 1814; 1946-06-22 1220 -> 1345; 1946-08-03 1157 -> 1125; 1946-10-26 691 -> 891; 1946-11-09 735 -> 845; 1946-11-16 752 -> 876; 1946-11-23 916 -> 848; 1946-11-30 728 -> 916; 1946-12-21 786 -> 855; 1946-12-28 766 -> 950; 1947-01-04 1210 -> 1110; 1947-05-10 1240 -> 1140; 1947-05-31 1262 -> 1161; 1947-07-26 1157 -> 1137; 1947-10-25 728 -> 750; 1948-10-02 601 -> 801; 1949-01-08 1003 -> 1546; 1950-10-28 818 -> 795; 1951-09-01 816 -> 884; 1951-12-15 979 -> 1021 (thousands; collection 1161, out/chain_vs_print_1946_1951.csv; the seasonally adjusted cell of the same week, where there is one, scaled by the same ratio)"
+ },
+ "corrected_2026_11_21c": {
+  "e22_history.csv iu_nsa, 12 more weeks set to the figure the Weekly Supplement printed a year later": "1946-10-05 905 -> 918; 1947-03-15 1106 -> 1130; 1947-06-07 1098 -> 1149; 1947-10-11 754 -> 735; 1947-11-08 746 -> 711; 1947-11-15 725 -> 744; 1947-12-20 958 -> 744; 1948-02-21 1098 -> 1123; 1948-11-13 954 -> 940; 1948-11-20 1025 -> 958; 1951-09-08 781 -> 896; 1951-09-15 896 -> 874 (thousands; collection 1161, out/chain_vs_print_1946_1951_v2.csv)"
  }
 }
