@@ -24,6 +24,7 @@ import numpy as np, pandas as pd
 C = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT = os.path.join(C, 'out'); WEB = os.path.join(C, 'web', 'stress-map')
 ROOT = os.path.dirname(C); DI = os.path.expanduser('~/Projects/Disturbance Indicator Data'); D32 = os.path.join(ROOT, '1032_state_recession_indicator_all_states_dc_2026-11-09')
 sys.path.insert(0, os.path.join(DI, '10_chronology_site/code')); import disturbance_chronology as dc, damage_dimensions_live_v376 as dd
+sys.path.insert(0, os.path.join(C, 'code')); import payroll_prints_1161   # 1161
 V1PY = os.path.join(C, 'code', 'stress_map_v1_1052.py')
 # 15 Nov 2026 05:30 PT (Anthony: "ENSURE THAT EVERYTHING IS LIVE UPDATING"): the DEFAULT build is v3.1 (PREREG-1052 v3, Amendment 1: C1, C3, C4 kept, C2 withdrawn,
 # pre-1979 State layer = v1's). --v2 builds v2 as before; --v3 builds the withdrawn v3 (kept for the record).
@@ -568,10 +569,11 @@ def depth_nation(J1):
     954 data/state_nan, thousands, not seasonally adjusted); a State without payroll data that month is left out."""
     months = pd.date_range(J1['start'] + '-01', periods=J1['n'], freq='MS'); num = np.zeros(len(months)); den = np.zeros(len(months))
     for st in J1['states']:
-        w = pd.read_csv(INPUTS['l0_payrolls'].replace('<ST>', st), index_col=0, parse_dates=True).iloc[:, 0]; w = pd.to_numeric(w, errors='coerce')
+        w = pd.read_csv(INPUTS['l0_payrolls'].replace('<ST>', st), index_col=0, parse_dates=True).iloc[:, 0]; w = pd.to_numeric(w, errors='coerce'); w = payroll_prints_1161.extend(st, w.dropna()) if w.dropna().index[0] > months[0] else w   # 1161: the weight of the months printed before the BLS series begins
+        w0 = w
         pv = (J1.get('prov') or {}).get('first')   # provisional months (PREREG v3 Amendments 2-3): the State's last payroll weight carried forward; grade 0 outside an open period, as in v4 months
         w = np.array((w.reindex(w.index.union(months)).ffill().reindex(months) if pv else w.reindex(months)).values, dtype=float)
-        if pv: w[np.array([m < pd.Timestamp(pv + '-01') for m in months]) & ~np.isfinite(pd.to_numeric(pd.read_csv(INPUTS['l0_payrolls'].replace('<ST>', st), index_col=0, parse_dates=True).iloc[:, 0], errors='coerce').reindex(months).values)] = np.nan
+        if pv: w[np.array([m < pd.Timestamp(pv + '-01') for m in months]) & ~np.isfinite(w0.reindex(months).values)] = np.nan
         g = np.array(J1['states'][st]['g'], float) / 100
         if pv: g = np.where(np.array([c in 'RD' for c in J1['states'][st]['s']]) | (np.arange(len(months)) < len(months) - len(J1['prov']['months'])), g, 0.0)
         ok = np.isfinite(w) & np.array([c != 'G' for c in J1['states'][st]['s']])

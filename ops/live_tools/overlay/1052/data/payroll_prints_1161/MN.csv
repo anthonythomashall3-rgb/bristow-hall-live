@@ -1,0 +1,49 @@
+month,employees_thousands,basis,issue,note
+1947-01,748,old,emplpayr_194803,
+1947-02,741,old,emplpayr_194804,
+1947-03,747,old,emplpayr_194805,
+1947-04,748,old,emplpayr_194806,
+1947-05,760,old,emplpayr_194807,
+1947-06,770,old,emplpayr_194808,
+1947-07,783,old,emplpayr_194809,
+1947-08,788,old,emplpayr_194810,
+1947-09,798,old,emplpayr_194811,
+1947-10,789,old,emplpayr_194812,
+1947-11,791,old,emplpayr_194901,
+1947-12,795,old,emplpayr_194902,
+1948-01,773,old,emplpayr_194903,
+1948-02,764,old,emplpayr_194904,
+1948-03,762,old,emplpayr_194905,
+1948-04,767,old,emplpayr_194905,
+1948-05,782,old,emplpayr_194808,
+1948-06,803.1,new,emplpayr_194907,old basis 803
+1948-07,813.0,new,emplpayr_194908,old basis 813
+1948-08,814.2,new,emplpayr_194909,old basis 823
+1948-09,819.1,estimate,emplpayr_194811,old basis 825 times 0.9928 (the mean of new over old in August and October 1948); no new-basis print found
+1948-10,810.0,new,emplpayr_194910,old basis 813
+1948-11,805.5,new,emplpayr_194911,old basis 813
+1948-12,799.4,new,emplpayr_194912,old basis 809
+1949-01,767.6,new,emplpayr_195001,old basis 775
+1949-02,756.4,new,emplpayr_195002,old basis 767
+1949-03,752.4,new,emplpayr_195003,old basis 763
+1949-04,762.5,new,emplpayr_195004,old basis 768
+1949-05,779.6,new,emplpayr_194907,first print; no later print found
+1949-06,778.6,new,emplpayr_195006,first print 786.2
+1949-07,774.5,new,emplpayr_194909,first print 783.8
+1949-08,786.8,new,emplpayr_195008,
+1949-09,786.2,new,emplpayr_195009,
+1949-10,770.0,new,emplpayr_195010,
+1949-11,779.1,new,emplpayr_195011,
+1949-12,778.1,new,emplpayr_195012,
+1950-01,757.6,new,emplpayr_195101,overlap with the BLS series
+1950-02,752.3,new,emplpayr_195003,overlap
+1950-03,754.7,new,emplpayr_195004,overlap
+1950-04,764.0,new,emplpayr_195004,overlap
+1950-05,774.3,new,emplpayr_195006,overlap
+1950-06,783.3,new,emplpayr_195007,overlap
+1950-07,794.1,new,emplpayr_195008,overlap
+1950-08,810.9,new,emplpayr_195009,overlap
+1950-09,825.1,new,emplpayr_195010,overlap
+1950-10,819.7,new,emplpayr_195011,overlap
+1950-11,816.3,new,emplpayr_195012,overlap
+1950-12,820.9,new,emplpayr_195012,overlap

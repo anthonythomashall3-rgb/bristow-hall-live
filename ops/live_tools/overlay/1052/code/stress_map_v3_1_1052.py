@@ -120,12 +120,14 @@ V4P = periods_from_table(V4T)
 for _st in V4P: damage_start(V4P[_st], dict(V4J['states'][_st]['line']))
 
 # ---------------- L0 inputs -------------
+sys.path.insert(0, os.path.join(C, 'code')); import payroll_prints_1161   # 1161
 NAN = os.path.join(ROOT, '954_state_chronology_1939_bry_boschan_2026-10-31/data/state_nan')
 FH = pd.read_csv(os.path.join(ROOT, '24_bristow_rule_lab/workspace/lab/fh/FH_state_claims_nsa_log.csv'), index_col=0, parse_dates=True)
 CL_LAST = FH.index[-1]
 PAY = {}; IUR = {}; PAYSTART = {}
 for st in STS:
     s = pd.read_csv(os.path.join(NAN, f'{st}NAN.csv'), index_col=0, parse_dates=True).iloc[:, 0]; s = pd.to_numeric(s, errors='coerce').dropna()
+    s = payroll_prints_1161.extend(st, s)   # 1161: months printed before the State's BLS series begins (Minnesota 1947-1949)
     assert (s.index == pd.date_range(s.index[0], s.index[-1], freq='MS')).all(), st
     PAYSTART[st] = s.index[0]; s = s[s.index <= CL_LAST]                       # L0 runs to the claims' last month (the labour input ends there)
     PAY[st] = np.exp(sa_log(np.log(s)))
