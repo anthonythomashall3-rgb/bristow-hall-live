@@ -688,6 +688,20 @@ def home_rows(path):
         return []
 
 
+def tm_rows():
+    """THE TIME MACHINE'S SERIES (22 November 2026, collection 1162; Anthony: "automatically live updating with the most current vintage forever
+    and always and as fast as it possibly can be"). Each gets the runs of its release like a data-page row (a FRED-read release: FRED's
+    measured post plus five minutes; a publisher-read one: its publisher run as well), so /time-machine/ takes every new vintage within minutes.
+    Housing starts had no run of their own: on 18 November 2026 the new month reached the page 3 h 37 min after FRED posted it. These rows
+    carry no through-date, so they are never 'waiting' and never alert; the data page and the front page do not show them."""
+    try:
+        # each row's first series (the others are older names of the same release, GNP before December 1991, the adjusted CPI)
+        ids = [r['ids'][0] for r in json.load(open(os.path.join(ROOT, TOOL['site_public'], 'time-machine', 'tm.json'), encoding='utf-8'))['rows'] if r.get('ids')]
+    except Exception:
+        return []
+    return [{'ids': norm(s), 'name': 'Time Machine: ' + s, 'next': '', 'through': '', 'value': '', 'legs': '', 'link': ''} for s in dict.fromkeys(ids)]
+
+
 def git_text(rel):
     sha = os.environ.get('OPS_BASE') or os.environ.get('GITHUB_SHA') or 'HEAD'
     try:
@@ -781,7 +795,7 @@ def build(allow_fetch=True):
     ALLOW_FETCH[0] = allow_fetch
     today = now_et().date()
     sc, rc = jload(SER_CACHE, {}), jload(REL_CACHE, {})
-    rows = page_rows(os.path.join(ROOT, TOOL['data_page'])) + home_rows(os.path.join(ROOT, TOOL.get('home_page', '')))
+    rows = page_rows(os.path.join(ROOT, TOOL['data_page'])) + home_rows(os.path.join(ROOT, TOOL.get('home_page', ''))) + tm_rows()
     seen, out = set(), []
     for r in rows:
         if r['ids'] in seen:
