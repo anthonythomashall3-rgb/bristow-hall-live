@@ -8,7 +8,14 @@ to December 1949 were printed in the BLS monthly report "Employment and Payrolls
 
 extend(st, s): s is the State's BLS series (thousands, not seasonally adjusted, monthly). Each printed month before s begins is put on the
 BLS series' basis by the ratio BLS / print of the same calendar month of the overlap year (the two series differ by a seasonal pattern:
-0.99 in January to 1.03 in July 1950), and joined in front of s. A State with no file is returned unchanged."""
+0.99 in January to 1.03 in July 1950), and joined in front of s. A State with no file is returned unchanged.
+
+1161m (22 Nov 2026): Michigan (1947-1955), Alaska (1947-1959) and Hawaii (1947-1957). No BLS print exists for these months; the file carries
+employment covered by the State unemployment insurance law (Bureau of Employment Security, pay period nearest the 15th; Hawaii 1954-1958 from the
+Territory's Employment and Payrolls in Hawaii), with the first BLS year as the overlap. Michigan's annual levels are scaled to BLS's own printed
+old-basis Michigan series (Bulletin 1370-4, Table 8); Michigan July 1955-December 1956 is carried by Employment and Earnings (marked). Months with
+basis "estimate" are marked in the file: Alaska July 1955-December 1960 (annual covered levels times the State's seasonal pattern), October and
+November 1947 in all three. Readings: collection 1161, 1161m_cov_readings."""
 import os
 import pandas as pd
 D = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data', 'payroll_prints_1161')
