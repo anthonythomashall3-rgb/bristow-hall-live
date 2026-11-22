@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-21T10:24:22Z",
+ "generated_at": "2026-11-22T10:52:46Z",
  "generator": "s2/tool_inputs_mac.py (run on the Mac)",
  "tools": {
   "stress-map": {
@@ -31,7 +31,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-21T10:00Z",
+     "refreshed": "2026-11-22T10:49Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": {
       "values": [
@@ -60,7 +60,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-10",
-     "refreshed": "2026-11-21T10:00Z",
+     "refreshed": "2026-11-22T10:49Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": {
       "vlist": [
@@ -1185,7 +1185,7 @@
      "freq": "daily",
      "release": "derived_detector",
      "through": "2026-11-20 20:22",
-     "refreshed": "2026-11-21T10:01Z",
+     "refreshed": "2026-11-22T10:49Z",
      "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/data/live_chronology/bhs_state_origin_main.json",
      "held": {
       "value": "Closed since Oct 2024",
@@ -1302,7 +1302,7 @@
      "freq": "monthly",
      "release": "fred:50",
      "through": "2026-10",
-     "refreshed": "2026-11-21T09:58Z",
+     "refreshed": "2026-11-22T09:56Z",
      "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/ces_all.txt.gz",
      "held": {
       "values": [
@@ -1381,7 +1381,7 @@
      "freq": "monthly",
      "release": "bls_state",
      "through": "2026-10",
-     "refreshed": "2026-11-21T09:58Z",
+     "refreshed": "2026-11-22T09:56Z",
      "path": "~/Projects/Onset Detector Data/191_standing_collector_2026-09-16/warehouse/bls_flat_files/state_metro_payrolls_all.txt.gz",
      "held": {
       "vlist": [
@@ -4346,218 +4346,218 @@
      "url": "https://www.bls.gov/sae/",
      "freq": "monthly",
      "release": "bls_state",
-     "through": "2026-09",
-     "refreshed": "2026-11-14T12:14Z",
+     "through": "2026-10",
+     "refreshed": "2026-11-22T10:49Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/state_industry_releases_1994_2026_a168.csv",
      "held": {
       "vlist": [
        [
         "AL",
-        "2,219.0"
+        "2,222.9"
        ],
        [
         "AK",
-        "340.7"
+        "341.4"
        ],
        [
         "AZ",
-        "3,277.8"
+        "3,280.8"
        ],
        [
         "AR",
-        "1,350.8"
+        "1,353.2"
        ],
        [
         "CA",
-        "18,151.6"
+        "18,211.2"
        ],
        [
         "CO",
-        "2,973.8"
+        "2,970.3"
        ],
        [
         "CT",
-        "1,731.6"
+        "1,732.7"
        ],
        [
         "DE",
-        "495.8"
+        "497.8"
        ],
        [
         "DC",
-        "719.9"
+        "719.5"
        ],
        [
         "FL",
-        "10,045.4"
+        "10,043.2"
        ],
        [
         "GA",
-        "4,983.0"
+        "4,989.3"
        ],
        [
         "HI",
-        "642.4"
+        "642.8"
        ],
        [
         "ID",
-        "890.1"
+        "890.0"
        ],
        [
         "IL",
-        "6,164.5"
+        "6,179.0"
        ],
        [
         "IN",
-        "3,257.3"
+        "3,291.4"
        ],
        [
         "IA",
-        "1,587.4"
+        "1,591.2"
        ],
        [
         "KS",
-        "1,469.4"
+        "1,477.8"
        ],
        [
         "KY",
-        "2,031.7"
+        "2,036.0"
        ],
        [
         "LA",
-        "2,024.2"
+        "2,031.2"
        ],
        [
         "ME",
-        "661.7"
+        "660.2"
        ],
        [
         "MD",
-        "2,794.3"
+        "2,797.9"
        ],
        [
         "MA",
-        "3,711.0"
+        "3,715.0"
        ],
        [
         "MI",
-        "4,487.4"
+        "4,496.0"
        ],
        [
         "MN",
-        "3,065.0"
+        "3,067.7"
        ],
        [
         "MS",
-        "1,198.2"
+        "1,197.8"
        ],
        [
         "MO",
-        "3,007.3"
+        "3,015.9"
        ],
        [
         "MT",
-        "520.3"
+        "522.0"
        ],
        [
         "NE",
-        "1,063.3"
+        "1,063.4"
        ],
        [
         "NV",
-        "1,620.2"
+        "1,621.9"
        ],
        [
         "NH",
-        "703.1"
+        "702.6"
        ],
        [
         "NJ",
-        "4,377.4"
+        "4,379.0"
        ],
        [
         "NM",
-        "904.3"
+        "902.4"
        ],
        [
         "NY",
-        "9,970.4"
+        "9,948.9"
        ],
        [
         "NC",
-        "5,128.0"
+        "5,141.0"
        ],
        [
         "ND",
-        "447.3"
+        "447.5"
        ],
        [
         "OH",
-        "5,688.3"
+        "5,702.9"
        ],
        [
         "OK",
-        "1,799.8"
+        "1,801.1"
        ],
        [
         "OR",
-        "1,973.9"
+        "1,972.5"
        ],
        [
         "PA",
-        "6,212.6"
+        "6,220.9"
        ],
        [
         "RI",
-        "513.1"
+        "514.5"
        ],
        [
         "SC",
-        "2,441.3"
+        "2,439.6"
        ],
        [
         "SD",
-        "470.5"
+        "469.7"
        ],
        [
         "TN",
-        "3,388.2"
+        "3,389.2"
        ],
        [
         "TX",
-        "14,461.3"
+        "14,500.5"
        ],
        [
         "UT",
-        "1,797.0"
+        "1,799.1"
        ],
        [
         "VT",
-        "311.0"
+        "310.7"
        ],
        [
         "VA",
-        "4,250.6"
+        "4,243.3"
        ],
        [
         "WA",
-        "3,654.9"
+        "3,653.3"
        ],
        [
         "WV",
-        "717.4"
+        "714.6"
        ],
        [
         "WI",
-        "3,043.3"
+        "3,048.4"
        ],
        [
         "WY",
-        "295.5"
+        "296.4"
        ]
       ],
       "units": "total nonfarm, thousands of persons, seasonally adjusted, as first published",
-      "period": "2026-09"
+      "period": "2026-10"
      },
      "refresh": "manual: Mac rebuild of the tool"
     },
@@ -4793,7 +4793,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-21T10:00Z",
+     "refreshed": "2026-11-22T10:49Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": {
       "values": [
@@ -4822,7 +4822,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-10",
-     "refreshed": "2026-11-21T10:00Z",
+     "refreshed": "2026-11-22T10:49Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": {
       "vlist": [
