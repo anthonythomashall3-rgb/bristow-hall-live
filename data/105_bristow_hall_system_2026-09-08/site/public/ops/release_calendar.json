@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-22 12:05",
+ "built_at": "2026-11-22 13:20",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-22T17:06:40Z",
+ "generated_utc": "2026-11-22T18:21:20Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -2222,6 +2222,107 @@
      "expected": true,
      "ny": "2027-01-28 08:30",
      "utc": "2027-01-28T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "",
+   "confirmed_through": "2026-12-31",
+   "fred_clock": "08:34",
+   "freq": "weekly",
+   "ids": "icsa",
+   "link": "",
+   "name": "Time Machine: ICSA",
+   "next_expected": false,
+   "next_ny": "2026-11-25 08:30",
+   "read_lag_min": 0,
+   "release_id": 180,
+   "short": "weekly claims",
+   "slots": true,
+   "source": "FRED release 180 (Unemployment Insurance Weekly Claims Report)",
+   "through": "",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-19 08:30",
+     "utc": "2026-11-19T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-25 08:30",
+     "utc": "2026-11-25T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-03 08:30",
+     "utc": "2026-12-03T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-10 08:30",
+     "utc": "2026-12-10T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 08:30",
+     "utc": "2026-12-17T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-24 08:30",
+     "utc": "2026-12-24T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-31 08:30",
+     "utc": "2026-12-31T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
+   "build_next": "",
+   "confirmed_through": "2026-12-17",
+   "fred_clock": "08:33",
+   "freq": "monthly",
+   "ids": "houst",
+   "link": "",
+   "name": "Time Machine: HOUST",
+   "next_expected": false,
+   "next_ny": "2026-12-17 08:30",
+   "read_lag_min": 3,
+   "release_id": 27,
+   "short": "housing starts",
+   "slots": true,
+   "source": "FRED release 27 (New Residential Construction)",
+   "through": "",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-18 08:30",
+     "utc": "2026-11-18T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-17 08:30",
+     "utc": "2026-12-17T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-05 08:30",
+     "utc": "2027-01-05T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-16 08:30",
+     "utc": "2027-02-16T13:30:00Z"
     }
    ],
    "waiting_since_due": null
