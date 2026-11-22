@@ -93,7 +93,7 @@ fi
 # vintage from ALFRED, in the background while the pages are built, waited for before the run ends. Each file is written whole or not at
 # all; a failure leaves the held files; never fails the run.
 python3 s2/time_machine/tm_build.py --fast || echo "time machine fast: failed; the held files stand"
-( timeout 170 python3 s2/time_machine/tm_build.py > out/tm_build.out 2>&1; echo "time machine pull: exit $?" >> out/tm_build.out ) &
+( rc=0; timeout 170 python3 s2/time_machine/tm_build.py > out/tm_build.out 2>&1 || rc=$?; echo "time machine pull: exit $rc" >> out/tm_build.out ) &
 TM_PULL=$!
 trap 'kill "$TM_PULL" 2>/dev/null || true' EXIT     # a run that stops early leaves no pull writing behind it
 # THE CALL ALERT (20 September 2026, collection 257; ask 42): a build whose standing differs from the LAST PUBLISHED state
@@ -173,4 +173,5 @@ if a != b:
 CHECK
 # the time machine's ALFRED pull, started above, is in before the run ends (1162)
 wait "$TM_PULL" 2>/dev/null || true
-grep -E "CHANGED|kept until|ALFRED differs|refused|time machine data|exit|Error|error" out/tm_build.out 2>/dev/null | tail -14 || true
+if grep -q "time machine pull: exit 0" out/tm_build.out 2>/dev/null; then grep -E "CHANGED|kept until|ALFRED differs|refused|time machine data" out/tm_build.out | tail -14 || true
+else echo "time machine pull: did not finish; the files as --fast left them stand:"; tail -6 out/tm_build.out 2>/dev/null || true; fi
