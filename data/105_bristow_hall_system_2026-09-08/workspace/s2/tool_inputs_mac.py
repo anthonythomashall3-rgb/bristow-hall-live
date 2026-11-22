@@ -64,6 +64,7 @@ def refresher(p):
         if '191_standing_collector' in p: return 'each live-tools run on GitHub: BLS API v2 (add-only below a 5-year window)'
         if '/612_' in p: return 'each live-tools run on GitHub: 824 feed refresher (add-only) + live_union_823'
         if any(k in p for k in ('coincident-revised', 'fred_state_ur', 'fred_state_payrolls', 'county_tot', '/dol/ar5')): return 'each live-tools run on GitHub: publisher fetch (held file kept, dated copy)'
+        if 'qcew_industry_county' in p: return 'each live-tools run on GitHub: BLS QCEW open data, newest quarter added (add-only, code/qcew_county_ind_refresh_1150.py)'
         if any(k in p for k in ('BH-STATE-CHRONOLOGY-V4', 'damage_line_v4')): return 'each live-tools run on GitHub: rebuilt (1032 routine step 2)'
     if '191_standing_collector' in p: return 'continuous: Mac launchd collector191new'
     if '/612_' in p: return 'release days: Mac 612 feeds + launchd liveunion823'
@@ -98,6 +99,17 @@ def _qcew_county(fs):
             if float(x[6] or 0) > 0: best = max(best, '%s-%02d' % (x[3], 3 * (int(x[4]) - 1) + int(x[5])))
         except Exception: pass
     return best
+def _qcew_county_ind(fs):   # 1164: the newest month with a county total (ownership 0, industry 10) in the newest year file (gz, fips,own,ind,year,qtr,m1,m2,m3,disc)
+    best = ''
+    with gzip.open(sorted(fs)[-1], 'rt', newline='') as h:
+        for ln in h:
+            x = ln.rstrip('\n').split(',')
+            if len(x) < 8 or x[1] != '0' or x[2] != '10': continue
+            for i in (1, 2, 3):
+                try:
+                    if float(x[4 + i] or 0) > 0: best = max(best, '%s-%02d' % (x[3], 3 * (int(x[4]) - 1) + i))
+                except ValueError: pass
+    return best
 def _csv_last(f):
     import pandas as pd
     op = gzip.open if f.endswith('.gz') else open
@@ -120,6 +132,7 @@ def latest(path, key=''):
         if path.endswith('.zip') or 'state_shapes_cb2024' in path: return 'static (2024 boundaries)', ref
         if path.endswith('.xls'):
             import pandas as pd; X = pd.read_excel(fs[0], sheet_name='Indexes'); return str(pd.to_datetime(X.iloc[:, 0], errors='coerce').max().date())[:7], ref
+        if 'qcew_industry_county' in path: return _qcew_county_ind(fs), ref
         if 'county_tot' in path: return _qcew_county(fs), ref
         if path.endswith('.txt.gz'): return _bls_flat(fs[0], 'CES0000000001' if 'ces_all' in path else 'LAUCN060370000000003' if 'laus_county' in path else 'SMS06000000000000001'), ref
         if 'BH-STATE-CHRONOLOGY-V4' in path:   # 15 Nov 2026 (1052 audit): the chronology is built through its damage line's month - the stress map reads that month (V4L['through'])
@@ -147,7 +160,17 @@ def stress_map_inputs():
     for k, p in IN.items():
         if str(p).startswith('http') or str(p).endswith(('.py', '.html')): continue   # code, templates and the fetch address of county_laus
         rows.append((k, p))
-    return rows, 'INPUTS of 1052 code/stress_map_v2_1052.py (v1 and v3 read the same files)'
+    # 1164 (22 Nov 2026; open item of RECORD-1150): the county view's jobs by industry are read by code/stress_map_detail_1150.py (its QD), not by
+    # stress_map_v2_1052.py, so the row comes from that script's own module-level paths, evaluated the same way
+    py2 = os.path.join(C52, 'code/stress_map_detail_1150.py')
+    if os.path.exists(py2):
+        G2 = dict(os=os, sys=sys, __file__=py2)
+        for n in ast.parse(open(py2).read()).body:
+            if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id in ('C', 'ROOT', 'QD') for t in n.targets):
+                try: exec(compile(ast.Module([n], []), py2, 'exec'), G2)
+                except Exception: pass
+        if 'QD' in G2: rows.append(('qcew_industry_county', os.path.join(G2['QD'], '<YEAR>.csv.gz')))
+    return rows, 'INPUTS of 1052 code/stress_map_v2_1052.py (v1 and v3 read the same files) and the folder code/stress_map_detail_1150.py reads'
 def state_onset_inputs():
     CODE = os.path.join(D32, 'code'); rt = open(os.path.join(D32, 'doc/ROUTINE-state-page-refresh-1032.md')).read()
     q = re.findall(r'`([A-Za-z0-9_]+\.py)`', re.search(r'^2\. (.*)$', rt, re.M).group(1)); seen = []
