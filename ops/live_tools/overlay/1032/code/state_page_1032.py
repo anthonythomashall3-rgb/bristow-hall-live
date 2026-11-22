@@ -271,6 +271,10 @@ rep("+'<h1>Real-time Bristow-Hall Rule Recession Indicator (BHRREALTIME)</h1><p>
     "+'<h1>State Recession Chronology and Damage Grade: '+esc(STNAME)+' ('+CODE+')</h1><p>Units: Damage grade, 0 to 10</p>")
 rep("const CITE='Bristow, Duke and Hall, Anthony, Real-time Bristow-Hall Rule Recession Indicator [BHRREALTIME], retrieved from the Bristow-Hall System.';",
     "const CITE='Bristow and Hall, State Recession Chronology and Damage Grade: '+STNAME+' ['+CODE+'].';")
+# 1164 (22 Nov 2026; open item of RECORD-1140): the downloads still carried the national indicator's name (BHRREALTIME.csv, .xlsx, .png,
+# .pptx, and "Real-time Bristow-Hall Rule Recession Indicator" at the head of the spreadsheet's Notes sheet); they now carry the State's code
+rep("const name='BHRREALTIME';", "const name=CODE;")
+rep("[['Real-time Bristow-Hall Rule Recession Indicator (BHRREALTIME)'],", "[['State Recession Chronology and Damage Grade: '+STNAME+' ('+CODE+')'],")
 lm = re.search(r"  if\(missed\.length\)\{ const lm=missed\.map.*?\.linedmonths'\)\.forEach\(n=>n\.textContent=lm\); \}\n", h, flags=re.S); assert lm
 h = h.replace(lm.group(0), '')
 cat = re.search(r"  const CAT=\[\n.*?\n  \];\n", h, flags=re.S); assert cat
