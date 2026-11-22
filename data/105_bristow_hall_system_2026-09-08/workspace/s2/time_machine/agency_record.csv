@@ -1,0 +1,349 @@
+series,kind,period,day,value,alfred_day,evidence
+CPIAUCNS,day,,1964-02-27,,1964-03-03,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the CPI for January 1964 released 1964-02-27; ALFRED dates it 1964-03-03 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 5 days from the agency day)"
+CPIAUCNS,day,,1967-04-25,,1967-04-26,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the CPI for March 1967 released 1967-04-25; ALFRED dates it 1967-04-26 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 1 day from the agency day)"
+CPIAUCNS,day,,1970-09-23,,1970-09-19,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the CPI for August 1970 released 1970-09-23; ALFRED dates it 1970-09-19 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 4 days from the agency day)"
+CPIAUCNS,day,,1970-11-24,,1970-11-20,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the CPI for October 1970 released 1970-11-24; ALFRED dates it 1970-11-20 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 4 days from the agency day)"
+CPIAUCNS,day,,1970-12-24,,1970-12-23,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the CPI for November 1970 released 1970-12-24; ALFRED dates it 1970-12-23 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 1 day from the agency day)"
+CPIAUCNS,day,,1971-04-21,,1971-04-22,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the CPI for March 1971 released 1971-04-21; ALFRED dates it 1971-04-22 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 1 day from the agency day)"
+CPIAUCNS,day,,1971-06-21,,1971-06-22,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the CPI for May 1971 released 1971-06-21; ALFRED dates it 1971-06-22 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 1 day from the agency day)"
+CPIAUCNS,day,,1971-07-23,,1971-07-22,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the CPI for June 1971 released 1971-07-23; ALFRED dates it 1971-07-22 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 1 day from the agency day)"
+CPIAUCNS,day,,1972-03-23,,1972-03-22,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the CPI for February 1972 released 1972-03-23; ALFRED dates it 1972-03-22 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 1 day from the agency day)"
+CPIAUCNS,day,,1978-10-27,,1978-10-26,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the CPI for September 1978 released 1978-10-27; ALFRED dates it 1978-10-26 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 1 day from the agency day)"
+CPIAUCSL,day,,1978-10-27,,1978-10-26,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the CPI for September 1978 released 1978-10-27; ALFRED dates it 1978-10-26 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 1 day from the agency day)"
+CPIAUCNS,day,,1992-12-11,,1992-12-13,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the CPI for November 1992 released 1992-12-11; ALFRED dates it 1992-12-13 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 2 days from the agency day)"
+CPIAUCSL,day,,1992-12-11,,1992-12-13,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the CPI for November 1992 released 1992-12-11; ALFRED dates it 1992-12-13 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 2 days from the agency day)"
+UNRATE,day,,1965-02-04,,1965-02-03,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the Employment Situation for January 1965 released 1965-02-04; ALFRED dates it 1965-02-03 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 1 day from the agency day)"
+PAYEMS,day,,1965-02-04,,1965-02-03,"BLS, Historical release dates for selected BLS news releases, 2000 and earlier (bls.gov/bls/histreleasedates.pdf): the Employment Situation for January 1965 released 1965-02-04; ALFRED dates it 1965-02-03 (RealTime Database 99_build/alfred_days_overruled_by_agency.csv: 1 day from the agency day)"
+INDPRO,day,,1939-01-24,,1939-01-25,"printed on the release (FRASER G.12.3 Industrial Production (55)/January 24, 1939 - January 24, 1939 [491442].pdf)"
+INDPRO,day,,1939-02-25,,1939-02-27,"printed on the release (FRASER G.12.3 Industrial Production (55)/February 25, 1939 - February 25, 1939 [491444].pdf)"
+INDPRO,day,,1939-03-24,,1939-03-26,"printed on the release (FRASER G.12.3 Industrial Production (55)/March 24, 1939 - March 24, 1939 [491446].pdf)"
+INDPRO,day,,1939-06-22,,1939-06-24,"printed on the release (FRASER G.12.3 Industrial Production (55)/June 22, 1939 - June 22, 1939 [491452].pdf)"
+INDPRO,day,,1939-07-22,,1939-07-24,"printed on the release (FRASER G.12.3 Industrial Production (55)/July 22, 1939 - July 22, 1939 [491454].pdf)"
+INDPRO,day,,1939-08-17,,1939-08-18,"printed on the release (FRASER G.12.3 Industrial Production (55)/August 17, 1939 - August 17, 1939 [491455].pdf)"
+INDPRO,day,,1939-09-16,,1939-09-18,"printed on the release (FRASER G.12.3 Industrial Production (55)/September 16, 1939 - September 16, 1939 [491456].pdf)"
+INDPRO,day,,1940-01-17,,1940-01-18,"printed on the release (FRASER G.12.3 Industrial Production (55)/January 17, 1940 - January 17, 1940 [491458].pdf)"
+INDPRO,day,,1940-02-17,,1940-02-19,"printed on the release (FRASER G.12.3 Industrial Production (55)/February 17, 1940 - February 17, 1940 [491459].pdf)"
+INDPRO,day,,1940-03-16,,1940-03-19,"printed on the release (FRASER G.12.3 Industrial Production (55)/March 16, 1940 - March 16, 1940 [491460].pdf)"
+INDPRO,day,,1940-04-17,,1940-04-18,"printed on the release (FRASER G.12.3 Industrial Production (55)/April 17, 1940 - April 17, 1940 [491461].pdf)"
+INDPRO,day,,1940-07-17,,1940-07-18,"printed on the release (FRASER G.12.3 Industrial Production (55)/July 17, 1940 - July 17, 1940 [491464].pdf)"
+INDPRO,day,,1940-08-17,,1940-08-19,"printed on the release (FRASER G.12.3 Industrial Production (55)/August 17, 1940 - August 17, 1940 [491465].pdf)"
+INDPRO,day,,1940-09-17,,1940-09-18,"printed on the release (FRASER G.12.3 Industrial Production (55)/September 17, 1940 - September 17, 1940 [491466].pdf)"
+INDPRO,day,,1940-11-16,,1940-11-18,"printed on the release (FRASER G.12.3 Industrial Production (55)/November 16, 1940 - November 16, 1940 [491468].pdf)"
+INDPRO,day,,1940-12-18,,1940-12-19,"printed on the release (FRASER G.12.3 Industrial Production (55)/December 18, 1940 - December 18, 1940 [491469].pdf)"
+INDPRO,day,,1941-04-17,,1941-04-19,"printed on the release (FRASER G.12.3 Industrial Production (55)/April 17, 1941 - April 17, 1941 [491473].pdf)"
+INDPRO,day,,1941-05-17,,1941-05-19,"printed on the release (FRASER G.12.3 Industrial Production (55)/May 17, 1941 - May 17, 1941 [491474].pdf)"
+INDPRO,day,,1941-06-19,,1941-06-20,"printed on the release (FRASER G.12.3 Industrial Production (55)/June 19, 1941 - June 19, 1941 [491475].pdf)"
+INDPRO,day,,1941-10-18,,1941-10-20,"printed on the release (FRASER G.12.3 Industrial Production (55)/October 18, 1941 - October 18, 1941 [491479].pdf)"
+INDPRO,day,,1941-12-19,,1941-12-20,"printed on the release (FRASER G.12.3 Industrial Production (55)/December 19, 1941 - December 19, 1941 [491481].pdf)"
+INDPRO,day,,1942-01-20,,1942-01-21,"printed on the release (FRASER G.12.3 Industrial Production (55)/January 20, 1942 - January 20, 1942 [491482].pdf)"
+INDPRO,day,,1942-03-21,,1942-03-23,"printed on the release (FRASER G.12.3 Industrial Production (55)/March 21, 1942 - March 21, 1942 [491484].pdf)"
+INDPRO,day,,1942-07-23,,1942-07-24,"printed on the release (FRASER G.12.3 Industrial Production (55)/July 23, 1942 - July 23, 1942 [491488].pdf)"
+INDPRO,day,,1942-08-22,,1942-08-24,"printed on the release (FRASER G.12.3 Industrial Production (55)/August 22, 1942 - August 22, 1942 [491489].pdf)"
+INDPRO,day,,1942-09-19,,1942-09-21,"printed on the release (FRASER G.12.3 Industrial Production (55)/September 19, 1942 - September 19, 1942 [491490].pdf)"
+INDPRO,day,,1942-10-23,,1942-10-24,"printed on the release (FRASER G.12.3 Industrial Production (55)/October 23, 1942 - October 23, 1942 [491491].pdf)"
+INDPRO,day,,1942-11-21,,1942-11-23,"printed on the release (FRASER G.12.3 Industrial Production (55)/November 21, 1942 - November 21, 1942 [491492].pdf)"
+INDPRO,day,,1943-01-22,,1943-01-23,"printed on the release (FRASER G.12.3 Industrial Production (55)/January 22, 1943 - January 22, 1943 [491494].pdf)"
+INDPRO,day,,1943-04-21,,1943-04-22,"printed on the release (FRASER G.12.3 Industrial Production (55)/April 21, 1943 - April 21, 1943 [491497].pdf)"
+INDPRO,day,,1944-07-25,,1944-07-26,"printed on the release (FRASER G.12.3 Industrial Production (55)/July 25, 1944 - July 25, 1944 [491512].pdf)"
+INDPRO,day,,1944-08-25,,1944-08-26,"printed on the release (FRASER G.12.3 Industrial Production (55)/August 25, 1944 - August 25, 1944 [491513].pdf)"
+INDPRO,day,,1944-09-25,,1944-09-26,"printed on the release (FRASER G.12.3 Industrial Production (55)/September 25, 1944 - September 25, 1944 [491514].pdf)"
+INDPRO,day,,1944-11-25,,1944-11-27,"printed on the release (FRASER G.12.3 Industrial Production (55)/November 25, 1944 - November 25, 1944 [491516].pdf)"
+INDPRO,day,,1945-12-20,,1945-12-22,"printed on the release (FRASER G.12.3 Industrial Production (55)/December 20, 1945 - December 20, 1945 [491529].pdf)"
+INDPRO,day,,1946-07-25,,1946-07-26,"printed on the release (FRASER G.12.3 Industrial Production (55)/July 25, 1946 - July 25, 1946 [491536].pdf)"
+INDPRO,day,,1946-08-27,,1946-08-28,"printed on the release (FRASER G.12.3 Industrial Production (55)/August 27, 1946 - August 27, 1946 [491537].pdf)"
+INDPRO,day,,1946-10-25,,1946-10-28,"printed on the release (FRASER G.12.3 Industrial Production (55)/October 25, 1946 - October 25, 1946 [491539].pdf)"
+INDPRO,day,,1947-02-26,,1947-02-27,"printed on the release (FRASER G.12.3 Industrial Production (55)/February 26, 1947 - February 26, 1947 [491543].pdf)"
+INDPRO,day,,1947-09-25,,1947-09-27,"printed on the release (FRASER G.12.3 Industrial Production (55)/September 25, 1947 - September 25, 1947 [491551].pdf)"
+INDPRO,day,,1948-11-29,,1948-11-30,"printed on the release (FRASER G.12.3 Industrial Production (55)/November 29, 1948 - November 29, 1948 [491565].pdf)"
+INDPRO,day,,1949-08-29,,1949-08-30,"printed on the release (FRASER G.12.3 Industrial Production (55)/August 29, 1949 - August 29, 1949 [491576].pdf)"
+INDPRO,day,,1949-09-29,,1949-09-30,"printed on the release (FRASER G.12.3 Industrial Production (55)/September 29, 1949 - September 29, 1949 [491577].pdf)"
+INDPRO,day,,1949-10-27,,1949-10-28,"printed on the release (FRASER G.12.3 Industrial Production (55)/October 27, 1949 - October 27, 1949 [491578].pdf)"
+INDPRO,day,,1949-11-25,,1949-11-28,"printed on the release (FRASER G.12.3 Industrial Production (55)/November 25, 1949 - November 25, 1949 [491579].pdf)"
+INDPRO,day,,1949-12-29,,1949-12-30,"printed on the release (FRASER G.12.3 Industrial Production (55)/December 29, 1949 - December 29, 1949 [491580].pdf)"
+INDPRO,day,,1950-02-28,,1950-03-01,"printed on the release (FRASER G.12.3 Industrial Production (55)/February 28, 1950 - February 28, 1950 [491582].pdf)"
+INDPRO,day,,1950-03-29,,1950-03-30,"printed on the release (FRASER G.12.3 Industrial Production (55)/March 29, 1950 - March 29, 1950 [491583].pdf)"
+INDPRO,day,,1950-04-27,,1950-04-28,"printed on the release (FRASER G.12.3 Industrial Production (55)/April 27, 1950 - April 27, 1950 [491584].pdf)"
+INDPRO,day,,1950-05-26,,1950-05-27,"printed on the release (FRASER G.12.3 Industrial Production (55)/May 26, 1950 - May 26, 1950 [491585].pdf)"
+INDPRO,day,,1950-09-27,,1950-09-28,"printed on the release (FRASER G.12.3 Industrial Production (55)/September 27, 1950 - September 27, 1950 [491589].pdf)"
+INDPRO,day,,1950-10-26,,1950-10-27,"printed on the release (FRASER G.12.3 Industrial Production (55)/October 26, 1950 - October 26, 1950 [491590].pdf)"
+INDPRO,day,,1950-11-29,,1950-11-30,"printed on the release (FRASER G.12.3 Industrial Production (55)/November 29, 1950 - November 29, 1950 [491591].pdf)"
+INDPRO,day,,1950-12-29,,1950-12-30,"printed on the release (FRASER G.12.3 Industrial Production (55)/December 29, 1950 - December 29, 1950 [491592].pdf)"
+INDPRO,day,,1951-01-29,,1951-01-30,"printed on the release (FRASER G.12.3 Industrial Production (55)/January 29, 1951 - January 29, 1951 [491593].pdf)"
+INDPRO,day,,1951-04-27,,1951-05-01,"printed on the release (FRASER G.12.3 Industrial Production (55)/April 27, 1951 - April 27, 1951 [491596].pdf)"
+INDPRO,day,,1951-09-28,,1951-10-01,"printed on the release (FRASER G.12.3 Industrial Production (55)/September 28, 1951 - September 28, 1951 [491601].pdf)"
+INDPRO,day,,1951-10-29,,1951-10-30,"printed on the release (FRASER G.12.3 Industrial Production (55)/October 29, 1951 - October 29, 1951 [491602].pdf)"
+INDPRO,day,,1952-07-29,,1952-07-30,"printed on the release (FRASER G.12.3 Industrial Production (55)/July 29, 1952 - July 29, 1952 [491612].pdf)"
+INDPRO,day,,1952-10-29,,1952-10-30,"printed on the release (FRASER G.12.3 Industrial Production (55)/October 29, 1952 - October 29, 1952 [491615].pdf)"
+INDPRO,day,,1952-11-28,,1952-12-01,"printed on the release (FRASER G.12.3 Industrial Production (55)/November 28, 1952 - November 28, 1952 [491616].pdf)"
+INDPRO,day,,1963-05-16,,1963-05-15,"printed on the release (FRASER G.12.3 Industrial Production (55)/May 16, 1963 - May 16, 1963 [491740].pdf)"
+INDPRO,day,,1985-12-13,,1985-12-14,"printed on the release (FRASER G.12.3 Industrial Production (55)/1985-12-13 - December 13, 1985 [59699].pdf)"
+INDPRO,day,,1986-06-13,,1986-06-16,"printed on the release (FRASER G.12.3 Industrial Production (55)/1986-06-13 - June 13, 1986 [59706].pdf)"
+JTSJOL,print,2003-02-01,2004-04-15,2786,,BLS JOLTS release of 2004-04-15 as published (bls.gov/news.release/archives/jolts_04152004)
+JTSJOL,print,2003-03-01,2004-05-11,2771,,BLS JOLTS release of 2004-05-11 as published (bls.gov/news.release/archives/jolts_05112004)
+JTSJOL,print,2003-04-01,2004-06-09,2807,,BLS JOLTS release of 2004-06-09 as published (bls.gov/news.release/archives/jolts_06092004)
+JTSJOL,print,2003-05-01,2004-07-07,2723,,BLS JOLTS release of 2004-07-07 as published (bls.gov/news.release/archives/jolts_07072004)
+JTSJOL,print,2003-06-01,2004-08-11,2859,,BLS JOLTS release of 2004-08-11 as published (bls.gov/news.release/archives/jolts_08112004)
+JTSJOL,print,2003-07-01,2004-09-08,2738,,BLS JOLTS release of 2004-09-08 as published (bls.gov/news.release/archives/jolts_09082004)
+JTSJOL,print,2003-08-01,2004-10-13,2688,,BLS JOLTS release of 2004-10-13 as published (bls.gov/news.release/archives/jolts_10132004)
+JTSJOL,print,2003-09-01,2004-04-15,2755,,BLS JOLTS release of 2004-04-15 as published (bls.gov/news.release/archives/jolts_04152004)
+JTSJOL,print,2003-09-01,2004-11-09,2755,,BLS JOLTS release of 2004-11-09 as published (bls.gov/news.release/archives/jolts_11092004)
+JTSJOL,print,2003-10-01,2004-04-15,2823,,BLS JOLTS release of 2004-04-15 as published (bls.gov/news.release/archives/jolts_04152004)
+JTSJOL,print,2003-10-01,2004-12-08,2823,,BLS JOLTS release of 2004-12-08 as published (bls.gov/news.release/archives/jolts_12082004)
+JTSJOL,print,2003-11-01,2004-04-15,2952,,BLS JOLTS release of 2004-04-15 as published (bls.gov/news.release/archives/jolts_04152004)
+JTSJOL,print,2003-11-01,2005-01-12,2952,,BLS JOLTS release of 2005-01-12 as published (bls.gov/news.release/archives/jolts_01122005)
+JTSJOL,print,2003-12-01,2004-04-15,3062,,BLS JOLTS release of 2004-04-15 as published (bls.gov/news.release/archives/jolts_04152004)
+JTSJOL,print,2003-12-01,2005-02-09,3062,,BLS JOLTS release of 2005-02-09 as published (bls.gov/news.release/archives/jolts_02092005)
+JTSJOL,print,2004-01-01,2004-04-15,2868,,BLS JOLTS release of 2004-04-15 as published (bls.gov/news.release/archives/jolts_04152004)
+JTSJOL,print,2004-01-01,2005-03-15,2864,,BLS JOLTS release of 2005-03-15 as published (bls.gov/news.release/archives/jolts_03152005)
+JTSJOL,print,2004-02-01,2004-04-15,2907,,BLS JOLTS release of 2004-04-15 as published (bls.gov/news.release/archives/jolts_04152004)
+JTSJOL,print,2004-02-01,2004-05-11,2906,,BLS JOLTS release of 2004-05-11 as published (bls.gov/news.release/archives/jolts_05112004)
+JTSJOL,print,2004-02-01,2005-04-12,2961,,BLS JOLTS release of 2005-04-12 as published (bls.gov/news.release/archives/jolts_04122005)
+JTSJOL,print,2004-03-01,2004-05-11,3072,,BLS JOLTS release of 2004-05-11 as published (bls.gov/news.release/archives/jolts_05112004)
+JTSJOL,print,2004-03-01,2004-06-09,3079,,BLS JOLTS release of 2004-06-09 as published (bls.gov/news.release/archives/jolts_06092004)
+JTSJOL,print,2004-03-01,2005-05-10,3105,,BLS JOLTS release of 2005-05-10 as published (bls.gov/news.release/archives/jolts_05102005)
+JTSJOL,print,2004-04-01,2004-06-09,3091,,BLS JOLTS release of 2004-06-09 as published (bls.gov/news.release/archives/jolts_06092004)
+JTSJOL,print,2004-04-01,2004-07-07,3135,,BLS JOLTS release of 2004-07-07 as published (bls.gov/news.release/archives/jolts_07072004)
+JTSJOL,print,2004-04-01,2005-06-07,3111,,BLS JOLTS release of 2005-06-07 as published (bls.gov/news.release/archives/jolts_06072005)
+JTSJOL,print,2004-05-01,2004-07-07,3104,,BLS JOLTS release of 2004-07-07 as published (bls.gov/news.release/archives/jolts_07072004)
+JTSJOL,print,2004-05-01,2004-08-11,3105,,BLS JOLTS release of 2004-08-11 as published (bls.gov/news.release/archives/jolts_08112004)
+JTSJOL,print,2004-05-01,2005-07-12,3181,,BLS JOLTS release of 2005-07-12 as published (bls.gov/news.release/archives/jolts_07122005)
+JTSJOL,print,2004-06-01,2004-08-11,3029,,BLS JOLTS release of 2004-08-11 as published (bls.gov/news.release/archives/jolts_08112004)
+JTSJOL,print,2004-06-01,2004-09-08,3022,,BLS JOLTS release of 2004-09-08 as published (bls.gov/news.release/archives/jolts_09082004)
+JTSJOL,print,2004-06-01,2005-08-10,3140,,BLS JOLTS release of 2005-08-10 as published (bls.gov/news.release/archives/jolts_08102005)
+JTSJOL,print,2004-07-01,2004-09-08,3190,,BLS JOLTS release of 2004-09-08 as published (bls.gov/news.release/archives/jolts_09082004)
+JTSJOL,print,2004-07-01,2004-10-13,3237,,BLS JOLTS release of 2004-10-13 as published (bls.gov/news.release/archives/jolts_10132004)
+JTSJOL,print,2004-07-01,2005-09-07,3231,,BLS JOLTS release of 2005-09-07 as published (bls.gov/news.release/archives/jolts_09072005)
+JTSJOL,print,2004-08-01,2004-10-13,3191,,BLS JOLTS release of 2004-10-13 as published (bls.gov/news.release/archives/jolts_10132004)
+JTSJOL,print,2004-08-01,2004-11-09,3195,,BLS JOLTS release of 2004-11-09 as published (bls.gov/news.release/archives/jolts_11092004)
+JTSJOL,print,2004-08-01,2005-03-15,3206,,BLS JOLTS release of 2005-03-15 as published (bls.gov/news.release/archives/jolts_03152005)
+JTSJOL,print,2004-08-01,2005-10-12,3206,,BLS JOLTS release of 2005-10-12 as published (bls.gov/news.release/archives/jolts_10122005)
+JTSJOL,print,2004-09-01,2004-11-09,3235,,BLS JOLTS release of 2004-11-09 as published (bls.gov/news.release/archives/jolts_11092004)
+JTSJOL,print,2004-09-01,2004-12-08,3294,,BLS JOLTS release of 2004-12-08 as published (bls.gov/news.release/archives/jolts_12082004)
+JTSJOL,print,2004-09-01,2005-03-15,3265,,BLS JOLTS release of 2005-03-15 as published (bls.gov/news.release/archives/jolts_03152005)
+JTSJOL,print,2004-09-01,2005-11-08,3265,,BLS JOLTS release of 2005-11-08 as published (bls.gov/news.release/archives/jolts_11082005)
+JTSJOL,print,2004-10-01,2004-12-08,3330,,BLS JOLTS release of 2004-12-08 as published (bls.gov/news.release/archives/jolts_12082004)
+JTSJOL,print,2004-10-01,2005-01-12,3420,,BLS JOLTS release of 2005-01-12 as published (bls.gov/news.release/archives/jolts_01122005)
+JTSJOL,print,2004-10-01,2005-03-15,3300,,BLS JOLTS release of 2005-03-15 as published (bls.gov/news.release/archives/jolts_03152005)
+JTSJOL,print,2004-10-01,2005-12-13,3300,,BLS JOLTS release of 2005-12-13 as published (bls.gov/news.release/archives/jolts_12132005)
+JTSJOL,print,2004-11-01,2005-01-12,3204,,BLS JOLTS release of 2005-01-12 as published (bls.gov/news.release/archives/jolts_01122005)
+JTSJOL,print,2004-11-01,2005-02-09,3205,,BLS JOLTS release of 2005-02-09 as published (bls.gov/news.release/archives/jolts_02092005)
+JTSJOL,print,2004-11-01,2005-03-15,3277,,BLS JOLTS release of 2005-03-15 as published (bls.gov/news.release/archives/jolts_03152005)
+JTSJOL,print,2004-11-01,2006-01-10,3277,,BLS JOLTS release of 2006-01-10 as published (bls.gov/news.release/archives/jolts_01102006)
+JTSJOL,print,2004-12-01,2005-02-09,3385,,BLS JOLTS release of 2005-02-09 as published (bls.gov/news.release/archives/jolts_02092005)
+JTSJOL,print,2004-12-01,2005-03-15,3507,,BLS JOLTS release of 2005-03-15 as published (bls.gov/news.release/archives/jolts_03152005)
+JTSJOL,print,2004-12-01,2006-02-07,3507,,BLS JOLTS release of 2006-02-07 as published (bls.gov/news.release/archives/jolts_02072006)
+JTSJOL,print,2005-01-01,2005-03-15,3305,,BLS JOLTS release of 2005-03-15 as published (bls.gov/news.release/archives/jolts_03152005)
+JTSJOL,print,2005-01-01,2005-04-12,3385,,BLS JOLTS release of 2005-04-12 as published (bls.gov/news.release/archives/jolts_04122005)
+JTSJOL,print,2005-01-01,2006-03-14,3339,,BLS JOLTS release of 2006-03-14 as published (bls.gov/news.release/archives/jolts_03142006)
+JTSJOL,print,2005-02-01,2005-04-12,3458,,BLS JOLTS release of 2005-04-12 as published (bls.gov/news.release/archives/jolts_04122005)
+JTSJOL,print,2005-02-01,2005-05-10,3569,,BLS JOLTS release of 2005-05-10 as published (bls.gov/news.release/archives/jolts_05102005)
+JTSJOL,print,2005-02-01,2006-04-11,3494,,BLS JOLTS release of 2006-04-11 as published (bls.gov/news.release/archives/jolts_04112006)
+JTSJOL,print,2005-03-01,2005-05-10,3568,,BLS JOLTS release of 2005-05-10 as published (bls.gov/news.release/archives/jolts_05102005)
+JTSJOL,print,2005-03-01,2005-06-07,3598,,BLS JOLTS release of 2005-06-07 as published (bls.gov/news.release/archives/jolts_06072005)
+JTSJOL,print,2005-03-01,2006-05-09,3658,,BLS JOLTS release of 2006-05-09 as published (bls.gov/news.release/archives/jolts_05092006)
+JTSJOL,print,2005-04-01,2005-06-07,3664,,BLS JOLTS release of 2005-06-07 as published (bls.gov/news.release/archives/jolts_06072005)
+JTSJOL,print,2005-04-01,2005-07-12,3576,,BLS JOLTS release of 2005-07-12 as published (bls.gov/news.release/archives/jolts_07122005)
+JTSJOL,print,2005-04-01,2006-06-06,3589,,BLS JOLTS release of 2006-06-06 as published (bls.gov/news.release/archives/jolts_06062006)
+JTSJOL,print,2005-05-01,2005-07-12,3465,,BLS JOLTS release of 2005-07-12 as published (bls.gov/news.release/archives/jolts_07122005)
+JTSJOL,print,2005-05-01,2005-08-10,3416,,BLS JOLTS release of 2005-08-10 as published (bls.gov/news.release/archives/jolts_08102005)
+JTSJOL,print,2005-05-01,2006-07-11,3364,,BLS JOLTS release of 2006-07-11 as published (bls.gov/news.release/archives/jolts_07112006)
+JTSJOL,print,2005-06-01,2005-08-10,3541,,BLS JOLTS release of 2005-08-10 as published (bls.gov/news.release/archives/jolts_08102005)
+JTSJOL,print,2005-06-01,2005-09-07,3647,,BLS JOLTS release of 2005-09-07 as published (bls.gov/news.release/archives/jolts_09072005)
+JTSJOL,print,2005-06-01,2006-08-09,3598,,BLS JOLTS release of 2006-08-09 as published (bls.gov/news.release/archives/jolts_08092006)
+JTSJOL,print,2005-07-01,2005-09-07,3545,,BLS JOLTS release of 2005-09-07 as published (bls.gov/news.release/archives/jolts_09072005)
+JTSJOL,print,2005-07-01,2005-10-12,3588,,BLS JOLTS release of 2005-10-12 as published (bls.gov/news.release/archives/jolts_10122005)
+JTSJOL,print,2005-07-01,2006-09-12,3580,,BLS JOLTS release of 2006-09-12 as published (bls.gov/news.release/archives/jolts_09122006)
+JTSJOL,print,2005-08-01,2005-10-12,3549,,BLS JOLTS release of 2005-10-12 as published (bls.gov/news.release/archives/jolts_10122005)
+JTSJOL,print,2005-08-01,2005-11-08,3487,,BLS JOLTS release of 2005-11-08 as published (bls.gov/news.release/archives/jolts_11082005)
+JTSJOL,print,2005-08-01,2006-03-14,3697,,BLS JOLTS release of 2006-03-14 as published (bls.gov/news.release/archives/jolts_03142006)
+JTSJOL,print,2005-08-01,2006-10-11,3697,,BLS JOLTS release of 2006-10-11 as published (bls.gov/news.release/archives/jolts_10112006)
+JTSJOL,print,2005-09-01,2005-11-08,3677,,BLS JOLTS release of 2005-11-08 as published (bls.gov/news.release/archives/jolts_11082005)
+JTSJOL,print,2005-09-01,2005-12-13,3836,,BLS JOLTS release of 2005-12-13 as published (bls.gov/news.release/archives/jolts_12132005)
+JTSJOL,print,2005-09-01,2006-03-14,3728,,BLS JOLTS release of 2006-03-14 as published (bls.gov/news.release/archives/jolts_03142006)
+JTSJOL,print,2005-09-01,2006-11-07,3728,,BLS JOLTS release of 2006-11-07 as published (bls.gov/news.release/archives/jolts_11072006)
+JTSJOL,print,2005-10-01,2005-12-13,3992,,BLS JOLTS release of 2005-12-13 as published (bls.gov/news.release/archives/jolts_12132005)
+JTSJOL,print,2005-10-01,2006-01-10,3937,,BLS JOLTS release of 2006-01-10 as published (bls.gov/news.release/archives/jolts_01102006)
+JTSJOL,print,2005-10-01,2006-03-14,3867,,BLS JOLTS release of 2006-03-14 as published (bls.gov/news.release/archives/jolts_03142006)
+JTSJOL,print,2005-10-01,2006-12-12,3867,,BLS JOLTS release of 2006-12-12 as published (bls.gov/news.release/archives/jolts_12122006)
+JTSJOL,print,2005-11-01,2006-01-10,3904,,BLS JOLTS release of 2006-01-10 as published (bls.gov/news.release/archives/jolts_01102006)
+JTSJOL,print,2005-11-01,2006-02-07,3927,,BLS JOLTS release of 2006-02-07 as published (bls.gov/news.release/archives/jolts_02072006)
+JTSJOL,print,2005-11-01,2006-03-14,4031,,BLS JOLTS release of 2006-03-14 as published (bls.gov/news.release/archives/jolts_03142006)
+JTSJOL,print,2005-11-01,2007-01-10,4031,,BLS JOLTS release of 2007-01-10 as published (bls.gov/news.release/archives/jolts_01102007)
+JTSJOL,print,2005-12-01,2006-02-07,4050,,BLS JOLTS release of 2006-02-07 as published (bls.gov/news.release/archives/jolts_02072006)
+JTSJOL,print,2005-12-01,2006-03-14,3941,,BLS JOLTS release of 2006-03-14 as published (bls.gov/news.release/archives/jolts_03142006)
+JTSJOL,print,2005-12-01,2007-02-06,3941,,BLS JOLTS release of 2007-02-06 as published (bls.gov/news.release/archives/jolts_02062007)
+JTSJOL,print,2006-01-01,2006-03-14,3916,,BLS JOLTS release of 2006-03-14 as published (bls.gov/news.release/archives/jolts_03142006)
+JTSJOL,print,2006-01-01,2006-04-11,3981,,BLS JOLTS release of 2006-04-11 as published (bls.gov/news.release/archives/jolts_04112006)
+JTSJOL,print,2006-01-01,2007-03-13,3950,,BLS JOLTS release of 2007-03-13 as published (bls.gov/news.release/archives/jolts_03132007)
+JTSJOL,print,2006-02-01,2006-04-11,4054,,BLS JOLTS release of 2006-04-11 as published (bls.gov/news.release/archives/jolts_04112006)
+JTSJOL,print,2006-02-01,2006-05-09,3994,,BLS JOLTS release of 2006-05-09 as published (bls.gov/news.release/archives/jolts_05092006)
+JTSJOL,print,2006-02-01,2007-04-10,3972,,BLS JOLTS release of 2007-04-10 as published (bls.gov/news.release/archives/jolts_04102007)
+JTSJOL,print,2006-03-01,2006-05-09,3989,,BLS JOLTS release of 2006-05-09 as published (bls.gov/news.release/archives/jolts_05092006)
+JTSJOL,print,2006-03-01,2006-06-06,4089,,BLS JOLTS release of 2006-06-06 as published (bls.gov/news.release/archives/jolts_06062006)
+JTSJOL,print,2006-03-01,2007-05-08,3999,,BLS JOLTS release of 2007-05-08 as published (bls.gov/news.release/archives/jolts_05082007)
+JTSJOL,print,2006-04-01,2006-06-06,4095,,BLS JOLTS release of 2006-06-06 as published (bls.gov/news.release/archives/jolts_06062006)
+JTSJOL,print,2006-04-01,2006-07-11,4070,,BLS JOLTS release of 2006-07-11 as published (bls.gov/news.release/archives/jolts_07112006)
+JTSJOL,print,2006-04-01,2007-06-12,3999,,BLS JOLTS release of 2007-06-12 as published (bls.gov/news.release/archives/jolts_06122007)
+JTSJOL,print,2006-05-01,2006-07-11,3989,,BLS JOLTS release of 2006-07-11 as published (bls.gov/news.release/archives/jolts_07112006)
+JTSJOL,print,2006-05-01,2006-08-09,3945,,BLS JOLTS release of 2006-08-09 as published (bls.gov/news.release/archives/jolts_08092006)
+JTSJOL,print,2006-05-01,2007-07-10,4037,,BLS JOLTS release of 2007-07-10 as published (bls.gov/news.release/archives/jolts_07102007)
+JTSJOL,print,2006-06-01,2006-08-09,4004,,BLS JOLTS release of 2006-08-09 as published (bls.gov/news.release/archives/jolts_08092006)
+JTSJOL,print,2006-06-01,2006-09-12,3960,,BLS JOLTS release of 2006-09-12 as published (bls.gov/news.release/archives/jolts_09122006)
+JTSJOL,print,2006-06-01,2007-08-08,3995,,BLS JOLTS release of 2007-08-08 as published (bls.gov/news.release/archives/jolts_08082007)
+JTSJOL,print,2006-07-01,2006-09-12,3844,,BLS JOLTS release of 2006-09-12 as published (bls.gov/news.release/archives/jolts_09122006)
+JTSJOL,print,2006-07-01,2007-09-11,3891,,BLS JOLTS release of 2007-09-11 as published (bls.gov/news.release/archives/jolts_09112007)
+JTSJOL,print,2006-08-01,2006-10-11,4145,,BLS JOLTS release of 2006-10-11 as published (bls.gov/news.release/archives/jolts_10112006)
+JTSJOL,print,2006-08-01,2006-11-07,4061,,BLS JOLTS release of 2006-11-07 as published (bls.gov/news.release/archives/jolts_11072006)
+JTSJOL,print,2006-08-01,2007-03-13,4188,,BLS JOLTS release of 2007-03-13 as published (bls.gov/news.release/archives/jolts_03132007)
+JTSJOL,print,2006-08-01,2007-10-10,4188,,BLS JOLTS release of 2007-10-10 as published (bls.gov/news.release/archives/jolts_10102007)
+JTSJOL,print,2006-09-01,2006-11-07,4053,,BLS JOLTS release of 2006-11-07 as published (bls.gov/news.release/archives/jolts_11072006)
+JTSJOL,print,2006-09-01,2006-12-12,4154,,BLS JOLTS release of 2006-12-12 as published (bls.gov/news.release/archives/jolts_12122006)
+JTSJOL,print,2006-09-01,2007-03-13,4177,,BLS JOLTS release of 2007-03-13 as published (bls.gov/news.release/archives/jolts_03132007)
+JTSJOL,print,2006-09-01,2007-11-06,4177,,BLS JOLTS release of 2007-11-06 as published (bls.gov/news.release/archives/jolts_11062007)
+JTSJOL,print,2006-10-01,2006-12-12,4207,,BLS JOLTS release of 2006-12-12 as published (bls.gov/news.release/archives/jolts_12122006)
+JTSJOL,print,2006-10-01,2007-01-10,4248,,BLS JOLTS release of 2007-01-10 as published (bls.gov/news.release/archives/jolts_01102007)
+JTSJOL,print,2006-10-01,2007-03-13,4157,,BLS JOLTS release of 2007-03-13 as published (bls.gov/news.release/archives/jolts_03132007)
+JTSJOL,print,2006-10-01,2007-12-11,4157,,BLS JOLTS release of 2007-12-11 as published (bls.gov/news.release/archives/jolts_12112007)
+JTSJOL,print,2006-11-01,2007-01-10,4238,,BLS JOLTS release of 2007-01-10 as published (bls.gov/news.release/archives/jolts_01102007)
+JTSJOL,print,2006-11-01,2007-02-06,4288,,BLS JOLTS release of 2007-02-06 as published (bls.gov/news.release/archives/jolts_02062007)
+JTSJOL,print,2006-11-01,2007-03-13,4200,,BLS JOLTS release of 2007-03-13 as published (bls.gov/news.release/archives/jolts_03132007)
+JTSJOL,print,2006-11-01,2008-01-10,4200,,BLS JOLTS release of 2008-01-10 as published (bls.gov/news.release/archives/jolts_01102008)
+JTSJOL,print,2006-12-01,2007-02-06,4433,,BLS JOLTS release of 2007-02-06 as published (bls.gov/news.release/archives/jolts_02062007)
+JTSJOL,print,2006-12-01,2007-03-13,4401,,BLS JOLTS release of 2007-03-13 as published (bls.gov/news.release/archives/jolts_03132007)
+JTSJOL,print,2006-12-01,2008-02-12,4401,,BLS JOLTS release of 2008-02-12 as published (bls.gov/news.release/archives/jolts_02122008)
+JTSJOL,print,2007-01-01,2007-03-13,4372,,BLS JOLTS release of 2007-03-13 as published (bls.gov/news.release/archives/jolts_03132007)
+JTSJOL,print,2007-01-01,2007-04-10,4222,,BLS JOLTS release of 2007-04-10 as published (bls.gov/news.release/archives/jolts_04102007)
+JTSJOL,print,2007-01-01,2008-03-12,4307,,BLS JOLTS release of 2008-03-12 as published (bls.gov/news.release/archives/jolts_03122008)
+JTSJOL,print,2007-02-01,2007-04-10,4071,,BLS JOLTS release of 2007-04-10 as published (bls.gov/news.release/archives/jolts_04102007)
+JTSJOL,print,2007-02-01,2007-05-08,4149,,BLS JOLTS release of 2007-05-08 as published (bls.gov/news.release/archives/jolts_05082007)
+JTSJOL,print,2007-02-01,2008-04-08,4168,,BLS JOLTS release of 2008-04-08 as published (bls.gov/news.release/archives/jolts_04082008)
+JTSJOL,print,2007-03-01,2007-05-08,4173,,BLS JOLTS release of 2007-05-08 as published (bls.gov/news.release/archives/jolts_05082007)
+JTSJOL,print,2007-03-01,2007-06-12,4176,,BLS JOLTS release of 2007-06-12 as published (bls.gov/news.release/archives/jolts_06122007)
+JTSJOL,print,2007-03-01,2008-05-15,4201,,BLS JOLTS release of 2008-05-15 as published (bls.gov/news.release/archives/jolts_05152008)
+JTSJOL,print,2007-04-01,2007-06-12,4145,,BLS JOLTS release of 2007-06-12 as published (bls.gov/news.release/archives/jolts_06122007)
+JTSJOL,print,2007-04-01,2007-07-10,4170,,BLS JOLTS release of 2007-07-10 as published (bls.gov/news.release/archives/jolts_07102007)
+JTSJOL,print,2007-04-01,2008-06-10,4148,,BLS JOLTS release of 2008-06-10 as published (bls.gov/news.release/archives/jolts_06102008)
+JTSJOL,print,2007-05-01,2007-07-10,4163,,BLS JOLTS release of 2007-07-10 as published (bls.gov/news.release/archives/jolts_07102007)
+JTSJOL,print,2007-05-01,2007-08-08,4095,,BLS JOLTS release of 2007-08-08 as published (bls.gov/news.release/archives/jolts_08082007)
+JTSJOL,print,2007-05-01,2008-07-09,4133,,BLS JOLTS release of 2008-07-09 as published (bls.gov/news.release/archives/jolts_07092008)
+JTSJOL,print,2007-06-01,2007-08-08,4305,,BLS JOLTS release of 2007-08-08 as published (bls.gov/news.release/archives/jolts_08082007)
+JTSJOL,print,2007-06-01,2007-09-11,4280,,BLS JOLTS release of 2007-09-11 as published (bls.gov/news.release/archives/jolts_09112007)
+JTSJOL,print,2007-06-01,2008-08-12,4267,,BLS JOLTS release of 2008-08-12 as published (bls.gov/news.release/archives/jolts_08122008)
+JTSJOL,print,2007-07-01,2007-09-11,4225,,BLS JOLTS release of 2007-09-11 as published (bls.gov/news.release/archives/jolts_09112007)
+JTSJOL,print,2007-07-01,2007-10-10,4186,,BLS JOLTS release of 2007-10-10 as published (bls.gov/news.release/archives/jolts_10102007)
+JTSJOL,print,2007-07-01,2008-09-09,4116,,BLS JOLTS release of 2008-09-09 as published (bls.gov/news.release/archives/jolts_09092008)
+JTSJOL,print,2007-08-01,2007-10-10,4146,,BLS JOLTS release of 2007-10-10 as published (bls.gov/news.release/archives/jolts_10102007)
+JTSJOL,print,2007-08-01,2007-11-06,4168,,BLS JOLTS release of 2007-11-06 as published (bls.gov/news.release/archives/jolts_11062007)
+JTSJOL,print,2007-08-01,2008-03-12,4162,,BLS JOLTS release of 2008-03-12 as published (bls.gov/news.release/archives/jolts_03122008)
+JTSJOL,print,2007-08-01,2008-10-07,4162,,BLS JOLTS release of 2008-10-07 as published (bls.gov/news.release/archives/jolts_10072008)
+JTSJOL,print,2007-09-01,2007-11-06,4148,,BLS JOLTS release of 2007-11-06 as published (bls.gov/news.release/archives/jolts_11062007)
+JTSJOL,print,2007-09-01,2007-12-11,4119,,BLS JOLTS release of 2007-12-11 as published (bls.gov/news.release/archives/jolts_12112007)
+JTSJOL,print,2007-09-01,2008-03-12,4080,,BLS JOLTS release of 2008-03-12 as published (bls.gov/news.release/archives/jolts_03122008)
+JTSJOL,print,2007-09-01,2008-11-13,4080,,BLS JOLTS release of 2008-11-13 as published (bls.gov/news.release/archives/jolts_11132008)
+JTSJOL,print,2007-10-01,2007-12-11,4122,,BLS JOLTS release of 2007-12-11 as published (bls.gov/news.release/archives/jolts_12112007)
+JTSJOL,print,2007-10-01,2008-01-10,4059,,BLS JOLTS release of 2008-01-10 as published (bls.gov/news.release/archives/jolts_01102008)
+JTSJOL,print,2007-10-01,2008-03-12,4044,,BLS JOLTS release of 2008-03-12 as published (bls.gov/news.release/archives/jolts_03122008)
+JTSJOL,print,2007-10-01,2008-12-09,4044,,BLS JOLTS release of 2008-12-09 as published (bls.gov/news.release/archives/jolts_12092008)
+JTSJOL,print,2007-11-01,2008-01-10,4021,,BLS JOLTS release of 2008-01-10 as published (bls.gov/news.release/archives/jolts_01102008)
+JTSJOL,print,2007-11-01,2008-02-12,4024,,BLS JOLTS release of 2008-02-12 as published (bls.gov/news.release/archives/jolts_02122008)
+JTSJOL,print,2007-11-01,2008-03-12,3972,,BLS JOLTS release of 2008-03-12 as published (bls.gov/news.release/archives/jolts_03122008)
+JTSJOL,print,2007-11-01,2009-01-13,3972,,BLS JOLTS release of 2009-01-13 as published (bls.gov/news.release/archives/jolts_01132009)
+JTSJOL,print,2007-12-01,2008-02-12,4039,,BLS JOLTS release of 2008-02-12 as published (bls.gov/news.release/archives/jolts_02122008)
+JTSJOL,print,2007-12-01,2008-03-12,3974,,BLS JOLTS release of 2008-03-12 as published (bls.gov/news.release/archives/jolts_03122008)
+JTSJOL,print,2007-12-01,2009-02-10,3974,,BLS JOLTS release of 2009-02-10 as published (bls.gov/news.release/archives/jolts_02102009)
+JTSJOL,print,2008-01-01,2008-03-12,3925,,BLS JOLTS release of 2008-03-12 as published (bls.gov/news.release/archives/jolts_03122008)
+JTSJOL,print,2008-01-01,2008-04-08,3889,,BLS JOLTS release of 2008-04-08 as published (bls.gov/news.release/archives/jolts_04082008)
+JTSJOL,print,2008-01-01,2009-03-10,4332,,BLS JOLTS release of 2009-03-10 as published (bls.gov/news.release/archives/jolts_03102009)
+JTSJOL,print,2008-02-01,2008-04-08,3820,,BLS JOLTS release of 2008-04-08 as published (bls.gov/news.release/archives/jolts_04082008)
+JTSJOL,print,2008-02-01,2008-05-15,3799,,BLS JOLTS release of 2008-05-15 as published (bls.gov/news.release/archives/jolts_05152008)
+JTSJOL,print,2008-02-01,2009-04-07,4248,,BLS JOLTS release of 2009-04-07 as published (bls.gov/news.release/archives/jolts_04072009)
+JTSJOL,print,2008-03-01,2008-05-15,3733,,BLS JOLTS release of 2008-05-15 as published (bls.gov/news.release/archives/jolts_05152008)
+JTSJOL,print,2008-03-01,2008-06-10,3672,,BLS JOLTS release of 2008-06-10 as published (bls.gov/news.release/archives/jolts_06102008)
+JTSJOL,print,2008-03-01,2009-05-12,4073,,BLS JOLTS release of 2009-05-12 as published (bls.gov/news.release/archives/jolts_05122009)
+JTSJOL,print,2008-04-01,2008-06-10,3705,,BLS JOLTS release of 2008-06-10 as published (bls.gov/news.release/archives/jolts_06102008)
+JTSJOL,print,2008-04-01,2008-07-09,3612,,BLS JOLTS release of 2008-07-09 as published (bls.gov/news.release/archives/jolts_07092008)
+JTSJOL,print,2008-04-01,2009-06-09,3967,,BLS JOLTS release of 2009-06-09 as published (bls.gov/news.release/archives/jolts_06092009)
+JTSJOL,print,2008-05-01,2008-07-09,3626,,BLS JOLTS release of 2008-07-09 as published (bls.gov/news.release/archives/jolts_07092008)
+JTSJOL,print,2008-05-01,2008-08-12,3631,,BLS JOLTS release of 2008-08-12 as published (bls.gov/news.release/archives/jolts_08122008)
+JTSJOL,print,2008-05-01,2009-07-07,4009,,BLS JOLTS release of 2009-07-07 as published (bls.gov/news.release/archives/jolts_07072009)
+JTSJOL,print,2008-06-01,2008-08-12,3627,,BLS JOLTS release of 2008-08-12 as published (bls.gov/news.release/archives/jolts_08122008)
+JTSJOL,print,2008-06-01,2008-09-09,3497,,BLS JOLTS release of 2008-09-09 as published (bls.gov/news.release/archives/jolts_09092008)
+JTSJOL,print,2008-06-01,2009-08-12,3850,,BLS JOLTS release of 2009-08-12 as published (bls.gov/news.release/archives/jolts_08122009)
+JTSJOL,print,2008-07-01,2008-09-09,3416,,BLS JOLTS release of 2008-09-09 as published (bls.gov/news.release/archives/jolts_09092008)
+JTSJOL,print,2008-07-01,2008-10-07,3492,,BLS JOLTS release of 2008-10-07 as published (bls.gov/news.release/archives/jolts_10072008)
+JTSJOL,print,2008-07-01,2009-09-09,3912,,BLS JOLTS release of 2009-09-09 as published (bls.gov/news.release/archives/jolts_09092009)
+JTSJOL,print,2008-08-01,2008-10-07,3278,,BLS JOLTS release of 2008-10-07 as published (bls.gov/news.release/archives/jolts_10072008)
+JTSJOL,print,2008-08-01,2008-11-13,3375,,BLS JOLTS release of 2008-11-13 as published (bls.gov/news.release/archives/jolts_11132008)
+JTSJOL,print,2008-08-01,2009-03-10,3722,,BLS JOLTS release of 2009-03-10 as published (bls.gov/news.release/archives/jolts_03102009)
+JTSJOL,print,2008-08-01,2009-10-09,3722,,BLS JOLTS release of 2009-10-09 as published (bls.gov/news.release/archives/jolts_10092009)
+JTSJOL,print,2008-09-01,2008-11-13,3254,,BLS JOLTS release of 2008-11-13 as published (bls.gov/news.release/archives/jolts_11132008)
+JTSJOL,print,2008-09-01,2008-12-09,3214,,BLS JOLTS release of 2008-12-09 as published (bls.gov/news.release/archives/jolts_12092008)
+JTSJOL,print,2008-09-01,2009-03-10,3346,,BLS JOLTS release of 2009-03-10 as published (bls.gov/news.release/archives/jolts_03102009)
+JTSJOL,print,2008-09-01,2009-11-10,3346,,BLS JOLTS release of 2009-11-10 as published (bls.gov/news.release/archives/jolts_11102009)
+JTSJOL,print,2008-10-01,2008-12-09,3052,,BLS JOLTS release of 2008-12-09 as published (bls.gov/news.release/archives/jolts_12092008)
+JTSJOL,print,2008-10-01,2009-01-13,3001,,BLS JOLTS release of 2009-01-13 as published (bls.gov/news.release/archives/jolts_01132009)
+JTSJOL,print,2008-10-01,2009-03-10,3390,,BLS JOLTS release of 2009-03-10 as published (bls.gov/news.release/archives/jolts_03102009)
+JTSJOL,print,2008-10-01,2009-12-08,3390,,BLS JOLTS release of 2009-12-08 as published (bls.gov/news.release/archives/jolts_12082009)
+JTSJOL,print,2008-11-01,2009-01-13,2793,,BLS JOLTS release of 2009-01-13 as published (bls.gov/news.release/archives/jolts_01132009)
+JTSJOL,print,2008-11-01,2009-02-10,2855,,BLS JOLTS release of 2009-02-10 as published (bls.gov/news.release/archives/jolts_02102009)
+JTSJOL,print,2008-11-01,2009-03-10,3311,,BLS JOLTS release of 2009-03-10 as published (bls.gov/news.release/archives/jolts_03102009)
+JTSJOL,print,2008-11-01,2010-01-12,3311,,BLS JOLTS release of 2010-01-12 as published (bls.gov/news.release/archives/jolts_01122010)
+JTSJOL,print,2008-12-01,2009-02-10,2692,,BLS JOLTS release of 2009-02-10 as published (bls.gov/news.release/archives/jolts_02102009)
+JTSJOL,print,2008-12-01,2009-03-10,3224,,BLS JOLTS release of 2009-03-10 as published (bls.gov/news.release/archives/jolts_03102009)
+JTSJOL,print,2008-12-01,2010-02-09,3224,,BLS JOLTS release of 2010-02-09 as published (bls.gov/news.release/archives/jolts_02092010)
+JTSJOL,print,2009-01-01,2009-03-10,2991,,BLS JOLTS release of 2009-03-10 as published (bls.gov/news.release/archives/jolts_03102009)
+JTSJOL,print,2009-01-01,2009-04-07,2920,,BLS JOLTS release of 2009-04-07 as published (bls.gov/news.release/archives/jolts_04072009)
+JTSJOL,print,2009-01-01,2010-03-09,2792,,BLS JOLTS release of 2010-03-09 as published (bls.gov/news.release/archives/jolts_03092010)
+JTSJOL,print,2009-02-01,2009-04-07,3006,,BLS JOLTS release of 2009-04-07 as published (bls.gov/news.release/archives/jolts_04072009)
+JTSJOL,print,2009-02-01,2009-05-12,2973,,BLS JOLTS release of 2009-05-12 as published (bls.gov/news.release/archives/jolts_05122009)
+JTSJOL,print,2009-02-01,2010-04-06,2830,,BLS JOLTS release of 2010-04-06 as published (bls.gov/news.release/archives/jolts_04062010)
+JTSJOL,print,2009-03-01,2009-05-12,2717,,BLS JOLTS release of 2009-05-12 as published (bls.gov/news.release/archives/jolts_05122009)
+JTSJOL,print,2009-03-01,2009-06-09,2633,,BLS JOLTS release of 2009-06-09 as published (bls.gov/news.release/archives/jolts_06092009)
+JTSJOL,print,2009-03-01,2010-05-11,2671,,BLS JOLTS release of 2010-05-11 as published (bls.gov/news.release/archives/jolts_05112010)
+JTSJOL,print,2009-04-01,2009-06-09,2531,,BLS JOLTS release of 2009-06-09 as published (bls.gov/news.release/archives/jolts_06092009)
+JTSJOL,print,2009-04-01,2009-07-07,2513,,BLS JOLTS release of 2009-07-07 as published (bls.gov/news.release/archives/jolts_07072009)
+JTSJOL,print,2009-04-01,2010-06-08,2475,,BLS JOLTS release of 2010-06-08 as published (bls.gov/news.release/archives/jolts_06082010)
+JTSJOL,print,2009-05-01,2009-07-07,2554,,BLS JOLTS release of 2009-07-07 as published (bls.gov/news.release/archives/jolts_07072009)
+JTSJOL,print,2009-05-01,2009-08-12,2523,,BLS JOLTS release of 2009-08-12 as published (bls.gov/news.release/archives/jolts_08122009)
+JTSJOL,print,2009-05-01,2010-07-13,2488,,BLS JOLTS release of 2010-07-13 as published (bls.gov/news.release/archives/jolts_07132010)
+JTSJOL,print,2009-06-01,2009-08-12,2558,,BLS JOLTS release of 2009-08-12 as published (bls.gov/news.release/archives/jolts_08122009)
+JTSJOL,print,2009-06-01,2009-09-09,2513,,BLS JOLTS release of 2009-09-09 as published (bls.gov/news.release/archives/jolts_09092009)
+JTSJOL,print,2009-07-01,2009-09-09,2392,,BLS JOLTS release of 2009-09-09 as published (bls.gov/news.release/archives/jolts_09092009)
+JTSJOL,print,2009-07-01,2009-10-09,2408,,BLS JOLTS release of 2009-10-09 as published (bls.gov/news.release/archives/jolts_10092009)
+JTSJOL,print,2009-08-01,2009-10-09,2387,,BLS JOLTS release of 2009-10-09 as published (bls.gov/news.release/archives/jolts_10092009)
+JTSJOL,print,2009-08-01,2009-11-10,2423,,BLS JOLTS release of 2009-11-10 as published (bls.gov/news.release/archives/jolts_11102009)
+JTSJOL,print,2009-08-01,2010-03-09,2411,,BLS JOLTS release of 2010-03-09 as published (bls.gov/news.release/archives/jolts_03092010)
+JTSJOL,print,2009-09-01,2009-11-10,2480,,BLS JOLTS release of 2009-11-10 as published (bls.gov/news.release/archives/jolts_11102009)
+JTSJOL,print,2009-09-01,2009-12-08,2586,,BLS JOLTS release of 2009-12-08 as published (bls.gov/news.release/archives/jolts_12082009)
+JTSJOL,print,2009-09-01,2010-03-09,2624,,BLS JOLTS release of 2010-03-09 as published (bls.gov/news.release/archives/jolts_03092010)
+JTSJOL,print,2009-10-01,2009-12-08,2506,,BLS JOLTS release of 2009-12-08 as published (bls.gov/news.release/archives/jolts_12082009)
+JTSJOL,print,2009-10-01,2010-01-12,2571,,BLS JOLTS release of 2010-01-12 as published (bls.gov/news.release/archives/jolts_01122010)
+JTSJOL,print,2009-10-01,2010-03-09,2546,,BLS JOLTS release of 2010-03-09 as published (bls.gov/news.release/archives/jolts_03092010)
+JTSJOL,print,2009-11-01,2010-01-12,2415,,BLS JOLTS release of 2010-01-12 as published (bls.gov/news.release/archives/jolts_01122010)
+JTSJOL,print,2009-11-01,2010-02-09,2434,,BLS JOLTS release of 2010-02-09 as published (bls.gov/news.release/archives/jolts_02092010)
+JTSJOL,print,2009-11-01,2010-03-09,2456,,BLS JOLTS release of 2010-03-09 as published (bls.gov/news.release/archives/jolts_03092010)
+JTSJOL,print,2009-12-01,2010-02-09,2497,,BLS JOLTS release of 2010-02-09 as published (bls.gov/news.release/archives/jolts_02092010)
+JTSJOL,print,2009-12-01,2010-03-09,2531,,BLS JOLTS release of 2010-03-09 as published (bls.gov/news.release/archives/jolts_03092010)
+JTSJOL,print,2010-01-01,2010-03-09,2724,,BLS JOLTS release of 2010-03-09 as published (bls.gov/news.release/archives/jolts_03092010)
+JTSJOL,print,2010-01-01,2010-04-06,2854,,BLS JOLTS release of 2010-04-06 as published (bls.gov/news.release/archives/jolts_04062010)
+JTSJOL,print,2010-02-01,2010-04-06,2723,,BLS JOLTS release of 2010-04-06 as published (bls.gov/news.release/archives/jolts_04062010)
+JTSJOL,print,2010-02-01,2010-05-11,2647,,BLS JOLTS release of 2010-05-11 as published (bls.gov/news.release/archives/jolts_05112010)
+JTSJOL,print,2010-03-01,2010-05-11,2694,,BLS JOLTS release of 2010-05-11 as published (bls.gov/news.release/archives/jolts_05112010)
+JTSJOL,print,2010-03-01,2010-06-08,2785,,BLS JOLTS release of 2010-06-08 as published (bls.gov/news.release/archives/jolts_06082010)
+JTSJOL,print,2010-04-01,2010-06-08,3078,,BLS JOLTS release of 2010-06-08 as published (bls.gov/news.release/archives/jolts_06082010)
+JTSJOL,print,2010-04-01,2010-07-13,3302,,BLS JOLTS release of 2010-07-13 as published (bls.gov/news.release/archives/jolts_07132010)
+JTSJOL,print,2010-05-01,2010-07-13,3206,,BLS JOLTS release of 2010-07-13 as published (bls.gov/news.release/archives/jolts_07132010)
+ICSA,print,1986-01-11,1986-01-16,431000,,DOL news release (HathiTrust volume) news_uiug.30112066686533_00000061 (collections 397/45)
+ICSA,print,1987-12-05,1987-12-10,338000,,DOL news release (HathiTrust volume) news_msu.31293026746598_00000041 (collections 397/45)
+ICSA,print,1988-03-19,1988-03-24,308000,,DOL news release (HathiTrust volume) news_msu.31293026746598_00000071 (collections 397/45)
+ICSA,print,1988-04-16,1988-04-21,275000,,DOL news release (HathiTrust volume) news_msu.31293026746598_00000077 (collections 397/45)
+ICSA,print,1988-04-23,1988-04-28,315000,,DOL news release (HathiTrust volume) news_msu.31293026746598_00000081 (collections 397/45)
+ICSA,print,1988-10-22,1988-10-27,302000,,DOL news release (HathiTrust volume) news_msu.31293026746598_00000123 (collections 397/45)
+ICSA,print,1988-11-05,1988-11-10,293000,,DOL news release (HathiTrust volume) news_msu.31293026746598_00000127 (collections 397/45)
+ICSA,print,1988-12-03,1988-12-08,332000,,DOL news release (HathiTrust volume) news_msu.31293026746598_00000133 (collections 397/45)
+ICSA,print,1989-07-01,1989-07-06,344000,,DOL news release (HathiTrust volume) news_uiug.30112066686533_00000381 (collections 397/45)
+ICSA,print,1989-08-05,1989-08-10,317000,,DOL news release (HathiTrust volume) news_msu.31293026746598_00000199 (collections 397/45)
+ICSA,print,1989-09-30,1989-10-05,333000,,DOL news release (HathiTrust volume) news_msu.31293026746598_00000215 (collections 397/45)
+ICSA,print,1991-04-27,1991-05-02,455000,,DOL news release (HathiTrust volume) news_uiug.30112066686533_00000543 (collections 397/45)
+ICSA,print,1992-08-01,1992-08-06,403000,,DOL news release (HathiTrust volume) news_ien.35556028789584_00000121 (collections 397/45)
+ICSA,print,1992-12-19,1992-12-24,332000,,DOL news release (HathiTrust volume) news_ien.35556028789584_00000195 (collections 397/45)
