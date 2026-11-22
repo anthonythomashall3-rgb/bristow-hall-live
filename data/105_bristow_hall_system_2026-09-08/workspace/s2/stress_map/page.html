@@ -90,8 +90,6 @@ tr.open td{background:#fbf8ee}
 .scale .ends{display:flex;justify-content:space-between;font-size:12px;color:#555;margin-top:2px}
 @media (max-width:1000px){.mapwrap{grid-template-columns:1fr}}
 /* v2 */
-details.method{margin:34px 0 0;border-top:1px solid #dfe4ea;padding-top:10px}
-details.method summary{cursor:pointer;color:#990000;font-weight:700;font-size:14px}
 .binfo{font-size:13px;color:#333;margin-top:6px;min-height:20px}
 .binfo b{color:#990000}
 .mapnote{font-size:13px;color:#7a5200;background:#fbf4e6;border:1px solid #eadfc4;padding:4px 8px;margin:0 0 6px}
@@ -182,8 +180,6 @@ details.method summary{cursor:pointer;color:#990000;font-weight:700;font-size:14
 
 <h2>How the map is colored</h2><div class="rule"></div>
 <div class="prose" id="desc"></div>
-
-<details class="method"><summary>Method</summary><div class="prose" id="method"></div></details>
 
 </div>
 <div class="foot"><div class="inner">
@@ -424,7 +420,7 @@ function stop(){clearInterval(timer);timer=null;document.getElementById('play').
 document.getElementById('play').addEventListener('click',function(){if(timer){stop();return;}
  if(+sl.value>=view.n-1)draw(0); this.textContent='PAUSE'; timer=setInterval(function(){if(+sl.value>=view.n-1){stop();return;}draw(+sl.value+1);},SP[spi][1]);});
 document.getElementById('speed').addEventListener('click',function(){spi=(spi+1)%SP.length;this.textContent='SPEED '+SP[spi][0]+'×';if(timer){stop();document.getElementById('play').click();}});
-document.getElementById('desc').innerHTML=V.short;document.getElementById('method').innerHTML=J.desc+V.desc;
+document.getElementById('desc').innerHTML=V.short;
 renderNation();sl.max=view.n-1;drawStrip();draw(view.n-1);
 window.__SM={align:function(){var c=document.getElementById('cur').getBoundingClientRect(),k=document.getElementById('slknob').getBoundingClientRect();return {line:c.left+c.width/2,knob:k.left+k.width/2};},gapm:V.gapm,geom:{W:W,L:L,R:R},view:function(){return {mode:view.mode,st:view.st,start:view.start,n:view.n};},setMonth:function(m){draw(idxV(m));},openState:openState,closeState:closeState,openCounty:openCounty,closeCounty:closeCounty,county:function(){return CT;},ready:true};
 })();
