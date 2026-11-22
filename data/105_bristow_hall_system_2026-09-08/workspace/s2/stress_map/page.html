@@ -236,7 +236,7 @@ var st_=document.getElementById('strip'),W=1200,H=70,L=26,R=26,T=4,B=18;
 function X(i){return L+i/(view.n)*(W-L-R);}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
 function drawStrip(){var N=view.n,s='<defs>'+HATCH.replace('PAT','hatch')+'</defs>',h=H-T-B;
- ['R','RB','D1','D2'].forEach(function(k){V.bands.forEach(function(b){if(b[0]!==k)return;var a=idxV(b[1]),e=b[2]?idxV(b[2])+1:N;if(e<=0||a>=N)return;a=Math.max(0,a);e=Math.min(N,e);
+ ['R','RB','D1','D2'].forEach(function(k){V.bands.forEach(function(b){if(b[0]!==k)return;var a=idxV(b[1])+1,e=b[2]?idxV(b[2])+1:N;if(e<=0||a>=N)return;a=Math.max(0,a);e=Math.min(N,e);
   var x=X(a).toFixed(1),w=(X(e)-X(a)).toFixed(1),at=' data-k="'+k+'" data-a="'+b[1]+'" data-b="'+(b[2]||'open')+'"',tt='';
   if(k==='R')s+='<rect'+at+' x="'+x+'" y="'+T+'" width="'+w+'" height="'+h+'" fill="#d5d9de">'+tt+'</rect>';
   if(k==='RB')s+='<rect'+at+' x="'+x+'" y="'+T+'" width="'+w+'" height="'+h+'" fill="url(#hatch)" stroke="#9aa3ad" stroke-width="1"/>';
@@ -301,9 +301,9 @@ function renderState(){var g='';D.order.forEach(function(f){g+='<path data-id="'
  P={};Array.prototype.forEach.call(layer.children,function(p){P[p.dataset.id]=p;});}
 function gapLab(k){return V.gapm&&V.gapm[k]?ymL(k)+': '+V.gapm[k]:null;}
 function shownIdx(i){if(view.mode!=='state')return i;var j=i;while(j>0&&V.gapm&&V.gapm[mkV(j)])j--;return j;}
-function bandInfo(k){var a=abs_(k),L_=[];V.bands.forEach(function(b){if(abs_(b[1])<=a&&(!b[2]||a<=abs_(b[2]))){
+function bandInfo(k){var a=abs_(k),L_=[];V.bands.forEach(function(b){if(abs_(b[1])<a&&(!b[2]||a<=abs_(b[2]))){
   var nm={R:'recession (NBER dates)',RB:'recession dated by the program',D1:'disturbance (class 1)',D2:'jobless-recovery disturbance (class 2)'}[b[0]];
-  L_.push(b[2]?'in the '+nm+' of '+ym(b[1])+' to '+ym(b[2]):'in the '+nm+' that began '+ym(b[1])+' (open)');}});
+  var nx=mkA(abs_(b[1])+1);L_.push(b[2]?'in the '+nm+' of '+ym(nx)+' to '+ym(b[2])+' (peak '+ym(b[1])+')':'in the '+nm+' since '+ym(nx)+' (open)');}});
  return L_.length?L_.join('; also '):'no national recession or disturbance';}
 function stStatus(st,k){var ni=idxN(k),c=J.states[st];if(ni<0||ni>=J.n)return 'no State value this month';var code=c.s[ni];
  if(code==='G'&&ni>=pvA)return 'provisional: no week of the weekly State claims published for this State in this month yet';

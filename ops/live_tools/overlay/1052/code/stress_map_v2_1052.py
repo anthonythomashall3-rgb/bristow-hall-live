@@ -484,11 +484,12 @@ def step_bands():
         B.append([k, r.peak, tr, round(float(r.grade), 2), f"{nm}: {mlab(r.peak)} to {mlab(tr)}, grade {r.grade:.2f}" if tr else f"{nm}: from {mlab(r.peak)}, open (running grade {r.grade:.2f})", bool(r.provisional)])
     return B
 def register_months(B, months):
-    """month -> set of band kinds covering it (peak month through trough month inclusive; an open period runs to the last month shown)."""
+    """month -> set of band kinds covering it (the month after the peak through the trough month, the NBER's months of contraction, as on the
+    Time Machine; 1163, 22 Nov 2026; an open period runs to the last month shown)."""
     out = {m: set() for m in months}
     for k, p, t, *_ in B:
         for m in months:
-            if p <= m and (t is None or m <= t): out[m].add(k)
+            if p < m and (t is None or m <= t): out[m].add(k)
     return out
 
 # ---------------- step 6: tests -------------
