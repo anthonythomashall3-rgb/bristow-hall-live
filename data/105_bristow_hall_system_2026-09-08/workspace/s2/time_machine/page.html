@@ -4,7 +4,6 @@
 .tmbar label{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#555}
 .tmbar input[type=date],.tmbar select,.tmbar button{font:inherit;font-size:15px;padding:7px 10px;border:1px solid #c9cfd6;border-radius:3px;background:#fff;color:#111}
 .tmbar button{cursor:pointer;color:#990000;font-weight:700}.tmbar button:hover{background:#fdf2f2}
-#tmr{width:100%;accent-color:#990000;margin:2px 0 0}
 #tms{display:block;width:100%;height:84px;cursor:crosshair;margin-top:10px;touch-action:none;user-select:none;-webkit-user-select:none}
 .tmsl{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:#555;margin:8px 0 16px}.tmsl span{display:inline-flex;align-items:center;gap:6px}
 .tmst{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 0 6px}
@@ -37,7 +36,6 @@
   <button id="tmtoday">Today</button>
 </div>
 <svg id="tms" role="img" aria-label="Timeline with recessions and disturbances; the box is the window the chart shows"></svg>
-<input type="range" id="tmr" aria-label="End of the window">
 <div class="tmsl" id="tmsl"></div>
 <div class="tmst">
   <div class="tmbox"><div class="k">Bristow-Hall Rule, as it stood that day</div><div class="s" id="tmrs">&nbsp;</div><div class="d" id="tmrd"></div></div>
@@ -174,7 +172,7 @@ function chart(){
 // draw everything for the window as it stands (the table and the two boxes are for its last day)
 let lastN=null;
 function draw(){ const n=w1, d=iso(n);
-  $('#tmd').value=d; $('#tmd0').value=iso(w0); $('#tmr').value=n; win(); $('#tmh').textContent=fd(d);
+  $('#tmd').value=d; $('#tmd0').value=iso(w0); win(); $('#tmh').textContent=fd(d);
   if(n!==lastN){ status(n); if(META) table(n); lastN=n; }
   if(META) chart(); }
 let raf=0; const soon=()=>{ if(!raf) raf=requestAnimationFrame(()=>{ raf=0; draw(); }); };
@@ -189,7 +187,7 @@ function readHash(){ const h=decodeURIComponent(location.hash.slice(1)); let m=h
   if(m&&!isNaN(dn(m[1]))&&!isNaN(dn(m[2]))){ setWin(dn(m[1]),dn(m[2]),false); return true; }
   m=h.match(/^(\d{4}-\d\d-\d\d)$/); if(m&&!isNaN(dn(m[1]))){ span=Math.max(MINSPAN,dn(m[1])-yrsBack(dn(m[1]),7)); setEnd(dn(m[1]),false); return true; } return false; }
 function boot(){
-  const r=$('#tmr'); r.min=MIN0; r.max=dn(TODAY); r.step=1; $('#tmd').max=TODAY; $('#tmd0').max=TODAY;
+  $('#tmd').max=TODAY; $('#tmd0').max=TODAY;
   // the strip: drag either edge of the window to widen or narrow it, drag inside it to move it, drag elsewhere to draw a new one, click to move its end there
   { const sv=$('#tms'); let mode=null, x0=0, a0=0, b0=0, at0=0, moved=false;
     const xy=e=>{ const r=sv.getBoundingClientRect(); return (e.clientX-r.left)*SX.W/r.width; };
@@ -210,7 +208,6 @@ function boot(){
     const up=e=>{ if(!mode) return; if(mode==='N'&&!moved) setEnd(dayAt(x0)); else { soon(); hash(); } mode=null; sv.style.cursor=cur[hit(xy(e),e.pointerType!=='mouse')]||'crosshair'; };
     sv.addEventListener('pointerup',up); sv.addEventListener('pointercancel',()=>{ mode=null; }); }
   strip();
-  r.addEventListener('input',()=>setEnd(+r.value));
   $('#tmd').addEventListener('change',e=>{ const v=e.target.value; if(!/^\d{4}-\d\d-\d\d$/.test(v)){ draw(); return; } const n=dn(v);
     if(n-w0>=MINSPAN) setWin(w0,n); else setEnd(n); });
   $('#tmd0').addEventListener('change',e=>{ const v=e.target.value; if(!/^\d{4}-\d\d-\d\d$/.test(v)){ draw(); return; } const a=dn(v);
@@ -233,7 +230,7 @@ let busy=false, stKey=null, bdKey=null;
 async function load(first){
   if(busy) return; busy=true;
   try{
-    const t=nyToday(); if(t!==TODAY){ const atEnd=w1===dn(TODAY); TODAY=t; $('#tmr').max=dn(TODAY); $('#tmd').max=TODAY; $('#tmd0').max=TODAY; strip(); if(atEnd) setEnd(dn(TODAY)); else draw(); }
+    const t=nyToday(); if(t!==TODAY){ const atEnd=w1===dn(TODAY); TODAY=t; $('#tmd').max=TODAY; $('#tmd0').max=TODAY; strip(); if(atEnd) setEnd(dn(TODAY)); else draw(); }
     const nc={cache:first?'default':'no-cache'};
     const jobs=[
       fetch('/bhs_state.json',nc).then(r=>r.ok?r.text():null).then(x=>{ if(x&&x!==stKey){ stKey=x; STATE=JSON.parse(x); lastN=null;
