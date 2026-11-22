@@ -138,8 +138,10 @@ def agency_record(d):
     """THE PUBLISHER'S OWN RECORD WHERE ALFRED IS LATE OR SHORT (22 November 2026, collection 1162; from the RealTime Database, which
     checks every release day against the agency's own record). agency_record.csv, two kinds of row:
       day    ALFRED dated a vintage on another day than the publisher released it: the G.17 of 1939-1952, 1963 and 1985-86 (64 days,
-             mostly one or two days late, 16 May 1963 a day early) and the jobs report for December 1973 (released 11 January 1974, not
-             the 4th: a week of look-ahead). Every entry of the series on ALFRED's day moves to the release day.
+             FRASER's G.12.3 releases as printed; mostly one or two days late, 16 May 1963 a day early), and 11 CPI releases of 1964-1992
+             and the jobs report for January 1965 (BLS's historical release-date list; ALFRED 1-5 days off, 7 of them early). Every entry
+             of the series on ALFRED's day moves to the release day. (The jobs report for December 1973 stays 4 January 1974: BLS's list
+             and FRASER's catalog, item 56071, against the drive's 11 January from FRASER item 497002.)
       print  a value as published that ALFRED does not hold: the BLS JOLTS releases of 15 April 2004 to 13 July 2010 (ALFRED's job
              openings begin 11 August 2010; each release as printed, 255 values) and 14 initial-claims first prints of 1986-1992 that
              the weekly-release file misses (the page showed them a week late).
