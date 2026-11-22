@@ -29,7 +29,7 @@
  "open_defects": {
   "UNRATE, UNEMPLOY, LNS13023621 newest vintage, October 2025 empty": "the household survey was not collected that month; not an error",
   "national_first_prints icsa_prev_rev: 29 cells of 2014-2019 of about 2 million": "the revised-previous-week column took the wrong number from the release; after 28 May 2009 nothing reads this column (the Time Machine uses ALFRED from that day); the cell of 31 Dec 1994 (321) was corrected on 19 Nov 2026",
-  "e22_history.csv iu_nsa 1946 to 1951": "equal to the final printed figure in every week but 5, 12, 19 and 26 Jan 1946 (no issue of January 1947 found; not read); the seasonally adjusted column was scaled week by week, not rebuilt (the rebuild is pull request 118, awaiting a ruling)"
+  "e22_history.csv iu_nsa 1946 to 1951": "equal to the final printed figure in all 313 weeks after the corrections of 21 and 22 Nov 2026; the seasonally adjusted column was scaled week by week, not rebuilt (the rebuild is pull request 118, awaiting a ruling)"
  },
  "corrected_2026_11_19": {
   "insured unemployment SA, week of 1 April 1989: 213355000 -> 2133000": "the release of 20 April 1989 prints \"2,13355,000 ... a decrease of 25,000 from the prior week's ... revised level of 2,158,000\", and the release of 27 April restates the week at 2,133,000 (collection 399, msu.31293026746598 pages 169 and 171)",
@@ -52,6 +52,7 @@
  },
  "corrected_2026_11_22": {
   "e22_history.csv iu_nsa, 20 weeks under 1 per cent from the final print, read again at 300 dots per inch": "1946-03-02 1922 -> 1912; 1946-07-13 1282 -> 1281; 1946-09-28 912 -> 911; 1947-02-22 1172 -> 1171; 1947-03-01 1152 -> 1151; 1947-06-14 1181 -> 1179; 1947-07-12 1172 -> 1171; 1948-01-17 976 -> 973; 1948-02-28 1095 -> 1098; 1948-06-26 1007 -> 1006; 1948-07-03 951 -> 953; 1948-12-18 1153 -> 1157; 1949-02-19 1815 -> 1813; 1949-08-06 2159 -> 2139; 1949-11-26 2204 -> 2214; 1949-12-17 2130 -> 2144; 1950-01-28 2372 -> 2371; 1950-04-01 1925 -> 1915; 1950-05-20 1672 -> 1671; 1951-10-20 853 -> 851 (thousands; the Survey of Current Business Weekly Supplement, the column printed a year later, each read in two issues where two are held; collection 1161)",
-  "e22_history.csv iu_nsa, weeks of 7 Oct 1950 (769720 -> 744000), 23 Dec 1950 (1011280 -> 1032000), 29 Dec 1951 (1058579 -> 1263000); iu_rtsa scaled by the same week's factor": "the column printed a year later: Survey of Current Business Weekly Supplements of October 1951 (744), 4 Jan 1952 (1,032; the next column, 1,124, is the chain's 30 Dec 1950) and January 1953 (1,263)"
+  "e22_history.csv iu_nsa, weeks of 7 Oct 1950 (769720 -> 744000), 23 Dec 1950 (1011280 -> 1032000), 29 Dec 1951 (1058579 -> 1263000); iu_rtsa scaled by the same week's factor": "the column printed a year later: Survey of Current Business Weekly Supplements of October 1951 (744), 4 Jan 1952 (1,032; the next column, 1,124, is the chain's 30 Dec 1950) and January 1953 (1,263)",
+  "e22_history.csv iu_nsa, weeks of 5 Jan 1946 (empty -> 1831000) and 26 Jan 1946 (empty -> 1892000)": "the year-earlier columns of the Weekly Supplements of 18 Jan 1947 (HathiTrust uc1.31175029854075, page scan 11: Jan 12 1,814, Jan 5 1,831) and 8 Feb 1947 (FRASER scb_weekly_19470208: Feb 2 1,862, Jan 26 1,892); 12 and 19 Jan 1946 read in the issue of 25 Jan 1947 and equal the chain (1,814, 1,825)"
  }
 }
