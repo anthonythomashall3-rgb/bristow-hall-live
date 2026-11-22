@@ -19,7 +19,7 @@ month,employees_thousands,basis,issue,note
 1948-06,803.1,new,emplpayr_194907,old basis 803
 1948-07,813.0,new,emplpayr_194908,old basis 813
 1948-08,814.2,new,emplpayr_194909,old basis 823
-1948-09,819.1,estimate,emplpayr_194811,old basis 825 times 0.9928 (the mean of new over old in August and October 1948); no new-basis print found
+1948-09,819.1,estimate,emplpayr_194811,old basis 825 times 0.9928 (the mean of new over old in August and October 1948); no new-basis print found (not in Employment and Pay Rolls nor in the Monthly Labor Review - its revised series starts with October 1948)
 1948-10,810.0,new,emplpayr_194910,old basis 813
 1948-11,805.5,new,emplpayr_194911,old basis 813
 1948-12,799.4,new,emplpayr_194912,old basis 809
@@ -27,7 +27,7 @@ month,employees_thousands,basis,issue,note
 1949-02,756.4,new,emplpayr_195002,old basis 767
 1949-03,752.4,new,emplpayr_195003,old basis 763
 1949-04,762.5,new,emplpayr_195004,old basis 768
-1949-05,779.6,new,emplpayr_194907,first print; no later print found
+1949-05,771.0,new,mlr_194912,first print 779.6 (emplpayr_194907); the revised series in whole thousands
 1949-06,778.6,new,emplpayr_195006,first print 786.2
 1949-07,774.5,new,emplpayr_194909,first print 783.8
 1949-08,786.8,new,emplpayr_195008,
