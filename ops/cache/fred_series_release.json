@@ -172,12 +172,12 @@
   "release_id": null
  },
  "GDPC1": {
-  "fetched": "2026-10-23",
+  "fetched": "2026-11-22",
   "name": "Gross Domestic Product",
   "release_id": 53
  },
  "GDPNOW": {
-  "fetched": "2026-10-23",
+  "fetched": "2026-11-22",
   "name": "GDPNow",
   "release_id": 386
  },
@@ -453,7 +453,7 @@
   "release_id": null
  },
  "WEI": {
-  "fetched": "2026-10-23",
+  "fetched": "2026-11-22",
   "name": "Weekly Economic Index (Lewis-Mertens-Stock)",
   "release_id": 465
  },
