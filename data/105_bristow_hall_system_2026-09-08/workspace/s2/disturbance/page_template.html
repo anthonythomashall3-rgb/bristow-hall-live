@@ -200,10 +200,10 @@ var x0=xi(dv.date[0]), x1=xi(dv.date[n-1])+1/12;
 var ymin=Math.floor(Math.min.apply(null,dv.dev)), ymax=Math.ceil(Math.max.apply(null,dv.dev));
 function X(v){return L+(v-x0)/(x1-x0)*(W-L-Rm);} function Y(v){return T+(ymax-v)/(ymax-ymin)*(H-T-B);}
 var g='<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="3" height="6" fill="#1f4e79" fill-opacity=".35"/></pattern><pattern id="hatchg" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="3" height="6" fill="#9aa3ad" fill-opacity=".6"/></pattern></defs>';
-function band(a,b,fill,op){var xa=X(xi(a)),xb=b?X(xi(b)+1/12):X(x1);return '<rect x="'+xa.toFixed(1)+'" y="'+T+'" width="'+Math.max(1,xb-xa).toFixed(1)+'" height="'+(H-T-B)+'" fill="'+fill+'" fill-opacity="'+op+'"/>';}
-J.recessions.forEach(function(r){g+=band(r.peak,r.trough,'#d5d9de',1);});
-D.forEach(function(e){var xa=X(xi(e.peak)),xb=e.trough?X(xi(e.trough)+1/12):X(x1); g+='<rect x="'+xa.toFixed(1)+'" y="'+(T+0.75)+'" width="'+Math.max(1,xb-xa).toFixed(1)+'" height="'+(H-T-B-1.5)+'" fill="#1f4e79" fill-opacity=".07" stroke="#1f4e79" stroke-width="1.5" stroke-dasharray="5 3"/>';});
-O.forEach(function(e){g+=e.status==='recession'?band(e.aftermath_from,null,'url(#hatchg)',1):band(e.peak,null,'url(#hatch)',1);});
+function band(a,b,fill,op,sh){var xa=X(xi(a)+(sh||0)),xb=b?X(xi(b)+1/12):X(x1);return '<rect x="'+xa.toFixed(1)+'" y="'+T+'" width="'+Math.max(1,xb-xa).toFixed(1)+'" height="'+(H-T-B)+'" fill="'+fill+'" fill-opacity="'+op+'"/>';}
+J.recessions.forEach(function(r){g+=band(r.peak,r.trough,'#d5d9de',1,1/12);});
+D.forEach(function(e){var xa=X(xi(e.peak)+1/12),xb=e.trough?X(xi(e.trough)+1/12):X(x1); g+='<rect x="'+xa.toFixed(1)+'" y="'+(T+0.75)+'" width="'+Math.max(1,xb-xa).toFixed(1)+'" height="'+(H-T-B-1.5)+'" fill="#1f4e79" fill-opacity=".07" stroke="#1f4e79" stroke-width="1.5" stroke-dasharray="5 3"/>';});
+O.forEach(function(e){g+=e.status==='recession'?band(e.aftermath_from,null,'url(#hatchg)',1):band(e.peak,null,'url(#hatch)',1,1/12);});
 for(var v=ymin;v<=ymax;v+=2){g+='<line x1="'+L+'" x2="'+(W-Rm)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'" stroke="'+(v===0?'#666':'#e6e9ed')+'" stroke-width="'+(v===0?1:1)+'"/><text x="'+(L-6)+'" y="'+(Y(v)+4).toFixed(1)+'" font-size="11" fill="#555" text-anchor="end">'+v+'</text>';}
 for(var yr=1950;yr<=x1;yr+=10){g+='<line x1="'+X(yr).toFixed(1)+'" x2="'+X(yr).toFixed(1)+'" y1="'+(H-B)+'" y2="'+(H-B+4)+'" stroke="#666"/><text x="'+X(yr).toFixed(1)+'" y="'+(H-B+17)+'" font-size="11" fill="#555" text-anchor="middle">'+yr+'</text>';}
 var d='';for(var i=0;i<n;i++){d+=(i?'L':'M')+X(xi(dv.date[i])+0.5/12).toFixed(1)+' '+Y(dv.dev[i]).toFixed(1);}
