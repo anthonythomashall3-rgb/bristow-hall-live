@@ -133,6 +133,46 @@ def claims_before_alfred(d):
     d['n_values'] = sum(len(s) // 2 for s in d['v']); d['first_vintage'] = min(s[0] for s in d['v']); d['before_alfred'] = n
     return d
 
+AGENCY = os.path.join(HERE, 'agency_record.csv')
+def agency_record(d):
+    """THE PUBLISHER'S OWN RECORD WHERE ALFRED IS LATE OR SHORT (22 November 2026, collection 1162; from the RealTime Database, which
+    checks every release day against the agency's own record). agency_record.csv, two kinds of row:
+      day    ALFRED dated a vintage on another day than the publisher released it: the G.17 of 1939-1952, 1963 and 1985-86 (64 days,
+             mostly one or two days late, 16 May 1963 a day early) and the jobs report for December 1973 (released 11 January 1974, not
+             the 4th: a week of look-ahead). Every entry of the series on ALFRED's day moves to the release day.
+      print  a value as published that ALFRED does not hold: the BLS JOLTS releases of 15 April 2004 to 13 July 2010 (ALFRED's job
+             openings begin 11 August 2010; each release as printed, 255 values) and 14 initial-claims first prints of 1986-1992 that
+             the weekly-release file misses (the page showed them a week late).
+    Entries merge by day (on one day ALFRED's entry stands); an entry that repeats the value before it is dropped (one per change)."""
+    moves, adds = {}, {}
+    for r in csv.DictReader(open(AGENCY, encoding='utf-8')):
+        if r['series'] != d['id']: continue
+        if r['kind'] == 'day': moves[dn(r['alfred_day'])] = dn(r['day'])
+        elif r['kind'] == 'print': adds.setdefault(dn(r['period']), []).append((dn(r['day']), float(r['value'])))
+    if not moves and not adds: return d
+    ix = {o: i for i, o in enumerate(d['obs'])}; moved = added = 0
+    for o in adds:
+        assert o in ix, '%s: a print for %s, a period ALFRED does not have' % (d['id'], day(o))
+    for i, o in enumerate(d['obs']):
+        s = d['v'][i]; es = []
+        for k in range(0, len(s), 2):
+            es.append((moves.get(s[k], s[k]), 1, s[k + 1])); moved += s[k] in moves
+        es += [(rd, 0, x) for rd, x in adds.get(o, [])]
+        es.sort(key=lambda e: (e[0], e[1])); seq, last = [], 'start'
+        for n, src, x in es:
+            if seq and seq[-2] == n: seq[-1] = x; last = x; continue               # the same day: ALFRED's entry (sorted last) stands
+            if last != 'start' and same(x, last): continue
+            if not seq and x is None: continue                                     # nothing to withdraw before a first value
+            seq += [n, x]; last = x; added += src == 0
+        k = 2                                                                      # a same-day overwrite can leave a repeat behind it
+        while k < len(seq):
+            if same(seq[k + 1], seq[k - 1]): del seq[k:k + 2]
+            else: k += 2
+        d['v'][i] = seq
+    d['n_values'] = sum(len(s) // 2 for s in d['v']); d['first_vintage'] = min(s[0] for s in d['v'])
+    d['agency'] = dict(moved=moved, added=added)
+    return d
+
 # ---------------------------------------------------------------------------------------------------- a file's vintages, kept in order
 def last_day(d):
     """the newest vintage day in a file (each period's entries are in day order)"""
@@ -253,7 +293,7 @@ def write_meta(changed):
     for sid in SIDS:
         p = os.path.join(OUT, 'd', sid + '.json')
         if os.path.exists(p): ver[sid] = stamp(open(p).read())
-    meta = dict(rows=ROWS, ver=ver, source='ALFRED, Federal Reserve Bank of St. Louis; initial claims before 28 May 2009: the Department of Labor weekly releases as printed; on a release day, before FRED posts it, the publisher\'s own first print (the BLS, the Federal Reserve Board, the BEA)')
+    meta = dict(rows=ROWS, ver=ver, source='ALFRED, Federal Reserve Bank of St. Louis; initial claims before 28 May 2009: the Department of Labor weekly releases as printed; job openings before 11 August 2010: the BLS JOLTS releases as printed (from 15 April 2004); release days checked against the publisher\'s own record; on a release day, before FRED posts it, the publisher\'s own first print (the BLS, the Federal Reserve Board, the BEA)')
     mp = os.path.join(OUT, 'tm.json'); new = dump(meta)
     if not os.path.exists(mp) or open(mp).read() != new: write(mp, new); changed.append('tm.json')
 
@@ -278,6 +318,7 @@ def fast():
 def pull(key, sid):
     d = vintages(sid, key)
     if sid == 'ICSA': d = claims_before_alfred(d)
+    d = agency_record(d)
     d['alfred_through'] = last_day(d)
     return d
 
