@@ -4,8 +4,8 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-20",
- "checked_at": "2026-11-22 10:05 UTC",
- "seconds": 2.3,
+ "checked_at": "2026-11-22 10:58 UTC",
+ "seconds": 3.8,
  "source_calls": 4,
  "source_errors": {},
  "counts": {
@@ -23,8 +23,8 @@
    "PASS": 18
   },
   "data/state-onset": {
-   "PASS": 22,
-   "WARN": 14,
+   "PASS": 23,
+   "WARN": 13,
    "INFO": 1
   },
   "data/stress-map": {
@@ -55,9 +55,9 @@
   "checks": 403,
   "figures": 272,
   "fail": 0,
-  "warn": 44,
+  "warn": 43,
   "unverified": 0,
-  "passed": 353
+  "passed": 354
  },
  "failures": [],
  "rows": [
@@ -1587,6 +1587,30 @@
   },
   {
    "page": "data/state-onset",
+   "label": "state payrolls by industry, as first published",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "",
+   "period": "2026-10-01",
+   "series": "ALNA",
+   "transform": "file",
+   "expected": "2026-10-01",
+   "detail": ""
+  },
+  {
+   "page": "data/state-onset",
+   "label": "state payrolls by industry, as first published",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-12-18",
+   "period": null,
+   "series": "ALNA",
+   "transform": null,
+   "expected": "2026-12-18",
+   "detail": "FRED release 112 (State Employment and Unemployment)"
+  },
+  {
+   "page": "data/state-onset",
    "label": "bristow-hall state damage line v4",
    "check": "freshness",
    "status": "WARN",
@@ -1788,30 +1812,6 @@
    "transform": null,
    "expected": "2026-12-04",
    "detail": "FRED release 109 (State Coincident Indexes)"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "state payrolls by industry, as first published",
-   "check": "freshness",
-   "status": "WARN",
-   "value": "",
-   "period": "2026-09-01",
-   "series": "ALNA",
-   "transform": "file",
-   "expected": "2026-10-01",
-   "detail": "a newer period (2026-10-01) was published 2026-11-20, on or after the build day: the next run takes it"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "state payrolls by industry, as first published",
-   "check": "next published",
-   "status": "PASS",
-   "value": "2026-12-18",
-   "period": null,
-   "series": "ALNA",
-   "transform": null,
-   "expected": "2026-12-18",
-   "detail": "FRED release 112 (State Employment and Unemployment)"
   },
   {
    "page": "data/state-onset",

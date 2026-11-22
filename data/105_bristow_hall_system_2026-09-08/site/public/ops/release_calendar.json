@@ -1,7 +1,7 @@
 {
  "built_at": "2026-11-20 20:22",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-22T10:05:17Z",
+ "generated_utc": "2026-11-22T10:58:23Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -1761,15 +1761,15 @@
    "freq": "monthly",
    "ids": "alna ... wyna",
    "link": "/state-onset/",
-   "name": "state payroll employment, 50 states and dc",
+   "name": "state payrolls by industry, as first published",
    "next_expected": false,
    "next_ny": "2026-12-18 10:00",
    "read_lag_min": 186,
    "release_id": 112,
-   "short": "state payroll employment, 50 states and ",
+   "short": "state payrolls by industry, as first pub",
    "slots": true,
    "source": "FRED release 112 (State Employment and Unemployment)",
-   "through": "2026-10-01",
+   "through": "2026-10-31",
    "time_known": true,
    "time_note": null,
    "times": [
