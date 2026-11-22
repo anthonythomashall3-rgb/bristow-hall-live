@@ -15,7 +15,14 @@ employment covered by the State unemployment insurance law (Bureau of Employment
 Territory's Employment and Payrolls in Hawaii), with the first BLS year as the overlap. Michigan's annual levels are scaled to BLS's own printed
 old-basis Michigan series (Bulletin 1370-4, Table 8); Michigan July 1955-December 1956 is carried by Employment and Earnings (marked). Months with
 basis "estimate" are marked in the file: Alaska July 1955-December 1960 (annual covered levels times the State's seasonal pattern), October and
-November 1947 in all three. Readings: collection 1161, 1161m_cov_readings."""
+November 1947 in all three. Readings: collection 1161, 1161m_cov_readings.
+
+1163 (22 Nov 2026): every month is now a printed figure. October-November 1947 from the Bureau's Appendix table B-1 (June 1947-June 1948,
+corrected to 8 December 1948), which also revises June-September 1947 (a later table wins unless its rounded figure agrees with an earlier
+print to the tenth). Michigan July 1955-December 1956 and Alaska July 1955-December 1960 from the Bureau's later State tables (Labor Market
+and Employment Security 1957-1961). Alaska April-August 1959, the five months no Bureau table carries, read from the Alaska Employment Security
+Division's own monthly charts (two charts, fiscal 1960 and 1961 reports, agreeing to 0.3 thousand) and put on the Bureau's basis by the mean
+Bureau-minus-chart difference over the 13 months either side (0.59 thousand); basis "chart" in the file. Readings: collection 1163."""
 import os
 import pandas as pd
 D = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data', 'payroll_prints_1161')
