@@ -162,7 +162,8 @@ chk('speed panel: thirteen episodes',len(S['announcements']),13)   # v3.63: the 
 chk('record: no close is retrospective (every close walked, v3.64)',[e['close_pub'] for e in S['episodes'] if e.get('close_basis')=='retrospective'],[])
 # ---- C1021 (1022, 8 November 2026): the starter's record, every open on its own release day; the closes are v3.76's, unchanged
 _C1OPENS=['1948-12-31','1953-10-13','1957-04-30','1960-06-13','1969-10-11','1973-08-01','1979-11-01','1981-06-01','1990-06-01','2001-04-06','2007-11-02','2020-04-03','2024-01-05']
-_C1CLOSES=['1949-11-02','1954-05-27','1958-06-19','1961-02-24','1970-12-24','1975-02-06','1980-07-22','1982-12-02','1991-02-07','2001-12-28','2009-07-23','2020-06-05','2024-10-01']   # E22 + depth gate (1041): the battery's thirteen closes (1031/out/gate_1041.txt)
+_C1CLOSES=['1949-10-20','1954-06-11','1958-06-19','1961-02-24','1970-12-24','1975-02-06','1980-07-22','1982-12-02','1991-02-07','2001-12-28','2009-07-23','2020-06-05','2024-10-01']   # E22 + depth gate (1041): the battery's thirteen closes (1031/out/gate_1041.txt)
+# 1161i (22 Nov 2026; Anthony: 'you merge'): the ender's seasonally adjusted chain rebuilt from the corrected 1946-1951 figures moves two closes: 1949-11-02 (leg S) -> 1949-10-20 (leg A), 1954-05-27 -> 1954-06-11 (leg S)
 chk('C1021: the thirteen opens are the record\'s (RECORD-1021)',[e['open_pub'] for e in S['episodes']][:13],_C1OPENS)
 chk('E22: the thirteen closes are the harness\'s (RECORD-1030/1041)',[e.get('close_pub') for e in S['episodes']][:13],_C1CLOSES)
 chk('C1021: every open names its door',[e['open_pub'] for e in S['episodes'] if not str(e.get('open_branch','')).startswith('C1021')],[])
