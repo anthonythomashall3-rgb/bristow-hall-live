@@ -4,12 +4,12 @@ month,employees_thousands,basis,issue,note
 1947-03,15.7,covered,ESA1948_osu.32435067087361_seq130,
 1947-04,22.6,covered,ESA1948_osu.32435067087361_seq130,
 1947-05,30.2,covered,ESA1948_osu.32435067087361_seq130,
-1947-06,38.8,covered,ESA1948_osu.32435067087361_seq130,
+1947-06,35.0,covered,ESA1948_osu.32435067087361_seq550,
 1947-07,42.6,covered,ESA1948_osu.32435067087361_seq130,
 1947-08,41.7,covered,ESA1948_osu.32435067087361_seq130,
-1947-09,37.0,covered,ESA1948_osu.32435067087361_seq130,
-1947-10,25.5,estimate,,no State table found; Sep->Dec 1947 split by the 1948 monthly shape
-1947-11,20.3,estimate,,no State table found; Sep->Dec 1947 split by the 1948 monthly shape
+1947-09,38.0,covered,ESA1948_osu.32435067087361_seq550,
+1947-10,26.0,covered,ESA1948_osu.32435067087361_seq550,
+1947-11,20.0,covered,ESA1948_osu.32435067087361_seq550,
 1947-12,17.6,covered,ESA1949_mdp.39015078120394_seq128,
 1948-01,15.8,covered,ESA1949_mdp.39015078120394_seq128,
 1948-02,15.7,covered,ESA1949_mdp.39015078120394_seq128,
@@ -100,70 +100,70 @@ month,employees_thousands,basis,issue,note
 1955-03,20.0,covered,LMES1956_coo.31924054572171_seq67,
 1955-04,24.0,covered,LMES1956_coo.31924054572171_seq67,
 1955-05,30.0,covered,LMES1956_coo.31924054572171_seq67,
-1955-06,37.0,covered,LMES1956_coo.31924054572171_seq67,
-1955-07,42.58,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1955-07
-1955-08,42.56,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1955-08
-1955-09,35.81,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1955-09
-1955-10,30.49,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1955-10
-1955-11,25.7,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1955-11
-1955-12,22.75,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1955-12
-1956-01,18.53,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1956-01
-1956-02,18.75,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1956-02
-1956-03,20.45,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1956-03
-1956-04,25.08,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1956-04
-1956-05,31.85,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1956-05
-1956-06,39.67,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1956-06
-1956-07,45.04,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1956-07
-1956-08,44.89,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1956-08
-1956-09,37.65,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1956-09
-1956-10,31.96,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1956-10
-1956-11,26.86,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1956-11
-1956-12,23.71,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1956-12
-1957-01,19.25,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1957-01
-1957-02,19.42,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1957-02
-1957-03,21.11,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1957-03
-1957-04,25.82,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1957-04
-1957-05,32.68,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1957-05
-1957-06,40.59,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1957-06
-1957-07,45.94,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1957-07
-1957-08,45.78,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1957-08
-1957-09,38.41,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1957-09
-1957-10,32.6,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1957-10
-1957-11,27.4,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1957-11
-1957-12,24.18,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1957-12
-1958-01,19.63,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1958-01
-1958-02,19.81,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1958-02
-1958-03,21.54,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1958-03
-1958-04,26.33,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1958-04
-1958-05,33.33,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1958-05
-1958-06,41.39,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1958-06
-1958-07,46.85,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1958-07
-1958-08,46.69,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1958-08
-1958-09,39.17,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1958-09
-1958-10,33.25,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1958-10
-1958-11,27.95,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1958-11
-1958-12,24.66,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1958-12
-1959-01,20.02,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1959-01
-1959-02,20.2,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1959-02
-1959-03,21.96,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1959-03
-1959-04,26.86,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1959-04
-1959-05,34.0,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1959-05
-1959-06,42.22,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1959-06
-1959-07,47.79,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1959-07
-1959-08,47.63,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1959-08
-1959-09,39.95,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1959-09
-1959-10,33.91,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1959-10
-1959-11,28.5,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1959-11
-1959-12,25.15,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1959-12
-1960-01,20.42,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1960-01
-1960-02,20.61,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1960-02
-1960-03,22.4,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1960-03
-1960-04,27.39,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1960-04
-1960-05,34.68,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1960-05
-1960-06,43.06,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1960-06
-1960-07,48.74,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1960-07
-1960-08,48.58,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1960-08
-1960-09,40.75,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1960-09
-1960-10,34.59,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1960-10
-1960-11,29.07,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1960-11
-1960-12,25.66,estimate,trends_jan1961,annual level x seasonal factor 1950-54; no monthly print found for 1960-12
+1955-06,37.0,covered,LMES1957_coo.31924054572189_seq278,
+1955-07,40.0,covered,LMES1957_coo.31924054572189_seq278,
+1955-08,40.0,covered,LMES1957_coo.31924054572189_seq278,
+1955-09,35.0,covered,LMES1957_coo.31924054572189_seq487,
+1955-10,31.0,covered,LMES1957_coo.31924054572189_seq487,
+1955-11,26.0,covered,LMES1957_coo.31924054572189_seq487,
+1955-12,24.0,covered,LMES1958_coo.31924054572197_seq184,
+1956-01,21.0,covered,LMES1958_coo.31924054572197_seq184,
+1956-02,21.0,covered,LMES1958_coo.31924054572197_seq184,
+1956-03,22.0,covered,LMES1958_coo.31924054572197_seq184,
+1956-04,25.0,covered,LMES1958_coo.31924054572197_seq184,
+1956-05,31.0,covered,LMES1958_coo.31924054572197_seq184,
+1956-06,38.0,covered,LMES1958_coo.31924054572197_seq309,
+1956-07,42.0,covered,LMES1958_coo.31924054572197_seq309,
+1956-08,41.0,covered,LMES1958_coo.31924054572197_seq309,
+1956-09,36.0,covered,LMES1958_coo.31924054572197_seq309,
+1956-10,33.0,covered,LMES1958_coo.31924054572197_seq309,
+1956-11,27.0,covered,LMES1958_coo.31924054572197_seq309,
+1956-12,25.0,covered,LMES1958_coo.31924054572197_seq728,
+1957-01,22.0,covered,LMES1958_coo.31924054572197_seq728,
+1957-02,21.0,covered,LMES1958_coo.31924054572197_seq728,
+1957-03,22.0,covered,LMES1958_coo.31924054572197_seq728,
+1957-04,25.0,covered,LMES1958_coo.31924054572197_seq728,
+1957-05,32.0,covered,LMES1958_coo.31924054572197_seq728,
+1957-06,38.0,covered,LMES1959_coo.31924054572205_seq527,
+1957-07,42.0,covered,LMES1959_coo.31924054572205_seq527,
+1957-08,40.0,covered,LMES1959_coo.31924054572205_seq527,
+1957-09,34.0,covered,LMES1959_coo.31924054572205_seq527,
+1957-10,29.0,covered,LMES1959_coo.31924054572205_seq527,
+1957-11,25.0,covered,LMES1959_coo.31924054572205_seq527,
+1957-12,23.0,covered,LMES1959_coo.31924054572205_seq527,
+1958-01,21.0,covered,LMES1959_coo.31924054572205_seq527,
+1958-02,21.0,covered,LMES1959_coo.31924054572205_seq527,
+1958-03,22.0,covered,LMES1960_coo.31924054572213_seq145,
+1958-04,24.0,covered,LMES1960_coo.31924054572213_seq145,
+1958-05,29.0,covered,LMES1960_coo.31924054572213_seq145,
+1958-06,33.0,covered,LMES1960_coo.31924054572213_seq145,
+1958-07,38.0,covered,LMES1960_coo.31924054572213_seq145,
+1958-08,38.0,covered,LMES1960_coo.31924054572213_seq145,
+1958-09,33.0,covered,LMES1960_coo.31924054572213_seq145,
+1958-10,30.0,covered,LMES1960_coo.31924054572213_seq145,
+1958-11,26.0,covered,LMES1960_coo.31924054572213_seq145,
+1958-12,24.0,covered,LMES1960_coo.31924054572213_seq145,
+1959-01,22.0,covered,LMES1960_coo.31924054572213_seq145,
+1959-02,23.0,covered,LMES1960_coo.31924054572213_seq145,
+1959-03,24.0,covered,LMES1960_coo.31924054572213_seq145,
+1959-04,27.4,chart,akesd_charts_fy1960_fy1961,"Alaska Employment Security Division charts (FY1960 report p.47, FY1961 report), mean of the two readings 27.95, less 0.59 (mean BES-minus-chart gap, 13 months)"
+1959-05,31.7,chart,akesd_charts_fy1960_fy1961,"Alaska Employment Security Division charts (FY1960 report p.47, FY1961 report), mean of the two readings 32.25, less 0.59 (mean BES-minus-chart gap, 13 months)"
+1959-06,36.0,chart,akesd_charts_fy1960_fy1961,"Alaska Employment Security Division charts (FY1960 report p.47, FY1961 report), mean of the two readings 36.55, less 0.59 (mean BES-minus-chart gap, 13 months)"
+1959-07,36.4,chart,akesd_charts_fy1960_fy1961,"Alaska Employment Security Division charts (FY1960 report p.47, FY1961 report), mean of the two readings 37.00, less 0.59 (mean BES-minus-chart gap, 13 months)"
+1959-08,36.8,chart,akesd_charts_fy1960_fy1961,"Alaska Employment Security Division charts (FY1960 report p.47, FY1961 report), mean of the two readings 37.35, less 0.59 (mean BES-minus-chart gap, 13 months)"
+1959-09,34.0,covered,LMES1961_coo.31924054572221_seq264,
+1959-10,31.0,covered,LMES1961_coo.31924054572221_seq264,
+1959-11,28.0,covered,LMES1961_coo.31924054572221_seq264,
+1959-12,26.0,covered,LMES1961_coo.31924054572221_seq551,
+1960-01,24.0,covered,LMES1961_coo.31924054572221_seq551,
+1960-02,25.0,covered,LMES1961_coo.31924054572221_seq551,
+1960-03,26.0,covered,LMES1961_coo.31924054572221_seq551,
+1960-04,28.0,covered,LMES1961_coo.31924054572221_seq551,
+1960-05,33.0,covered,LMES1961_coo.31924054572221_seq551,
+1960-06,39.0,covered,LMES1961_coo.31924054572221_seq551,
+1960-07,43.0,covered,LMES1961_coo.31924054572221_seq551,
+1960-08,43.0,covered,LMES1961_coo.31924054572221_seq551,
+1960-09,39.0,covered,LMES1961_coo.31924054572221_seq551,
+1960-10,36.0,covered,LMES1961_coo.31924054572221_seq551,
+1960-11,32.0,covered,LMES1961_coo.31924054572221_seq551,
+1960-12,29.0,covered,LMES1961_coo.31924054572221_seq551,
