@@ -97,7 +97,8 @@ function win(){ const g=$('#tmwin'); if(!g||!SX) return; const H=SH, T=ST, B=SB,
 // a period's value as known on day n: the last published value whose vintage day is <= n (nothing published later can show)
 function asof(seq,n){ if(seq[0]>n) return null; let lo=0,hi=seq.length/2-1; while(lo<hi){const m=(lo+hi+1)>>1; if(seq[2*m]<=n) lo=m; else hi=m-1;} return seq[2*lo+1]; }
 // index of the newest period published by day n (a period is known once its first vintage day is <= n)
-function lastKnown(s,n){ for(let i=s.obs.length-1;i>=0;i--) if(s.v[i][0]<=n) return i; return -1; }
+// (a value ALFRED withdrew on or before n is null there: that period does not count)
+function lastKnown(s,n){ for(let i=s.obs.length-1;i>=0;i--) if(s.v[i][0]<=n&&asof(s.v[i],n)!=null) return i; return -1; }
 function val(row,s,i,n){ const a=asof(s.v[i],n); if(a==null) return null;
   const mo=row.tf==='diff'?1:row.tf==='qann'?3:row.tf==='yoy'?12:0; if(!mo) return a*row.scale;
   // the earlier period is found by its date, never by counting rows: a period that was never published (October 2025 consumer prices) leaves no row,
@@ -181,7 +182,8 @@ const hash=()=>history.replaceState(null,'','#'+iso(w0)+'..'+iso(w1));
 const cl=(x,a,b)=>Math.max(a,Math.min(b,x));
 // the window's end moves (the day the data are seen from); its length stays as set, shortened only where 1948 cuts it
 function setEnd(n,push){ w1=cl(n,MIN0,dn(TODAY)); w0=Math.max(MIN0,w1-span); draw(); if(push!==false) hash(); }
-function setWin(a,b,push){ const T1=dn(TODAY); b=cl(b,MIN0,T1); a=cl(a,MIN0,b); if(b-a<MINSPAN){ if(a+MINSPAN<=T1) b=Math.max(b,a+MINSPAN); a=Math.max(MIN0,b-MINSPAN); }
+// a window shorter than a year is widened to the left: its end, the day the data are seen from, never moves by itself
+function setWin(a,b,push){ const T1=dn(TODAY); b=cl(b,MIN0,T1); a=cl(a,MIN0,b); if(b-a<MINSPAN) a=Math.max(MIN0,b-MINSPAN);
   w0=a; w1=b; span=w1-w0; draw(); if(push!==false) hash(); }
 function readHash(){ const h=decodeURIComponent(location.hash.slice(1)); let m=h.match(/^(\d{4}-\d\d-\d\d)\.\.(\d{4}-\d\d-\d\d)$/);
   if(m&&!isNaN(dn(m[1]))&&!isNaN(dn(m[2]))){ setWin(dn(m[1]),dn(m[2]),false); return true; }

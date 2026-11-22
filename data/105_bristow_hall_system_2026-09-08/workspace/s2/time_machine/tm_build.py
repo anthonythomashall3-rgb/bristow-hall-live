@@ -46,7 +46,9 @@ SIDS = [s for r in ROWS for s in r['ids']]
 EPOCH = datetime.date(1970, 1, 1)
 def dn(s): return (datetime.date.fromisoformat(s) - EPOCH).days
 def day(n): return (EPOCH + datetime.timedelta(n)).isoformat()
-def same(a, b): return abs(a - b) <= 1e-9 * max(1.0, abs(a), abs(b))
+def same(a, b):
+    if a is None or b is None: return a is None and b is None
+    return abs(a - b) <= 1e-9 * max(1.0, abs(a), abs(b))
 
 def ny_today():
     from zoneinfo import ZoneInfo
@@ -89,17 +91,21 @@ def vintages(sid, key):
         j = get('https://api.stlouisfed.org/fred/series/observations?' + q)
         rows += j['observations']; off += len(j['observations'])
         if off >= int(j['count']) or not j['observations']: break
+    # A VALUE ALFRED WITHDRAWS IS WITHDRAWN HERE TOO (22 Nov 2026, collection 1162). A vintage that leaves a period empty ('.': the
+    # chain-weighted GDP of January 1996 began in 1959, the 1972 industrial production index in 1947, a claims week left blank) is recorded
+    # as null from that day, so the page shows nothing there, as FRED did that day. Until now an empty value was skipped and the older
+    # print, in another base year, stood in its place (GDPC1 1947-1958 as of 1996, INDPRO before 1947 as of 1972: 1,325 and 11,160 cells
+    # against the program's ALFRED tables). Empty values before a period's first value carry nothing.
     by = {}
     for r in rows:
-        if r['value'] in ('.', ''): continue
-        by.setdefault(r['date'], []).append((r['realtime_start'], float(r['value'])))
+        by.setdefault(r['date'], []).append((r['realtime_start'], None if r['value'] in ('.', '') else float(r['value'])))
     obs, v = [], []
     for d in sorted(by):
         seq, last = [], None
-        for rs, val in sorted(by[d]):
-            if val != last: seq += [dn(rs), val]; last = val
-        obs.append(dn(d)); v.append(seq)
-    assert obs and all(len(s) >= 2 for s in v), sid
+        for rs, val in sorted(by[d], key=lambda x: x[0]):
+            if not same(val, last): seq += [dn(rs), val]; last = val
+        if seq: obs.append(dn(d)); v.append(seq)
+    assert obs and all(len(s) >= 2 and s[1] is not None for s in v), sid
     return dict(id=sid, obs=obs, v=v, n_values=sum(len(s) // 2 for s in v), first_vintage=min(s[0] for s in v))
 
 def claims_before_alfred(d):
@@ -145,6 +151,7 @@ def add_vintage(d, ix, o, vday, val):
         s = d['v'][ix[o]]
         if vday <= s[-2] or same(s[-1], val): return 0
         s += [vday, val]; return 1
+    if val is None: return 0                                  # a period begins with a value, never with a gap
     d['obs'].append(o); d['v'].append([vday, val]); ix[o] = len(d['obs']) - 1; return 1
 
 def value_on(seq, n):
@@ -221,7 +228,7 @@ def fast_cpi(d):
     if not pts: print('time machine fast: the BLS did not answer for the CPI'); return []
     ix = {o: i for i, o in enumerate(d['obs'])}
     for o, x in pts.items():
-        if o in ix and abs(round(d['v'][ix[o]][-1], 3) - round(x, 3)) > 0.0005:
+        if o in ix and d['v'][ix[o]][-1] is not None and abs(round(d['v'][ix[o]][-1], 3) - round(x, 3)) > 0.0005:
             print('time machine fast: CPI %s held %s, the BLS %s: nothing added' % (day(o)[:7], d['v'][ix[o]][-1], x)); return []
     vd = dn(today.isoformat()); added = []
     for o in sorted(pts):
@@ -287,10 +294,9 @@ def check():
         rows = get('https://api.stlouisfed.org/fred/series/observations?' + q)['observations']
         ix = {x: i for i, x in enumerate(o['obs'])}; miss = []
         for r in rows:
-            if r['value'] in ('.', ''): continue
-            x, rs, v = dn(r['date']), dn(r['realtime_start']), float(r['value'])
+            x, rs, v = dn(r['date']), dn(r['realtime_start']), None if r['value'] in ('.', '') else float(r['value'])
             held = value_on(o['v'][ix[x]], rs) if x in ix else None
-            if held is None or not same(held, v): miss.append('%s %s=%s' % (r['realtime_start'], r['date'][:7], r['value']))
+            if not same(held, v): miss.append('%s %s=%s' % (r['realtime_start'], r['date'][:7], r['value']))
         if miss: newer.append(sid)
         print('%-9s the file from ALFRED through %s; %d value%s in force since then not in the file%s' % (sid, day(since), len(miss), '' if len(miss) == 1 else 's',
               (': ' + ', '.join(miss[:4]) + (' ...' if len(miss) > 4 else '')) if miss else ''))
