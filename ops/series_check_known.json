@@ -46,5 +46,8 @@
  },
  "corrected_2026_11_21c": {
   "e22_history.csv iu_nsa, 12 more weeks set to the figure the Weekly Supplement printed a year later": "1946-10-05 905 -> 918; 1947-03-15 1106 -> 1130; 1947-06-07 1098 -> 1149; 1947-10-11 754 -> 735; 1947-11-08 746 -> 711; 1947-11-15 725 -> 744; 1947-12-20 958 -> 744; 1948-02-21 1098 -> 1123; 1948-11-13 954 -> 940; 1948-11-20 1025 -> 958; 1951-09-08 781 -> 896; 1951-09-15 896 -> 874 (thousands; collection 1161, out/chain_vs_print_1946_1951_v2.csv)"
+ },
+ "corrected_2026_11_21d": {
+  "e22_history.csv iu_nsa, 22 empty weeks filled with the final print": "1946-02-02 empty -> 1862; 1946-02-09 empty -> 1863; 1946-02-16 empty -> 1862; 1946-03-09 empty -> 1897; 1946-03-23 empty -> 1744; 1946-04-06 empty -> 1586; 1946-04-13 empty -> 1568; 1946-04-20 empty -> 1546; 1946-04-27 empty -> 1509; 1946-05-04 empty -> 1475; 1946-05-11 empty -> 1454; 1946-05-18 empty -> 1497; 1946-06-29 empty -> 1242; 1946-07-06 empty -> 1273; 1947-11-22 empty -> 725; 1947-12-27 empty -> 802; 1948-03-20 empty -> 1067; 1948-05-15 empty -> 1069; 1948-09-11 empty -> 843; 1948-10-09 empty -> 777; 1949-10-08 empty -> 1749; 1951-06-02 empty -> 945 (thousands; the Survey of Current Business Weekly Supplement, the column printed a year later; collection 1161, out/chain_vs_print_1946_1951_v3.csv)"
  }
 }
