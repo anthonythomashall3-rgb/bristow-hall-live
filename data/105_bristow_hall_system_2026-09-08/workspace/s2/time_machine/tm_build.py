@@ -145,7 +145,10 @@ def agency_record(d):
              move and the unemployment rate stays.
       print  a value as published that ALFRED does not hold: the BLS JOLTS releases of 15 April 2004 to 13 July 2010 (ALFRED's job
              openings begin 11 August 2010; each release as printed, 255 values) and 14 initial-claims first prints of 1986-1992 that
-             the weekly-release file misses (the page showed them a week late).
+             the weekly-release file misses (the page showed them a week late). The unemployment rate, seasonally adjusted, of May 1957
+             to January 1960 as printed in Census's P-57 reports and BLS's Monthly Report on the Labor Force (1164: 34 values, read in
+             collection 999, on BLS's own release days; ALFRED's unemployment rate begins 15 March 1960; for February to December 1960,
+             which both hold, the readings equal ALFRED's first prints, value and day).
     Entries merge by day (on one day ALFRED's entry stands); an entry that repeats the value before it is dropped (one per change)."""
     moves, adds = {}, {}
     for r in csv.DictReader(open(AGENCY, encoding='utf-8')):
