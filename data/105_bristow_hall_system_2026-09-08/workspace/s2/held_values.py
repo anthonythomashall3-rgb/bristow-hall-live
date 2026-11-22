@@ -177,6 +177,20 @@ def chron_v4(f):
                         ['States in disturbance', str(len(dis)), ', '.join(sorted(dis)) or 'none']], units='', period=M)
 
 
+def qcew_county_ind(fs):
+    """1164: the county-by-industry file (newest year, gz): the U.S. sums of the county totals, all ownerships (0) and private (5), industry 10, newest month"""
+    acc = {}
+    with gzip.open(sorted(fs)[-1], 'rt', newline='') as h:
+        for r in csv.DictReader(h):
+            if r['fips'][:2] in ('72', '78') or r['ind'] != '10' or r['own'] not in ('0', '5'): continue
+            for i in (1, 2, 3):
+                try: v = float(r['m%d' % i] or 0)
+                except ValueError: continue
+                a = acc.setdefault('%s-%02d' % (r['year'], 3 * (int(r['qtr']) - 1) + i), {'0': [0.0, 0], '5': [0.0, 0]})[r['own']]; a[0] += v; a[1] += 1 if v > 0 else 0
+    m = max(k for k in acc if acc[k]['0'][1] > 0)
+    return dict(values=[['U.S., all jobs, from the county file', format(int(acc[m]['0'][0]), ','), 'covered employment, persons (sum of %s county rows, not seasonally adjusted)' % format(acc[m]['0'][1], ',')],
+                        ['U.S., private jobs, from the county file', format(int(acc[m]['5'][0]), ','), 'covered employment, persons (sum of %s county rows, not seasonally adjusted)' % format(acc[m]['5'][1], ',')]],
+                units='', period=m)
 def held(path, fs):
     """the value(s) held in the file(s) behind one data-page row, or None when no reader applies"""
     b = path
@@ -234,6 +248,7 @@ def held(path, fs):
         with open(f, newline='') as h: rows = [r for r in csv.DictReader(h) if r['system'] == 'naics' and r['emplvl']]
         m = max(r['month'] for r in rows)
         return _fam([(r['st'], num(float(r['emplvl']), 0), m) for r in rows if r['month'] == m and r['st'] in ST], 'covered employment, persons, not seasonally adjusted')
+    if 'qcew_industry_county' in b: return qcew_county_ind(fs)
     if 'county_tot' in b: return qcew_county(fs)
     if 'state_industry_releases' in b:
         with open(f, newline='') as h: rows = [r for r in csv.DictReader(h) if r['group'] in ('Total(1)', 'g0')]
