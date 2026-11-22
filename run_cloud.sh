@@ -85,6 +85,17 @@ else: st.pop('refresh_incomplete', None)
 json.dump(st, open(p,'w'))
 INCOMPLETE
 fi
+# THE TIME MACHINE'S VINTAGES, IN THIS RUN'S DEPLOY (22 November 2026, collection 1162; Anthony: "automatically live updating with the most current
+# vintage forever and always and as fast as it possibly can be"). Until today /time-machine/ took its vintages only after the run, from
+# time-machine.yml, and a second deploy (8 to 12 minutes later), and a release waited for FRED's post (the jobs report 9:24 to 10:43 AM ET).
+# Now, in every run and mode: (1) --fast, no FRED call: the release-day vintage the update has just written into its vintage tables (the
+# publisher's own first print, checked against FRED's vintage when FRED posts) and, on a CPI day, the BLS's unadjusted index; (2) every
+# vintage from ALFRED, in the background while the pages are built, waited for before the run ends. Each file is written whole or not at
+# all; a failure leaves the held files; never fails the run.
+python3 s2/time_machine/tm_build.py --fast || echo "time machine fast: failed; the held files stand"
+( rc=0; timeout 170 python3 s2/time_machine/tm_build.py > out/tm_build.out 2>&1 || rc=$?; echo "time machine pull: exit $rc" >> out/tm_build.out ) &
+TM_PULL=$!
+trap 'kill "$TM_PULL" 2>/dev/null || true' EXIT     # a run that stops early leaves no pull writing behind it
 # THE CALL ALERT (20 September 2026, collection 257; ask 42): a build whose standing differs from the LAST PUBLISHED state
 # (../site/public/bhs_state.json, committed by the previous run) is the event the system exists for; alerted here, on every
 # channel, before the gate or the deploy can hold it. BHS_DRILL=yes sends a fire-drill alert through the same path.
@@ -160,3 +171,7 @@ print('built_at: built %s, published %s' % (a, b))
 if a != b:
     sys.exit('the site published a state this run did not build')
 CHECK
+# the time machine's ALFRED pull, started above, is in before the run ends (1162)
+wait "$TM_PULL" 2>/dev/null || true
+if grep -q "time machine pull: exit 0" out/tm_build.out 2>/dev/null; then grep -E "CHANGED|kept until|ALFRED differs|refused|time machine data" out/tm_build.out | tail -14 || true
+else echo "time machine pull: did not finish; the files as --fast left them stand:"; tail -6 out/tm_build.out 2>/dev/null || true; fi

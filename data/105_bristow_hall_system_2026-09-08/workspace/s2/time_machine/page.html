@@ -1,10 +1,10 @@
 <style>
 .tm h1{font-size:30px;color:#990000;margin:34px 0 14px;line-height:1.2}
-.tmbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:0 0 6px}
+.tmbar{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center;margin:0 0 6px}
+.tmbar label{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#555}
 .tmbar input[type=date],.tmbar select,.tmbar button{font:inherit;font-size:15px;padding:7px 10px;border:1px solid #c9cfd6;border-radius:3px;background:#fff;color:#111}
 .tmbar button{cursor:pointer;color:#990000;font-weight:700}.tmbar button:hover{background:#fdf2f2}
-#tmr{width:100%;accent-color:#990000;margin:2px 0 0}
-#tms{display:block;width:100%;height:74px;cursor:pointer;margin-top:10px;touch-action:none}
+#tms{display:block;width:100%;height:84px;cursor:crosshair;margin-top:10px;touch-action:none;user-select:none;-webkit-user-select:none}
 .tmsl{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:#555;margin:8px 0 16px}.tmsl span{display:inline-flex;align-items:center;gap:6px}
 .tmst{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 0 6px}
 .tmbox{border:1px solid #dfe4ea;padding:13px 15px}
@@ -28,13 +28,14 @@
 <div class="inner tm">
 <h1>Time Machine</h1>
 <div class="tmbar">
-  <input type="date" id="tmd" min="1948-01-01" aria-label="Date">
+  <label>From <input type="date" id="tmd0" min="1948-01-01" aria-label="Start of the window"></label>
+  <label>To <input type="date" id="tmd" min="1948-01-01" aria-label="End of the window: the day the data are seen from"></label>
   <button id="tmp" aria-label="One day back">&#9664;</button><button id="tmn" aria-label="One day forward">&#9654;</button>
+  <select id="tmw" aria-label="Window length"><option value="">Range&hellip;</option><option value="1">1 year</option><option value="2">2 years</option><option value="5">5 years</option><option value="7">7 years</option><option value="10">10 years</option><option value="20">20 years</option><option value="all">All</option></select>
   <select id="tmj" aria-label="Jump to"><option value="">Jump to&hellip;</option></select>
   <button id="tmtoday">Today</button>
 </div>
-<svg id="tms" role="img" aria-label="Timeline with recessions and disturbances"></svg>
-<input type="range" id="tmr" aria-label="Date slider">
+<svg id="tms" role="img" aria-label="Timeline with recessions and disturbances; the box is the window the chart shows"></svg>
 <div class="tmsl" id="tmsl"></div>
 <div class="tmst">
   <div class="tmbox"><div class="k">Bristow-Hall Rule, as it stood that day</div><div class="s" id="tmrs">&nbsp;</div><div class="d" id="tmrd"></div></div>
@@ -42,9 +43,9 @@
 </div>
 <h2 id="tmh">&nbsp;</h2><div class="rule"></div>
 <table class="tmt"><thead><tr><th>Series</th><th>Latest period</th><th class="num">Known that day</th><th class="num">Known today</th><th class="num">Revision</th></tr></thead><tbody id="tmb"></tbody></table>
-<svg id="tmc" role="img" aria-label="Chart"></svg>
+<svg id="tmc" role="img" aria-label="Chart of the window"></svg>
 <div class="tmleg"><span><i style="background:#990000"></i><span id="tml1"></span></span><span><i style="background:#9aa3ad"></i>As known today</span></div>
-<div class="tmsrc">Source: <a href="https://alfred.stlouisfed.org/" target="_blank" rel="noopener">ALFRED, Federal Reserve Bank of St. Louis &#8599;</a> &middot; initial claims before May 28, 2009: <a href="https://oui.doleta.gov/unemploy/claims_arch.asp" target="_blank" rel="noopener">Department of Labor weekly releases &#8599;</a></div>
+<div class="tmsrc">Source: <a href="https://alfred.stlouisfed.org/" target="_blank" rel="noopener">ALFRED, Federal Reserve Bank of St. Louis &#8599;</a> &middot; on a release day, until FRED posts it: the BLS, the Federal Reserve Board, the BEA &middot; initial claims before May 28, 2009: <a href="https://oui.doleta.gov/unemploy/claims_arch.asp" target="_blank" rel="noopener">Department of Labor weekly releases &#8599;</a></div>
 </div>
 <script>
 (function(){
@@ -52,34 +53,50 @@ const $=s=>document.querySelector(s), DAY=86400000, E0=Date.UTC(1970,0,1);
 const dn=s=>Math.round((Date.parse(s+'T00:00:00Z')-E0)/DAY), iso=n=>new Date(E0+n*DAY).toISOString().slice(0,10);
 const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const fd=s=>{const a=s.split('-');return MN[+a[1]-1]+' '+(+a[2])+', '+a[0]}, fm=s=>{const a=s.split('-');return MN[+a[1]-1]+' '+a[0]};
-const TODAY=iso(Math.floor(Date.now()/DAY)), MIN='1948-01-01';
-let META=null, D={}, STATE=null, BANDS=null, cur=TODAY, sel=0;
-// the recessions and disturbances above the timeline (bands.json, re-dated at every update run), drawn as on the stress map
+// today is New York's day (the program's release days are New York days), not the reader's or UTC's
+function nyToday(){ try{ const p={}; for(const x of new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date())) p[x.type]=x.value;
+  const s=p.year+'-'+p.month+'-'+p.day; if(/^\d{4}-\d\d-\d\d$/.test(s)) return s; }catch(e){} return iso(Math.floor(Date.now()/DAY)); }
+let TODAY=nyToday(); const MIN='1948-01-01', MIN0=dn(MIN), MINSPAN=365, POLL=60000;
+const yrsBack=(n,k)=>{ const d=new Date(E0+n*DAY), y=d.getUTCFullYear()-k, m=d.getUTCMonth(), x=Math.min(d.getUTCDate(),new Date(Date.UTC(y,m+1,0)).getUTCDate()); return Math.round((Date.UTC(y,m,x)-E0)/DAY); };
+let META=null, VER=null, D={}, STATE=null, BANDS=null, sel=0;
+// THE WINDOW (22 Nov 2026, collection 1162): w0..w1 is exactly what the chart shows; w1 is the day the data are seen from
+let w1=dn(TODAY), w0=yrsBack(w1,7), span=w1-w0;
+// the recessions and disturbances above the timeline (bands.json, re-dated at every update run), drawn as on the stress map. A period runs from the month
+// after its peak through its trough month (the NBER's months of contraction; Paper 1's 2024 recession: peak February, March to August)
 const HATCH='<pattern id="PAT" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#b9c0c7" stroke-width="2"/></pattern>';
-const mS=m=>dn(m+'-01'), mE=m=>{ if(!m) return dn(TODAY); const y=+m.slice(0,4), k=+m.slice(5,7); return dn(k===12?(y+1)+'-01-01':y+'-'+String(k+1).padStart(2,'0')+'-01'); };
+const mS=m=>dn(m+'-01'), mE=m=>{ if(!m) return dn(TODAY)+1; const y=+m.slice(0,4), k=+m.slice(5,7); return dn(k===12?(y+1)+'-01-01':y+'-'+String(k+1).padStart(2,'0')+'-01'); };
 function bandRects(X,T,h,lo,hi,id){ let s=''; if(!BANDS) return s;
-  for(const k of ['R','RB','D']) for(const b of BANDS.bands){ if(b[0]!==k) continue; let a=mS(b[1]), e=mE(b[2]); if(e<=lo||a>=hi) continue; a=Math.max(a,lo); e=Math.min(e,hi);
+  for(const k of ['R','RB','D']) for(const b of BANDS.bands){ if(b[0]!==k) continue; let a=mE(b[1]), e=mE(b[2]); if(e<=lo||a>=hi||e<=a) continue; a=Math.max(a,lo); e=Math.min(e,hi);
     const x=X(a).toFixed(1), w=Math.max(1,X(e)-X(a)).toFixed(1);
     if(k==='R') s+='<rect x="'+x+'" y="'+T+'" width="'+w+'" height="'+h+'" fill="#d5d9de"/>';
     if(k==='RB') s+='<rect x="'+x+'" y="'+T+'" width="'+w+'" height="'+h+'" fill="url(#'+id+')" stroke="#9aa3ad" stroke-width="1"/>';
     if(k==='D') s+='<rect x="'+x+'" y="'+(T+.75)+'" width="'+w+'" height="'+(h-1.5)+'" fill="#1f4e79" fill-opacity=".07" stroke="#1f4e79" stroke-width="1" stroke-dasharray="4 3"/>'; }
   return s; }
 let SX=null;
-function strip(){ const svg=$('#tms'), W=svg.clientWidth||900, H=74, L=8, R=8, T=4, B=18, h=H-T-B, n0=dn(MIN), n1=dn(TODAY);
-  svg.setAttribute('viewBox','0 0 '+W+' '+H); const X=n=>L+(W-L-R)*(n-n0)/(n1-n0); SX={L:L,w:W-L-R,W:W,n0:n0,n1:n1};
+const SH=84, ST=4, SB=18, SL=8, SR=8;
+function strip(){ const svg=$('#tms'), W=svg.clientWidth||900, H=SH, T=ST, B=SB, h=H-T-B, n0=MIN0, n1=dn(TODAY);
+  svg.setAttribute('viewBox','0 0 '+W+' '+H); const X=n=>SL+(W-SL-SR)*(n-n0)/(n1-n0); SX={w:W-SL-SR,W:W,n0:n0,n1:n1,X:X};
   let s='<defs>'+HATCH.replace('PAT','tmhs')+'</defs>'+bandRects(X,T,h,n0,n1,'tmhs');
-  if(BANDS){ const d=BANDS.line.date, v=BANDS.line.dev; let lo=Math.min(...v.filter(x=>x!=null)), hi=Math.max(...v.filter(x=>x!=null)), p='';
+  if(BANDS){ const d=BANDS.line.date, v=BANDS.line.dev, ok=v.filter(x=>x!=null); let lo=Math.min(...ok), hi=Math.max(...ok), p='';
     for(let i=0;i<d.length;i++){ if(v[i]==null) continue; const n=mS(d[i])+15; if(n<n0) continue; p+=(p?'L':'M')+X(n).toFixed(1)+' '+(T+h*(1-(v[i]-lo)/(hi-lo))).toFixed(1); }
     s+='<path d="'+p+'" fill="none" stroke="#990000" stroke-width="1.2" pointer-events="none"/>'; }
   for(let y=1950;y<=+TODAY.slice(0,4);y+=10){ const x=X(dn(y+'-01-01')).toFixed(1); s+='<line x1="'+x+'" x2="'+x+'" y1="'+(H-B)+'" y2="'+(H-B+4)+'" stroke="#666"/><text x="'+x+'" y="'+(H-3)+'" font-size="11" fill="#555" text-anchor="middle">'+y+'</text>'; }
-  const xc=X(dn(cur)).toFixed(1); s+='<line id="tmcur" x1="'+xc+'" x2="'+xc+'" y1="'+(T-2)+'" y2="'+(H-B+2)+'" stroke="#111" stroke-width="2" pointer-events="none"/>';
-  svg.innerHTML=s;
-  const sw=k=>'<svg width="26" height="14" viewBox="0 0 26 14"><defs>'+HATCH.replace('PAT','tml'+k)+'</defs>'+(k==='R'?'<rect width="26" height="14" fill="#d5d9de"/>':k==='RB'?'<rect x=".5" y=".5" width="25" height="13" fill="url(#tmlRB)" stroke="#9aa3ad"/>':k==='D'?'<rect x=".5" y=".5" width="25" height="13" fill="#1f4e79" fill-opacity=".07" stroke="#1f4e79" stroke-dasharray="4 3"/>':'<line x1="0" y1="7" x2="26" y2="7" stroke="#990000" stroke-width="1.5"/>')+'</svg>';
-  $('#tmsl').innerHTML='<span>'+sw('R')+'Recession (NBER dates)</span><span>'+sw('RB')+'Recession dated by the program</span><span>'+sw('D')+'Disturbance</span><span>'+sw('L')+'Economic activity against its trend</span>'; }
+  s+='<g id="tmwin" pointer-events="none"></g>';
+  svg.innerHTML=s; win();
+  const sw=k=>'<svg width="26" height="14" viewBox="0 0 26 14"><defs>'+HATCH.replace('PAT','tml'+k)+'</defs>'+(k==='R'?'<rect width="26" height="14" fill="#d5d9de"/>':k==='RB'?'<rect x=".5" y=".5" width="25" height="13" fill="url(#tmlRB)" stroke="#9aa3ad"/>':k==='D'?'<rect x=".5" y=".5" width="25" height="13" fill="#1f4e79" fill-opacity=".07" stroke="#1f4e79" stroke-dasharray="4 3"/>':k==='W'?'<rect x="1" y="1" width="24" height="12" fill="none" stroke="#111" stroke-width="1.5"/>':'<line x1="0" y1="7" x2="26" y2="7" stroke="#990000" stroke-width="1.5"/>')+'</svg>';
+  $('#tmsl').innerHTML='<span>'+sw('R')+'Recession (NBER dates)</span><span>'+sw('RB')+'Recession dated by the program</span><span>'+sw('D')+'Disturbance</span><span>'+sw('L')+'Economic activity against its trend</span><span>'+sw('W')+'Chart window</span>'; }
+// the window on the strip: the same two days as the chart's left and right edges (the chart's x-axis runs from w0 to w1)
+function win(){ const g=$('#tmwin'); if(!g||!SX) return; const H=SH, T=ST, B=SB, X=SX.X, a=X(w0), b=X(w1), y0=T-2, y1=H-B+2, hy=T+(H-T-B)/2;
+  const grip=x=>'<rect x="'+(x-4).toFixed(1)+'" y="'+(hy-11).toFixed(1)+'" width="8" height="22" rx="2" fill="#fff" stroke="#111" stroke-width="1.3"/><line x1="'+(x-1.3).toFixed(1)+'" x2="'+(x-1.3).toFixed(1)+'" y1="'+(hy-5)+'" y2="'+(hy+5)+'" stroke="#111"/><line x1="'+(x+1.3).toFixed(1)+'" x2="'+(x+1.3).toFixed(1)+'" y1="'+(hy-5)+'" y2="'+(hy+5)+'" stroke="#111"/>';
+  g.innerHTML='<rect x="0" y="'+y0+'" width="'+Math.max(0,a).toFixed(1)+'" height="'+(y1-y0)+'" fill="#fff" fill-opacity=".62"/>'
+    +'<rect x="'+b.toFixed(1)+'" y="'+y0+'" width="'+Math.max(0,SX.W-b).toFixed(1)+'" height="'+(y1-y0)+'" fill="#fff" fill-opacity=".62"/>'
+    +'<rect x="'+a.toFixed(1)+'" y="'+y0+'" width="'+Math.max(1,b-a).toFixed(1)+'" height="'+(y1-y0)+'" fill="#990000" fill-opacity=".05" stroke="#111" stroke-width="1.5"/>'
+    +grip(a)+grip(b); }
 // a period's value as known on day n: the last published value whose vintage day is <= n (nothing published later can show)
 function asof(seq,n){ if(seq[0]>n) return null; let lo=0,hi=seq.length/2-1; while(lo<hi){const m=(lo+hi+1)>>1; if(seq[2*m]<=n) lo=m; else hi=m-1;} return seq[2*lo+1]; }
 // index of the newest period published by day n (a period is known once its first vintage day is <= n)
-function lastKnown(s,n){ for(let i=s.obs.length-1;i>=0;i--) if(s.v[i][0]<=n) return i; return -1; }
+// (a value ALFRED withdrew on or before n is null there: that period does not count)
+function lastKnown(s,n){ for(let i=s.obs.length-1;i>=0;i--) if(s.v[i][0]<=n&&asof(s.v[i],n)!=null) return i; return -1; }
 function val(row,s,i,n){ const a=asof(s.v[i],n); if(a==null) return null;
   const mo=row.tf==='diff'?1:row.tf==='qann'?3:row.tf==='yoy'?12:0; if(!mo) return a*row.scale;
   // the earlier period is found by its date, never by counting rows: a period that was never published (October 2025 consumer prices) leaves no row,
@@ -89,7 +106,10 @@ function val(row,s,i,n){ const a=asof(s.v[i],n); if(a==null) return null;
   const k=s.ix.get(t); if(k==null) return null; const b=asof(s.v[k],n); if(b==null||b===0) return null;
   return row.tf==='diff'?(a-b)*row.scale:row.tf==='qann'?(Math.pow(a/b,4)-1)*100:(a/b-1)*100; }
 function pick(row,n){ for(const id of row.ids){ const s=D[id]; if(!s) continue; const i=lastKnown(s,n); if(i>=0) return [s,i]; } return [null,-1]; }
-const fmt=(row,x)=>x==null?'<span class="na">&mdash;</span>':(x<0?'\u2212':'')+Math.abs(x).toLocaleString('en-US',{minimumFractionDigits:row.dec,maximumFractionDigits:row.dec});
+// a number as the page prints it: the decimal rounded half away from zero, never "−0.0"; a revision is the difference of the two printed numbers
+const NF={}, nf=dec=>NF[dec]||(NF[dec]=new Intl.NumberFormat('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec,useGrouping:false}));
+const shown=(row,x)=>x==null?null:Number(nf(row.dec).format(x));
+const fmt=(row,x)=>{ if(x==null) return '<span class="na">&mdash;</span>'; const v=shown(row,x); return (v<0?'−':'')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:row.dec,maximumFractionDigits:row.dec}); };
 function plabel(row,s,i){ const d=iso(s.obs[i]); if(row.tf==='qann') return d.slice(0,4)+' Q'+(Math.floor((+d.slice(5,7)-1)/3)+1); if(row.ids[0]==='ICSA') return 'Week ended '+fd(d); return fm(d); }
 function status(n){
   if(!STATE) return; const d=iso(n); let open=null;
@@ -112,46 +132,116 @@ function table(n){
   const NOW=dn(TODAY)+1; let h='';
   META.rows.forEach((row,k)=>{ const [s,i]=pick(row,n); let then=null,now=null,per='<span class="na">&mdash;</span>';
     if(s){ then=val(row,s,i,n); now=val(row,s,i,NOW); per=plabel(row,s,i); }
-    let rev='<span class="na">&mdash;</span>'; if(then!=null&&now!=null){ const q=Math.pow(10,row.dec), r=(Math.round(now*q)-Math.round(then*q))/q, z=r===0; rev=z?'0':('<span class="'+(r>0?'up':'dn')+'">'+(r>0?'+':'−')+fmt(row,Math.abs(r))+'</span>'); }
+    let rev='<span class="na">&mdash;</span>'; if(then!=null&&now!=null){ const q=Math.pow(10,row.dec), r=Math.round((shown(row,now)-shown(row,then))*q)/q; rev=r===0?'0':('<span class="'+(r>0?'up':'dn')+'">'+(r>0?'+':'−')+fmt(row,Math.abs(r))+'</span>'); }
     h+='<tr data-k="'+k+'"'+(k===sel?' class="on"':'')+'><td>'+row.label+'<span class="u">'+row.unit+'</span></td><td>'+per+'</td><td class="num"><b>'+fmt(row,then)+'</b></td><td class="num">'+fmt(row,now)+'</td><td class="num">'+rev+'</td></tr>'; });
   $('#tmb').innerHTML=h;
 }
-function chart(n){
-  const row=META.rows[sel], [s,i]=pick(row,n), svg=$('#tmc'), W=svg.clientWidth||900, H=340, L=52, R=14, T=14, B=28;
+// the chart's time axis: years, or months for a window of three years or less
+function ticks(d0,d1){ const out=[], yrs=(d1-d0)/365.25, A=new Date(E0+d0*DAY), Bd=new Date(E0+d1*DAY);
+  if(yrs>3){ const st=[1,2,5,10,20,25].find(k=>yrs/k<=9)||25; for(let y=Math.ceil(A.getUTCFullYear()/st)*st;y<=Bd.getUTCFullYear();y+=st){ const d=dn(y+'-01-01'); if(d>=d0&&d<=d1) out.push([d,String(y)]); } return out; }
+  const mos=yrs*12, st=[1,2,3,6].find(k=>mos/k<=9)||12; let y=A.getUTCFullYear(), m=A.getUTCMonth();
+  for(let g=0;g<60;g++){ if(m%st===0){ const d=Math.round((Date.UTC(y,m,1)-E0)/DAY); if(d>d1) break; if(d>=d0) out.push([d,(m===0||!out.length)?MN[m]+' '+y:MN[m]]); } m++; if(m===12){m=0;y++;} }
+  return out; }
+function chart(){
+  const n=w1, row=META.rows[sel], [s,i]=pick(row,n), svg=$('#tmc'), W=svg.clientWidth||900, H=340, L=52, R=14, T=14, B=28;
   svg.setAttribute('viewBox','0 0 '+W+' '+H); $('#tml1').textContent=row.label+', as known '+fd(iso(n));
-  if(!s){ svg.innerHTML='<text x="'+W/2+'" y="'+H/2+'" text-anchor="middle" fill="#999" font-size="14">Not yet published on this day</text>'; return; }
-  const NOW=dn(TODAY)+1, per=row.ids[0]==='ICSA'?156:row.tf==='qann'?32:84, a=Math.max(0,i-per+1), P=[];
-  for(let j=a;j<=i;j++) P.push([s.obs[j],val(row,s,j,n),val(row,s,j,NOW)]);
-  const ys=P.flatMap(p=>[p[1],p[2]]).filter(v=>v!=null); if(!ys.length){ svg.innerHTML=''; return; }
+  const msg=t=>{ svg.innerHTML='<text x="'+W/2+'" y="'+H/2+'" text-anchor="middle" fill="#999" font-size="14">'+t+'</text>'; };
+  if(!s){ msg('Not yet published on this day'); return; }
+  const NOW=dn(TODAY)+1, X=d=>L+(W-L-R)*(d-w0)/Math.max(1,w1-w0);
+  // the periods inside the window that were published by its last day; the period before the window only carries each line to the left edge
+  let lo=0, hi=i+1; while(lo<hi){ const m=(lo+hi)>>1; if(s.obs[m]<w0) lo=m+1; else hi=m; }
+  let last=i; while(last>=0&&s.obs[last]>w1) last--;
+  const P=[]; for(let j=Math.max(0,lo-1);j<=last;j++) P.push([s.obs[j],val(row,s,j,n),val(row,s,j,NOW)]);
+  const IN=P.filter(p=>p[0]>=w0);
+  // where the line crosses the window's left edge, it is cut there (the value on the straight segment between the two periods)
+  const edge=k=>{ if(P.length<2||P[0][0]>=w0||IN.length===0) return null; const a=P[0], b=P[1]; if(a[k]==null||b[k]==null) return null; return a[k]+(b[k]-a[k])*(w0-a[0])/(b[0]-a[0]); };
+  const e1=edge(1), e2=edge(2);
+  const ys=IN.flatMap(p=>[p[1],p[2]]).concat([e1,e2]).filter(v=>v!=null); if(!ys.length){ msg('No data in this window'); return; }
   let y0=Math.min(...ys), y1=Math.max(...ys); if(y0===y1){y0-=1;y1+=1} const pad=(y1-y0)*.08; y0-=pad; y1+=pad;
-  const x0=P[0][0], x1=P[P.length-1][0]||x0+1, X=d=>L+(W-L-R)*(d-x0)/Math.max(1,x1-x0), Y=v=>T+(H-T-B)*(1-(v-y0)/(y1-y0));
-  const path=k=>{let d='',pen=false; for(const p of P){ if(p[k]==null){pen=false;continue} d+=(pen?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[k]).toFixed(1); pen=true } return d};
-  let g='<defs>'+HATCH.replace('PAT','tmch')+'</defs>'+bandRects(X,T,H-T-B,x0,x1,'tmch'); for(let t=0;t<=4;t++){ const v=y0+(y1-y0)*t/4, y=Y(v); g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="#eef1f4"/><text x="'+(L-7)+'" y="'+(y+4)+'" text-anchor="end" font-size="11.5" fill="#666">'+v.toLocaleString('en-US',{maximumFractionDigits:row.dec})+'</text>'; }
-  const yA=+iso(x0).slice(0,4), yB=+iso(x1).slice(0,4), st=Math.max(1,Math.ceil((yB-yA)/8));
-  for(let y=yA+1;y<=yB;y+=st){ const x=X(dn(y+'-01-01')); if(x>L&&x<W-R) g+='<line x1="'+x+'" x2="'+x+'" y1="'+T+'" y2="'+(H-B)+'" stroke="#f3f5f7"/><text x="'+x+'" y="'+(H-9)+'" text-anchor="middle" font-size="11.5" fill="#666">'+y+'</text>'; }
+  const Y=v=>T+(H-T-B)*(1-(v-y0)/(y1-y0));
+  const path=(k,e)=>{ let d='',pen=false; if(e!=null){ d='M'+X(w0).toFixed(1)+' '+Y(e).toFixed(1); pen=true; }
+    for(const p of IN){ if(p[k]==null){pen=false;continue} d+=(pen?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[k]).toFixed(1); pen=true } return d };
+  let g='<defs>'+HATCH.replace('PAT','tmch')+'</defs>'+bandRects(X,T,H-T-B,w0,w1,'tmch');
+  for(let t=0;t<=4;t++){ const v=y0+(y1-y0)*t/4, y=Y(v); g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="#eef1f4"/><text x="'+(L-7)+'" y="'+(y+4)+'" text-anchor="end" font-size="11.5" fill="#666">'+v.toLocaleString('en-US',{maximumFractionDigits:row.dec})+'</text>'; }
+  for(const [d,lab] of ticks(w0,w1)){ const x=X(d); if(x>L&&x<W-R) g+='<line x1="'+x+'" x2="'+x+'" y1="'+T+'" y2="'+(H-B)+'" stroke="#f3f5f7"/><text x="'+x+'" y="'+(H-9)+'" text-anchor="middle" font-size="11.5" fill="#666">'+lab+'</text>'; }
   if(y0<0&&y1>0) g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(0)+'" y2="'+Y(0)+'" stroke="#c9cfd6"/>';
-  svg.innerHTML=g+'<path d="'+path(2)+'" fill="none" stroke="#9aa3ad" stroke-width="2"/><path d="'+path(1)+'" fill="none" stroke="#990000" stroke-width="2.2"/>';
+  g+='<path d="'+path(2,e2)+'" fill="none" stroke="#9aa3ad" stroke-width="2"/><path d="'+path(1,e1)+'" fill="none" stroke="#990000" stroke-width="2.2"/>';
+  if(IN.length<=40) for(const p of IN){ if(p[2]!=null) g+='<circle cx="'+X(p[0]).toFixed(1)+'" cy="'+Y(p[2]).toFixed(1)+'" r="2.4" fill="#9aa3ad"/>'; if(p[1]!=null) g+='<circle cx="'+X(p[0]).toFixed(1)+'" cy="'+Y(p[1]).toFixed(1)+'" r="2.8" fill="#990000"/>'; }
+  svg.innerHTML=g;
 }
-function go(d,push){ if(!/^\d{4}-\d\d-\d\d$/.test(d)) return; if(d<MIN) d=MIN; if(d>TODAY) d=TODAY; cur=d; const n=dn(d);
-  $('#tmd').value=d; $('#tmr').value=n; { const c=$('#tmcur'); if(c&&SX){ const x=(SX.L+SX.w*(n-SX.n0)/(SX.n1-SX.n0)).toFixed(1); c.setAttribute('x1',x); c.setAttribute('x2',x); } } $('#tmh').textContent=fd(d); status(n); if(META){ table(n); chart(n); }
-  if(push!==false) history.replaceState(null,'','#'+d); }
+// draw everything for the window as it stands (the table and the two boxes are for its last day)
+let lastN=null;
+function draw(){ const n=w1, d=iso(n);
+  $('#tmd').value=d; $('#tmd0').value=iso(w0); win(); $('#tmh').textContent=fd(d);
+  if(n!==lastN){ status(n); if(META) table(n); lastN=n; }
+  if(META) chart(); }
+let raf=0; const soon=()=>{ if(!raf) raf=requestAnimationFrame(()=>{ raf=0; draw(); }); };
+const hash=()=>history.replaceState(null,'','#'+iso(w0)+'..'+iso(w1));
+const cl=(x,a,b)=>Math.max(a,Math.min(b,x));
+// the window's end moves (the day the data are seen from); its length stays as set, shortened only where 1948 cuts it
+function setEnd(n,push){ w1=cl(n,MIN0,dn(TODAY)); w0=Math.max(MIN0,w1-span); draw(); if(push!==false) hash(); }
+// a window shorter than a year is widened to the left: its end, the day the data are seen from, never moves by itself
+function setWin(a,b,push){ const T1=dn(TODAY); b=cl(b,MIN0,T1); a=cl(a,MIN0,b); if(b-a<MINSPAN) a=Math.max(MIN0,b-MINSPAN);
+  w0=a; w1=b; span=w1-w0; draw(); if(push!==false) hash(); }
+function readHash(){ const h=decodeURIComponent(location.hash.slice(1)); let m=h.match(/^(\d{4}-\d\d-\d\d)\.\.(\d{4}-\d\d-\d\d)$/);
+  if(m&&!isNaN(dn(m[1]))&&!isNaN(dn(m[2]))){ setWin(dn(m[1]),dn(m[2]),false); return true; }
+  m=h.match(/^(\d{4}-\d\d-\d\d)$/); if(m&&!isNaN(dn(m[1]))){ span=Math.max(MINSPAN,dn(m[1])-yrsBack(dn(m[1]),7)); setEnd(dn(m[1]),false); return true; } return false; }
 function boot(){
-  const r=$('#tmr'); r.min=dn(MIN); r.max=dn(TODAY); r.step=1; $('#tmd').max=TODAY;
-  { const sv=$('#tms'); let down=false; const at=e=>{ if(!SX) return; const r=sv.getBoundingClientRect(), x=(e.clientX-r.left)*SX.W/r.width; go(iso(Math.round(SX.n0+Math.max(0,Math.min(1,(x-SX.L)/SX.w))*(SX.n1-SX.n0)))); };
-    sv.addEventListener('pointerdown',e=>{ down=true; sv.setPointerCapture(e.pointerId); at(e); }); sv.addEventListener('pointermove',e=>{ if(down) at(e); }); sv.addEventListener('pointerup',()=>{ down=false; }); sv.addEventListener('pointercancel',()=>{ down=false; }); }
+  $('#tmd').max=TODAY; $('#tmd0').max=TODAY;
+  // the strip: drag either edge of the window to widen or narrow it, drag inside it to move it, drag elsewhere to draw a new one, click to move its end there
+  { const sv=$('#tms'); let mode=null, x0=0, a0=0, b0=0, at0=0, moved=false;
+    const xy=e=>{ const r=sv.getBoundingClientRect(); return (e.clientX-r.left)*SX.W/r.width; };
+    const dayAt=x=>Math.round(SX.n0+cl((x-SL)/SX.w,0,1)*(SX.n1-SX.n0));
+    const hit=(x,touch)=>{ const tol=touch?16:8, xa=SX.X(w0), xb=SX.X(w1), da=Math.abs(x-xa), db=Math.abs(x-xb);
+      if(Math.min(da,db)<=tol) return da<db?'L':db<da?'R':(x<xa?'L':'R'); return (x>xa&&x<xb)?'M':'N'; };
+    const cur={L:'ew-resize',R:'ew-resize',M:'grab',N:'crosshair'};
+    sv.addEventListener('pointerdown',e=>{ if(!SX||(e.pointerType==='mouse'&&e.button!==0)) return; const x=xy(e); mode=hit(x,e.pointerType!=='mouse'); x0=x; a0=w0; b0=w1; at0=dayAt(x); moved=false;
+      sv.setPointerCapture(e.pointerId); sv.style.cursor=mode==='M'?'grabbing':cur[mode]; e.preventDefault(); });
+    sv.addEventListener('pointermove',e=>{ if(!SX) return; const x=xy(e);
+      if(!mode){ sv.style.cursor=cur[hit(x,e.pointerType!=='mouse')]; return; }
+      if(Math.abs(x-x0)>3) moved=true; if(!moved) return; const d=dayAt(x), T1=dn(TODAY);
+      if(mode==='L'){ w0=cl(d,MIN0,Math.max(MIN0,w1-MINSPAN)); span=w1-w0; }
+      else if(mode==='R'){ w1=cl(d,Math.min(T1,w0+MINSPAN),T1); if(w1-w0<MINSPAN) w0=Math.max(MIN0,w1-MINSPAN); span=w1-w0; }
+      else if(mode==='M'){ const len=b0-a0; let b=cl(b0+(d-at0),MIN0+len,T1); w1=b; w0=b-len; }
+      else { let a=Math.min(at0,d), b=Math.max(at0,d); if(b-a<MINSPAN){ if(d>=at0) b=a+MINSPAN; else a=b-MINSPAN; } b=cl(b,MIN0,T1); a=cl(a,MIN0,b); if(b-a<MINSPAN) a=Math.max(MIN0,b-MINSPAN); w0=a; w1=b; span=w1-w0; }
+      soon(); });
+    const up=e=>{ if(!mode) return; if(mode==='N'&&!moved) setEnd(dayAt(x0)); else { soon(); hash(); } mode=null; sv.style.cursor=cur[hit(xy(e),e.pointerType!=='mouse')]||'crosshair'; };
+    sv.addEventListener('pointerup',up); sv.addEventListener('pointercancel',()=>{ mode=null; }); }
   strip();
-  r.addEventListener('input',()=>go(iso(+r.value))); $('#tmd').addEventListener('change',e=>go(e.target.value));
-  $('#tmp').onclick=()=>go(iso(dn(cur)-1)); $('#tmn').onclick=()=>go(iso(dn(cur)+1)); $('#tmtoday').onclick=()=>go(TODAY);
-  $('#tmj').addEventListener('change',e=>{ if(e.target.value) go(e.target.value); e.target.value=''; });
-  $('#tmb').addEventListener('click',e=>{ const tr=e.target.closest('tr'); if(tr){ sel=+tr.dataset.k; go(cur); } });
-  window.addEventListener('resize',()=>{ strip(); if(META) chart(dn(cur)); });
-  document.addEventListener('keydown',e=>{ if(e.target.tagName==='INPUT'&&e.target.type==='date') return; if(e.key==='ArrowLeft') go(iso(dn(cur)-1)); if(e.key==='ArrowRight') go(iso(dn(cur)+1)); });
-  const h=location.hash.slice(1); go(/^\d{4}-\d\d-\d\d$/.test(h)?h:TODAY,false);
-  fetch('/bhs_state.json').then(r=>r.json()).then(s=>{ STATE=s; const j=$('#tmj');
-    for(const e of (s.chronology||[]).slice().reverse()){ if(!e.open_pub) continue; const o=document.createElement('option'); o.value=e.open_pub; o.textContent='Recession called '+fd(e.open_pub); j.appendChild(o); }
-    go(cur,false); }).catch(()=>{});
-  fetch('bands.json').then(r=>r.json()).then(b=>{ BANDS=b; strip(); if(META) chart(dn(cur)); }).catch(()=>{});
-  fetch('tm.json').then(r=>r.json()).then(m=>Promise.all([...new Set(m.rows.flatMap(x=>x.ids))].map(id=>fetch('d/'+id+'.json').then(r=>r.json()).then(j=>{D[id]=j}))).then(()=>{ META=m; go(cur,false); }));
+  $('#tmd').addEventListener('change',e=>{ const v=e.target.value; if(!/^\d{4}-\d\d-\d\d$/.test(v)){ draw(); return; } const n=dn(v);
+    if(n-w0>=MINSPAN) setWin(w0,n); else setEnd(n); });
+  $('#tmd0').addEventListener('change',e=>{ const v=e.target.value; if(!/^\d{4}-\d\d-\d\d$/.test(v)){ draw(); return; } const a=dn(v);
+    if(w1-a>=MINSPAN) setWin(a,w1); else setWin(a,a+span); });
+  $('#tmw').addEventListener('change',e=>{ const v=e.target.value; e.target.value=''; if(!v) return; if(v==='all') setWin(MIN0,w1); else setWin(yrsBack(w1,+v),w1); });
+  $('#tmp').onclick=()=>setEnd(w1-1); $('#tmn').onclick=()=>setEnd(w1+1);
+  $('#tmtoday').onclick=()=>setEnd(dn(TODAY));
+  $('#tmj').addEventListener('change',e=>{ if(e.target.value) setEnd(dn(e.target.value)); e.target.value=''; });
+  $('#tmb').addEventListener('click',e=>{ const tr=e.target.closest('tr'); if(tr){ sel=+tr.dataset.k; if(META){ table(w1); chart(); } } });
+  window.addEventListener('resize',()=>{ strip(); if(META) chart(); });
+  window.addEventListener('hashchange',()=>{ if(readHash()) {} });
+  document.addEventListener('keydown',e=>{ const t=e.target.tagName; if(t==='INPUT'||t==='SELECT'||t==='TEXTAREA') return; if(e.key==='ArrowLeft') $('#tmp').onclick(); if(e.key==='ArrowRight') $('#tmn').onclick(); });
+  if(!readHash()) draw();
+  load(true);
+  // LIVE (22 Nov 2026): an open page takes each new vintage, rule state and chronology by itself, and rolls into New York's new day
+  setInterval(()=>{ if(!document.hidden) load(false); }, POLL);
+  document.addEventListener('visibilitychange',()=>{ if(!document.hidden) load(false); });
+}
+let busy=false, stKey=null, bdKey=null;
+async function load(first){
+  if(busy) return; busy=true;
+  try{
+    const t=nyToday(); if(t!==TODAY){ const atEnd=w1===dn(TODAY); TODAY=t; $('#tmd').max=TODAY; $('#tmd0').max=TODAY; strip(); if(atEnd) setEnd(dn(TODAY)); else draw(); }
+    const nc={cache:first?'default':'no-cache'};
+    const jobs=[
+      fetch('/bhs_state.json',nc).then(r=>r.ok?r.text():null).then(x=>{ if(x&&x!==stKey){ stKey=x; STATE=JSON.parse(x); lastN=null;
+        const j=$('#tmj'); j.length=1; for(const e of (STATE.chronology||[]).slice().reverse()){ if(!e.open_pub) continue; const o=document.createElement('option'); o.value=e.open_pub; o.textContent='Recession called '+fd(e.open_pub); j.appendChild(o); } return true; } }).catch(()=>{}),
+      fetch('bands.json',nc).then(r=>r.ok?r.text():null).then(x=>{ if(x&&x!==bdKey){ bdKey=x; BANDS=JSON.parse(x); strip(); return true; } }).catch(()=>{}),
+      fetch('tm.json',nc).then(r=>r.ok?r.json():null).then(m=>{ if(!m) return; const ids=[...new Set(m.rows.flatMap(x=>x.ids))];
+        const want=ids.filter(id=>!D[id]||!m.ver||!VER||m.ver[id]!==VER[id]); if(!want.length&&META&&JSON.stringify(m.rows)===JSON.stringify(META.rows)) return;
+        return Promise.all(want.map(id=>fetch('d/'+id+'.json',nc).then(r=>{ if(!r.ok) throw new Error(id); return r.json(); }).then(j=>({id:id,j:j}))))
+          .then(L=>{ for(const x of L) D[x.id]=x.j; META=m; VER=m.ver||null; if(sel>=META.rows.length) sel=0; lastN=null; return true; }); }).catch(()=>{})];
+    const got=await Promise.all(jobs); if(got.some(Boolean)) draw();
+  } finally { busy=false; }
 }
 boot();
 })();

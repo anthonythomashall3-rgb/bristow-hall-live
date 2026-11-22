@@ -2,8 +2,13 @@ name: time machine (the vintages behind /time-machine/)
 
 # 16 NOVEMBER 2026 (collection 1137; Anthony: "lets build the time machine"). /time-machine/ shows every series as it was known on a
 # chosen day. Its data are the published vintages kept by ALFRED; s2/time_machine/tm_build.py pulls them (add-only guard) into
-# site/public/time-machine/. This runs after every live update (a release slot is when a new vintage appears) and once a night as a
-# catch-up; it commits only when a file changed, then starts the site deploy (update.yml, mode site). No Mac, no AI.
+# site/public/time-machine/.
+# 22 NOVEMBER 2026 (collection 1162; Anthony: "automatically live updating with the most current vintage forever and always and as fast as it
+# possibly can be"). Every update run now brings the vintages itself, in the same deploy (run_cloud.sh: the publisher's release-day vintage,
+# then every vintage from ALFRED), so the files have one writer and the second deploy is gone. This workflow is the backstop: after every
+# update run, and once a night, it asks ALFRED for anything in force since the files' last pull from it (one small request a series) and, if
+# ALFRED has more (FRED posted after the run's pull), starts a site run (update.yml, mode site), which pulls and publishes it. It writes
+# nothing. No Mac, no AI.
 on:
   workflow_run:
     workflows: ['bristow-hall update']
@@ -18,13 +23,13 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write
+  contents: read
   actions: write
 
 jobs:
   time-machine:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 10
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
@@ -32,16 +37,38 @@ jobs:
         with: { ref: main }
       - uses: actions/setup-python@v6
         with: { python-version: '3.14' }
-      - name: pull the vintages
+      - name: does ALFRED hold a value the published files lack
+        id: check
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-        run: python3 data/105_bristow_hall_system_2026-09-08/workspace/s2/time_machine/tm_build.py
-      - name: commit what changed and deploy
+        run: python3 data/105_bristow_hall_system_2026-09-08/workspace/s2/time_machine/tm_build.py --check
+      # never a loop: no start while an update run is queued or under way (it pulls the vintages itself), and at most three starts by this
+      # workflow in an hour (a pull that keeps failing waits for the next release run and the night's check)
+      - name: whether to start a site run
+        id: guard
+        if: steps.check.outputs.newer == 'true'
         run: |
-          git config user.name "bristow-hall time machine"; git config user.email "noreply@users.noreply.github.com"
-          git add -A data/105_bristow_hall_system_2026-09-08/site/public/time-machine
-          if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
-          git commit -q -m "Time machine: vintages refreshed ($(git diff --cached --name-only | sed -E 's#.*/##' | tr '\n' ' '))"
-          for i in 1 2 3 4; do git pull -q --rebase origin main && git push -q origin HEAD:main && break || sleep 20; done
-          git fetch -q origin main; [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ] || { echo "not pushed"; exit 1; }
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os, sys, datetime as dt, urllib.request
+          H = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json', 'User-Agent': 'bhr-time-machine'}
+          R = os.environ['GITHUB_REPOSITORY']
+          get = lambda u: json.load(urllib.request.urlopen(urllib.request.Request('https://api.github.com/repos/%s/%s' % (R, u), headers=H), timeout=30))
+          go = True
+          try:
+              busy = [r for r in get('actions/workflows/update.yml/runs?branch=main&per_page=20')['workflow_runs'] if r['status'] != 'completed']
+              if busy: go = False; print('an update run is %s: it pulls the vintages itself' % busy[0]['status'], file=sys.stderr)
+              since = dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=1); n = 0
+              for r in get('actions/workflows/time-machine.yml/runs?per_page=30')['workflow_runs']:
+                  if str(r['id']) == os.environ.get('GITHUB_RUN_ID') or dt.datetime.fromisoformat(r['created_at'].replace('Z', '+00:00')) < since: continue
+                  for j in get('actions/runs/%d/jobs' % r['id'])['jobs']:
+                      n += sum(1 for s in j.get('steps', []) if s['name'] == 'start a site run' and s.get('conclusion') == 'success')
+              if go and n >= 3: go = False; print('three site runs started by this workflow in the last hour: the next release run and the night check take it', file=sys.stderr)
+          except Exception as e:
+              print('runs not read (%s): the site run is started' % type(e).__name__, file=sys.stderr)
+          print('go=%s' % ('true' if go else 'false'))
+          PY
+      - name: start a site run
+        if: steps.check.outputs.newer == 'true' && steps.guard.outputs.go == 'true'
+        run: |
           gh workflow run update.yml -R "$GITHUB_REPOSITORY" --ref main -f mode=site -f origin=hand
+          echo "ALFRED has a newer vintage: a site run is started; it pulls and publishes it"
