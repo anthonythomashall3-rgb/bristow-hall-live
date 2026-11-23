@@ -341,8 +341,10 @@ def step_counties(CSH, procs, L_override=None):
     log(f'county C0: {len(args)} map counties, months {K[0]}..{K[-1]} (LAUS through {lastL}, QCEW through {lastQ}); {procs} processes')
     from concurrent.futures import ProcessPoolExecutor
     with ProcessPoolExecutor(procs) as ex: RES = list(ex.map(c0_county_v3 if V3 else c0_county, args, chunksize=16))
-    # Amendment 5 rule (4): the county timeline starts at the first month in which every county can be coloured (display: earlier months are not shown)
-    k0 = next((k for k in range(T) if all(r['BD'][k] != 'grey' for r in RES)), 0); trimmed = K[:k0]
+    # Amendment 5 rule (4) started the county timeline at the first month in which every county can be coloured (January 1993).
+    # 1165 (Anthony, 23 Nov 2026: "do what you recommend", RECORD-1164 item 4): it starts at the county layer's own first month (CSTART,
+    # January 1990), so the 1990-91 recession is on the county map; a county-month that cannot be coloured is grey, as everywhere on the map.
+    k0 = 0; trimmed = K[:k0]
     if k0:
         for r in RES:
             for f_ in ('S', 'GR', 'DV', 'DS', 'CV', 'BD', 'PK', 'TR', 'SG', 'DIM'): r[f_] = r[f_][k0:]
