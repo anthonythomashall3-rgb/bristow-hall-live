@@ -1,35 +1,11 @@
 {
- "built_at": "2026-11-23 09:10",
+ "built_at": "2026-11-23 10:10",
  "fallback": "weekdays 08:35, 09:45, 10:15, 16:20 and 20:10 (New York time), used only if this list cannot be read",
- "generated_utc": "2026-11-23T14:11:40Z",
+ "generated_utc": "2026-11-23T15:11:56Z",
  "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes after each release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close at 4:20 PM and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
  "refresh_incomplete": null,
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
  "slots": [
-  {
-   "ny": "2026-11-20 09:40",
-   "utc": "2026-11-20T14:40:00Z",
-   "why": [
-    "the day's full refresh before state payrolls by industry, as first pub (10:00 AM ET)",
-    "the day's full refresh before state unemployment rates, 50 states and  (10:00 AM ET)",
-    "the day's full refresh before state payrolls and unemployment rates, n (10:00 AM ET)",
-    "the day's full refresh before state payroll employment, not seasonally (10:00 AM ET)"
-   ]
-  },
-  {
-   "live_tools": true,
-   "ny": "2026-11-20 10:01",
-   "utc": "2026-11-20T15:01:00Z",
-   "wait": [
-    "bls_state"
-   ],
-   "why": [
-    "state payrolls by industry, as first pub (10:00 AM ET; read from the publisher)",
-    "state unemployment rates, 50 states and  (10:00 AM ET; read from the publisher)",
-    "state payrolls and unemployment rates, n (10:00 AM ET; read from the publisher)",
-    "state payroll employment, not seasonally (10:00 AM ET; read from the publisher)"
-   ]
-  },
   {
    "ny": "2026-11-20 13:11",
    "utc": "2026-11-20T18:11:00Z",
@@ -70,14 +46,6 @@
    "why": [
     "state initial claims, weekly, 1945 on (8:30 AM ET)",
     "state weekly claims, eta 539 (8:30 AM ET)"
-   ]
-  },
-  {
-   "ny": "2026-11-23 10:08",
-   "utc": "2026-11-23T15:08:00Z",
-   "why": [
-    "look again: state initial claims, weekly, 1945 on (due 08:30, not yet posted)",
-    "look again: state weekly claims, eta 539 (due 08:30, not yet posted)"
    ]
   },
   {
