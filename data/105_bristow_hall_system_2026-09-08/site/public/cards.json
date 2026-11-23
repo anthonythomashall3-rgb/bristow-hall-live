@@ -1,5 +1,5 @@
 {
- "built": "2026-11-22T22:30:40Z",
+ "built": "2026-11-23T11:02:38Z",
  "size": [
   1200,
   760
@@ -43,21 +43,21 @@
   },
   "/forecaster/": {
    "png": "/forecaster/card.png",
-   "sha256": "c487bb58af26c3d1bf826a47bffc326ebe6c0091b9c328bed97ad73a7ff7f4bf",
+   "sha256": "99b9ec05631b243365582a675ee6e3b6225adc65ad45cc71b8f6f7c17d43810e",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1670,
+   "colours": 1673,
    "share_not_main": 0.2199
   },
   "/time-machine/": {
    "png": "/time-machine/card.png",
-   "sha256": "b7b0ccded8d870c25d8dbf71f6f80ac402b35574cf064d1439f4daea180c05ca",
+   "sha256": "c8479675aa6a13d9303ef7d97fa3cdff2cb6d7b25cb63c2842cb8952f4ffc32c",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 481,
-   "share_not_main": 0.164
+   "colours": 525,
+   "share_not_main": 0.1673
   },
   "/data/": {
    "png": "/data/card.png",
