@@ -341,15 +341,25 @@ def step_counties(CSH, procs, L_override=None):
     log(f'county C0: {len(args)} map counties, months {K[0]}..{K[-1]} (LAUS through {lastL}, QCEW through {lastQ}); {procs} processes')
     from concurrent.futures import ProcessPoolExecutor
     with ProcessPoolExecutor(procs) as ex: RES = list(ex.map(c0_county_v3 if V3 else c0_county, args, chunksize=16))
-    # Amendment 5 rule (4): the county timeline starts at the first month in which every county can be coloured (display: earlier months are not shown)
-    k0 = next((k for k in range(T) if all(r['BD'][k] != 'grey' for r in RES)), 0); trimmed = K[:k0]
-    if k0:
+    # Amendment 5 rule (4) started the county timeline at the first month in which every county can be coloured (January 1993).
+    # 1165 (Anthony, 23 Nov 2026: "do what you recommend", RECORD-1164 item 4): it starts at the first month in which every county that holds
+    # a figure can be coloured (February 1990), so the 1990-91 recession is on the county map. A county with no figure held at all in a month
+    # stays grey there: Yakutat before 1993 (neither it nor Skagway-Yakutat-Angoon, the area it was part of, is held).
+    def held_(g, m): return (g in Lp.index and pd.notna(Lp.loc[g, m])) or (g in Qv.index and pd.notna(Qv.loc[g, m]))
+    k0 = next((k for k in range(T) if all(r['BD'][k] != 'grey' or not held_(r['fips'], K[k]) for r in RES)), 0); trimmed = K[:k0]
+    # 1165: the timeline ends at the last month in which every county that held a figure the month before still holds one. The State release
+    # prints Los Angeles County and New York City about a month before BLS's county release; such a month (2 counties held, 3,141 grey) is
+    # shown once the county release is held. The gate's county_laus month (lastL) is unchanged.
+    k1 = T
+    while k1 - 1 > k0 and any(held_(r['fips'], K[k1 - 2]) and not held_(r['fips'], K[k1 - 1]) for r in RES): k1 -= 1
+    trimmed_end = K[k1:]
+    if k0 or k1 < T:
         for r in RES:
-            for f_ in ('S', 'GR', 'DV', 'DS', 'CV', 'BD', 'PK', 'TR', 'SG', 'DIM'): r[f_] = r[f_][k0:]
-        K = K[k0:]; T = len(K); Lp = Lp[K]; Lf = Lf[K]; Qv = Qv[K]
-    log(f'Amendment 5: county timeline starts {K[0]} (months before it not shown: {len(trimmed)}); filled cells {len(FILL)}; grey county-months left',
-        sum(1 for r in RES for b in r['BD'] if b == 'grey'))
-    info = dict(LASTC=ym(LASTC), lastL=lastL, lastQ=lastQ, months=K, fillnote=fillnote, fill_n=len(FILL), timeline_start=K[0], months_not_shown=trimmed, laus_zero=int((L.ur <= 0).sum()),
+            for f_ in ('S', 'GR', 'DV', 'DS', 'CV', 'BD', 'PK', 'TR', 'SG', 'DIM'): r[f_] = r[f_][k0:k1]
+        K = K[k0:k1]; T = len(K); Lp = Lp[K]; Lf = Lf[K]; Qv = Qv[K]
+    log(f'Amendment 5: county timeline starts {K[0]} (months before it not shown: {len(trimmed)}), ends {K[-1]} (months after it not shown: {trimmed_end}); '
+        f'filled cells {len(FILL)}; grey county-months left', sum(1 for r in RES for b in r['BD'] if b == 'grey'))
+    info = dict(LASTC=K[-1], months_not_shown_end=trimmed_end, lastL=lastL, lastQ=lastQ, months=K, fillnote=fillnote, fill_n=len(FILL), timeline_start=K[0], months_not_shown=trimmed, laus_zero=int((L.ur <= 0).sum()),
                 data_not_on_map=sorted((set(Lp.index) | set(Qv.index)) - set(mapf)), qcew_suppressed=int((~Q.valid).sum()))
     rows = []
     for r in RES:

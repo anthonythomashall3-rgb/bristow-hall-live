@@ -7,7 +7,7 @@ import os, sys, json, gzip, csv, threading, http.server, functools, re
 import pandas as pd
 from playwright.sync_api import sync_playwright
 C = sys.argv[1]; OUTJ = sys.argv[2]; WEB = os.path.join(C, 'web', 'stress-map'); QD = os.path.join(os.path.dirname(C), '1032_state_recession_indicator_all_states_dc_2026-11-09', 'data', 'qcew_industry_county')
-CASES = [('AL', '01001', '2009-06'), ('TX', '48201', '2020-04'), ('CA', '06037', '1993-06'), ('MI', '26163', '2009-06'), ('HI', '15009', '2026-03'), ('ND', '38105', '2016-03'), ('NY', '36061', '2001-12'), ('LA', '22071', '2005-10'), ('AK', '02020', '2024-01'), ('CT', None, '2025-06')]
+CASES = [('AL', '01001', '2009-06'), ('TX', '48201', '2020-04'), ('CA', '06037', '1993-06'), ('CA', '06037', '1991-01'), ('MI', '26163', '2009-06'), ('HI', '15009', '2026-03'), ('ND', '38105', '2016-03'), ('NY', '36061', '2001-12'), ('LA', '22071', '2005-10'), ('AK', '02020', '2024-01'), ('CT', None, '2025-06')]
 class Q(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *a, **k): pass
 h = functools.partial(Q, directory=WEB)
