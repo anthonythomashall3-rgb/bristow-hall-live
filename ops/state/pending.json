@@ -1,13 +1,5 @@
 {
- "came_in": [
-  {
-   "came_in": "2026-11-23 08:38",
-   "due_ny": "2026-11-23 08:30",
-   "early": true,
-   "ids": "cfnaima3",
-   "short": "the Chicago Fed index"
-  }
- ],
+ "came_in": [],
  "early": {
   "alna ... wyna": {
    "at": "2026-11-22 05:58",
@@ -36,7 +28,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-23 08:47",
+ "last_check_ny": "2026-11-23 09:06",
  "pending": [
   {
    "due_ny": "2026-11-19 11:30",
