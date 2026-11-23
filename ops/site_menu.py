@@ -17,7 +17,8 @@ for f in glob.glob(os.path.join(SITE, '**', '*.html'), recursive=True):
     t2 = re.sub(r'(<div class="links">).*?(</div>)', lambda m: m.group(1) + foot + m.group(2), t2, flags=re.S)
     # 1166 (23 Nov 2026): the site's name on every page (Anthony, 20 Nov 2026: the logo line and footer of every page read "Bristow-Hall
     # System"). The State page is built from an old copy of the national page and its footer still read BRISTOW-HALL BUSINESS CYCLE PROGRAM.
-    for a, b in (('BRISTOW-HALL BUSINESS CYCLE PROGRAM', 'BRISTOW-HALL SYSTEM'), ('Bristow-Hall Business Cycle Program', 'Bristow-Hall System')):
+    for a, b in (('BRISTOW-HALL BUSINESS CYCLE PROGRAM', 'BRISTOW-HALL SYSTEM'), ('Bristow-Hall Business Cycle Program', 'Bristow-Hall System'),
+                 ('<div class="l2">BUSINESS CYCLE PROGRAM</div>', '<div class="l2">SYSTEM</div>')):   # the logo's second line
         t2 = t2.replace(a, b)
     if t2 != t: open(f, 'w', encoding='utf-8').write(t2); n += 1
 print('site menu: written on %d pages' % n)
