@@ -137,6 +137,8 @@ def latest(path, key=''):
         if path.endswith('.txt.gz'): return _bls_flat(fs[0], 'CES0000000001' if 'ces_all' in path else 'LAUCN060370000000003' if 'laus_county' in path else 'SMS06000000000000001'), ref
         if 'BH-STATE-CHRONOLOGY-V4' in path:   # 15 Nov 2026 (1052 audit): the chronology is built through its damage line's month - the stress map reads that month (V4L['through'])
             return json.load(open(os.path.join(os.path.dirname(fs[0]), 'damage_line_v4_a198_1032.json')))['through'], ref
+        if 'damage_line_v4' in path and path.endswith('.json'):   # 1166 (23 Nov 2026): the line's own month (its 'through'), as the row's value says; the newest date
+            return json.load(open(fs[0]))['through'], ref               # in the file was a State unemployment month (Oct 2026), so the row read "Oct 31" beside "Sep 2026"
         if 'bhs_state' in os.path.basename(path) and path.endswith('.json'): return str(json.load(open(fs[0])).get('built_at', ''))[:16], ref
         if path.endswith('.json'): return _maxdate_text(open(fs[0], errors='replace').read()), ref
         if len(fs) == 1 and fs[0].endswith(('.csv', '.csv.gz')): return _csv_last(fs[0]), ref

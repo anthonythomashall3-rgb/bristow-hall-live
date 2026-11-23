@@ -281,10 +281,11 @@ var BC={D:'deep red',r:'red',o:'orange',y:'yellow',l:'light green',g:'green',x:'
 var shT=document.getElementById('shares'), STN=J.names, pinned=null;
 function describe(st,i){var c=J.states[st], k=mkA(abs_(J.start)+i), code=c.s[i], h='<b>'+STN[st]+'</b>, '+ymL(k)+'<br>';
  if(code==='G') return h+'No State payroll series yet (it begins '+ym(c.start)+').';
- var lay=i>=seam?'State chronology v4':'pre-1979 layer (payrolls and insured unemployment)';
+ var lay=i>=pvA?((code==='R'||code==='D')?'provisional: held from '+ymL(PV.v4_last)+' until the State indexes are published':'provisional, weekly State claims, labor only'):(i>=seam?'State chronology v4':'pre-1979 layer (payrolls and insured unemployment)');   // 1166
  if(code==='R'||code==='D'){var pr=null;c.per.forEach(function(q){if(q[5]===(i>=seam?'v4':'L0')&&idxN(q[0])<=i&&(q[1]==='open'?true:idxN(q[1])>=i))pr=q;});
    h+=(code==='R'?'In a <b>recession</b> period':'In a <b>disturbance</b> period')+(pr?' (start '+ym(pr[0])+', trough '+ym(pr[1])+(pr[4]?', provisional':'')+')':'')+'<br>Running damage grade <b>'+f2(c.g[i]/100)+'</b>'+(pr?(pr[1]==='open'?'':' (grade at the trough '+f2(pr[3])+')'):'')+'<br>';
- } else h+='No period open. Index '+(c.d[i]>=0?'above':'below')+' its trend by <b>'+f2(Math.abs(c.d[i]/100))+'</b> of its quiet-record SD<br>';
+ } else if(i>=pvA) h+='No period open. No State index is published for this month yet: colored from the rise in the State\'s insured unemployment rate (weekly claims) over its lowest of the previous 12 months<br>';   // 1166: was "above its trend by 0.00 SD"
+ else h+='No period open. Index '+(c.d[i]>=0?'above':'below')+' its trend by <b>'+f2(Math.abs(c.d[i]/100))+'</b> of its quiet-record SD<br>';
  return h+'Color: '+BC[c.b[i]]+' · '+lay;}
 function describeC(f,i){var nm=D.shapes[f][0], k=mkV(i), code=D.s[f][i], h='<b>'+esc(nm)+'</b>, '+STN[view.st]+', '+ymL(k)+'<br>';
  if(code==='G'){var sg=D.segs[f];return h+'Gray: no county value this month (missing in QCEW or LAUS; never filled), or fewer than 60 months held in both.'+(sg.length?'<br>Months held in both inputs: '+sg.map(function(x){return ym(x[0])+(x[0]===x[1]?'':'–'+ym(x[1]));}).join(', '):'<br>No month held in both inputs.');}
@@ -356,7 +357,7 @@ var FX={}, IX={}, CT=null, selG=document.getElementById('sel');
 function GR(g,b){return (typeof G1==='function')?G1(g,RD(b)):g/100;}
 // the files are scripts (cf/AL.js calls __SMD.cf('AL',{...})), so the page also works opened from disk
 var WAIT={};window.__SMD={cf:function(k,j){FX[k]=j;},ci:function(k,j){IX[k]=j;}};
-function load(dir,k,C){if(C[k])return Promise.resolve(C[k]);var id=dir+'/'+k;if(WAIT[id])return WAIT[id];
+function load(dir,k,C){if(C[k])return Promise.resolve(C[k]);if(dir==='ci'&&typeof BORROWED!=='undefined'&&BORROWED[k]){C[k]={none:1};return Promise.resolve(C[k]);}var id=dir+'/'+k;if(WAIT[id])return WAIT[id];
  WAIT[id]=new Promise(function(res){var s=document.createElement('script');s.onload=function(){res(C[k]||null);};s.onerror=function(){if(dir==='ci')C[k]={none:1};delete WAIT[id];res(C[k]||null);};s.src=id+'.js';document.head.appendChild(s);});return WAIT[id];}
 function getF(st){return load('cf',st,FX);}
 function getI(f){return load('ci',f,IX);}

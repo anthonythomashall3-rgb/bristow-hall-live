@@ -59,7 +59,7 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "release": "derived_state",
-     "through": "2026-10",
+     "through": "2026-09",
      "refreshed": "2026-11-22T22:25Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": {
@@ -4850,7 +4850,7 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "release": "derived_state",
-     "through": "2026-10",
+     "through": "2026-09",
      "refreshed": "2026-11-22T22:25Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": {

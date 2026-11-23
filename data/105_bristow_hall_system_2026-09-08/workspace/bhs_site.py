@@ -447,7 +447,9 @@ try:
         if r.get('reading') is None or r.get('line') is None: continue   # 11 Nov 2026: a leg read only inside an episode has no reading today; no 'None' on the page
         _q=_rat(r); _flag=(r.get('side')==_live and 0.8<=_q<1); _past=(r.get('side')==_live and _q>=1)   # audit-0924: 250% of a line is not 'within 20%'
         _nx=str(r.get('next') or '').split(' (')[0]
-        if _nx=='daily': _nx=(_dt3.date.today()+_dt3.timedelta(days=(3 if _dt3.date.today().weekday()==4 else 2 if _dt3.date.today().weekday()==5 else 1))).isoformat()
+        if _nx=='daily':   # 1166 (23 Nov 2026): the next NYSE close from the release calendar (today's if it is still to come; holidays skipped), not 'tomorrow'
+            try: _nx=_NP.upcoming(('cal','SP500'),_nown)[0].date().isoformat()
+            except Exception: _nx=(_dt3.date.today()+_dt3.timedelta(days=(3 if _dt3.date.today().weekday()==4 else 2 if _dt3.date.today().weekday()==5 else 1))).isoformat()
         _mrows+=('<tr class="%s"><td>%s</td><td>%s</td><td class="num">%s</td><td class="num">%s</td><td class="num"><b>%s</b>%s</td><td class="num">%s</td><td class="num">%s</td></tr>'
                  % ('near' if (_flag or _past) else '', r.get('side',''), _esc(str(r.get('object',''))), r.get('reading',''), r.get('line',''),
                     ('%.0f%%' % (100*_q)) if _q>-9 else '', ' <span class="fl">within 20%</span>' if _flag else (' <span class="fl">past its line</span>' if _past else ''), _fmtd(r.get('through')) if r.get('through') else '', _fmtd(_nx) if _nx else ''))

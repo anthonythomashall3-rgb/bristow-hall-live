@@ -7,28 +7,23 @@
   "data/105_bristow_hall_system_2026-09-08/workspace/cache/c1021/claims_nsa_first_prints.csv [icnsa]|S1|1|2020-03-21",
   "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icnsa]|S1|1|2020-03-21",
   "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa]|S1|1|2020-03-21",
-  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]|H4|29|2014-06-07",
-  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]|S1|50|2014-06-07",
-  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]|S2|24|2014-06-07",
+  "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [icsa_prev_rev]|S1|1|2020-03-28",
   "data/105_bristow_hall_system_2026-09-08/workspace/cache/national_first_prints_1985_live.csv [iusa]|S2|2|1977-01-15",
   "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [ic_rtsa]|S1|1|2020-03-21",
   "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_history.csv [iu_rtsa]|S2|3|1977-01-15",
   "data/105_bristow_hall_system_2026-09-08/workspace/s2/e22_rate_history.csv|S1|1|2020-04-01",
   "data/45_dol_first_prints_2026-09/national_first_prints.csv [icnsa]|S1|1|2020-03-21",
   "data/45_dol_first_prints_2026-09/national_first_prints.csv [icsa]|S1|1|2020-03-21",
-  "data/45_dol_first_prints_2026-09/national_first_prints.csv [icsa_prev_rev]|H4|29|2014-06-07",
-  "data/45_dol_first_prints_2026-09/national_first_prints.csv [icsa_prev_rev]|S1|50|2014-06-07",
-  "data/45_dol_first_prints_2026-09/national_first_prints.csv [icsa_prev_rev]|S2|24|2014-06-07",
+  "data/45_dol_first_prints_2026-09/national_first_prints.csv [icsa_prev_rev]|S1|1|2020-03-28",
   "data/45_dol_first_prints_2026-09/national_first_prints.csv [iusa]|S2|1|2020-07-18",
   "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/INDPRO_all_vintages.csv|V1|854|1919-01-01",
-  "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/LNS13023621_all_vintages.csv [first prints]|S1|1|2020-04-01",
   "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/LNS13023621_all_vintages.csv|H3|1|2025-10-01",
+  "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/LNS13023621_all_vintages.csv [first prints]|S1|1|2020-04-01",
   "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/UNEMPLOY_all_vintages.csv|H3|1|2025-10-01",
   "data/onset-detector-new-2026-08-23/27_realtime_vintages/alfred_all_vintages/UNRATE_all_vintages.csv|H3|1|2025-10-01"
  ],
  "open_defects": {
   "UNRATE, UNEMPLOY, LNS13023621 newest vintage, October 2025 empty": "the household survey was not collected that month; not an error",
-  "national_first_prints icsa_prev_rev: 29 cells of 2014-2019 of about 2 million": "the revised-previous-week column took the wrong number from the release; after 28 May 2009 nothing reads this column (the Time Machine uses ALFRED from that day); the cell of 31 Dec 1994 (321) was corrected on 19 Nov 2026",
   "e22_history.csv iu_nsa 1946 to 1951": "equal to the final printed figure in all 313 weeks after the corrections of 21 and 22 Nov 2026; the seasonally adjusted columns rebuilt from them with the chain's own function (pull request 118, merged 22 Nov 2026 on Anthony's word)"
  },
  "corrected_2026_11_19": {
@@ -55,5 +50,8 @@
   "e22_history.csv iu_nsa, weeks of 7 Oct 1950 (769720 -> 744000), 23 Dec 1950 (1011280 -> 1032000), 29 Dec 1951 (1058579 -> 1263000); iu_rtsa scaled by the same week's factor": "the column printed a year later: Survey of Current Business Weekly Supplements of October 1951 (744), 4 Jan 1952 (1,032; the next column, 1,124, is the chain's 30 Dec 1950) and January 1953 (1,263)",
   "e22_history.csv iu_nsa, weeks of 5 Jan 1946 (empty -> 1831000) and 26 Jan 1946 (empty -> 1892000)": "the year-earlier columns of the Weekly Supplements of 18 Jan 1947 (HathiTrust uc1.31175029854075, page scan 11: Jan 12 1,814, Jan 5 1,831) and 8 Feb 1947 (FRASER scb_weekly_19470208: Feb 2 1,862, Jan 26 1,892); 12 and 19 Jan 1946 read in the issue of 25 Jan 1947 and equal the chain (1,814, 1,825)",
   "e22_history.csv iu_rtsa (927 weeks, 1949-1966) and ic_rtsa (191 weeks, 2023-2026) rebuilt with s2/c1021_rtsa.py on the corrected iu_nsa and ic_nsa": "the function returns the held columns exactly on the chain as it stood before any correction (1,343 and 3,806 weeks, to 1e-9); two closes move: 1949-11-02 -> 1949-10-20, 1954-05-27 -> 1954-06-11 (RECORD-1161i)"
+ },
+ "corrected_2026_11_23": {
+  "national_first_prints icsa_prev_rev, 30 cells of 2014-2025 (2014-06-07 2603000 -> 313000 ... 2025-03-08 1897000 -> 222000) and 456 empty cells of 2009-2026": "the prior week's initial claims as revised in each release: ALFRED's ICSA vintage in force on the release day (the Time Machine's d/ICSA.json), which equals every one of the 427 held cells of 2009-2026; the 30 cells held the release table's insured-unemployment figure (the PDF reader took the wrong column). Rows before 28 May 2009 not touched. The new S1 of 2020-03-28 is the March 2020 surge itself (3.3 million against 0.28), as in the icsa column. Collection 1166, out/prev_rev_1166.csv"
  }
 }

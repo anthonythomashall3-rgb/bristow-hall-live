@@ -353,6 +353,18 @@ def trading_day(d):
     return d.weekday() < 5 and d not in nyse_holidays(d.year)
 
 
+def nyse_early_close(d):
+    """1166 (23 Nov 2026): the NYSE closes at 1:00 PM on the day after Thanksgiving, on Christmas Eve and on July 3 when either falls Monday to
+    Thursday (NYSE holiday and early-closings calendar: 27 Nov and 24 Dec 2026, 26 Nov 2027, 3 Jul and 24 Nov 2028)"""
+    if not trading_day(d): return False
+    if d.month == 11 and d.weekday() == 4 and d - dt.timedelta(days=1) == nth_weekday(d.year, 11, 3, 4): return True
+    return (d.month, d.day) in ((12, 24), (7, 3)) and d.weekday() <= 3
+
+
+def close_hm(d):
+    return '13:00' if nyse_early_close(d) else '16:00'
+
+
 def business_day(d):
     return d.weekday() < 5 and d not in federal_holidays(d.year)
 
@@ -376,7 +388,7 @@ def rule_times(rule, today):
     carries its clock: the NYSE close at 4:00 PM, the H.15 week at 4:15 PM, the FOMC statement at 2:00 PM, a day's Google
     searches the next morning, a rule-dated month on the morning it becomes public (RULE_NOTE says whose hour it is)."""
     if rule == 'nyse_close':
-        return [(at(d, '16:00'), False) for d in days(today - dt.timedelta(days=7), 120) if trading_day(d)], True, 'daily'
+        return [(at(d, close_hm(d)), False) for d in days(today - dt.timedelta(days=7), 120) if trading_day(d)], True, 'daily'   # 1166: 1:00 PM on an early-close day
     if rule == 'h15_week':             # the week's rates are complete on the first business day of the next week, 4:15 PM
         out = []
         for d in days(today - dt.timedelta(days=7), HORIZON_DAYS):
@@ -1036,6 +1048,8 @@ def schedule(cal, state, pending):
     oc = official_close_hm()
     while d <= hi.date():
         if trading_day(d):
+            if nyse_early_close(d):   # 1166: the market closes at 1:00 PM; the chart feed settles by 1:15 PM (the update's own cut moves with it)
+                raw.append((at(d, '13:20'), "the S&P 500 close (1:00 PM: an NYSE early close; the chart feed, settled by 1:15 PM)"))
             raw.append((at(d, CLOSE_HM), "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"))
             raw.append((at(d, oc), "the S&P 500 official close (FRED SP500, posted about %s)" % fmt_hm(fred_clock(OFFICIAL_CLOSE_RID, after=MARKET_CLOSE_HM) or oc)))
         d += dt.timedelta(days=1)
