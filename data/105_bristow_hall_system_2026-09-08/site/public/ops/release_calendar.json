@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-23 08:36",
+ "built_at": "2026-11-23 08:51",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-23T13:38:25Z",
+ "generated_utc": "2026-11-23T13:52:51Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -1231,7 +1231,7 @@
    "agrees_with_build": true,
    "build_next": "2026-12-21",
    "confirmed_through": "2026-12-21",
-   "fred_clock": "08:34",
+   "fred_clock": "08:35",
    "freq": "monthly",
    "ids": "cfnaima3",
    "link": "/detector/",

@@ -1,13 +1,17 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-11-23 08:38",
+   "due_ny": "2026-11-23 08:30",
+   "early": true,
+   "ids": "cfnaima3",
+   "short": "the Chicago Fed index"
+  }
+ ],
  "early": {
   "alna ... wyna": {
    "at": "2026-11-22 05:58",
    "through": "2026-10-31"
-  },
-  "cfnaima3": {
-   "at": "2026-11-23 08:38",
-   "through": "2026-10-01"
   }
  },
  "expired": [
@@ -32,7 +36,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-23 08:33",
+ "last_check_ny": "2026-11-23 08:47",
  "pending": [
   {
    "due_ny": "2026-11-19 11:30",
