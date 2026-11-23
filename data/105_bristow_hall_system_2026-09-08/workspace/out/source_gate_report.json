@@ -4,9 +4,9 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-23",
- "checked_at": "2026-11-23 13:12 UTC",
- "seconds": 3.9,
- "source_calls": 4,
+ "checked_at": "2026-11-23 13:38 UTC",
+ "seconds": 5.9,
+ "source_calls": 7,
  "source_errors": {},
  "counts": {
   "home": {
@@ -1059,6 +1059,42 @@
   },
   {
    "page": "data/detector",
+   "label": "chicago fed national activity index, three-month average",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "-0.05",
+   "period": "2026-10-01",
+   "series": "CFNAIMA3",
+   "transform": "level",
+   "expected": "2026-10-01",
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "chicago fed national activity index, three-month average",
+   "check": "value",
+   "status": "PASS",
+   "value": -0.05,
+   "period": "2026-10-01",
+   "series": "CFNAIMA3",
+   "transform": "level",
+   "expected": -0.05,
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "chicago fed national activity index, three-month average",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-12-21",
+   "period": null,
+   "series": "CFNAIMA3",
+   "transform": null,
+   "expected": "2026-12-21",
+   "detail": "FRED release 219 (Chicago Fed National Activity Index)"
+  },
+  {
+   "page": "data/detector",
    "label": "michaillat and saez's rule: the smaller of the unemployment indicator and the vacancy indicator",
    "check": "value",
    "status": "WARN",
@@ -1200,42 +1236,6 @@
    "transform": null,
    "expected": "2026-12-10",
    "detail": "FRED release 10 (Consumer Price Index)"
-  },
-  {
-   "page": "data/detector",
-   "label": "chicago fed national activity index, three-month average",
-   "check": "freshness",
-   "status": "PASS",
-   "value": "0.03",
-   "period": "2026-09-01",
-   "series": "CFNAIMA3",
-   "transform": "level",
-   "expected": "2026-09-01",
-   "detail": ""
-  },
-  {
-   "page": "data/detector",
-   "label": "chicago fed national activity index, three-month average",
-   "check": "value",
-   "status": "PASS",
-   "value": 0.03,
-   "period": "2026-09-01",
-   "series": "CFNAIMA3",
-   "transform": "level",
-   "expected": 0.03,
-   "detail": ""
-  },
-  {
-   "page": "data/detector",
-   "label": "chicago fed national activity index, three-month average",
-   "check": "next published",
-   "status": "PASS",
-   "value": "2026-11-23",
-   "period": null,
-   "series": "CFNAIMA3",
-   "transform": null,
-   "expected": "2026-12-21",
-   "detail": "FRED release 219 (Chicago Fed National Activity Index)"
   },
   {
    "page": "data/detector",

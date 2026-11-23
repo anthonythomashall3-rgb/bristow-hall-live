@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-23 07:45",
+ "built_at": "2026-11-23 08:36",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-23T13:12:26Z",
+ "generated_utc": "2026-11-23T13:38:25Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -1229,6 +1229,49 @@
   },
   {
    "agrees_with_build": true,
+   "build_next": "2026-12-21",
+   "confirmed_through": "2026-12-21",
+   "fred_clock": "08:34",
+   "freq": "monthly",
+   "ids": "cfnaima3",
+   "link": "/detector/",
+   "name": "chicago fed national activity index, three-month average",
+   "next_expected": false,
+   "next_ny": "2026-12-21 08:30",
+   "read_lag_min": 5,
+   "release_id": 219,
+   "short": "the Chicago Fed index",
+   "slots": true,
+   "source": "FRED release 219 (Chicago Fed National Activity Index)",
+   "through": "2026-10-01",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-23 08:30",
+     "utc": "2026-11-23T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-21 08:30",
+     "utc": "2026-12-21T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-25 08:30",
+     "utc": "2027-01-25T13:30:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-22 08:30",
+     "utc": "2027-02-22T13:30:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
    "build_next": "2026-12-04",
    "confirmed_through": "2026-12-04",
    "fred_clock": "09:30",
@@ -1375,49 +1418,6 @@
      "expected": true,
      "ny": "2027-02-09 08:30",
      "utc": "2027-02-09T13:30:00Z"
-    }
-   ],
-   "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-11-23",
-   "confirmed_through": "2026-12-21",
-   "fred_clock": "08:34",
-   "freq": "monthly",
-   "ids": "cfnaima3",
-   "link": "/detector/",
-   "name": "chicago fed national activity index, three-month average",
-   "next_expected": false,
-   "next_ny": "2026-11-23 08:30",
-   "read_lag_min": 5,
-   "release_id": 219,
-   "short": "the Chicago Fed index",
-   "slots": true,
-   "source": "FRED release 219 (Chicago Fed National Activity Index)",
-   "through": "2026-09-01",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-23 08:30",
-     "utc": "2026-11-23T13:30:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-21 08:30",
-     "utc": "2026-12-21T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-25 08:30",
-     "utc": "2027-01-25T13:30:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-02-22 08:30",
-     "utc": "2027-02-22T13:30:00Z"
     }
    ],
    "waiting_since_due": null
@@ -1634,11 +1634,6 @@
    "times": [
     {
      "expected": false,
-     "ny": "2026-11-13 08:30",
-     "utc": "2026-11-13T13:30:00Z"
-    },
-    {
-     "expected": false,
      "ny": "2026-11-16 08:30",
      "utc": "2026-11-16T13:30:00Z"
     },
@@ -1646,6 +1641,11 @@
      "expected": false,
      "ny": "2026-11-20 08:30",
      "utc": "2026-11-20T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-23 08:30",
+     "utc": "2026-11-23T13:30:00Z"
     },
     {
      "expected": false,
@@ -1673,7 +1673,7 @@
      "utc": "2026-12-25T13:30:00Z"
     }
    ],
-   "waiting_since_due": null
+   "waiting_since_due": "2026-11-23 08:30"
   },
   {
    "agrees_with_build": false,
@@ -1697,11 +1697,6 @@
    "times": [
     {
      "expected": false,
-     "ny": "2026-11-13 08:30",
-     "utc": "2026-11-13T13:30:00Z"
-    },
-    {
-     "expected": false,
      "ny": "2026-11-16 08:30",
      "utc": "2026-11-16T13:30:00Z"
     },
@@ -1709,6 +1704,11 @@
      "expected": false,
      "ny": "2026-11-20 08:30",
      "utc": "2026-11-20T13:30:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-11-23 08:30",
+     "utc": "2026-11-23T13:30:00Z"
     },
     {
      "expected": false,
@@ -1736,7 +1736,7 @@
      "utc": "2026-12-25T13:30:00Z"
     }
    ],
-   "waiting_since_due": null
+   "waiting_since_due": "2026-11-23 08:30"
   },
   {
    "agrees_with_build": true,

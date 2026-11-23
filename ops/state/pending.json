@@ -4,6 +4,10 @@
   "alna ... wyna": {
    "at": "2026-11-22 05:58",
    "through": "2026-10-31"
+  },
+  "cfnaima3": {
+   "at": "2026-11-23 08:38",
+   "through": "2026-10-01"
   }
  },
  "expired": [
@@ -28,7 +32,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-23 08:07",
+ "last_check_ny": "2026-11-23 08:33",
  "pending": [
   {
    "due_ny": "2026-11-19 11:30",
@@ -46,6 +50,24 @@
    "short": "state payroll employment, not seasonally",
    "since_ny": "2026-11-20 13:16",
    "through_before": "2026-09-01",
+   "value_before": ""
+  },
+  {
+   "due_ny": "2026-11-23 08:30",
+   "expected_day": false,
+   "ids": "aliclaims ... wyiclaims",
+   "short": "state initial claims, weekly, 1945 on",
+   "since_ny": "2026-11-23 08:38",
+   "through_before": "2026-11-14",
+   "value_before": ""
+  },
+  {
+   "due_ny": "2026-11-23 08:30",
+   "expected_day": false,
+   "ids": "aliclaims ... wyiclaims, alcclaims ... wycclaims",
+   "short": "state weekly claims, eta 539",
+   "since_ny": "2026-11-23 08:38",
+   "through_before": "2026-11-14",
    "value_before": ""
   }
  ],
