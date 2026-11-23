@@ -1,5 +1,5 @@
 {
- "built": "2026-11-23T11:02:38Z",
+ "built": "2026-11-23T12:45:52Z",
  "size": [
   1200,
   760
@@ -7,12 +7,12 @@
  "cards": {
   "/detector/": {
    "png": "/detector/card.png",
-   "sha256": "87d2d54f848f6f7d10d31fc16ad1e028e35d056635d51d337af94050189ca6b3",
+   "sha256": "06aaf72558c0e9ff8bfd516deffa5f0be22a7e906ec9c245a4292f0ef88ff7b4",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 903,
-   "share_not_main": 0.2694
+   "colours": 865,
+   "share_not_main": 0.2695
   },
   "/disturbance/": {
    "png": "/disturbance/card.png",
@@ -61,11 +61,11 @@
   },
   "/data/": {
    "png": "/data/card.png",
-   "sha256": "49b2bb18d8e3830af7c92c0e9bbe29da4b1b1f7c6868ad0ca0ebbafab37ca1f8",
+   "sha256": "e8a013a6c6da21571be721d43d212b6bb2d6a265874eb00dc87cd587c2d8899a",
    "on_home": false,
    "w": 1200,
    "h": 522,
-   "colours": 1697,
+   "colours": 1700,
    "share_not_main": 0.1226
   }
  }

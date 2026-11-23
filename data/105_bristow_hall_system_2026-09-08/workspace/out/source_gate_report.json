@@ -3,10 +3,10 @@
  "mode": "hold",
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
- "build_day": "2026-11-22",
- "checked_at": "2026-11-23 11:03 UTC",
- "seconds": 4.5,
- "source_calls": 4,
+ "build_day": "2026-11-23",
+ "checked_at": "2026-11-23 12:46 UTC",
+ "seconds": 35.9,
+ "source_calls": 62,
  "source_errors": {},
  "counts": {
   "home": {
@@ -391,7 +391,7 @@
    "check": "matches the detector",
    "status": "PASS",
    "value": 0.857,
-   "period": "2026-11-22",
+   "period": "2026-11-23",
    "series": "BHRREALTIME",
    "transform": "the detector reading",
    "expected": 0.857,
@@ -442,7 +442,7 @@
    "period": null,
    "series": "SP500",
    "transform": null,
-   "expected": "2026-11-23",
+   "expected": "2026-11-24",
    "detail": "the next NYSE trading day"
   },
   {
@@ -1234,7 +1234,7 @@
    "period": null,
    "series": "CFNAIMA3",
    "transform": null,
-   "expected": "2026-11-23",
+   "expected": "2026-12-21",
    "detail": "FRED release 219 (Chicago Fed National Activity Index)"
   },
   {
@@ -1583,7 +1583,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1631,7 +1631,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1823,7 +1823,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1967,7 +1967,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -1991,7 +1991,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2375,7 +2375,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -3330,7 +3330,7 @@
    "label": "current through: search",
    "check": "freshness",
    "status": "WARN",
-   "value": "2026-11-21",
+   "value": "2026-11-22",
    "period": null,
    "series": null,
    "transform": null,
@@ -3343,10 +3343,10 @@
    "check": "phantom",
    "status": "PASS",
    "value": 0.857,
-   "period": "2026-11-22",
+   "period": "2026-11-23",
    "series": "BHRREALTIME",
    "transform": null,
-   "expected": "2026-11-22",
+   "expected": "2026-11-23",
    "detail": ""
   },
   {
@@ -3355,7 +3355,7 @@
    "check": "cadence",
    "status": "PASS",
    "value": 0.857,
-   "period": "2026-11-22",
+   "period": "2026-11-23",
    "series": null,
    "transform": null,
    "expected": null,
@@ -3466,7 +3466,7 @@
    "period": null,
    "series": "SP500",
    "transform": null,
-   "expected": "2026-11-23",
+   "expected": "2026-11-24",
    "detail": "the next NYSE trading day"
   },
   {
