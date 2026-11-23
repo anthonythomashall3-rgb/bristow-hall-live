@@ -1,5 +1,5 @@
 # bhr-dispatch - starts the Bristow-Hall site's update at the release slots (collection 278, 21 September 2026).
-# Deployed from the Mac:  cd cloud/worker && wrangler deploy
+# Deployed from GitHub: .github/workflows/deploy-worker.yml, by hand (1022, 1160b; the Mac no longer deploys it)
 # Secrets (never in this file): GH_TOKEN (Anthony's fine-grained GitHub token, Actions: Read and write on
 # bristow-hall-live), NTFY_TOPIC (the site's phone alert topic).
 name = "bhr-dispatch"

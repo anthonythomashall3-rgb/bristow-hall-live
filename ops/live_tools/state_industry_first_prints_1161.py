@@ -66,7 +66,7 @@ def main():
         try:
             from zoneinfo import ZoneInfo
             pub = dt.datetime.now(ZoneInfo('America/New_York')).date().isoformat()
-        except Exception: pub = dt.datetime.utcnow().date().isoformat()
+        except Exception: pub = dt.datetime.now(dt.timezone.utc).date().isoformat()
     add = [dict(published=pub, ref_month=M, st=st, group=g, m1=repr(S[(st, g)][prev(M)]), m0=repr(S[(st, g)][M])) for st in FIPS for g, _ in GROUPS]
     tmp = CSV + '.tmp1161'
     with open(CSV, newline='') as h, open(tmp, 'w', newline='') as o:

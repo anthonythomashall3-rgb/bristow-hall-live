@@ -222,7 +222,7 @@ def _dows(f):
         else: out.add(int(part))
     return out
 def _next_run(which):
-    now = _dt3.datetime.utcnow(); best = None
+    now = _dt3.datetime.now(_dt3.timezone.utc).replace(tzinfo=None); best = None   # 1166: utcnow() is deprecated
     for mi, hh, dw in _CRON[which]:
         ds = _dows(dw)
         for k in range(0, 9):

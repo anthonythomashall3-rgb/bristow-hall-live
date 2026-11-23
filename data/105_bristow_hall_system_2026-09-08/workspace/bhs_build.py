@@ -1358,11 +1358,11 @@ try:   # v3.76 (438): the run register - one line per build, so a forward-log bl
     import socket as _so438; _rp438=os.path.join(LIVE,'live','LIVE_LOG_runs.tsv'); _new438=not os.path.exists(_rp438)
     with open(_rp438,'a') as _f438:
         if _new438: _f438.write('run_date\tutc\thost\tversion\tworkspace\trows\n')
-        _f438.write('%s\t%s\t%s\t%s\t%s\t%d\n'%(today,datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),_so438.gethostname(),VERSION,os.path.realpath(os.getcwd()),len(R)))
+        _f438.write('%s\t%s\t%s\t%s\t%s\t%d\n'%(today,datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),_so438.gethostname(),VERSION,os.path.realpath(os.getcwd()),len(R)))
 except Exception as _e438: print('run register not written:',_e438)
 try:   # v3.76 (438): the search archive - the stitched daily series each search reading stood on (last 400 days) and the file's hash
     if 'GT_TERMS' in globals():
-        _ad438=os.path.join(LIVE,'live','search_archive'); os.makedirs(_ad438,exist_ok=True); _st438=datetime.datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')
+        _ad438=os.path.join(LIVE,'live','search_archive'); os.makedirs(_ad438,exist_ok=True); _st438=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
         for _tg438,(_day438,_g7438,_rel438) in GT_TERMS.items():
             _src438=os.path.join(_C108,'google_trends','live',_tg438+'_stitched_daily.csv') if '_C108' in globals() else None
             _h438=(_hl0.sha256(open(_src438,'rb').read()).hexdigest() if _src438 and os.path.exists(_src438) else 'n/a')

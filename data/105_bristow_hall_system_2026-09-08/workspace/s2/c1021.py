@@ -138,7 +138,7 @@ def weekly_yoy_log(weeks, vals, knowns, w=4, L=52, with_week=False):
     ok = ~pd.isna(w0) & ~pd.isna(k0) & np.isfinite(v0) & (v0 > 0); w0, v0, k0 = w0[ok], v0[ok], k0[ok]
     if len(w0) == 0: return (np.full(N, np.nan), np.full(N, np.nan)) if with_week else np.full(N, np.nan)
     o = np.sort(w0); g = np.rint((w0 - o[0]) / np.timedelta64(7, 'D')).astype(int); n = int(g.max()) + 1
-    lv = np.full(n, np.nan); k = np.full(n, np.datetime64('NaT'), dtype='datetime64[ns]')
+    lv = np.full(n, np.nan); k = np.full(n, np.datetime64('NaT', 'ns'), dtype='datetime64[ns]')   # 1166: the unit given (NumPy deprecates the generic unit)
     for j in np.lexsort((k0, g)):
         if np.isnan(lv[g[j]]): lv[g[j]] = v0[j]; k[g[j]] = k0[j]
     has = ~np.isnat(k) & np.isfinite(lv); pairs = []; wpairs = []
@@ -324,7 +324,7 @@ def main():
     today = dict(day=str(TODAY.date()), reading=round(float(reading[-1]), 4), route=dict(on=bool(route[-1]), share=round(float(rs[-1]), 3), pillars={k: bool(P[k][-1]) for k in ROUTE_KEYS}),
                  count_door=dict(on=bool(door[-1]), share=round(float(ds[-1]), 3), conditions={k: bool(P[k][-1]) for k in DOOR_KEYS}), fs_door=dict(on=bool(fs_days and fs_days[-1] == N - 1), ratio=round(float(fsr[-1]), 3)),
                  jl_door=dict(on=bool(jl_days and jl_days[-1] == N - 1), ratio=round(float(jlr[-1]), 3), armed_witness=bool(P['INV12'][-1])))
-    state = dict(tool='C1021', built=str(dt.datetime.utcnow())[:19] + 'Z', grid=dict(day0=str(D0.date()), days=N), record_cut=str(RECORD_CUT.date()), today=today, values=VAL, sources=SRC,
+    state = dict(tool='C1021', built=str(dt.datetime.now(dt.timezone.utc).replace(tzinfo=None))[:19] + 'Z', grid=dict(day0=str(D0.date()), days=N), record_cut=str(RECORD_CUT.date()), today=today, values=VAL, sources=SRC,
                  calls=[dict(day=str(d.date()), door=k, basis='record' if d < RECORD_CUT else 'live') for d, k in calls], live_calls=[dict(day=str(d.date()), door=k) for d, k in live],
                  pillar_last_on={k: (str(day(int(np.flatnonzero(P[k])[-1])).date()) if P[k].any() else None) for k in ROUTE_KEYS + ('CNT', 'CHI')}, log=LOG)
     json.dump(state, open(os.path.join(OUT, 'c1021_state.json'), 'w'), indent=1, default=str)
