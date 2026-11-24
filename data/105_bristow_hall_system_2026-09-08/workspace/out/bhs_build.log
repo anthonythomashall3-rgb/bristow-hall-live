@@ -1,0 +1,49 @@
+E66: weekly claims first prints from 1975-08-02: 1419 early weeks in front of 45's 1258 rows ({'news': 525, 'wayback': 304, 'press': 228, 'sa-table': 186, 'sa-table-rev1': 77, 'press-rev1': 20, 'sa-table-rev2': 19, 'ht': 15, 'sa-table-rev3': 12, 'prev-rev1': 7, 'press-derived': 6, 'sa-table-rev4': 4, 'sa-table-rev5': 3, 'current-fill': 2, 'press-rev2': 2, 'press-rev50': 1, 'sa-table-rev7': 1, 'sa-table-rev6': 1, 'press-rev18': 1, 'prev-rev6': 1, 'prev-rev3': 1, 'press-rev4': 1, 'press-rev3': 1, 'ht-table': 1})
+v3.73 vacancy bridge: every scheduled JOLTS month has printed; the bridge is idle
+closers memo: 69 hit, 0 recomputed, 0 passed, 0 unkeyed (fingerprint 8ae2bf00)
+v3.70: K dated by its release: 8 calls; first 1971-01-21 (was 1971-01-21)
+v3.71: C with the strong-flow confirmation (E29) on 16 lines; at (6,3,15) 37 closes (was 37), the last three ['2022-09-01', '2023-07-13', '2024-09-26']
+v3.55 carried legs: 34 excluded: ['HOUST1F', 'TOTBORR']
+v3.56 high-frequency legs: 12 carried unchanged: ['-']
+v3.57: no leg tier; the rule calls with its core alone
+v3.73 state breadth (E31b, re-arm 0.15): 5 fires, 4 with the vacancy condition: ['2001-07-20', '2008-12-09', '2020-06-09', '2024-03-22']
+opening scores (armed): 947 months, 945 reused (kept through 2026-09)
+opening scores (raw): 947 months, 945 reused (kept through 2026-09)
+concurrence branch: ran: 869 activity-picture days since 1947 (last 1990-02-25); 15 calls over the history at today's lines
+the starter and the ender ran beside the walk; their states are in (waited 0.0 s)
+C1021: 38 calls in the pool (0 live since 2024-07-01); chronology: [('peak', '2007-11-02', 'C'), ('trough', '2009-07-23', 'Z'), ('peak', '2020-04-03', 'C'), ('trough', '2020-06-05', 'Z'), ('peak', '2024-01-05', 'C'), ('trough', '2024-10-01', 'Z')]
+v3.73 payroll backstop closer: did not run (RuntimeError('retired in 1031: E22 is the ender'))
+pending leg proposals (passed the record bar, core not yet confirmed, inside 400 days): []
+C1021: the record: 26 events, the last [('2020-04-03', 'OPEN', 'C'), ('2020-06-05', 'CLOSE', 'Z'), ('2024-01-05', 'OPEN', 'C'), ('2024-10-01', 'CLOSE', 'Z')]
+C1021 reading: 28818 days (1948-01-01 -> 2026-11-24), 947 months; latest 2026-08 0.29 route, 2026-09 0.29 route, 2026-10 0.14 route, 2026-11 0.29 route
+daily readings: 19991 days, 0 reused (no kept readings matched: every day read)
+v3.73 damage dimensions: ran: 13 episodes; GDP vintage 2026-10-29, production vintage 2026-11-17, GDPNow 2026-Q4 3.21% (2026-11-18)
+v3.73 grade at the close, by episode (labour, output, production -> grade): [('1948-12-31', 5.15, 3.09, 5.93, 4.72), ('1953-10-13', 4.47, 3.75, 5.85, 4.69), ('1957-04-30', 4.96, 4.07, 6.41, 5.15), ('1960-06-13', 3.68, 2.34, 5.56, 3.86), ('1969-10-11', 4.44, 1.62, 5.35, 3.8), ('1973-08-01', 4.33, 4.01, 5.75, 4.7), ('1979-11-01', 3.6, 3.1, 4.51, 3.74), ('1981-06-01', 5.16, 4.12, 6.0, 5.09), ('1990-06-01', 2.69, 2.27, 3.57, 2.84), ('2001-04-06', 3.52, 0.84, 4.83, 3.07), ('2007-11-02', 5.97, 4.8, 7.08, 5.95), ('2020-04-03', 5.9, 5.28, 5.99, 5.72), ('2024-01-05', 2.36, 0.0, 3.08, 1.81)]
+damage at the close, by episode (score of 10; point-months; depth): [('1948-12-31', 5.15, 22.9, 4.5), ('1953-10-13', 4.47, 14.9, 3.4), ('1957-04-30', 4.96, 22.8, 3.7), ('1960-06-13', 3.68, 10.1, 2.1), ('1969-10-11', 4.44, 18.0, 2.7), ('1973-08-01', 4.33, 13.2, 3.3), ('1979-11-01', 3.6, 8.7, 2.2), ('1981-06-01', 5.16, 29.0, 3.6), ('1990-06-01', 2.69, 5.3, 1.2), ('2001-04-06', 3.52, 9.3, 1.9), ('2007-11-02', 5.97, 46.3, 5.1), ('2020-04-03', 5.9, 19.5, 11.3), ('2024-01-05', 2.36, 5.1, 0.8)] | weekly rows 639 nowcast rows 0
+near misses (>= 0.80 outside an episode): 36 spells; the last {'start': '2024-10-02', 'end': '2024-10-31', 'max': 0.886, 'branch': 'JL', 'days': 22}
+Bristow Rule (Paper 1) ends: [('1949-10', None, None), ('1954-05', None, None), ('1958-04', None, None), ('1961-02', '1961-04', '1961-05-31'), ('1970-11', '1971-01', '1971-03-05'), ('1975-03', '1975-03', '1975-09-05'), ('1980-07', '1980-07', '1980-09-05'), ('1982-11', '1982-09', '1982-11-05'), ('1991-03', '1991-07', '1991-09-06'), ('2001-11', '2001-12', '2002-02-01'), ('2009-06', '2009-06', '2009-08-07'), ('2020-04', '2020-06', '2020-08-07'), ('2024-08', '2024-08', '2024-10-04')]
+opening 1948-01 -> 2026-11 947 months; >=1 in 158
+frozen episodes [('1948-12-31', '1949-10-20'), ('1953-10-13', '1954-06-11'), ('1957-04-30', '1958-06-19'), ('1960-06-13', '1961-02-24'), ('1969-10-11', '1970-12-24'), ('1973-08-01', '1975-02-06'), ('1979-11-01', '1980-07-22'), ('1981-06-01', '1982-12-02'), ('1990-06-01', '1991-02-07'), ('2001-04-06', '2001-12-28'), ('2007-11-02', '2009-07-23'), ('2020-04-03', '2020-06-05'), ('2024-01-05', '2024-10-01')]
+latest twelve: 2025-12 0.67door, 2026-01 0.57route, 2026-02 0.29route, 2026-03 0.43route, 2026-04 0.43route, 2026-05 0.29route, 2026-06 0.14route, 2026-07 0.14route, 2026-08 0.29route, 2026-09 0.29route, 2026-10 0.14route, 2026-11 0.29route
+closing latest: 08-29 0.50, 09-05 0.50, 09-12 0.50, 09-19 0.67, 09-26 0.67, 10-01 1.00
+standing {'state': 'closed', 'since': '2024-10-01', 'dated': '2024-10', 'leg': 'Z'}
+episodes 13 site episodes 13
+series latest: 2026-06 0.14, 2026-07 0.14, 2026-08 0.29, 2026-09 0.29, 2026-10 0.14, 2026-11 0.29
+daily series: 19991 release days 1948-01-01 -> 2026-11-24 | latest: 2026-11-17 0.29, 2026-11-18 0.29, 2026-11-19 0.29, 2026-11-20 0.29, 2026-11-23 0.29, 2026-11-24 0.29
+daily >=1 days 3130 held 0.99: ['1970-12-28', '1970-12-29', '1970-12-30', '1970-12-31', '1971-01-04', '1971-01-05', '1971-01-06', '1971-01-07', '1975-02-07', '1975-02-10', '1975-02-11', '1975-02-12'] held 1.00: ['1979-11-02', '1979-11-05', '1979-11-06', '1979-11-07', '1990-06-02', '1990-06-04', '1990-06-05', '1990-06-06', '2007-11-03', '2007-11-05', '2007-11-06', '2007-11-07']
+open     route: insured unemployment (not seasonally adjusted, 4-week sum) abov   -13.000 / 0  through 2026-11-07
+open     route: job openings (JOLTS) growing slower than initial claims - openi    18.980 / 0  through 2026-09-30
+open     route: S&P 500 against its close 365 days earlier, percent (on when be     7.930 / 0  through 2026-11-23
+open     route: industrial production, the newest G.17 print, against its high     -0.430 / 0  through 2026-10-31
+open     route: Moody's Baa yield, monthly average, above its low of the prior      0.850 / 0  through 2026-10-31
+open     route: unemployment rate, the two-month average against its level thre     0.000 / 0.3  through 2026-10-31
+open     route: payrolls, the newest print, below their high of the prior 12 mo  -165.000 / 0  through 2026-10-31
+open     count door: the unemployed count's first print against the highest of   -763.000 / 0  through 2026-10-31
+open     count door: initial or insured claims, seasonally adjusted in real tim     0.875 / 1.0  through 2026-11-14
+open     fed-shock door: the effective federal funds rate, monthly average, ris     0.130 / 1.5  through 2026-10-31
+open     job-losers door: unemployed job losers, the first print against a year    -9.670 / 15.0  through 2026-09-30
+open     job-losers door's witness: the 10-year minus 1-year Treasury spread, m     0.670 / 0  through 2026-10-31
+close    E22 leg A: insured unemployment, 4-week mean of the seasonally adjuste  1719.750 / None  through 2026-11-07
+close    E22 legs A and S: the federal funds rate, monthly average, against its    -0.210 / 0  through 2026-10
+close    E22 leg S: the S&P 500 against its lowest close since the episode open       nan / 1.2  through 2026-11-23
+sahm rule, real time: [('1948-11', None), ('1953-07', None), ('1957-08', None), ('1960-04', '1960-01-05'), ('1969-12', '1969-11-07'), ('1973-11', '1974-04-05'), ('1980-01', '1980-05-02'), ('1981-07', '1981-12-04'), ('1990-07', '1990-12-07'), ('2001-03', '2001-07-06'), ('2007-12', '2008-05-02'), ('2020-02', '2020-05-08'), ('2024-02', '2024-08-02')] | other crossings since 1969: [{'pub': '1976-12-03', 'month': '1976-11'}]
