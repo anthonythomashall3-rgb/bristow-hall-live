@@ -1,6 +1,6 @@
 {
  "tool": "C1021",
- "built": "2026-11-24 14:07:03Z",
+ "built": "2026-11-24 14:22:04Z",
  "grid": {
   "day0": "2012-01-01",
   "days": 5442
@@ -343,7 +343,5 @@
   "CNT": "2026-01-08",
   "CHI": "2025-12-10"
  },
- "log": [
-  "FRED GS1 not reached; cache stands: <HTTPError 404: 'Not Found'>"
- ]
+ "log": []
 }

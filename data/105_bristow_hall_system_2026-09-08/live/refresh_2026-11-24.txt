@@ -55,17 +55,19 @@ WAINSUREDUR    2026-11-07 -> 2026-11-07  (2127 obs)
 WIINSUREDUR    2026-11-07 -> 2026-11-07  (2126 obs)
 WVINSUREDUR    2026-11-07 -> 2026-11-07  (2127 obs)
 WYINSUREDUR    2026-11-07 -> 2026-11-07  (2146 obs)
-first prints: collection 45 already carries every week ALFRED has (through 2026-11-14, released 2026-11-19)
+first prints: 1 release(s) appended to collection 45 from ALFRED initial releases: [('2026-11-19', '2026-11-14', '203000.0', '202000.0', '2026-11-07', '1.1')]
 DOL release of 2026-11-19: week ending 2026-11-14 already in collection 45
-search week (unemp): pull failed (The request failed: Google returned a response with code 429); history through 2026-11-22
-search week (layoffs): pull failed (The request failed: Google returned a response with code 429); history through 2026-11-22
-search week (laidoff): 1 day(s) appended, through 2026-11-23 (scale 0.127 on 249 overlap days)
-search week (laidoff): 90-day view not refreshed (The request failed: Google returned a response with code 429)
+search week (unemp): 1 day(s) appended, through 2026-11-23 (scale 0.078 on 249 overlap days)
+search week (unemp): Google's 90-day view through 2026-11-23 = 90
+search week (layoffs): 1 day(s) appended, through 2026-11-23 (scale 1.188 on 249 overlap days)
+search week (layoffs): Google's 90-day view through 2026-11-23 = 24
+search week (laidoff): nothing new (history through 2026-11-23)
+search week (laidoff): Google's 90-day view through 2026-11-23 = 50
 state 539: nothing new (panel and the Department both through 2026-11-07)
 state first prints: nothing new (insured unemployment through 2026-11-07; 10 press release(s) on file)
 home tiles: second source: 8 series compared with the BLS and the Department of Labor, 0 mismatch
 home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Nov 14, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-11-25, IURSA 2026-11-25, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
-bls_fetch: requests this process (production role, run 45409350204-1): bls_v2_key1 1; this run so far: bls_v2_key1 1
+bls_fetch: requests this process (test role, run 45412925002-1): bls_v2_test 1; this run so far: bls_v2_test 1
 WTB3MS         2026-11-20 -> 2026-11-20  (3803 obs)
 DCPN30         2026-11-19 -> 2026-11-19  (7032 obs)
 DCPF1M         2026-11-18 -> 2026-11-18  (6076 obs)
