@@ -78,7 +78,7 @@ def fred_monthly(series):
     """FRED's current monthly series (fredgraph csv, no key), cached in cache/c1021/<series>.csv; the cache stands if FRED is unreachable"""
     f = os.path.join(CACHE, series + '.csv')
     try:
-        txt = urllib.request.urlopen('https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + series, timeout=60).read().decode()
+        txt = urllib.request.urlopen('https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + series + '&bhs_t=%d' % __import__('time').time(), timeout=60).read().decode()   # 1167: a fresh read (FRED's fredgraph answers carry max-age up to 600 s; on 24 Nov a run 5 min after the G.17 revision posted read the old file)
         df = pd.read_csv(io.StringIO(txt)); df.columns = ['date', 'v']; df['v'] = pd.to_numeric(df.v, errors='coerce'); df = df.dropna()
         if len(df) > 100: df.to_csv(f, index=False)
     except Exception as e:

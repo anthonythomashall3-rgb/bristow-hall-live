@@ -389,7 +389,7 @@ def _fred(ids, y0, y1, latest=False):
     for i in ids:
         f = FRED_OF.get(i)
         if not f: continue
-        req = urllib.request.Request('https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + f, headers={'User-Agent': 'Python-urllib'})
+        req = urllib.request.Request('https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + f + '&bhs_t=%d' % __import__('time').time(), headers={'User-Agent': 'Python-urllib'})   # 1167: a fresh read (FRED's fredgraph answers carry max-age up to 600 s; on 24 Nov a run 5 min after the G.17 revision posted read the old file)
         with urllib.request.urlopen(req, timeout=60) as r: t = r.read().decode()
         rows = []
         for ln in t.splitlines()[1:]:

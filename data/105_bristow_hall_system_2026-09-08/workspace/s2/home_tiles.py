@@ -86,7 +86,7 @@ _BKEY=None
 for _l in open(ENV):
     if _l.startswith('BLS_API_KEY='): _BKEY=_l.strip().split('=',1)[1].strip().strip('"').strip("'") or None
 def _fredgraph(sid):
-    df=pd.read_csv(_io.StringIO(_curl('https://fred.stlouisfed.org/graph/fredgraph.csv?id='+sid,m=30)))
+    df=pd.read_csv(_io.StringIO(_curl('https://fred.stlouisfed.org/graph/fredgraph.csv?id='+sid+'&bhs_t=%d'%__import__('time').time(),m=30)))   # 1167: a fresh read (FRED's fredgraph answers carry max-age up to 600 s; on 24 Nov a run 5 min after the G.17 revision posted read the old file)
     assert df.shape[1]==2 and df.columns[1]==sid, 'fredgraph: unexpected columns'
     s=pd.Series(pd.to_numeric(df.iloc[:,1],errors='coerce').values,index=pd.to_datetime(df.iloc[:,0])).dropna()
     s=s[s.index>='1990-01-01'].sort_index()
