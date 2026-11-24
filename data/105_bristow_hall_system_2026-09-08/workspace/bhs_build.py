@@ -11,6 +11,9 @@ named in cache/bhs_version.json produced; (4) every object's latest reading agai
 called and at least 1.00 inside, unsmoothed and uncapped.
 Run from the collection 103/104 workspace: python3 bhs_build.py"""
 import sys, io, contextlib, os, json, datetime, pickle
+try:   # 1167: one pandas 3.0.5 slowdown removed, the same results (s2/pandas_speed.py; loaded from its file, so the module search path is untouched)
+    import importlib.util as _psu; _pss=_psu.spec_from_file_location('pandas_speed', os.path.join(os.path.dirname(os.path.abspath(__file__)), 's2', 'pandas_speed.py')); _psp=_psu.module_from_spec(_pss); _pss.loader.exec_module(_psp); print('pandas speed:', _psp.apply())
+except Exception as _psp_e: print('pandas speed: not applied (%s)' % _psp_e)
 import time as _tm0; _TB0=_tm0.time(); _TBF=open(os.path.join('out','bhs_build_timing.txt'),'w') if os.path.isdir('out') else None
 def _tick(lbl):
     try: _TBF.write('%7.1fs  %s\n'%(_tm0.time()-_TB0,lbl)); _TBF.flush()
