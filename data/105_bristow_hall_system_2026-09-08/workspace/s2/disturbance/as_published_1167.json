@@ -26,5 +26,6 @@
  "band_damage_p90": 0.74,
  "band_n": 56,
  "band_note": "90th percentile of |damage as first published at 6, 12, 18 and 24 months after the trough - damage now|, closed contractions 1962-2022",
- "ledger": {}
+ "ledger": {},
+ "replay_from": "1962-01"
 }
