@@ -78,6 +78,7 @@ def main():
         # the footer is NOT swapped: the first 'foot' block in this page is the chart's own (it holds the legend and the full-screen button)
     os.makedirs(os.path.dirname(PAGE), exist_ok=True)
     t = t.replace('Bristow-Hall Business Cycle Program', 'Bristow-Hall System')      # the site's name since 18 November 2026 (1141); the page is built outside this step
+    t = t.replace('BRISTOW-HALL BUSINESS CYCLE PROGRAM', 'BRISTOW-HALL SYSTEM').replace('<div class="l2">BUSINESS CYCLE PROGRAM</div>', '<div class="l2">SYSTEM</div>')   # 1166: the footer's and the logo's capitals were missed by the line above
     if 'table.calls{display:block' not in t: t = t.replace('</head>', '<style>@media(max-width:760px){table.calls{display:block;overflow-x:auto}}</style></head>', 1)   # a phone: the table scrolls, the page does not
     open(PAGE, 'w', encoding='utf-8').write(t)
     try:

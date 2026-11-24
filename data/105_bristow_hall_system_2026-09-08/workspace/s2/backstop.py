@@ -30,7 +30,7 @@ ENV = os.path.join(MNT, 'onset-detector-new-2026-08-23', 'live_data', 'config', 
 CACHE = os.path.join(HERE, 'cache', 'backstop'); os.makedirs(CACHE, exist_ok=True)
 OUT = os.path.join(HERE, 'out'); os.makedirs(OUT, exist_ok=True)
 SITE = os.path.join(COLL, 'site', 'public')
-NOW = dt.datetime.utcnow().replace(microsecond=0)
+NOW = dt.datetime.now(dt.timezone.utc).replace(tzinfo=None, microsecond=0)   # 1166: utcnow() is deprecated (same naive UTC value)
 LINES = {'SOS_NSA': 0.20, 'LMSI30': 30, 'CFNAI': -0.70}
 FIRES = {}          # each rule's full firing history by PUBLICATION day (collection 256: the opener's union is built from these)
 GATE_WEEKS = 13     # the opener's persistence gate: one quarter ON (256; the plain opener was refused)

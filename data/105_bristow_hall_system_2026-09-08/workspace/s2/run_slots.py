@@ -42,11 +42,16 @@ ET = ZoneInfo('America/New_York')
 # the release's own time (bhs_schedule.TIMES) -> the run slots after it, New York time
 AFTER = {'08:30': ['08:50', '09:30'], '09:15': ['09:30', '10:50'], '10:00': ['10:20', '10:50'], '10:30': ['10:50'],
          '16:15': ['17:05']}
-WEEKDAY = {'12:45': 'midday (the OFR financial stress index; the mortgage survey on Thursday)',
-           '17:05': "the day's close (the S&P 500 at 4:00, the H.15 at 4:15, the Treasury statement, the search week at 5:00)"}
-SATURDAY = {'10:05': 'the weekend refresh'}
+# 1166 (23 Nov 2026): this list stands only when ops/calendar_build.py (which writes the published run_slots.json after every run) fails. Its
+# weekday midday slot (the OFR index, the mortgage survey) and its Saturday slot served v3.76 sources C1021 does not read: runs for nothing
+# (Anthony, 22 Sep 2026: "UPDATES WHEN THERE IS ACTUALLY A REQUIREMENT FOR AN UPDATE NOT AT RANDOM TIMES"). C1021's daily inputs: the
+# S&P 500 close, read at 4:20 PM (ops/calendar_build.py CLOSE_HM), and its official close at FRED's evening post (about 8:10 PM).
+WEEKDAY = {'16:20': "the day's close (the S&P 500 at 4:00, the H.15 at 4:15)",
+           '20:20': 'the S&P 500 official close (FRED SP500, posted about 8:10 PM)'}
+SATURDAY = {}
+RETIRED = {'eiaw', 'search', 'h15'}   # 1166: the EIA weekly, the search week and the H.15 week fed v3.76 objects; C1021 reads none of them
 DAYS_BACK, DAYS_AHEAD = 3, 21
-FALLBACK = "weekdays 08:50, 09:30, 10:50, 12:45 and 17:05; Saturday 10:05 (New York time)"
+FALLBACK = "weekdays 08:35, 09:35, 10:20 and 16:35 (New York time; the Cloudflare Worker's own times)"   # 1166: the Worker's WEEKDAY_TIMES since C1021 (1022)
 
 
 def slots(S, today):
@@ -55,7 +60,7 @@ def slots(S, today):
         d = today + datetime.timedelta(days=i)
         for k, exp in S.events(d):
             t = S.TIMES.get(k)
-            if k == 'hourly' or t not in AFTER:
+            if k == 'hourly' or k in RETIRED or t not in AFTER:
                 continue
             name = {'claims': 'weekly claims (DOL, 8:30 ET)', 'h15': 'the H.15 week (Federal Reserve, 4:15 PM ET)'}.get(k, S.NAMES.get(k, k))
             if exp:

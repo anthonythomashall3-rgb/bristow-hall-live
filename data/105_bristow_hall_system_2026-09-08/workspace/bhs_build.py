@@ -1358,11 +1358,11 @@ try:   # v3.76 (438): the run register - one line per build, so a forward-log bl
     import socket as _so438; _rp438=os.path.join(LIVE,'live','LIVE_LOG_runs.tsv'); _new438=not os.path.exists(_rp438)
     with open(_rp438,'a') as _f438:
         if _new438: _f438.write('run_date\tutc\thost\tversion\tworkspace\trows\n')
-        _f438.write('%s\t%s\t%s\t%s\t%s\t%d\n'%(today,datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),_so438.gethostname(),VERSION,os.path.realpath(os.getcwd()),len(R)))
+        _f438.write('%s\t%s\t%s\t%s\t%s\t%d\n'%(today,datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),_so438.gethostname(),VERSION,os.path.realpath(os.getcwd()),len(R)))
 except Exception as _e438: print('run register not written:',_e438)
 try:   # v3.76 (438): the search archive - the stitched daily series each search reading stood on (last 400 days) and the file's hash
     if 'GT_TERMS' in globals():
-        _ad438=os.path.join(LIVE,'live','search_archive'); os.makedirs(_ad438,exist_ok=True); _st438=datetime.datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')
+        _ad438=os.path.join(LIVE,'live','search_archive'); os.makedirs(_ad438,exist_ok=True); _st438=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
         for _tg438,(_day438,_g7438,_rel438) in GT_TERMS.items():
             _src438=os.path.join(_C108,'google_trends','live',_tg438+'_stitched_daily.csv') if '_C108' in globals() else None
             _h438=(_hl0.sha256(open(_src438,'rb').read()).hexdigest() if _src438 and os.path.exists(_src438) else 'n/a')
@@ -1750,7 +1750,7 @@ state=dict(built=str(today),built_at=datetime.datetime.now(_ZI('America/New_York
            frozen_episodes=[dict(open=a.date().isoformat(),close=(None if b.year==2100 else b.date().isoformat())) for a,b in FROZEN],
            nber=[dict(peak=pk.strftime('%Y-%m'),trough=tr.strftime('%Y-%m')) for pk,tr in zip(PK,TR)],
            chronology=epis,episodes=EP,series=dict(frequency='Daily, on release days',dates=[t.strftime('%Y-%m-%d') for t in SERIES_D.index],values=[round(float(v),3) for v in SERIES_D['value']],damage=[(None if (x is None or (isinstance(x,float) and not np.isfinite(x))) else x) for x in SERIES_D['damage']],reading=[round(float(v),3) for v in SERIES_D['reading']],phase=list(SERIES_D['phase']),branch=list(SERIES_D['branch']),provisional=False),series_monthly=dict(dates=[t.strftime('%Y-%m') for t in SERIES.index],values=[round(float(v),3) for v in SERIES['value']],reading=[round(float(v),3) for v in SERIES['reading']],phase=list(SERIES['phase']),branch=list(SERIES['branch'])),readings=R,
-           through=dict(claims=lastv(ICfp)[1],insured_rate=lastv(spl)[1],unemployment_rate=lastv(g_asof)[1],vacancy=lastv(G)[1],sp500=lastv(_SPX)[1],spread=lastv(cS)[1],search=(lastv(GT_REL)[1] if 'GT_REL' in globals() else None),search_terms=({k:lastv(v[2])[1] for k,v in GT_TERMS.items()} if 'GT_TERMS' in globals() else None)))
+           through=dict(claims=lastv(ICfp)[1],insured_rate=lastv(spl)[1],unemployment_rate=lastv(g_asof)[1],vacancy=lastv(G)[1],sp500=lastv(_SPX)[1]))   # 1166 (23 Nov 2026): the v3.76 paper-bill spread and Google-search days are gone from 'through' - C1021 reads neither, and the page's "Data through" took the search day (Nov 22, a Sunday) for the data's last day
 # NaN IS NOT JSON. Python writes it happily and reads it back happily, so nothing on this Mac ever noticed, but
 # JSON.parse and every strict parser reject it: on 18 September the published state file carried 9,521 NaNs in
 # series.damage and the off-Mac watchdog could not read a single field of it. Anyone opening the file in a browser
