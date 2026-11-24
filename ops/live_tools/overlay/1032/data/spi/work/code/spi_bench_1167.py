@@ -64,8 +64,13 @@ for st in ST:
         w = s[(s.index >= pd.Period(a, 'Q')) & (s.index <= pd.Period(z, 'Q'))]; pk = w.idxmax(); return float(100 * (1 - w[w.index >= pk].min() / w.max()))
     DEP.append(dict(st=st, f0809_index=fall(q, '2007Q3', '2010Q4'), f0809_bea=fall(b, '2007Q3', '2010Q4'), f2020_index=fall(q, '2019Q4', '2021Q2'), f2020_bea=fall(b, '2019Q4', '2021Q2')))
 DP = pd.DataFrame(DEP)
-m1 = float(np.median(list(T1.values()))); m2 = float(np.median(list(T2.values())))
-out = dict(T1b=dict(median=round(m1, 3), bar=0.80, passed=bool(m1 >= 0.80), by_state=T1), T2b=dict(median=round(m2, 3), bar=0.40, passed=bool(m2 >= 0.40), by_state=T2),
+# 24 Nov 2026: a State with no quarterly BEA total (Delaware) has no correlation (NaN). The test is read over the States that can be scored, and
+# again with every unscored State counted as a failure (below every scored State), as the PREREG result states.
+def _med(T, worst=False):
+    v = [x for x in T.values() if x is not None and np.isfinite(x)]; k = len(T) - len(v)
+    return float(np.median(v + [-9.0] * k)) if worst else float(np.median(v))
+m1 = _med(T1); m2 = _med(T2); m1w = _med(T1, True); m2w = _med(T2, True)
+out = dict(T1b=dict(median=round(m1, 3), median_unscored_as_failure=round(m1w, 3), scored=int(sum(1 for x in T1.values() if x is not None and np.isfinite(x))), bar=0.80, passed=bool(m1 >= 0.80 and m1w >= 0.80), by_state=T1), T2b=dict(median=round(m2, 3), median_unscored_as_failure=round(m2w, 3), scored=int(sum(1 for x in T2.values() if x is not None and np.isfinite(x))), bar=0.40, passed=bool(m2 >= 0.40 and m2w >= 0.40), by_state=T2),
            depth_corr=dict(f2007_09=round(float(DP.f0809_index.corr(DP.f0809_bea)), 3), f2020=round(float(DP.f2020_index.corr(DP.f2020_bea)), 3)),
            suppressed_cells=dict(sic_annual=s1, naics_annual=s2, naics_quarterly=s3), adopted=bool(m1 >= 0.80 and m2 >= 0.40), states=len(T1))
 json.dump(out, open(os.path.join(OUT, 'spi_bench_tests_1167.json'), 'w'), indent=1)
