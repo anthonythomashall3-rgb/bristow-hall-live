@@ -57,6 +57,17 @@
    ]
   },
   {
+   "ny": "2026-11-24 12:11",
+   "release_ny": "2026-11-24 12:14",
+   "utc": "2026-11-24T17:11:00Z",
+   "wait": [
+    "fed_g17"
+   ],
+   "why": [
+    "TEST 1167: a release-slot rehearsal of the G.17 revision read (test branch only)"
+   ]
+  },
+  {
    "ny": "2026-11-24 16:20",
    "utc": "2026-11-24T21:20:00Z",
    "why": [
