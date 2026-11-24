@@ -4,23 +4,21 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-24",
- "checked_at": "2026-11-24 15:19 UTC",
- "seconds": 4.0,
- "source_calls": 4,
+ "checked_at": "2026-11-24 17:18 UTC",
+ "seconds": 326.1,
+ "source_calls": 237,
  "source_errors": {},
  "counts": {
   "home": {
    "PASS": 28
-  },
-  "sources": {
-   "WARN": 1
   },
   "data/detector": {
    "PASS": 69,
    "WARN": 3
   },
   "data/disturbance": {
-   "PASS": 18
+   "PASS": 17,
+   "WARN": 1
   },
   "data/state-onset": {
    "PASS": 23,
@@ -52,12 +50,12 @@
   }
  },
  "totals": {
-  "checks": 402,
-  "figures": 271,
+  "checks": 401,
+  "figures": 270,
   "fail": 0,
   "warn": 42,
   "unverified": 0,
-  "passed": 354
+  "passed": 353
  },
  "failures": [],
  "rows": [
@@ -398,18 +396,6 @@
    "detail": ""
   },
   {
-   "page": "sources",
-   "label": "SP500",
-   "check": "source",
-   "status": "WARN",
-   "value": null,
-   "period": null,
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "FRED has not posted the close of 2026-11-23 yet: checked against the chart feed the page names (Yahoo Finance ^GSPC)"
-  },
-  {
    "page": "data/detector",
    "label": "s&p 500 daily close: SP500",
    "check": "freshness",
@@ -591,6 +577,54 @@
   },
   {
    "page": "data/detector",
+   "label": "weekly economic index (lewis, mertens and stock), 13-week mean",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "3.09",
+   "period": "2026-11-14",
+   "series": "WEI",
+   "transform": "mean13",
+   "expected": "2026-11-14",
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "weekly economic index (lewis, mertens and stock), 13-week mean",
+   "check": "value",
+   "status": "PASS",
+   "value": 3.09,
+   "period": "2026-11-14",
+   "series": "WEI",
+   "transform": "mean13",
+   "expected": 3.09308,
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "weekly economic index (lewis, mertens and stock), 13-week mean: latest week",
+   "check": "value",
+   "status": "PASS",
+   "value": 3.18,
+   "period": "2026-11-14",
+   "series": "WEI",
+   "transform": "level",
+   "expected": 3.18,
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "weekly economic index (lewis, mertens and stock), 13-week mean",
+   "check": "next published",
+   "status": "PASS",
+   "value": "2026-11-25",
+   "period": null,
+   "series": "WEI",
+   "transform": null,
+   "expected": "2026-11-25",
+   "detail": "FRED release 465 (Weekly Economic Index (Lewis-Mertens-Stock))"
+  },
+  {
+   "page": "data/detector",
    "label": "insured unemployment rate",
    "check": "freshness",
    "status": "PASS",
@@ -696,54 +730,6 @@
    "transform": null,
    "expected": "2026-11-25",
    "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
-  },
-  {
-   "page": "data/detector",
-   "label": "weekly economic index (lewis, mertens and stock), 13-week mean",
-   "check": "freshness",
-   "status": "PASS",
-   "value": "3.08",
-   "period": "2026-11-07",
-   "series": "WEI",
-   "transform": "mean13",
-   "expected": "2026-11-07",
-   "detail": ""
-  },
-  {
-   "page": "data/detector",
-   "label": "weekly economic index (lewis, mertens and stock), 13-week mean",
-   "check": "value",
-   "status": "PASS",
-   "value": 3.08,
-   "period": "2026-11-07",
-   "series": "WEI",
-   "transform": "mean13",
-   "expected": 3.07769,
-   "detail": ""
-  },
-  {
-   "page": "data/detector",
-   "label": "weekly economic index (lewis, mertens and stock), 13-week mean: latest week",
-   "check": "value",
-   "status": "PASS",
-   "value": 3.29,
-   "period": "2026-11-07",
-   "series": "WEI",
-   "transform": "level",
-   "expected": 3.29,
-   "detail": ""
-  },
-  {
-   "page": "data/detector",
-   "label": "weekly economic index (lewis, mertens and stock), 13-week mean",
-   "check": "next published",
-   "status": "PASS",
-   "value": "2026-11-25",
-   "period": null,
-   "series": "WEI",
-   "transform": null,
-   "expected": "2026-11-25",
-   "detail": "FRED release 465 (Weekly Economic Index (Lewis-Mertens-Stock))"
   },
   {
    "page": "data/detector",
@@ -858,7 +844,7 @@
    "label": "industrial production: INDPRO",
    "check": "freshness",
    "status": "PASS",
-   "value": "103.3954",
+   "value": "102.2421",
    "period": "2026-10-01",
    "series": "INDPRO",
    "transform": "level",
@@ -870,11 +856,11 @@
    "label": "industrial production: INDPRO",
    "check": "value",
    "status": "PASS",
-   "value": 103.395,
+   "value": 102.242,
    "period": "2026-10-01",
    "series": "INDPRO",
    "transform": "level",
-   "expected": 103.395,
+   "expected": 102.242,
    "detail": ""
   },
   {
@@ -882,7 +868,7 @@
    "label": "industrial production",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-24",
+   "value": "2026-12-16",
    "period": null,
    "series": "INDPRO",
    "transform": null,
@@ -1325,20 +1311,20 @@
    "page": "data/disturbance",
    "label": "fred series indpro",
    "check": "value",
-   "status": "PASS",
+   "status": "WARN",
    "value": 103.395,
    "period": "2026-10-01",
    "series": "INDPRO",
    "transform": "level",
-   "expected": 103.395,
-   "detail": ""
+   "expected": 102.242,
+   "detail": "published 103.395 = FRED until 2026-11-23; FRED revised it to 102.242 on 2026-11-24, on or after the build day: the next run takes it"
   },
   {
    "page": "data/disturbance",
    "label": "fred series indpro",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-24",
+   "value": "2026-12-16",
    "period": null,
    "series": "INDPRO",
    "transform": null,
@@ -2818,7 +2804,7 @@
    "period": "2026-10-01",
    "series": "INDPRO",
    "transform": "vs_high12_pct",
-   "expected": -0.43372,
+   "expected": -0.425016,
    "detail": ""
   },
   {

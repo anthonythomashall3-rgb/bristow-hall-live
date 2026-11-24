@@ -1,26 +1,22 @@
-    0.2s  FRED change check: 112 series tracked; 39 changed since last pulled (1 updated since 08:01 CT): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
-   33.5s  search week (unemp): 1 day(s) appended, through 2026-11-23 (scale 0.078 on 249 overlap days)
-   33.5s  search week (unemp): Google's 90-day view through 2026-11-23 = 88
-   33.5s  search week (layoffs): 1 day(s) appended, through 2026-11-23 (scale 1.188 on 249 overlap days)
-   33.5s  search week (layoffs): Google's 90-day view through 2026-11-23 = 23
-   33.5s  search week (laidoff): nothing new (history through 2026-11-23)
-   33.5s  search week (laidoff): Google's 90-day view through 2026-11-23 = 51
-   34.9s  home tiles: second source: 8 series compared with the BLS and the Department of Labor, 0 mismatch
-   34.9s  home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Nov 14, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-11-25, IURSA 2026-11-25, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
-   34.9s  bls_fetch: requests this process (production role, run 45423556972-1): bls_v2_key1 1; this run so far: bls_v2_key1 1
-   35.2s  PAYEMS         no new vintage since 2026-11-06 (through 2026-10-01)
-   35.4s  GDPC1          no new vintage since 2026-10-29 (through 2026-07-01)
-   35.6s  GDPNOW         no new vintage since 2026-11-18 (through 2026-10-01)
-   35.9s  UNEMPLOY       no new vintage since 2026-11-06 (through 2026-10-01)
-   36.1s  LNS13023621    no new vintage since 2026-11-06 (through 2026-10-01)
-   36.5s  c1021 claims NSA first prints: unchanged
-   36.7s  indeed postings  4956 rows, last 2026-11-13
-   36.7s  relcal_HOUST: unchanged (through 2026-10)
-   36.8s  relcal_UNRATE: unchanged (through 2026-10)
-   36.8s  relcal_JTSJOL: unchanged (through 2026-09)
-   36.8s  vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
-   37.3s  S&P 500: nothing new (through 2026-11-23)
-   38.1s  Sahm gap: unchanged (through 2026-10-01)
-   38.1s  insured rate base: unchanged (through 2026-11-07)
-   38.1s  ---- the damage index's unemployment rate ----
-   38.1s  left as they stand: 81 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
+   25.2s  FRED change check: 112 series tracked; 40 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
+   27.1s  home tiles: second source: 8 series compared with the BLS and the Department of Labor, 0 mismatch
+   27.1s  home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Nov 14, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-11-25, IURSA 2026-11-25, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
+   27.1s  bls_fetch: requests this process (production role, run 45445169010-1): bls_v2_key1 1; this run so far: bls_v2_key1 1
+   27.4s  PAYEMS         no new vintage since 2026-11-06 (through 2026-10-01)
+   27.7s  GDPC1          no new vintage since 2026-10-29 (through 2026-07-01)
+   28.3s  GDPNOW         no new vintage since 2026-11-18 (through 2026-10-01)
+   30.3s  INDPRO         1 vintage(s) appended, the last 2026-11-24: data through 2026-10-01
+   30.7s  UNEMPLOY       no new vintage since 2026-11-06 (through 2026-10-01)
+   31.0s  LNS13023621    no new vintage since 2026-11-06 (through 2026-10-01)
+   31.6s  c1021 claims NSA first prints: unchanged
+   31.8s  indeed postings  4956 rows, last 2026-11-13
+   31.9s  relcal_HOUST: unchanged (through 2026-10)
+   32.0s  relcal_UNRATE: unchanged (through 2026-10)
+   32.0s  relcal_JTSJOL: unchanged (through 2026-09)
+   32.0s  vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
+   32.6s  S&P 500: nothing new (through 2026-11-23)
+   33.5s  Sahm gap: unchanged (through 2026-10-01)
+   33.5s  insured rate base: unchanged (through 2026-11-07)
+   33.5s  ---- the damage index's unemployment rate ----
+   33.5s  left as they stand: 81 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
+   33.5s  FRED stamps: 1 series recorded as pulled
