@@ -150,11 +150,14 @@ def _bhs_fn_hash(fn,h,seen,depth):
 # ---- while this process walks on as before. A call it reaches that a warmer has finished is a hit; a key that does not match exactly (a
 # ---- warmer forked before the walk built an object the call reads) is never used, and the walk computes it itself. A warmer never returns
 # ---- into the walk, writes nothing but memo files, and is ended when the walk is done. So a hit is still exactly what the function computes
-# ---- from that key, and what this build computes is unchanged; only who computed it first. BHS_MEMO_WARM=0 turns it off.
+# ---- from that key, and what this build computes is unchanged; only who computed it first. BHS_MEMO_WARM=1 turns it on (off by default).
 _BHS_CALLS=[]; _BHS_PLAN_F=os.path.join('cache','closers_calls.pkl')
 _BHS_WARM_DIR=os.path.join(os.environ.get('RUNNER_TEMP') or '/tmp','bhs_memo_warm_%d'%os.getpid())   # the warmers' results: outside the repository;
                                                                                                     # one the walk uses is moved into the store, the rest go with the run
-_BHS_WARM={'on':os.environ.get('BHS_MEMO_WARM','1')=='1' and hasattr(os,'fork'),'started':False,'pids':[],'child':False,'n':0,'planned':0}
+# OFF by default (BHS_MEMO_WARM=1 turns it on): on the runner's four processors it saved 0 to 10 s of a 60 to 90 s walk in the 1167 tests (most
+# keys a warmer makes do not match the walk's: the walk's objects change between its calls), and with the starter, the ender and the gate's
+# fetches beside it the processors are busy. The results were identical either way (runs 45436541862, 45437665284).
+_BHS_WARM={'on':os.environ.get('BHS_MEMO_WARM','0')=='1' and hasattr(os,'fork'),'started':False,'pids':[],'child':False,'n':0,'planned':0}
 def _bhs_call_id(name,a,k):
     try: return name+'|'+repr(a)+'|'+repr(sorted(k.items()))
     except Exception: return None

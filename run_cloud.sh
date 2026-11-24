@@ -41,6 +41,7 @@ case "${OPS_SIMULATE:-}" in
   memo_cold)      export BHS_MEMO_DIR="cache/closers_cold_${GITHUB_RUN_ID:-local}" BHS_MEMO_WARM=0 ;;
   memo_cold_warm) export BHS_MEMO_DIR="cache/closers_cold_${GITHUB_RUN_ID:-local}" BHS_MEMO_WARM=1 ;;
   serial_build)   export BHS_SERIAL_BUILD=1 BHS_MEMO_WARM=0 ;;
+  profile_build)  export BHS_PROFILE=1 ;;     # bhs_build.py under cProfile (out/bhs_build.prof; slower, for finding where its time goes)
 esac
 # THE RELEASE CALENDAR, ONCE A MONTH (21 September 2026, collection 278). bhs_calendar_fetch.py reads FRED's calendars for
 # the jobs report, JOLTS, housing starts and the weekly claims. The Mac ran it at the first run of each month and this
@@ -90,7 +91,8 @@ else
   TMPD="${RUNNER_TEMP:-$PWD/out}"; DONE_F="$TMPD/.starter_ender_done"; BLOG="$TMPD/bhs_build.log"; rm -f "$DONE_F" "$DONE_F.tmp"   # the runner's own temp: nothing committed
   done_mark() { echo "$1" > "$DONE_F.tmp" && mv -f "$DONE_F.tmp" "$DONE_F"; }
   if [ "${BHS_SERIAL_BUILD:-0}" != "1" ] && grep -q BHS_STARTER_DONE_FILE bhs_build.py; then
-    BHS_STARTER_DONE_FILE="$DONE_F" python3 bhs_build.py > "$BLOG" 2>&1 &
+    if [ "${BHS_PROFILE:-0}" = "1" ]; then BPY="-m cProfile -o out/bhs_build.prof"; else BPY=""; fi
+    BHS_STARTER_DONE_FILE="$DONE_F" python3 $BPY bhs_build.py > "$BLOG" 2>&1 &
     BUILD_PID=$!
     end_build() { BRC=0; wait "$BUILD_PID" || BRC=$?; cat "$BLOG"; rm -f "$DONE_F"; return $BRC; }
     if ! python3 s2/c1021.py; then done_mark starter-failed; end_build || true; echo 'C1021: the starter failed - the run stops'; exit 1; fi
