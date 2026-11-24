@@ -673,9 +673,9 @@
 },
 {
 "name": "C1021: the record's three heights with the C1021 opens (2007-09 5.9, 2020 5.7, 2024 1.8)",
-"got": "[5.9, 5.7, 1.8]",
+"got": "[5.9, 5.7, 1.5]",
 "want": "[5.9, 5.7, 1.8]",
-"status": "PASS",
+"status": "FAIL",
 "gate": null
 },
 {
@@ -764,8 +764,8 @@
 },
 {
 "name": "366: the WEI shadow reading is the 13-week mean of the cached FRED series",
-"got": "(3.08, 0.0, True)",
-"want": "(3.08, 0.0, True)",
+"got": "(3.09, 0.0, True)",
+"want": "(3.09, 0.0, True)",
 "status": "PASS",
 "gate": null
 },
@@ -869,8 +869,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-24 11:51', '2026-11-24 11:51')",
-"want": "('2026-11-24 11:51', '2026-11-24 11:51')",
+"got": "('2026-11-24 12:15', '2026-11-24 12:15')",
+"want": "('2026-11-24 12:15', '2026-11-24 12:15')",
 "status": "PASS",
 "gate": "hard"
 },

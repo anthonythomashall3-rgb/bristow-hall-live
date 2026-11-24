@@ -1,5 +1,23 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-11-24 12:15",
+   "due_ny": "2026-11-19 11:30",
+   "expected_day": false,
+   "ids": "wei",
+   "short": "weekly economic index (lewis, mertens an",
+   "since_ny": "2026-11-19 14:44",
+   "through_before": "2026-11-07",
+   "through_now": "2026-11-14",
+   "value_before": "3.08"
+  },
+  {
+   "came_in": "2026-11-24 12:15",
+   "due_ny": "2026-11-24 12:00",
+   "ids": "indpro",
+   "short": "industrial production (G.17)"
+  }
+ ],
  "early": {
   "alna ... wyna": {
    "at": "2026-11-22 05:58",
@@ -28,17 +46,8 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-24 11:46",
+ "last_check_ny": "2026-11-24 12:10",
  "pending": [
-  {
-   "due_ny": "2026-11-19 11:30",
-   "expected_day": false,
-   "ids": "wei",
-   "short": "weekly economic index (lewis, mertens an",
-   "since_ny": "2026-11-19 14:44",
-   "through_before": "2026-11-07",
-   "value_before": "3.08"
-  },
   {
    "due_ny": "2026-11-20 10:00",
    "expected_day": false,

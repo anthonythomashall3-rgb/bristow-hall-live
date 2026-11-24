@@ -1,4 +1,4 @@
-# The data census - 2026-11-24 (the tool C1021+E22, built 2026-11-24 11:51)
+# The data census - 2026-11-24 (the tool C1021+E22, built 2026-11-24 12:15)
 
 Every input the live tool reads: the publisher and route, the backup or substitute, the schedule, what is in hand, and the guard on its format. Gaps are listed at the end.
 
@@ -21,7 +21,7 @@ Every input the live tool reads: the publisher and route, the backup or substitu
 | channel | status | last | limit (days) | substitute |
 |---|---|---|---|---|
 | initial and continued claims, insured unemployment rate (DOL weekly) | current | 2026-11-14 | 13 |  |
-| industrial production, the newest G.17 print (the production pillar) | current | 2026-11-17 | 45 |  |
+| industrial production, the newest G.17 print (the production pillar) | current | 2026-11-24 | 45 |  |
 | Moody's Baa yield, monthly average (the credit pillar) | current | 2026-10 | 45 |  |
 | the effective federal funds rate, monthly average (the fed-shock door) | current | 2026-10 | 40 |  |
 | the 10-year and 1-year Treasury yields, monthly averages (the job-lose | current | 2026-10 | 40 |  |
