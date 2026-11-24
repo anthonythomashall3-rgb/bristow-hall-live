@@ -1,5 +1,5 @@
 {
- "built": "2026-11-24T17:06:33Z",
+ "built": "2026-11-24T17:21:15Z",
  "size": [
   1200,
   760
@@ -7,30 +7,30 @@
  "cards": {
   "/detector/": {
    "png": "/detector/card.png",
-   "sha256": "79b0b5e70a995c26459ebc0e28df638bbd69ea2b35b2756b3b7c15c521fd92f1",
+   "sha256": "13cb07c1b34d3e5d75ad3fcdb76020969faf7c68e3b832072043a4f2de7add6f",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 897,
-   "share_not_main": 0.2696
+   "colours": 735,
+   "share_not_main": 0.2555
   },
   "/disturbance/": {
    "png": "/disturbance/card.png",
-   "sha256": "86cf440db5f9fa8e8404f242989bb03594f64e9046d8aeed0081ff37a0b912dc",
+   "sha256": "4b262b70ffd30b0525d484246641348e098871d69da8ca400a88ff107b011c35",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1192,
-   "share_not_main": 0.3642
+   "colours": 1186,
+   "share_not_main": 0.3686
   },
   "/state-onset/": {
    "png": "/state-onset/card.png",
-   "sha256": "556dfde43281e82116904be823eed8cb2ad126276d8bc8afcd53c0015f8f3844",
+   "sha256": "9b4d7f4b63d87aed0ff8feef9df7cb2d9d4870f3dca422b90a121d704957b572",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 704,
-   "share_not_main": 0.3074
+   "colours": 611,
+   "share_not_main": 0.3061
   },
   "/stress-map/": {
    "png": "/stress-map/card.png",
@@ -52,12 +52,12 @@
   },
   "/time-machine/": {
    "png": "/time-machine/card.png",
-   "sha256": "bed8ad11a8e3b15495611d2ee9ccc9a0395a9554a65f3eb26d9766858362b4ae",
+   "sha256": "4a23767a6f2bb391297c3fe8760985cba425455daf915d8b2d5bb720997b636c",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 498,
-   "share_not_main": 0.1644
+   "colours": 529,
+   "share_not_main": 0.3915
   },
   "/data/": {
    "png": "/data/card.png",

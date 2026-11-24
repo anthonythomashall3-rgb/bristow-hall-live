@@ -673,9 +673,9 @@
 },
 {
 "name": "C1021: the record's three heights with the C1021 opens (2007-09 5.9, 2020 5.7, 2024 1.8)",
-"got": "[5.9, 5.7, 1.8]",
+"got": "[5.9, 5.7, 1.5]",
 "want": "[5.9, 5.7, 1.8]",
-"status": "PASS",
+"status": "FAIL",
 "gate": null
 },
 {
@@ -869,8 +869,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-24 12:06', '2026-11-24 12:06')",
-"want": "('2026-11-24 12:06', '2026-11-24 12:06')",
+"got": "('2026-11-24 12:21', '2026-11-24 12:21')",
+"want": "('2026-11-24 12:21', '2026-11-24 12:21')",
 "status": "PASS",
 "gate": "hard"
 },
@@ -1036,35 +1036,35 @@
 "gate": "hard"
 },
 {
-"name": "one scale: every recession day reads 3.00 or more and every other day below 3.00",
+"name": "one number: every recession day reads 2.00 or more and every other day below 2.00",
 "got": "[]",
 "want": "[]",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "one scale: the state names its scale (recession line 3.00)",
-"got": "3.0",
-"want": "3.0",
+"name": "one number: the state names its scale (recession line 2.00)",
+"got": "2.0",
+"want": "2.0",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "one scale: every recession grades 3.00 or more",
+"name": "one number: every recession grades 2.00 or more",
 "got": "[]",
 "want": "[]",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "one scale: the State page and the stress map are on the scale",
+"name": "one number: the State page and the stress map are on the scale",
 "got": "0",
 "want": "0",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "one scale: every disturbance grades below 3.00 and every recession window 3.00 or more",
+"name": "one number: every disturbance grades below 2.00 and every recession window 2.00 or more, and each grade is its damage",
 "got": "[]",
 "want": "[]",
 "status": "PASS",
