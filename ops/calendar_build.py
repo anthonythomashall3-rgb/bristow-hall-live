@@ -638,7 +638,10 @@ def fred_times(rid, dates, today):
             months = {(d.year, d.month) for d in ag}
             # 1116g: a coming day FRED lists that the agency's page does not (the G.17 annual revision, 24 Nov 2026: the Board's
             # release-dates page lists only the monthly releases) is a release day too; the source gate checks against FRED's list
-            ds = sorted(set(ag) | {d for d in ds if (d.year, d.month) not in months or d > today})
+            # 1167 (24 Nov 2026): TODAY TOO (d >= today). With "d > today" the annual revision day dropped out of the calendar on its own
+            # morning (the first build of 24 Nov), and with it the run slots at 11:40, 12:01 and 12:05 ET: the noon release had no run
+            # until the 4:20 PM close. A day the agency page lacks stays a release day through its own day.
+            ds = sorted(set(ag) | {d for d in ds if (d.year, d.month) not in months or d >= today})
     window = [d for d in ds if today - dt.timedelta(days=30) <= d <= today]
     if len(window) > 12:                         # a date every business day: not a release calendar
         return None
