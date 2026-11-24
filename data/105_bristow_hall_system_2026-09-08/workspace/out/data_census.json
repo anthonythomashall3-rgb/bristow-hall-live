@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-23 20:22",
+ "built_at": "2026-11-24 12:06",
  "version": "C1021+E22",
- "census_date": "2026-11-23",
+ "census_date": "2026-11-24",
  "feeds": [
   {
    "feed": "Initial claims and continued claims, seasonally adjusted and not (the route's insured-unemployment pillar, the count door's claims condition, the closer)",
@@ -48,7 +48,7 @@
    "source": "Federal Reserve, G.17 Industrial Production and Capacity Utilization (ALFRED INDPRO, each month as first printed)",
    "every": "Monthly - about the 16th, 9:15 AM ET",
    "through": "2026-10",
-   "next": "2026-11-24",
+   "next": "2026-12-16",
    "link": "https://www.federalreserve.gov/releases/g17/current/",
    "value": "103.3954",
    "backup": "the FRED current file of INDPRO (flagged: revised values), then the G.17 release text",
@@ -220,10 +220,10 @@
    "UNRATE": "FRED API",
    "PAYEMS": "FRED API",
    "UNEMPLOY": "FRED API",
-   "JTSQUR": "FRED API",
    "CPIAUCSL": "FRED API",
-   "ICSA": "FRED API",
-   "IURSA": "FRED API"
+   "IURSA": "FRED API",
+   "JTSQUR": "FRED API",
+   "ICSA": "FRED API"
   },
   "compared_with_bls": [
    "UNRATE",
