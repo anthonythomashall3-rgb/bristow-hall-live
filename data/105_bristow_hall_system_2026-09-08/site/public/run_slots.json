@@ -1,35 +1,11 @@
 {
- "built_at": "2026-11-23 10:10",
+ "built_at": "2026-11-23 20:22",
  "fallback": "weekdays 08:35, 09:45, 10:15, 16:20 and 20:10 (New York time), used only if this list cannot be read",
- "generated_utc": "2026-11-23T15:11:56Z",
+ "generated_utc": "2026-11-24T12:46:20Z",
  "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes after each release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close at 4:20 PM and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
  "refresh_incomplete": null,
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
  "slots": [
-  {
-   "ny": "2026-11-20 13:11",
-   "utc": "2026-11-20T18:11:00Z",
-   "why": [
-    "state payrolls by industry, as first pub (10:00 AM ET; FRED by about 1:06 PM)",
-    "state unemployment rates, 50 states and  (10:00 AM ET; FRED by about 1:06 PM)",
-    "state payrolls and unemployment rates, n (10:00 AM ET; FRED by about 1:06 PM)",
-    "state payroll employment, not seasonally (10:00 AM ET; FRED by about 1:06 PM)"
-   ]
-  },
-  {
-   "ny": "2026-11-20 16:20",
-   "utc": "2026-11-20T21:20:00Z",
-   "why": [
-    "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
-   ]
-  },
-  {
-   "ny": "2026-11-20 20:20",
-   "utc": "2026-11-21T01:20:00Z",
-   "why": [
-    "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
-   ]
-  },
   {
    "ny": "2026-11-23 08:31",
    "utc": "2026-11-23T13:31:00Z",
@@ -60,30 +36,6 @@
    "utc": "2026-11-24T01:20:00Z",
    "why": [
     "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
-   ]
-  },
-  {
-   "ny": "2026-11-24 11:40",
-   "utc": "2026-11-24T16:40:00Z",
-   "why": [
-    "the day's full refresh before industrial production (G.17) (12:00 PM ET)"
-   ]
-  },
-  {
-   "ny": "2026-11-24 12:01",
-   "utc": "2026-11-24T17:01:00Z",
-   "wait": [
-    "fed_g17"
-   ],
-   "why": [
-    "industrial production (G.17) (12:00 PM ET; read from the publisher)"
-   ]
-  },
-  {
-   "ny": "2026-11-24 12:05",
-   "utc": "2026-11-24T17:05:00Z",
-   "why": [
-    "industrial production (G.17) (12:00 PM ET)"
    ]
   },
   {
@@ -127,7 +79,8 @@
     "weekly claims (8:30 AM ET)",
     "fred series w875rx1 (8:30 AM ET)",
     "fred series cmrmtspl (8:30 AM ET)",
-    "state building permits, units (8:30 AM ET)"
+    "state building permits, units (8:30 AM ET)",
+    "national disturbance register v3.2 (8:30 AM ET)"
    ]
   },
   {
@@ -645,6 +598,20 @@
   {
    "ny": "2026-12-11 20:20",
    "utc": "2026-12-12T01:20:00Z",
+   "why": [
+    "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
+   ]
+  },
+  {
+   "ny": "2026-12-14 16:20",
+   "utc": "2026-12-14T21:20:00Z",
+   "why": [
+    "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
+   ]
+  },
+  {
+   "ny": "2026-12-14 20:20",
+   "utc": "2026-12-15T01:20:00Z",
    "why": [
     "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
    ]

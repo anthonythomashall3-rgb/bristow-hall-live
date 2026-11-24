@@ -1,33 +1,28 @@
 {
- "built_at": "2026-11-23 10:10",
+ "built_at": "2026-11-23 20:22",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-23T15:11:56Z",
+ "generated_utc": "2026-11-24T12:46:20Z",
  "rows": [
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-23",
-   "confirmed_through": "2027-03-15",
+   "build_next": "2026-11-24",
+   "confirmed_through": "2027-03-16",
    "fred_clock": null,
    "freq": "daily",
    "ids": "sp500",
    "link": "/detector/",
    "name": "s&p 500 daily close",
    "next_expected": false,
-   "next_ny": "2026-11-23 16:00",
+   "next_ny": "2026-11-24 16:00",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the S&P 500 close",
    "slots": false,
    "source": "rule: nyse_close",
-   "through": "2026-11-20",
+   "through": "2026-11-23",
    "time_known": true,
    "time_note": "the market close",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-16 16:00",
-     "utc": "2026-11-16T21:00:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-17 16:00",
@@ -427,6 +422,11 @@
      "expected": false,
      "ny": "2027-03-15 16:00",
      "utc": "2027-03-15T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-03-16 16:00",
+     "utc": "2027-03-16T20:00:00Z"
     }
    ],
    "waiting_since_due": null
@@ -828,7 +828,7 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": true,
+   "agrees_with_build": false,
    "build_next": "2026-11-24",
    "confirmed_through": "2027-12-16",
    "fred_clock": "09:20",
@@ -837,8 +837,8 @@
    "link": "/detector/",
    "name": "industrial production",
    "next_expected": false,
-   "next_ny": "2026-11-24 12:00",
-   "read_lag_min": 0,
+   "next_ny": "2026-12-16 09:15",
+   "read_lag_min": 6,
    "release_id": 13,
    "short": "industrial production (G.17)",
    "slots": true,
@@ -851,11 +851,6 @@
      "expected": false,
      "ny": "2026-11-17 09:15",
      "utc": "2026-11-17T14:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-11-24 12:00",
-     "utc": "2026-11-24T17:00:00Z"
     },
     {
      "expected": false,
@@ -1982,99 +1977,39 @@
    "waiting_since_due": null
   },
   {
-   "agrees_with_build": true,
+   "agrees_with_build": false,
    "build_next": "2026-11-24",
-   "confirmed_through": "2027-12-16",
-   "fred_clock": "09:20",
+   "confirmed_through": "2026-12-23",
+   "fred_clock": null,
    "freq": "monthly",
    "ids": "payems, indpro, w875rx1, cmrmtspl, unrate, gdpc1",
    "link": "/stress-map/",
    "name": "national disturbance register v3.2",
    "next_expected": false,
-   "next_ny": "2026-11-24 12:00",
+   "next_ny": "2026-11-25 08:30",
    "read_lag_min": 0,
-   "release_id": 13,
-   "short": "industrial production (G.17)",
+   "release_id": 54,
+   "short": "national disturbance register v3.2",
    "slots": true,
-   "source": "FRED release 13 (G.17 Industrial Production and Capacity Utilization)",
+   "source": "FRED release 54 (Personal Income and Outlays)",
    "through": "2026-10-31",
    "time_known": true,
    "time_note": null,
    "times": [
     {
      "expected": false,
-     "ny": "2026-11-17 09:15",
-     "utc": "2026-11-17T14:15:00Z"
+     "ny": "2026-11-25 08:30",
+     "utc": "2026-11-25T13:30:00Z"
     },
     {
      "expected": false,
-     "ny": "2026-11-24 12:00",
-     "utc": "2026-11-24T17:00:00Z"
+     "ny": "2026-12-23 08:30",
+     "utc": "2026-12-23T13:30:00Z"
     },
     {
-     "expected": false,
-     "ny": "2026-12-16 09:15",
-     "utc": "2026-12-16T14:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-01-15 09:15",
-     "utc": "2027-01-15T14:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-02-17 09:15",
-     "utc": "2027-02-17T14:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-03-15 09:15",
-     "utc": "2027-03-15T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-04-15 09:15",
-     "utc": "2027-04-15T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-05-17 09:15",
-     "utc": "2027-05-17T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-06-16 09:15",
-     "utc": "2027-06-16T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-07-16 09:15",
-     "utc": "2027-07-16T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-08-17 09:15",
-     "utc": "2027-08-17T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-09-16 09:15",
-     "utc": "2027-09-16T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-10-18 09:15",
-     "utc": "2027-10-18T13:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-11-17 09:15",
-     "utc": "2027-11-17T14:15:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2027-12-16 09:15",
-     "utc": "2027-12-16T14:15:00Z"
+     "expected": true,
+     "ny": "2027-01-28 08:30",
+     "utc": "2027-01-28T13:30:00Z"
     }
    ],
    "waiting_since_due": null
