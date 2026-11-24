@@ -139,6 +139,13 @@ def alfred_first(series,start='2000-01-01'):
     if 'observations' not in d: raise RuntimeError(f'ALFRED error for {series}: {str(d)[:80].replace(KEY,"***")}')
     obs=[o for o in d['observations'] if o['value']!='.']
     return pd.DataFrame({'first':[float(o['value']) for o in obs],'release':[o['realtime_start'] for o in obs]},index=pd.to_datetime([o['date'] for o in obs])).sort_index()
+def alfred_asof(series,obs,day):
+    """1166 (24 Nov 2026): the value of observation `obs` that ALFRED held on `day` (the vintage in force that day), or None"""
+    url=f'https://api.stlouisfed.org/fred/series/observations?series_id={series}&api_key={KEY}&file_type=json&realtime_start={day}&realtime_end={day}&observation_start={obs}&observation_end={obs}'
+    d=_fred_call(url,40,series)
+    if not d or 'observations' not in d: return None
+    v=[o['value'] for o in d['observations'] if o['value']!='.']
+    return float(v[-1]) if v else None
 def backup(path):
     if not os.path.exists(path): return
     dst=os.path.join(BK,os.path.basename(path))
@@ -307,10 +314,18 @@ try:
     for x in rows.values():                    # a release carries the insured week seven days before its claims week
         if not x['iu_week_ended'] and x['ic_week_ended']: x['iu_week_ended']=(pd.Timestamp(x['ic_week_ended'])-pd.Timedelta(days=7)).strftime('%Y-%m-%d')
         if not x['ic_week_ended'] and x['iu_week_ended']: x['ic_week_ended']=(pd.Timestamp(x['iu_week_ended'])+pd.Timedelta(days=7)).strftime('%Y-%m-%d')
+        # 1166 (24 Nov 2026): the prior week's initial claims as revised in this release - ALFRED's ICSA vintage in force on the
+        # release day for the week before, the figure the Department prints (427 of 427 cells of 2009-2026 agree, collection 1166).
+        # Every row this path added since 10 Sep 2026 had it empty.
+        if x['ic_week_ended'] and not x['icsa_prev_rev']:
+            try:
+                _pv=alfred_asof('ICSA',(pd.Timestamp(x['ic_week_ended'])-pd.Timedelta(days=7)).strftime('%Y-%m-%d'),x['release_date'])
+                if _pv is not None: x['icsa_prev_rev']=str(_pv)
+            except Exception as _e: say(f"first prints: the prior week's revised figure in the release of {x['release_date']} not read ({_e})")
     rows=list(rows.values())
     if rows:
         backup(C45); N=pd.concat([N,pd.DataFrame(rows)],ignore_index=True); N['_rd']=pd.to_datetime(N.release_date); N=N.sort_values(['_rd','release']).drop(columns='_rd'); N.to_csv(C45,index=False)
-        say(f'first prints: {len(rows)} release(s) appended to collection 45 from ALFRED initial releases: {[(x["release_date"],x["ic_week_ended"],x["icsa"],x["iu_week_ended"],x["iur_sa"]) for x in rows]}')
+        say(f'first prints: {len(rows)} release(s) appended to collection 45 from ALFRED initial releases: {[(x["release_date"],x["ic_week_ended"],x["icsa"],x["icsa_prev_rev"],x["iu_week_ended"],x["iur_sa"]) for x in rows]}')
     else: say(f'first prints: collection 45 already carries every week ALFRED has (through {A.index.max().date()}, released {A["release"].iloc[-1]})')
 except _Skip as e: SKIPPED.append('first prints')
 except Exception as e: say(f'first prints: NOT extended ({e})')

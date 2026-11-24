@@ -17,7 +17,7 @@
 // the workflow. A run that ends without bringing the site past the slot is retried after eight minutes, three starts at
 // most for one slot; after that it waits for the next slot. The phone hears of a failed run and of a slot given up, each
 // at most once a day. When run_slots.json cannot be read, or lists no future slot, it uses its own weekday times:
-// 08:35, 09:45, 10:15, 16:20 and 20:10 on weekdays, New York time (08:50, 09:35, 10:20 and 17:05 until collection 411). Every check writes a heartbeat (last_tick) that the
+// WEEKDAY_TIMES below, New York time (08:35, 09:35, 10:20 and 16:35 since C1021; 08:35, 09:45, 10:15, 16:20 and 20:10 from collection 411). Every check writes a heartbeat (last_tick) that the
 // status page shows and that every workflow run reads: if the Worker stops, the workflow says so. GitHub's own schedule is
 // the second line. Nothing depends on the Mac (Anthony, 21 September 2026: "DONT RELY ON THE MAC AT ALL").
 //
@@ -227,7 +227,7 @@ async function decide(env, now, act) {
   // the site's schedule could not be read: the starter runs on its fallback times and says so, once a day
   if (act && (s.source !== 'run_slots.json' || !s.built))
     await alertOnce(env, `slotlist:${day}`, 86400, "the update starter cannot read the site's schedule",
-      `The Worker could not read ${SITE}/run_slots.json (${s.built ? 'no future slot listed' : 'no build time'}); it starts runs at its fallback times (weekdays 08:35, 09:45, 10:15, 16:20, 20:10 New York) until the next build publishes the list again.`, now);
+      `The Worker could not read ${SITE}/run_slots.json (${s.built ? 'no future slot listed' : 'no build time'}); it starts runs at its fallback times (weekdays ${WEEKDAY_TIMES.join(', ')} New York) until the next build publishes the list again.`, now);
   // EVERY FINISHED RUN ON MAIN IS LOOKED AT ONCE, whatever the site shows (22 September 2026, collection 306): a run that could
   // not send its own message is reported here, and a new version's run that GitHub dropped from the queue is started again
   let runs = null;

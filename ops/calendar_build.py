@@ -1109,7 +1109,7 @@ def write_slots(slots, state):
                        'after each release the site shows (FRED-read releases: FRED\'s measured post plus 5 minutes), the S&P 500 '
                        'close at 4:20 PM and its official close at FRED\'s evening post on NYSE trading days, a look-again only '
                        'for a release that is due and not posted (10, 30 and 90 minutes); nothing else'),
-           'fallback': 'weekdays 08:35, 09:45, 10:15, 16:20 and 20:10 (New York time), used only if this list cannot be read',
+           'fallback': 'weekdays 08:35, 09:35, 10:20 and 16:35 (New York time; the Cloudflare Worker\'s own times), used only if this list cannot be read',   # 1166: was 08:35, 09:45, 10:15, 16:20, 20:10 (before C1021)
            'slots': slots}
     jsave(path, doc)
 
