@@ -78,7 +78,7 @@ def shoot_many(jobs):
         async with async_playwright() as p:
             b = await p.chromium.launch(executable_path=chrome(), args=['--no-sandbox', '--disable-gpu', '--hide-scrollbars'])
             try:
-                sem = asyncio.Semaphore(int(os.environ.get('CARD_PARALLEL') or 4))
+                sem = asyncio.Semaphore(int(os.environ.get('CARD_PARALLEL') or 6))   # every tool page at once (six)
                 async def one(u, o, h):
                     try: res[o] = await _shoot_el_async(b, u, SEL[h], o, sem)
                     except Exception as e: res[o] = (False, f'{type(e).__name__} {e}'[:300])

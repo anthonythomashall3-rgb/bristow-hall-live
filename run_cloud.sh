@@ -41,7 +41,7 @@ case "${OPS_SIMULATE:-}" in
   memo_cold)      export BHS_MEMO_DIR="cache/closers_cold_${GITHUB_RUN_ID:-local}" BHS_MEMO_WARM=0 ;;
   memo_cold_warm) export BHS_MEMO_DIR="cache/closers_cold_${GITHUB_RUN_ID:-local}" BHS_MEMO_WARM=1 ;;
   serial_build)   export BHS_SERIAL_BUILD=1 BHS_MEMO_WARM=0 ;;
-  profile_build)  export BHS_PROFILE=1 ;;     # bhs_build.py under cProfile (out/bhs_build.prof; slower, for finding where its time goes)
+  profile_build)  export BHS_PROFILE=1 BHS_MEMO_DIR="cache/closers_cold_${GITHUB_RUN_ID:-local}" BHS_MEMO_WARM=0 ;;   # bhs_build.py under cProfile from an empty store (out/bhs_build.prof)
 esac
 # THE RELEASE CALENDAR, ONCE A MONTH (21 September 2026, collection 278). bhs_calendar_fetch.py reads FRED's calendars for
 # the jobs report, JOLTS, housing starts and the weekly claims. The Mac ran it at the first run of each month and this
