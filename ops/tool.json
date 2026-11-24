@@ -29,13 +29,21 @@
  ],
  "_version_files": "Files besides code that make a version what it is. When the last good version has to run (ops/run.sh), every file a person's commit changed since it (and no run wrote) is put back with its code; these are used only if that history cannot be read.",
  "calendar_rules": {
-  "^gspc": "nyse_close", "sp500": "nyse_close", "alinsuredur ... wyinsuredur": "fred:180",
+  "^gspc": "nyse_close",
+  "sp500": "nyse_close",
+  "alinsuredur ... wyinsuredur": "fred:180",
   "eta 539 by state": "fred:180",
   "fedfunds": "month_avg_next_bday",
   "gs10, gs1": "month_avg_next_bday",
-  "baa": "rule_day7"
+  "baa": "rule_day7",
+  "aliclaims ... wyiclaims": "eta539",
+  "aliclaims ... wyiclaims, alcclaims ... wycclaims": "eta539",
+  "alnan ... wynan": "never",
+  "gs10": "month_avg_next_bday",
+  "gs1": "month_avg_next_bday",
+  "tb3ms": "month_avg_next_bday"
  },
- "_calendar_rules": "8 November 2026 (1022, C1021): the rows the C1021 starter reads - FRED-scheduled releases need no rule (claims 180, Employment Situation 50, JOLTS 192, G.17 13, GDP 53); the S&P 500 at the NYSE close; the month-end averages (FEDFUNDS, GS10, GS1) on the first business day after month end at 4:15 PM ET; the Baa average read the 7th (rule_day7). The v3.76 starter rows (H.15 daily, Google, ETA 539 month, DFEDTARU, LAUS) left the page with it. The rules h15_week, h15_daily, fomc, daily_next_morning, utc_day_end, month_end_plus_21 and fred_every_day remain available.",
+ "_calendar_rules": "8 November 2026 (1022, C1021): the rows the C1021 starter reads - FRED-scheduled releases need no rule (claims 180, Employment Situation 50, JOLTS 192, G.17 13, GDP 53); the S&P 500 at the NYSE close; the month-end averages (FEDFUNDS, GS10, GS1) on the first business day after month end at 4:15 PM ET; the Baa average read the 7th (rule_day7). The v3.76 starter rows (H.15 daily, Google, ETA 539 month, DFEDTARU, LAUS) left the page with it. The rules h15_week, h15_daily, fomc, daily_next_morning, utc_day_end, month_end_plus_21 and fred_every_day remain available. 1167 (24 Nov 2026): the State weekly claims rows are read from the Department's ETA 539 file, posted on the national claims day (FRED release 180) at about 3:55 PM ET - rule eta539 - not on FRED's State claims report (release 469, Mondays and Fridays), which left them 'waiting' twice a week; the stress map's State payroll history layer (refreshed never) is not watched - rule never. 1167: the forecaster's own GS10, GS1 and TB3MS rows (monthly averages, the first business day after the month) - they had no rule.",
  "calendar_read_lag_min": {
   "wei": 10
  },

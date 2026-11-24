@@ -87,12 +87,12 @@ else
   # 30 to 100 s on the v3.76 walk's closers, which read none of the starter's or the ender's files; it now starts with them and waits, before it
   # reads out/c1021_state.json, until both have finished (BHS_STARTER_DONE_FILE: "0" when the starter succeeded and the ender's state stands).
   # A starter that fails stops the run as before, and the build never reads a state this run did not make. BHS_SERIAL_BUILD=1: one after another.
-  DONE_F="$PWD/out/.starter_ender_done"; rm -f "$DONE_F" "$DONE_F.tmp"
+  TMPD="${RUNNER_TEMP:-$PWD/out}"; DONE_F="$TMPD/.starter_ender_done"; BLOG="$TMPD/bhs_build.log"; rm -f "$DONE_F" "$DONE_F.tmp"   # the runner's own temp: nothing committed
   done_mark() { echo "$1" > "$DONE_F.tmp" && mv -f "$DONE_F.tmp" "$DONE_F"; }
   if [ "${BHS_SERIAL_BUILD:-0}" != "1" ] && grep -q BHS_STARTER_DONE_FILE bhs_build.py; then
-    BHS_STARTER_DONE_FILE="$DONE_F" python3 bhs_build.py > out/bhs_build.log 2>&1 &
+    BHS_STARTER_DONE_FILE="$DONE_F" python3 bhs_build.py > "$BLOG" 2>&1 &
     BUILD_PID=$!
-    end_build() { BRC=0; wait "$BUILD_PID" || BRC=$?; cat out/bhs_build.log; return $BRC; }
+    end_build() { BRC=0; wait "$BUILD_PID" || BRC=$?; cat "$BLOG"; rm -f "$DONE_F"; return $BRC; }
     if ! python3 s2/c1021.py; then done_mark starter-failed; end_build || true; echo 'C1021: the starter failed - the run stops'; exit 1; fi
     if ! python3 s2/e22.py; then
       bash s2/alert.sh 'ENDER FAILED' "s2/e22.py failed on run ${GITHUB_RUN_ID:-local}; the ender's last state stands ($(python3 -c "import json;print(json.load(open('out/e22_state.json')).get('today'))" 2>/dev/null || echo none))" || true
