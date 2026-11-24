@@ -12,14 +12,15 @@ reindex and the same CSV writer. Tested byte-identical to the FRED path on every
 FRED STAYS THE CROSS-CHECK. Every column written here is recorded in cache/publisher_first.json as provisional. Each later run asks
 FRED for its vintage of that day; when FRED has it, the column is compared value for value. Equal: marked verified (the file is
 already what the FRED path would have written). Different: FRED's vintage replaces the column (exactly the FRED path's file), the
-difference is recorded and the phone is told. A column is written only when the publisher carries a month the table lacks.
+difference is recorded and the phone is told. A column is written only when the publisher carries a month the table lacks, or (the
+G.17 and the BEA, 1167) revised months the table carries on the release day.
 
     newest(series)               the newest month the publisher carries now (one small request; None if it cannot be read)
     wait(groups, tables, limit)  poll every 30 s until every series of the groups carries a month its table lacks, or the limit
     append(series, al, day, ...) write the publisher's vintage of `day` into the table; returns the column name or None
     verify(al, fred_vintage, ...) reconcile provisional columns with FRED's vintages
 """
-import io, os, json, time, datetime, subprocess
+import io, os, re, json, time, datetime, subprocess
 import pandas as pd
 
 PF = {  # series -> (publisher, publisher id, release group)
@@ -125,6 +126,68 @@ def g17_fetch():
         raise
 
 
+G17_ZIP_URL = 'https://www.federalreserve.gov/releases/g17/data/FRB_g17_xml.zip'
+G17_ZIP_FILE = os.path.join(tempfile.gettempdir(), 'bhr_g17_xml.zip')   # this run's copy only (8.6 MB)
+_G17Z = {}
+
+
+def _http_time(s):
+    import email.utils
+    try: return email.utils.parsedate_to_datetime(s).timestamp()
+    except Exception: return None
+
+
+def _head_lm(url):
+    import urllib.request
+    with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': UA}, method='HEAD'), timeout=30) as r:
+        return r.headers.get('Last-Modified')
+
+
+def g17_zip_series(code='B50001'):
+    """1167: series IP.<code>.S (seasonally adjusted) from the Board's XML package of the G.17, fetched only when it changed"""
+    import urllib.request, urllib.error, zipfile
+    g = _G17Z; hdr = {'User-Agent': UA}
+    if g.get('last_modified') and os.path.exists(G17_ZIP_FILE): hdr['If-Modified-Since'] = g['last_modified']
+    try:
+        with urllib.request.urlopen(urllib.request.Request(G17_ZIP_URL, headers=hdr), timeout=90) as r:
+            b = r.read(); lm = r.headers.get('Last-Modified')
+        tmp = G17_ZIP_FILE + '.tmp'; open(tmp, 'wb').write(b); os.replace(tmp, G17_ZIP_FILE)
+        g['last_modified'] = lm; g.pop(code, None)
+    except urllib.error.HTTPError as e:
+        if e.code != 304: raise
+    if code in g: return g[code]
+    with zipfile.ZipFile(G17_ZIP_FILE) as z:
+        x = z.read('G17_data.xml').decode('utf-8', 'replace')
+    i = x.find('SERIES_NAME="IP.%s.S"' % code)
+    if i < 0: raise RuntimeError('G.17 package without IP.%s.S' % code)
+    a = x.rfind('<kf:Series', 0, i); e = x.find('</kf:Series>', i)
+    obs = {}
+    for o in re.finditer(r'<frb:Obs\b([^>]*)>', x[a:e]):
+        at = dict(re.findall(r'(\w+)="([^"]*)"', o.group(1)))
+        try: v = float(at['OBS_VALUE'])
+        except (KeyError, ValueError): continue
+        t = at.get('TIME_PERIOD', '')
+        obs[pd.Timestamp(int(t[:4]), int(t[5:7]), 1)] = v
+    g[code] = pd.Series(obs, dtype=float).sort_index()
+    return g[code]
+
+
+def g17_read(code='B50001'):
+    """1167 (24 Nov 2026): THE G.17 FROM WHICHEVER OF THE BOARD'S TWO FILES CARRIES THE NEWER POSTING. ip_sa.txt is the file read since
+    1052 (parity-tested against FRED); the XML package is read instead when it was posted more than 10 minutes after ip_sa.txt. On the
+    annual revision (24 Nov 2026) the package carried the revision at 12:00:22 ET while ip_sa.txt was still the 17 Nov file."""
+    cur = g17_series(g17_fetch(), code)
+    try:
+        zl = _http_time(_head_lm(G17_ZIP_URL) or ''); tl = _http_time(_G17.get('last_modified') or '')
+        if zl and tl and zl > tl + 600:
+            z = g17_zip_series(code)
+            if len(z.dropna()): _G17['used'] = 'xml'; return z
+    except Exception as e:
+        _G17['zip_note'] = '%s: %s' % (type(e).__name__, str(e)[:100])
+    _G17['used'] = 'txt'
+    return cur
+
+
 def g17_series(txt, code='B50001'):
     obs = {}
     for ln in txt.splitlines():
@@ -181,19 +244,46 @@ def publisher(sids, full=True, key=None):
     b = [s for s in sids if PF[s][0] == 'bls']
     if b: out.update(bls_series(b, full=full, key=key))
     if any(PF[s][0] == 'g17' for s in sids):
-        g = g17_series(g17_fetch())
+        g = g17_read()
         for s in sids:
             if PF[s][0] == 'g17': out[s] = g
     return out
 
 
+_NEWEST = {}   # path -> (mtime, size, the table's newest vintage): a release-time poll reads the table once, not every 5 s
+
+
+def _newest_vintage(path):
+    k = (os.path.getmtime(path), os.path.getsize(path))
+    if _NEWEST.get(path, (None,))[0] != k:
+        tab = pd.read_csv(path, index_col=0); tab.index = pd.to_datetime(tab.index)
+        _NEWEST[path] = (k, pd.to_numeric(tab[tab.columns[-1]], errors='coerce').dropna())
+    return _NEWEST[path][1]
+
+
 def _differs(al, s, cur=None):
     """the publisher's values now differ from the table's newest vintage on a period both carry (a revision released today)"""
     if cur is None: cur = publisher([s], full=False)[s]
-    tab = pd.read_csv(os.path.join(al, '%s_all_vintages.csv' % s), index_col=0); tab.index = pd.to_datetime(tab.index)
-    old = pd.to_numeric(tab[tab.columns[-1]], errors='coerce').dropna(); cur = cur.dropna()
+    old = _newest_vintage(os.path.join(al, '%s_all_vintages.csv' % s)); cur = cur.dropna()
     ix = old.index.intersection(cur.index)
     return bool(len(ix)) and bool((old.loc[ix] != cur.loc[ix]).any())
+
+
+# 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): A REVISION WITHOUT A NEW MONTH IS READ FROM THE PUBLISHER TOO - the
+# G.17 as the BEA was. The G.17 annual revision (24 Nov 2026, noon: every month since 1972 revised, the base year moved to 2022) carries
+# no month the table lacks, so the publisher read waited for a new month that never came and the site took the revision only when FRED
+# posted it. On a G.17 or BEA release day the publisher's values differing from the table's newest vintage on months both carry now
+# count as the release being out. FRED still cross-checks the column (verify); once FRED's own vintage of the day is in the table (the
+# FRED path wrote it, or verify put it in), FRED's stands and the publisher is not written over it again (no alternation, no repeated
+# alert).
+REVISED = ('bea', 'g17')
+
+
+def _revision_open(al, s, day, st):
+    col = '%s_%s' % (s, day.replace('-', ''))
+    c = st['columns'].get(col)
+    if c is not None: return c.get('status') == 'provisional'
+    return col not in pd.read_csv(os.path.join(al, '%s_all_vintages.csv' % s), index_col=0, nrows=0).columns
 
 
 def table_newest(al, s):
@@ -239,8 +329,8 @@ def write_column(path, s, day, cur, replace=False):
 
 
 def append(al, day=None, series=None, say=print, backup=None, force_day=False, pub=None):
-    """for every series whose release is out today (New York) and whose publisher carries a month the table lacks: write the
-    publisher's vintage of today. Returns {series: column}. force_day: write `day` whatever the calendar says (parity tests)."""
+    """for every series whose release is out today (New York) and whose publisher carries a month the table lacks (the G.17 and the BEA:
+    or revised months it carries, while FRED's vintage of today is not in the table): write the publisher's vintage of today. Returns {series: column}. force_day: write `day` whatever the calendar says (parity tests)."""
     day = day or ny_day(); st = _load(); done = {}
     want = []
     for s in (series or list(PF)):
@@ -250,7 +340,7 @@ def append(al, day=None, series=None, say=print, backup=None, force_day=False, p
     if not want: return done
     try: new_last = {s: v.dropna().index[-1] for s, v in (pub or publisher(want, full=False)).items() if len(v.dropna())}
     except Exception as e: say('publisher first: the publishers could not be read (%s); FRED stays the source this run' % str(e)[:120]); return done
-    need = [s for s in want if s in new_last and (new_last[s] > table_newest(al, s)[0] or (PF[s][0] == 'bea' and _differs(al, s, (pub or {}).get(s) if pub else None)))]
+    need = [s for s in want if s in new_last and (new_last[s] > table_newest(al, s)[0] or (PF[s][0] in REVISED and _revision_open(al, s, day, st) and _differs(al, s, (pub or {}).get(s) if pub else None)))]
     if not need:
         say('publisher first: %s - no month beyond the tables yet' % ', '.join('%s %s' % (s, str(new_last.get(s, '-'))[:7]) for s in want)); return done
     full = pub if pub is not None else publisher(need, full=True)
@@ -262,9 +352,10 @@ def append(al, day=None, series=None, say=print, backup=None, force_day=False, p
         col = write_column(path, s, day, cur)
         st['columns'][col] = dict(series=s, day=day, publisher=PF[s][0], publisher_id=PF[s][1], newest=str(cur.index[-1].date()),
                                   months=int(len(cur)), status='provisional', written_utc=datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'))
+        if PF[s][0] == 'g17': st['columns'][col]['publisher_file'] = {'xml': 'FRB_g17_xml.zip'}.get(_G17.get('used'), 'ip_sa.txt')
         done[s] = col
         say('%-14s PUBLISHER FIRST: vintage %s appended from the %s at %s UTC: data through %s (%d months); FRED cross-checks it when it posts'
-            % (s, col, {'bls': 'BLS API', 'bea': 'BEA API', 'g17': 'Federal Reserve G.17 file'}[PF[s][0]], st['columns'][col]['written_utc'][11:19], cur.index[-1].date(), len(cur)))
+            % (s, col, {'bls': 'BLS API', 'bea': 'BEA API', 'g17': 'Federal Reserve G.17 ' + ('XML package' if _G17.get('used') == 'xml' else 'file')}[PF[s][0]], st['columns'][col]['written_utc'][11:19], cur.index[-1].date(), len(cur)))
     _save(st)
     return done
 
@@ -461,7 +552,7 @@ def wait(groups, al=None, limit_s=720, every=None, say=print, not_before=None):
                         left.remove(g); found.append(g)
                     continue
                 new = publisher(GROUPS[g], full=False)
-                if all(s in new and len(new[s].dropna()) and (new[s].dropna().index[-1] > base[s] or (PF[s][0] == 'bea' and _differs(al, s, new[s]))) for s in GROUPS[g]):
+                if all(s in new and len(new[s].dropna()) and (new[s].dropna().index[-1] > base[s] or (PF[s][0] in REVISED and _differs(al, s, new[s]))) for s in GROUPS[g]):
                     say('publisher wait: %s is out (%s) %.0f s after the release minute' % (g, ', '.join('%s %s' % (s, str(new[s].dropna().index[-1])[:7]) for s in GROUPS[g]), time.time() - rel0))
                     left.remove(g); found.append(g)
             except Exception as e:
