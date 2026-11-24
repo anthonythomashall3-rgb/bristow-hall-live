@@ -3,10 +3,10 @@
  "mode": "hold",
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
- "build_day": "2026-11-23",
- "checked_at": "2026-11-24 12:46 UTC",
- "seconds": 3.9,
- "source_calls": 4,
+ "build_day": "2026-11-24",
+ "checked_at": "2026-11-24 14:09 UTC",
+ "seconds": 41.6,
+ "source_calls": 64,
  "source_errors": {},
  "counts": {
   "home": {
@@ -38,7 +38,7 @@
   },
   "detector": {
    "PASS": 58,
-   "WARN": 9
+   "WARN": 7
   },
   "state-onset": {
    "PASS": 100
@@ -52,10 +52,10 @@
   }
  },
  "totals": {
-  "checks": 404,
-  "figures": 273,
+  "checks": 402,
+  "figures": 271,
   "fail": 0,
-  "warn": 44,
+  "warn": 42,
   "unverified": 0,
   "passed": 354
  },
@@ -391,7 +391,7 @@
    "check": "matches the detector",
    "status": "PASS",
    "value": 0.857,
-   "period": "2026-11-23",
+   "period": "2026-11-24",
    "series": "BHRREALTIME",
    "transform": "the detector reading",
    "expected": 0.857,
@@ -442,7 +442,7 @@
    "period": null,
    "series": "SP500",
    "transform": null,
-   "expected": "2026-11-24",
+   "expected": "2026-11-25",
    "detail": "the next NYSE trading day"
   },
   {
@@ -886,7 +886,7 @@
    "period": null,
    "series": "INDPRO",
    "transform": null,
-   "expected": "2026-11-24",
+   "expected": "2026-12-16",
    "detail": "FRED release 13 (G.17 Industrial Production and Capacity Utilization)"
   },
   {
@@ -1342,7 +1342,7 @@
    "period": null,
    "series": "INDPRO",
    "transform": null,
-   "expected": "2026-11-24",
+   "expected": "2026-12-16",
    "detail": "FRED release 13 (G.17 Industrial Production and Capacity Utilization)"
   },
   {
@@ -1583,7 +1583,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1608,30 +1608,6 @@
    "transform": null,
    "expected": "2026-12-18",
    "detail": "FRED release 112 (State Employment and Unemployment)"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "bristow-hall state damage line v4",
-   "check": "freshness",
-   "status": "WARN",
-   "value": "",
-   "period": "2026-10-31",
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "no series id on the row: its period cannot be checked against a publisher (listed as remaining risk)"
-  },
-  {
-   "page": "data/state-onset",
-   "label": "bristow-hall state damage line v4",
-   "check": "next published",
-   "status": "WARN",
-   "value": "2026-11-24",
-   "period": null,
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1823,7 +1799,31 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+  },
+  {
+   "page": "data/state-onset",
+   "label": "bristow-hall state damage line v4",
+   "check": "freshness",
+   "status": "WARN",
+   "value": "",
+   "period": "2026-09-30",
+   "series": null,
+   "transform": null,
+   "expected": null,
+   "detail": "no series id on the row: its period cannot be checked against a publisher (listed as remaining risk)"
+  },
+  {
+   "page": "data/state-onset",
+   "label": "bristow-hall state damage line v4",
+   "check": "next published",
+   "status": "WARN",
+   "value": "2026-11-24",
+   "period": null,
+   "series": null,
+   "transform": null,
+   "expected": null,
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1967,31 +1967,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
-  },
-  {
-   "page": "data/stress-map",
-   "label": "bristow-hall state damage line v4",
-   "check": "freshness",
-   "status": "WARN",
-   "value": "",
-   "period": "2026-10-31",
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "no series id on the row: its period cannot be checked against a publisher (listed as remaining risk)"
-  },
-  {
-   "page": "data/stress-map",
-   "label": "bristow-hall state damage line v4",
-   "check": "next published",
-   "status": "WARN",
-   "value": "2026-11-24",
-   "period": null,
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2375,7 +2351,31 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+  },
+  {
+   "page": "data/stress-map",
+   "label": "bristow-hall state damage line v4",
+   "check": "freshness",
+   "status": "WARN",
+   "value": "",
+   "period": "2026-09-30",
+   "series": null,
+   "transform": null,
+   "expected": null,
+   "detail": "no series id on the row: its period cannot be checked against a publisher (listed as remaining risk)"
+  },
+  {
+   "page": "data/stress-map",
+   "label": "bristow-hall state damage line v4",
+   "check": "next published",
+   "status": "WARN",
+   "value": "2026-11-24",
+   "period": null,
+   "series": null,
+   "transform": null,
+   "expected": null,
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2778,7 +2778,7 @@
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "freshness",
    "status": "PASS",
-   "value": 9.6,
+   "value": 7.93,
    "period": "2026-11-23",
    "series": "SP500",
    "transform": "sp_yoy",
@@ -2790,11 +2790,11 @@
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "value",
    "status": "PASS",
-   "value": 9.6,
+   "value": 7.93,
    "period": "2026-11-23",
    "series": "SP500",
    "transform": "sp_yoy",
-   "expected": 9.60444,
+   "expected": 7.93498,
    "detail": ""
   },
   {
@@ -2826,11 +2826,11 @@
    "label": "route: industrial production (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-24",
+   "value": "2026-12-16",
    "period": null,
    "series": "INDPRO",
    "transform": null,
-   "expected": "2026-11-24",
+   "expected": "2026-12-16",
    "detail": "FRED release 13 (G.17 Industrial Production and Capacity Utilization)"
   },
   {
@@ -3315,38 +3315,14 @@
   },
   {
    "page": "detector",
-   "label": "current through: spread",
-   "check": "freshness",
-   "status": "WARN",
-   "value": "2026-11-13",
-   "period": null,
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "no publisher series to check it against (listed)"
-  },
-  {
-   "page": "detector",
-   "label": "current through: search",
-   "check": "freshness",
-   "status": "WARN",
-   "value": "2026-11-22",
-   "period": null,
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "no publisher series to check it against (listed)"
-  },
-  {
-   "page": "detector",
    "label": "reading series: last day",
    "check": "phantom",
    "status": "PASS",
    "value": 0.857,
-   "period": "2026-11-23",
+   "period": "2026-11-24",
    "series": "BHRREALTIME",
    "transform": null,
-   "expected": "2026-11-23",
+   "expected": "2026-11-24",
    "detail": ""
   },
   {
@@ -3355,7 +3331,7 @@
    "check": "cadence",
    "status": "PASS",
    "value": 0.857,
-   "period": "2026-11-23",
+   "period": "2026-11-24",
    "series": null,
    "transform": null,
    "expected": null,
@@ -3414,11 +3390,11 @@
    "label": "feed: Industrial production (the production pillar) (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-24",
+   "value": "2026-12-16",
    "period": null,
    "series": "INDPRO",
    "transform": null,
-   "expected": "2026-11-24",
+   "expected": "2026-12-16",
    "detail": "FRED release 13 (G.17 Industrial Production and Capacity Utilization)"
   },
   {
@@ -3466,7 +3442,7 @@
    "period": null,
    "series": "SP500",
    "transform": null,
-   "expected": "2026-11-24",
+   "expected": "2026-11-25",
    "detail": "the next NYSE trading day"
   },
   {
