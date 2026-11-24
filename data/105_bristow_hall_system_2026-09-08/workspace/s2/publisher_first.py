@@ -87,9 +87,10 @@ def _bls(ids, y0, y1, key=None, fresh=True):
 
 def bls_newest(ids):
     """{BLS id: pd.Timestamp of its newest month}: ONE request with latest=true for all the ids (20 Nov 2026: what a release-time poll
-    needs - is the new month out - asked as the smallest request the API has, never a history)"""
+    needs - is the new month out - asked as the smallest request the API has, never a history). 1167 (24 Nov 2026): a poll asks the
+    API only (the two keys, then v1): the flat files and FRED further down the chain are whole downloads or a later post, never a poll"""
     import bls_fetch
-    data, served = bls_fetch.fetch(list(ids), latest=True, fresh=True)
+    data, served = bls_fetch.fetch(list(ids), latest=True, fresh=True, chain=('bls_v2_key1', 'bls_v2_key2', 'bls_v1'))
     out = {}
     for s, rows in data.items():
         ms = [pd.Timestamp(int(y), int(p[1:]), 1) for y, p, v, _ in rows if str(v).strip() not in ('', '-')]
@@ -323,15 +324,21 @@ def _probe_cpi():
     return n is not None and n >= m, 'BLS CPI through %s' % (str(n)[:7] if n is not None else '-')
 
 
+_ICSA_END = {}
+
+
 def _probe_claims():
     import urllib.request
     t = _today_et(); sat = t - datetime.timedelta(days=(t.weekday() + 2) % 7)
-    k = os.environ.get('FRED_API_KEY', '').strip(); fe = None
-    if k:
-        with urllib.request.urlopen('https://api.stlouisfed.org/fred/series?series_id=ICSA&file_type=json&api_key=' + k, timeout=30) as r:
-            fe = json.load(r)['seriess'][0]['observation_end']
+    k = os.environ.get('FRED_API_KEY', '').strip(); fe = _ICSA_END.get('end')
+    if k and 'end' not in _ICSA_END:   # 1167: FRED's ICSA end is only named in the message: asked once per wait, not at every 5-second poll
+        try:
+            with urllib.request.urlopen('https://api.stlouisfed.org/fred/series?series_id=ICSA&file_type=json&api_key=' + k, timeout=15) as r:
+                fe = json.load(r)['seriess'][0]['observation_end']
+        except Exception: fe = None
+        _ICSA_END['end'] = fe
     # curl's own agent and a HEAD request: the Department's site answers a browser or custom agent with 403 (as bhs_dol_press.py found)
-    h = subprocess.run(['curl', '-sSI', '-m', '30', 'https://www.dol.gov/ui/data.pdf'], capture_output=True, text=True).stdout
+    h = subprocess.run(['curl', '-sSI', '-m', '10', 'https://www.dol.gov/ui/data.pdf'], capture_output=True, text=True).stdout
     lm = next((ln.split(':', 1)[1].strip() for ln in h.splitlines() if ln.lower().startswith('last-modified:')), None)
     import email.utils
     from zoneinfo import ZoneInfo
@@ -393,29 +400,49 @@ def default_al():
 
 
 BLS_WAIT = {'bls_cpi', 'bls_state'} | {g for g, ss in GROUPS.items() if all(PF[s][0] == 'bls' for s in ss)}   # polls that ask the BLS API
-BLS_POLL_MAX = int(os.environ.get('BLS_POLL_MAX') or 8)   # BLS polls a group may make in one wait (20 Nov 2026; was up to 24, one each 30 s)
+# 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): the run is started three minutes BEFORE the release (ops/calendar_build.py)
+# and waits for the release minute itself (not_before); from then the publisher is asked every POLL_FAST_S seconds for the first two minutes,
+# when every publisher posts, then every 15 s, then every 30 s from the tenth minute. A BLS group makes at most BLS_POLL_MAX polls in one wait
+# (one small latest=true request each: 30 of the key's 500 a day; the guard in s2/bls_fetch.py still caps the run and the day).
+BLS_POLL_MAX = int(os.environ.get('BLS_POLL_MAX') or 30)
+POLL_FAST_S = float(os.environ.get('PF_POLL_FAST_S') or 5)
+GRACE_S = float(os.environ.get('PF_GRACE_S') or 20)   # once one group is out, the others are waited for at most this long: a release that is
+                                                       # out is never held for a slower one (the next slot's run reads the late one)
+
+
+def _every(since_release):
+    """the poll cadence at `since_release` seconds after the release minute (negative before it)"""
+    if since_release < 120: return POLL_FAST_S
+    if since_release < 600: return 15.0
+    return 30.0
 
 
 def _poll_due(n, t_last, every):
-    """a BLS poll is due: every `every` seconds for the first four (the first two minutes, when the API posts the release), then every
-    three times that; never more than BLS_POLL_MAX in one wait"""
+    """a BLS poll is due: `every` seconds after the last one; never more than BLS_POLL_MAX in one wait"""
     if n >= BLS_POLL_MAX: return False
-    return t_last is None or time.time() - t_last >= (every if n < 4 else 3 * every) - 1
+    return t_last is None or time.time() - t_last >= every - 0.5
 
 
-def wait(groups, al=None, limit_s=720, every=30, say=print):
-    """THE RELEASE-TIME POLL: the slot starts the run a minute after the release; the publisher is asked (for the BLS: ONE request with
-    latest=true for the group's series - the newest month and nothing else; a conditional GET of the G.17 file) until each series of the
-    groups carries a month its table lacks, or `limit_s` has passed. A BLS group is asked every `every` seconds for its first four polls,
-    then every 3 x `every`, at most BLS_POLL_MAX times (20 Nov 2026: the BLS key's 500 a day are shared by every job; a poll every 30 s for
-    12 minutes was 24 requests a group). Returns the groups that were found new. The build then runs either way."""
-    al = al or default_al(); t0 = time.time(); left = [g for g in groups if g in GROUPS or g in WAIT_ONLY or g.startswith('fred:')]; found = []
+def wait(groups, al=None, limit_s=720, every=None, say=print, not_before=None):
+    """THE RELEASE-TIME POLL: the slot starts the run three minutes before the release (1167; one minute after it until 24 Nov 2026); the wait
+    sleeps to the release minute (`not_before`, epoch seconds), then asks the publisher (for the BLS: ONE request with latest=true for the
+    group's series - the newest month and nothing else; a conditional GET of the G.17 file; a HEAD of the Department's release) every
+    POLL_FAST_S seconds for two minutes, then every 15 s, then every 30 s, until each series of the groups carries a month its table lacks, or
+    `limit_s` has passed since the release minute. Once one group is out the others get GRACE_S seconds more. A BLS group is asked at most
+    BLS_POLL_MAX times. Returns the groups that were found new. The build then runs either way."""
+    al = al or default_al(); left = [g for g in groups if g in GROUPS or g in WAIT_ONLY or g.startswith('fred:')]; found = []
     base = {s: table_newest(al, s)[0] for g in left if g in GROUPS for s in GROUPS[g]}
+    if not_before and time.time() < not_before:
+        say('publisher wait: %s - the run is ready %.0f s before the release minute; asking from %s' % (', '.join(left), not_before - time.time(),
+            datetime.datetime.fromtimestamp(not_before, datetime.timezone.utc).strftime('%H:%M:%S UTC')))
+        while time.time() < not_before: time.sleep(min(1.0, max(0.05, not_before - time.time())))
+    t0 = time.time(); rel0 = not_before if (not_before and not_before <= t0) else t0; first_out = None
     polls = {g: 0 for g in left}; last = {g: None for g in left}
     while left:
+        ev = every if every else _every(time.time() - rel0)
         for g in list(left):
             if g in BLS_WAIT:
-                if not _poll_due(polls[g], last[g], every):
+                if not _poll_due(polls[g], last[g], ev):
                     if polls[g] >= BLS_POLL_MAX:
                         say('publisher wait: %s not out after %d BLS polls (BLS_POLL_MAX); the build runs with what is in hand (the slot\'s look-again runs follow)' % (g, polls[g]))
                         left.remove(g)
@@ -425,23 +452,29 @@ def wait(groups, al=None, limit_s=720, every=30, say=print):
                 if g in WAIT_ONLY or g.startswith('fred:'):
                     ok, what = WAIT_ONLY[g]() if g in WAIT_ONLY else _probe_fred(g)
                     if ok:
-                        say('publisher wait: %s is out (%s) after %.0f s' % (g, what, time.time() - t0)); left.remove(g); found.append(g)
+                        say('publisher wait: %s is out (%s) %.0f s after the release minute' % (g, what, time.time() - rel0)); left.remove(g); found.append(g)
                     continue
                 if g in BLS_WAIT:
                     nw = bls_newest([PF[s][1] for s in GROUPS[g]]); newest = {s: nw.get(PF[s][1]) for s in GROUPS[g]}
                     if all(newest[s] is not None and newest[s] > base[s] for s in GROUPS[g]):
-                        say('publisher wait: %s is out (%s) after %.0f s' % (g, ', '.join('%s %s' % (s, str(newest[s])[:7]) for s in GROUPS[g]), time.time() - t0))
+                        say('publisher wait: %s is out (%s) %.0f s after the release minute' % (g, ', '.join('%s %s' % (s, str(newest[s])[:7]) for s in GROUPS[g]), time.time() - rel0))
                         left.remove(g); found.append(g)
                     continue
                 new = publisher(GROUPS[g], full=False)
                 if all(s in new and len(new[s].dropna()) and (new[s].dropna().index[-1] > base[s] or (PF[s][0] == 'bea' and _differs(al, s, new[s]))) for s in GROUPS[g]):
-                    say('publisher wait: %s is out (%s) after %.0f s' % (g, ', '.join('%s %s' % (s, str(new[s].dropna().index[-1])[:7]) for s in GROUPS[g]), time.time() - t0))
+                    say('publisher wait: %s is out (%s) %.0f s after the release minute' % (g, ', '.join('%s %s' % (s, str(new[s].dropna().index[-1])[:7]) for s in GROUPS[g]), time.time() - rel0))
                     left.remove(g); found.append(g)
             except Exception as e:
                 say('publisher wait: %s not read (%s)' % (g, str(e)[:100]))
-        if not left or time.time() - t0 + every > limit_s: break
-        time.sleep(every)
-    for g in left: say('publisher wait: %s not out after %.0f s; the build runs with what is in hand (the slot\'s look-again runs follow)' % (g, time.time() - t0))
+        if found and first_out is None: first_out = time.time()
+        if not left: break
+        if first_out is not None and time.time() - first_out >= GRACE_S:
+            say('publisher wait: %s out; %s not out %.0f s later - the build goes now (the next slot\'s run reads it)' % (', '.join(found), ', '.join(left), time.time() - first_out))
+            break
+        ev = every if every else _every(time.time() - rel0)
+        if time.time() - rel0 + ev > limit_s: break
+        time.sleep(ev)
+    for g in left: say('publisher wait: %s not out after %.0f s; the build runs with what is in hand (the slot\'s look-again runs follow)' % (g, time.time() - rel0))
     return found
 
 
@@ -449,9 +482,15 @@ if __name__ == '__main__':
     import sys
     a = sys.argv[1:]
     if a[:1] == ['wait']:
-        lim = 720
+        lim = 720; nb = None
         if '--limit' in a: lim = int(a[a.index('--limit') + 1]); a = a[:a.index('--limit')] + a[a.index('--limit') + 2:]
-        wait([g for g in a[1:] if g in GROUPS or g in WAIT_ONLY or g.startswith('fred:')], limit_s=lim)   # 19 Nov 2026: fred:<SID>:<time> groups were dropped here, so FRED-polled slots never waited
+        if '--not-before' in a:   # 1167: the release minute, New York 'YYYY-MM-DD HH:MM' (the slot is three minutes before it)
+            v = a[a.index('--not-before') + 1]; a = a[:a.index('--not-before')] + a[a.index('--not-before') + 2:]
+            try:
+                from zoneinfo import ZoneInfo
+                nb = datetime.datetime.strptime(v, '%Y-%m-%d %H:%M').replace(tzinfo=ZoneInfo('America/New_York')).timestamp()
+            except Exception: nb = None
+        wait([g for g in a[1:] if g in GROUPS or g in WAIT_ONLY or g.startswith('fred:')], limit_s=lim, not_before=nb)   # 19 Nov 2026: fred:<SID>:<time> groups were dropped here, so FRED-polled slots never waited
         sys.exit(0)
     if a[:1] == ['append']:
         print(append(default_al()))

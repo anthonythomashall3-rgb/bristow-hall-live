@@ -77,8 +77,11 @@ def _bhs_fingerprint():
                 try: st_=os.stat(f); h.update(('UNREAD %d %f %s'%(st_.st_size,st_.st_mtime,type(e_).__name__)).encode())
                 except Exception: h.update(('UNREAD ? %s'%type(e_).__name__).encode())   # silently, so two different files can never share a key
     return h.hexdigest()
-_BHS_FP=_bhs_fingerprint(); _BHS_MEMO_DIR=os.path.join('cache','closers'); os.makedirs(_BHS_MEMO_DIR,exist_ok=True)
+_BHS_FP=_bhs_fingerprint(); _BHS_MEMO_DIR=os.environ.get('BHS_MEMO_DIR') or os.path.join('cache','closers'); os.makedirs(_BHS_MEMO_DIR,exist_ok=True)   # 1167: a test may name a fresh store
 _BHS_MEMO_STATS={'hit':0,'miss':0,'passed':0}
+for _f in _gl0.glob(os.path.join(_BHS_MEMO_DIR,'*.pkl.tmp*')):   # 1167: a write a stopped process left half done (no writer runs yet)
+    try: os.remove(_f)
+    except Exception: pass
 for _f in _gl0.glob(os.path.join(_BHS_MEMO_DIR,'*.pkl')):   # results not used for three days (a hit touches its file) go
     try:
         if _tm0.time()-os.path.getmtime(_f)>3*86400: os.remove(_f)
@@ -139,6 +142,63 @@ def _bhs_fn_hash(fn,h,seen,depth):
     g=fn.__globals__
     for n in sorted(_bhs_names(c,set())):
         if n in g: h.update(n.encode()); _bhs_obj_hash(g[n],h,seen,depth+1)
+# ---- 1167 (24 November 2026; Anthony: "under 3 minutes of data releases"): THE MEMO WARMED SIDE BY SIDE. On a day new data arrive, every
+# ---- memoised closer misses (the fingerprint moved) and the walk recomputes them one after another: 57 s on a claims day, 103 s on the G.17
+# ---- day. Each build now keeps the list of its memoised calls (cache/closers_calls.pkl: name, arguments, in order). At the first miss of a
+# ---- build, the process forks warmers (os.fork: each is this process as it stands at that moment) that take the rest of the last build's
+# ---- list in contiguous parts and compute each call through the same memo - the same key from their own state, written to the store whole -
+# ---- while this process walks on as before. A call it reaches that a warmer has finished is a hit; a key that does not match exactly (a
+# ---- warmer forked before the walk built an object the call reads) is never used, and the walk computes it itself. A warmer never returns
+# ---- into the walk, writes nothing but memo files, and is ended when the walk is done. So a hit is still exactly what the function computes
+# ---- from that key, and what this build computes is unchanged; only who computed it first. BHS_MEMO_WARM=0 turns it off.
+_BHS_CALLS=[]; _BHS_PLAN_F=os.path.join('cache','closers_calls.pkl')
+_BHS_WARM={'on':os.environ.get('BHS_MEMO_WARM','1')=='1' and hasattr(os,'fork'),'started':False,'pids':[],'child':False,'n':0,'planned':0}
+def _bhs_call_id(name,a,k):
+    try: return name+'|'+repr(a)+'|'+repr(sorted(k.items()))
+    except Exception: return None
+def _bhs_warm_start(name,a,k):
+    _BHS_WARM['started']=True
+    try: plan=_pk0.load(_bhs_real_open(_BHS_PLAN_F,'rb'))
+    except Exception: return
+    cid=_bhs_call_id(name,a,k); ids=[_bhs_call_id(*x) for x in plan]
+    i=ids.index(cid) if cid in ids else len(_BHS_CALLS)-1
+    rest=[x for x in plan[i+1:] if _bhs_call_id(*x)!=cid]
+    if not rest: return
+    nw=max(0,min(int(os.environ.get('BHS_MEMO_WARMERS') or 3),(os.cpu_count() or 2)-1,len(rest)))
+    if nw<1: return
+    cut=[round(j*len(rest)/(nw+1)) for j in range(nw+2)]   # nw+1 parts: this process walks into part 0 itself; warmer j takes part j
+    _BHS_WARM['planned']=len(rest)
+    for j in range(1,nw+1):
+        part=rest[cut[j]:cut[j+1]]
+        if not part: continue
+        try: pid=os.fork()
+        except Exception: break
+        if pid==0:
+            try:
+                _BHS_WARM['on']=False; _BHS_WARM['child']=True
+                for nm,aa,kk in part:
+                    fw=globals().get(nm)
+                    if fw is None or not hasattr(fw,'_bhs_fn'): continue
+                    try: fw(*aa,**kk)
+                    except BaseException: pass
+            finally: os._exit(0)
+        _BHS_WARM['pids'].append(pid)
+    _BHS_WARM['n']=len(_BHS_WARM['pids'])
+def _bhs_warm_end():
+    import signal as _sg0
+    for pid in _BHS_WARM['pids']:
+        try:
+            if os.waitpid(pid,os.WNOHANG)[0]==0: os.kill(pid,_sg0.SIGKILL); os.waitpid(pid,0)
+        except Exception: pass
+    _BHS_WARM['pids']=[]
+    if _BHS_CALLS:
+        try:
+            keep=[]
+            for x in _BHS_CALLS:
+                try: _pk0.dumps(x); keep.append(x)
+                except Exception: pass
+            _pk0.dump(keep,_bhs_real_open(_BHS_PLAN_F+'.tmp','wb')); os.replace(_BHS_PLAN_F+'.tmp',_BHS_PLAN_F)
+        except Exception: pass
 def _BHS_MEMO(fn):
     def w(*a,**k):
         if any(hasattr(x,'index') and hasattr(x,'values') for x in list(a)+list(k.values())): _BHS_MEMO_STATS['passed']+=1; return fn(*a,**k)
@@ -146,13 +206,15 @@ def _BHS_MEMO(fn):
             h=_hl0.md5(); _bhs_fn_hash(fn,h,set(),0); h.update(repr((a,sorted(k.items()),_BHS_FP)).encode()); key=h.hexdigest()
         except Exception as e_:   # no key could be made (an object of a kind the hash does not cover): computed as before, never cached
             _BHS_MEMO_STATS['unkeyed']=_BHS_MEMO_STATS.get('unkeyed',0)+1; _BHS_MEMO_STATS.setdefault('unkeyed_names',set()).add(fn.__name__+' ('+str(e_)[:70]+')'); return fn(*a,**k)
+        if not _BHS_WARM['child']: _BHS_CALLS.append((fn.__name__,a,k))
         p=os.path.join(_BHS_MEMO_DIR,fn.__name__+'_'+key+'.pkl')
         if os.path.exists(p):
             try:
                 r=_pk0.load(_bhs_real_open(p,'rb')); _BHS_MEMO_STATS['hit']+=1; os.utime(p,None); return r
             except Exception: pass
+        if _BHS_WARM['on'] and not _BHS_WARM['started']: _bhs_warm_start(fn.__name__,a,k)
         r=fn(*a,**k); _BHS_MEMO_STATS['miss']+=1; _BHS_MEMO_STATS.setdefault('missed',[]).append(fn.__name__+repr(a)[:30]+repr(sorted(k.items()))[:40])
-        try: _pk0.dump(r,_bhs_real_open(p+'.tmp','wb')); os.replace(p+'.tmp',p)
+        try: _pk0.dump(r,_bhs_real_open(p+'.tmp.%d'%os.getpid(),'wb')); os.replace(p+'.tmp.%d'%os.getpid(),p)   # 1167: a temporary name of its own (a warmer may write the same key)
         except Exception: pass
         return r
     w.__name__=fn.__name__; w.__doc__=fn.__doc__; w._bhs_fn=fn; return w
@@ -200,7 +262,8 @@ try:
         _merged66=_pd66.concat([_early66[_cols66+['source','fills']],_live66[_cols66+['source','fills']]],ignore_index=True)
         os.makedirs('cache',exist_ok=True); _pm66=os.path.join('cache','national_first_prints_1985_live.csv'); _txt66=_merged66.to_csv(index=False)
         if not os.path.exists(_pm66) or _bhs_real_open(_pm66).read()!=_txt66:
-            with _bhs_real_open(_pm66,'w') as _fh66: _fh66.write(_txt66)
+            with _bhs_real_open(_pm66+'.tmp','w') as _fh66: _fh66.write(_txt66)
+            os.replace(_pm66+'.tmp',_pm66)   # 1167: moved into place whole (bhs_update.py writes the same table first: s2/first_prints_merged.py)
         FIRSTPRINTS=dict(active=True,file=_pm66,early_table=_e66_early,early_weeks=int(len(_early66)),early_from=str(_early66['ic_week_ended'].min()),early_to=str(_early66['ic_week_ended'].max()),
                          live_rows=int(len(_live66)),sources={k:int(v) for k,v in _early66['source'].map(lambda _s:_s.split('|')[0].split(' (')[0].strip()).value_counts().items()},   # E66c: by label; a press row's source names its story
                          note='the weekly claims first prints from August 1975: the closing table of the release in the bound volumes (397; the Google Books copies, 404), the wires and papers of the release day where no copy holds the week (404), the bound news releases (399), the bound volumes (396), the Archive (382); current series where marked')
@@ -304,11 +367,14 @@ if _BR_MAP:
     pd.read_csv=_rc333
     _open_before333=open   # the memo-injecting open above; the as-of vacancy object reads its vintage table through it, mini.py its pickle
     def open(f,*a,**k): return _open_before333(_br333(f),*a,**k)
-with contextlib.redirect_stdout(io.StringIO()): exec(src)
+try:
+    with contextlib.redirect_stdout(io.StringIO()): exec(src)
+finally:
+    if not _BHS_WARM['child']: _bhs_warm_end()   # 1167: the warmers end with the walk; the list of this build's calls is kept for the next
 if _BR_MAP: pd.read_csv=_real_read_csv333
 open=_bhs_real_open
 if CLAIMS_SUB.get('active'): pd.read_csv=_real_read_csv329
-print('closers memo: %d hit, %d recomputed, %d passed, %d unkeyed (fingerprint %s)'%(_BHS_MEMO_STATS['hit'],_BHS_MEMO_STATS['miss'],_BHS_MEMO_STATS['passed'],_BHS_MEMO_STATS.get('unkeyed',0),_BHS_FP[:8])+('; recomputed: '+'; '.join(_BHS_MEMO_STATS.get('missed',[])[:8]) if _BHS_MEMO_STATS['miss'] else '')+('; UNKEYED: '+'; '.join(sorted(_BHS_MEMO_STATS['unkeyed_names'])) if _BHS_MEMO_STATS.get('unkeyed') else ''))
+print('closers memo: %d hit, %d recomputed, %d passed, %d unkeyed (fingerprint %s)%s'%(_BHS_MEMO_STATS['hit'],_BHS_MEMO_STATS['miss'],_BHS_MEMO_STATS['passed'],_BHS_MEMO_STATS.get('unkeyed',0),_BHS_FP[:8],('; %d warmers took %d of the last build\'s calls'%(_BHS_WARM['n'],_BHS_WARM['planned'])) if _BHS_WARM['n'] else '')+('; recomputed: '+'; '.join(_BHS_MEMO_STATS.get('missed',[])[:8]) if _BHS_MEMO_STATS['miss'] else '')+('; UNKEYED: '+'; '.join(sorted(_BHS_MEMO_STATS['unkeyed_names'])) if _BHS_MEMO_STATS.get('unkeyed') else ''))
 _tick('exec walk94 head')
 out.close()
 # ---- v3.70 (22 September 2026, collection 303; PREREG-the-four-round4 A4; Rule Zero): THE CONTINUED-CLAIMS CLOSER DATED BY ITS RELEASE. The lab's
@@ -728,6 +794,18 @@ def _ao_next():
     return _c.date().isoformat()
 _tb=_t
 # ---- C1021 (8 November 2026, collection 1022; Anthony 05:45 PT: "remove v3.76 as the starter ... make C1021 the new starter"): THE STARTER.
+# ---- 1167 (24 Nov 2026): run_cloud.sh starts this build BESIDE the starter (s2/c1021.py) and the ender (s2/e22.py); everything above reads
+# ---- none of their files. Their states are read below only once both have finished: BHS_STARTER_DONE_FILE holds "0", or the build stops.
+_SDF=os.environ.get('BHS_STARTER_DONE_FILE')
+if _SDF:
+    _t0w=_tm0.time()
+    while not os.path.exists(_SDF):
+        if _tm0.time()-_t0w>900: raise SystemExit('C1021/E22: the starter and the ender did not finish within 15 minutes of the walk (%s): the build stops'%_SDF)
+        _tm0.sleep(0.05)
+    _sdv=_bhs_real_open(_SDF).read().strip()
+    if _sdv!='0': raise SystemExit('C1021/E22: the starter or the ender did not finish (%s): the build stops before it reads their states'%_sdv)
+    print('the starter and the ender ran beside the walk; their states are in (waited %.1f s)'%(_tm0.time()-_t0w))
+    _tick('starter and ender in')
 # ---- s2/c1021.py (run before this build) writes out/c1021_state.json: the record's call pool (1021 harness, frozen) and the live tail from the
 # ---- bundle's own data. Its calls are the only opener; the walk's branches, the backstop, the activity opener, the concurrence branch and the
 # ---- state breadth open nothing. The closers are v3.76's as build_v builds them; a new call opens only outside an episode and more than 183

@@ -89,7 +89,9 @@ LIVE_TOOLS_GROUPS = {'bls_state', 'bls_empsit', 'dol_539'}
 ETA539_AGAIN_MIN = (20, 40, 60)   # 19 Nov 2026: the file's Last-Modified said 3:50 PM ET, but the Department served the old file until after 4:23 PM (live-tools 21:13Z and 21:23Z read it unchanged); the 3:56 run looks again 20, 40 and 60 minutes later, each polling up to 12 minutes
 ETA539_HM = '15:56'     # the Department's ETA 539 State file follows the claims release the same day at about 3:55 PM ET (measured)   # a slot waiting for these also starts live-tools.yml (State onset, stress map: State LAUS/CES, CES national)
 FRED_POLL = {'219', '465', '456', '386'}   # CFNAI, WEI, the Sahm rule, GDPNow: run at release +1, polling FRED for the post (1052 speed)
-PUBLISHER_FIRST_MIN = 1  # the publisher-read run starts this many minutes after the release, then polls the publisher (update.yml)
+PUBLISHER_FIRST_MIN = -3  # 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): the publisher-read run starts 3 minutes BEFORE the
+                          # release (one minute after it until 24 Nov 2026), is set up and waiting at the release minute, and polls the publisher
+                          # every 5 s from then (s2/publisher_first.py wait --not-before, update.yml); the slot carries the release minute
 PUBLISHER_WARM_MIN = 20  # and a run this many minutes before it does the day's first (full) refresh, so the release run is incremental
 MIN_FUTURE = 3          # every row always knows at least its next three releases
 RETRY_MIN = (10, 30, 90)    # a release due and not in is looked for again 10, 30 and 90 minutes after it was found missing
@@ -1029,7 +1031,7 @@ def schedule(cal, state, pending):
             rid_ = str(r.get('release_id') or '')
             if rid_ in FRED_POLL:
                 sid_ = re.split(r'[^A-Za-z0-9_]', r['ids'].strip())[0].upper()
-                raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), why + '; polled on FRED', 'fred:%s:%s' % (sid_, t.strftime('%Y%m%d%H%M'))))
+                raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), why + '; polled on FRED', 'fred:%s:%s' % (sid_, t.strftime('%Y%m%d%H%M')), t))
                 continue
             raw.append((run_t, why))
             # 1052 SPEED (15 November 2026; Anthony: "the live page to update at MAXIMUM within 5 minutes"): a release the update reads
@@ -1037,11 +1039,11 @@ def schedule(cal, state, pending):
             # new month is out; the FRED run above stays for everything still read from FRED
             pfg = PUBLISHER_FIRST.get(str(r.get('release_id') or ''))
             if str(r.get('release_id') or '') == '180':   # 1052 speed: the ETA 539 State file the same afternoon (the live tools read it)
-                raw.append((at(t.date(), ETA539_HM), "the Department's ETA 539 State file (3:55 PM ET; read from the Department)", 'dol_539'))
+                raw.append((at(t.date(), ETA539_HM) + dt.timedelta(minutes=PUBLISHER_FIRST_MIN - 1), "the Department's ETA 539 State file (3:55 PM ET; read from the Department)", 'dol_539', at(t.date(), ETA539_HM) - dt.timedelta(minutes=1)))
                 for mnt in ETA539_AGAIN_MIN:
                     raw.append((at(t.date(), ETA539_HM) + dt.timedelta(minutes=mnt), "look again: the Department's ETA 539 State file (due 3:55 PM ET)", 'dol_539'))
             if pfg:
-                raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), '%s (%s ET; read from the publisher)' % (r['short'], t.strftime('%I:%M %p').lstrip('0')), pfg))
+                raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), '%s (%s ET; read from the publisher)' % (r['short'], t.strftime('%I:%M %p').lstrip('0')), pfg, t))
                 # the day's first run pulls every series (bhs_update.py FULL); it is done before the release, so the release run is quick
                 raw.append((t - dt.timedelta(minutes=PUBLISHER_WARM_MIN), "the day's full refresh before %s (%s ET)" % (r['short'], t.strftime('%I:%M %p').lstrip('0'))))
     d = lo.date()
@@ -1077,22 +1079,24 @@ def schedule(cal, state, pending):
             t = s0 + dt.timedelta(minutes=mnt)
             if t > nowx and t.hour < 20:
                 raw.append((t, 'look again: %s (due %s, not yet posted)' % (p['short'], p['due_ny'][11:])))
-    raw = [(x[0], x[1], x[2] if len(x) > 2 else None) for x in raw if lo <= x[0] <= hi]
+    raw = [(x[0], x[1], x[2] if len(x) > 2 else None, x[3] if len(x) > 3 else None) for x in raw if lo <= x[0] <= hi]
     raw.sort(key=lambda x: x[0])
-    groups = []                                          # [first time, run time, reasons, publisher groups to wait for]
-    for t, w, pfg in raw:
+    groups = []                                          # [first time, run time, reasons, publisher groups to wait for, release minute]
+    for t, w, pfg, rel in raw:
         t = t.replace(second=0, microsecond=0)            # to the minute (to 5 minutes until 23 October 2026: the Worker ticks every minute, 411)
-        # a publisher-read run (1052 speed) is never merged with a FRED-read run: merging would hold it to the later time
+        # a publisher-read run (1052 speed) is never merged with a FRED-read run: merging would hold it to the later time; 1167: two publisher-read
+        # runs are one run only when their releases fall in the same minute (a later release must not hold an earlier one back)
         if (groups and (t - groups[-1][0]).total_seconds() <= MERGE_MIN * 60 and t.date() == groups[-1][0].date()
-                and bool(pfg) == bool(groups[-1][3])):
+                and bool(pfg) == bool(groups[-1][3]) and (not pfg or rel == groups[-1][4])):
             groups[-1][1] = max(t, groups[-1][1])            # the run waits for the latest release of its group
             groups[-1][2].append(w)
             if pfg: groups[-1][3].append(pfg)
         else:
-            groups.append([t, t, [w], [pfg] if pfg else []])
+            groups.append([t, t, [w], [pfg] if pfg else [], rel if pfg else None])
     return [dict({'ny': t.strftime('%Y-%m-%d %H:%M'), 'utc': t.astimezone(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
                   'why': list(dict.fromkeys(w))}, **({'wait': list(dict.fromkeys(p))} if p else {}),
-                 **({'live_tools': True} if set(p) & LIVE_TOOLS_GROUPS else {})) for _, t, w, p in groups]
+                 **({'release_ny': rel.strftime('%Y-%m-%d %H:%M')} if (p and rel is not None) else {}),
+                 **({'live_tools': True} if set(p) & LIVE_TOOLS_GROUPS else {})) for _, t, w, p, rel in groups]
 
 
 def write_slots(slots, state):
@@ -1105,10 +1109,12 @@ def write_slots(slots, state):
            'rule': ('a run is started when a slot has passed since built_at and no run is under way, at most three times for '
                     'one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub\'s own schedule '
                     'is the second line; nothing depends on the Mac'),
-           'made_by': ('ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes '
-                       'after each release the site shows (FRED-read releases: FRED\'s measured post plus 5 minutes), the S&P 500 '
-                       'close at 4:20 PM and its official close at FRED\'s evening post on NYSE trading days, a look-again only '
-                       'for a release that is due and not posted (10, 30 and 90 minutes); nothing else'),
+           'made_by': ('ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411; 1167, 24 November 2026): '
+                       'a run 3 minutes BEFORE each release read from its publisher or polled on FRED, set up and waiting at the release '
+                       'minute (release_ny) and asking the publisher every 5 seconds from then; a run 5 minutes after each other release the '
+                       'site shows (FRED-read releases: FRED\'s measured post plus 5 minutes), the S&P 500 close and its official close at '
+                       'FRED\'s evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and '
+                       '90 minutes); nothing else'),
            'fallback': 'weekdays 08:35, 09:35, 10:20 and 16:35 (New York time; the Cloudflare Worker\'s own times), used only if this list cannot be read',   # 1166: was 08:35, 09:45, 10:15, 16:20, 20:10 (before C1021)
            'slots': slots}
     jsave(path, doc)
