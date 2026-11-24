@@ -27,6 +27,9 @@ cache/c1021/FEDFUNDS.csv; the S&P daily file as s2/c1021.py reads it. Writes out
 Run from the live workspace after s2/c1021.py: python3 s2/e22.py   (BHS_E22_GATE=1 prints the gate against the harness's record)."""
 import os, sys, json, datetime as dt
 import numpy as np, pandas as pd
+try:   # 1167: one pandas 3.0.5 slowdown removed, the same results (s2/pandas_speed.py; loaded from its file, the module search path untouched)
+    import importlib.util as _psu; _pss=_psu.spec_from_file_location('pandas_speed', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'pandas_speed.py')); _psp=_psu.module_from_spec(_pss); _pss.loader.exec_module(_psp); print('pandas speed:', _psp.apply())
+except Exception as _psp_e: print('pandas speed: not applied (%s)' % _psp_e)
 ROOT = os.environ.get('BHS_ROOT') or next((r for r in (os.path.expanduser('~/Projects/Onset Detector Data'), os.path.expanduser('~/mnt/Onset Detector Data')) if os.path.isdir(r)), '')
 W = os.getcwd(); S2 = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(W, 'out'); os.makedirs(OUT, exist_ok=True)
 TODAY = pd.Timestamp(os.environ.get('BHS_TODAY') or dt.date.today())
