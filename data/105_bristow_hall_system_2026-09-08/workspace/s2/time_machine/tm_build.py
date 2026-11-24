@@ -336,7 +336,11 @@ def check():
         o = load(sid)
         if not o: newer.append(sid); continue
         since = o.get('alfred_through') or last_day(o)
-        q = urllib.parse.urlencode(dict(series_id=sid, api_key=key, file_type='json', realtime_start=day(since + 1), realtime_end='9999-12-31',
+        # 1166c (24 Nov 2026): a series pulled on its release day has its newest vintage today, and the day after is tomorrow, which FRED
+        # refuses (HTTP 400: the check, and the workflow, failed for the rest of the day; first on 24 Nov, INDPRO). The period starts no
+        # later than yesterday in New York: the values in force from then on are compared with the file, so nothing since the pull is missed.
+        start = min(since + 1, dn(ny_today().isoformat()) - 1)
+        q = urllib.parse.urlencode(dict(series_id=sid, api_key=key, file_type='json', realtime_start=day(start), realtime_end='9999-12-31',
                                         limit=100000, sort_order='asc'))
         rows = get('https://api.stlouisfed.org/fred/series/observations?' + q)['observations']
         ix = {x: i for i, x in enumerate(o['obs'])}; miss = []
