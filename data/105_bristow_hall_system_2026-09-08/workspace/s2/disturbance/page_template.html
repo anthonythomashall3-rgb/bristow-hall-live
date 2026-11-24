@@ -107,7 +107,7 @@ tr.open td{background:#fbf8ee}
 
 <h2>The disturbances</h2><div class="rule"></div>
 <div class="tw"><table id="reg"><thead><tr>
-  <th>Peak</th><th>Trough</th><th class="n">Months</th><th>Kind</th><th class="n">Fall vs trend (pp)</th><th class="n">Sahm max</th><th class="n">Production fall (%)</th><th class="n">Grade</th><th>Dates</th>
+  <th>Peak</th><th>Trough</th><th class="n">Months</th><th>Kind</th><th class="n">Fall vs trend (pp)</th><th class="n">Sahm max</th><th class="n">Production fall (%)</th><th class="n">Grade</th><th>Dates</th><th>First seen</th>
 </tr></thead><tbody></tbody></table></div>
 <p class="note">Grade: the program's damage grade (labor, output and production), the same arithmetic used for recessions, applied to each episode's own dates and placed on the recession scale: 1.5 times the damage, below the 3.00 at which a recession begins. No labels; the number is the grade. "Settled" means the trough is at least two years old; newer dates can still move as data are revised.</p>
 
@@ -169,8 +169,8 @@ document.getElementById('tiles').innerHTML=tiles.map(function(t){return '<div cl
 // register table
 var kind={disturbance_class1:'Disturbance',disturbance_class2:'Jobless-recovery disturbance'};
 document.querySelector('#reg tbody').innerHTML=D.map(function(e){
- return '<tr><td>'+ym(e.peak)+'</td><td>'+ym(e.trough)+'</td><td class="n">'+e.months+'</td><td>'+kind[e.status]+'</td><td class="n">'+f2(e.dev_fall_pp)+'</td><td class="n">'+f2(e.status==='disturbance_class2'?e.sahm_rerise:e.sahm_max)+(e.status==='disturbance_class2'?'*':'')+'</td><td class="n">'+f2(e.ip_fall_pct)+'</td><td class="n grade">'+f2(e.grade)+'</td><td>'+(e.provisional?'<span class="pill prov">PROVISIONAL</span>':'<span class="pill set">SETTLED</span>')+'</td></tr>';
-}).join('')+'<tr><td colspan="9" style="color:#666;font-size:12.5px;border-bottom:none">* For a jobless-recovery disturbance the Sahm column shows the re-rise inside the window, the measure its own bar uses.</td></tr>';
+ return '<tr><td>'+ym(e.peak)+'</td><td>'+ym(e.trough)+'</td><td class="n">'+e.months+'</td><td>'+kind[e.status]+'</td><td class="n">'+f2(e.dev_fall_pp)+'</td><td class="n">'+f2(e.status==='disturbance_class2'?e.sahm_rerise:e.sahm_max)+(e.status==='disturbance_class2'?'*':'')+'</td><td class="n">'+f2(e.ip_fall_pct)+'</td><td class="n grade">'+f2(e.grade)+'</td><td>'+(e.provisional?'<span class="pill prov">PROVISIONAL'+(e.band?' ±'+f2(e.band):'')+'</span>':'<span class="pill set">SETTLED</span>')+'</td><td>'+(e.first_seen?ym(e.first_seen):'–')+'</td></tr>';
+}).join('')+'<tr><td colspan="10" style="color:#666;font-size:12.5px;border-bottom:none">* For a jobless-recovery disturbance the Sahm column shows the re-rise inside the window, the measure its own bar uses.</td></tr>';
 // near misses
 var why={labor_bar_crossed_no_recession:function(e){return 'Unemployment crossed the recession bar (Sahm '+f2(e.sahm_max)+') but no recession followed'+(e.peak==='1959-06'?': the 116-day steel strike of 1959':'')+'.';},
  fails_DD:function(e){return 'Too shallow: the composite fell only '+f2(e.dev_fall_pp)+' points against trend.';},

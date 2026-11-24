@@ -68,6 +68,30 @@ def thumb(J, W=420, Hh=150, pad=5):
     return ''.join(g)
 
 
+AP = os.path.join(H, 'as_published_1167.json')
+CLASSED = ('recession', 'disturbance_class1', 'disturbance_class2')
+
+
+def as_published(J):
+    """1167 (24 Nov 2026; Anthony: fix Paper 3's limits on the live site). Each episode gets `first_seen`: the first month it stood in the
+    record as first published (the register replayed on the data vintages of each month-end, 1962-01 to 2026-11: as_published_1167.json),
+    and from now on the first run that holds it (the ledger in the same file, kept by this function). A provisional episode gets `band`:
+    the 90th percentile of the revision of a grade first published 6 to 24 months after its trough, on the episode's own scale."""
+    A = json.load(open(AP)); fs = A['first_seen']; led = A.setdefault('ledger', {}); run = J['built'][:7]
+    mo = lambda s: int(s[:4]) * 12 + int(s[5:7])
+    def near(k, d):
+        c = [x for x in d if abs(mo(x) - mo(k)) <= 6]
+        return d[min(c, key=lambda x: abs(mo(x) - mo(k)))] if c else None
+    changed = False
+    for e in J['episodes']:
+        k = e['peak']; seen = fs.get(k) or near(k, fs) or led.get(k) or near(k, led)
+        if seen is None and e['status'] in CLASSED and k >= A['replay_from']: led[k] = run; seen = run; changed = True   # before 1962 no vintages: none
+        e['first_seen'] = seen
+        if e.get('provisional') and e['status'] in CLASSED:
+            e['band'] = round((0.7 if e['status'] == 'recession' else 1.5) * A['band_damage_p90'], 2)
+    if changed: json.dump(A, open(AP, 'w'), indent=1)
+
+
 def build():
     prevf = os.path.join(OUT, 'chronology.json')
     prev = json.load(open(prevf))['episodes'] if os.path.exists(prevf) else None
@@ -81,6 +105,8 @@ def build():
     J.pop('data', None)
     n_dist = sum(e['status'].startswith('disturbance') for e in J['episodes'])
     if n_dist < 5 or len(J['deviation']['date']) < 900: raise RuntimeError('chronology output fails its sanity check')
+    try: as_published(J)
+    except Exception as e: print('disturbance chronology: first-published columns not added (%s)' % e)
     t = open(os.path.join(H, 'page_template.html'), encoding='utf-8').read()
     home = os.path.join(SITE, 'index.html')
     if os.path.exists(home):            # one masthead and footer across the site
