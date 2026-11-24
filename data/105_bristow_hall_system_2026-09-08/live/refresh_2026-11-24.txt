@@ -1,11 +1,10 @@
-FRED change check: 112 series tracked; 40 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
+FRED change check: 112 series tracked; 39 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
 home tiles: second source: 8 series compared with the BLS and the Department of Labor, 0 mismatch
 home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Nov 14, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-11-25, IURSA 2026-11-25, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
-bls_fetch: requests this process (test role, run 45445398381-1): bls_v2_test 1; this run so far: bls_v2_test 1
+bls_fetch: requests this process (test role, run 45450307323-1): bls_v2_test 1; this run so far: bls_v2_test 1
 PAYEMS         no new vintage since 2026-11-06 (through 2026-10-01)
 GDPC1          no new vintage since 2026-10-29 (through 2026-07-01)
 GDPNOW         no new vintage since 2026-11-18 (through 2026-10-01)
-INDPRO         1 vintage(s) appended, the last 2026-11-24: data through 2026-10-01
 UNEMPLOY       no new vintage since 2026-11-06 (through 2026-10-01)
 LNS13023621    no new vintage since 2026-11-06 (through 2026-10-01)
 publisher first: INDPRO 2026-10 - no month beyond the tables yet
@@ -19,5 +18,4 @@ S&P 500: nothing new (through 2026-11-23)
 Sahm gap: unchanged (through 2026-10-01)
 insured rate base: unchanged (through 2026-11-07)
 ---- the damage index's unemployment rate ----
-left as they stand: 81 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
-FRED stamps: 1 series recorded as pulled
+left as they stand: 82 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)

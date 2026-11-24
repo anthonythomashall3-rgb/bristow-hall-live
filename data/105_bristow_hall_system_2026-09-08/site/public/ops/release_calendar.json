@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-24 12:15",
+ "built_at": "2026-11-24 12:37",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-24T17:15:56Z",
+ "generated_utc": "2026-11-24T17:37:27Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -838,7 +838,7 @@
    "name": "industrial production",
    "next_expected": false,
    "next_ny": "2026-12-16 09:15",
-   "read_lag_min": 6,
+   "read_lag_min": 8,
    "release_id": 13,
    "short": "industrial production (G.17)",
    "slots": true,
