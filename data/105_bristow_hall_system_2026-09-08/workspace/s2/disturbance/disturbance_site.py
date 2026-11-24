@@ -76,7 +76,7 @@ def as_published(J):
     """1167 (24 Nov 2026; Anthony: fix Paper 3's limits on the live site). Each episode gets `first_seen`: the first month it stood in the
     record as first published (the register replayed on the data vintages of each month-end, 1962-01 to 2026-11: as_published_1167.json),
     and from now on the first run that holds it (the ledger in the same file, kept by this function). A provisional episode gets `band`:
-    the 90th percentile of the revision of a grade first published 6 to 24 months after its trough, on the episode's own scale."""
+    the 90th percentile of the revision of a grade first published 6 to 24 months after its trough."""
     A = json.load(open(AP)); fs = A['first_seen']; led = A.setdefault('ledger', {}); run = J['built'][:7]
     mo = lambda s: int(s[:4]) * 12 + int(s[5:7])
     def near(k, d):
@@ -88,7 +88,7 @@ def as_published(J):
         if seen is None and e['status'] in CLASSED and k >= A['replay_from']: led[k] = run; seen = run; changed = True   # before 1962 no vintages: none
         e['first_seen'] = seen
         if e.get('provisional') and e['status'] in CLASSED:
-            e['band'] = round((0.7 if e['status'] == 'recession' else 1.5) * A['band_damage_p90'], 2)
+            e['band'] = A['band_damage_p90']   # one number (1167): the band is on the grade itself
     if changed: json.dump(A, open(AP, 'w'), indent=1)
 
 

@@ -43,22 +43,33 @@ ym = lambda t: t.strftime('%Y-%m')
 
 # ---------------- the v4 code path (state_chronology_v4_growth_cycle_a198_1032.py lines 17-46, verbatim except: inputs are arguments, `last` is the series' last month,
 # and a short pre-peak base (fewer than 11 months, only where the insured rate has not yet begun) is allowed and flagged instead of asserted) -------------
-def run_v4(st, y, UR, last, allow_short=False):
+def run_v4(st, y, UR, last, allow_short=False, Pm=None):
+    # 1167 (24 Nov 2026; Anthony: one grading rule; the State grade on three dimensions): each window is graded on the fall of its own
+    # index (the highest level from 6 months before the peak to the trough, to the lowest level after it, up to 6 months past the trough)
+    # where it fell 1.0 percent or more, otherwise on its fall against trend; Pm = the place's production index (the State production
+    # index of collection 1167; None for a county), read by the national production function; grade = the mean of the dimensions held.
     ly = np.log(y); dev = 100 * (ly - dc.hp(ly, dc.LAMBDA)); w5, _ = dc.windows(dev, 5, 5, 15); w2, _ = dc.windows(dev, 2, 2, 6)
     fall = lambda p, t: float(dev[p] - (dev[t] if t is not None else dev[p:].min())); cand = [(p, t, 5) for p, t in w5]
     for p, t in w2:
         if not any(dc.overlaps(p, t, q, (s if s is not None else last)) for q, s, k in cand if k == 5) and fall(p, t) >= dc.DD_MIN: cand.append((p, t, 2))
     Gq = y.resample('QS').mean(); R = []
+    def graded(p, te):
+        a = y[(y.index >= p - pd.DateOffset(months=6)) & (y.index <= te)]; pl = a.idxmax()
+        b = y[(y.index >= pl) & (y.index <= min(te + pd.DateOffset(months=6), last))]; tl = b.idxmin(); fl = float(100 * (1 - b.min() / a.max()))
+        return (pl, tl, 'activity', fl) if fl >= 1.0 else (p, te, 'trend', fl)
     def parts(UR, base, Gq, p, m):
         ex = (UR[(UR.index >= p) & (UR.index <= m)] - base).clip(lower=0); L = dd.labour_score(float(ex.max()), float(ex.sum())) if len(ex) else 0.0
-        return L, dd.output_dimension(Gq, p, m), (float(ex.max()) if len(ex) else 0.0)
+        q = dd.production_dimension(Pm, p, m) if Pm is not None and len(Pm[(Pm.index >= p - pd.DateOffset(months=12)) & (Pm.index <= m)]) >= 2 else None
+        return L, dd.output_dimension(Gq, p, m), (float(ex.max()) if len(ex) else 0.0), q
+    g3 = lambda L, o, q: (L + o['score'] + q['score']) / 3 if q is not None else (L + o['score']) / 2
     for p, t, mp in sorted(cand, key=lambda r: r[0]):
-        te = t if t is not None else last; pre = UR[(UR.index < p) & (UR.index >= p - pd.DateOffset(months=12))]; short = len(pre) < 11
+        te = t if t is not None else last; gp, gt, on, act = graded(p, te)
+        pre = UR[(UR.index < gp) & (UR.index >= gp - pd.DateOffset(months=12))]; short = len(pre) < 11
         if short:
-            assert allow_short, (st, p)
+            assert allow_short, (st, gp)
             if len(pre) == 0: pre = UR[UR.index <= UR.index[0] + pd.DateOffset(months=11)]   # peak before the insured rate begins: its first 12 months
-        base = float(pre.min()); L, o, rise = parts(UR, base, Gq, p, te); g = (L + o['score']) / 2; f = fall(p, t)
-        R.append(dict(st=st, p=p, t=t, te=te, mp=mp, f=f, base=base, L=L, O=o['score'], pt=o['pt'], rise=rise, g=g, short_base=short))
+        base = float(pre.min()); L, o, rise, q = parts(UR, base, Gq, gp, gt); g = g3(L, o, q); f = fall(p, t)
+        R.append(dict(st=st, p=p, t=t, te=te, mp=mp, f=f, base=base, L=L, O=o['score'], pt=o['pt'], rise=rise, g=g, short_base=short, gp=gp, gt=gt, on=on))
     for r in R: r['status'] = 'open_unsettled' if (r['t'] is None and r['f'] < dc.DD_MIN) else ('fails_DD' if r['f'] < dc.DD_MIN else ('recession' if round(r['g'], 2) >= CUT else ''))
     rp = [r['p'] for r in R if r['status'] == 'recession']
     for r in R:
@@ -68,7 +79,10 @@ def run_v4(st, y, UR, last, allow_short=False):
     for i, r in enumerate(per):
         v = None; nxt = per[i + 1]['p'] if i + 1 < len(per) else last + pd.DateOffset(months=1)
         for m in pd.date_range(r['p'], nxt - pd.DateOffset(months=1), freq='MS'):
-            if m <= r['te']: L, o, _ = parts(UR, r['base'], Gq, r['p'], m); v = round((L + o['score']) / 2, 2)
+            if m <= r['te']:
+                if m < r['gp']: v = 0.0
+                elif m == r['te']: v = round(r['g'], 2)
+                else: L, o, _, q = parts(UR, r['base'], Gq, r['gp'], min(m, r['gt'])); v = round(g3(L, o, q), 2)
             ln[m.strftime('%Y-%m')] = v if m <= r['te'] else 0.0
             if m == r['te']: r['line_at_end'] = v
         r['line_high'] = max(ln[m.strftime('%Y-%m')] for m in pd.date_range(r['p'], r['te'], freq='MS'))
@@ -84,6 +98,7 @@ def sa_log(x):
     return x - S
 
 # ---------------- v4 (1979 on): the files as published, and a re-run of the code path on its own inputs to prove run_v4 is the v4 code -------------
+_S1167 = pd.read_csv(os.path.join(V4D, 'data/spi/spi_state_monthly_benchmarked_1167.csv'), index_col=0, parse_dates=True); SPI1167 = {c: _S1167[c].dropna() for c in _S1167.columns}   # 1167: the State production index
 V4T = pd.read_csv(os.path.join(V4D, 'out/BH-STATE-CHRONOLOGY-V4-1032.csv')); V4J = json.load(open(os.path.join(V4D, 'out/damage_line_v4_a198_1032.json')))
 X = pd.read_excel(os.path.join(V4D, 'data/philly/coincident-revised.xls'), sheet_name='Indexes'); X = X.set_index(pd.to_datetime(X.iloc[:, 0])).iloc[:, 1:].astype(float)
 STS = [c for c in X.columns if len(c) == 2 and c != 'US']; assert len(STS) == 50 and 'DC' not in STS
@@ -92,7 +107,7 @@ V4UR = {}   # 19 Nov 2026 (1150): the labour input of each State-month is kept f
 V4 = {}; repro = {'states_line_identical': 0, 'states_windows_identical': 0, 'differences': []}
 for st in STS:
     y = X[st].dropna(); u = pd.read_csv(os.path.join(DI, '03_data/state/fred_state_ur', f'{st}UR.csv')); UR = pd.Series(u.iloc[:, 1].astype(float).values, index=pd.to_datetime(u.iloc[:, 0])).dropna()
-    R, ln, dev = run_v4(st, y, UR, LAST); V4[st] = dict(R=R, ln=ln, dev=dev); V4UR[st] = UR
+    R, ln, dev = run_v4(st, y, UR, LAST, Pm=SPI1167.get(st)); V4[st] = dict(R=R, ln=ln, dev=dev); V4UR[st] = UR   # 1167: production dimension
     pub = dict(V4J['states'][st]['line']); mine = ln
     if pub == mine: repro['states_line_identical'] += 1
     else: repro['differences'].append((st, 'line', sum(1 for k in set(pub) | set(mine) if pub.get(k) != mine.get(k))))
@@ -149,7 +164,7 @@ K = float(np.median([x['ratio'] for x in KR])); print('k =', round(K, 4), 'from'
 # ---------------- L0 run -------------
 L0 = {}; short_n = 0
 for st in STS:
-    R, ln, dev = run_v4(st, PAY[st], K * IUR[st], PAY[st].index[-1], allow_short=True); L0[st] = dict(R=R, ln=ln, dev=dev)   # v3.1: v1's L0 (C2 withdrawn)
+    R, ln, dev = run_v4(st, PAY[st], K * IUR[st], PAY[st].index[-1], allow_short=True, Pm=SPI1167.get(st)); L0[st] = dict(R=R, ln=ln, dev=dev)   # v3.1: v1's L0 (C2 withdrawn); 1167: production where the index runs (1975 on)
     short_n += sum(1 for r in R if r['short_base'] and r['status'] in ('recession', 'disturbance') and r['te'] >= START)
 L0P = {st: [dict(p=r['p'], t=r['t'], te=r['te'], status=r['status'], grade=round(r['g'], 2), provisional=r['provisional'], line_at_end=r.get('line_at_end'), line_high=r.get('line_high'))
             for r in L0[st]['R'] if r['status'] in ('recession', 'disturbance')] for st in STS}

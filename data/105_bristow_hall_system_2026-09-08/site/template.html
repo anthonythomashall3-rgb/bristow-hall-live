@@ -174,7 +174,7 @@ details{margin-top:22px} summary{cursor:pointer;color:#990000;font-size:15px}
 
 <div class="meta">
   <div class="obs"><div class="lab"><span class="obslab" id="obslab" role="button" tabindex="0" aria-expanded="false" aria-controls="obspop">Observations<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 9 12 16 19 9"/></svg></span></div><div class="obspop" id="obspop" hidden><div class="rows" id="obsrows"></div><button class="btn" id="obsall" type="button">View All</button></div><div id="obs"></div><div id="upd"></div><div id="next"></div></div>
-  <div class="unt"><div class="lab">Units:</div>Index,<br>3.00 = recession, 3&ndash;10 damage</div>
+  <div class="unt"><div class="lab">Units:</div>Index,<br>2.00 = recession, 2&ndash;10 damage</div>
   <div class="frq"><div class="lab">Frequency:</div><span id="freq1"></span></div>
   <div class="rng">
     <div class="ranges" role="group" aria-label="Range"><a data-range="1" tabindex="0">1Y</a><a data-range="5" tabindex="0">5Y</a><a data-range="10" tabindex="0">10Y</a><a data-range="max" aria-pressed="true" tabindex="0">Max</a></div>
@@ -207,12 +207,12 @@ details{margin-top:22px} summary{cursor:pointer;color:#990000;font-size:15px}
 <h2>Notes</h2>
 <div class="notes">
   <p class="kv"><b>Source:</b> <a href="https://www.marshall.usc.edu/personnel/duke-bristow" target="_blank" rel="noopener">Bristow, Duke</a> and <a href="https://www.linkedin.com/in/anthonyhall-/" target="_blank" rel="noopener">Hall, Anthony</a> &nbsp;&nbsp;&nbsp; <b>Release:</b> <a>Bristow-Hall Rule Recession Indicator</a></p>
-  <p class="kv"><b>Units:</b> Index, 3.00 = recession, 3&ndash;10 damage</p>
+  <p class="kv"><b>Units:</b> Index, 2.00 = recession, 2&ndash;10 damage</p>
   <p class="kv"><b>Data through:</b> <span id="ver"></span></p>
   <p class="kv"><b>Frequency:</b> <span id="freq2"></span></p>
   <p class="kv"><b>Notes:</b></p>
   <p>The Bristow-Hall Rule (C1021) signals a recession&rsquo;s start when, in the data as first published, seven measures turn together (insured unemployment, job openings against claims, stocks, production, the Baa yield, the unemployment rate, payrolls), or the unemployed count and claims reach 12-month highs with stocks down on the year, or the funds rate jumps 1.5 points in a month, or job losers rise 15 log points on the year after an inverted yield curve. It signals the end when insured unemployment falls off its peak or stocks rally 20%, rates easing.<!-- E22 (1031, 9 November 2026): the ender's sentence replaces v3.76's --><!-- C1021 (1022, 8 November 2026): the starter's notes; the closer sentence is v3.76's --></p>
-  <p>The index shows how near a call is (3.00 = recession); during a recession it rises with a damage grade (3.00 at the call to 10 for 1929&ndash;33, log scale) from unemployment, real GDP and industrial production.</p>
+  <p>The index shows how near a call is (2.00 = recession); during a recession it rises with the damage grade (2.00 at the call to 10 for 1929&ndash;33, log scale) from unemployment, real GDP and industrial production.</p>
   <p>Real-time data only: each call uses the data as published that day.<!-- 24 September 2026 (Anthony: "as short as the Sahm Indicator notes section"): 405 words to 126; the record sentence (R15, s2/record_sentence.py) and the six-measure damage consensus left the Notes; the speed panels carry the record --></p>
   <p class="kv"><b>Citation:</b></p>
   <p id="cite"></p>
@@ -248,8 +248,8 @@ const SITE = __SITE__;
   const monthEnd=(y,m)=>Date.UTC(y,m,0);
   const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   const SER=S.series; const PHMAP={}; if(SER.phase){ for(let k=0;k<SER.dates.length;k++) PHMAP[SER.dates[k]]=SER.phase[k]; }; const N=SER.dates.length; const ld=SER.dates[N-1], lv=SER.values[N-1];
-  // each recession's peak: the highest reading of each run above 3.00 (the last day at that height)
-  const PEAKD=new Set(); { let bi=-1,bv=-Infinity; for(let k=0;k<=N;k++){ const v=k<N?SER.values[k]:null; if(v!==null&&v!==undefined&&v>3){ if(v>=bv){ bv=v; bi=k; } } else if(bi>=0){ PEAKD.add(SER.dates[bi]); bi=-1; bv=-Infinity; } } }
+  // each recession's peak: the highest reading of each run above 2.00 (the last day at that height)
+  const PEAKD=new Set(); { let bi=-1,bv=-Infinity; for(let k=0;k<=N;k++){ const v=k<N?SER.values[k]:null; if(v!==null&&v!==undefined&&v>2){ if(v>=bv){ bv=v; bi=k; } } else if(bi>=0){ PEAKD.add(SER.dates[bi]); bi=-1; bv=-Infinity; } } }
   const NB=S.nber.filter(r=>r.peak<'2024');
   // v3.58 (20 September 2026): the reference chronology's recessions the NBER has not dated - Paper 1's 2024 (peak April,
   // trough August). The lined area is drawn from THESE months, not from the rule's call months: the call is the alarm, to
@@ -333,7 +333,7 @@ const SITE = __SITE__;
   function viewAll(){ let rows=''; for(let k=0;k<N;k++){ const v=SER.values[k]; rows+='<tr><td>'+SER.dates[k]+'</td><td class="n">'+((v===null||v===undefined||!isFinite(v))?'.':Math.max(0,+v).toFixed(3))+'</td></tr>'; }
     const html='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>BHRREALTIME</title>'
       +'<style>body{font-family:Arial,Helvetica,sans-serif;color:#222;margin:24px 5%}h1{font-size:22px;font-weight:400;margin:0 0 8px}p{margin:2px 0;font-size:14px}table{border-collapse:collapse;margin-top:14px;font-size:14px}th,td{padding:3px 22px 3px 0;text-align:left;border-bottom:1px solid #e3e6ea}th{border-bottom:2px solid #cfd6de}.n{text-align:right;font-variant-numeric:tabular-nums}</style></head><body>'
-      +'<h1>Real-time Bristow-Hall Rule Recession Indicator (BHRREALTIME)</h1><p>Units: Index, 3.00 = recession, 3&ndash;10 damage</p><p>Frequency: '+esc(SER.frequency||'Daily, on release days')+'</p><p>'+esc($('#upd').textContent)+'</p>'
+      +'<h1>Real-time Bristow-Hall Rule Recession Indicator (BHRREALTIME)</h1><p>Units: Index, 2.00 = recession, 2&ndash;10 damage</p><p>Frequency: '+esc(SER.frequency||'Daily, on release days')+'</p><p>'+esc($('#upd').textContent)+'</p>'
       +'<table><thead><tr><th>DATE</th><th class="n">VALUE</th></tr></thead><tbody>'+rows+'</tbody></table></body></html>';
     try{ const url=URL.createObjectURL(new Blob([html],{type:'text/html'})); const w=window.open(url,'_blank'); if(w) return; }catch(e){}
     dataPanel('csv'); }
@@ -400,7 +400,7 @@ const SITE = __SITE__;
   let GEO=null;   // the last drawn geometry: ml, pw, t0, t1, mt, ph
   function niceStep(x){ if(!(x>0)) return 1; const p=Math.pow(10,Math.floor(Math.log10(x))); const r=x/p; return (r<1.5?1:r<3.5?2:r<7.5?5:10)*p; }
   function domain(vals,log,floor0){ let lo=Infinity,hi=-Infinity; for(const v of vals){ if(v===null||v===undefined||!isFinite(v)) continue; if(log&&v<=0) continue; if(v<lo)lo=v; if(v>hi)hi=v; }
-    if(lo===Infinity) return {lo:0,hi:1,step:0.25}; if(log){ if(lo===hi){lo/=2;hi*=2;} return {lo:lo,hi:hi,log:true}; } if(floor0){ lo=Math.min(0,lo); hi=Math.max(hi,3.75); } if(lo===hi){lo-=1;hi+=1;} const step=niceStep((hi-lo)/5); lo=Math.floor(lo/step)*step; hi=Math.ceil(hi/step)*step; return {lo:lo,hi:hi,step:step}; }
+    if(lo===Infinity) return {lo:0,hi:1,step:0.25}; if(log){ if(lo===hi){lo/=2;hi*=2;} return {lo:lo,hi:hi,log:true}; } if(floor0){ lo=Math.min(0,lo); hi=Math.max(hi,2.5); } if(lo===hi){lo-=1;hi+=1;} const step=niceStep((hi-lo)/5); lo=Math.floor(lo/step)*step; hi=Math.ceil(hi/step)*step; return {lo:lo,hi:hi,step:step}; }
   function ticksOf(dm){ const t=[]; if(dm.log){ const a=Math.floor(Math.log10(dm.lo)), b=Math.ceil(Math.log10(dm.hi)); for(let d=a;d<=b;d++) for(const m of [1,2,5]){ const v=m*Math.pow(10,d); if(v>=dm.lo*0.999&&v<=dm.hi*1.001) t.push(v);} return t; } for(let v=dm.lo;v<=dm.hi+dm.step*1e-6;v+=dm.step) t.push(+v.toFixed(10)); return t; }
   function fmtV(v,units){ if(v===null||v===undefined) return '—'; const a=Math.abs(v); if(units==='Index') return v.toFixed(2); return a>=1000?v.toFixed(0):a>=100?v.toFixed(1):a>=1?v.toFixed(2):v.toFixed(3); }
   function tickLabel(v,dm){ if(dm.log) return String(v); return dm.step<0.01?v.toFixed(3):dm.step<0.1?v.toFixed(2):dm.step<1?v.toFixed(2):v.toFixed(0); }
@@ -437,7 +437,7 @@ const SITE = __SITE__;
     const y0=new Date(t0).getUTCFullYear(), y1=new Date(t1).getUTCFullYear(); const pxy=pw/Math.max(years,0.25); const ystep=pxy>=60?1:pxy>=28?2:pxy>=12?5:10;
     for(let y=Math.ceil(y0/ystep)*ystep;y<=y1;y+=ystep){ const t=Date.UTC(y,0,1); if(t<t0||t>t1) continue; const x=xs(t); svg+='<line x1="'+x.toFixed(1)+'" x2="'+x.toFixed(1)+'" y1="'+mt+'" y2="'+(H-mb)+'" stroke="#e3e6ea"/><text x="'+x.toFixed(1)+'" y="'+(H-mb+16)+'" text-anchor="middle" font-size="11" fill="'+tc+'" font-family="'+ff+'">'+y+'</text>'; }
     if(pxy>=300){ const mstep=pxy>=900?1:pxy>=450?2:3; for(let y=y0;y<=y1;y++) for(let m=0;m<12;m+=mstep){ const t=Date.UTC(y,m,1); if(t<t0||t>t1) continue; svg+='<text x="'+xs(t).toFixed(1)+'" y="'+(H-mb+28)+'" text-anchor="middle" font-size="9" fill="#666" font-family="'+ff+'">'+MON[m]+'</text>'; } }
-    if(idxOnly&&!FMT.log&&domL.lo<=3&&domL.hi>=3) svg+='<line x1="'+ml+'" x2="'+(W-mr)+'" y1="'+ysL(3).toFixed(1)+'" y2="'+ysL(3).toFixed(1)+'" stroke="#111111" stroke-width="1.3"/>';
+    if(idxOnly&&!FMT.log&&domL.lo<=2&&domL.hi>=2) svg+='<line x1="'+ml+'" x2="'+(W-mr)+'" y1="'+ysL(2).toFixed(1)+'" y2="'+ysL(2).toFixed(1)+'" stroke="#111111" stroke-width="1.3"/>';
     svg+='<rect x="'+ml+'" y="'+mt+'" width="'+pw+'" height="'+ph+'" fill="none" stroke="#cfd6de"/>';
     const pts=[]; const nL=data.length; let mainN=0;
     data.forEach((x,li)=>{ const L=x.L, D=x.d; const ys=L.axis==='right'?ysR:ysL; const dm=L.axis==='right'?domR:domL; const per={Daily:0,Monthly:1,Quarterly:3,Semiannual:6,Annual:12}[effFreq(L)];
@@ -579,7 +579,7 @@ const SITE = __SITE__;
   async function doDownload(k){
     const name='BHRREALTIME';
     if(k==='csv'){ if(!(await deliver(name+'.csv',csvText()))) dataPanel('csv'); return; }
-    if(k==='xlsx'){ let buf=null; try{ if(!window.XLSX) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'); const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(csvRows()),'Data'); XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['Real-time Bristow-Hall Rule Recession Indicator (BHRREALTIME)'],['Units','Index, 3.00 = recession, 3\u201310 damage'],['Frequency',FREQTXT],['Updated',S.built],['Source','Bristow, Duke and Hall, Anthony via the Bristow-Hall System'],['Citation',CITE]]),'Notes'); buf=XLSX.write(wb,{bookType:'xlsx',type:'array'}); }catch(e){ buf=null; }
+    if(k==='xlsx'){ let buf=null; try{ if(!window.XLSX) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'); const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(csvRows()),'Data'); XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['Real-time Bristow-Hall Rule Recession Indicator (BHRREALTIME)'],['Units','Index, 2.00 = recession, 2\u201310 damage'],['Frequency',FREQTXT],['Updated',S.built],['Source','Bristow, Duke and Hall, Anthony via the Bristow-Hall System'],['Citation',CITE]]),'Notes'); buf=XLSX.write(wb,{bookType:'xlsx',type:'array'}); }catch(e){ buf=null; }
       if(!buf){ dataPanel('xlsx'); return; } if(!(await deliver(name+'.xlsx',buf))) dataPanel('xlsx'); return; }
     if(k==='png'){ try{ const c=await svgToCanvas(2); const blob=await canvasBlob(c); if(!(await deliver(name+'.png',blob))) imgPanel('Image (graph)',c.toDataURL('image/png')); }catch(e){ showPanel('Image (graph)','The image could not be rendered in this browser.',document.createElement('div')); } return; }
     if(k==='pptx'){ let png=null; try{ png=await svgToPng(2); }catch(e){ showPanel('PowerPoint (graph)','The graph could not be rendered in this browser.',document.createElement('div')); return; }

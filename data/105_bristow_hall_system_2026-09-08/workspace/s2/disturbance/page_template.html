@@ -109,14 +109,14 @@ tr.open td{background:#fbf8ee}
 <div class="tw"><table id="reg"><thead><tr>
   <th>Peak</th><th>Trough</th><th class="n">Months</th><th>Kind</th><th class="n">Fall vs trend (pp)</th><th class="n">Sahm max</th><th class="n">Production fall (%)</th><th class="n">Grade</th><th>Dates</th><th>First seen</th>
 </tr></thead><tbody></tbody></table></div>
-<p class="note">Grade: the program's damage grade (labor, output and production), the same arithmetic used for recessions, applied to each episode's own dates and placed on the recession scale: 1.5 times the damage, below the 3.00 at which a recession begins. No labels; the number is the grade. "Settled" means the trough is at least two years old; newer dates can still move as data are revised.</p>
+<p class="note">Grade: the program's damage grade (labor, output and production), by the same rule as every recession: on the fall of activity itself, or on the fall against trend where activity fell less than 1 percent. 2.00 or more is a recession. No labels; the number is the grade. "Settled" means the trough is at least two years old; newer dates can still move as data are revised.</p>
 
 <h2>How a disturbance is decided</h2><div class="rule"></div>
 <div class="defs">
   <div class="def"><div class="k">1. Dated</div><p>A contraction of the coincident composite relative to its trend (Hodrick-Prescott, λ = 133,107.94, the OECD's monthly value), with peaks and troughs found by the Bry-Boschan rule. Windows come from the OECD's settings (minimum phase 5 months) plus any shorter window, down to 2 months, that passes test 3. Length alone never decides.</p></div>
   <div class="def"><div class="k">2. Not a recession</div><p>The window contains no NBER recession month (nor Paper 1's March–August 2024 recession). A slowdown that runs straight into a recession is that recession's run-up, not a separate episode.</p></div>
   <div class="def"><div class="k">3. Real</div><p>The composite falls at least 1.0 percentage point against its trend from peak to trough.</p></div>
-  <div class="def"><div class="k">4. Below the recession grade</div><p>The grade (labor, output and production) is below 3.00. A window that grades 3.00 or more is a recession.</p></div>
+  <div class="def"><div class="k">4. Below the recession grade</div><p>The grade (labor, output and production) is below 2.00. A window that grades 2.00 or more is a recession.</p></div>
   <div class="def"><div class="k">Jobless-recovery disturbance</div><p>A contraction that begins within 24 months after an NBER trough, while payroll employment is still below its pre-recession peak in every month, in which unemployment rises again by less than 1.0 point (measured from its low inside the window). It is judged against this bar instead of test 4.</p></div>
   <div class="def"><div class="k">Fixed in advance</div><p>Nothing is tuned to the episodes. The same rule runs each month on current FRED data; the code and every ruling behind it are in the program's records.</p></div>
 </div>

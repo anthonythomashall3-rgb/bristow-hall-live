@@ -19,8 +19,10 @@ CLASSIFY   R  Recession: the window contains an NBER recession month or Paper 1'
               pre-recession peak at the window's peak month. Scored against this bar, not D-C.
            Run-up: a non-recession window whose trough is followed by a recession window's peak with no expansion of at
               least the window's own minimum phase between them.
-GRADE      The live site's v3.76 damage grader (damage_dimensions_live_v376.py = site s2/damage_dimensions.py, verbatim)
-           on the window's own dates. No labels: the grade is the number, on the same scale as recessions.
+GRADE      The live site's v3.76 damage grader (damage_dimensions_live_v376.py = site s2/damage_dimensions.py, verbatim), by ONE RULE for
+           every window (collection 1167, 24 Nov 2026): on the fall of activity itself (the composite's high to its low, from 6 months before
+           the peak to 6 months after the trough) where it fell 1.0 percent or more, otherwise on the window's own dates. The grade is the
+           damage, one number, 0 to 10 (1929-33 = 10); 2.00 or more is a recession.
 PROVISIONAL The HP trend is two-sided, so the newest window moves as data arrive. A window is marked provisional until its
            trough is at least 24 months old. An open window is classified by the same clauses on the data so far (a window
            that contains a recession month is that recession's window, D-B) and is always provisional; an open window not yet
@@ -35,9 +37,8 @@ import numpy as np, pandas as pd
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DAMAGE_CUT = 2.0   # register v3.2: the damage at or above which a window is a recession (Anthony, 14 Nov 2026 05:35 PT: '2.0')
-# THE ONE SCALE (collection 1140, 16 Nov 2026; Anthony: "recessions and disturbances are on the same scale"): 'damage' is the damage grade as before
-# (0 to 10; the class is still read from it against DAMAGE_CUT); 'grade' is that damage on the scale the live indicator uses, where a recession
-# begins at 3.00 - 1.5 x damage for a disturbance, 3 + 0.7 x damage for a recession (s2/one_scale.py).
+# ONE NUMBER (collection 1167, 24 Nov 2026; Anthony: "graded the same way", line 2.00; was the one scale of 1140): 'grade' is 'damage', the damage
+# grade itself (0 to 10, s2/one_scale.py grade()); the class is read from it against DAMAGE_CUT, 2.00.
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.dirname(HERE))      # live system: s2/damage_dimensions.py, the site's own grader (v3.76)
 from one_scale import grade as _one1140         # 1140: the damage grade on the one scale
@@ -161,6 +162,27 @@ def has_recession(p, t):
     return any(overlaps(p, t, M(a), M(b)) for a, b in RECESSIONS)
 
 
+ACT_MIN = 1.0     # 1167: a fall of activity counts when it is at least this many percent (the D-D bar)
+ACT_LEAD = 6; ACT_LAG = 6
+
+
+def graded_window(idx, p, te, last):
+    """1167: the months a window is graded on. The composite's highest level in [p - 6 months, te] and its lowest level after it, up to
+    te + 6 months (not past the data); if that fall is ACT_MIN percent or more the window is graded on it, otherwise on p..te."""
+    a = idx[(idx.index >= p - pd.DateOffset(months=ACT_LEAD)) & (idx.index <= te)]; pl = a.idxmax()
+    b = idx[(idx.index >= pl) & (idx.index <= min(te + pd.DateOffset(months=ACT_LAG), last))]; tl = b.idxmin()
+    fall = float(100 * (1 - b.min() / a.max()))
+    return (pl, tl, dict(on='activity', fall_pct=round(fall, 2))) if fall >= ACT_MIN else (p, te, dict(on='trend', fall_pct=round(fall, 2)))
+
+
+def damage_parts(UR, G, IP, gp, gt):
+    """the v3.76 damage on months gp..gt: labor base = lowest UR in the 12 months before gp"""
+    pre = UR[(UR.index < gp) & (UR.index >= gp - pd.DateOffset(months=12))]; base = float(pre.min())
+    seg = UR[(UR.index >= gp) & (UR.index <= gt)]; ex = (seg - base).clip(lower=0)
+    L = dd.labour_score(float(ex.max()), float(ex.sum()))
+    return L, dd.output_dimension(G, gp, gt), dd.production_dimension(IP, gp, gt), ex
+
+
 def sahm(UR):
     u3 = UR.rolling(3).mean()          # as severity_1024_v2.py (the measurements behind rulings 2 and 6)
     return u3 - u3.rolling(12).min()
@@ -236,11 +258,12 @@ def main():
             status = 'labor_bar_crossed_no_recession'
         else:
             status = 'disturbance_class1'
-        # grade (v3.76), labor as the site: base = lowest UR in the 12 months before the peak month
-        pre = UR[(UR.index < p) & (UR.index >= p - pd.DateOffset(months=12))]; base = float(pre.min())
-        seg = UR[(UR.index >= p) & (UR.index <= te)]; ex = (seg - base).clip(lower=0)
-        L = dd.labour_score(float(ex.max()), float(ex.sum()))
-        o = dd.output_dimension(G, p, te); q = dd.production_dimension(IP, p, te)
+        # ONE GRADING RULE (collection 1167, 24 Nov 2026; Anthony: "recessions and disturbances graded the same way", "Adopt"): every window is
+        # graded on the fall of activity itself - the composite's highest level from 6 months before its peak to its trough, to its lowest level
+        # after that, up to 6 months after the trough - and where activity fell by less than ACT_MIN percent (the 1.0 bar of D-D), on its fall
+        # against trend (peak to trough), as before. The grade is that damage (v3.76 arithmetic), one number; 2.00 or more is a recession.
+        gp, gt, act = graded_window(idx, p, te, last)
+        L, o, q, ex = damage_parts(UR, G, IP, gp, gt)
         # Register v3.2 (Anthony, 14 Nov 2026 05:30 and 05:35 PT): recession or disturbance is read from the DAMAGE GRADE, not from the criteria - DAMAGE_CUT or more a
         # recession, below it a disturbance. The v3.1 status is kept in status_v3_1; class 1 / class 2 remain as descriptions of a disturbance, not as tests.
         status_v3_1 = status; g_ = round(dd.grade(L, o['score'], q['score']), 2)
@@ -266,6 +289,9 @@ def main():
                          ur_rise_pp=round(float(ex.max()), 2), ip_fall_pct=round(q['pt'], 2), gdp_fall_pct=round(o['pt'], 2),
                          L=round(L, 2), O=round(o['score'], 2), P=round(q['score'], 2),
                          damage=g_, grade=_one1140(g_), provisional=bool(prov),
+                         graded_on=act['on'], graded_from=gp.strftime('%Y-%m'), graded_to=gt.strftime('%Y-%m'), activity_fall_pct=act['fall_pct'],
+                         damage_path=({m.strftime('%Y-%m'): round(dd.grade(*(lambda r: (r[0], r[1]['score'], r[2]['score']))(damage_parts(UR, G, IP, gp, m))), 2)
+                                       for m in pd.date_range(gp, gt, freq='MS')} if status == 'recession' else None),
                          recession_months_inside=rec_in, passes_DD=bool(f >= DD_MIN), passes_DC=bool(smax < SAHM_C1)))
     T = pd.DataFrame(rows)
     os.makedirs(a.out, exist_ok=True)

@@ -321,16 +321,16 @@ for _jp in ('home_tiles.json',):
             if isinstance(_v,str) and _re9.fullmatch(r'\s*'+_PH+r'\s*%?\s*',_v,_re9.I): _ph.append('tiles: %s.%s=%s'%(_t.get('lab'),_k,_v))
 chk('units: no published page prints a placeholder (n/a, NaN, None, null)',_ph,[])
 
-# ---- 1140 (16 Nov 2026; Anthony: "recessions and disturbances are on the same scale"): THE ONE SCALE - the recession line is 3.00 in the state and on the pages (advisory; s2/one_scale.py)
+# ---- 1167 (24 Nov 2026; Anthony: "graded the same way", line 2.00): ONE NUMBER - the grade is the damage and the recession line is 2.00 in the state and on the pages (advisory; s2/one_scale.py)
 try:
-    chk('one scale: every recession day reads 3.00 or more and every other day below 3.00',[d_ for d_,x_,p_ in zip(S['series']['dates'],S['series']['values'],S['series']['phase']) if x_ is not None and ((p_=='open' and x_<3.0) or (p_=='' and x_>=3.0))][:5],[])
-    chk('one scale: the state names its scale (recession line 3.00)',(S.get('scale') or {}).get('line'),3.0)
-    chk('one scale: every recession grades 3.00 or more',[e.get('open_month') for e in S['episodes'] if e.get('grade') is not None and e['grade']<3.0],[])
+    chk('one number: every recession day reads 2.00 or more and every other day below 2.00',[d_ for d_,x_,p_ in zip(S['series']['dates'],S['series']['values'],S['series']['phase']) if x_ is not None and ((p_=='open' and x_<2.0) or (p_=='' and x_>=2.0))][:5],[])
+    chk('one number: the state names its scale (recession line 2.00)',(S.get('scale') or {}).get('line'),2.0)
+    chk('one number: every recession grades 2.00 or more',[e.get('open_month') for e in S['episodes'] if e.get('grade') is not None and e['grade']<2.0],[])
     import subprocess as _sp1140, sys as _sy1140
-    chk('one scale: the State page and the stress map are on the scale',_sp1140.run([_sy1140.executable,'s2/one_scale.py','check'],capture_output=True,text=True).returncode,0)
+    chk('one number: the State page and the stress map are on the scale',_sp1140.run([_sy1140.executable,'s2/one_scale.py','check'],capture_output=True,text=True).returncode,0)
     _dj1140=json.load(open(os.path.join('s2','disturbance','out','chronology.json')))
-    chk('one scale: every disturbance grades below 3.00 and every recession window 3.00 or more',[e['peak'] for e in _dj1140['episodes'] if e.get('grade') is not None and ((e['status'].startswith('disturbance') and e['grade']>=3.0) or (e['status']=='recession' and e['grade']<3.0))],[])
-except Exception as _e1140: chk('one scale: the checks ran',repr(_e1140)[:80],'readable')
+    chk('one number: every disturbance grades below 2.00 and every recession window 2.00 or more, and each grade is its damage',[e['peak'] for e in _dj1140['episodes'] if e.get('grade') is not None and ((e['status'].startswith('disturbance') and e['grade']>=2.0) or (e['status']=='recession' and e['grade']<2.0) or abs(e['grade']-e['damage'])>1e-9)],[])
+except Exception as _e1140: chk('one number: the checks ran',repr(_e1140)[:80],'readable')
 bad=[r for r in R if r[3]=='FAIL']
 print('\n'.join(f'| {n} | {g} | {w} | {s} |' for n,g,w,s in R))
 print(f'\n{len(R)-len(bad)}/{len(R)} PASS')

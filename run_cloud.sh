@@ -133,6 +133,10 @@ python3 "$HERE/ops/calendar_refresh.py" || true
 # out/backstop_state.json, and run after it they showed the last run's week (the ETA 539 week of 14 Nov was held by the gate:
 # "shows 2026-10-31 but 2026-11-07 was published", update run 44621366959, whose own backstop had read 2026-11-07).
 [ "$MODE" = "site" ] || python3 s2/backstop.py || true
+# ONE NUMBER (24 November 2026, collection 1167; Anthony: recessions and disturbances "graded the same way", line 2.00): the register is dated
+# first, on the same FRED read as the data page, so the indicator's recession grades and the line inside them are the register's (one rule)
+if [ "${BHS_DIST_FRED_READY:-0}" = 1 ]; then python3 s2/disturbance/disturbance_chronology.py --data s2/disturbance/out/fred_latest --out s2/disturbance/out > out/register_first.out 2>&1 || echo "register first: failed; the last register stands"; fi
+python3 s2/one_scale.py indicator || true
 python3 bhs_site.py
 # THE NATIONAL DISTURBANCE CHRONOLOGY (9 November 2026; Anthony: "make the disturbance indicator autoupdating forever"):
 # re-dates every disturbance from current FRED data by the fixed rule and writes /disturbance/ over the stub bhs_site.py
@@ -147,9 +151,9 @@ python3 s2/state_onset/state_onset_site.py || true
 # THE NATIONAL STRESS MAP (15 November 2026; Anthony: "ENSURE THAT EVERYTHING IS LIVE UPDATING"): writes the page built in collection 1052
 # (s2/stress_map/page.html, committed by the Mac job com.bristowhall.stressmap1052 after its checks pass) over the stub bhs_site.py writes at /stress-map/; never fails the run
 python3 s2/stress_map/stress_map_site.py || true
-# THE ONE SCALE (16 November 2026, collection 1140; Anthony: "recessions and disturbances are on the same scale ... recessions should start when
-# it crosses the threshold of 3"): the State page and the stress map, built by code outside this repository, are placed on the scale the indicator
-# and the disturbance chronology publish (s2/one_scale.py); a page that cannot be converted keeps its last converted copy; never fails the run
+# ONE NUMBER (24 November 2026, collection 1167; was the one scale of 1140): the State page and the stress map, built by code outside this
+# repository, are placed on one number (the grade is the damage; a month of a recession period never below 2.00) (s2/one_scale.py);
+# a page that cannot be converted keeps its last converted copy; never fails the run
 python3 s2/one_scale.py pages || true
 # THE RUN SLOTS (21 September 2026, collection 278): the release times at which the Cloudflare Worker and the Mac start the
 # next runs, published with the site (site/public/run_slots.json); never fails the run
