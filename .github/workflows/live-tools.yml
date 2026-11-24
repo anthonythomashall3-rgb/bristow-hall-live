@@ -147,6 +147,18 @@ jobs:
       # THE SOURCE GATE (15 November 2026, collection 1052): the State and stress-map pages just put in place are checked against the
       # publishers (each State's newest unemployment rate and claims week on FRED, the BLS county file, QCEW) before anything is committed:
       # a phantom month, a stale month or a stale carried week stops the commit (and so the deploy) in hold mode (ops/source_gate.json).
+      # 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): THE LAST GATE'S SOURCES, as update.yml keeps them (1052 speed). The
+      # gate starts from the answers the previous live-tools gate read and keeps only FRED series FRED itself lists as not updated since
+      # (s2/source_gate.py warm_cache, one paged fred/series/updates call); the BLS, the ETA 539 file, QCEW and every updated series are read again.
+      # The 24 Nov 12:38 UTC run spent 61 s on 108 source calls.
+      - name: the last live-tools gate's sources
+        if: env.MODE == 'full' && steps.pages.outputs.pages_ok == 'True'
+        uses: actions/cache@v5
+        with:
+          path: ${{ runner.temp }}/lt_gate_cache
+          key: lt-gate-src-${{ github.run_id }}
+          restore-keys: lt-gate-src-
+
       - name: the pages against their sources (the source gate)
         id: srcgate
         if: env.MODE == 'full' && steps.pages.outputs.pages_ok == 'True'
@@ -160,7 +172,8 @@ jobs:
           ALERT_NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: |
           set +e
-          python3 s2/source_gate.py --site ../site/public --pages state,stress --out "$LT_OUT/source_gate_report.json" --no-verified-write 2>&1 | tee "$LT_OUT/source_gate.log"; rc=${PIPESTATUS[0]}
+          WARM=""; if [ -s "$RUNNER_TEMP/lt_gate_cache/sources.json" ]; then cp "$RUNNER_TEMP/lt_gate_cache/sources.json" "$RUNNER_TEMP/lt_gate_prev.json"; WARM="--warm $RUNNER_TEMP/lt_gate_prev.json"; fi
+          python3 s2/source_gate.py --site ../site/public --pages state,stress $WARM --cache-out "$RUNNER_TEMP/lt_gate_cache/sources.json" --out "$LT_OUT/source_gate_report.json" --no-verified-write 2>&1 | tee "$LT_OUT/source_gate.log"; rc=${PIPESTATUS[0]}
           if [ "$rc" != 0 ]; then bash s2/alert.sh "HOLD" "live tools held by the source gate: $(grep -m1 '^HOLD' "$LT_OUT/source_gate.log" | cut -c1-300)"; fi
           exit $rc
 
