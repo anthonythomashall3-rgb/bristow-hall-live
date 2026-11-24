@@ -152,6 +152,8 @@ def _bhs_fn_hash(fn,h,seen,depth):
 # ---- into the walk, writes nothing but memo files, and is ended when the walk is done. So a hit is still exactly what the function computes
 # ---- from that key, and what this build computes is unchanged; only who computed it first. BHS_MEMO_WARM=0 turns it off.
 _BHS_CALLS=[]; _BHS_PLAN_F=os.path.join('cache','closers_calls.pkl')
+_BHS_WARM_DIR=os.path.join(os.environ.get('RUNNER_TEMP') or '/tmp','bhs_memo_warm_%d'%os.getpid())   # the warmers' results: outside the repository;
+                                                                                                    # one the walk uses is moved into the store, the rest go with the run
 _BHS_WARM={'on':os.environ.get('BHS_MEMO_WARM','1')=='1' and hasattr(os,'fork'),'started':False,'pids':[],'child':False,'n':0,'planned':0}
 def _bhs_call_id(name,a,k):
     try: return name+'|'+repr(a)+'|'+repr(sorted(k.items()))
@@ -175,7 +177,7 @@ def _bhs_warm_start(name,a,k):
         except Exception: break
         if pid==0:
             try:
-                _BHS_WARM['on']=False; _BHS_WARM['child']=True
+                _BHS_WARM['on']=False; _BHS_WARM['child']=True; os.makedirs(_BHS_WARM_DIR,exist_ok=True)
                 for nm,aa,kk in part:
                     fw=globals().get(nm)
                     if fw is None or not hasattr(fw,'_bhs_fn'): continue
@@ -191,6 +193,9 @@ def _bhs_warm_end():
             if os.waitpid(pid,os.WNOHANG)[0]==0: os.kill(pid,_sg0.SIGKILL); os.waitpid(pid,0)
         except Exception: pass
     _BHS_WARM['pids']=[]
+    try:
+        import shutil as _sh0; _sh0.rmtree(_BHS_WARM_DIR,ignore_errors=True)   # what the walk did not use goes with the run
+    except Exception: pass
     if _BHS_CALLS:
         try:
             keep=[]
@@ -212,6 +217,19 @@ def _BHS_MEMO(fn):
             try:
                 r=_pk0.load(_bhs_real_open(p,'rb')); _BHS_MEMO_STATS['hit']+=1; os.utime(p,None); return r
             except Exception: pass
+        pw=os.path.join(_BHS_WARM_DIR,os.path.basename(p))
+        if not _BHS_WARM['child'] and _BHS_WARM['n'] and os.path.exists(pw):   # 1167: a warmer computed this very key: moved into the store
+            try:
+                r=_pk0.load(_bhs_real_open(pw,'rb')); os.replace(pw,p); _BHS_MEMO_STATS['hit']+=1; _BHS_MEMO_STATS['warm']=_BHS_MEMO_STATS.get('warm',0)+1; return r
+            except Exception: pass
+        if _BHS_WARM['child']:   # a warmer writes only into its own folder, never the store
+            if os.path.exists(pw):
+                try: return _pk0.load(_bhs_real_open(pw,'rb'))   # a nested call this warmer (or another) already computed
+                except Exception: pass
+            r=fn(*a,**k)
+            try: _pk0.dump(r,_bhs_real_open(pw+'.tmp.%d'%os.getpid(),'wb')); os.replace(pw+'.tmp.%d'%os.getpid(),pw)
+            except Exception: pass
+            return r
         if _BHS_WARM['on'] and not _BHS_WARM['started']: _bhs_warm_start(fn.__name__,a,k)
         r=fn(*a,**k); _BHS_MEMO_STATS['miss']+=1; _BHS_MEMO_STATS.setdefault('missed',[]).append(fn.__name__+repr(a)[:30]+repr(sorted(k.items()))[:40])
         try: _pk0.dump(r,_bhs_real_open(p+'.tmp.%d'%os.getpid(),'wb')); os.replace(p+'.tmp.%d'%os.getpid(),p)   # 1167: a temporary name of its own (a warmer may write the same key)
@@ -374,7 +392,7 @@ finally:
 if _BR_MAP: pd.read_csv=_real_read_csv333
 open=_bhs_real_open
 if CLAIMS_SUB.get('active'): pd.read_csv=_real_read_csv329
-print('closers memo: %d hit, %d recomputed, %d passed, %d unkeyed (fingerprint %s)%s'%(_BHS_MEMO_STATS['hit'],_BHS_MEMO_STATS['miss'],_BHS_MEMO_STATS['passed'],_BHS_MEMO_STATS.get('unkeyed',0),_BHS_FP[:8],('; %d warmers took %d of the last build\'s calls'%(_BHS_WARM['n'],_BHS_WARM['planned'])) if _BHS_WARM['n'] else '')+('; recomputed: '+'; '.join(_BHS_MEMO_STATS.get('missed',[])[:8]) if _BHS_MEMO_STATS['miss'] else '')+('; UNKEYED: '+'; '.join(sorted(_BHS_MEMO_STATS['unkeyed_names'])) if _BHS_MEMO_STATS.get('unkeyed') else ''))
+print('closers memo: %d hit, %d recomputed, %d passed, %d unkeyed (fingerprint %s)%s'%(_BHS_MEMO_STATS['hit'],_BHS_MEMO_STATS['miss'],_BHS_MEMO_STATS['passed'],_BHS_MEMO_STATS.get('unkeyed',0),_BHS_FP[:8],('; %d warmers took %d of the last build\'s calls, %d of them used'%(_BHS_WARM['n'],_BHS_WARM['planned'],_BHS_MEMO_STATS.get('warm',0))) if _BHS_WARM['n'] else '')+('; recomputed: '+'; '.join(_BHS_MEMO_STATS.get('missed',[])[:8]) if _BHS_MEMO_STATS['miss'] else '')+('; UNKEYED: '+'; '.join(sorted(_BHS_MEMO_STATS['unkeyed_names'])) if _BHS_MEMO_STATS.get('unkeyed') else ''))
 _tick('exec walk94 head')
 out.close()
 # ---- v3.70 (22 September 2026, collection 303; PREREG-the-four-round4 A4; Rule Zero): THE CONTINUED-CLAIMS CLOSER DATED BY ITS RELEASE. The lab's
@@ -1150,9 +1168,16 @@ _c1chg=C1021_DAILY['reading'].diff().fillna(1.0)!=0
 _c1trade={pd.Timestamp(t).normalize() for t in _SPX.dropna().index} if '_SPX' in globals() else set()
 DAYS=sorted(set(C1021_DAILY.index[_c1chg.values].tolist())|_c1trade|{pd.Timestamp(e[k]) for e in epis for k in ('open_pub','close_pub') if e.get(k)}|{C1021_DAILY.index[-1]}); DAYS=[d for d in DAYS if pd.Timestamp('1948-01-01')<=d<=pd.Timestamp(today) and d in C1021_DAILY.index]
 _dr_keep=None   # C1021 (1022): the daily line is C1021's reading; nothing is reused from the v3.76 reading cache
+# 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): the row each day reads - the last C1021 day on or before it - is found by a
+# binary search of the sorted, de-duplicated index instead of a mask over all 28,800 days for each of the 20,000 days (12 s per build, every
+# build). The same row, so the same value and branch. A table that is not sorted and unique is read the old way.
+_c1ix=C1021_DAILY.index; _c1fast=bool(_c1ix.is_monotonic_increasing and _c1ix.is_unique)
 for d in DAYS:
     ins=_inside_day(d)
     if _dr_keep is not None and d<=_dr_keep and d in _dr_rows and _dr_rows[d][0]==ins: r,who=_dr_rows[d][1],_dr_rows[d][2]; _n_reused+=1
+    elif _c1fast:
+        _i=int(_c1ix.searchsorted(d,side='right'))-1
+        r=float(C1021_DAILY['reading'].iloc[_i]) if _i>=0 else np.nan; who=str(C1021_DAILY['branch'].iloc[_i]) if _i>=0 else ''
     else:
         _c1row=C1021_DAILY[C1021_DAILY.index<=d]; r=float(_c1row['reading'].iloc[-1]) if len(_c1row) else np.nan; who=str(_c1row['branch'].iloc[-1]) if len(_c1row) else ''   # C1021 (1022)
     if False and _D_new is not None and d<=_D_new: _dr_new[d]=(ins,r,who)
