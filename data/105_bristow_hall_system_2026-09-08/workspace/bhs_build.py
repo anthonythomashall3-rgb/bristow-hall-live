@@ -1646,8 +1646,8 @@ def _last_vint(sid):
 # 1052 (15 Nov 2026): THE NSA CLAIMS FEED VALUES, BY WEEK. The feed showed ICNSA 170,626 (week of Aug 29, 2026) and CCNSA 5,780,893
 # (week of Nov 28, 2020) because it took the last non-blank cell of the 45 table's icnsa/iunsa columns, which its newest (ALFRED) rows
 # leave blank. Now: the newest WEEK in the union of that table and cache/c1021/claims_nsa_first_prints.csv (the first prints the rule
-# reads), its value as first printed; the week must be within the release cadence (initial: week + 5 days, at most 14 days before today, a holiday-moved release included;
-# insured: + 12, at most 21) or the build stops, and every shown value's week is recorded for q41 (FEED_VALUE_DATES).
+# reads), its value as first printed; the week must be within the release cadence (initial: week + 5 days, + 4 when a holiday moves the release to Wednesday, at most 14 days
+# before today; insured: + 12, + 11 then, at most 21) or the build stops, and every shown value's week is recorded for q41 (FEED_VALUE_DATES).
 FEED_VALUE_DATES={}
 def _nsa_newest(sid):
     col_,wk_,lag_={'ICNSA':('icnsa','ic_week_ended',5),'CCNSA':('iunsa','iu_week_ended',12)}[sid]; fr_=[]
@@ -1657,7 +1657,9 @@ def _nsa_newest(sid):
         fr_.append(q_.dropna(subset=['w','v']))
     q_=pd.concat(fr_).sort_values(['w','r']); w_=q_['w'].max(); q_=q_[q_['w']==w_].iloc[0]   # the newest week; its earliest release
     age_=(pd.Timestamp(today)-w_).days
-    assert lag_<=age_<=lag_+9, '%s: the newest first print is the week of %s, %d days old - outside the weekly cadence (%d-%d days)'%(sid,w_.date(),age_,lag_,lag_+9)
+    # 1167 (25 Nov 2026): a release a holiday moves to Wednesday comes a day early - initial claims 4 days after their week, insured 11
+    # (the Thanksgiving release of 25 Nov 2026: ICNSA of 21 Nov, CCNSA of 14 Nov, neither shown); the latest day is unchanged
+    assert lag_-1<=age_<=lag_+9, '%s: the newest first print is the week of %s, %d days old - outside the weekly cadence (%d-%d days)'%(sid,w_.date(),age_,lag_-1,lag_+9)
     FEED_VALUE_DATES[sid]=dict(date=str(w_.date()),value=float(q_['v']),source=str(q_['f']),released=str(q_['r'].date()) if pd.notna(q_['r']) else None)
     return float(q_['v'])
 _RAWF={'ICSA':(lambda: _last_num(os.path.join(_D0,'ICSA.csv')),'{:,.0f}'),'CCSA':(lambda: _last_num(os.path.join(_D0,'CCSA.csv')),'{:,.0f}'),'IURSA':(lambda: _last_num(os.path.join(_D0,'IURSA.csv')),'{:.1f}'),
