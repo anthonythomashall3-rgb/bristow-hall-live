@@ -40,6 +40,7 @@ Never fails the run: on any error it says so, and the tool's own slot list stand
 """
 import datetime as dt
 import html
+import importlib.util
 import json
 import os
 import re
@@ -85,7 +86,12 @@ MARKET_CLOSE_HM = '16:00'   # the NYSE close: an SP500 post before it is not the
 MERGE_MIN = 15          # slots closer than this are one run
 # 1052 speed (15 Nov 2026): FRED release id -> the publisher group s2/publisher_first.py reads at release time (BLS API v2, the G.17 file)
 PUBLISHER_FIRST = {'53': 'bea_gdp', '50': 'bls_empsit', '192': 'bls_jolts', '13': 'fed_g17', '10': 'bls_cpi', '180': 'dol_claims', '112': 'bls_state'}
-LIVE_TOOLS_GROUPS = {'bls_state', 'bls_empsit', 'dol_539'}
+LIVE_TOOLS_GROUPS = {'bls_state', 'bls_empsit', 'dol_539', 'bls_cpi'}   # 1167b: CPI too (the State page's CPI comes from the BLS at the release:
+                                                                    # ops/live_tools/state_fast.py serves CPIAUCSL from CUSR0000SA0)
+# 1167b (25 Nov 2026; Anthony: "within minutes of the data release"): the State page's other inputs that FRED schedules (CPI, the State
+# building permits, the Philadelphia Fed's State coincident indexes, BEA's State personal income) start the live tools at their FRED-read
+# run (FRED's post plus 5 minutes). Until now they reached the State page only at the next twice-daily live-tools run: on 25 Nov the
+# October permits FRED posted at 8:30 ET were still missing from the page at 4 PM. ops/tool.json live_tools_at_release lists them.
 ETA539_AGAIN_MIN = (20, 40, 60)   # 19 Nov 2026: the file's Last-Modified said 3:50 PM ET, but the Department served the old file until after 4:23 PM (live-tools 21:13Z and 21:23Z read it unchanged); the 3:56 run looks again 20, 40 and 60 minutes later, each polling up to 12 minutes
 ETA539_HM = '15:56'     # the Department's ETA 539 State file follows the claims release the same day at about 3:55 PM ET (measured)   # a slot waiting for these also starts live-tools.yml (State onset, stress map: State LAUS/CES, CES national)
 FRED_POLL = {'219', '465', '456', '386'}   # CFNAI, WEI, the Sahm rule, GDPNow: run at release +1, polling FRED for the post (1052 speed)
@@ -1026,6 +1032,11 @@ def pending_update(cal, new_rows, old_rows, prev_built):
             if key not in pend:
                 pend[key] = {'ids': r['ids'], 'short': r['short'], 'due_ny': x['ny'], 'expected_day': x.get('expected', False),
                              'through_before': before, 'value_before': vbefore, 'since_ny': nowx.strftime('%Y-%m-%d %H:%M')}
+    # 1167b (25 Nov 2026): an entry whose row no calendar row watches any more (a history layer ruled 'never' after it was entered,
+    # a row taken off the data page) is dropped: on 25 Nov the stress map's pre-1979 payroll layer, refreshed never, was still
+    # "not posted yet" five days after the rule, in every message
+    for k in [k for k in pend if k[0] not in watched]:
+        del pend[k]
     # a release the next one has overtaken is dropped (its row moved on, or a newer one is waited for); an entry older than
     # a week is set aside as expired (said in the message) so an agency's cancelled release cannot be waited for forever
     for ids in watched:                          # a through-date that moved forward with none of its releases due: early
@@ -1075,11 +1086,12 @@ def conditional_days(state):
 
 def schedule(cal, state, pending):
     nowx = now_et()
+    LT_AT_RELEASE = {norm(k) for k in (TOOL.get('live_tools_at_release') or [])}
     lo, hi = nowx - dt.timedelta(days=SLOT_BACK), nowx + dt.timedelta(days=SLOT_AHEAD)
     raw = []                                             # (aware time, why)
     for r in cal['rows']:
-        if not r.get('slots', r['time_known']):
-            continue
+        if not (r.get('slots', r['time_known']) or (r['ids'] in LT_AT_RELEASE and r['time_known'])):
+            continue                                     # 1167b: a NO_SLOT State row the live tools read gets its run (it starts them)
         for x in r['times']:
             t = dt.datetime.strptime(x['ny'], '%Y-%m-%d %H:%M').replace(tzinfo=ET)
             if not (lo - dt.timedelta(hours=2) <= t <= hi):
@@ -1095,11 +1107,12 @@ def schedule(cal, state, pending):
             # Sahm rule, GDPNow) is no longer run at FRED's usual post plus 5 minutes: its run starts 1 minute after the release and
             # polls FRED until the series is posted (wait group fred:<SID>:<release time>), at most 12 minutes; the slot count is unchanged
             rid_ = str(r.get('release_id') or '')
+            lt_ = r['ids'] in LT_AT_RELEASE                # 1167b: a State-page input the live tools read from FRED or its agency
             if rid_ in FRED_POLL:
                 sid_ = re.split(r'[^A-Za-z0-9_]', r['ids'].strip())[0].upper()
-                raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), why + '; polled on FRED', 'fred:%s:%s' % (sid_, t.strftime('%Y%m%d%H%M')), t))
+                raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), why + '; polled on FRED', 'fred:%s:%s' % (sid_, t.strftime('%Y%m%d%H%M')), t, lt_))
                 continue
-            raw.append((run_t, why))
+            raw.append((run_t, why, None, None, lt_))
             # 1052 SPEED (15 November 2026; Anthony: "the live page to update at MAXIMUM within 5 minutes"): a release the update reads
             # from its publisher (s2/publisher_first.py) gets a run one minute after the release, which polls the publisher until the
             # new month is out; the FRED run above stays for everything still read from FRED
@@ -1116,11 +1129,34 @@ def schedule(cal, state, pending):
     oc = official_close_hm()
     while d <= hi.date():
         if trading_day(d):
+            # 1167b (25 Nov 2026; Anthony: "within minutes of the data release"): THE CLOSE AT ITS RELEASE. A run 3 minutes before the close
+            # waits for the chart feed's close to settle (s2/publisher_first.py spx_close: after the close, at least 150 s, unchanged 60 s;
+            # 16:04:40 on 25 Nov) and takes it; the 4:20 PM run (the H.15) and FRED's official close correct it as before
+            _c = at(d, close_hm(d))
+            raw.append((_c + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), 'the S&P 500 close (%s ET; read from the chart feed as it settles)' % fmt_hm(close_hm(d)), 'spx_close', _c))
             if nyse_early_close(d):   # 1166: the market closes at 1:00 PM; the chart feed settles by 1:15 PM (the update's own cut moves with it)
                 raw.append((at(d, '13:20'), "the S&P 500 close (1:00 PM: an NYSE early close; the chart feed, settled by 1:15 PM)"))
             raw.append((at(d, CLOSE_HM), "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"))
             raw.append((at(d, oc), "the S&P 500 official close (FRED SP500, posted about %s)" % fmt_hm(fred_clock(OFFICIAL_CLOSE_RID, after=MARKET_CLOSE_HM) or oc)))
         d += dt.timedelta(days=1)
+    # 1167b (25 Nov 2026; Anthony: "within minutes of the data release"): THE LIVE TOOLS' OWN RELEASES WITH NO FRED ROW - the county
+    # unemployment file (BLS LAUS county data, with Metropolitan Area Employment and Unemployment), QCEW (County Employment and Wages) and
+    # the Census CPS basic monthly files - reached the stress map and the State page only at the next live-tools cron, hours after. Each
+    # release day (the publisher's own schedule page, s2/tool_inputs.py CAL) gets a run 5 minutes after the publisher's clock
+    # (ops/release_times_measured.json) that starts the live tools; they ask the BLS API for the new county month themselves.
+    try:
+        _ti = importlib.util.spec_from_file_location('_bhs_tool_inputs', os.path.join(ROOT, TOOL['workspace'], 's2', 'tool_inputs.py'))
+        _tim = importlib.util.module_from_spec(_ti); _ti.loader.exec_module(_tim)
+        _rtm = (jload(os.path.join(OPS, 'release_times_measured.json'), {}) or {}).get('publishers', {})
+        for _k, _what in (('bls_metro', 'county unemployment (BLS LAUS county data)'), ('bls_qcew', 'QCEW county employment (BLS)'),
+                          ('census_cps', 'the CPS basic monthly files (Census)')):
+            _hm = (_rtm.get(_k) or {}).get('hm')
+            for _day in ((_tim.CAL.get(_k) or ((), '', []))[2] if _hm else []):
+                _t = at(dt.date.fromisoformat(_day), _hm) + dt.timedelta(minutes=LAG_MIN)
+                if lo <= _t <= hi:
+                    raw.append((_t, '%s (%s ET; read by the live tools)' % (_what, fmt_hm(_hm)), None, None, True))
+    except Exception as e:
+        GAPS.append('the live tools\' own release days (county LAUS, QCEW, CPS) could not be read (%s): no run of their own' % type(e).__name__)
     # the rule-dated month is read by 9:05 AM on its day, whatever else runs that day (358: the page shows that time, so it
     # must be kept; until 23 September 2026 the run was added only when no other run was due that day, which could leave the
     # month to the 5:05 PM close)
@@ -1145,10 +1181,10 @@ def schedule(cal, state, pending):
             t = s0 + dt.timedelta(minutes=mnt)
             if t > nowx and t.hour < 20:
                 raw.append((t, 'look again: %s (due %s, not yet posted)' % (p['short'], p['due_ny'][11:])))
-    raw = [(x[0], x[1], x[2] if len(x) > 2 else None, x[3] if len(x) > 3 else None) for x in raw if lo <= x[0] <= hi]
+    raw = [(x[0], x[1], x[2] if len(x) > 2 else None, x[3] if len(x) > 3 else None, bool(x[4]) if len(x) > 4 else False) for x in raw if lo <= x[0] <= hi]
     raw.sort(key=lambda x: x[0])
-    groups = []                                          # [first time, run time, reasons, publisher groups to wait for, release minute]
-    for t, w, pfg, rel in raw:
+    groups = []                                          # [first time, run time, reasons, publisher groups to wait for, release minute, live tools]
+    for t, w, pfg, rel, lt in raw:
         t = t.replace(second=0, microsecond=0)            # to the minute (to 5 minutes until 23 October 2026: the Worker ticks every minute, 411)
         # a publisher-read run (1052 speed) is never merged with a FRED-read run: merging would hold it to the later time; 1167: two publisher-read
         # runs are one run only when their releases fall in the same minute (a later release must not hold an earlier one back)
@@ -1157,12 +1193,13 @@ def schedule(cal, state, pending):
             groups[-1][1] = max(t, groups[-1][1])            # the run waits for the latest release of its group
             groups[-1][2].append(w)
             if pfg: groups[-1][3].append(pfg)
+            groups[-1][5] = groups[-1][5] or lt
         else:
-            groups.append([t, t, [w], [pfg] if pfg else [], rel if pfg else None])
+            groups.append([t, t, [w], [pfg] if pfg else [], rel if pfg else None, lt])
     return [dict({'ny': t.strftime('%Y-%m-%d %H:%M'), 'utc': t.astimezone(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
                   'why': list(dict.fromkeys(w))}, **({'wait': list(dict.fromkeys(p))} if p else {}),
                  **({'release_ny': rel.strftime('%Y-%m-%d %H:%M')} if (p and rel is not None) else {}),
-                 **({'live_tools': True} if set(p) & LIVE_TOOLS_GROUPS else {})) for _, t, w, p, rel in groups]
+                 **({'live_tools': True} if (set(p) & LIVE_TOOLS_GROUPS or lt) else {})) for _, t, w, p, rel, lt in groups]
 
 
 def write_slots(slots, state):

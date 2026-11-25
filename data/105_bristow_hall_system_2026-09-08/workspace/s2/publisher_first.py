@@ -459,6 +459,40 @@ def _probe_539():
     return bool(newest and newest >= sat.isoformat()), 'ETA 539 through %s (Wyoming)' % newest
 
 
+# 1167b (25 Nov 2026; Anthony: "within minutes of the data release"): THE S&P 500 CLOSE AT ITS RELEASE. The chart feed bhs_update.py reads
+# (Yahoo ^GSPC) carries the close's last prints for a few minutes after 4:00 PM: on 25 Nov it read 7182.89 at 16:00:30, 7182.87 at 16:02:55,
+# 7182.82 at 16:03:00 and 7182.78 from 16:03:40 on (still 7182.78 at 16:21). The close is taken when the feed's last trade is after the close,
+# at least SPX_MIN_S after it, and its price has not moved for SPX_STABLE_S; the 4:20 PM run corrects a later move and FRED's official close
+# (about 8 PM) corrects both. The update then takes today's close (BHS_SPX_SETTLED, update.yml) instead of waiting for 4:15 PM.
+from zoneinfo import ZoneInfo as _ZI; _NY = _ZI('America/New_York')
+SPX_MIN_S = float(os.environ.get('PF_SPX_MIN_S') or 150)
+SPX_STABLE_S = float(os.environ.get('PF_SPX_STABLE_S') or 60)
+_SPX = {}
+
+
+def spx_close_time(d=None):
+    """the NYSE close on day d, New York: 1:00 PM on the day after Thanksgiving, and on Christmas Eve and July 3 from Monday to Thursday
+    (bhs_update.py's own rule, 1166), else 4:00 PM"""
+    d = d or _today_et()
+    early = (d.month == 11 and d.weekday() == 4 and 23 <= d.day <= 29) or ((d.month, d.day) in ((12, 24), (7, 3)) and d.weekday() <= 3)
+    return datetime.datetime.combine(d, datetime.time(13 if early else 16, 0), tzinfo=_NY)
+
+
+def _probe_spx():
+    """the S&P 500's close on the chart feed: out when the feed's last trade is after today's close, SPX_MIN_S has passed since the close,
+    and the price has stood still for SPX_STABLE_S"""
+    close = spx_close_time(); now = time.time()
+    if now < close.timestamp() + 5: return False, 'before the close'
+    r = subprocess.run(['curl', '-sSL', '-m', '15', '-A', 'Mozilla/5.0', 'https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=1d&interval=1d'],
+                       capture_output=True, text=True)
+    m = json.loads(r.stdout)['chart']['result'][0]['meta']; px = float(m['regularMarketPrice']); rmt = float(m.get('regularMarketTime') or 0)
+    if rmt < close.timestamp(): return False, 'the feed\'s last trade %s is before the close' % datetime.datetime.fromtimestamp(rmt, _NY).strftime('%H:%M:%S')
+    if _SPX.get('px') != px: _SPX.update(px=px, since=now)
+    still = now - _SPX['since']
+    ok = now - close.timestamp() >= SPX_MIN_S and still >= SPX_STABLE_S
+    return ok, 'S&P 500 %.2f at %s, unchanged for %.0f s' % (px, datetime.datetime.fromtimestamp(now, _NY).strftime('%H:%M:%S'), still)
+
+
 def _fred_json(url, tries=4):
     """a FRED API call that waits out a 429 (the key's limit is shared by every job running at the moment)"""
     import urllib.request, urllib.error
@@ -482,7 +516,7 @@ def _probe_fred(g):
     return t >= r0 - datetime.timedelta(minutes=2), 'FRED %s updated %s' % (sid, lu)
 
 
-WAIT_ONLY = {'bls_cpi': _probe_cpi, 'dol_claims': _probe_claims, 'bls_state': _probe_state, 'dol_539': _probe_539}
+WAIT_ONLY = {'bls_cpi': _probe_cpi, 'dol_claims': _probe_claims, 'bls_state': _probe_state, 'dol_539': _probe_539, 'spx_close': _probe_spx}
 LIVE_TOOLS = {'bls_state', 'bls_empsit', 'dol_539'}   # releases the live tools (live-tools.yml) read: a run at their slot starts the live tools
 
 

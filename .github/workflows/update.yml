@@ -480,6 +480,48 @@ jobs:
       # is set up, and the work that needs no new data done, before the release minute; the wait sleeps to that minute and then asks every
       # 5 seconds (s2/publisher_first.py --not-before). The slot's entry is read from this checkout, else from the live site's list (the list
       # the Worker read), so a build between the Worker's read and this checkout cannot lose the slot.
+      # 1167 (25 Nov 2026; Anthony: "under 3 minutes of data releases"): THE LIVE TOOLS STARTED BEFORE THEIR RELEASE. A release-time slot
+      # (it runs 3 minutes ahead) of a release the live tools read starts live-tools.yml now, with the release's groups and minute: its
+      # setup (checkout, Python, packages, the restored state, about a minute) is done before the release, and it waits for the release
+      # itself (s2/publisher_first.py wait). For the ETA 539, only when the State page does not carry the week yet. The steps after the
+      # wait then start nothing (the same marker).
+      - name: start the live tools before their release (they wait for it themselves)
+        if: steps.when.outputs.go == 'true' && github.ref_name == 'main' && inputs.origin == 'slot' && inputs.slot != ''
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SLOT: ${{ inputs.slot }}
+          RUN_SLOTS: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}/run_slots.json
+        run: |
+          OUT=$(python3 - <<'PY'
+          import json, os, datetime
+          from zoneinfo import ZoneInfo
+          NY = ZoneInfo('America/New_York'); now = datetime.datetime.now(NY)
+          try: slot = next(s for s in json.load(open(os.environ['RUN_SLOTS']))['slots'] if s.get('ny') == os.environ['SLOT'])
+          except Exception: raise SystemExit
+          g = [x for x in (slot.get('wait') or []) if x in ('bls_state', 'bls_empsit', 'dol_539', 'bls_cpi')]   # 1167b: CPI (the State page's)
+          rel = slot.get('release_ny') or ''
+          if not (slot.get('live_tools') and g): raise SystemExit
+          ahead = bool(rel) and (datetime.datetime.strptime(rel, '%Y-%m-%d %H:%M').replace(tzinfo=NY) - now).total_seconds() >= 30
+          # 1167b: an ETA 539 slot (its look-agains too, which carry no release minute) always hands the wait to the live tools: the file is
+          # read only by them and the breadth object, and this run waiting for it held the one update queue for up to 12 minutes (the S&P
+          # 500 close behind it). Any other release: only when it is still ahead (after it, this run's own wait starts them at once).
+          if not ahead and g != ['dol_539']: raise SystemExit
+          if not ahead: rel = ''
+          if g == ['dol_539']:
+              t = now.date(); sat = (t - datetime.timedelta(days=(t.weekday() + 2) % 7)).isoformat()
+              try:
+                  ti = json.load(open(os.path.join(os.environ['GITHUB_WORKSPACE'], 'data/105_bristow_hall_system_2026-09-08/workspace/s2/tool_inputs_mac.json')))
+                  thru = max(str(r.get('through') or '') for r in ti['tools']['state-onset']['rows'] if r.get('key') == 'data/dol/ar539.csv')
+              except Exception: thru = ''
+              if thru >= sat: raise SystemExit
+          print(' '.join(g) + '|' + rel)
+          PY
+          ) || OUT=""
+          if [ -n "$OUT" ]; then
+            gh workflow run live-tools.yml --ref main -f mode=full -f wait="${OUT%%|*}" -f not_before="${OUT#*|}" && echo "${OUT%%|*}" > "$RUNNER_TEMP/lt_started" && echo "live-tools.yml started before the release (${OUT%%|*} at ${OUT#*|} New York): it waits for it itself"
+          else echo "the $SLOT slot: no live-tools release ahead, or the State page already carries it: not started before the release"; fi
+
       - name: wait for the publisher's release
         if: steps.when.outputs.go == 'true' && inputs.origin == 'slot' && inputs.slot != ''
         working-directory: ${{ steps.tool.outputs.workspace }}
@@ -497,11 +539,18 @@ jobs:
           [ -s "$RUNNER_TEMP/pf_slot.txt" ] || python3 -c "print()" > "$RUNNER_TEMP/pf_slot.txt"
           W=$(sed -n 1p "$RUNNER_TEMP/pf_slot.txt"); REL=$(sed -n 2p "$RUNNER_TEMP/pf_slot.txt")
           if [ -z "$W" ]; then echo "the $SLOT slot reads nothing from a publisher"; exit 0; fi
+          # 1167b: the ETA 539 is waited for by the live tools started above (they read it; this run's breadth object takes it at the next run)
+          if [ -f "$RUNNER_TEMP/lt_started" ] && grep -qw dol_539 "$RUNNER_TEMP/lt_started"; then
+            W=$(echo "$W" | tr ' ' '\n' | grep -vx dol_539 | tr '\n' ' ' | sed 's/ *$//')
+            if [ -z "$W" ]; then echo "the $SLOT slot: the live tools wait for the ETA 539 themselves; this run does not"; exit 0; fi
+          fi
           echo "BHS_RELEASE_RUN=1" >> "$GITHUB_ENV"     # run_cloud.sh: the release's own path (the time machine's ALFRED pull is not waited for past 25 s)
           PRE=0; NB=""
           if [ -n "$REL" ]; then NB="--not-before"; PRE=$(R="$REL" python3 -c "import datetime,os,time;from zoneinfo import ZoneInfo;t=datetime.datetime.strptime(os.environ['R'],'%Y-%m-%d %H:%M').replace(tzinfo=ZoneInfo('America/New_York')).timestamp();print(max(0,int(t-time.time())))" 2>/dev/null || echo 0); fi
           echo "the $SLOT slot waits for: $W${REL:+ (released $REL ET; $PRE s from now)}"
           timeout $((780 + PRE)) python3 s2/publisher_first.py wait $W --limit 720 ${NB:+$NB "$REL"} 2>&1 | tee -a "$GITHUB_WORKSPACE/run.log" "$RUNNER_TEMP/pf_wait.log" || true   # pf_wait.log: ops/run.sh empties run.log
+          # 1167b: the S&P 500 close found settled on the chart feed: the update takes today's close now (bhs_update.py BHS_SPX_SETTLED)
+          if grep -q "publisher wait: spx_close is out" "$RUNNER_TEMP/pf_wait.log" 2>/dev/null; then echo "BHS_SPX_SETTLED=$(TZ=America/New_York date +%F)" >> "$GITHUB_ENV"; fi
 
       # 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): THE LIVE TOOLS START AS SOON AS THEIR RELEASE IS OUT, not after this
       # run has built and published (about 2 minutes later). The same decision as the step below (the slot feeds the live tools; for the
@@ -514,6 +563,7 @@ jobs:
           SLOT: ${{ inputs.slot }}
           RUN_SLOTS: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}/run_slots.json
         run: |
+          if [ -f "$RUNNER_TEMP/lt_started" ]; then echo "live-tools.yml was started before the release: it waits for it itself"; exit 0; fi
           LT=$(python3 -c "import json,os;print(next((1 for s in json.load(open(os.environ['RUN_SLOTS']))['slots'] if s.get('ny')==os.environ['SLOT'] and s.get('live_tools')),0))" 2>/dev/null || echo 0)
           # 19 Nov 2026: an ETA 539 slot starts the live tools only when its poll found the Department's new week and the State page does not
           # already carry it (s2/tool_inputs_mac.json, committed by live-tools.yml); otherwise the slot's look-again runs (20, 40, 60 min) start them.

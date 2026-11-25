@@ -47,10 +47,21 @@ LIVE_PAGES = ['index.html', 'data/index.html', 'bhs_state.json', 'detector/index
 STATES = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
           'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD',
           'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
-# NYSE holidays (the S&P 500 close is not published on them); 2026-2027 from the NYSE calendar
-NYSE_HOLIDAYS = {'2026-01-01', '2026-01-19', '2026-02-16', '2026-04-03', '2026-05-25', '2026-06-19', '2026-07-03', '2026-09-07',
-                 '2026-11-26', '2026-12-25', '2027-01-01', '2027-01-18', '2027-02-15', '2027-03-26', '2027-05-31', '2027-06-18',
-                 '2027-07-05', '2027-09-06', '2027-11-25', '2027-12-24'}
+# NYSE holidays (the S&P 500 close is not published on them). 1167b (25 Nov 2026): computed by the NYSE's rules (ops/calendar_build.py
+# nyse_holidays: a Saturday holiday moves to the Friday, a Sunday one to the Monday, a Saturday New Year's Day is not moved; Good Friday),
+# 2020-2040, instead of the dates typed in for 2026-2027 (equal to them on both years); after 2027 the S&P 500 check would have held a build.
+def _nyse_holidays(y):
+    def nth(m, wd, n): d = dt.date(y, m, 1); d += dt.timedelta(days=(wd - d.weekday()) % 7); return d + dt.timedelta(weeks=n - 1)
+    def last(m, wd): d = dt.date(y + (m == 12), m % 12 + 1, 1) - dt.timedelta(days=1); return d - dt.timedelta(days=(d.weekday() - wd) % 7)
+    a, b, c = y % 19, y // 100, y % 100; d, e = b // 4, b % 4; f = (b + 8) // 25; g = (b - f + 1) // 3; h = (19 * a + b - d - g + 15) % 30
+    i, k = c // 4, c % 4; l = (32 + 2 * e + 2 * i - h - k) % 7; m = (a + 11 * h + 22 * l) // 451
+    easter = dt.date(y, (h + l - 7 * m + 114) // 31, (h + l - 7 * m + 114) % 31 + 1); out = set(); nyd = dt.date(y, 1, 1)
+    if nyd.weekday() == 6: out.add(nyd + dt.timedelta(days=1))
+    elif nyd.weekday() < 5: out.add(nyd)
+    for x in (dt.date(y, 6, 19), dt.date(y, 7, 4), dt.date(y, 12, 25)):
+        out.add(x - dt.timedelta(days=1) if x.weekday() == 5 else (x + dt.timedelta(days=1) if x.weekday() == 6 else x))
+    return out | {nth(1, 0, 3), nth(2, 0, 3), easter - dt.timedelta(days=2), last(5, 0), nth(9, 0, 1), nth(11, 3, 4)}
+NYSE_HOLIDAYS = {d.isoformat() for y in range(2020, 2041) for d in _nyse_holidays(y)}
 FED_HOLIDAYS = {'2026-01-01', '2026-01-19', '2026-02-16', '2026-05-25', '2026-06-19', '2026-07-03', '2026-09-07', '2026-10-12',
                 '2026-11-11', '2026-11-26', '2026-12-25', '2027-01-01', '2027-01-18', '2027-02-15', '2027-05-31', '2027-06-18',
                 '2027-07-05', '2027-09-06', '2027-10-11', '2027-11-11', '2027-11-25', '2027-12-24'}

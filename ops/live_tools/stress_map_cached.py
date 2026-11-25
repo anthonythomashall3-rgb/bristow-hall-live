@@ -36,6 +36,10 @@ def main():
     sys.path.insert(0, os.path.join(C, 'code'))
     spec = importlib.util.spec_from_file_location('stress_map_v2_1052', sys.argv[0])
     sm = importlib.util.module_from_spec(spec); sys.modules['stress_map_v2_1052'] = sm; spec.loader.exec_module(sm)
+    _sc = sys.modules.get('sitecustomize')   # 1167b: the county path's parts() on the arrays (ops/live_tools/pyboot; the workers get it on import)
+    if _sc is not None and hasattr(_sc, '_patch_sm2'):
+        try: _sc._patch_sm2(sm)
+        except Exception as e: print('pyboot (1167b): the county path left as it is (%s: %s)' % (type(e).__name__, e), file=sys.stderr)
     import pandas as pd
     real = sm.step_counties
 
@@ -72,6 +76,64 @@ def main():
         REC.update(hit=False, seconds=round(time.time() - t0, 1)); return CM, PER, info
 
     sm.step_counties = cached
+    # 1167b (25 Nov 2026; Anthony: "under 3 minutes of data releases"): THE COUNTY WORK BESIDE THE STATE LAYER. main() runs the State layer
+    # (its own process, about 20 s) and only then the county outlines, the county unemployment file, the county layer (from the store,
+    # about 22 s) and the industry series; none of the four reads the State layer or is read by it. Here they start in a thread when the
+    # State layer starts, and main() gets their results (the same objects) when it asks for them; a failure is raised where main() would
+    # have met it. LT_SM_PARALLEL=0 runs them in main()'s order.
+    if os.environ.get('LT_SM_PARALLEL', '1') != '0' and '--procs' in sys.argv[1:]:
+        import threading
+        PRE = {}
+        r_v1, r_shapes, r_laus, r_cnt, r_ind = sm.step_v1, sm.step_county_shapes, sm.step_fetch_laus, sm.step_counties, sm.step_industry
+        procs = int(sys.argv[sys.argv.index('--procs') + 1])
+
+        def county_work():
+            try:
+                PRE['CSH'] = r_shapes(); PRE['L'] = r_laus(); PRE['C'] = r_cnt(PRE['CSH'], procs, PRE['L']); PRE['I'] = r_ind()
+            except BaseException as e:
+                PRE['err'] = e
+
+        def step_v1(rerun=True):
+            if rerun and 'th' not in PRE:
+                PRE['th'] = threading.Thread(target=county_work, name='county-work', daemon=True); PRE['th'].start()
+            return r_v1(rerun)
+
+        def take(k):
+            PRE['th'].join()
+            if k not in PRE: raise PRE.get('err') or RuntimeError('county work: %s missing' % k)
+            return PRE[k]
+
+        def step_counties(CSH, procs_, L_override=None):
+            if 'th' in PRE:
+                c_ = take('C')
+                if CSH is PRE['CSH'] and L_override is PRE['L'] and procs_ == procs: return c_
+            return r_cnt(CSH, procs_, L_override)
+        sm.step_v1 = step_v1
+        sm.step_county_shapes = lambda: take('CSH') if 'th' in PRE else r_shapes()
+        sm.step_fetch_laus = lambda: take('L') if 'th' in PRE else r_laus()
+        sm.step_counties = step_counties
+        sm.step_industry = lambda: take('I') if 'th' in PRE else r_ind()
+    # 1167b: THE PAGE WRITTEN ONCE. main() writes the page, runs the browser checks on it, then calls step_page again with the same objects
+    # (TESTS2, the one argument that changes, is not read by step_page); the second call writes the first call's bytes again (about 17 s).
+    # Here it returns the first call's result when every other argument is the same object, the page on disk is the one the first call
+    # wrote, the day (the page's 'built') and the template are unchanged, and step_page is the code read on 25 Nov 2026 (SHA-256).
+    # LT_SM_PAGE_ONCE=0 writes it twice.
+    import inspect
+    if (os.environ.get('LT_SM_PAGE_ONCE', '1') != '0'
+            and hashlib.sha256(inspect.getsource(sm.step_page).encode()).hexdigest() == '83b1529369cff6afd53bc1f0b198654322907e648e0d949568d329366eea3896'):
+        r_page = sm.step_page; PG = {}
+
+        def _fp():
+            t = sm.INPUTS['v2_template']
+            return (_sha_files([os.path.join(sm.WEB, 'index.html')]), os.path.getmtime(t), os.path.getsize(t), pd.Timestamp.now(tz='UTC').strftime('%Y-%m-%d'))
+
+        def step_page(J1, CSH, CM, PER, N, S, B, info, TESTS2, DESC2, gapm):
+            key = tuple(map(id, (J1, CSH, CM, PER, N, S, B, info, DESC2, gapm)))
+            if PG.get('key') == key and PG.get('fp') == _fp():
+                sm.log('wrote', os.path.join(sm.WEB, 'index.html'), PG['ret'][0], 'bytes'); REC.update(page_once=True); return PG['ret']
+            ret = r_page(J1, CSH, CM, PER, N, S, B, info, TESTS2, DESC2, gapm)
+            PG.update(key=key, ret=ret, fp=_fp()); return ret
+        sm.step_page = step_page
     os.chdir(C)
     try:
         sm.main()
