@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-25 09:17",
+ "built_at": "2026-11-25 09:37",
  "fallback": "weekdays 08:35, 09:35, 10:20 and 16:35 (New York time; the Cloudflare Worker's own times), used only if this list cannot be read",
- "generated_utc": "2026-11-25T14:19:05Z",
+ "generated_utc": "2026-11-25T14:39:30Z",
  "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes after each release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close at 4:20 PM and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
  "refresh_incomplete": null,
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
@@ -87,14 +87,6 @@
    "utc": "2026-11-25T14:02:00Z",
    "why": [
     "GDP (BEA) (8:30 AM ET; FRED by about 8:57 AM)"
-   ]
-  },
-  {
-   "ny": "2026-11-25 09:35",
-   "utc": "2026-11-25T14:35:00Z",
-   "why": [
-    "look again: weekly claims (due 08:30, not yet posted)",
-    "look again: state building permits, units (due 08:30, not yet posted)"
    ]
   },
   {
@@ -667,6 +659,13 @@
    ],
    "why": [
     "industrial production (G.17) (9:15 AM ET; read from the publisher)"
+   ]
+  },
+  {
+   "ny": "2026-12-16 09:28",
+   "utc": "2026-12-16T14:28:00Z",
+   "why": [
+    "industrial production (G.17) (9:15 AM ET; FRED by about 9:23 AM)"
    ]
   }
  ],
