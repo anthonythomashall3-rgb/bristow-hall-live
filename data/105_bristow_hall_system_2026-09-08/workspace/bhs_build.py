@@ -1621,14 +1621,29 @@ _FEED_IDS=[('Initial claims','ICSA, CCSA, ICNSA, CCNSA'),('Unemployment rate, pa
            ('Housing starts','HOUST, PERMIT'),('Commercial paper','DCPF1M, DCPN30, WTB3MS'),('S&P 500','SP500'),('Sahm rule','SAHMREALTIME'),('Industrial production','INDPRO'),('Federal funds target','DFEDTARU'),('State continued weeks','ETA 539'),('State unemployment rates','LAUS state rates (51)'),('Real GDP','GDPC1'),('GDPNow','GDPNOW')]   # GDPC1, GDPNOW, PAYEMS: v3.73
 from zoneinfo import ZoneInfo as _ZI0
 _now_et=datetime.datetime.now(_ZI0('America/New_York'))
+def _nyse_hol(y):   # 1167c: the NYSE's full-day holidays (ops/calendar_build.py nyse_holidays, the same rules)
+    def _nth(m,wd,n): d=datetime.date(y,m,1); d+=datetime.timedelta(days=(wd-d.weekday())%7); return d+datetime.timedelta(weeks=n-1)
+    def _last(m,wd): d=datetime.date(y+(m==12),m%12+1,1)-datetime.timedelta(days=1); return d-datetime.timedelta(days=(d.weekday()-wd)%7)
+    a,b,c=y%19,y//100,y%100; d,e=b//4,b%4; f=(b+8)//25; g=(b-f+1)//3; h=(19*a+b-d-g+15)%30; i,k=c//4,c%4; l=(32+2*e+2*i-h-k)%7; m=(a+11*h+22*l)//451
+    easter=datetime.date(y,(h+l-7*m+114)//31,(h+l-7*m+114)%31+1); out=set(); nyd=datetime.date(y,1,1)
+    if nyd.weekday()==6: out.add(nyd+datetime.timedelta(days=1))
+    elif nyd.weekday()<5: out.add(nyd)
+    for x in (datetime.date(y,6,19),datetime.date(y,7,4),datetime.date(y,12,25)):
+        out.add(x-datetime.timedelta(days=1) if x.weekday()==5 else (x+datetime.timedelta(days=1) if x.weekday()==6 else x))
+    return out|{_nth(1,0,3),_nth(2,0,3),easter-datetime.timedelta(days=2),_last(5,0),_nth(9,0,1),_nth(11,3,4)}
 for _f in FEEDS:   # 17 September 2026: the data page names the series behind each feed; a 'next weekday' becomes its date
     if isinstance(_f.get('next'),str) and 'next weekday' in _f['next']:
         # the S&P 500: today's close if the market has not closed yet today, else the next weekday's; the search week
         # (today's index is known tomorrow morning): the next weekday
-        if _f['name'].startswith('S&P') and _now_et.weekday()<5 and (_now_et.hour<16 or str(_f.get('through') or '')<str(today)): _d=pd.Timestamp(today)
+        # 1167c (25 Nov 2026): the S&P 500's day is an NYSE trading day. On 25 Nov the page gave 26 Nov (Thanksgiving) as the next close and the
+        # source gate held the 4:20 PM build (the close of 25 Nov with it); Christmas Day and Good Friday would have done the same
+        _sp=_f['name'].startswith('S&P')
+        _open=(lambda _x: _x.weekday()<5 and _x not in _nyse_hol(_x.year)) if _sp else (lambda _x: _x.weekday()<5)
+        _d0=_now_et.date(); _ch=13 if ((_d0.month==11 and _d0.weekday()==4 and 23<=_d0.day<=29) or ((_d0.month,_d0.day) in ((12,24),(7,3)) and _d0.weekday()<=3)) else 16   # the 1:00 PM closes (bhs_update.py)
+        if _sp and _open(_d0) and (_now_et.hour<_ch or str(_f.get('through') or '')<str(today)): _d=pd.Timestamp(today)
         else:
             _d=pd.Timestamp(today)+pd.Timedelta(days=1)
-            while _d.weekday()>=5: _d=_d+pd.Timedelta(days=1)
+            while not _open(_d.date()): _d=_d+pd.Timedelta(days=1)
         _f['next']=_d.date().isoformat()
     _f['ids']=next((v_ for k_,v_ in _FEED_IDS if _f['name'].startswith(k_)),None)
     if _f['ids'] is None and _f['name'].startswith('Search week'):
