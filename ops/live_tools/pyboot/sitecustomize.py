@@ -11,7 +11,9 @@ on 25 Nov 2026 (its sha256 or its text); any other version is left as it is.
    0). It is bit-identical on 12,479 windows (random, ties, flat, rising, falling, not_before past the end, and every State's quarterly
    index), and 50 times faster. A window with a repeated or unsorted date, or a missing value, goes to the original.
 2. pandas 3.0.5 / 3.0.6 DatetimeLikeArrayMixin.__getitem__ without its runtime Union, as s2/pandas_speed.py does for the update: the same
-   super() call, the same scalar test, the same frequency, the same object returned."""
+   super() call, the same scalar test, the same frequency, the same object returned.
+3. (1167b) the State chronology's parts() on the arrays: a198 and the stress map's State layer, started by their callers with
+   [sys.executable, <script>], are run through run_rewritten.py (pyboot_fast.py), only for the files it knows by SHA-256."""
 import sys, hashlib, importlib.abc
 
 _DD_SHA = '7b06690898f1d617d9cc2ed81cd2489bd3263e50fed6236eb965dcc2d1f97fe9'
@@ -80,7 +82,32 @@ def _patch_pd(m):
     C.__getitem__ = __getitem__
 
 
-_TARGETS = {'damage_dimensions_live_v376': _patch_dd, 'pandas.core.arrays.datetimelike': _patch_pd}
+def _patch_subprocess(m):
+    """3 (1167b). [sys.executable, <script>] for a script run_rewritten.py knows (its SHA-256) starts run_rewritten.py with it: the
+    script's parts() on the arrays (pyboot_fast.py). LT_PYBOOT_REWRITE=0 leaves every command as it is."""
+    import os
+    if os.environ.get('LT_PYBOOT_REWRITE') == '0': return
+    P = m.Popen; cur = P.__init__
+    if getattr(cur, '_bhs_fast', False): return
+    here = os.path.dirname(os.path.abspath(__file__)); runner = os.path.join(here, 'run_rewritten.py')
+    if not os.path.exists(runner): return
+
+    def __init__(self, args, *a, **k):
+        try:
+            if (type(args) in (list, tuple) and len(args) == 2 and args[0] == sys.executable and isinstance(args[1], str)
+                    and args[1].endswith('.py') and not k.get('shell') and not a):
+                path = args[1] if os.path.isabs(args[1]) else os.path.join(k.get('cwd') or os.getcwd(), args[1])
+                import importlib.util
+                spec = importlib.util.spec_from_file_location('_bhs_run_rewritten', runner); rr = importlib.util.module_from_spec(spec); spec.loader.exec_module(rr)
+                if rr.sha_of(path) in rr.REWRITES: args = [args[0], runner, args[1]]
+        except Exception:
+            pass
+        cur(self, args, *a, **k)
+    __init__.__doc__ = cur.__doc__; __init__._bhs_fast = True; __init__._bhs_orig = cur
+    P.__init__ = __init__
+
+
+_TARGETS = {'damage_dimensions_live_v376': _patch_dd, 'pandas.core.arrays.datetimelike': _patch_pd, 'subprocess': _patch_subprocess}
 
 
 class _Finder(importlib.abc.MetaPathFinder):
@@ -105,3 +132,6 @@ class _Finder(importlib.abc.MetaPathFinder):
 
 if not any(type(f).__name__ == '_Finder' and type(f).__module__ == __name__ for f in sys.meta_path):
     sys.meta_path.insert(0, _Finder())
+if 'subprocess' in sys.modules:                       # imported before this file ran: replaced at once
+    try: _patch_subprocess(sys.modules['subprocess'])
+    except Exception as e: print('pyboot (1167b): subprocess left as it is (%s: %s)' % (type(e).__name__, e), file=sys.stderr)
