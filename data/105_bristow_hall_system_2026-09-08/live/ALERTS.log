@@ -4,3 +4,5 @@
 2026-11-15T21:06:12Z [PILLAR STALE] C1021 pillar I4 reads through 2026-09-12, 64 days old (limit 20)
 2026-11-24T17:21:08Z [ONE SCALE: A PAGE WAS NOT CONVERTED] The indicator could not be placed on one number: indicator: the recession opened 2024-01 overlaps no recession window of the register
 2026-11-25T01:00:44Z [DISTURBANCE CHRONOLOGY CHANGED] The open episode now starts 2025-03 (was 2024-06), disturbance. Data through 2026-10. https://bristowhallsystem.pages.dev/disturbance/
+2026-11-25T01:39:59Z [THE RULE CLOSED] THE RULE'S STANDING CHANGED: closed since 2024-10-01 (E22 ender, leg S: the S&P 500 20 per cent off its low, insured unemployment off its high, the policy rate below a year earlier) -> closed since 2020-06-05 (E22 ender, leg S: the S&P 500 20 per cent off its low, insured unemployment off its high, the policy rate below a year earlier), dated 2020-06. Built 2026-11-24 20:39.
+2026-11-25T01:40:08Z [VERSION] the published state says version C1019+E22, not C1021+E22

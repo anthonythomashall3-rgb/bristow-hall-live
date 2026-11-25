@@ -1,5 +1,5 @@
 {
- "built": "2026-11-25T01:00:59Z",
+ "built": "2026-11-25T01:40:12Z",
  "size": [
   1200,
   760
@@ -7,30 +7,30 @@
  "cards": {
   "/detector/": {
    "png": "/detector/card.png",
-   "sha256": "1330f0d920201994a355c80fbfc1b1588591717c9d003fe4ac176fea1db1a631",
+   "sha256": "df8e63e8f17d7928481c1176645108ba5c0fbd36b006fdc41994eec8808f5a0f",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 893,
-   "share_not_main": 0.2695
+   "colours": 742,
+   "share_not_main": 0.2516
   },
   "/disturbance/": {
    "png": "/disturbance/card.png",
-   "sha256": "4b262b70ffd30b0525d484246641348e098871d69da8ca400a88ff107b011c35",
+   "sha256": "5a6375078cbcf00afb428360bf48eaa354a4b4785e59c637b05d2d6b55cd5ebc",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1186,
-   "share_not_main": 0.3686
+   "colours": 1286,
+   "share_not_main": 0.3746
   },
   "/state-onset/": {
    "png": "/state-onset/card.png",
-   "sha256": "556dfde43281e82116904be823eed8cb2ad126276d8bc8afcd53c0015f8f3844",
+   "sha256": "9b4d7f4b63d87aed0ff8feef9df7cb2d9d4870f3dca422b90a121d704957b572",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 704,
-   "share_not_main": 0.3074
+   "colours": 611,
+   "share_not_main": 0.3061
   },
   "/stress-map/": {
    "png": "/stress-map/card.png",
@@ -43,21 +43,21 @@
   },
   "/forecaster/": {
    "png": "/forecaster/card.png",
-   "sha256": "5c6f3159f7b888a0a0ee24b3c6178db128bc8506adc60971c5a5947abc80b981",
+   "sha256": "4f67d18908c71cafdaedf7ca4830eb0af86686df2d3c310554e73762c866b14e",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1651,
-   "share_not_main": 0.2199
+   "colours": 1653,
+   "share_not_main": 0.2203
   },
   "/time-machine/": {
    "png": "/time-machine/card.png",
-   "sha256": "4a23767a6f2bb391297c3fe8760985cba425455daf915d8b2d5bb720997b636c",
+   "sha256": "ecfc7d1f4707880ba96e70a4605b78f301c9f89ae30df237467ba7c81765d900",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 529,
-   "share_not_main": 0.3915
+   "colours": 733,
+   "share_not_main": 0.488
   },
   "/data/": {
    "png": "/data/card.png",

@@ -1,6 +1,11 @@
 {
- "tool": "C1021",
- "built": "2026-11-25 00:59:54Z",
+ "tool": "C1019",
+ "doors": [
+  "route",
+  "count door",
+  "FS"
+ ],
+ "built": "2026-11-25 01:39:15Z",
  "grid": {
   "day0": "2012-01-01",
   "days": 5442
@@ -36,7 +41,7 @@
    "ratio": 0.087
   },
   "jl_door": {
-   "on": false,
+   "retired": "1168: shown for information, never called",
    "ratio": 0.0,
    "armed_witness": false
   }
@@ -216,11 +221,6 @@
    "basis": "record"
   },
   {
-   "day": "1974-10-04",
-   "door": "JL",
-   "basis": "record"
-  },
-  {
    "day": "1979-11-01",
    "door": "FS",
    "basis": "record"
@@ -228,11 +228,6 @@
   {
    "day": "1979-11-08",
    "door": "door",
-   "basis": "record"
-  },
-  {
-   "day": "1980-03-07",
-   "door": "JL",
    "basis": "record"
   },
   {
@@ -276,11 +271,6 @@
    "basis": "record"
   },
   {
-   "day": "1990-06-01",
-   "door": "JL",
-   "basis": "record"
-  },
-  {
    "day": "1990-08-06",
    "door": "door",
    "basis": "record"
@@ -292,17 +282,12 @@
   },
   {
    "day": "2001-04-06",
-   "door": "JL",
+   "door": "door",
    "basis": "record"
   },
   {
    "day": "2001-05-07",
    "door": "route",
-   "basis": "record"
-  },
-  {
-   "day": "2007-11-02",
-   "door": "JL",
    "basis": "record"
   },
   {
@@ -317,17 +302,12 @@
   },
   {
    "day": "2020-04-03",
-   "door": "JL",
+   "door": "door",
    "basis": "record"
   },
   {
    "day": "2020-04-07",
    "door": "route",
-   "basis": "record"
-  },
-  {
-   "day": "2024-01-05",
-   "door": "JL",
    "basis": "record"
   }
  ],
