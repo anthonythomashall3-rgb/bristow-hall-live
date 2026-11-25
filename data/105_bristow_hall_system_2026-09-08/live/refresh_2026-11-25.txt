@@ -1,31 +1,25 @@
-FRED change check: 112 series tracked; 42 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
-ICSA           2026-11-14 -> 2026-11-21  (3125 obs)
-CCSA           2026-11-07 -> 2026-11-14  (3124 obs)
-IURSA          2026-11-07 -> 2026-11-14  (2916 obs)
-first prints: 1 release(s) appended to collection 45 from ALFRED initial releases: [('2026-11-25', '2026-11-21', '189000.0', '202000.0', '2026-11-14', '1.1')]
+FRED change check: 112 series tracked; 39 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
+first prints: collection 45 already carries every week ALFRED has (through 2026-11-21, released 2026-11-25)
 DOL release of 2026-11-25: week ending 2026-11-21 already in collection 45
 state 539: the Department's file is unchanged since last read (modified Tue, 24 Nov 2026 20:50:57 GMT); panel stands through 2026-11-07
-state first prints: 1 release(s) parsed from the press PDF, insured unemployment through 2026-11-14 (53 states; release 2026-11-25)
-home tiles: IURSA not read by the FRED API (FRED error for IURSA: {'error_code': 429, 'error_m)
-home tiles: second source: 6 series compared with the BLS and the Department of Labor, 0 mismatch
-home tiles: CHANGED — Initial claims (week) 203,000 -> 189,000; Insured unemployment rate 1.1% -> 1.1% | 9 readings through Oct 2026 (unemployment rate), Nov 21, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-11-25, IURSA 2026-11-25, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
-bls_fetch: requests this process (production role, run 45629193288-1): bls_v2_key1 1; this run so far: bls_v2_key1 1
+state first prints: nothing new (insured unemployment through 2026-11-14; 11 press release(s) on file)
+home tiles: second source: 8 series compared with the BLS and the Department of Labor, 0 mismatch
+home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Nov 21, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-11-25, IURSA 2026-11-25, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
+bls_fetch: requests this process (production role, run 45632076265-1): bls_v2_key1 1; this run so far: bls_v2_key1 1
 PAYEMS         no new vintage since 2026-11-06 (through 2026-10-01)
-GDPC1          1 vintage(s) appended, the last 2026-11-25: data through 2026-07-01
+GDPC1          no new vintage since 2026-11-25 (through 2026-07-01)
 GDPNOW         no new vintage since 2026-11-18 (through 2026-10-01)
 UNEMPLOY       no new vintage since 2026-11-06 (through 2026-10-01)
 LNS13023621    no new vintage since 2026-11-06 (through 2026-10-01)
 publisher first: GDPC1 2026-07 - no month beyond the tables yet
-c1021 claims NSA first prints: 2 week(s) appended (ICNSA/CCNSA initial releases)
+c1021 claims NSA first prints: unchanged
 indeed postings  4956 rows, last 2026-11-13
 relcal_HOUST: unchanged (through 2026-10)
 relcal_UNRATE: unchanged (through 2026-10)
 relcal_JTSJOL: unchanged (through 2026-09)
 vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
-S&P 500: FRED SP500 not read (FRED error for SP500: {'error_code': 500, 'error_message': 'Internal Server Error'})
 S&P 500: nothing new (through 2026-11-24)
 Sahm gap: unchanged (through 2026-10-01)
-insured rate base: 1 week(s) appended, through 2026-11-14
+insured rate base: unchanged (through 2026-11-14)
 ---- the damage index's unemployment rate ----
-left as they stand: 75 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
-FRED stamps: 3 series recorded as pulled
+left as they stand: 78 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
