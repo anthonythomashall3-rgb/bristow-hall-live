@@ -13,16 +13,25 @@ try:
 except Exception as e:
     print(f'search week: pytrends missing ({e})'); sys.exit(1)
 pt=TrendReq(hl='en-US',tz=0,timeout=(10,30)); rc=0
+# 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): a TIME BUDGET and WHOLE-FILE WRITES. Google's refusals (429) and the
+# backoff below once held a run's build for 274 s (the caller's limit is 300 s, and a kill could cut a file mid-write). Now no new try starts
+# once TRENDS_BUDGET_S (default 240 s) has passed - the history stands, as on any refusal - and every file is written to a temporary name and
+# moved into place, so a reader never sees half a file and a stopped pull never leaves one.
+_T0=time.time(); BUDGET=float(os.environ.get('TRENDS_BUDGET_S') or 240)
+def _left(): return BUDGET-(time.time()-_T0)
+def _write_csv(df,path,**kw):
+    tmp=path+'.tmp'; df.to_csv(tmp,**kw); os.replace(tmp,path)
 for kw,tag in TERMS:
     F=f'google_trends/live/{tag}_stitched_daily.csv'
     if not os.path.exists(F): print(f'search week ({tag}): no stitched history file; run search_week.py first'); rc=1; continue
     H=pd.read_csv(F,index_col=0,parse_dates=True).iloc[:,0].astype(float).sort_index()
     df=None; err=''
     for k in range(3):
+        if _left()<=0: err=err or 'the time budget is spent'; break
         try:
             end=datetime.date.today(); start=end-datetime.timedelta(days=250)
             pt.build_payload([kw],geo='US',timeframe=f'{start.isoformat()} {end.isoformat()}'); df=pt.interest_over_time(); break
-        except Exception as e: err=str(e)[:80]; time.sleep(20*(k+1))
+        except Exception as e: err=str(e)[:80]; time.sleep(max(0,min(20*(k+1),_left())))
     if df is None or not len(df): print(f'search week ({tag}): pull failed ({err or "empty"}); history through {H.index.max().date()}'); rc=1; continue
     d=df.iloc[:,0].astype(float); d=d[~df.get('isPartial',pd.Series(False,index=df.index)).astype(bool)] if 'isPartial' in df else d
     o=d.index.intersection(H.index)
@@ -39,19 +48,20 @@ for kw,tag in TERMS:
     if _dev>0.15: print(f'search week ({tag}): the window disagrees with the history on the overlap (mean relative deviation {_dev:.3f} > 0.15); NOT appended, history through {H.index.max().date()}'); rc=1; continue
     if len(new)==0: print(f'search week ({tag}): nothing new (history through {H.index.max().date()})')
     else:
-        H2=pd.concat([H,new]).sort_index(); H2.to_csv(F,header=[tag])
+        H2=pd.concat([H,new]).sort_index(); _write_csv(H2,F,header=[tag])
         print(f'search week ({tag}): {len(new)} day(s) appended, through {new.index.max().date()} (scale {fac:.3f} on {len(o)} overlap days)')
-    time.sleep(5)
+    time.sleep(max(0,min(5,_left())))
     # 17 September 2026: the index as Google shows it - the past-90-days view the data page links to (0-100 on that
     # window; the stitched history above is on its own scale). Written whole each run with Google's partial-day flag;
     # the page shows the last complete day. A refusal keeps the previous file.
     try:
+        if _left()<=0: raise RuntimeError('the time budget is spent')
         G=f'google_trends/live/{tag}_google90_daily.csv'
         pt.build_payload([kw],geo='US',timeframe='today 3-m'); g=pt.interest_over_time()
         if g is not None and len(g):
             out=pd.DataFrame({'date':g.index.strftime('%Y-%m-%d'),'value':g.iloc[:,0].astype(float).values,'partial':(g['isPartial'].astype(bool).values if 'isPartial' in g else False)})
-            out.to_csv(G,index=False); c=out[~out['partial']]
+            _write_csv(out,G,index=False); c=out[~out['partial']]
             print(f'search week ({tag}): Google\'s 90-day view through {c["date"].iloc[-1]} = {c["value"].iloc[-1]:.0f}')
     except Exception as e: print(f'search week ({tag}): 90-day view not refreshed ({str(e)[:60]})')
-    time.sleep(5)
+    time.sleep(max(0,min(5,_left())))
 sys.exit(rc)

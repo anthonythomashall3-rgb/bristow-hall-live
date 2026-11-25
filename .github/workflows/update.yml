@@ -384,27 +384,7 @@ jobs:
           print('the FRED key: %s%s' % (out['fred'], '' if out['fred'] == 'accepted' else ' (%s)' % ', '.join(str(out[x]) for x in ('http', 'why') if x in out)))
           PY
 
-      # 1052 SPEED (15 November 2026; Anthony: "the live page to update at MAXIMUM within 5 minutes"). A run the Worker started for a
-      # publisher-read slot (run_slots.json "wait", written by ops/calendar_build.py one minute after the release) asks the publisher
-      # every 30 seconds, at most 12 minutes, until the new month is out (s2/publisher_first.py: the BLS API v2, the Fed's G.17 file),
-      # so the build below reads the release the minute it appears instead of waiting for FRED's post. Never fails the run.
-      - name: wait for the publisher's release
-        if: steps.when.outputs.go == 'true' && inputs.origin == 'slot' && inputs.slot != ''
-        working-directory: ${{ steps.tool.outputs.workspace }}
-        env:
-          BLS_API_KEY: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY || '' }}       # 20 Nov 2026: a run off main is a test (BLS_ROLE)
-          BLS_API_KEY_2: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY_2 || '' }}
-          BLS_API_KEY_TEST: ${{ github.ref_name != 'main' && secrets.BLS_API_KEY_TEST || '' }}
-          BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
-          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-          BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
-          SLOT: ${{ inputs.slot }}
-          RUN_SLOTS: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}/run_slots.json
-        run: |
-          W=$(python3 -c "import json,os;print(' '.join(next((s.get('wait') or [] for s in json.load(open(os.environ['RUN_SLOTS']))['slots'] if s.get('ny')==os.environ['SLOT']),[])))" 2>/dev/null || true)
-          if [ -z "$W" ]; then echo "the $SLOT slot reads nothing from a publisher"; exit 0; fi
-          timeout 780 python3 s2/publisher_first.py wait $W --limit 720 2>&1 | tee -a "$GITHUB_WORKSPACE/run.log" "$RUNNER_TEMP/pf_wait.log" || true   # pf_wait.log: ops/run.sh empties run.log
-
+      # 1167: BEFORE THE RELEASE (moved ahead of the wait, 24 Nov 2026): the gate's ~180 sources fetched while the runner waits for the release.
       # 1052 SPEED: THE SOURCE GATE'S SOURCES, FETCHED WHILE THE SITE BUILDS. The gate (below, before the publish) used to fetch its ~180
       # sources one by one after the build, 100-155 s on the release path. They are fetched here in the background, in parallel and under
       # FRED's rate limit, from the list the last gate read (ops/state/source_gate_keys.json); the gate then starts from them, keeping only
@@ -435,17 +415,143 @@ jobs:
           nohup python3 s2/source_gate.py --prefetch-to "$RUNNER_TEMP/gate_prefetch.json" --prev "$RUNNER_TEMP/gate_cache/sources.json" > "$RUNNER_TEMP/gate_prefetch.log" 2>&1 &
           echo "prefetch started (pid $!)"
 
+      # 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): THE WORK THAT NEEDS NO NEW DATA, DONE WHILE THE RUN WAITS FOR THE RELEASE,
+      # in the background. Every run: the card camera's packages (Playwright, Pillow). A slot run that waits for a publisher (its entry in
+      # run_slots.json, read from this checkout or else from the live site's list - the list the Worker read): FRED's release calendars
+      # (ops/calendar_refresh.py; run_cloud.sh asks again before the build, where an answer under 15 minutes old stands, so the release-time
+      # build does not wait on 19 calls, and waits for this one first so the two never write the cache at once), the committee watch (once a
+      # day) and the search week's Google pull (at most 150 s, each file written whole; bhs_update.py does not pull it again in this run).
+      # Never fails the run.
+      - name: before the release, the work that needs no new data
+        if: steps.when.outputs.go == 'true'
+        continue-on-error: true
+        working-directory: ${{ steps.tool.outputs.workspace }}
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          ORIGIN: ${{ inputs.origin || 'hand' }}
+          MODE: ${{ inputs.mode || 'full' }}
+          SLOT: ${{ inputs.slot }}
+          RUN_SLOTS: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}/run_slots.json
+        run: |
+          nohup bash -c 'pip install --quiet --retries 5 --timeout 60 playwright pillow opentimestamps-client; echo "exit $?"' > "$RUNNER_TEMP/card_tools.log" 2>&1 &
+          echo $! > "$RUNNER_TEMP/card_tools.pid"; echo "card tools (and the ledger's stamp client): installing in the background"
+          : > "$RUNNER_TEMP/pf_slot.txt"
+          if [ "$ORIGIN" = "slot" ] && [ -n "$SLOT" ]; then
+          python3 - > "$RUNNER_TEMP/pf_slot.txt" <<'PY'
+          import json, os, time, urllib.request
+          def find(doc):
+              return next((s for s in (doc or {}).get('slots', []) if s.get('ny') == os.environ['SLOT']), None)
+          s = None
+          try: s = find(json.load(open(os.environ['RUN_SLOTS'])))
+          except Exception: s = None
+          if s is None:
+              try:
+                  req = urllib.request.Request('https://bristowhallsystem.pages.dev/run_slots.json?t=%d' % time.time(), headers={'User-Agent': 'bhr-dispatch-gate'})
+                  s = find(json.load(urllib.request.urlopen(req, timeout=15)))
+              except Exception: s = None
+          print(' '.join((s or {}).get('wait') or []))
+          print((s or {}).get('release_ny') or '')
+          PY
+          fi
+          W=$(sed -n 1p "$RUNNER_TEMP/pf_slot.txt"); REL=$(sed -n 2p "$RUNNER_TEMP/pf_slot.txt")
+          echo "the slot ${SLOT:-(none)}: waits for '${W}'${REL:+, released $REL ET}"
+          if [ -n "$W" ] && [ "$MODE" = "full" ]; then
+            # the chain's own paths, as run_cloud.sh makes them (the same two links; idempotent)
+            mkdir -p "$HOME/Projects" "$HOME/mnt" out cache
+            ln -sfn "$GITHUB_WORKSPACE/data" "$HOME/Projects/Onset Detector Data"; ln -sfn "$GITHUB_WORKSPACE/data" "$HOME/mnt/Onset Detector Data"
+            nohup bash -c '
+              python3 "$GITHUB_WORKSPACE/ops/calendar_refresh.py"
+              if [ "$(cat cache/chronology_watch_on 2>/dev/null)" != "$(date +%F)" ]; then python3 s2/chronology_watch.py && date +%F > cache/chronology_watch_on || true; fi' > "$RUNNER_TEMP/pre_calendar.log" 2>&1 &
+            echo $! > "$RUNNER_TEMP/pre_calendar.pid"; echo "before the release: FRED's calendars and the committee watch (pid $!)"
+            C108="$GITHUB_WORKSPACE/data/108_high_frequency_speed_2026-09-10"
+            if [ -f "$C108/scripts/trends_live.py" ]; then
+              # the search week is this run's pull from here on (bhs_update.py reads the mark and does not pull it on the release's path)
+              echo "$GITHUB_RUN_ID" > cache/search_week_pulled_run
+              nohup bash -c "TRENDS_BUDGET_S=150 python3 '$C108/scripts/trends_live.py'; echo \"exit \$?\"" > out/search_week_pre.out 2>&1 &
+              echo "before the release: the search week's pull (pid $!)"
+            fi
+          fi
+
+      # 1052 SPEED (15 November 2026; Anthony: "the live page to update at MAXIMUM within 5 minutes"). A run the Worker started for a
+      # publisher-read slot (run_slots.json "wait", written by ops/calendar_build.py) asks the publisher until the new month is out
+      # (s2/publisher_first.py: the BLS API v2, the Fed's G.17 file, the BEA API, the Department's release, FRED's stamp), so the build below
+      # reads the release the minute it appears instead of waiting for FRED's post. Never fails the run.
+      # 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): the slot is three minutes BEFORE the release (release_ny): the runner
+      # is set up, and the work that needs no new data done, before the release minute; the wait sleeps to that minute and then asks every
+      # 5 seconds (s2/publisher_first.py --not-before). The slot's entry is read from this checkout, else from the live site's list (the list
+      # the Worker read), so a build between the Worker's read and this checkout cannot lose the slot.
+      - name: wait for the publisher's release
+        if: steps.when.outputs.go == 'true' && inputs.origin == 'slot' && inputs.slot != ''
+        working-directory: ${{ steps.tool.outputs.workspace }}
+        env:
+          BLS_API_KEY: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY || '' }}       # 20 Nov 2026: a run off main is a test (BLS_ROLE)
+          BLS_API_KEY_2: ${{ github.ref_name == 'main' && secrets.BLS_API_KEY_2 || '' }}
+          BLS_API_KEY_TEST: ${{ github.ref_name != 'main' && secrets.BLS_API_KEY_TEST || '' }}
+          BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
+          SLOT: ${{ inputs.slot }}
+          RUN_SLOTS: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}/run_slots.json
+        run: |
+          # the slot's entry, as the step before the release read it (this checkout's list, else the live site's)
+          [ -s "$RUNNER_TEMP/pf_slot.txt" ] || python3 -c "print()" > "$RUNNER_TEMP/pf_slot.txt"
+          W=$(sed -n 1p "$RUNNER_TEMP/pf_slot.txt"); REL=$(sed -n 2p "$RUNNER_TEMP/pf_slot.txt")
+          if [ -z "$W" ]; then echo "the $SLOT slot reads nothing from a publisher"; exit 0; fi
+          echo "BHS_RELEASE_RUN=1" >> "$GITHUB_ENV"     # run_cloud.sh: the release's own path (the time machine's ALFRED pull is not waited for past 25 s)
+          PRE=0; NB=""
+          if [ -n "$REL" ]; then NB="--not-before"; PRE=$(R="$REL" python3 -c "import datetime,os,time;from zoneinfo import ZoneInfo;t=datetime.datetime.strptime(os.environ['R'],'%Y-%m-%d %H:%M').replace(tzinfo=ZoneInfo('America/New_York')).timestamp();print(max(0,int(t-time.time())))" 2>/dev/null || echo 0); fi
+          echo "the $SLOT slot waits for: $W${REL:+ (released $REL ET; $PRE s from now)}"
+          timeout $((780 + PRE)) python3 s2/publisher_first.py wait $W --limit 720 ${NB:+$NB "$REL"} 2>&1 | tee -a "$GITHUB_WORKSPACE/run.log" "$RUNNER_TEMP/pf_wait.log" || true   # pf_wait.log: ops/run.sh empties run.log
+
+      # 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): THE LIVE TOOLS START AS SOON AS THEIR RELEASE IS OUT, not after this
+      # run has built and published (about 2 minutes later). The same decision as the step below (the slot feeds the live tools; for the
+      # ETA 539, only when the poll found the Department's new week and the State page does not carry it yet); that step then starts nothing.
+      - name: start the live tools as soon as their release is out
+        if: steps.when.outputs.go == 'true' && github.ref_name == 'main' && inputs.origin == 'slot' && inputs.slot != ''
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SLOT: ${{ inputs.slot }}
+          RUN_SLOTS: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}/run_slots.json
+        run: |
+          LT=$(python3 -c "import json,os;print(next((1 for s in json.load(open(os.environ['RUN_SLOTS']))['slots'] if s.get('ny')==os.environ['SLOT'] and s.get('live_tools')),0))" 2>/dev/null || echo 0)
+          # 19 Nov 2026: an ETA 539 slot starts the live tools only when its poll found the Department's new week and the State page does not
+          # already carry it (s2/tool_inputs_mac.json, committed by live-tools.yml); otherwise the slot's look-again runs (20, 40, 60 min) start them.
+          # On 19 Nov the 3:56 PM run started them while the Department still served the old file, and they took nothing.
+          if [ "$LT" = "1" ]; then LT=$(python3 - <<'PY'
+          import json, os, re, datetime
+          from zoneinfo import ZoneInfo
+          slot = next(s for s in json.load(open(os.environ['RUN_SLOTS']))['slots'] if s.get('ny') == os.environ['SLOT'])
+          if 'dol_539' not in (slot.get('wait') or []): print(1); raise SystemExit
+          try: log = open(os.path.join(os.environ['RUNNER_TEMP'], 'pf_wait.log'), errors='replace').read()
+          except OSError: log = ''
+          if not re.search(r'publisher wait: dol_539 is out', log): print(0); raise SystemExit
+          t = datetime.datetime.now(ZoneInfo('America/New_York')).date(); sat = (t - datetime.timedelta(days=(t.weekday() + 2) % 7)).isoformat()
+          try:
+              ti = json.load(open(os.path.join(os.environ['GITHUB_WORKSPACE'], 'data/105_bristow_hall_system_2026-09-08/workspace/s2/tool_inputs_mac.json')))
+              thru = max(str(r.get('through') or '') for r in ti['tools']['state-onset']['rows'] if r.get('key') == 'data/dol/ar539.csv')
+          except Exception: thru = ''
+          print(0 if thru >= sat else 1)
+          PY
+          ) || LT=1; [ "$LT" = "1" ] || echo "the $SLOT slot: the ETA 539 week is not out yet, or the State page already carries it: live tools not started"; fi
+          if [ "$LT" = "1" ]; then gh workflow run live-tools.yml --ref main -f mode=full && touch "$RUNNER_TEMP/lt_started" && echo "live-tools.yml started for the $SLOT release, as soon as the release was out"; else echo "the $SLOT slot does not feed the live tools"; fi
+
+
       # UPDATE, BUILD, SITE - with a second try and the last good code behind it (ops/run.sh; 22 September 2026, collection
       # 306). run_cloud.sh is the live tool's entry (ops/tool.json); ops/run.sh runs it with a time limit, tries once more
       # after a failure, and if the code has changed since the last run that published, runs that run's code, so a broken
       # new version never stops the site updating (the notification says so, and the new code stays in the repository).
       # Tool 4's inputs fetched before the build, so the data page's forecaster rows show the newest figures (1118, 16 Nov 2026)
+      # 1167: fetched BESIDE the build (after the wait, so a CPI release's index is the release's); run_cloud.sh waits for it before the pages
+      # that show these rows are written (bhs_site.py)
       - name: the recession forecaster's inputs (Tool 4)
         if: steps.when.outputs.go == 'true'
         continue-on-error: true
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-        run: python3 ops/tool4/forecaster.py --prefetch
+        run: |
+          nohup bash -c 'python3 ops/tool4/forecaster.py --prefetch; echo "exit $?"' > "$RUNNER_TEMP/tool4_prefetch.log" 2>&1 &
+          echo $! > "$RUNNER_TEMP/tool4_prefetch.pid"; echo "Tool 4's inputs: fetched beside the build (pid $!)"
 
       - name: update, build, site
         id: main
@@ -503,27 +609,32 @@ jobs:
         if: steps.when.outputs.go == 'true'
         run: python3 ops/site_menu.py --site "$GITHUB_WORKSPACE/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}" 2>&1 | tee -a "$GITHUB_WORKSPACE/run.log"; exit ${PIPESTATUS[0]}
 
-      - name: the home cards, a picture of each tool as it is now
-        id: cards
-        if: steps.when.outputs.go == 'true'
-        working-directory: ${{ steps.tool.outputs.workspace }}
-        run: |
-          # the chart and map cards are element screenshots taken with Playwright driving the runner's own Chrome (no browser download)
-          pip install --quiet --retries 10 --timeout 60 playwright || { sleep 30; pip install --quiet --retries 10 --timeout 60 playwright; }
-          python3 s2/card_shots.py
-
+      # 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): THE RELEASE CALENDAR AND THE HOME CARDS, SIDE BY SIDE. ops/inject.py first
+      # (it links the rolling next-days script into the home and data pages: one small edit, made whole); then the cards (s2/card_shots.py: one
+      # Chrome, every tool page at once; about 10 s) are made in the background while the calendar is built in the foreground; the source
+      # gate (which reads ops/release_calendar.json) follows the calendar, and the cards step below waits for the pictures. The drift report
+      # and the parity ledger run beside the gate. Each part does what it did; none of them fails the run except the cards, as before.
       - name: the release calendar, and next days that roll forward by themselves
+        id: side
         if: steps.when.outputs.go == 'true'
         continue-on-error: true
         env:
           FRED_API_KEY: ${{ (github.ref_name != 'main' && inputs.simulate == 'bad_fred_key') && 'abcdefghijklmnopqrstuvwxyz012345' || secrets.FRED_API_KEY }}
+          WS: ${{ steps.tool.outputs.workspace }}
         run: |
-          python3 ops/calendar_build.py
           python3 ops/inject.py
+          # the card camera's packages, installed before the release (or now, if that has not finished)
+          if [ -f "$RUNNER_TEMP/card_tools.pid" ]; then P=$(cat "$RUNNER_TEMP/card_tools.pid"); for i in $(seq 1 1200); do kill -0 "$P" 2>/dev/null || break; sleep 0.1; done; fi
+          python3 -c "import playwright, PIL" 2>/dev/null || pip install --quiet --retries 10 --timeout 60 playwright pillow || { sleep 30; pip install --quiet --retries 10 --timeout 60 playwright pillow; }
+          rm -f "$RUNNER_TEMP/cards.rc"
+          nohup bash -c 'cd "$WS" && python3 s2/card_shots.py; echo $? > "$RUNNER_TEMP/cards.rc.tmp"; mv -f "$RUNNER_TEMP/cards.rc.tmp" "$RUNNER_TEMP/cards.rc"' > "$RUNNER_TEMP/cards.log" 2>&1 &
+          echo $! > "$RUNNER_TEMP/cards.pid"; echo "home cards: being made beside the calendar (pid $!)"
+          python3 ops/calendar_build.py || echo "the release calendar step failed; the calendar in hand stands"
           # the yearly drift report (23 September 2026, collection 356; risks register R4): measured every run from a weekly cache,
-          # said in January's first message and whenever a registered line is crossed (ops/notify.py)
-          python3 ops/drift_report.py || true
-          python3 ops/parity_check.py || true          # 362: the real-time parity ledger and open misses (never fails the run)
+          # said in January's first message and whenever a registered line is crossed (ops/notify.py); 362: the real-time parity ledger and
+          # open misses. Beside the source gate (1167); neither fails the run.
+          nohup bash -c 'python3 ops/drift_report.py; python3 ops/parity_check.py' > "$RUNNER_TEMP/drift_parity.log" 2>&1 &
+          echo $! > "$RUNNER_TEMP/drift_parity.pid"
 
       - name: do not leave the keys behind
         if: always() && steps.when.outputs.go == 'true'
@@ -640,13 +751,38 @@ jobs:
           SITE: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}
         run: |
           set +e
-          # the prefetch started before the build (1052 speed): wait for it while it is still fetching (at most 4 minutes), then start from it
-          for i in $(seq 1 240); do pgrep -f -- '--prefetch-to' >/dev/null || break; sleep 1; done
+          # the prefetch started before the build (1052 speed): wait for it while it is still fetching, then start from it. 1167 (24 Nov
+          # 2026): at most 45 s, not 4 minutes (on the G.17 revision both runs waited the whole 4 minutes, then the gate fetched everything
+          # anyway); a prefetch still running then is stopped (two readers on one FRED key draw 429s) and the gate starts from the last
+          # gate's sources instead - the same check keeps only what FRED lists as not updated since (s2/source_gate.py warm_cache)
+          for i in $(seq 1 45); do pgrep -f -- '--prefetch-to' >/dev/null || break; sleep 1; done
+          pkill -f -- '--prefetch-to' 2>/dev/null && echo "the prefetch was still fetching after 45 s: stopped; the gate starts from the last gate's sources"
           cat "$RUNNER_TEMP/gate_prefetch.log" 2>/dev/null | tail -2
-          WARM=""; [ -s "$RUNNER_TEMP/gate_prefetch.json" ] && WARM="--warm $RUNNER_TEMP/gate_prefetch.json"
+          WARM=""
+          if [ -s "$RUNNER_TEMP/gate_prefetch.json" ]; then WARM="--warm $RUNNER_TEMP/gate_prefetch.json"
+          elif [ -s "$RUNNER_TEMP/gate_cache/sources.json" ]; then cp "$RUNNER_TEMP/gate_cache/sources.json" "$RUNNER_TEMP/gate_prev.json"; WARM="--warm $RUNNER_TEMP/gate_prev.json"; fi
           python3 s2/source_gate.py --site "$SITE" $WARM --cache-out "$RUNNER_TEMP/gate_cache/sources.json" 2>&1 | tee "$RUNNER_TEMP/source_gate.log"; rc=${PIPESTATUS[0]}
           grep -E '^(HOLD source gate|source gate)' "$RUNNER_TEMP/source_gate.log" | tail -1 >> "$GITHUB_WORKSPACE/run.log"
           exit $rc
+
+      # 15 NOVEMBER 2026 (collection 1052; Anthony 09:34 PT: the home page images must always show what each live tool looks like right now):
+      # a headless-Chrome picture of every tool page as this run built it becomes that tool's home card; a missing or blank picture fails the
+      # step, and the publish below then does not run (nothing is published). 1167: made beside the calendar and the gate (started above);
+      # this step waits for them and fails exactly when card_shots.py failed. If they were never started, they are made here.
+      - name: the home cards, a picture of each tool as it is now
+        id: cards
+        if: steps.when.outputs.go == 'true'
+        working-directory: ${{ steps.tool.outputs.workspace }}
+        run: |
+          if [ -f "$RUNNER_TEMP/cards.pid" ]; then
+            P=$(cat "$RUNNER_TEMP/cards.pid"); for i in $(seq 1 3000); do [ -f "$RUNNER_TEMP/cards.rc" ] && break; kill -0 "$P" 2>/dev/null || { sleep 0.5; break; }; sleep 0.1; done
+            cat "$RUNNER_TEMP/cards.log"
+            RC=$(cat "$RUNNER_TEMP/cards.rc" 2>/dev/null || echo "missing")
+            if [ "$RC" = "0" ]; then exit 0; fi
+            echo "the cards made beside the calendar ended with '$RC': made again here"
+          fi
+          python3 -c "import playwright, PIL" 2>/dev/null || pip install --quiet --retries 10 --timeout 60 playwright pillow || { sleep 30; pip install --quiet --retries 10 --timeout 60 playwright pillow; }
+          python3 s2/card_shots.py
 
       # 1116 (17 Nov 2026; Anthony: "go"): A HOLD ON STATE FIGURES STARTS THE LIVE TOOLS. On 16 Nov the 16:20 ET close was held three
       # times because Mississippi, North Carolina and New Mexico still carried the week of 31 Oct: live-tools.yml, which refreshes the
@@ -699,9 +835,10 @@ jobs:
           # the version that deployed on 21 September 2026 first, then the latest 4.x, then the latest again after a pause:
           # a bad release of the tool or a moment's trouble at Cloudflare must not keep the site from updating
           # the site moved to bristowhallsystem.pages.dev on 18 November 2026: make the Pages project if it is not there yet (a no-op after the first run)
-          npx --yes wrangler@4 pages project create bristowhallsystem --production-branch main >/dev/null 2>&1 || true
+          # 1167: the project exists since 18 Nov 2026, so "project create" (a registry lookup and an API call, about 4 s) is asked only if a deploy fails
           npx --yes wrangler@4.136.0 pages deploy "$SITE_SUB" --project-name bristowhallsystem --branch "$PAGES_BRANCH" --commit-dirty=true \
-            || npx --yes wrangler@4 pages deploy "$SITE_SUB" --project-name bristowhallsystem --branch "$PAGES_BRANCH" --commit-dirty=true \
+            || { npx --yes wrangler@4 pages project create bristowhallsystem --production-branch main >/dev/null 2>&1 || true
+                 npx --yes wrangler@4 pages deploy "$SITE_SUB" --project-name bristowhallsystem --branch "$PAGES_BRANCH" --commit-dirty=true; } \
             || { sleep 30; npx --yes wrangler@4 pages deploy "$SITE_SUB" --project-name bristowhallsystem --branch "$PAGES_BRANCH" --commit-dirty=true; }
 
       # 1052 SPEED (16 November 2026): A RELEASE THE LIVE TOOLS READ STARTS THEM. A slot run whose release feeds the State onset page and the
@@ -715,6 +852,7 @@ jobs:
           SLOT: ${{ inputs.slot }}
           RUN_SLOTS: ${{ github.workspace }}/${{ steps.tool.outputs.site_dir }}/${{ steps.tool.outputs.site_sub }}/run_slots.json
         run: |
+          if [ -f "$RUNNER_TEMP/lt_started" ]; then echo "live-tools.yml was started as soon as the release was out"; exit 0; fi
           LT=$(python3 -c "import json,os;print(next((1 for s in json.load(open(os.environ['RUN_SLOTS']))['slots'] if s.get('ny')==os.environ['SLOT'] and s.get('live_tools')),0))" 2>/dev/null || echo 0)
           # 19 Nov 2026: an ETA 539 slot starts the live tools only when its poll found the Department's new week and the State page does not
           # already carry it (s2/tool_inputs_mac.json, committed by live-tools.yml); otherwise the slot's look-again runs (20, 40, 60 min) start them.
@@ -756,7 +894,7 @@ jobs:
         if: steps.when.outputs.go == 'true' && steps.publish.outcome == 'success' && env.OPS_TEST != '1'
         continue-on-error: true
         working-directory: ${{ steps.tool.outputs.workspace }}
-        run: pip install --quiet --retries 10 --timeout 60 playwright; sleep 30; python3 s2/card_shots.py --readback
+        run: python3 -c "import playwright, PIL" 2>/dev/null || pip install --quiet --retries 10 --timeout 60 playwright pillow; sleep 30; python3 s2/card_shots.py --readback
 
       - name: delete old test builds
         if: steps.when.outputs.go == 'true'
@@ -808,7 +946,7 @@ jobs:
         timeout-minutes: 4
         working-directory: ${{ steps.tool.outputs.workspace }}
         run: |
-          pip install --quiet opentimestamps-client || echo "the OpenTimestamps client did not install; the line is written unstamped"
+          python3 -c "import opentimestamps" 2>/dev/null || pip install --quiet opentimestamps-client || echo "the OpenTimestamps client did not install; the line is written unstamped"
           python3 s2/ledger.py 2>&1 | tail -3
 
       # THE STARTER IS ALIVE (21 September 2026, collection 278). The Cloudflare Worker that starts these runs writes a

@@ -22,6 +22,9 @@ Run from the live workspace before bhs_build.py: python3 s2/c1021.py  (writes ou
 cache/c1021/reading_daily.csv). BHS_C1021_IDENTITY=<ref npz> compares every pillar with the harness's arrays and reports."""
 import os, sys, io, json, glob, math, datetime as dt, urllib.request
 import numpy as np, pandas as pd
+try:   # 1167: one pandas 3.0.5 slowdown removed, the same results (s2/pandas_speed.py; loaded from its file, the module search path untouched)
+    import importlib.util as _psu; _pss=_psu.spec_from_file_location('pandas_speed', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'pandas_speed.py')); _psp=_psu.module_from_spec(_pss); _pss.loader.exec_module(_psp); print('pandas speed:', _psp.apply())
+except Exception as _psp_e: print('pandas speed: not applied (%s)' % _psp_e)
 ROOT = os.environ.get('BHS_ROOT') or next(r for r in (os.path.expanduser('~/Projects/Onset Detector Data'), os.path.expanduser('~/mnt/Onset Detector Data')) if os.path.isdir(r))
 W = os.getcwd(); OUT = os.path.join(W, 'out'); CACHE = os.path.join(W, 'cache', 'c1021'); os.makedirs(OUT, exist_ok=True); os.makedirs(CACHE, exist_ok=True)
 TODAY = pd.Timestamp(os.environ.get('BHS_TODAY') or dt.date.today())
@@ -75,7 +78,7 @@ def fred_monthly(series):
     """FRED's current monthly series (fredgraph csv, no key), cached in cache/c1021/<series>.csv; the cache stands if FRED is unreachable"""
     f = os.path.join(CACHE, series + '.csv')
     try:
-        txt = urllib.request.urlopen('https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + series, timeout=60).read().decode()
+        txt = urllib.request.urlopen('https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + series + '&bhs_t=%d' % __import__('time').time(), timeout=60).read().decode()   # 1167: a fresh read (FRED's fredgraph answers carry max-age up to 600 s; on 24 Nov a run 5 min after the G.17 revision posted read the old file)
         df = pd.read_csv(io.StringIO(txt)); df.columns = ['date', 'v']; df['v'] = pd.to_numeric(df.v, errors='coerce'); df = df.dropna()
         if len(df) > 100: df.to_csv(f, index=False)
     except Exception as e:

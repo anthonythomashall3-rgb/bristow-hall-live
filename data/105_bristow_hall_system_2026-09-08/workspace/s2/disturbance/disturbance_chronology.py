@@ -64,7 +64,7 @@ PROVISIONAL_MONTHS = 24
 def fetch_fred(dest):
     os.makedirs(dest, exist_ok=True)
     for s in SERIES:
-        with urllib.request.urlopen(f'https://fred.stlouisfed.org/graph/fredgraph.csv?id={s}', timeout=60) as r:
+        with urllib.request.urlopen(f'https://fred.stlouisfed.org/graph/fredgraph.csv?id={s}&bhs_t=%d' % __import__('time').time(), timeout=60) as r:   # 1167: a fresh read (FRED's fredgraph answers carry max-age up to 600 s; on 24 Nov a run 5 min after the G.17 revision posted read the old file)
             open(os.path.join(dest, f'{s}.csv'), 'wb').write(r.read())
     return dest
 

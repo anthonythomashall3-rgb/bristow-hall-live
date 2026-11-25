@@ -336,10 +336,23 @@ try:
     dol_press_extend(C45,say)
 except _Skip as e: SKIPPED.append('DOL release')
 except Exception as e: say(f'DOL release: NOT read ({e})')
+# 1167 (24 Nov 2026): THE MERGED FIRST-PRINT TABLE, NOW. The starter (s2/c1021.py), the home tiles, Tool 4 and the Time Machine read
+# cache/national_first_prints_1985_live.csv before bhs_build.py rewrites it; on a release run that takes the week from the Department's
+# release (above, 8:30 AM, before FRED and ALFRED) they would read last build's table without it. Written here the same way as the build.
+try:
+    sys.path.insert(0,os.path.join(os.getcwd(),'s2')); import first_prints_merged as _fpm
+    _fpm_r=_fpm.write(os.getcwd())
+    if _fpm_r=='written': say('first prints: the merged table (cache/national_first_prints_1985_live.csv) rewritten with this run\'s weeks, before its readers run')
+except Exception as e: say(f'first prints: the merged table NOT rewritten here ({e}); bhs_build.py writes it at the build')
 # ---- the search week (v3.27): Google searches for unemployment, daily, stitched onto the history (collection 108) ----
 try:
     import subprocess
     _c108=os.path.join(MNT,'108_high_frequency_speed_2026-09-10')
+    # 1167 (24 Nov 2026): a release-slot run pulls the search week BEFORE the release, while it waits (update.yml "before the release"):
+    # this run's pull is that one, never a second one on the release's critical path
+    try: _pre=open(os.path.join('cache','search_week_pulled_run')).read().strip()
+    except Exception: _pre=''
+    if _pre and _pre==os.environ.get('GITHUB_RUN_ID',''): raise _Skip('pulled before the release in this run (out/search_week_pre.out)')
     if not FULL:
         _lastd=_last_date_of(os.path.join(_c108,'google_trends','live','unemp_stitched_daily.csv')) or ''
         if _lastd>=(datetime.date.today()-datetime.timedelta(days=1)).isoformat(): raise _Skip('history through '+_lastd)

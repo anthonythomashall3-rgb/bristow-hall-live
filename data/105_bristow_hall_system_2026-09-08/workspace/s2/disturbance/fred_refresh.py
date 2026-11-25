@@ -66,7 +66,7 @@ def main():
         for _ in range(3):
             try:
                 # the default client, as disturbance_chronology.fetch_fred: FRED leaves a named client unanswered (found 17 Nov 2026)
-                with urllib.request.urlopen('https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + s, timeout=30) as r: body = r.read()
+                with urllib.request.urlopen('https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + s + '&bhs_t=%d' % __import__('time').time(), timeout=30) as r: body = r.read()   # 1167: a fresh read (FRED's fredgraph answers carry max-age up to 600 s; on 24 Nov a run 5 min after the G.17 revision posted read the old file)
                 if body.count(b'\n') > 100 and body[:16].lower().startswith(b'observation_date'): break
                 body = None
             except Exception as e:

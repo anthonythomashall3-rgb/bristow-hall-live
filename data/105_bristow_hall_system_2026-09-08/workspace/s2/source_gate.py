@@ -81,6 +81,7 @@ ARCHIVAL = {
 # a published estimate is allowed only here (the publisher's own nowcast is not our estimate)
 ALLOWED_ESTIMATES = {'GDPNOW'}
 PUB_ANY = set(DOL_OF) | set(PUB_BEA) | {'INDPRO'}   # 1052: series with a publisher read other than the BLS API
+REV_PUB = {'INDPRO': 0.00005, 'GDPC1': 0.0005}   # 1167: series whose publisher's revision of today the update takes before FRED posts it (Gate.publisher_revision): half FRED's last digit
 
 
 # ------------------------------------------------------------------------------------------------------------------- dates
@@ -190,7 +191,7 @@ class Sources:
                     obs = json.loads(self._get('https://api.stlouisfed.org/fred/series/observations?' + q))['observations']
                     rows = [[o['date'], None, '9999-12-31', None if o['value'] in ('.', '') else float(o['value'])] for o in obs]
             else:
-                txt = self._get('https://fred.stlouisfed.org/graph/fredgraph.csv?' + urllib.parse.urlencode(dict(id=sid, cosd=start)))
+                txt = self._get('https://fred.stlouisfed.org/graph/fredgraph.csv?' + urllib.parse.urlencode(dict(id=sid, cosd=start, bhs_t=int(time.time()))))   # 1167: a fresh read (FRED's fredgraph answers carry max-age up to 600 s; on 24 Nov a run 5 min after the G.17 revision posted read the old file)
                 rows = []
                 for line in txt.splitlines()[1:]:
                     p = line.split(',')
@@ -304,9 +305,38 @@ class Sources:
                         try: out['%s-%02d' % (p[1], m)] = float(v)
                         except ValueError: pass
             if not out: raise RuntimeError('G.17: no %s in the file' % code)
+            try:
+                x = self._g17_package(code)
+                if x: out = x
+            except Exception as e:
+                self.c['g17pkg:err'] = str(e)[:160]
             self.c[key] = out; return out
         except Exception as e:
             self.c[key + ':err'] = str(e); return None
+
+    def _g17_package(self, code):
+        """1167 (24 Nov 2026): the Board's XML package of the G.17 (FRB_g17_xml.zip), read when it was posted more than 10 minutes after
+        ip_sa.txt (the annual revision of 24 Nov 2026 was in the package at 12:00:22 ET while ip_sa.txt was still the 17 Nov file); its
+        own parse, as the update's (s2/publisher_first.py g17_read) is not used here. {'YYYY-MM': value} or None (ip_sa.txt stands)."""
+        import email.utils, io, zipfile
+        def lm(u):
+            with urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': UA}, method='HEAD'), timeout=30) as r:
+                return email.utils.parsedate_to_datetime(r.headers['Last-Modified']).timestamp()
+        zu = 'https://www.federalreserve.gov/releases/g17/data/FRB_g17_xml.zip'
+        if lm(zu) <= lm('https://www.federalreserve.gov/releases/g17/Current/ipdisk/ip_sa.txt') + 600: return None
+        with urllib.request.urlopen(urllib.request.Request(zu, headers={'User-Agent': UA}), timeout=90) as r: b = r.read()
+        self.calls += 1
+        x = zipfile.ZipFile(io.BytesIO(b)).read('G17_data.xml').decode('utf-8', 'replace')
+        i = x.find('SERIES_NAME="IP.%s.S"' % code)
+        if i < 0: return None
+        a, e = x.rfind('<kf:Series', 0, i), x.find('</kf:Series>', i)
+        out = {}
+        for o in re.finditer(r'<frb:Obs\b([^>]*)>', x[a:e]):
+            at = dict(re.findall(r'(\w+)="([^"]*)"', o.group(1)))
+            try: out[at['TIME_PERIOD'][:7]] = float(at['OBS_VALUE'])
+            except (KeyError, ValueError): pass
+        self.c['g17pkg:used'] = True
+        return out or None
 
     def philly_newest(self):
         """1052 (20 Nov 2026): the newest month of the Philadelphia Fed's own State coincident index file (coincident-revised.xls, the
@@ -448,6 +478,7 @@ class Gate:
         if k not in self._s:
             rows = self.src.fred(sid, start)
             if rows is None: rows = self.publisher_rows(sid, start)
+            elif sid in REV_PUB: rows = self.publisher_revision(sid, rows, start)
             if sid == 'SP500' and rows is not None:
                 # 1116: closes FRED has not posted yet are read from the chart feed the page names (Sources.spx), so the close-slot
                 # build is checked against a source instead of being held until FRED posts in the evening
@@ -458,6 +489,40 @@ class Gate:
                     self.R.add('sources', 'SP500', 'source', 'WARN', detail='FRED has not posted the close of %s yet: checked against the chart feed the page names (Yahoo Finance ^GSPC)' % extra[-1][0])
             self._s[k] = Series(sid, rows) if rows is not None else None
         return self._s[k]
+
+    def publisher_revision(self, sid, rows, start):
+        """1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): A REVISION THE PUBLISHER POSTED TODAY, BEFORE FRED HAS IT. The
+        update takes the G.17 and real GDP from the publisher at release time, revised periods included (s2/publisher_first.py); FRED
+        posts them 7 to 25 minutes later (the G.17 annual revision of 24 Nov 2026: the Board at 12:00:22 ET, FRED at 12:07). On the
+        series' release day by FRED's own release calendar, the publisher's values that differ from FRED's current ones are taken as the
+        vintage of today - as ALFRED dates them once FRED posts - and every figure on the series is checked against that vintage (a WARN
+        says so). On any other day, or once FRED carries the same values, the rows are FRED's unchanged."""
+        try:
+            rel = self.src.release_dates(sid, self.today)
+            if not rel or self.today not in (rel.get('dates') or []): return rows
+            if not rows or rows[0][1] is None: return rows
+            pub = (self.src.g17() if sid == 'INDPRO' else self.src.bea(*PUB_BEA[sid])) or {}
+            if not pub: return rows
+            tol = REV_PUB[sid]
+            cur = {d: (i, v) for i, (d, rs, re_, v) in enumerate(rows) if re_ == '9999-12-31'}
+            yday = (D(self.today) - dt.timedelta(days=1)).isoformat()
+            out = [list(r) for r in rows]; changed = []
+            for m, v in sorted(pub.items()):
+                d = m + '-01'
+                if d < start: continue
+                if d in cur:
+                    i, fv = cur[d]
+                    if fv is not None and abs(fv - v) <= tol: continue
+                    if out[i][1] is not None and out[i][1] >= self.today: continue    # FRED's own vintage of today stands
+                    out[i][2] = yday
+                out.append([d, self.today, '9999-12-31', v]); changed.append(d)
+            if not changed: return rows
+            out.sort(key=lambda r: (r[0], r[1] or ''))
+            self.R.add('sources', sid, 'source', 'WARN', detail='the publisher (%s) revised %d period(s) today that FRED has not posted yet (%s): checked against the publisher\'s values as the vintage of %s; FRED cross-checks them on the next run' % (
+                'Federal Reserve G.17' + (' XML package' if self.src.c.get('g17pkg:used') else ' file') if sid == 'INDPRO' else 'BEA API %s line %s' % PUB_BEA[sid][:2], len(changed), ', '.join(changed[-3:]), self.today))
+            return out
+        except Exception:
+            return rows
 
     def publisher_rows(self, sid, start):
         """1052 (16 Nov 2026): FRED could not be read after its retries. For a series the publisher serves itself - the BLS API v2
@@ -603,7 +668,7 @@ class Gate:
             if d.get(DOL_OF[s.sid][0]) == period[:10] and d.get(DOL_OF[s.sid][1]) not in (None, ''): v = float(d[DOL_OF[s.sid][1]])
         return v
 
-    def compare(self, page, label, published, expected, tol, series, period, transform, detail='', read_at_build=False):
+    def compare(self, page, label, published, expected, tol, series, period, transform, detail='', read_at_build=False, sids=None, scale=1.0):
         if expected is None:
             return self.unverified(page, label, published, period, series, transform,
                                    'the source has no value to recompute it from (%s)' % (detail or 'missing observation'), 'value')
@@ -620,7 +685,12 @@ class Gate:
             # after the build, held the update on a figure that was right when it was read. For such a row the value FRED carried
             # until the build day is accepted when FRED's revision is dated the build day or later: a WARN, as for a newer period
             # published on the build day (fresh()), and the next run takes the revised value. A value that matches neither is a FAIL.
-            if read_at_build and isinstance(series, str):
+            # 1167 (25 Nov 2026): EVERY LEVEL, NOT ONLY THE DATA PAGE'S SERIES ROWS. The 8:31 ET claims build read FRED before FRED
+            # posted the release (8:33); its gate, at 8:36, read FRED after: the home tiles' initial claims of 14 Nov (203,000, revised to
+            # 202,000 in the release) and insured unemployment rate of 7 Nov (1.1, revised to 1.2), and the data page's single-value row
+            # of the same rate, each held the build although each was FRED's figure when the build read it. Any level now gets the
+            # acceptance above: FRED's value until the build day, revised by FRED on the build day or later, is a WARN.
+            if (read_at_build or transform == 'level') and isinstance(series, str):
                 try:
                     s = self.S(series); bd = self.build_day
                     before = (D(bd) - dt.timedelta(days=1)).isoformat()
@@ -631,6 +701,23 @@ class Gate:
                                    'published %s = FRED until %s; FRED revised it to %s on %s, on or after the build day: the next run takes it'
                                    % (fmt(pv), before, fmt(expected), min(revised)))
                         return
+                except Exception:
+                    pass
+            # 1167 (25 Nov 2026): A DERIVED FIGURE THE SAME WAY (a 3-month change, a year-over-year rate, a ratio): recomputed from FRED as
+            # it stood the day before the build, and FRED has posted a vintage of one of its series on the build day or later - a WARN, as
+            # for a level; the next run takes the new figure. A figure that matches neither is a FAIL.
+            if transform != 'level' and isinstance(series, str) and (sids or '-' not in series):
+                try:
+                    bd = self.build_day; before = (D(bd) - dt.timedelta(days=1)).isoformat(); use = list(sids) if sids else [series]
+                    ss = [self.S(x) for x in use]
+                    if all(x is not None and x.rows and x.rows[0][1] is not None for x in ss) and \
+                            any(rs is not None and rs >= bd for x in ss for d, rs, re_, v in x.rows):
+                        old, _ = self.recompute(transform, use, period, before, scale)
+                        if old is not None and abs(pv - old) <= tol:
+                            self.R.add(page, label, 'value', 'WARN', fmt(pv), period, series, transform, fmt(expected),
+                                       'published %s = the figure from FRED until %s; FRED posted %s on %s, on or after the build day: the next run takes it'
+                                       % (fmt(pv), before, fmt(expected), bd))
+                            return
                 except Exception:
                     pass
             self.R.add(page, label, 'value', 'FAIL', fmt(pv), period, series, transform, fmt(expected),
@@ -787,7 +874,7 @@ class Gate:
                 self.fresh('home', lab, s, pk, value=val, transform=tr,
                            need_lag=(lambda d: madd(d[:7], -12) + '-01') if tr == 'yoy' else (lambda d: madd(d[:7], -3) + '-01') if tr == 'avgchg3' else None)
             exp, why = self.recompute(tr, sids, pk, self.build_day, scale)
-            self.compare('home', lab, pn[0] if pn else None, exp, pn[1] if pn else 0, sids[0], pk, tr, why or '')
+            self.compare('home', lab, pn[0] if pn else None, exp, pn[1] if pn else 0, sids[0], pk, tr, why or '', sids=sids, scale=scale)
             self.remember('home', lab, sids[0], val, pk)
             self.next_check('home', lab, tile.get('next'), list(dict.fromkeys(sids + ([tile['sid']] if tile.get('sid') else []))), pk)
         # the indicator's own tile and its sparkline: the detector's own reading on the build day
@@ -1320,12 +1407,21 @@ def warm_cache(path, fred_key=''):
     if not at or not fred_key: return None
     try:
         st = (dt.datetime.strptime(at, '%Y%m%d%H%M') - dt.timedelta(minutes=5)).strftime('%Y%m%d%H%M')
-        q = urllib.parse.urlencode(dict(api_key=fred_key, file_type='json', filter_value='all', start_time=st,
-                                        end_time=(dt.datetime.now(ZoneInfo('America/Chicago')) + dt.timedelta(hours=1)).strftime('%Y%m%d%H%M'), limit=1000))
-        with urllib.request.urlopen(urllib.request.Request('https://api.stlouisfed.org/fred/series/updates?' + q, headers={'User-Agent': UA}), timeout=40) as r:
-            d = json.load(r)
-        if 'seriess' not in d or int(d.get('count', 0)) >= 1000: return None
-        changed = {x['id'] for x in d['seriess']}
+        en = (dt.datetime.now(ZoneInfo('America/Chicago')) + dt.timedelta(hours=1)).strftime('%Y%m%d%H%M')
+        # 1167 (24 Nov 2026): EVERY PAGE OF FRED'S LIST. FRED answers at most 1,000 series a call; a window with more (the G.17 annual
+        # revision updated every industrial production and capacity series at 12:07 ET) returned None here, so nothing was kept, the
+        # prefetch and the gate fetched all 237 sources again and the gate took 326 s. Now the list is read page by page (offset), up to
+        # 20,000 series; past that, or if any page fails, nothing is kept, as before.
+        changed, off = set(), 0
+        while True:
+            q = urllib.parse.urlencode(dict(api_key=fred_key, file_type='json', filter_value='all', start_time=st, end_time=en, limit=1000, offset=off))
+            with urllib.request.urlopen(urllib.request.Request('https://api.stlouisfed.org/fred/series/updates?' + q, headers={'User-Agent': UA}), timeout=40) as r:
+                d = json.load(r)
+            if 'seriess' not in d: return None
+            changed |= {x['id'] for x in d['seriess']}
+            n = int(d.get('count', 0)); off += 1000
+            if off >= n or not d['seriess']: break
+            if off >= 20000: return None
     except Exception:
         return None
     return {k: v for k, v in c.items() if k.split(':')[1] not in changed}

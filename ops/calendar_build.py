@@ -89,7 +89,9 @@ LIVE_TOOLS_GROUPS = {'bls_state', 'bls_empsit', 'dol_539'}
 ETA539_AGAIN_MIN = (20, 40, 60)   # 19 Nov 2026: the file's Last-Modified said 3:50 PM ET, but the Department served the old file until after 4:23 PM (live-tools 21:13Z and 21:23Z read it unchanged); the 3:56 run looks again 20, 40 and 60 minutes later, each polling up to 12 minutes
 ETA539_HM = '15:56'     # the Department's ETA 539 State file follows the claims release the same day at about 3:55 PM ET (measured)   # a slot waiting for these also starts live-tools.yml (State onset, stress map: State LAUS/CES, CES national)
 FRED_POLL = {'219', '465', '456', '386'}   # CFNAI, WEI, the Sahm rule, GDPNow: run at release +1, polling FRED for the post (1052 speed)
-PUBLISHER_FIRST_MIN = 1  # the publisher-read run starts this many minutes after the release, then polls the publisher (update.yml)
+PUBLISHER_FIRST_MIN = -3  # 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): the publisher-read run starts 3 minutes BEFORE the
+                          # release (one minute after it until 24 Nov 2026), is set up and waiting at the release minute, and polls the publisher
+                          # every 5 s from then (s2/publisher_first.py wait --not-before, update.yml); the slot carries the release minute
 PUBLISHER_WARM_MIN = 20  # and a run this many minutes before it does the day's first (full) refresh, so the release run is incremental
 MIN_FUTURE = 3          # every row always knows at least its next three releases
 RETRY_MIN = (10, 30, 90)    # a release due and not in is looked for again 10, 30 and 90 minutes after it was found missing
@@ -116,11 +118,18 @@ RELEASE_TIME = {
     386: '12:01',   # GDPNow as the tool reads it (FRED GDPNOW, every update a vintage): FRED's clock is used (10:31 AM-12:41 PM ET,
                     # median 12:01, ten updates since 2025: nine archived, one seen live 17 September 2026); the Atlanta Fed publishes no hour. Was 17:05 (the close run) until
                     # 23 September 2026 (358): a time the page showed as "next published" that was ours, not the publisher's
+    # 1167 (24 Nov 2026): the four rows the calendar printed every run as "a release day with no clock time" - each its publisher's hour, as
+    # ops/release_times_measured.json (the data page's own times) has it. The three State rows are read by the live tools, which an update
+    # run does not refresh, so they get no update slot of their own (NO_SLOT); CMRMTSPL is read by the disturbance chronology (an update run).
+    282: '08:30',   # BEA underlying detail, with Personal Income and Outlays (CMRMTSPL: real manufacturing and trade sales)
+    148: '08:05',   # Census Building Permits Survey, State monthly files (measured Last-Modified 8:00-8:05 AM; census_bps)
+    109: '10:00',   # Philadelphia Fed State Coincident Indexes (philly_state)
+    110: '08:30',   # BEA Personal Income by State (SQINC4)
     465: '11:30',   # Weekly Economic Index: the Dallas Fed publishes it "at or shortly after 10:30 a.m. CT" on Thursdays
                     # (11:30 AM ET; audit-0924). Was 11:45 until 25 Sep 2026. FRED posts it about nine minutes later (11:39 both
                     # Thursdays read), so the run reads it after that (ops/tool.json calendar_read_lag_min)
 }
-NO_SLOT = set()     # a release read at a run the day already has gets no slot of its own (GDPNow had none until 358)
+NO_SLOT = {148, 109, 110}     # a release read at a run the day already has gets no slot of its own (GDPNow had none until 358); 1167: the State rows the live tools read
 # where a time is not the publisher's own announced hour, the page and the message say whose it is (22 September 2026,
 # collection 306; Anthony: "make sure that everything includes a release day and time ... and all the release days and
 # times are 100% accurate")
@@ -131,11 +140,13 @@ RULE_NOTE = {'nyse_close': 'the market close', 'daily_next_morning': 'no publish
              'fred_every_day': "FRED's daily post, at its measured clock (every day, weekends included)",
              'utc_day_end': "the day's end in UTC, 8 PM ET in summer and 7 PM in winter (the tool reads Google's days in UTC); Google publishes no hour",
              'month_avg_next_bday': "the month's average is complete on the first business day after month end (FRED's H.15 monthly post, 4:15 PM ET)",
-             'rule_day7': "the rule reads the month's Baa average on the 7th of the next month (the first business day on or after it); FRED posts it earlier"}
+             'rule_day7': "the rule reads the month's Baa average on the 7th of the next month (the first business day on or after it); FRED posts it earlier",
+             'eta539': "the Department's ETA 539 State file, posted on the national claims day at about 3:55 PM ET (measured; the Department publishes no hour)"}
 # a slot is made only for a release with a publisher's clock: the S&P close is read at 4:20 PM (411; was 5:05 PM) with the day's searches,
 # the ETA 539 month has its own 9:05 rule, and Google publishes no hour
 RULE_SLOTS = {'nyse_close': False, 'daily_next_morning': False, 'month_end_plus_21': False, 'h15_week': True, 'fomc': True,
-              'h15_daily': True, 'fred_every_day': False, 'utc_day_end': False, 'month_avg_next_bday': True, 'rule_day7': True}
+              'h15_daily': True, 'fred_every_day': False, 'utc_day_end': False, 'month_avg_next_bday': True, 'rule_day7': True,
+              'eta539': False}   # 1167: its runs are the claims release's dol_539 waits (schedule())
 FIRST_IN_MONTH = {27}          # New Residential Construction: the construction report (FRED also lists the sales day)
 SHORT = {10: 'CPI', 13: 'industrial production (G.17)', 18: 'H.15 rates', 27: 'housing starts', 50: 'the jobs report', 53: 'GDP (BEA)', 386: 'GDPNow',
          101: 'the FOMC statement', 180: 'weekly claims', 192: 'JOLTS (job openings)', 219: 'the Chicago Fed index',
@@ -143,7 +154,8 @@ SHORT = {10: 'CPI', 13: 'industrial production (G.17)', 18: 'H.15 rates', 27: 'h
 RULE_SHORT = {'h15_week': 'the H.15 week (paper and bill rates)', 'fomc': 'the FOMC statement', 'nyse_close': 'the S&P 500 close',
               'daily_next_morning': 'Google searches', 'month_end_plus_21': 'state breadth (the ETA 539 month)',
               'h15_daily': 'the H.15 rates (daily post)', 'fred_every_day': 'the fed funds target (FRED, daily)',
-              'utc_day_end': 'Google searches', 'month_avg_next_bday': 'the month-end averages (funds rate, Treasury yields)', 'rule_day7': 'the Baa monthly average (read the 7th)'}
+              'utc_day_end': 'Google searches', 'month_avg_next_bday': 'the month-end averages (funds rate, Treasury yields)', 'rule_day7': 'the Baa monthly average (read the 7th)',
+              'eta539': 'the State weekly claims (ETA 539)'}
 
 # FRED'S OWN POSTING CLOCK (23 September 2026, collection 358; Anthony: "MAKE SURE THAT ALL THE NEXT RELEASE DAYS ARE ACCURATE AND
 # EVERYTHING THAT HAS TO DO WITH THE DATA IS ACCURATE"). The live tool reads FRED, and FRED posts some releases well after the
@@ -194,16 +206,27 @@ def observe_fred_posts(allow_fetch, rc, today):
         return
     doc = jload(FRED_POSTED, {}) or {}
     changed, near = False, {today.isoformat(), (today - dt.timedelta(days=1)).isoformat()}
+    ask = [(rid, sid) for rid, sid in FRED_SERIES.items()
+           if rid in FRED_DAILY or (set((rc.get(str(rid)) or {}).get('dates') or []) & near)]
+    def _lu(sid):
+        lu = ((fred('series', series_id=sid).get('seriess') or [{}])[0]).get('last_updated', '')
+        t = dt.datetime.strptime(lu[:19], '%Y-%m-%d %H:%M:%S').replace(tzinfo=dt.timezone(dt.timedelta(hours=int(lu[19:22]))))
+        return t.astimezone(ET).strftime('%Y-%m-%d %H:%M')
+    got = {}
+    if ask:   # 1167: the representative series asked side by side (one after another they took a second and a half each)
+        import concurrent.futures as cf
+        with cf.ThreadPoolExecutor(max_workers=min(6, len(ask))) as ex:
+            futs = {rid: ex.submit(_lu, sid) for rid, sid in ask}
+            for rid, f in futs.items():
+                try: got[rid] = f.result()
+                except Exception: pass
     for rid, sid in FRED_SERIES.items():
         days_ = set((rc.get(str(rid)) or {}).get('dates') or [])
         if rid not in FRED_DAILY and not (days_ & near):
             continue
-        try:
-            lu = ((fred('series', series_id=sid).get('seriess') or [{}])[0]).get('last_updated', '')
-            t = dt.datetime.strptime(lu[:19], '%Y-%m-%d %H:%M:%S').replace(tzinfo=dt.timezone(dt.timedelta(hours=int(lu[19:22]))))
-            et = t.astimezone(ET).strftime('%Y-%m-%d %H:%M')
-        except Exception:
+        if rid not in got:
             continue
+        et = got[rid]
         if rid not in FRED_DAILY and et[:10] not in days_:
             continue                                   # a touch off the release's days is not a release post
         ent = doc.setdefault(str(rid), {'series': sid, 'posts': []})
@@ -432,6 +455,13 @@ def rule_times(rule, today):
             out.append((at(x, '16:15'), False))
             d = end + dt.timedelta(days=1)
         return out, True, 'monthly'
+    # 1167 (24 Nov 2026): THE ETA 539 STATE FILE. The State weekly claims rows read the Department's file, posted on the national claims day
+    # (FRED release 180: Thursday, the Wednesday of Thanksgiving week) at about 3:55 PM ET (ETA539_HM, measured); the runs that read it are
+    # the dol_539 waits of the claims release (schedule()), so this rule adds no slot of its own (RULE_SLOTS).
+    if rule == 'eta539':
+        ds = release_dates(180, jload(REL_CACHE, {}) or {}, False, today)
+        hm = (dt.datetime.strptime(ETA539_HM, '%H:%M') - dt.timedelta(minutes=1)).strftime('%H:%M')
+        return [(at(dt.date.fromisoformat(x), hm), False) for x in ds], True, 'weekly'
     if rule == 'month_end_plus_21':    # a month is read 21 days after it ends (the tool's own rule), by the 9:05 AM run at the latest
         out, d = [], dt.date(today.year, today.month, 1) - dt.timedelta(days=62)
         for _ in range(16):
@@ -496,10 +526,15 @@ def parse_fomc(t):
     return sorted(out)
 
 
+_AGENCY_ASKED = set()   # 1167: an agency page is read at most once a run (fred_times asks for the G.17 page once per G.17 row)
+
+
 def agency_dates(kind, allow_fetch, today):
     c = jload(AGENCY_CACHE, {}) or {}
     ent = c.get(kind) or {}
-    if allow_fetch and (ent.get('fetched') != today.isoformat() or FORCE[0]):
+    forced = FORCE[0] or (kind == 'g17' and '13' in FORCE_RIDS)   # 1167: forced only for a new version, or when the G.17 itself is overdue
+    if allow_fetch and kind not in _AGENCY_ASKED and (ent.get('fetched') != today.isoformat() or forced):
+        _AGENCY_ASKED.add(kind)
         try:
             t = fetch_page(G17_URL if kind == 'g17' else FOMC_URL)
             ds = parse_g17(t) if kind == 'g17' else parse_fomc(t)
@@ -535,6 +570,10 @@ def release_of(series, cache, allow_fetch):
 
 
 FORCE = [False]
+# 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): an overdue release re-asks ITS OWN calendar at every run (a postponement
+# shows at once), not every calendar: with four rows waiting for days, every run re-asked all nineteen calendars and both agency pages
+# (24-30 s, on the release's path before the source gate). FORCE[0] stays for a new version (every calendar and link checked again).
+FORCE_RIDS = set()
 # A NEW VERSION OF THE TOOL RE-CHECKS EVERYTHING (22 September 2026, collection 306; Anthony: "EVERYTIME I MENTION A NEW
 # VERSION ON THE LIVE SITE ... ALWAYS RECHECK THE DATA SCHEDULES AND MAKE SURE THEYRE ACCURATE AND THE DATA PAGE ... AND
 # OUR LIVE UPDATER"). A port can add a row, rename one, move a link or change what the page shows, so the run that
@@ -550,7 +589,7 @@ def release_dates(rid, cache, allow_fetch, today):
     # 1116g (17 Nov 2026; Anthony: "Check ntfy and fix the issue"): FRED's calendar is asked again at every run, not once a day (an
     # answer under 15 minutes old stands, for the Worker's retries). On 17 Nov FRED listed the G.17 annual revision (24 Nov) in the
     # afternoon; the cache of that morning still said 16 Dec, the source gate reads FRED live, and it held the 4:20 PM update twice.
-    fresh = ent and ent.get('fetched') == today.isoformat() and ent.get('span', 0) >= 400 and not FORCE[0] \
+    fresh = ent and ent.get('fetched') == today.isoformat() and ent.get('span', 0) >= 400 and not FORCE[0] and key not in FORCE_RIDS \
         and time.time() - float(ent.get('fetched_at') or 0) < 15 * 60
     if allow_fetch and not fresh:
         try:
@@ -636,7 +675,10 @@ def fred_times(rid, dates, today):
             months = {(d.year, d.month) for d in ag}
             # 1116g: a coming day FRED lists that the agency's page does not (the G.17 annual revision, 24 Nov 2026: the Board's
             # release-dates page lists only the monthly releases) is a release day too; the source gate checks against FRED's list
-            ds = sorted(set(ag) | {d for d in ds if (d.year, d.month) not in months or d > today})
+            # 1167 (24 Nov 2026): TODAY TOO (d >= today). With "d > today" the annual revision day dropped out of the calendar on its own
+            # morning (the first build of 24 Nov), and with it the run slots at 11:40, 12:01 and 12:05 ET: the noon release had no run
+            # until the 4:20 PM close. A day the agency page lacks stays a release day through its own day.
+            ds = sorted(set(ag) | {d for d in ds if (d.year, d.month) not in months or d >= today})
     window = [d for d in ds if today - dt.timedelta(days=30) <= d <= today]
     if len(window) > 12:                         # a date every business day: not a release calendar
         return None
@@ -803,11 +845,35 @@ def link_gaps(rows, cal_rows, allow_fetch, today, force=False):
     return out
 
 
+def prefetch_release_dates(rids, cache, allow_fetch, today, workers=6):
+    """1167: every release calendar a build will ask, asked side by side (FRED answers in about 1.5 s; one after another they took 24-30 s).
+    release_dates() then finds each one fresh. Each call writes only its own key of the cache. Never raises."""
+    rids = sorted({int(r) for r in rids if r is not None})
+    if not allow_fetch or not rids:
+        return
+    import concurrent.futures as cf
+    with cf.ThreadPoolExecutor(max_workers=max(1, min(workers, len(rids)))) as ex:
+        for f in [ex.submit(release_dates, r, cache, allow_fetch, today) for r in rids]:
+            try: f.result()
+            except Exception: pass
+
+
 def build(allow_fetch=True):
     ALLOW_FETCH[0] = allow_fetch
     today = now_et().date()
     sc, rc = jload(SER_CACHE, {}), jload(REL_CACHE, {})
     rows = page_rows(os.path.join(ROOT, TOOL['data_page'])) + home_rows(os.path.join(ROOT, TOOL.get('home_page', ''))) + tm_rows()
+    # 1167: the calendars of every row, asked side by side before the loop below reads them
+    _want = set()
+    for _r in rows:
+        _rule = rule_for(_r['ids'])
+        if _rule and _rule.startswith('fred:'):
+            _want.add(int(_rule.split(':')[1]))
+        elif not _rule:
+            for _tok in tokens(_r['ids']):
+                _rid = (sc.get(_tok) or {}).get('release_id')
+                if _rid is not None: _want.add(_rid)
+    prefetch_release_dates(_want, rc, allow_fetch, today)
     seen, out = set(), []
     for r in rows:
         if r['ids'] in seen:
@@ -820,6 +886,8 @@ def build(allow_fetch=True):
             ft = fred_times(rid, release_dates(rid, rc, allow_fetch, today), today)
             if ft:
                 cands.append(('FRED release %d' % rid, ft[0], ft[1], rid, ft[2], ft[3], ft[4]))
+        elif rule == 'never':
+            continue                                 # 1167: a history layer, refreshed never: no calendar, never 'waiting'
         elif rule:
             tt, known, freq, slots, note = rule_all(rule, today)
             if tt:
@@ -1029,7 +1097,7 @@ def schedule(cal, state, pending):
             rid_ = str(r.get('release_id') or '')
             if rid_ in FRED_POLL:
                 sid_ = re.split(r'[^A-Za-z0-9_]', r['ids'].strip())[0].upper()
-                raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), why + '; polled on FRED', 'fred:%s:%s' % (sid_, t.strftime('%Y%m%d%H%M'))))
+                raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), why + '; polled on FRED', 'fred:%s:%s' % (sid_, t.strftime('%Y%m%d%H%M')), t))
                 continue
             raw.append((run_t, why))
             # 1052 SPEED (15 November 2026; Anthony: "the live page to update at MAXIMUM within 5 minutes"): a release the update reads
@@ -1037,11 +1105,11 @@ def schedule(cal, state, pending):
             # new month is out; the FRED run above stays for everything still read from FRED
             pfg = PUBLISHER_FIRST.get(str(r.get('release_id') or ''))
             if str(r.get('release_id') or '') == '180':   # 1052 speed: the ETA 539 State file the same afternoon (the live tools read it)
-                raw.append((at(t.date(), ETA539_HM), "the Department's ETA 539 State file (3:55 PM ET; read from the Department)", 'dol_539'))
+                raw.append((at(t.date(), ETA539_HM) + dt.timedelta(minutes=PUBLISHER_FIRST_MIN - 1), "the Department's ETA 539 State file (3:55 PM ET; read from the Department)", 'dol_539', at(t.date(), ETA539_HM) - dt.timedelta(minutes=1)))
                 for mnt in ETA539_AGAIN_MIN:
                     raw.append((at(t.date(), ETA539_HM) + dt.timedelta(minutes=mnt), "look again: the Department's ETA 539 State file (due 3:55 PM ET)", 'dol_539'))
             if pfg:
-                raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), '%s (%s ET; read from the publisher)' % (r['short'], t.strftime('%I:%M %p').lstrip('0')), pfg))
+                raw.append((t + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), '%s (%s ET; read from the publisher)' % (r['short'], t.strftime('%I:%M %p').lstrip('0')), pfg, t))
                 # the day's first run pulls every series (bhs_update.py FULL); it is done before the release, so the release run is quick
                 raw.append((t - dt.timedelta(minutes=PUBLISHER_WARM_MIN), "the day's full refresh before %s (%s ET)" % (r['short'], t.strftime('%I:%M %p').lstrip('0'))))
     d = lo.date()
@@ -1077,22 +1145,24 @@ def schedule(cal, state, pending):
             t = s0 + dt.timedelta(minutes=mnt)
             if t > nowx and t.hour < 20:
                 raw.append((t, 'look again: %s (due %s, not yet posted)' % (p['short'], p['due_ny'][11:])))
-    raw = [(x[0], x[1], x[2] if len(x) > 2 else None) for x in raw if lo <= x[0] <= hi]
+    raw = [(x[0], x[1], x[2] if len(x) > 2 else None, x[3] if len(x) > 3 else None) for x in raw if lo <= x[0] <= hi]
     raw.sort(key=lambda x: x[0])
-    groups = []                                          # [first time, run time, reasons, publisher groups to wait for]
-    for t, w, pfg in raw:
+    groups = []                                          # [first time, run time, reasons, publisher groups to wait for, release minute]
+    for t, w, pfg, rel in raw:
         t = t.replace(second=0, microsecond=0)            # to the minute (to 5 minutes until 23 October 2026: the Worker ticks every minute, 411)
-        # a publisher-read run (1052 speed) is never merged with a FRED-read run: merging would hold it to the later time
+        # a publisher-read run (1052 speed) is never merged with a FRED-read run: merging would hold it to the later time; 1167: two publisher-read
+        # runs are one run only when their releases fall in the same minute (a later release must not hold an earlier one back)
         if (groups and (t - groups[-1][0]).total_seconds() <= MERGE_MIN * 60 and t.date() == groups[-1][0].date()
-                and bool(pfg) == bool(groups[-1][3])):
+                and bool(pfg) == bool(groups[-1][3]) and (not pfg or rel == groups[-1][4])):
             groups[-1][1] = max(t, groups[-1][1])            # the run waits for the latest release of its group
             groups[-1][2].append(w)
             if pfg: groups[-1][3].append(pfg)
         else:
-            groups.append([t, t, [w], [pfg] if pfg else []])
+            groups.append([t, t, [w], [pfg] if pfg else [], rel if pfg else None])
     return [dict({'ny': t.strftime('%Y-%m-%d %H:%M'), 'utc': t.astimezone(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
                   'why': list(dict.fromkeys(w))}, **({'wait': list(dict.fromkeys(p))} if p else {}),
-                 **({'live_tools': True} if set(p) & LIVE_TOOLS_GROUPS else {})) for _, t, w, p in groups]
+                 **({'release_ny': rel.strftime('%Y-%m-%d %H:%M')} if (p and rel is not None) else {}),
+                 **({'live_tools': True} if set(p) & LIVE_TOOLS_GROUPS else {})) for _, t, w, p, rel in groups]
 
 
 def write_slots(slots, state):
@@ -1105,10 +1175,12 @@ def write_slots(slots, state):
            'rule': ('a run is started when a slot has passed since built_at and no run is under way, at most three times for '
                     'one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub\'s own schedule '
                     'is the second line; nothing depends on the Mac'),
-           'made_by': ('ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes '
-                       'after each release the site shows (FRED-read releases: FRED\'s measured post plus 5 minutes), the S&P 500 '
-                       'close at 4:20 PM and its official close at FRED\'s evening post on NYSE trading days, a look-again only '
-                       'for a release that is due and not posted (10, 30 and 90 minutes); nothing else'),
+           'made_by': ('ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411; 1167, 24 November 2026): '
+                       'a run 3 minutes BEFORE each release read from its publisher or polled on FRED, set up and waiting at the release '
+                       'minute (release_ny) and asking the publisher every 5 seconds from then; a run 5 minutes after each other release the '
+                       'site shows (FRED-read releases: FRED\'s measured post plus 5 minutes), the S&P 500 close and its official close at '
+                       'FRED\'s evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and '
+                       '90 minutes); nothing else'),
            'fallback': 'weekdays 08:35, 09:35, 10:20 and 16:35 (New York time; the Cloudflare Worker\'s own times), used only if this list cannot be read',   # 1166: was 08:35, 09:45, 10:15, 16:20, 20:10 (before C1021)
            'slots': slots}
     jsave(path, doc)
@@ -1127,7 +1199,12 @@ def main():
     if st.get('version') and prev_v and st['version'] != prev_v:
         VERSION_CHANGED[0] = '%s -> %s' % (prev_v, st['version'])
         print('ops calendar: a new version is live (%s): every release calendar and every link is checked again' % VERSION_CHANGED[0])
-    FORCE[0] = bool((jload(PENDING, {}) or {}).get('pending')) or bool(VERSION_CHANGED[0])
+    FORCE[0] = bool(VERSION_CHANGED[0])
+    # 1167: an overdue release re-asks its own calendar (the release ids of the waiting rows, from the last calendar built)
+    _pend_ids = {p.get('ids') for p in (jload(PENDING, {}) or {}).get('pending', [])}
+    _last_cal = jload(os.path.join(out_dir, 'release_calendar.json'), {}) or {}
+    FORCE_RIDS.clear()
+    FORCE_RIDS.update(str(r.get('release_id')) for r in _last_cal.get('rows', []) if r.get('ids') in _pend_ids and r.get('release_id') is not None)
     cal = build(allow_fetch='--offline' not in sys.argv)
     cal['tool_version'], cal['built_at'] = st.get('version'), st.get('built_at')
     if '--print' in sys.argv:
