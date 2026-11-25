@@ -55,7 +55,8 @@ jobs:
           get = lambda u: json.load(urllib.request.urlopen(urllib.request.Request('https://api.github.com/repos/%s/%s' % (R, u), headers=H), timeout=30))
           go = True
           try:
-              busy = [r for r in get('actions/workflows/update.yml/runs?branch=main&per_page=20')['workflow_runs'] if r['status'] != 'completed']
+              runs = get('actions/workflows/update.yml/runs?branch=main&per_page=20')['workflow_runs']
+              busy = [r for r in runs if r['status'] != 'completed']
               if busy: go = False; print('an update run is %s: it pulls the vintages itself' % busy[0]['status'], file=sys.stderr)
               since = dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=1); n = 0
               for r in get('actions/workflows/time-machine.yml/runs?per_page=30')['workflow_runs']:
@@ -65,6 +66,23 @@ jobs:
               if go and n >= 3: go = False; print('three site runs started by this workflow in the last hour: the next release run and the night check take it', file=sys.stderr)
           except Exception as e:
               print('runs not read (%s): the site run is started' % type(e).__name__, file=sys.stderr)
+          # 1167 (25 Nov 2026): NOT IN FRONT OF A RELEASE SLOT. At 8:37 ET this workflow started a site run 41 s after the held 8:31 claims
+          # run ended, while the 8:35 slot's run had not been started yet: the slot ran at 8:50, behind it. A site run is not started when a
+          # release slot is due in the next 15 minutes, or was due in the last 10 and no update run has started since (that run pulls the
+          # vintages itself).
+          try:
+              from zoneinfo import ZoneInfo
+              NY = ZoneInfo('America/New_York'); now = dt.datetime.now(dt.timezone.utc)
+              slots = json.load(open('data/105_bristow_hall_system_2026-09-08/site/public/run_slots.json')).get('slots') or []
+              last = max([dt.datetime.fromisoformat(r['created_at'].replace('Z', '+00:00')) for r in (runs if 'runs' in dir() else [])] or [now - dt.timedelta(days=1)])
+              soon = []
+              for x in slots:
+                  if not x.get('ny'): continue
+                  t = dt.datetime.strptime(x['ny'], '%Y-%m-%d %H:%M').replace(tzinfo=NY).astimezone(dt.timezone.utc); a = (t - now).total_seconds()
+                  if 0 <= a <= 900 or (-600 <= a < 0 and last < t - dt.timedelta(seconds=60)): soon.append(x['ny'])
+              if go and soon: go = False; print('a release slot is due at %s ET: its run pulls the vintages itself' % min(soon), file=sys.stderr)
+          except Exception as e:
+              print('the release slots not read (%s): not checked' % type(e).__name__, file=sys.stderr)
           print('go=%s' % ('true' if go else 'false'))
           PY
       - name: start a site run
