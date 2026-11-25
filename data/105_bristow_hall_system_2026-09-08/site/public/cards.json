@@ -1,5 +1,5 @@
 {
- "built": "2026-11-25T01:41:23Z",
+ "built": "2026-11-25T11:36:10Z",
  "size": [
   1200,
   760
@@ -52,12 +52,12 @@
   },
   "/time-machine/": {
    "png": "/time-machine/card.png",
-   "sha256": "4a23767a6f2bb391297c3fe8760985cba425455daf915d8b2d5bb720997b636c",
+   "sha256": "750f9e10b6e4c524e5e2b9444c9a2054e3174309e14d4f33a72385561938f472",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 529,
-   "share_not_main": 0.3915
+   "colours": 496,
+   "share_not_main": 0.3921
   },
   "/data/": {
    "png": "/data/card.png",
