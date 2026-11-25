@@ -24,6 +24,12 @@ on:
       mode:
         description: "full (refresh, build, check, publish) | parity (the restored inputs as they are: build and check only, nothing published; outputs as an artifact) | cache-parity (1052 speed: the stress map built with its county layer computed, then taken from the store; every output compared)"
         default: "full"
+      wait:
+        description: "1167: the release groups to wait for before the refresh (s2/publisher_first.py wait), when a release-time slot started this run before the release"
+        default: ""
+      not_before:
+        description: "1167: the release minute, New York (YYYY-MM-DD HH:MM): the wait asks from it"
+        default: ""
 
 concurrency:
   # a pull request's parity run publishes nothing: its own group, so a queued main run does not cancel it (15 Nov 2026)
@@ -106,6 +112,26 @@ jobs:
           path: ${{ runner.temp }}/sm_cache
           key: sm-county-${{ github.run_id }}
           restore-keys: sm-county-
+
+      # 1167 (25 Nov 2026; Anthony: "under 3 minutes of data releases"): A RUN STARTED BEFORE ITS RELEASE (update.yml, a release-time slot)
+      # has its setup done when the release comes out, and waits for it here (the same wait as the update's: from the release minute, every
+      # 5 s, 12 minutes at most). If the release is not out by then the run goes on: it takes what is there, and the slot's look-again runs
+      # start the live tools again while the State page lacks the week.
+      - name: wait for the release (a run started before it)
+        if: inputs.wait != ''
+        continue-on-error: true
+        env:
+          BLS_API_KEY: ${{ env.BLS_ROLE == 'production' && secrets.BLS_API_KEY || '' }}
+          BLS_API_KEY_2: ${{ env.BLS_ROLE == 'production' && secrets.BLS_API_KEY_2 || '' }}
+          BLS_API_KEY_TEST: ${{ env.BLS_ROLE == 'test' && secrets.BLS_API_KEY_TEST || '' }}
+          BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          WAIT: ${{ inputs.wait }}
+          NOT_BEFORE: ${{ inputs.not_before }}
+        run: |
+          cd data/105_bristow_hall_system_2026-09-08/workspace
+          NB=""; [ -n "$NOT_BEFORE" ] && NB="--not-before"
+          timeout 900 python3 s2/publisher_first.py wait $WAIT --limit 720 ${NB:+$NB "$NOT_BEFORE"} 2>&1 | tee "$LT_OUT/pf_wait.log" || true
 
       - name: refresh, rebuild and check (ops/live_tools/run_live_tools.sh)
         if: env.MODE != 'cache-parity'

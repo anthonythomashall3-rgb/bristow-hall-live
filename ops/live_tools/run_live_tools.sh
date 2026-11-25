@@ -48,8 +48,16 @@ if [ "${MODE:-full}" != "parity" ] || ! ls "$P/1032_state_recession_indicator_al
   step "QCEW county by industry" $PY code/qcew_county_ind_refresh_1150.py || say "QCEW county by industry refresh returned non-zero (held files kept)"
 fi
 step "1032 routine step 2" $PY code/state_v4_rebuild_1052.py || STOP="1032 routine step 2 (six scripts or a check) failed"
-[ -z "$STOP" ] && { step "State page render" $PY code/page_check_1052.py state "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/web/state-onset/index.html" || STOP="State page render check failed"; }
-[ -z "$STOP" ] && { step "stress map v3.1" $PY "$OPS/stress_map_cached.py" --all --procs "$(nproc)" || STOP="stress map v3.1 build failed"; }
+# 1167 (25 Nov 2026; Anthony: "under 3 minutes of data releases"): the State page's render check (a headless Chrome over all 50 States, 33 s)
+# runs beside the stress map instead of before it. It reads only the State page and writes nothing; the stress map does not read the
+# check. Its result joins before the stress map's gate, and a failed check stops the run with the same message as before.
+if [ -z "$STOP" ]; then
+  ( L="$LT_OUT/run_state_render.log"; : > "$L"; step "State page render" $PY code/page_check_1052.py state "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/web/state-onset/index.html"; echo $? > "$LT_OUT/state_render.rc" ) &
+  RP=$!
+  step "stress map v3.1" $PY "$OPS/stress_map_cached.py" --all --procs "$(nproc)" || STOP="stress map v3.1 build failed"
+  wait $RP; cat "$LT_OUT/run_state_render.log" >> "$L"
+  [ "$(cat "$LT_OUT/state_render.rc" 2>/dev/null)" = 0 ] || STOP="State page render check failed"
+fi
 [ -z "$STOP" ] && { step "stress map gate" $PY - "$C" <<'EOF'
 import json, sys, os
 C = sys.argv[1]; s = json.load(open(os.path.join(C, 'out/stress_map_v3_1_tests_state_1052.json')))['results']; c = json.load(open(os.path.join(C, 'out/stress_map_v3_1_tests_1052.json')))
