@@ -106,8 +106,15 @@ def hp(y, lam):
     return pd.Series(np.linalg.solve(np.eye(n) + lam * D.T @ D, y.values), index=y.index)
 
 
+# THE TIE RULE (collection 1167, doc/PREREG-1167-tie-rule-2026-11-24.md; Anthony, 24 Nov 2026: "Tie rule, tested first"): a later turning point
+# replaces an earlier one of the same kind only if it is higher (a peak) or lower (a trough) by TIE point of the deviation or more; otherwise the
+# earlier stands. Pre-set test: T1 passed, T2 (b) failed by 0.5 month only through the open contraction's own peak; adopted by Anthony's
+# ruling (24 Nov 2026), the failed bar stated in Paper 3.
+TIE = 0.05
+
+
 def bb(x, win=5, minphase=5, mincycle=15):
-    """Bry-Boschan as in growth_cycle_1024_v2.py (register v3.1), unchanged."""
+    """Bry-Boschan as in growth_cycle_1024_v2.py (register v3.1); 1167: ties within TIE point keep the earlier turning point."""
     v = x.values; n = len(v); pk = []; tr_ = []
     for i in range(win, n - win):
         seg = v[i - win:i + win + 1]
@@ -118,7 +125,7 @@ def bb(x, win=5, minphase=5, mincycle=15):
     for i, k in tp:
         if out and out[-1][1] == k:
             j = out[-1][0]
-            if (k == 'P' and v[i] > v[j]) or (k == 'T' and v[i] < v[j]): out[-1] = (i, k)
+            if (k == 'P' and v[i] > v[j] + TIE) or (k == 'T' and v[i] < v[j] - TIE): out[-1] = (i, k)
         else: out.append((i, k))
     changed = True
     while changed:
@@ -134,7 +141,7 @@ def bb(x, win=5, minphase=5, mincycle=15):
         for i, k in out:
             if b and b[-1][1] == k:
                 j = b[-1][0]
-                if (k == 'P' and v[i] > v[j]) or (k == 'T' and v[i] < v[j]): b[-1] = (i, k)
+                if (k == 'P' and v[i] > v[j] + TIE) or (k == 'T' and v[i] < v[j] - TIE): b[-1] = (i, k)
                 changed = True
             else: b.append((i, k))
         out = b
