@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-11-25T17:06:25Z",
+ "checked_utc": "2026-11-25T20:05:30Z",
  "release": {},
  "row_tokens": {
   "feed|BAA": "2026-10|6.59",
@@ -21,7 +21,7 @@
   "feed|Google Trends \"unemployment\"": "2026-11-07|38",
   "feed|HOUST, PERMIT": "2026-10-01|1,221; 1,398",
   "feed|ICSA, CCSA, ICNSA, CCNSA": "2026-10-31|189,000; 1,718,000; 170,626; 5,780,893",
-  "feed|ICSA, CCSA, ICNSA, CCNSA|Initial claims and continued claims, seasonally adjusted and not (the route's insured-unemployment pillar, the count door's claims condition, the closer)": "2026-11-21|189,000 initial claims, week ending 2026-11-21",
+  "feed|ICSA, CCSA, ICNSA, CCNSA|Initial claims and continued claims, seasonally adjusted and not (the route's insured-unemployment pillar, the count door's claims condition, the closer)": "2026-11-21|189,000; 1,697,000; 212,945; 1,562,814",
   "feed|ICSA, CCSA, IURSA": "2026-10-31|189,000; 1,718,000; 1.1",
   "feed|INDPRO": "2026-09|103.9506",
   "feed|INDPRO|Industrial production (the production pillar)": "2026-10|102.2421",
@@ -90,7 +90,7 @@
   "row|rule|GDPC1|Real GDP": "2026-07|24,665.2",
   "row|rule|GDPNOW|GDPNow": "2026-11-25|2.90",
   "row|rule|GS10, GS1|10-year and 1-year Treasury yields, monthly averages": "2026-10|5.13; 4.46",
-  "row|rule|ICSA, CCSA, ICNSA, CCNSA|Initial claims and continued claims, seasonally adjusted and not": "2026-11-21|189,000 initial claims, week ending 2026-11-21",
+  "row|rule|ICSA, CCSA, ICNSA, CCNSA|Initial claims and continued claims, seasonally adjusted and not": "2026-11-21|189,000; 1,697,000; 212,945; 1,562,814",
   "row|rule|INDPRO|Industrial production": "2026-10|102.2421",
   "row|rule|JTSJOL|Job openings": "2026-09|7,523",
   "row|rule|SAHMREALTIME|Sahm rule, real time": "2026-10|0.00",

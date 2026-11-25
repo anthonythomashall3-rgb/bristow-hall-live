@@ -4,17 +4,17 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-25",
- "checked_at": "2026-11-25 17:07 UTC",
- "seconds": 7.1,
- "source_calls": 7,
+ "checked_at": "2026-11-25 20:05 UTC",
+ "seconds": 5.6,
+ "source_calls": 6,
  "source_errors": {},
  "counts": {
   "home": {
    "PASS": 28
   },
   "data/detector": {
-   "PASS": 62,
-   "WARN": 4
+   "PASS": 69,
+   "WARN": 3
   },
   "data/disturbance": {
    "PASS": 18
@@ -34,7 +34,7 @@
    "WARN": 5
   },
   "detector": {
-   "PASS": 54,
+   "PASS": 58,
    "WARN": 7
   },
   "state-onset": {
@@ -49,12 +49,12 @@
   }
  },
  "totals": {
-  "checks": 391,
-  "figures": 264,
+  "checks": 401,
+  "figures": 270,
   "fail": 0,
-  "warn": 43,
+  "warn": 42,
   "unverified": 0,
-  "passed": 342
+  "passed": 353
  },
  "failures": [],
  "rows": [
@@ -468,26 +468,98 @@
   },
   {
    "page": "data/detector",
-   "label": "initial claims and continued claims, seasonally adjusted and not",
-   "check": "value",
-   "status": "WARN",
-   "value": "189,000 initial claims, week ending 2026-11-21",
+   "label": "initial claims and continued claims, seasonally adjusted and not: ICSA",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "189,000",
    "period": "2026-11-21",
-   "series": "icsa, ccsa, icnsa, ccnsa",
-   "transform": "derived",
-   "expected": null,
-   "detail": "a derived value with no recipe here: not recomputed (listed as remaining risk)"
+   "series": "ICSA",
+   "transform": "level",
+   "expected": "2026-11-21",
+   "detail": ""
   },
   {
    "page": "data/detector",
-   "label": "initial claims and continued claims, seasonally adjusted and not",
-   "check": "freshness",
+   "label": "initial claims and continued claims, seasonally adjusted and not: ICSA",
+   "check": "value",
    "status": "PASS",
-   "value": "189,000 initial claims, week ending 2026-11-21",
+   "value": 189000.0,
    "period": "2026-11-21",
    "series": "ICSA",
-   "transform": "file",
+   "transform": "level",
+   "expected": 189000.0,
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "initial claims and continued claims, seasonally adjusted and not: CCSA",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "1,697,000",
+   "period": "2026-11-14",
+   "series": "CCSA",
+   "transform": "level",
+   "expected": "2026-11-14",
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "initial claims and continued claims, seasonally adjusted and not: CCSA",
+   "check": "value",
+   "status": "PASS",
+   "value": 1697000.0,
+   "period": "2026-11-14",
+   "series": "CCSA",
+   "transform": "level",
+   "expected": 1697000.0,
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "initial claims and continued claims, seasonally adjusted and not: ICNSA",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "212,945",
+   "period": "2026-11-21",
+   "series": "ICNSA",
+   "transform": "level",
    "expected": "2026-11-21",
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "initial claims and continued claims, seasonally adjusted and not: ICNSA",
+   "check": "value",
+   "status": "PASS",
+   "value": 212945.0,
+   "period": "2026-11-21",
+   "series": "ICNSA",
+   "transform": "level",
+   "expected": 212945.0,
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "initial claims and continued claims, seasonally adjusted and not: CCNSA",
+   "check": "freshness",
+   "status": "PASS",
+   "value": "1,562,814",
+   "period": "2026-11-14",
+   "series": "CCNSA",
+   "transform": "level",
+   "expected": "2026-11-14",
+   "detail": ""
+  },
+  {
+   "page": "data/detector",
+   "label": "initial claims and continued claims, seasonally adjusted and not: CCNSA",
+   "check": "value",
+   "status": "PASS",
+   "value": 1562810.0,
+   "period": "2026-11-14",
+   "series": "CCNSA",
+   "transform": "level",
+   "expected": 1562810.0,
    "detail": ""
   },
   {
@@ -2919,7 +2991,7 @@
    "label": "count door: initial or insured claims (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-25",
+   "value": "2026-12-03",
    "period": null,
    "series": "ICSA",
    "transform": null,
@@ -3116,6 +3188,54 @@
    "series": "SP500",
    "transform": "reading",
    "expected": "2026-11-24",
+   "detail": ""
+  },
+  {
+   "page": "detector",
+   "label": "feed ICNSA",
+   "check": "freshness",
+   "status": "PASS",
+   "value": 212945.0,
+   "period": "2026-11-21",
+   "series": "ICNSA",
+   "transform": "first print",
+   "expected": "2026-11-21",
+   "detail": ""
+  },
+  {
+   "page": "detector",
+   "label": "feed ICNSA",
+   "check": "value",
+   "status": "PASS",
+   "value": 212945.0,
+   "period": "2026-11-21",
+   "series": "ICNSA",
+   "transform": "first print (the vintage of 2026-11-25)",
+   "expected": 212945.0,
+   "detail": ""
+  },
+  {
+   "page": "detector",
+   "label": "feed CCNSA",
+   "check": "freshness",
+   "status": "PASS",
+   "value": 1562814.0,
+   "period": "2026-11-14",
+   "series": "CCNSA",
+   "transform": "first print",
+   "expected": "2026-11-14",
+   "detail": ""
+  },
+  {
+   "page": "detector",
+   "label": "feed CCNSA",
+   "check": "value",
+   "status": "PASS",
+   "value": 1562810.0,
+   "period": "2026-11-14",
+   "series": "CCNSA",
+   "transform": "first print (the vintage of 2026-11-25)",
+   "expected": 1562810.0,
    "detail": ""
   },
   {

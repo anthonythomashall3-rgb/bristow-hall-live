@@ -490,6 +490,48 @@
 "gate": null
 },
 {
+"name": "feed value date: ICNSA shown is the newest week in its source",
+"got": "2026-11-21",
+"want": "2026-11-21",
+"status": "PASS",
+"gate": "hard"
+},
+{
+"name": "feed value date: ICNSA shown value is that week's first print",
+"got": "212,945",
+"want": "212,945",
+"status": "PASS",
+"gate": "hard"
+},
+{
+"name": "feed value date: ICNSA newest week within the weekly cadence",
+"got": "4",
+"want": "4-14 days",
+"status": "PASS",
+"gate": "hard"
+},
+{
+"name": "feed value date: CCNSA shown is the newest week in its source",
+"got": "2026-11-14",
+"want": "2026-11-14",
+"status": "PASS",
+"gate": "hard"
+},
+{
+"name": "feed value date: CCNSA shown value is that week's first print",
+"got": "1,562,814",
+"want": "1,562,814",
+"status": "PASS",
+"gate": "hard"
+},
+{
+"name": "feed value date: CCNSA newest week within the weekly cadence",
+"got": "11",
+"want": "11-21 days",
+"status": "PASS",
+"gate": "hard"
+},
+{
 "name": "feed reading matches its week: route insured unemployment through = the week computed",
 "got": "2026-11-14",
 "want": "2026-11-14",
@@ -827,8 +869,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-25 12:06', '2026-11-25 12:06')",
-"want": "('2026-11-25 12:06', '2026-11-25 12:06')",
+"got": "('2026-11-25 15:05', '2026-11-25 15:05')",
+"want": "('2026-11-25 15:05', '2026-11-25 15:05')",
 "status": "PASS",
 "gate": "hard"
 },
@@ -960,9 +1002,9 @@
 },
 {
 "name": "data page: every feed value states its units",
-"got": "['Initial claims and conti']",
+"got": "[]",
 "want": "[]",
-"status": "FAIL",
+"status": "PASS",
 "gate": null
 },
 {

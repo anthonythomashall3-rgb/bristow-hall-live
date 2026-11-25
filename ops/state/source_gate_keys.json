@@ -1,4 +1,5 @@
 [
+"bea:T10106:1:Q",
 "bls:LAUCN060370000000003:2025",
 "dol539",
 "fred:AKPHCI:2025-01-01",
@@ -56,6 +57,7 @@
 "fred:HIUR:2025-01-01",
 "fred:IAPHCI:2025-01-01",
 "fred:IAUR:2025-01-01",
+"fred:ICNSA:2024-06-01",
 "fred:ICNSA:2025-01-01",
 "fred:ICSA:2024-06-01",
 "fred:ICSA:2025-01-01",
