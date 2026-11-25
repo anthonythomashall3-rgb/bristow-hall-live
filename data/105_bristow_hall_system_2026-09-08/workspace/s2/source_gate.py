@@ -668,7 +668,7 @@ class Gate:
             if d.get(DOL_OF[s.sid][0]) == period[:10] and d.get(DOL_OF[s.sid][1]) not in (None, ''): v = float(d[DOL_OF[s.sid][1]])
         return v
 
-    def compare(self, page, label, published, expected, tol, series, period, transform, detail='', read_at_build=False):
+    def compare(self, page, label, published, expected, tol, series, period, transform, detail='', read_at_build=False, sids=None, scale=1.0):
         if expected is None:
             return self.unverified(page, label, published, period, series, transform,
                                    'the source has no value to recompute it from (%s)' % (detail or 'missing observation'), 'value')
@@ -701,6 +701,23 @@ class Gate:
                                    'published %s = FRED until %s; FRED revised it to %s on %s, on or after the build day: the next run takes it'
                                    % (fmt(pv), before, fmt(expected), min(revised)))
                         return
+                except Exception:
+                    pass
+            # 1167 (25 Nov 2026): A DERIVED FIGURE THE SAME WAY (a 3-month change, a year-over-year rate, a ratio): recomputed from FRED as
+            # it stood the day before the build, and FRED has posted a vintage of one of its series on the build day or later - a WARN, as
+            # for a level; the next run takes the new figure. A figure that matches neither is a FAIL.
+            if transform != 'level' and isinstance(series, str) and (sids or '-' not in series):
+                try:
+                    bd = self.build_day; before = (D(bd) - dt.timedelta(days=1)).isoformat(); use = list(sids) if sids else [series]
+                    ss = [self.S(x) for x in use]
+                    if all(x is not None and x.rows and x.rows[0][1] is not None for x in ss) and \
+                            any(rs is not None and rs >= bd for x in ss for d, rs, re_, v in x.rows):
+                        old, _ = self.recompute(transform, use, period, before, scale)
+                        if old is not None and abs(pv - old) <= tol:
+                            self.R.add(page, label, 'value', 'WARN', fmt(pv), period, series, transform, fmt(expected),
+                                       'published %s = the figure from FRED until %s; FRED posted %s on %s, on or after the build day: the next run takes it'
+                                       % (fmt(pv), before, fmt(expected), bd))
+                            return
                 except Exception:
                     pass
             self.R.add(page, label, 'value', 'FAIL', fmt(pv), period, series, transform, fmt(expected),
@@ -857,7 +874,7 @@ class Gate:
                 self.fresh('home', lab, s, pk, value=val, transform=tr,
                            need_lag=(lambda d: madd(d[:7], -12) + '-01') if tr == 'yoy' else (lambda d: madd(d[:7], -3) + '-01') if tr == 'avgchg3' else None)
             exp, why = self.recompute(tr, sids, pk, self.build_day, scale)
-            self.compare('home', lab, pn[0] if pn else None, exp, pn[1] if pn else 0, sids[0], pk, tr, why or '')
+            self.compare('home', lab, pn[0] if pn else None, exp, pn[1] if pn else 0, sids[0], pk, tr, why or '', sids=sids, scale=scale)
             self.remember('home', lab, sids[0], val, pk)
             self.next_check('home', lab, tile.get('next'), list(dict.fromkeys(sids + ([tile['sid']] if tile.get('sid') else []))), pk)
         # the indicator's own tile and its sparkline: the detector's own reading on the build day
