@@ -40,6 +40,7 @@ Never fails the run: on any error it says so, and the tool's own slot list stand
 """
 import datetime as dt
 import html
+import importlib.util
 import json
 import os
 import re
@@ -1138,6 +1139,24 @@ def schedule(cal, state, pending):
             raw.append((at(d, CLOSE_HM), "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"))
             raw.append((at(d, oc), "the S&P 500 official close (FRED SP500, posted about %s)" % fmt_hm(fred_clock(OFFICIAL_CLOSE_RID, after=MARKET_CLOSE_HM) or oc)))
         d += dt.timedelta(days=1)
+    # 1167b (25 Nov 2026; Anthony: "within minutes of the data release"): THE LIVE TOOLS' OWN RELEASES WITH NO FRED ROW - the county
+    # unemployment file (BLS LAUS county data, with Metropolitan Area Employment and Unemployment), QCEW (County Employment and Wages) and
+    # the Census CPS basic monthly files - reached the stress map and the State page only at the next live-tools cron, hours after. Each
+    # release day (the publisher's own schedule page, s2/tool_inputs.py CAL) gets a run 5 minutes after the publisher's clock
+    # (ops/release_times_measured.json) that starts the live tools; they ask the BLS API for the new county month themselves.
+    try:
+        _ti = importlib.util.spec_from_file_location('_bhs_tool_inputs', os.path.join(ROOT, TOOL['workspace'], 's2', 'tool_inputs.py'))
+        _tim = importlib.util.module_from_spec(_ti); _ti.loader.exec_module(_tim)
+        _rtm = (jload(os.path.join(OPS, 'release_times_measured.json'), {}) or {}).get('publishers', {})
+        for _k, _what in (('bls_metro', 'county unemployment (BLS LAUS county data)'), ('bls_qcew', 'QCEW county employment (BLS)'),
+                          ('census_cps', 'the CPS basic monthly files (Census)')):
+            _hm = (_rtm.get(_k) or {}).get('hm')
+            for _day in ((_tim.CAL.get(_k) or ((), '', []))[2] if _hm else []):
+                _t = at(dt.date.fromisoformat(_day), _hm) + dt.timedelta(minutes=LAG_MIN)
+                if lo <= _t <= hi:
+                    raw.append((_t, '%s (%s ET; read by the live tools)' % (_what, fmt_hm(_hm)), None, None, True))
+    except Exception as e:
+        GAPS.append('the live tools\' own release days (county LAUS, QCEW, CPS) could not be read (%s): no run of their own' % type(e).__name__)
     # the rule-dated month is read by 9:05 AM on its day, whatever else runs that day (358: the page shows that time, so it
     # must be kept; until 23 September 2026 the run was added only when no other run was due that day, which could leave the
     # month to the 5:05 PM close)
