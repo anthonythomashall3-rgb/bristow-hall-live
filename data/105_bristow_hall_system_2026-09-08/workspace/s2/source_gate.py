@@ -685,7 +685,12 @@ class Gate:
             # after the build, held the update on a figure that was right when it was read. For such a row the value FRED carried
             # until the build day is accepted when FRED's revision is dated the build day or later: a WARN, as for a newer period
             # published on the build day (fresh()), and the next run takes the revised value. A value that matches neither is a FAIL.
-            if read_at_build and isinstance(series, str):
+            # 1167 (25 Nov 2026): EVERY LEVEL, NOT ONLY THE DATA PAGE'S SERIES ROWS. The 8:31 ET claims build read FRED before FRED
+            # posted the release (8:33); its gate, at 8:36, read FRED after: the home tiles' initial claims of 14 Nov (203,000, revised to
+            # 202,000 in the release) and insured unemployment rate of 7 Nov (1.1, revised to 1.2), and the data page's single-value row
+            # of the same rate, each held the build although each was FRED's figure when the build read it. Any level now gets the
+            # acceptance above: FRED's value until the build day, revised by FRED on the build day or later, is a WARN.
+            if (read_at_build or transform == 'level') and isinstance(series, str):
                 try:
                     s = self.S(series); bd = self.build_day
                     before = (D(bd) - dt.timedelta(days=1)).isoformat()
