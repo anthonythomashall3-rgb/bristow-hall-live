@@ -240,20 +240,30 @@ jobs:
             case "$(gh api "repos/$GITHUB_REPOSITORY/compare/${{ steps.commit.outputs.sha }}...main" --jq .status 2>/dev/null)" in identical|ahead) break;; esac
             sleep 5
           done
-          gh workflow run update.yml -R "$GITHUB_REPOSITORY" --ref main -f mode=site -f origin=hand
-          for i in $(seq 1 60); do
-            sleep 20
-            RID=$(gh run list -R "$GITHUB_REPOSITORY" --workflow update.yml --event workflow_dispatch -L 5 --json databaseId,createdAt -q "[.[] | select(.createdAt >= \"$T0\")][-1].databaseId")
-            [ -n "$RID" ] && break
-          done
+          # 1167b (25 Nov 2026): an update run already waiting in the queue is not replaced. A new run in the one update queue cancels the run
+          # waiting there (a release's slot run: the Worker retries it only 8 minutes later); that waiting run checks out main when it starts,
+          # with our commit, and deploys our pages. So the site deploy is dispatched only when none is waiting.
+          TC=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          WAITING=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/update.yml/runs?branch=main&per_page=20" --jq '[.workflow_runs[] | select(.status=="queued" or .status=="pending" or .status=="waiting" or .status=="requested")] | length' 2>/dev/null || echo 0)
+          RID=""
+          if [ "${WAITING:-0}" -gt 0 ]; then
+            echo "an update run is waiting in the queue: it starts after our commit and deploys our pages (no dispatch, so it is not replaced)"
+          else
+            gh workflow run update.yml -R "$GITHUB_REPOSITORY" --ref main -f mode=site -f origin=hand
+            for i in $(seq 1 60); do
+              sleep 20
+              RID=$(gh run list -R "$GITHUB_REPOSITORY" --workflow update.yml --event workflow_dispatch -L 5 --json databaseId,createdAt -q "[.[] | select(.createdAt >= \"$T0\")][-1].databaseId")
+              [ -n "$RID" ] && break
+            done
+          fi
           echo "update run $RID"; echo "run=$RID" >> "$GITHUB_OUTPUT"
           SHA="${{ steps.commit.outputs.sha }}"
           # The site deploy is done when ANY update.yml run on main that started after our dispatch and whose commit contains ours ($SHA, or a later
           # commit of main) has finished with success. A push by another chat queues a newer update run, which cancels our pending dispatch
           # (concurrency group 'update'); that newer run deploys our pages too, so it counts (15 Nov 2026, run 43756722308 / 43759507101).
-          python3 - "$SHA" "$T0" "$RID" <<'PY'
+          python3 - "$SHA" "$T0" "$RID" "$TC" <<'PY'
           import json, subprocess, sys, time
-          sha, t0, rid = sys.argv[1:4]; R = __import__('os').environ['GITHUB_REPOSITORY']
+          sha, t0, rid, tc = sys.argv[1:5]; R = __import__('os').environ['GITHUB_REPOSITORY']
           gh = lambda *a: subprocess.run(['gh', *a], capture_output=True, text=True).stdout
           def contains(head):
               if head == sha: return True
@@ -261,12 +271,17 @@ jobs:
               except Exception: return False
           end = time.time() + 45 * 60; again = False
           while time.time() < end:
-              runs = json.loads(gh('run', 'list', '-R', R, '--workflow', 'update.yml', '--branch', 'main', '-L', '20', '--json', 'databaseId,status,conclusion,headSha,createdAt') or '[]')
-              runs = [r for r in runs if r['createdAt'] >= t0]
-              good = [r for r in runs if r['status'] == 'completed' and r['conclusion'] == 'success' and contains(r['headSha'])]
+              allr = json.loads(gh('run', 'list', '-R', R, '--workflow', 'update.yml', '--branch', 'main', '-L', '20', '--json', 'databaseId,status,conclusion,headSha,createdAt,startedAt') or '[]')
+              # a run created before our dispatch counts when it started after our commit was on main (it checked main out then: 1167b)
+              runs = [r for r in allr if r['createdAt'] >= t0 or (r.get('startedAt') or '') >= tc]
+              good = [r for r in runs if r['status'] == 'completed' and r['conclusion'] == 'success' and (contains(r['headSha']) or (r.get('startedAt') or '') >= tc)]
               if good: print('deploy ok: update run %s (commit %s) contains %s' % (good[0]['databaseId'], good[0]['headSha'][:8], sha[:8])); sys.exit(0)
               live = [r for r in runs if r['status'] != 'completed']
               mine = [r for r in runs if str(r['databaseId']) == rid]
+              # 1167b: no dispatch (a run was waiting): once nothing waits or runs any more and none counted, our own site deploy, once
+              if not rid and not again and not [r for r in allr if r['status'] != 'completed']:
+                  gh('workflow', 'run', 'update.yml', '-R', R, '--ref', 'main', '-f', 'mode=site', '-f', 'origin=hand'); again = True
+                  print('the waiting update run finished without our pages counted: our own site deploy started')
               if mine and mine[0]['status'] == 'completed' and mine[0]['conclusion'] not in ('success', 'cancelled') and not live:
                   print('the site deploy failed: run %s %s' % (rid, mine[0]['conclusion'])); sys.exit(1)
               # 1166d: our run finished on a commit before ours and nothing newer is running: one more site deploy, once
