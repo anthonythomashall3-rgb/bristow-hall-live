@@ -1,11 +1,11 @@
 FRED change check: 112 series tracked; 40 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
 home tiles: second source: 8 series compared with the BLS and the Department of Labor, 0 mismatch
 home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Nov 14, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-11-25, IURSA 2026-11-25, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
-bls_fetch: requests this process (test role, run 45447103557-1): bls_v2_test 1; this run so far: bls_v2_test 1
+bls_fetch: requests this process (test role, run 45518680193-1): bls_v2_test 1; this run so far: bls_v2_test 1
+DCPN30         2026-11-19 -> 2026-11-23  (7033 obs)
 PAYEMS         no new vintage since 2026-11-06 (through 2026-10-01)
 GDPC1          no new vintage since 2026-10-29 (through 2026-07-01)
 GDPNOW         no new vintage since 2026-11-18 (through 2026-10-01)
-INDPRO         1 vintage(s) appended, the last 2026-11-24: data through 2026-10-01
 UNEMPLOY       no new vintage since 2026-11-06 (through 2026-10-01)
 LNS13023621    no new vintage since 2026-11-06 (through 2026-10-01)
 c1021 claims NSA first prints: unchanged
@@ -14,7 +14,7 @@ relcal_HOUST: unchanged (through 2026-10)
 relcal_UNRATE: unchanged (through 2026-10)
 relcal_JTSJOL: unchanged (through 2026-09)
 vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
-S&P 500: nothing new (through 2026-11-23)
+S&P 500: nothing new (through 2026-11-24)
 Sahm gap: unchanged (through 2026-10-01)
 insured rate base: unchanged (through 2026-11-07)
 ---- the damage index's unemployment rate ----

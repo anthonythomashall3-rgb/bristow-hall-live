@@ -1,5 +1,5 @@
 {
- "built": "2026-11-24T17:21:15Z",
+ "built": "2026-11-25T00:33:19Z",
  "size": [
   1200,
   760
@@ -7,21 +7,21 @@
  "cards": {
   "/detector/": {
    "png": "/detector/card.png",
-   "sha256": "13cb07c1b34d3e5d75ad3fcdb76020969faf7c68e3b832072043a4f2de7add6f",
+   "sha256": "3ed9450e6749389743928b41d5084b8941af71a8dd96d782b305bb2161919d5b",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 735,
-   "share_not_main": 0.2555
+   "colours": 761,
+   "share_not_main": 0.2552
   },
   "/disturbance/": {
    "png": "/disturbance/card.png",
-   "sha256": "4b262b70ffd30b0525d484246641348e098871d69da8ca400a88ff107b011c35",
+   "sha256": "0ff83d8bb2bf258d075ea6b5206e6580154757b0fbe771af4049af024bb02a8a",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1186,
-   "share_not_main": 0.3686
+   "colours": 1188,
+   "share_not_main": 0.3642
   },
   "/state-onset/": {
    "png": "/state-onset/card.png",
@@ -43,30 +43,30 @@
   },
   "/forecaster/": {
    "png": "/forecaster/card.png",
-   "sha256": "1bd0a9a3806cc45fc327ce9273802980c9fa31aaf671f6625ec5d81c5050bfaa",
+   "sha256": "5c6f3159f7b888a0a0ee24b3c6178db128bc8506adc60971c5a5947abc80b981",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1657,
+   "colours": 1651,
    "share_not_main": 0.2199
   },
   "/time-machine/": {
    "png": "/time-machine/card.png",
-   "sha256": "4a23767a6f2bb391297c3fe8760985cba425455daf915d8b2d5bb720997b636c",
+   "sha256": "bed8ad11a8e3b15495611d2ee9ccc9a0395a9554a65f3eb26d9766858362b4ae",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 529,
-   "share_not_main": 0.3915
+   "colours": 498,
+   "share_not_main": 0.1644
   },
   "/data/": {
    "png": "/data/card.png",
-   "sha256": "b3158d7018ec6ffa4671ba7edc3f80ad63e14e5c8b1a6b3b75b9abcdc0bc32ff",
+   "sha256": "ef9704ca3dfbe40b6253bb30773af80f5f2747a89c70d72009e59c16ee65e692",
    "on_home": false,
    "w": 1200,
    "h": 522,
-   "colours": 1684,
-   "share_not_main": 0.1225
+   "colours": 1687,
+   "share_not_main": 0.1226
   }
  }
 }

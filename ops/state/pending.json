@@ -1,5 +1,12 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-11-24 19:34",
+   "due_ny": "2026-11-24 16:00",
+   "ids": "sp500",
+   "short": "the S&P 500 close"
+  }
+ ],
  "early": {
   "alna ... wyna": {
    "at": "2026-11-22 05:58",
@@ -28,7 +35,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-24 12:18",
+ "last_check_ny": "2026-11-24 19:29",
  "pending": [
   {
    "due_ny": "2026-11-20 10:00",
