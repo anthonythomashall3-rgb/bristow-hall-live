@@ -4,16 +4,13 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-25",
- "checked_at": "2026-11-25 14:39 UTC",
- "seconds": 4.2,
+ "checked_at": "2026-11-25 15:40 UTC",
+ "seconds": 3.9,
  "source_calls": 4,
  "source_errors": {},
  "counts": {
   "home": {
    "PASS": 28
-  },
-  "sources": {
-   "WARN": 1
   },
   "data/detector": {
    "PASS": 62,
@@ -23,8 +20,8 @@
    "PASS": 18
   },
   "data/state-onset": {
-   "PASS": 23,
-   "WARN": 13,
+   "PASS": 22,
+   "WARN": 14,
    "INFO": 1
   },
   "data/stress-map": {
@@ -52,12 +49,12 @@
   }
  },
  "totals": {
-  "checks": 392,
-  "figures": 265,
+  "checks": 391,
+  "figures": 264,
   "fail": 0,
   "warn": 43,
   "unverified": 0,
-  "passed": 343
+  "passed": 342
  },
  "failures": [],
  "rows": [
@@ -198,7 +195,7 @@
    "label": "Initial claims (week)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-25",
+   "value": "2026-12-03",
    "period": null,
    "series": "ICSA",
    "transform": null,
@@ -234,7 +231,7 @@
    "label": "Insured unemployment rate",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-25",
+   "value": "2026-12-03",
    "period": null,
    "series": "IURSA",
    "transform": null,
@@ -396,18 +393,6 @@
    "transform": "the detector reading",
    "expected": 0.857,
    "detail": ""
-  },
-  {
-   "page": "sources",
-   "label": "SP500",
-   "check": "source",
-   "status": "WARN",
-   "value": null,
-   "period": null,
-   "series": null,
-   "transform": null,
-   "expected": null,
-   "detail": "FRED has not posted the close of 2026-11-24 yet: checked against the chart feed the page names (Yahoo Finance ^GSPC)"
   },
   {
    "page": "data/detector",
@@ -1673,13 +1658,13 @@
    "page": "data/state-onset",
    "label": "state building permits, units",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": "",
    "period": "2026-09-01",
    "series": "ALBPPRIV",
    "transform": "file",
-   "expected": "2026-09-01",
-   "detail": ""
+   "expected": "2026-10-01",
+   "detail": "a newer period (2026-10-01) was published 2026-11-25, on or after the build day: the next run takes it"
   },
   {
    "page": "data/state-onset",

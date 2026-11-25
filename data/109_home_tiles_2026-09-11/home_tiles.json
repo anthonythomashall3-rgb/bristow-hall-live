@@ -52,7 +52,7 @@
    "sub": "week ending Nov 21, 2026",
    "src": "https://fred.stlouisfed.org/series/ICSA",
    "sid": "ICSA",
-   "next": "2026-11-25",
+   "next": "2026-12-03",
    "srcs": [
     [
      "FRED ICSA",
@@ -67,7 +67,7 @@
    "sub": "week ending Nov 14, 2026",
    "src": "https://fred.stlouisfed.org/series/IURSA",
    "sid": "IURSA",
-   "next": "2026-11-25",
+   "next": "2026-12-03",
    "srcs": [
     [
      "FRED IURSA",
@@ -144,13 +144,13 @@
  "source_check": {
   "routes": {
    "UNRATE": "FRED API",
-   "JTSJOL": "FRED API",
-   "PAYEMS": "FRED API",
-   "JTSQUR": "FRED API",
    "UNEMPLOY": "FRED API",
+   "PAYEMS": "FRED API",
+   "JTSJOL": "FRED API",
    "CPIAUCSL": "FRED API",
-   "IURSA": "FRED API",
-   "ICSA": "FRED API"
+   "JTSQUR": "FRED API",
+   "ICSA": "FRED API",
+   "IURSA": "FRED API"
   },
   "compared": [
    "UNRATE",
