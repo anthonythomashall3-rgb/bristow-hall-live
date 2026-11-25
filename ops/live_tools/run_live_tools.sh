@@ -14,6 +14,10 @@ set -o pipefail
 export HOME=/Users/anthonyhall
 C="$HOME/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12"; P="$HOME/Projects/Onset Detector Data"
 PY=${PY:-python3}; OPS="$GITHUB_WORKSPACE/ops/live_tools"; L="$LT_OUT/run.log"; mkdir -p "$LT_OUT" "$C/logs" "$C/out" "$C/data"
+# 1167 (25 Nov 2026; Anthony: "under 3 minutes of data releases"): every Python process below loads ops/live_tools/pyboot/sitecustomize.py:
+# the peak-to-trough arithmetic of damage_dimensions_live_v376 in one pass on the arrays, and pandas' date-array indexing without its runtime
+# Union - bit-identical, each only when the code it replaces is the code read that day (LT_PYBOOT=0 runs without it)
+[ "${LT_PYBOOT:-1}" = "1" ] && export PYTHONPATH="$OPS/pyboot${PYTHONPATH:+:$PYTHONPATH}"
 say() { echo "$(date -u '+%F %T')Z $*" | tee -a "$L"; }
 STOP=""
 step() { local name="$1"; shift; say "-- $name"; "$@" >> "$L" 2>&1; local rc=$?; say "   $name rc=$rc"; return $rc; }
