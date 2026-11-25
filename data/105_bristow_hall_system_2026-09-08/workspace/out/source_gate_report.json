@@ -4,8 +4,8 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-25",
- "checked_at": "2026-11-25 20:08 UTC",
- "seconds": 3.8,
+ "checked_at": "2026-11-25 21:07 UTC",
+ "seconds": 2.6,
  "source_calls": 5,
  "source_errors": {},
  "counts": {
@@ -13,8 +13,11 @@
    "PASS": 28
   },
   "data/detector": {
-   "PASS": 69,
-   "WARN": 3
+   "PASS": 68,
+   "WARN": 4
+  },
+  "sources": {
+   "WARN": 1
   },
   "data/disturbance": {
    "PASS": 18
@@ -34,8 +37,8 @@
    "WARN": 5
   },
   "detector": {
-   "PASS": 58,
-   "WARN": 7
+   "PASS": 55,
+   "WARN": 10
   },
   "state-onset": {
    "PASS": 100
@@ -49,12 +52,12 @@
   }
  },
  "totals": {
-  "checks": 401,
-  "figures": 270,
+  "checks": 402,
+  "figures": 271,
   "fail": 0,
-  "warn": 42,
+  "warn": 47,
   "unverified": 0,
-  "passed": 353
+  "passed": 349
  },
  "failures": [],
  "rows": [
@@ -431,16 +434,28 @@
    "detail": "FRED release 386 (GDPNow)"
   },
   {
+   "page": "sources",
+   "label": "SP500",
+   "check": "source",
+   "status": "WARN",
+   "value": null,
+   "period": null,
+   "series": null,
+   "transform": null,
+   "expected": null,
+   "detail": "FRED has not posted the close of 2026-11-25 yet: checked against the chart feed the page names (Yahoo Finance ^GSPC)"
+  },
+  {
    "page": "data/detector",
    "label": "s&p 500 daily close: SP500",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": "7,201.09",
    "period": "2026-11-24",
    "series": "SP500",
    "transform": "level",
-   "expected": "2026-11-24",
-   "detail": ""
+   "expected": "2026-11-25",
+   "detail": "a newer period (2026-11-25) was published 2026-11-25, on or after the build day: the next run takes it"
   },
   {
    "page": "data/detector",
@@ -459,7 +474,7 @@
    "label": "s&p 500 daily close",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-25",
+   "value": "2026-11-27",
    "period": null,
    "series": "SP500",
    "transform": null,
@@ -1491,7 +1506,7 @@
    "label": "state initial claims, weekly, 1945 on",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-25",
+   "value": "2026-12-03",
    "period": null,
    "series": "ALICLAIMS",
    "transform": null,
@@ -1515,7 +1530,7 @@
    "label": "state weekly claims, eta 539",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-25",
+   "value": "2026-12-03",
    "period": null,
    "series": "ALICLAIMS",
    "transform": null,
@@ -1563,12 +1578,12 @@
    "label": "state claims and payments, eta 5159",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-25",
+   "value": "2026-11-26",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1719,7 +1734,7 @@
    "label": "state insured unemployment rates, monthly, 1948 on",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-25",
+   "value": "2026-12-03",
    "period": null,
    "series": "ALINSUREDUR",
    "transform": null,
@@ -1779,12 +1794,12 @@
    "label": "bristow-hall state chronology v4",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-25",
+   "value": "2026-11-26",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1803,12 +1818,12 @@
    "label": "bristow-hall state damage line v4",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-25",
+   "value": "2026-11-26",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -2331,12 +2346,12 @@
    "label": "bristow-hall state chronology v4",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-25",
+   "value": "2026-11-26",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2355,12 +2370,12 @@
    "label": "bristow-hall state damage line v4",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-25",
+   "value": "2026-11-26",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2762,13 +2777,13 @@
    "page": "detector",
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": 6.43,
    "period": "2026-11-24",
    "series": "SP500",
    "transform": "sp_yoy",
-   "expected": "2026-11-24",
-   "detail": ""
+   "expected": "2026-11-25",
+   "detail": "a newer period (2026-11-25) was published 2026-11-25, on or after the build day: the next run takes it"
   },
   {
    "page": "detector",
@@ -3182,13 +3197,13 @@
    "page": "detector",
    "label": "E22 leg S: the S&P 500 against its lowest close since the episode opened",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": null,
    "period": "2026-11-24",
    "series": "SP500",
    "transform": "reading",
-   "expected": "2026-11-24",
-   "detail": ""
+   "expected": "2026-11-25",
+   "detail": "a newer period (2026-11-25) was published 2026-11-25, on or after the build day: the next run takes it"
   },
   {
    "page": "detector",
@@ -3290,13 +3305,13 @@
    "page": "detector",
    "label": "current through: sp500",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": "2026-11-24",
    "period": "2026-11-24",
    "series": "SP500",
    "transform": "through",
-   "expected": "2026-11-24",
-   "detail": ""
+   "expected": "2026-11-25",
+   "detail": "a newer period (2026-11-25) was published 2026-11-25, on or after the build day: the next run takes it"
   },
   {
    "page": "detector",

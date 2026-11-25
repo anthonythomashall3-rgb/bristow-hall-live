@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-25 15:08",
+ "built_at": "2026-11-25 16:07",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-25T20:08:57Z",
+ "generated_utc": "2026-11-25T21:07:28Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -73,7 +73,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-25",
+   "build_next": "2026-11-27",
    "confirmed_through": "2027-03-17",
    "fred_clock": null,
    "freq": "daily",
@@ -81,7 +81,7 @@
    "link": "/detector/",
    "name": "s&p 500 daily close",
    "next_expected": false,
-   "next_ny": "2026-11-25 16:00",
+   "next_ny": "2026-11-27 13:00",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the S&P 500 close",
@@ -1624,7 +1624,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-25",
+   "build_next": "2026-12-03",
    "confirmed_through": "2026-12-31",
    "fred_clock": null,
    "freq": "weekly",
@@ -1632,7 +1632,7 @@
    "link": "/state-onset/",
    "name": "state initial claims, weekly, 1945 on",
    "next_expected": false,
-   "next_ny": "2026-11-25 15:55",
+   "next_ny": "2026-12-03 15:55",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the State weekly claims (ETA 539)",
@@ -1682,7 +1682,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-25",
+   "build_next": "2026-12-03",
    "confirmed_through": "2026-12-31",
    "fred_clock": null,
    "freq": "weekly",
@@ -1690,7 +1690,7 @@
    "link": "/state-onset/",
    "name": "state weekly claims, eta 539",
    "next_expected": false,
-   "next_ny": "2026-11-25 15:55",
+   "next_ny": "2026-12-03 15:55",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the State weekly claims (ETA 539)",
