@@ -133,9 +133,15 @@ jobs:
           cd data/105_bristow_hall_system_2026-09-08/workspace
           NB=""; [ -n "$NOT_BEFORE" ] && NB="--not-before"
           timeout 900 python3 s2/publisher_first.py wait $WAIT --limit 720 ${NB:+$NB "$NOT_BEFORE"} 2>&1 | tee "$LT_OUT/pf_wait.log" || true
+          # 1167b (25 Nov 2026): a release still not out at the end of the wait (said so by the wait itself) rebuilds and publishes nothing:
+          # the slot's next run starts the live tools again. On 25 Nov the ETA 539 was not out at 4:07 PM ET. A wait that ended any other
+          # way (an error, the timeout) rebuilds as before.
+          if grep -q "publisher wait: .* not out after" "$LT_OUT/pf_wait.log" && ! grep -q "publisher wait: .* is out" "$LT_OUT/pf_wait.log"; then
+            echo "LT_SKIP=1" >> "$GITHUB_ENV"; echo "live tools: $WAIT not out within the wait - nothing rebuilt or published (the slot's next run starts them again)"
+          fi
 
       - name: refresh, rebuild and check (ops/live_tools/run_live_tools.sh)
-        if: env.MODE != 'cache-parity'
+        if: env.MODE != 'cache-parity' && env.LT_SKIP != '1'
         env:
           BLS_API_KEY: ${{ env.BLS_ROLE == 'production' && secrets.BLS_API_KEY || '' }}
           BLS_API_KEY_2: ${{ env.BLS_ROLE == 'production' && secrets.BLS_API_KEY_2 || '' }}
@@ -162,7 +168,7 @@ jobs:
 
       - name: put the pages in place (only when every check passed)
         id: pages
-        if: env.MODE == 'full'
+        if: env.MODE == 'full' && env.LT_SKIP != '1'
         env:
           LT_RUNNER: github
         run: |
@@ -206,7 +212,7 @@ jobs:
 
       - name: commit to main (only what passed and changed)
         id: commit
-        if: env.MODE == 'full'
+        if: env.MODE == 'full' && env.LT_SKIP != '1'
         run: |
           cp ops/state/bls_usage_live_tools.json "$LT_OUT/" 2>/dev/null || true     # the run's BLS count, before the tree is put back (kept by the last step)
           WS=data/105_bristow_hall_system_2026-09-08/workspace; SITE=data/105_bristow_hall_system_2026-09-08/site
@@ -279,7 +285,7 @@ jobs:
           HOME=/Users/anthonyhall python3 ops/live_tools/readback.py $W
 
       - name: keep the state (new and refreshed inputs, add-only release asset)
-        if: always() && env.MODE == 'full'
+        if: always() && env.MODE == 'full' && env.LT_SKIP != '1'
         run: |
           if [ -f "$LT_OUT/restored.json" ]; then python3 ops/live_tools/state.py delta; else echo "the state was not restored, nothing to keep"; fi
 
@@ -318,5 +324,5 @@ jobs:
         run: python3 -c "import json,sys;s=json.load(open('$LT_OUT/status.json'));print(s);sys.exit(0 if s['state_stress_ok'] and s['shadow_ok'] else 1)"
 
       - name: fail the run when the pages were held
-        if: env.MODE == 'full' && (steps.pages.outputs.pages_ok != 'True' || steps.pages.outputs.shadow_ok != 'True')
+        if: env.MODE == 'full' && env.LT_SKIP != '1' && (steps.pages.outputs.pages_ok != 'True' || steps.pages.outputs.shadow_ok != 'True')
         run: cat "$LT_OUT/status.json" "$LT_OUT/publish_pages.json" 2>/dev/null; tail -40 "$LT_OUT/run.log"; exit 1

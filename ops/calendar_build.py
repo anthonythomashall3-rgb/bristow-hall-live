@@ -1128,6 +1128,11 @@ def schedule(cal, state, pending):
     oc = official_close_hm()
     while d <= hi.date():
         if trading_day(d):
+            # 1167b (25 Nov 2026; Anthony: "within minutes of the data release"): THE CLOSE AT ITS RELEASE. A run 3 minutes before the close
+            # waits for the chart feed's close to settle (s2/publisher_first.py spx_close: after the close, at least 150 s, unchanged 60 s;
+            # 16:04:40 on 25 Nov) and takes it; the 4:20 PM run (the H.15) and FRED's official close correct it as before
+            _c = at(d, close_hm(d))
+            raw.append((_c + dt.timedelta(minutes=PUBLISHER_FIRST_MIN), 'the S&P 500 close (%s ET; read from the chart feed as it settles)' % fmt_hm(close_hm(d)), 'spx_close', _c))
             if nyse_early_close(d):   # 1166: the market closes at 1:00 PM; the chart feed settles by 1:15 PM (the update's own cut moves with it)
                 raw.append((at(d, '13:20'), "the S&P 500 close (1:00 PM: an NYSE early close; the chart feed, settled by 1:15 PM)"))
             raw.append((at(d, CLOSE_HM), "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"))
