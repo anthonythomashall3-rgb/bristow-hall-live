@@ -1,5 +1,5 @@
 {
- "built": "2026-11-24T18:33:14",
+ "built": "2026-11-24T18:46:25",
  "data": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/workspace/s2/disturbance/out/fred_latest",
  "composite_last_month": "2026-10",
  "weights": {
@@ -22,7 +22,10 @@
   "sahm_class1": 0.5,
   "sahm_class2": 1.0,
   "class2_months_after_trough": 24,
-  "provisional_months": 24
+  "provisional_months": 24,
+  "recession_line": 2.0,
+  "recession_needs_activity_fall_pct": 1.0,
+  "tie_point": 0.05
  },
  "recessions": [
   {
@@ -945,22 +948,12 @@
    "passes_DC": true
   },
   {
-   "rec_trough": "2024-08",
-   "aftermath_from": "2024-09",
-   "peak_dev": 0.6576,
-   "post_high_month": "2025-03",
-   "post_high_dev": 0.6633,
-   "fall_since_post_high": 1.31,
-   "payroll_prerec_peak_k": 157238,
-   "payroll_latest_k": 159293,
-   "payroll_latest_month": "2026-10",
-   "payroll_ever_below_peak": false,
    "peak": "2024-06",
    "trough": null,
    "open": true,
    "months": 28,
    "dating": "OECD 5/15",
-   "status": "recession",
+   "status": "disturbance_class1",
    "status_v3_1": "recession",
    "dev_fall_pp": 1.31,
    "sahm_max": 0.53,
@@ -978,37 +971,7 @@
    "graded_from": "2024-06",
    "graded_to": "2026-10",
    "activity_fall_pct": 0.08,
-   "damage_path": {
-    "2024-06": 0.33,
-    "2024-07": 0.87,
-    "2024-08": 1.02,
-    "2024-09": 1.2,
-    "2024-10": 1.37,
-    "2024-11": 1.48,
-    "2024-12": 1.53,
-    "2025-01": 1.57,
-    "2025-02": 1.6,
-    "2025-03": 1.63,
-    "2025-04": 1.66,
-    "2025-05": 1.72,
-    "2025-06": 1.74,
-    "2025-07": 1.77,
-    "2025-08": 1.79,
-    "2025-09": 1.84,
-    "2025-10": 1.85,
-    "2025-11": 1.91,
-    "2025-12": 1.93,
-    "2026-01": 1.96,
-    "2026-02": 1.98,
-    "2026-03": 1.99,
-    "2026-04": 2.01,
-    "2026-05": 2.02,
-    "2026-06": 2.03,
-    "2026-07": 2.04,
-    "2026-08": 2.05,
-    "2026-09": 2.06,
-    "2026-10": 2.07
-   },
+   "damage_path": null,
    "recession_months_inside": [
     "2024-02..2024-08"
    ],

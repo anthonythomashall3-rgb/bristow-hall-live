@@ -869,8 +869,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-24 19:33', '2026-11-24 19:33')",
-"want": "('2026-11-24 19:33', '2026-11-24 19:33')",
+"got": "('2026-11-24 19:46', '2026-11-24 19:46')",
+"want": "('2026-11-24 19:46', '2026-11-24 19:46')",
 "status": "PASS",
 "gate": "hard"
 },
@@ -1064,7 +1064,7 @@
 "gate": null
 },
 {
-"name": "one number: every disturbance grades below 2.00 and every recession window 2.00 or more, and each grade is its damage",
+"name": "one number: every disturbance grades below 2.00 or was not graded on a fall of activity, every recession window grades 2.00 or more on a fall of activity (1167 class rule), and each grade is its damage",
 "got": "[]",
 "want": "[]",
 "status": "PASS",
