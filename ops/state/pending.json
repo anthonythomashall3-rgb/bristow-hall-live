@@ -1,16 +1,13 @@
 {
- "came_in": [
-  {
-   "came_in": "2026-11-25 11:59",
-   "due_ny": "2026-11-25 11:30",
-   "ids": "wei",
-   "short": "weekly economic index (lewis, mertens an"
-  }
- ],
+ "came_in": [],
  "early": {
   "alna ... wyna": {
    "at": "2026-11-22 05:58",
    "through": "2026-10-31"
+  },
+  "gdpnow": {
+   "at": "2026-11-25 12:07",
+   "through": "2026-11-25"
   }
  },
  "expired": [
@@ -35,7 +32,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-25 11:54",
+ "last_check_ny": "2026-11-25 12:02",
  "pending": [
   {
    "due_ny": "2026-11-20 10:00",

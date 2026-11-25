@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-25 11:57",
+ "built_at": "2026-11-25 12:06",
  "version": "C1021+E22",
  "census_date": "2026-11-25",
  "feeds": [
@@ -125,10 +125,10 @@
    "series": "GDPNOW",
    "source": "Federal Reserve Bank of Atlanta, GDPNow (FRED GDPNOW, every update as a vintage)",
    "every": "Several times a month, on the days of the releases it reads (FRED carries each update between about 10:30 AM and 1 PM ET); the Atlanta Fed posts its schedule",
-   "through": "2026-11-18",
+   "through": "2026-11-25",
    "next": "2026-12-01",
    "link": "https://www.atlantafed.org/cqer/research/gdpnow",
-   "value": "3.21",
+   "value": "2.90",
    "backup": "the Atlanta Fed page; the last printed quarter carried",
    "format_check": "the vintage appender names each vintage by its FRED date",
    "auto": "yes"
@@ -216,14 +216,14 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
-   "JTSJOL": "FRED API",
-   "PAYEMS": "FRED API",
    "UNRATE": "FRED API",
+   "PAYEMS": "FRED API",
+   "JTSJOL": "FRED API",
    "UNEMPLOY": "FRED API",
    "JTSQUR": "FRED API",
    "CPIAUCSL": "FRED API",
-   "ICSA": "FRED API",
-   "IURSA": "FRED API"
+   "IURSA": "FRED API",
+   "ICSA": "FRED API"
   },
   "compared_with_bls": [
    "UNRATE",
