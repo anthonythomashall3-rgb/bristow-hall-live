@@ -32,8 +32,9 @@ on:
         default: ""
 
 concurrency:
-  # a pull request's parity run publishes nothing: its own group, so a queued main run does not cancel it (15 Nov 2026)
-  group: ${{ github.event_name == 'pull_request' && format('live-tools-pr-{0}', github.ref) || 'live-tools' }}
+  # a pull request's parity run publishes nothing: its own group, so a queued main run does not cancel it (15 Nov 2026); 1167b (25 Nov 2026):
+  # a run dispatched on another branch (a parity test) has its own group too, so it never holds main's release run behind it
+  group: ${{ github.event_name == 'pull_request' && format('live-tools-pr-{0}', github.ref) || (github.ref_name != 'main' && format('live-tools-{0}', github.ref_name) || 'live-tools') }}
   cancel-in-progress: false
 
 permissions:

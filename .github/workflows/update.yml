@@ -499,7 +499,7 @@ jobs:
           NY = ZoneInfo('America/New_York'); now = datetime.datetime.now(NY)
           try: slot = next(s for s in json.load(open(os.environ['RUN_SLOTS']))['slots'] if s.get('ny') == os.environ['SLOT'])
           except Exception: raise SystemExit
-          g = [x for x in (slot.get('wait') or []) if x in ('bls_state', 'bls_empsit', 'dol_539')]
+          g = [x for x in (slot.get('wait') or []) if x in ('bls_state', 'bls_empsit', 'dol_539', 'bls_cpi')]   # 1167b: CPI (the State page's)
           rel = slot.get('release_ny') or ''
           if not (slot.get('live_tools') and g and rel): raise SystemExit
           if (datetime.datetime.strptime(rel, '%Y-%m-%d %H:%M').replace(tzinfo=NY) - now).total_seconds() < 30: raise SystemExit
