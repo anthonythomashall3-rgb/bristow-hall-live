@@ -722,8 +722,8 @@
 },
 {
 "name": "366: the WEI shadow reading is the 13-week mean of the cached FRED series",
-"got": "(3.09, 0.0, True)",
-"want": "(3.09, 0.0, True)",
+"got": "(3.13, 0.0, True)",
+"want": "(3.13, 0.0, True)",
 "status": "PASS",
 "gate": null
 },
@@ -827,8 +827,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-25 10:39', '2026-11-25 10:39')",
-"want": "('2026-11-25 10:39', '2026-11-25 10:39')",
+"got": "('2026-11-25 11:57', '2026-11-25 11:57')",
+"want": "('2026-11-25 11:57', '2026-11-25 11:57')",
 "status": "PASS",
 "gate": "hard"
 },

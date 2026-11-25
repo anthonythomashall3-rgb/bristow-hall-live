@@ -1,9 +1,9 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
- "checked_at": "2026-11-25T15:40Z",
+ "checked_at": "2026-11-25T16:59Z",
  "open_misses": [
   {
-   "hours": 22.6,
+   "hours": 23.9,
    "name": "G.17 industrial production",
    "posted": "2026-11-24 12:07 ET",
    "release": 13
@@ -2156,6 +2156,16 @@
    "posted": "2026-11-25 08:30 ET",
    "read_at": "2026-11-25T14:05Z",
    "release": 180,
+   "to": "2026-11-21"
+  },
+  {
+   "from": "2026-11-14",
+   "ids": "WEI (backstop shadow reading)",
+   "lag_min": 13,
+   "name": "the Weekly Economic Index",
+   "posted": "2026-11-25 11:46 ET",
+   "read_at": "2026-11-25T16:59Z",
+   "release": 465,
    "to": "2026-11-21"
   }
  ],
