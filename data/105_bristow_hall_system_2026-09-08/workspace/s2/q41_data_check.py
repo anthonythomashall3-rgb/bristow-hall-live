@@ -157,17 +157,17 @@ early=0
 for a in S['announcements']:
     ref=a['peak']; day=datetime.date.fromisoformat(a['rule_open'])
     if day<=mend(ref): early+=1
-chk('speed panel: calls before the end of the peak month',early,8)   # C1021 (1022): eight - 1957, 1969, 1973, 1980, 1981, 1990, 2007, 2024 before the end of the peak month; 1948 +31, 1953 +74, 1960 +44, 2001 +6, 2020 +34 after it   # v3.68 (22 Sep 2026, collection 301): ten - 1960 now -5 (the concurrence branch); 1953 +31, 2020 +12, 2024 +3 after it | v3.63 (Core v7-W, 21 Sep 2026): nine of thirteen - 1953 +31, 1960 +122, 2020 +12 and 2024 +3 are after it   # v3.57 (walk97, 20 Sep 2026): seven of nine - the core alone calls 2020 twelve days and 2024 three days after the peak month ended (v3.55: nine, with legs back-dated)
+chk('speed panel: calls before the end of the peak month',early,5)   # 1168 C1019: 1957, 1969, 1973, 1980, 1981   # C1021 (1022): eight - 1957, 1969, 1973, 1980, 1981, 1990, 2007, 2024 before the end of the peak month; 1948 +31, 1953 +74, 1960 +44, 2001 +6, 2020 +34 after it   # v3.68 (22 Sep 2026, collection 301): ten - 1960 now -5 (the concurrence branch); 1953 +31, 2020 +12, 2024 +3 after it | v3.63 (Core v7-W, 21 Sep 2026): nine of thirteen - 1953 +31, 1960 +122, 2020 +12 and 2024 +3 are after it   # v3.57 (walk97, 20 Sep 2026): seven of nine - the core alone calls 2020 twelve days and 2024 three days after the peak month ended (v3.55: nine, with legs back-dated)
 chk('speed panel: thirteen episodes',len(S['announcements']),13)   # v3.63: the walked record from 1948
 chk('record: no close is retrospective (every close walked, v3.64)',[e['close_pub'] for e in S['episodes'] if e.get('close_basis')=='retrospective'],[])
 # ---- C1021 (1022, 8 November 2026): the starter's record, every open on its own release day; the closes are v3.76's, unchanged
-_C1OPENS=['1948-12-31','1953-10-13','1957-04-30','1960-06-13','1969-10-11','1973-08-01','1979-11-01','1981-06-01','1990-06-01','2001-04-06','2007-11-02','2020-04-03','2024-01-05']
-_C1CLOSES=['1949-10-20','1954-06-11','1958-06-19','1961-02-24','1970-12-24','1975-02-06','1980-07-22','1982-12-02','1991-02-07','2001-12-28','2009-07-23','2020-06-05','2024-10-01']   # E22 + depth gate (1041): the battery's thirteen closes (1031/out/gate_1041.txt)
+_C1OPENS=['1948-12-31','1953-10-13','1957-04-30','1960-06-13','1969-10-11','1973-08-01','1979-11-01','1981-06-01','1990-08-06','2001-05-07','2008-01-04','2020-04-07']   # 1168: C1019 (JL retired): 12 opens
+_C1CLOSES=['1949-10-20','1954-06-11','1958-06-19','1961-02-24','1970-12-24','1975-02-06','1980-07-22','1982-12-02','1991-02-07','2001-12-28','2009-07-23','2020-06-05']   # 1168: no 2024 episode   # E22 + depth gate (1041): the battery's thirteen closes (1031/out/gate_1041.txt)
 # 1161i (22 Nov 2026; Anthony: 'you merge'): the ender's seasonally adjusted chain rebuilt from the corrected 1946-1951 figures moves two closes: 1949-11-02 (leg S) -> 1949-10-20 (leg A), 1954-05-27 -> 1954-06-11 (leg S)
-chk('C1021: the thirteen opens are the record\'s (RECORD-1021)',[e['open_pub'] for e in S['episodes']][:13],_C1OPENS)
-chk('E22: the thirteen closes are the harness\'s (RECORD-1030/1041)',[e.get('close_pub') for e in S['episodes']][:13],_C1CLOSES)
+chk('C1019: the twelve opens are the record\'s without the job-losers door (RECORD-1019, 1168)',[e['open_pub'] for e in S['episodes']],_C1OPENS)
+chk('E22: the twelve closes (RECORD-1030/1041; 1168: the C1019 opens)',[e.get('close_pub') for e in S['episodes']],_C1CLOSES)
 chk('C1021: every open names its door',[e['open_pub'] for e in S['episodes'] if not str(e.get('open_branch','')).startswith('C1021')],[])
-chk('C1021+E22: the state says version C1021+E22',S.get('version'),'C1021+E22')
+chk('C1019+E22: the state says version C1019+E22',S.get('version'),'C1019+E22')
 chk('E22: the ender ran today (out/e22_state.json)',(json.load(open('out/e22_state.json')).get('today') if os.path.exists('out/e22_state.json') else None),str(S.get('built'))[:10])
 chk('E22: every close names its leg',[e['close_pub'] for e in S['episodes'] if e.get('close_pub') and not str(e.get('close_branch','')).startswith('E22')],[])
 chk('C1021: the starter ran today (out/c1021_state.json)',(json.load(open('out/c1021_state.json')).get('today') or {}).get('day') if os.path.exists('out/c1021_state.json') else None,str(S.get('built'))[:10])

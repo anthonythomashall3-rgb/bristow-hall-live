@@ -736,7 +736,7 @@ _tb=_t
 C1021=None; C1021_CALLS=[]
 try:
     C1021=json.load(open('out/c1021_state.json')); C1021_CALLS=[(pd.Timestamp(c['day']),pd.Timestamp(c['day'][:7]+'-01')) for c in C1021['calls']]
-    assert C1021.get('tool')=='C1021' and len(C1021_CALLS)>=38, 'c1021_state.json is not C1021 (%s calls)'%len(C1021_CALLS)
+    assert C1021.get('tool') in ('C1021','C1019') and len(C1021_CALLS)>=31, 'c1021_state.json is not the starter (%s calls)'%len(C1021_CALLS)   # 1168: C1019 (JL retired) has 31 record calls
 except Exception as _e1022: raise SystemExit('C1021: the starter state was not read (%r); run s2/c1021.py before the build'%(_e1022,))
 # ---- E22 (9 November 2026, collection 1031; Anthony 06:21 PT: "lets port e22"): THE ENDER. s2/e22.py (run after s2/c1021.py) writes
 # ---- out/e22_state.json: C1021's opens and E22's close of each episode (RECORD-1027/1028/1030; the harness's 13 closes reproduced exactly,
@@ -1929,7 +1929,7 @@ elif _s.get('state')=='closed': _s['branch']=_e22br(_s.get('since'))   # E22 (10
 state['standing']=_s
 for _k in ('backstop_opener','activity_opener','concurrence_branch','state_breadth','claims_substitute','vacancy_bridge','payroll_backstop','diary_continued','leg_tier'):   # chronology_watch stays: the committee watch is not the starter's
     state.pop(_k,None)   # sahm_other stays: the template hard-reads it (the Sahm comparator)
-state['version']='C1021+E22'
+state['version']='C1019+E22'   # 1168: the job-losers door retired
 state['ender']=dict(tool='E22',collection='1031',episodes=E22.get('episodes'),values=E22.get('values'),inputs=E22.get('inputs'),built=E22.get('built'))
 state['core']=('C1021: one starter, four ways in, all read on the release day from first prints. The route: seven pillars on the same day - insured '
                'unemployment (NSA, 4-week sum) above a year earlier; job openings growing slower than initial claims (passes when no openings print stands); '

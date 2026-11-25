@@ -306,9 +306,12 @@ def main():
     # the record's last route and door calls before the grid, for the recovery convention
     rec_calls = [(pd.Timestamp(c['day']), c['door']) for c in REC['calls']]
     prev_route = max((d for d, k in rec_calls if k == 'route' and d < D0), default=None); prev_door = max((d for d, k in rec_calls if k == 'door' and d < D0), default=None)
-    pool = [(day(i), 'route') for i in onsets(route, D['VPA'], prev_route)] + [(day(i), 'door') for i in onsets(door, D['VPA'], prev_door)] + [(day(i), 'FS') for i in fs_days] + [(day(i), 'JL') for i in jl_days]
+    # 1168 (24 Nov 2026; Anthony: 2024 is a disturbance, "the simplest possible tool ... without ANY false alarms"): the job-losers door is retired. It was
+    # added (C1021) only to call 2024; without it the tool is C1019 (route + count door + FS; RECORD-1019: 12/12, 0 FA, noise 0/99, 78/78 worlds)
+    # and calls no 2024 recession. JL is still computed and shown for information, never called.
+    pool = [(day(i), 'route') for i in onsets(route, D['VPA'], prev_route)] + [(day(i), 'door') for i in onsets(door, D['VPA'], prev_door)] + [(day(i), 'FS') for i in fs_days]
     live = sorted((d, k) for d, k in pool if d >= RECORD_CUT)
-    frozen = sorted((d, k) for d, k in rec_calls if d < RECORD_CUT)
+    frozen = sorted((d, k) for d, k in rec_calls if d < RECORD_CUT and k != 'JL')
     calls = frozen + live
     pd.DataFrame([dict(day=str(d.date()), door=k, basis='record' if d < RECORD_CUT else 'live') for d, k in calls]).to_csv(os.path.join(OUT, 'c1021_calls.csv'), index=False)
     # the reading: each door's share of its conditions on; the fed-shock and job-losers doors by their ratio to the line (1.00 = fires);
@@ -316,15 +319,15 @@ def main():
     rs = np.mean([P[k] for k in ROUTE_KEYS], axis=0); ds = np.mean([P[k] for k in DOOR_KEYS], axis=0)
     fsr = np.clip(np.nan_to_num(P['FS_RATIO'], nan=0.0), 0, None); jlr = np.clip(np.nan_to_num(P['JL_RATIO'], nan=0.0), 0, None) * P['INV12']
     ev = np.zeros(N, bool)
-    for i in fs_days + jl_days:
+    for i in fs_days:
         if 0 <= i < N: ev[i] = True
-    reading = np.maximum.reduce([rs, ds, fsr, jlr]); firing = route | door | ev
+    reading = np.maximum.reduce([rs, ds, fsr]); firing = route | door | ev   # 1168: JL retired from the reading
     reading = np.where(firing, np.maximum(reading, 1.0), np.minimum(reading, 0.99))
     pd.DataFrame(dict(day=[str(day(i).date()) for i in range(N)], reading=np.round(reading, 4), route_share=np.round(rs, 4), door_share=np.round(ds, 4), fs_ratio=np.round(fsr, 4), jl_ratio=np.round(jlr, 4), **{k: P[k].astype(int) for k in ROUTE_KEYS + ('CNT', 'CHI', 'INV12')})).to_csv(os.path.join(CACHE, 'reading_daily.csv'), index=False)
     today = dict(day=str(TODAY.date()), reading=round(float(reading[-1]), 4), route=dict(on=bool(route[-1]), share=round(float(rs[-1]), 3), pillars={k: bool(P[k][-1]) for k in ROUTE_KEYS}),
                  count_door=dict(on=bool(door[-1]), share=round(float(ds[-1]), 3), conditions={k: bool(P[k][-1]) for k in DOOR_KEYS}), fs_door=dict(on=bool(fs_days and fs_days[-1] == N - 1), ratio=round(float(fsr[-1]), 3)),
-                 jl_door=dict(on=bool(jl_days and jl_days[-1] == N - 1), ratio=round(float(jlr[-1]), 3), armed_witness=bool(P['INV12'][-1])))
-    state = dict(tool='C1021', built=str(dt.datetime.utcnow())[:19] + 'Z', grid=dict(day0=str(D0.date()), days=N), record_cut=str(RECORD_CUT.date()), today=today, values=VAL, sources=SRC,
+                 jl_door=dict(retired='1168: shown for information, never called', ratio=round(float(jlr[-1]), 3), armed_witness=bool(P['INV12'][-1])))
+    state = dict(tool='C1019', doors=['route', 'count door', 'FS'], built=str(dt.datetime.utcnow())[:19] + 'Z', grid=dict(day0=str(D0.date()), days=N), record_cut=str(RECORD_CUT.date()), today=today, values=VAL, sources=SRC,
                  calls=[dict(day=str(d.date()), door=k, basis='record' if d < RECORD_CUT else 'live') for d, k in calls], live_calls=[dict(day=str(d.date()), door=k) for d, k in live],
                  pillar_last_on={k: (str(day(int(np.flatnonzero(P[k])[-1])).date()) if P[k].any() else None) for k in ROUTE_KEYS + ('CNT', 'CHI')}, log=LOG)
     json.dump(state, open(os.path.join(OUT, 'c1021_state.json'), 'w'), indent=1, default=str)
