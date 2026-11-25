@@ -2,8 +2,8 @@ PASS  tile: unemployment rate  got=4.1%  want=4.1%
 PASS  tile: unemployment rate month  got=Oct 2026  want=Oct 2026
 PASS  tile: payrolls (thousands -> millions)  got=159.3 million  want=159.3 million
 PASS  tile: payroll growth = 3-month average change  got=+137,000 a month  want=+137,000 a month
-PASS  tile: initial claims (persons, not thousands)  got=203,000  want=203,000
-PASS  tile: claims week  got=week ending Nov 14, 2026  want=week ending Nov 14, 2026
+PASS  tile: initial claims (persons, not thousands)  got=189,000  want=189,000
+PASS  tile: claims week  got=week ending Nov 21, 2026  want=week ending Nov 21, 2026
 PASS  tile: insured rate  got=1.1%  want=1.1%
 PASS  tile: job openings (thousands -> millions)  got=7.5 million  want=7.5 million
 PASS  tile: unemployed per opening reads ONE month  got=0.94  want=0.94
@@ -24,19 +24,19 @@ PASS  tile: CPI inflation next release is not in the past  got=2026-12-10  want=
 PASS  units: unemployment rate between 1 and 40 per cent  got=4.1  want=1-40
 PASS  units: payrolls between 80 and 300 million  got=159.3  want=80-300
 PASS  units: job openings between 1 and 25 million  got=7.5  want=1-25
-PASS  units: initial claims between 50,000 and 20,000,000  got=203000  want=5e4-2e7
+PASS  units: initial claims between 50,000 and 20,000,000  got=189000  want=5e4-2e7
 PASS  units: insured rate between 0.2 and 30 per cent  got=1.1  want=0.2-30
 PASS  units: quits rate between 0.5 and 6 per cent  got=2.1  want=0.5-6
-PASS  feed reading matches the readings table: Initial claims and continued claims, sea  got=-13.0  want=-13.0
+PASS  feed reading matches the readings table: Initial claims and continued claims, sea  got=-13.06  want=-13.06
 PASS  feed line matches the readings table: Initial claims and continued claims, sea  got=0  want=0
-PASS  feed is not dated in the future: Initial claims and continued claims, sea  got=2026-11-14  want=<= 2026-11-25
-PASS  feed next release is not in the past: Initial claims and continued claims, sea  got=2026-11-25  want=>= 2026-11-25
+PASS  feed is not dated in the future: Initial claims and continued claims, sea  got=2026-11-21  want=<= 2026-11-25
+PASS  feed next release is not in the past: Initial claims and continued claims, sea  got=2026-12-03  want=>= 2026-11-25
 PASS  feed has a source link: Initial claims and continued claims, sea  got=True  want=True
 PASS  feed reading matches the readings table: Unemployment rate, payrolls, the unemplo  got=0.0  want=0.0
 PASS  feed line matches the readings table: Unemployment rate, payrolls, the unemplo  got=0.3  want=0.3
 PASS  feed next release is not in the past: Unemployment rate, payrolls, the unemplo  got=2026-12-04  want=>= 2026-11-25
 PASS  feed has a source link: Unemployment rate, payrolls, the unemplo  got=True  want=True
-PASS  feed reading matches the readings table: Job openings (the help-wanted pillar: op  got=18.98  want=18.98
+PASS  feed reading matches the readings table: Job openings (the help-wanted pillar: op  got=19.17  want=19.17
 PASS  feed line matches the readings table: Job openings (the help-wanted pillar: op  got=0  want=0
 PASS  feed next release is not in the past: Job openings (the help-wanted pillar: op  got=2026-12-01  want=>= 2026-11-25
 PASS  feed has a source link: Job openings (the help-wanted pillar: op  got=True  want=True
@@ -68,14 +68,8 @@ PASS  feed next release is not in the past: GDPNow (the output dimension's bridg
 PASS  feed has a source link: GDPNow (the output dimension's bridge fo  got=True  want=True
 PASS  feed next release is not in the past: Sahm rule, real time (the comparator on   got=2026-12-04  want=>= 2026-11-25
 PASS  feed has a source link: Sahm rule, real time (the comparator on   got=True  want=True
-PASS  feed value date: ICNSA shown is the newest week in its source  got=2026-11-14  want=2026-11-14
-PASS  feed value date: ICNSA shown value is that week's first print  got=197,492  want=197,492
-PASS  feed value date: ICNSA newest week within the weekly cadence  got=11  want=5-14 days
-PASS  feed value date: CCNSA shown is the newest week in its source  got=2026-11-07  want=2026-11-07
-PASS  feed value date: CCNSA shown value is that week's first print  got=1,542,726  want=1,542,726
-PASS  feed value date: CCNSA newest week within the weekly cadence  got=18  want=12-21 days
-PASS  feed reading matches its week: route insured unemployment through = the week computed  got=2026-11-07  want=2026-11-07
-PASS  route insured unemployment: computed for the newest week held  got=2026-11-07  want=2026-11-07
+PASS  feed reading matches its week: route insured unemployment through = the week computed  got=2026-11-14  want=2026-11-14
+PASS  route insured unemployment: computed for the newest week held  got=2026-11-14  want=2026-11-14
 PASS  state page: no series point past the state's own data month  got=[]  want=[]
 PASS  headline date = last day of the daily series  got=2026-11-25  want=2026-11-25
 PASS  daily series is in date order  got=True  want=True
@@ -117,12 +111,12 @@ PASS  368: the margins page no longer shows near misses (Anthony, 25 Sep 2026)  
 PASS  368: the data page has no Margins section (Anthony, 15 Nov 2026: "remove the margins section")  got=True  want=True
 PASS  372: schema version in the state  got=1  want=1
 PASS  372: schema check is clean  got=[]  want=[]
-PASS  378: the Department's latest icsa first print agrees with FRED (ICSA, week 2026-11-14)  got=203000.0  want=203000.0
-PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week 2026-11-07)  got=1763000.0  want=1763000.0
-PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-11-07)  got=1.1  want=1.1
+PASS  378: the Department's latest icsa first print agrees with FRED (ICSA, week 2026-11-21)  got=189000.0  want=189000.0
+PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week 2026-11-14)  got=1697000.0  want=1697000.0
+PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-11-14)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-11-25 08:13', '2026-11-25 08:13')  want=('2026-11-25 08:13', '2026-11-25 08:13')
+PASS  public state copies are this build  got=('2026-11-25 09:03', '2026-11-25 09:03')  want=('2026-11-25 09:03', '2026-11-25 09:03')
 PASS  front-page tiles fetched today  got=2026-11-25  want=2026-11-25
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]
@@ -141,7 +135,7 @@ PASS  note: every episode of the rule is dated by a chronology (advisory - a sta
 PASS  data page: every next-published day is a day  got=[]  want=[]
 PASS  data page: where it stands is the data only  got=[]  want=[]
 PASS  data page: every leg channel states its units  got=[]  want=[]
-PASS  data page: every feed value states its units  got=[]  want=[]
+FAIL  data page: every feed value states its units  got=['Initial claims and conti']  want=[]
 PASS  data page: the search terms are on Google's own scale  got=[]  want=[]
 PASS  data page: every percent carries its % sign  got=[]  want=[]
 PASS  units: every front-page tile is a number  got=[]  want=[]

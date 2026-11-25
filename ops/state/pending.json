@@ -1,5 +1,48 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-11-25 09:05",
+   "due_ny": "2026-11-25 08:30",
+   "ids": "icsa, ccsa, icnsa, ccnsa",
+   "short": "weekly claims"
+  },
+  {
+   "came_in": "2026-11-25 09:05",
+   "due_ny": "2026-11-25 08:30",
+   "ids": "iursa",
+   "short": "weekly claims"
+  },
+  {
+   "came_in": "2026-11-25 09:05",
+   "due_ny": "2026-11-25 08:30",
+   "ids": "ccnsa / covemp",
+   "short": "weekly claims"
+  },
+  {
+   "came_in": "2026-11-25 09:05",
+   "due_ny": "2026-11-25 08:30",
+   "ids": "gdpc1",
+   "short": "GDP (BEA)"
+  },
+  {
+   "came_in": "2026-11-25 09:05",
+   "due_ny": "2026-11-25 08:30",
+   "ids": "w875rx1",
+   "short": "fred series w875rx1"
+  },
+  {
+   "came_in": "2026-11-25 09:05",
+   "due_ny": "2026-11-25 08:30",
+   "ids": "cmrmtspl",
+   "short": "fred series cmrmtspl"
+  },
+  {
+   "came_in": "2026-11-25 09:05",
+   "due_ny": "2026-11-25 08:30",
+   "ids": "fdefx",
+   "short": "GDP (BEA)"
+  }
+ ],
  "early": {
   "alna ... wyna": {
    "at": "2026-11-22 05:58",
@@ -28,7 +71,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-25 08:10",
+ "last_check_ny": "2026-11-25 09:00",
  "pending": [
   {
    "due_ny": "2026-11-20 10:00",
@@ -55,6 +98,24 @@
    "short": "state weekly claims, eta 539",
    "since_ny": "2026-11-23 08:38",
    "through_before": "2026-11-14",
+   "value_before": ""
+  },
+  {
+   "due_ny": "2026-11-25 08:30",
+   "expected_day": false,
+   "ids": "alinsuredur ... wyinsuredur",
+   "short": "weekly claims",
+   "since_ny": "2026-11-25 09:05",
+   "through_before": "2026-11-07",
+   "value_before": "0"
+  },
+  {
+   "due_ny": "2026-11-25 08:30",
+   "expected_day": false,
+   "ids": "albppriv ... wybppriv",
+   "short": "state building permits, units",
+   "since_ny": "2026-11-25 09:05",
+   "through_before": "2026-09-30",
    "value_before": ""
   }
  ],

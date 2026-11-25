@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-25 08:13",
+ "built_at": "2026-11-25 09:03",
  "version": "C1021+E22",
  "census_date": "2026-11-25",
  "feeds": [
@@ -8,10 +8,10 @@
    "series": "ICSA, CCSA, ICNSA, CCNSA",
    "source": "Department of Labor (the UI claims news release; ALFRED vintages after it; the first prints back to August 1975 from the release archive, the bound news releases and volumes, the captures of the Internet Archive, the closing table of the release and the press: collections 45, 399, 396, 382, 397 and 404)",
    "every": "Weekly - Thursday 8:30 AM ET (Wednesday before a Thursday holiday)",
-   "through": "2026-11-14",
-   "next": "2026-11-25",
+   "through": "2026-11-21",
+   "next": "2026-12-03",
    "link": "https://www.dol.gov/ui/data.pdf",
-   "value": "203,000; 1,763,000; 197,492; 1,542,726",
+   "value": "189,000 initial claims, week ending 2026-11-21",
    "backup": "the states' ETA 539 weekly file with the Bureau's seasonal factors (s2/claims_substitute.py, exact where tested; collection 329)",
    "format_check": "q41 feed checks; the claims loader asserts the release week columns (45)",
    "auto": "yes"
@@ -115,7 +115,7 @@
    "through": "2026-07",
    "next": "2026-12-23",
    "link": "https://www.bea.gov/data/gdp/gross-domestic-product",
-   "value": "24,611.1",
+   "value": "24,665.2",
    "backup": "GDPNow for the unprinted quarter; the BEA release text",
    "format_check": "damage_dimensions.py: the vintage table read by column name; q41 v3.73 checks",
    "auto": "yes"
@@ -151,7 +151,7 @@
   {
    "channel": "initial and continued claims, insured unemployment rate (DOL weekly)",
    "status": "current",
-   "last": "2026-11-14",
+   "last": "2026-11-21",
    "limit_days": 13,
    "substitute": null
   },
@@ -216,14 +216,14 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
-   "PAYEMS": "FRED API",
-   "UNEMPLOY": "FRED API",
    "UNRATE": "FRED API",
    "JTSJOL": "FRED API",
+   "UNEMPLOY": "FRED API",
    "JTSQUR": "FRED API",
    "CPIAUCSL": "FRED API",
+   "PAYEMS": "FRED API",
    "ICSA": "FRED API",
-   "IURSA": "FRED API"
+   "IURSA": "FRED keyless file"
   },
   "compared_with_bls": [
    "UNRATE",
@@ -231,9 +231,7 @@
    "UNEMPLOY",
    "JTSJOL",
    "JTSQUR",
-   "CPIAUCSL",
-   "ICSA",
-   "IURSA"
+   "CPIAUCSL"
   ],
   "mismatch": [],
   "backups": "FRED API, then the FRED keyless file, then the file on disk; the BLS API read every run for the six monthly series, compared with FRED, and used for any month FRED lacks"
