@@ -51,6 +51,21 @@ done
 if [ "${MODE:-full}" != "parity" ] || ! ls "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry_county/"*.csv.gz >/dev/null 2>&1; then
   step "QCEW county by industry" $PY code/qcew_county_ind_refresh_1150.py || say "QCEW county by industry refresh returned non-zero (held files kept)"
 fi
+# 1167b (25 Nov 2026; Anthony: "under 3 minutes of data releases"): THE SHADOW TOOL BESIDE THE REBUILD. The shadow feeds and page (824, 823)
+# read neither the State page nor the stress map and write nothing either reads; they ran after both (about 9 s). They now run in the
+# background from here, with their own log (appended to run.log at the end) and the same result in status.json.
+( L="$LT_OUT/run_shadow.log"; : > "$L"; SH=ok; cd "$P"
+  if [ "${MODE:-full}" != "parity" ]; then
+    step "shadow feeds (824)" $PY -B 824_feeds_refresh_ender_plateau_2026-10-23/code/refresh_feeds_824.py || SH="824 feed refresh failed"
+    # live_union_823 publishes by git push to main; here the push is switched off (the workflow commits the page after this script)
+    [ "$SH" = ok ] && { BH_2024=v34 GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=remote.origin.pushurl GIT_CONFIG_VALUE_0=/dev/null/no-push-here \
+        step "shadow (823)" $PY -B 823_live_release_readiness_2026-10-23/code/live_union_823.py || SH="live_union_823 failed"; }
+  else
+    BH_2024=v34 GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=remote.origin.pushurl GIT_CONFIG_VALUE_0=/dev/null/no-push-here \
+        step "shadow (823), parity" $PY -B 823_live_release_readiness_2026-10-23/code/live_union_823.py || SH="live_union_823 failed"
+  fi
+  echo "$SH" > "$LT_OUT/shadow.status" ) &
+SHP=$!
 step "1032 routine step 2" $PY code/state_v4_rebuild_1052.py || STOP="1032 routine step 2 (six scripts or a check) failed"
 # 1167 (25 Nov 2026; Anthony: "under 3 minutes of data releases"): the State page's render check (a headless Chrome over all 50 States, 33 s)
 # runs beside the stress map instead of before it. It reads only the State page and writes nothing; the stress map does not read the
@@ -73,17 +88,7 @@ EOF
 # 1150: the factor files and county jobs by industry the page reads when a State or a county is opened
 [ -z "$STOP" ] && { step "stress map detail" $PY code/stress_map_detail_1150.py || STOP="stress map detail files failed their checks"; }
 [ -z "$STOP" ] && { step "county view check" $PY code/county_view_check_1150.py "$C" "$C/out/county_view_check_1150.json" || STOP="stress map county view check failed"; }
-SH=ok
-if [ "${MODE:-full}" != "parity" ]; then
-  cd "$P"
-  step "shadow feeds (824)" $PY -B 824_feeds_refresh_ender_plateau_2026-10-23/code/refresh_feeds_824.py || SH="824 feed refresh failed"
-  # live_union_823 publishes by git push to main; here the push is switched off (the workflow commits the page after this script)
-  [ "$SH" = ok ] && { BH_2024=v34 GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=remote.origin.pushurl GIT_CONFIG_VALUE_0=/dev/null/no-push-here \
-      step "shadow (823)" $PY -B 823_live_release_readiness_2026-10-23/code/live_union_823.py || SH="live_union_823 failed"; }
-else
-  cd "$P"; BH_2024=v34 GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=remote.origin.pushurl GIT_CONFIG_VALUE_0=/dev/null/no-push-here \
-      step "shadow (823), parity" $PY -B 823_live_release_readiness_2026-10-23/code/live_union_823.py || SH="live_union_823 failed"
-fi
+wait $SHP; cat "$LT_OUT/run_shadow.log" >> "$L"; SH=$(cat "$LT_OUT/shadow.status" 2>/dev/null); [ -n "$SH" ] || SH="the shadow tool did not finish"
 $PY - "$LT_OUT/status.json" "$STOP" "$SH" <<'EOF'
 import json, sys, time
 json.dump(dict(at=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), state_stress_ok=not sys.argv[2], stopped_at=sys.argv[2] or None, shadow_ok=sys.argv[3] == 'ok', shadow_note=sys.argv[3]), open(sys.argv[1], 'w'), indent=1)
