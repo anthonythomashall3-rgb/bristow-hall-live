@@ -161,7 +161,7 @@ chk('speed panel: calls before the end of the peak month',early,5)   # 1168 C101
 chk('speed panel: thirteen episodes',len(S['announcements']),13)   # v3.63: the walked record from 1948
 chk('record: no close is retrospective (every close walked, v3.64)',[e['close_pub'] for e in S['episodes'] if e.get('close_basis')=='retrospective'],[])
 # ---- C1021 (1022, 8 November 2026): the starter's record, every open on its own release day; the closes are v3.76's, unchanged
-_C1OPENS=['1948-12-31','1953-10-13','1957-04-30','1960-06-13','1969-10-11','1973-08-01','1979-11-01','1981-06-01','1990-08-06','2001-05-07','2008-01-04','2020-04-07']   # 1168: C1019 (JL retired): 12 opens
+_C1OPENS=['1948-12-31','1953-10-13','1957-04-30','1960-06-13','1969-10-11','1973-08-01','1979-11-01','1981-06-01','1990-08-06','2001-04-06','2008-01-04','2020-04-03']   # 1168: C1019 (JL retired): 12 opens (RECORD-1019 PFS)
 _C1CLOSES=['1949-10-20','1954-06-11','1958-06-19','1961-02-24','1970-12-24','1975-02-06','1980-07-22','1982-12-02','1991-02-07','2001-12-28','2009-07-23','2020-06-05']   # 1168: no 2024 episode   # E22 + depth gate (1041): the battery's thirteen closes (1031/out/gate_1041.txt)
 # 1161i (22 Nov 2026; Anthony: 'you merge'): the ender's seasonally adjusted chain rebuilt from the corrected 1946-1951 figures moves two closes: 1949-11-02 (leg S) -> 1949-10-20 (leg A), 1954-05-27 -> 1954-06-11 (leg S)
 chk('C1019: the twelve opens are the record\'s without the job-losers door (RECORD-1019, 1168)',[e['open_pub'] for e in S['episodes']],_C1OPENS)
@@ -172,7 +172,7 @@ chk('E22: the ender ran today (out/e22_state.json)',(json.load(open('out/e22_sta
 chk('E22: every close names its leg',[e['close_pub'] for e in S['episodes'] if e.get('close_pub') and not str(e.get('close_branch','')).startswith('E22')],[])
 chk('C1021: the starter ran today (out/c1021_state.json)',(json.load(open('out/c1021_state.json')).get('today') or {}).get('day') if os.path.exists('out/c1021_state.json') else None,str(S.get('built'))[:10])
 chk('C1021: the v3.76 starter\'s blocks have left the state',[k for k in ('backstop_opener','activity_opener','concurrence_branch','state_breadth','claims_substitute','vacancy_bridge','payroll_backstop') if k in S],[])
-chk('C1021: the record\'s three heights with the C1021 opens (2007-09 5.9, 2020 5.7, 2024 1.5)',[e.get('damage_score') for e in S['episodes'] if e.get('open_month') in ('2007-11','2020-04','2024-01')],[5.9,5.7,1.5])   # 1167 (24 Nov 2026): the Federal Reserve's annual revision of industrial production moved 2024 from 1.8 to 1.5   # 1154 (19 Nov 2026): 2020 is 5.7 since the GDP fall is measured from 2019 Q4 (9.09 per cent; was 7.88 from 2020 Q1, 5.6)
+chk('C1019: the record\'s two heights with the C1019 opens (2007-09 5.9, 2020 5.7; 1168: no 2024 episode)',[e.get('damage_score') for e in S['episodes'] if e.get('open_month') in ('2008-01','2020-04')],[5.9,5.7])   # 1167 (24 Nov 2026): the Federal Reserve's annual revision of industrial production moved 2024 from 1.8 to 1.5   # 1154 (19 Nov 2026): 2020 is 5.7 since the GDP fall is measured from 2019 Q4 (9.09 per cent; was 7.88 from 2020 Q1, 5.6)
 #   # 1041: the 2007-09 episode ends 2009-07-23 (4 more weeks read; grade code untouched)    # E22 (1031): 2020's episode now ends 2020-06-05 (was 2020-05-07), so its grade reads four more weeks: 5.6
 # ---- 6. the data page's leg channels (17 September 2026): every leg the rule arms has a status, every listed channel has a day it is in hand through
 _lf=S.get('leg_feeds',[]); _ls=S.get('leg_status',{}); _L=S['lines']

@@ -744,7 +744,7 @@ except Exception as _e1022: raise SystemExit('C1021: the starter state was not r
 # ---- backstop) close nothing; the damage grade is untouched. A close is dated to its own fire day's month.
 E22=None; E22_CLOSES=[]
 try:
-    E22=json.load(open('out/e22_state.json')); assert E22.get('tool')=='E22' and len(E22.get('episodes') or [])>=13, 'e22_state.json is not E22'
+    E22=json.load(open('out/e22_state.json')); assert E22.get('tool')=='E22' and len(E22.get('episodes') or [])>=12, 'e22_state.json is not E22'
     E22_CLOSES=[(pd.Timestamp(e['close']),pd.Timestamp(e['close'][:7]+'-01')) for e in E22['episodes'] if e.get('close')]
 except Exception as _e1031: raise SystemExit('E22: the ender state was not read (%r); run s2/e22.py before the build'%(_e1031,))
 def build_c1021(p):
