@@ -41,7 +41,7 @@ for st in STS:
         Pm = SPI[st].dropna() if st in SPI else None
         base = float(pre.min()); L, o, rise, q = parts(UR, base, Gq, gp, gt, Pm); g = grade3(L, o, q); f = fall(p, t)
         R.append(dict(st=st, p=p, t=t, te=te, mp=mp, f=f, base=base, L=L, O=o['score'], P=(q['score'] if q is not None else None), pt=o['pt'], ppt=(q['pt'] if q is not None else None), rise=rise, g=g, gp=gp, gt=gt, on=on, act=act, Pm=Pm))
-    for r in R: r['status'] = 'open_unsettled' if (r['t'] is None and r['f'] < dc.DD_MIN) else ('fails_DD' if r['f'] < dc.DD_MIN else ('recession' if round(r['g'], 2) >= CUT else ''))
+    for r in R: r['status'] = 'open_unsettled' if (r['t'] is None and r['f'] < dc.DD_MIN) else ('fails_DD' if r['f'] < dc.DD_MIN else ('recession' if (round(r['g'], 2) >= CUT and r['on'] == 'activity') else ''))   # 1167 class rule: a recession needs the activity index itself to fall ACT_MIN percent or more
     rp = [r['p'] for r in R if r['status'] == 'recession']
     for r in R:
         if r['status']: continue

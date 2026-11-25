@@ -231,24 +231,29 @@ def indicator(state_path=STATE, reg_path=REG, extra=()):
     (and each path in extra)."""
     S = json.load(open(state_path)); R = json.load(open(reg_path))
     recs = [e for e in R['episodes'] if e['status'] == 'recession' and e.get('damage_path')]
+    # 1167 class rule: a call can fall on a window the register classes a disturbance (activity did not fall 1 percent: 2024-26). Such a
+    # call takes that window's grade and its class; the line inside the call reads 2.00 (the call), never a recession grade it does not have.
+    allw = [e for e in R['episodes'] if e['status'] in ('recession', 'disturbance_class1', 'disturbance_class2')]
     today = S.get('built_at', datetime.date.today().isoformat())[:7]
-    def match(a, b):
+    def match(a, b, pool=None):
         best, bo = None, -1
-        for e in recs:
+        for e in (recs if pool is None else pool):
             p, t = e['peak'], (e['trough'] or '9999-12'); lo, hi = max(p, a), min(t, b)
             if lo <= hi and _months(lo, hi) > bo: best, bo = e, _months(lo, hi)
         return best
     ep_paths = []
     for e in S['episodes']:
         a = (e.get('open_month') or e.get('open_pub', '')[:7]); b = (e.get('close_month') or (e.get('close_pub') or '')[:7] or today)
-        m = match(a, b)
-        if m is None: raise Miss('indicator: the recession opened %s overlaps no recession window of the register' % a)
+        m = match(a, b) or match(a, b, allw)
+        if m is None: raise Miss('indicator: the call opened %s overlaps no window of the register' % a)
         e['grade'] = grade(m['damage']); e['register_window'] = [m['peak'], m['trough']]; e['graded_on'] = m.get('graded_on')
+        e['register_status'] = 'recession' if m['status'] == 'recession' else 'disturbance'
         ep_paths.append(((e.get('open_pub') or a)[:10], (e.get('close_pub') or '9999-12-31')[:10], m))
     def at(day):
         for a, b, m in ep_paths:
             if a <= day <= b:
-                path = m['damage_path']; mo = day[:7]; ks = sorted(path)
+                path = m.get('damage_path') or {}; mo = day[:7]; ks = sorted(path)
+                if not ks: return LINE
                 if mo in path: return index_recession(path[mo])
                 return index_recession(path[ks[-1]] if mo > ks[-1] else 0.0)
         return LINE

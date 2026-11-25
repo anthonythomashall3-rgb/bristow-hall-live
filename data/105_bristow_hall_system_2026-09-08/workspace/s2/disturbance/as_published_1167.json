@@ -1,8 +1,8 @@
 {
  "collection": "1167",
  "built": "2026-11-24",
- "rule": "one grading rule (collection 1167): grade = damage, line 2.00",
- "source": "Replay of the register on the data as first published (RealTime Database / ALFRED vintages), one run per month-end 1962-01 to 2026-10 and on 6 Nov 2026 (collection 1167, code/replay_1166.py, out/measures_RT.csv)",
+ "rule": "one grading rule (collection 1167): grade = damage, line 2.00; the tie rule (0.05 point)",
+ "source": "Replay of the register on the data as first published (RealTime Database / ALFRED vintages), one run per month-end 1962-01 to 2026-10 and on 6 Nov 2026 (collection 1167, code/replay_1166.py; measures_RT_T.csv, against the register of 24 Nov 2026 with the tie rule)",
  "first_seen": {
   "1962-04": "1963-02",
   "1966-07": "1967-03",
@@ -23,7 +23,7 @@
   "2021-11": "2023-09",
   "2024-06": "2025-12"
  },
- "band_damage_p90": 0.74,
+ "band_damage_p90": 0.73,
  "band_n": 56,
  "band_note": "90th percentile of |damage as first published at 6, 12, 18 and 24 months after the trough - damage now|, closed contractions 1962-2022",
  "ledger": {},

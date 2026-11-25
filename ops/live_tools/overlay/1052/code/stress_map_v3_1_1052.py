@@ -70,7 +70,7 @@ def run_v4(st, y, UR, last, allow_short=False, Pm=None):
             if len(pre) == 0: pre = UR[UR.index <= UR.index[0] + pd.DateOffset(months=11)]   # peak before the insured rate begins: its first 12 months
         base = float(pre.min()); L, o, rise, q = parts(UR, base, Gq, gp, gt); g = g3(L, o, q); f = fall(p, t)
         R.append(dict(st=st, p=p, t=t, te=te, mp=mp, f=f, base=base, L=L, O=o['score'], pt=o['pt'], rise=rise, g=g, short_base=short, gp=gp, gt=gt, on=on))
-    for r in R: r['status'] = 'open_unsettled' if (r['t'] is None and r['f'] < dc.DD_MIN) else ('fails_DD' if r['f'] < dc.DD_MIN else ('recession' if round(r['g'], 2) >= CUT else ''))
+    for r in R: r['status'] = 'open_unsettled' if (r['t'] is None and r['f'] < dc.DD_MIN) else ('fails_DD' if r['f'] < dc.DD_MIN else ('recession' if (round(r['g'], 2) >= CUT and r['on'] == 'activity') else ''))   # 1167 class rule: a recession needs the activity index itself to fall ACT_MIN percent or more
     rp = [r['p'] for r in R if r['status'] == 'recession']
     for r in R:
         if r['status']: continue

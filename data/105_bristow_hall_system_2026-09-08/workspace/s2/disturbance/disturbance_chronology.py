@@ -275,10 +275,12 @@ def main():
         # recession, below it a disturbance. The v3.1 status is kept in status_v3_1; class 1 / class 2 remain as descriptions of a disturbance, not as tests.
         status_v3_1 = status; g_ = round(dd.grade(L, o['score'], q['score']), 2)
         if status in ('recession', 'disturbance_class1', 'disturbance_class2', 'labor_bar_crossed_no_recession'):
-            status = 'recession' if g_ >= DAMAGE_CUT else ('disturbance_class2' if c2 else 'disturbance_class1')
+            # 1167 CLASS RULE (Anthony, 24 Nov 2026: "Disturbance", "Yes, every level"): a recession needs activity itself to fall ACT_MIN percent
+            # or more (the window graded on the fall of activity) AND a grade of DAMAGE_CUT or more; every other window is a disturbance. Grades unchanged.
+            status = 'recession' if (g_ >= DAMAGE_CUT and act['on'] == 'activity') else ('disturbance_class2' if c2 else 'disturbance_class1')
         prov = t is None or (last.year - t.year) * 12 + last.month - t.month < PROVISIONAL_MONTHS
         aft = {}
-        if t is None and has_recession(p, t):
+        if t is None and has_recession(p, t) and status == 'recession':
             # aftermath facts for an open recession window (page text): last recession month inside, the composite's high
             # after it, and payrolls against the pre-recession peak (the jobless-recovery bar)
             rs = [(M(x), M(y)) for x, y in RECESSIONS if overlaps(p, t, M(x), M(y))]; rpk, rtr = max(rs)
@@ -308,7 +310,8 @@ def main():
              composite_last_month=last.strftime('%Y-%m'), weights=weights,
              series_last={n: s.index[-1].strftime('%Y-%m') for n, s in ser.items()},
              rules=dict(lambda_hp=LAMBDA, dd_min_pp=DD_MIN, sahm_class1=SAHM_C1, sahm_class2=SAHM_C2,
-                        class2_months_after_trough=C2_MONTHS, provisional_months=PROVISIONAL_MONTHS),
+                        class2_months_after_trough=C2_MONTHS, provisional_months=PROVISIONAL_MONTHS,
+                        recession_line=DAMAGE_CUT, recession_needs_activity_fall_pct=ACT_MIN, tie_point=TIE),
              recessions=[dict(peak=a_, trough=b_, source='NBER' if (a_, b_) in NBER else 'Paper 1') for a_, b_ in RECESSIONS],
              episodes=rows, deviation=path.to_dict('list'))
     json.dump(J, open(os.path.join(a.out, 'chronology.json'), 'w'), indent=1)

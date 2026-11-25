@@ -329,7 +329,7 @@ try:
     import subprocess as _sp1140, sys as _sy1140
     chk('one number: the State page and the stress map are on the scale',_sp1140.run([_sy1140.executable,'s2/one_scale.py','check'],capture_output=True,text=True).returncode,0)
     _dj1140=json.load(open(os.path.join('s2','disturbance','out','chronology.json')))
-    chk('one number: every disturbance grades below 2.00 and every recession window 2.00 or more, and each grade is its damage',[e['peak'] for e in _dj1140['episodes'] if e.get('grade') is not None and ((e['status'].startswith('disturbance') and e['grade']>=2.0) or (e['status']=='recession' and e['grade']<2.0) or abs(e['grade']-e['damage'])>1e-9)],[])
+    chk('one number: every disturbance grades below 2.00 or was not graded on a fall of activity, every recession window grades 2.00 or more on a fall of activity (1167 class rule), and each grade is its damage',[e['peak'] for e in _dj1140['episodes'] if e.get('grade') is not None and ((e['status'].startswith('disturbance') and e['grade']>=2.0 and e.get('graded_on')=='activity') or (e['status']=='recession' and (e['grade']<2.0 or e.get('graded_on')!='activity')) or abs(e['grade']-e['damage'])>1e-9)],[])
 except Exception as _e1140: chk('one number: the checks ran',repr(_e1140)[:80],'readable')
 bad=[r for r in R if r[3]=='FAIL']
 print('\n'.join(f'| {n} | {g} | {w} | {s} |' for n,g,w,s in R))
