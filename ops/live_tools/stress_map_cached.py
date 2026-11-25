@@ -36,6 +36,10 @@ def main():
     sys.path.insert(0, os.path.join(C, 'code'))
     spec = importlib.util.spec_from_file_location('stress_map_v2_1052', sys.argv[0])
     sm = importlib.util.module_from_spec(spec); sys.modules['stress_map_v2_1052'] = sm; spec.loader.exec_module(sm)
+    _sc = sys.modules.get('sitecustomize')   # 1167b: the county path's parts() on the arrays (ops/live_tools/pyboot; the workers get it on import)
+    if _sc is not None and hasattr(_sc, '_patch_sm2'):
+        try: _sc._patch_sm2(sm)
+        except Exception as e: print('pyboot (1167b): the county path left as it is (%s: %s)' % (type(e).__name__, e), file=sys.stderr)
     import pandas as pd
     real = sm.step_counties
 

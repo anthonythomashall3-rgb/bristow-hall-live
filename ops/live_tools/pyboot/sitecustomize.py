@@ -13,7 +13,8 @@ on 25 Nov 2026 (its sha256 or its text); any other version is left as it is.
 2. pandas 3.0.5 / 3.0.6 DatetimeLikeArrayMixin.__getitem__ without its runtime Union, as s2/pandas_speed.py does for the update: the same
    super() call, the same scalar test, the same frequency, the same object returned.
 3. (1167b) the State chronology's parts() on the arrays: a198 and the stress map's State layer, started by their callers with
-   [sys.executable, <script>], are run through run_rewritten.py (pyboot_fast.py), only for the files it knows by SHA-256."""
+   [sys.executable, <script>], are run through run_rewritten.py (pyboot_fast.py), only for the files it knows by SHA-256.
+4. (1167b) the same parts() in the stress map's county path (run_v4_main of stress_map_v2_1052)."""
 import sys, hashlib, importlib.abc
 
 _DD_SHA = '7b06690898f1d617d9cc2ed81cd2489bd3263e50fed6236eb965dcc2d1f97fe9'
@@ -107,7 +108,32 @@ def _patch_subprocess(m):
     P.__init__ = __init__
 
 
-_TARGETS = {'damage_dimensions_live_v376': _patch_dd, 'pandas.core.arrays.datetimelike': _patch_pd, 'subprocess': _patch_subprocess}
+_SM2_SHA = '7de81b0575fb412e2fb2b3a6fac0918ffc219d3a820028b09d10cc03401229f5'   # 1052 code/stress_map_v2_1052.py, read on 25 Nov 2026
+_V1_SHA = '2b841ee52de7441e97530f670ccfce70b3076b6f26ccf0920109a265e37f5d44'    # 1052 code/stress_map_v1_1052.py
+
+
+def _patch_sm2(m):
+    """4 (1167b). The stress map's county layer: stress_map_v2_1052 builds run_v4_main (the county path, c0_county_v3) from the v1
+    script's run_v4 by two textual changes; here it is built the same way with the third, the parts() call of run_rewritten.py. Only
+    for the two files read on 25 Nov 2026 (SHA-256). stress_map_cached.py calls this for the module it loads; the county workers, which
+    import the module by name, get it from the finder below. LT_PYBOOT_REWRITE=0 leaves it as it is."""
+    import os, importlib.util
+    if os.environ.get('LT_PYBOOT_REWRITE') == '0' or getattr(m, '_bhs_sm2', False): return
+
+    def sha(p):
+        with open(p, 'rb') as f: return hashlib.sha256(f.read()).hexdigest()
+    if sha(m.__file__) != _SM2_SHA or sha(m.V1PY) != _V1_SHA: return
+    here = os.path.dirname(os.path.abspath(__file__))
+    spec = importlib.util.spec_from_file_location('_bhs_run_rewritten', os.path.join(here, 'run_rewritten.py')); rr = importlib.util.module_from_spec(spec); spec.loader.exec_module(rr)
+    old, new = rr._NESTED
+    src = m._src
+    if src.count(old) != 1 or src.count("def run_v4(") != 1 or src.count("w2, _ = dc.windows(dev, 2, 2, 6)") != 1: return
+    exec(src.replace(old, new).replace("def run_v4(", "def run_v4_main(").replace("w2, _ = dc.windows(dev, 2, 2, 6)", "w2 = []"), m._G3)
+    m.run_v4_main = m._G3['run_v4_main']; m._bhs_sm2 = True
+
+
+_TARGETS = {'damage_dimensions_live_v376': _patch_dd, 'pandas.core.arrays.datetimelike': _patch_pd, 'subprocess': _patch_subprocess,
+            'stress_map_v2_1052': _patch_sm2}
 
 
 class _Finder(importlib.abc.MetaPathFinder):
