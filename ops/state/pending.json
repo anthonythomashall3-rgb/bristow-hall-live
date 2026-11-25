@@ -1,13 +1,5 @@
 {
- "came_in": [
-  {
-   "came_in": "2026-11-25 12:07",
-   "due_ny": "2026-11-25 12:02",
-   "early": true,
-   "ids": "gdpnow",
-   "short": "GDPNow"
-  }
- ],
+ "came_in": [],
  "early": {
   "alna ... wyna": {
    "at": "2026-11-22 05:58",
@@ -36,7 +28,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-25 15:00",
+ "last_check_ny": "2026-11-25 15:03",
  "pending": [
   {
    "due_ny": "2026-11-20 10:00",
