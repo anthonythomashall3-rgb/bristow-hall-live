@@ -1,5 +1,5 @@
 {
- "built": "2026-11-24",
+ "built": "2026-11-25",
  "tiles": [
   {
    "lab": "Unemployment rate",
@@ -143,14 +143,14 @@
  ],
  "source_check": {
   "routes": {
+   "PAYEMS": "FRED API",
+   "UNEMPLOY": "FRED API",
    "UNRATE": "FRED API",
    "JTSJOL": "FRED API",
-   "UNEMPLOY": "FRED API",
-   "PAYEMS": "FRED API",
    "JTSQUR": "FRED API",
+   "CPIAUCSL": "FRED API",
    "ICSA": "FRED API",
-   "IURSA": "FRED API",
-   "CPIAUCSL": "FRED API"
+   "IURSA": "FRED API"
   },
   "compared": [
    "UNRATE",

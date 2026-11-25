@@ -3,10 +3,10 @@
  "mode": "hold",
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
- "build_day": "2026-11-24",
- "checked_at": "2026-11-25 11:39 UTC",
- "seconds": 36.2,
- "source_calls": 62,
+ "build_day": "2026-11-25",
+ "checked_at": "2026-11-25 13:15 UTC",
+ "seconds": 2.8,
+ "source_calls": 4,
  "source_errors": {},
  "counts": {
   "home": {
@@ -202,7 +202,7 @@
    "period": null,
    "series": "ICSA",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-03",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -238,7 +238,7 @@
    "period": null,
    "series": "IURSA",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-03",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -391,7 +391,7 @@
    "check": "matches the detector",
    "status": "PASS",
    "value": 0.857,
-   "period": "2026-11-24",
+   "period": "2026-11-25",
    "series": "BHRREALTIME",
    "transform": "the detector reading",
    "expected": 0.857,
@@ -442,7 +442,7 @@
    "period": null,
    "series": "SP500",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-11-27",
    "detail": "the next NYSE trading day"
   },
   {
@@ -478,7 +478,7 @@
    "period": null,
    "series": "GDPNOW",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-01",
    "detail": "FRED release 386 (GDPNow)"
   },
   {
@@ -586,7 +586,7 @@
    "period": null,
    "series": "ICSA",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-03",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -634,7 +634,7 @@
    "period": null,
    "series": "WEI",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-03",
    "detail": "FRED release 465 (Weekly Economic Index (Lewis-Mertens-Stock))"
   },
   {
@@ -670,7 +670,7 @@
    "period": null,
    "series": "IURSA",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-03",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -706,7 +706,7 @@
    "period": null,
    "series": "CCNSA",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-03",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -742,7 +742,7 @@
    "period": null,
    "series": "ALINSUREDUR",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-11-27",
    "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -1270,7 +1270,7 @@
    "period": null,
    "series": "GDPC1",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-23",
    "detail": "FRED release 53 (Gross Domestic Product)"
   },
   {
@@ -1414,7 +1414,7 @@
    "period": null,
    "series": "W875RX1",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-23",
    "detail": "FRED release 54 (Personal Income and Outlays)"
   },
   {
@@ -1450,7 +1450,7 @@
    "period": null,
    "series": "CMRMTSPL",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-23",
    "detail": "FRED release 282 (Supplemental Estimates, Underlying Detail Tables, Spliced Series)"
   },
   {
@@ -1486,7 +1486,7 @@
    "period": null,
    "series": "GDPC1",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-23",
    "detail": "FRED release 53 (Gross Domestic Product)"
   },
   {
@@ -1510,7 +1510,7 @@
    "period": null,
    "series": "ALICLAIMS",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-11-27",
    "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -1534,7 +1534,7 @@
    "period": null,
    "series": "ALICLAIMS",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-11-27",
    "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -1583,7 +1583,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1738,7 +1738,7 @@
    "period": null,
    "series": "ALINSUREDUR",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-11-27",
    "detail": "FRED release 469+180 (State Unemployment Insurance Weekly Claims Report / Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -1758,11 +1758,11 @@
    "label": "state building permits, units",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-25",
+   "value": "2026-12-23",
    "period": null,
    "series": "ALBPPRIV",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-23",
    "detail": "FRED release 148 (Housing Units Authorized By Building Permits)"
   },
   {
@@ -1799,7 +1799,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1823,7 +1823,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1967,7 +1967,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2351,7 +2351,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2375,7 +2375,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2518,7 +2518,7 @@
    "period": null,
    "series": "IURSA",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-03",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -2698,7 +2698,7 @@
    "period": null,
    "series": "FDEFX",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-23",
    "detail": "FRED release 53 (Gross Domestic Product)"
   },
   {
@@ -2734,7 +2734,7 @@
    "period": null,
    "series": "CCNSA",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-03",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -2778,7 +2778,7 @@
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "freshness",
    "status": "PASS",
-   "value": 7.4,
+   "value": 6.43,
    "period": "2026-11-24",
    "series": "SP500",
    "transform": "sp_yoy",
@@ -2790,11 +2790,11 @@
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "value",
    "status": "PASS",
-   "value": 7.4,
+   "value": 6.43,
    "period": "2026-11-24",
    "series": "SP500",
    "transform": "sp_yoy",
-   "expected": 7.39688,
+   "expected": 6.43242,
    "detail": ""
   },
   {
@@ -3010,7 +3010,7 @@
    "period": null,
    "series": "ICSA",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-03",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -3154,7 +3154,7 @@
    "period": null,
    "series": "CCSA",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-03",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -3319,10 +3319,10 @@
    "check": "phantom",
    "status": "PASS",
    "value": 0.857,
-   "period": "2026-11-24",
+   "period": "2026-11-25",
    "series": "BHRREALTIME",
    "transform": null,
-   "expected": "2026-11-24",
+   "expected": "2026-11-25",
    "detail": ""
   },
   {
@@ -3331,7 +3331,7 @@
    "check": "cadence",
    "status": "PASS",
    "value": 0.857,
-   "period": "2026-11-24",
+   "period": "2026-11-25",
    "series": null,
    "transform": null,
    "expected": null,
@@ -3358,7 +3358,7 @@
    "period": null,
    "series": "ICSA",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-03",
    "detail": "FRED release 180 (Unemployment Insurance Weekly Claims Report)"
   },
   {
@@ -3442,7 +3442,7 @@
    "period": null,
    "series": "SP500",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-11-27",
    "detail": "the next NYSE trading day"
   },
   {
@@ -3450,11 +3450,11 @@
    "label": "feed: Real GDP (the damage grade's output dimension) (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-25",
+   "value": "2026-12-23",
    "period": null,
    "series": "GDPC1",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-23",
    "detail": "FRED release 53 (Gross Domestic Product)"
   },
   {
@@ -3462,11 +3462,11 @@
    "label": "feed: GDPNow (the output dimension's bridge for the quarter not ye (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-25",
+   "value": "2026-12-01",
    "period": null,
    "series": "GDPNOW",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-12-01",
    "detail": "FRED release 386 (GDPNow)"
   },
   {

@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-24 20:22",
+ "built_at": "2026-11-25 08:13",
  "version": "C1021+E22",
- "census_date": "2026-11-24",
+ "census_date": "2026-11-25",
  "feeds": [
   {
    "feed": "Initial claims and continued claims, seasonally adjusted and not (the route's insured-unemployment pillar, the count door's claims condition, the closer)",
@@ -113,7 +113,7 @@
    "source": "Bureau of Economic Analysis, Gross Domestic Product news release (FRED GDPC1, the latest vintage)",
    "every": "Quarterly - the advance estimate about four weeks after the quarter, revised in each of the next two months; 8:30 AM ET",
    "through": "2026-07",
-   "next": "2026-11-25",
+   "next": "2026-12-23",
    "link": "https://www.bea.gov/data/gdp/gross-domestic-product",
    "value": "24,611.1",
    "backup": "GDPNow for the unprinted quarter; the BEA release text",
@@ -126,7 +126,7 @@
    "source": "Federal Reserve Bank of Atlanta, GDPNow (FRED GDPNOW, every update as a vintage)",
    "every": "Several times a month, on the days of the releases it reads (FRED carries each update between about 10:30 AM and 1 PM ET); the Atlanta Fed posts its schedule",
    "through": "2026-11-18",
-   "next": "2026-11-25",
+   "next": "2026-12-01",
    "link": "https://www.atlantafed.org/cqer/research/gdpnow",
    "value": "3.21",
    "backup": "the Atlanta Fed page; the last printed quarter carried",
@@ -216,14 +216,14 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
+   "PAYEMS": "FRED API",
+   "UNEMPLOY": "FRED API",
    "UNRATE": "FRED API",
    "JTSJOL": "FRED API",
-   "UNEMPLOY": "FRED API",
-   "PAYEMS": "FRED API",
    "JTSQUR": "FRED API",
+   "CPIAUCSL": "FRED API",
    "ICSA": "FRED API",
-   "IURSA": "FRED API",
-   "CPIAUCSL": "FRED API"
+   "IURSA": "FRED API"
   },
   "compared_with_bls": [
    "UNRATE",

@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-24 20:22",
+ "built_at": "2026-11-25 08:13",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-25T11:37:28Z",
+ "generated_utc": "2026-11-25T13:15:24Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -1879,7 +1879,7 @@
   },
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-25",
+   "build_next": "2026-12-23",
    "confirmed_through": "2026-12-23",
    "fred_clock": null,
    "freq": "monthly",
