@@ -62,9 +62,16 @@ def _nyse_holidays(y):
         out.add(x - dt.timedelta(days=1) if x.weekday() == 5 else (x + dt.timedelta(days=1) if x.weekday() == 6 else x))
     return out | {nth(1, 0, 3), nth(2, 0, 3), easter - dt.timedelta(days=2), last(5, 0), nth(9, 0, 1), nth(11, 3, 4)}
 NYSE_HOLIDAYS = {d.isoformat() for y in range(2020, 2041) for d in _nyse_holidays(y)}
-FED_HOLIDAYS = {'2026-01-01', '2026-01-19', '2026-02-16', '2026-05-25', '2026-06-19', '2026-07-03', '2026-09-07', '2026-10-12',
-                '2026-11-11', '2026-11-26', '2026-12-25', '2027-01-01', '2027-01-18', '2027-02-15', '2027-05-31', '2027-06-18',
-                '2027-07-05', '2027-09-06', '2027-10-11', '2027-11-11', '2027-11-25', '2027-12-24'}
+# Federal holidays as observed (OPM: a Saturday holiday on the Friday before, a Sunday one on the Monday after, so a Saturday New Year's Day
+# is observed on 31 December; Juneteenth from 2021): the rule of ops/calendar_build.py federal_holidays. 1167e (26 Nov 2026): computed for
+# 2020-2040 instead of the dates typed in for 2026-2027, which followed the same rule but left out 31 Dec 2027 (New Year's Day 2028 is a Saturday).
+def _fed_holidays(y):
+    def nth(m, wd, n): d = dt.date(y, m, 1); d += dt.timedelta(days=(wd - d.weekday()) % 7); return d + dt.timedelta(weeks=n - 1)
+    def last(m, wd): d = dt.date(y + (m == 12), m % 12 + 1, 1) - dt.timedelta(days=1); return d - dt.timedelta(days=(d.weekday() - wd) % 7)
+    def obs(d): return d - dt.timedelta(days=1) if d.weekday() == 5 else (d + dt.timedelta(days=1) if d.weekday() == 6 else d)
+    fixed = [dt.date(y, 1, 1), dt.date(y, 7, 4), dt.date(y, 11, 11), dt.date(y, 12, 25), dt.date(y + 1, 1, 1)] + ([dt.date(y, 6, 19)] if y >= 2021 else [])
+    return {d for d in map(obs, fixed) if d.year == y} | {nth(1, 0, 3), nth(2, 0, 3), last(5, 0), nth(9, 0, 1), nth(10, 0, 2), nth(11, 3, 4)}
+FED_HOLIDAYS = {d.isoformat() for y in range(2020, 2041) for d in _fed_holidays(y)}
 # units of FRED series in which the pages show words like "million": the scale of one FRED unit, in persons/units
 FRED_SCALE = {'PAYEMS': 1e3, 'JTSJOL': 1e3, 'UNEMPLOY': 1e3, 'LNS13023621': 1e3, 'ICSA': 1, 'ICNSA': 1, 'CCSA': 1, 'CCNSA': 1}
 # a FRED series that the BLS API v2 also serves (used only when FRED has not yet posted the newest period)

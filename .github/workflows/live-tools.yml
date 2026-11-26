@@ -63,6 +63,43 @@ jobs:
           if [ "$BLS_ROLE" = production ]; then echo "BLS_USAGE=$GITHUB_WORKSPACE/ops/state/bls_usage_live_tools.json" >> "$GITHUB_ENV"
           else echo "BLS_USAGE=$RUNNER_TEMP/bls_usage_test.json" >> "$GITHUB_ENV"; fi
 
+      # 1167e (26 Nov 2026; Anthony: "the live updating function ALWAYS works"): GitHub ran the 16:50 UTC cron of 25 Nov at 00:43 UTC and
+      # never ran the 02:20 UTC cron of 26 Nov. The routine runs now come from the Worker's clock: a run_slots.json slot 5 minutes before each
+      # cron (ops/calendar_build.py LT_ROUTINE_UTC) starts these tools through update.yml. A cron run, on time or hours late, rebuilds nothing
+      # when a run on main started since 20 minutes before its cron time and passed; otherwise (the Worker's run did not come) it runs as before.
+      - name: a cron run after the routine run of its time rebuilds nothing
+        if: github.event_name == 'schedule'
+        continue-on-error: true
+        env:
+          CRON: ${{ github.event.schedule }}
+        run: |
+          python3 - <<'PY' >> "$GITHUB_ENV"
+          import datetime as dt, json, os, subprocess, sys
+          m, h, _, _, wd = os.environ['CRON'].split()
+          now = dt.datetime.now(dt.timezone.utc)
+          for k in range(8):
+              t = (now - dt.timedelta(days=k)).replace(hour=int(h), minute=int(m), second=0, microsecond=0)
+              if t <= now and (wd == '*' or (t.weekday() + 1) % 7 == int(wd)): break
+          since = t - dt.timedelta(minutes=20)
+          def api(p):
+              return json.loads(subprocess.run(['gh', 'api', 'repos/%s/%s' % (os.environ['GITHUB_REPOSITORY'], p)], capture_output=True, text=True, timeout=60).stdout)
+          try:
+              runs = api('actions/workflows/live-tools.yml/runs?branch=main&per_page=30')['workflow_runs']
+          except Exception as e:
+              print('could not read the runs (%s): the cron run goes on' % type(e).__name__, file=sys.stderr); raise SystemExit
+          done = [r for r in runs if str(r['id']) != os.environ['GITHUB_RUN_ID'] and r.get('conclusion') == 'success' and r.get('event') != 'pull_request'
+                  and dt.datetime.fromisoformat((r.get('run_started_at') or r['created_at']).replace('Z', '+00:00')) >= since]
+          def full(r):          # a full run (refresh, build, publish) keeps its record as live-tools-full-<run id>; a parity run on main does not count
+              try: return any(a['name'].startswith('live-tools-full-') for a in api('actions/runs/%s/artifacts' % r['id'])['artifacts'])
+              except Exception: return False
+          done = [r for r in done if full(r)][:1]
+          if done:
+              print('LT_SKIP=1')
+              print('the cron of %s UTC (%s): run %s (%s, %s) already refreshed the live tools - nothing rebuilt' % (t.strftime('%Y-%m-%d %H:%M'), os.environ['CRON'], done[0]['id'], done[0]['event'], done[0]['run_started_at']), file=sys.stderr)
+          else:
+              print('the cron of %s UTC: no run on main since %s UTC passed - this run refreshes the live tools' % (t.strftime('%Y-%m-%d %H:%M'), since.strftime('%H:%M')), file=sys.stderr)
+          PY
+
       - uses: actions/checkout@v5
         with:
           ref: ${{ (github.event_name == 'pull_request' || inputs.mode == 'cache-parity') && github.ref || 'main' }}
