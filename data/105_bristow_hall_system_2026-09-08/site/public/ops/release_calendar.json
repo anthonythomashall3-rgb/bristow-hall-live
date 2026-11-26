@@ -1,12 +1,12 @@
 {
- "built_at": "2026-11-25 19:14",
+ "built_at": "2026-11-25 20:21",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-26T00:15:14Z",
+ "generated_utc": "2026-11-26T11:08:54Z",
  "rows": [
   {
    "agrees_with_build": true,
    "build_next": "2026-11-27",
-   "confirmed_through": "2027-03-17",
+   "confirmed_through": "2027-03-18",
    "fred_clock": null,
    "freq": "daily",
    "ids": "sp500",
@@ -23,11 +23,6 @@
    "time_known": true,
    "time_note": "the market close",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-18 16:00",
-     "utc": "2026-11-18T21:00:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-19 16:00",
@@ -427,6 +422,11 @@
      "expected": false,
      "ny": "2027-03-17 16:00",
      "utc": "2027-03-17T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-03-18 16:00",
+     "utc": "2027-03-18T20:00:00Z"
     }
    ],
    "waiting_since_due": null
@@ -1740,6 +1740,49 @@
   },
   {
    "agrees_with_build": true,
+   "build_next": "2026-12-23",
+   "confirmed_through": "2026-12-23",
+   "fred_clock": null,
+   "freq": "monthly",
+   "ids": "albppriv ... wybppriv",
+   "link": "/state-onset/",
+   "name": "state building permits, units",
+   "next_expected": false,
+   "next_ny": "2026-12-23 08:05",
+   "read_lag_min": 0,
+   "release_id": 148,
+   "short": "state building permits, units",
+   "slots": false,
+   "source": "FRED release 148 (Housing Units Authorized By Building Permits)",
+   "through": "2026-10-31",
+   "time_known": true,
+   "time_note": null,
+   "times": [
+    {
+     "expected": false,
+     "ny": "2026-11-25 08:05",
+     "utc": "2026-11-25T13:05:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2026-12-23 08:05",
+     "utc": "2026-12-23T13:05:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-01-05 08:05",
+     "utc": "2027-01-05T13:05:00Z"
+    },
+    {
+     "expected": true,
+     "ny": "2027-02-16 08:05",
+     "utc": "2027-02-16T13:05:00Z"
+    }
+   ],
+   "waiting_since_due": null
+  },
+  {
+   "agrees_with_build": true,
    "build_next": "2026-12-18",
    "confirmed_through": "2026-12-18",
    "fred_clock": "10:53",
@@ -1866,49 +1909,6 @@
     }
    ],
    "waiting_since_due": null
-  },
-  {
-   "agrees_with_build": true,
-   "build_next": "2026-12-23",
-   "confirmed_through": "2026-12-23",
-   "fred_clock": null,
-   "freq": "monthly",
-   "ids": "albppriv ... wybppriv",
-   "link": "/state-onset/",
-   "name": "state building permits, units",
-   "next_expected": false,
-   "next_ny": "2026-12-23 08:05",
-   "read_lag_min": 0,
-   "release_id": 148,
-   "short": "state building permits, units",
-   "slots": false,
-   "source": "FRED release 148 (Housing Units Authorized By Building Permits)",
-   "through": "2026-09-30",
-   "time_known": true,
-   "time_note": null,
-   "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-25 08:05",
-     "utc": "2026-11-25T13:05:00Z"
-    },
-    {
-     "expected": false,
-     "ny": "2026-12-23 08:05",
-     "utc": "2026-12-23T13:05:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-01-05 08:05",
-     "utc": "2027-01-05T13:05:00Z"
-    },
-    {
-     "expected": true,
-     "ny": "2027-02-16 08:05",
-     "utc": "2027-02-16T13:05:00Z"
-    }
-   ],
-   "waiting_since_due": "2026-11-25 08:30"
   },
   {
    "agrees_with_build": true,
@@ -2509,7 +2509,7 @@
    "waiting_since_due": null
   }
  ],
- "tool_version": "C1019+E22",
+ "tool_version": "C1021+E22",
  "what": "Every data-page and front-page row: its coming release times, New York and UTC. Days from FRED's release calendars (the agencies' own), refreshed daily; hours from the agencies, and FRED's own measured posting clock where FRED is the publisher the tool reads (fred_clock; read_lag_min is how long after the agency's hour FRED usually has a release, which times the run that reads it); rows FRED does not schedule follow the rule named; past an agency's published days, the next ones are projected and marked expected. Pages show the first time after the reader's clock.",
  "zone": "America/New_York"
 }

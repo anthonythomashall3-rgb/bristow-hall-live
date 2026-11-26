@@ -1,11 +1,6 @@
 {
  "came_in": [],
- "early": {
-  "alna ... wyna": {
-   "at": "2026-11-22 05:58",
-   "through": "2026-10-31"
-  }
- },
+ "early": {},
  "expired": [
   {
    "due_ny": "2026-10-20 10:00",
@@ -28,7 +23,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-25 19:10",
+ "last_check_ny": "2026-11-26 06:03",
  "pending": [
   {
    "due_ny": "2026-11-25 08:30",
@@ -38,15 +33,6 @@
    "since_ny": "2026-11-25 09:05",
    "through_before": "2026-11-07",
    "value_before": "0"
-  },
-  {
-   "due_ny": "2026-11-25 08:30",
-   "expected_day": false,
-   "ids": "albppriv ... wybppriv",
-   "short": "state building permits, units",
-   "since_ny": "2026-11-25 09:05",
-   "through_before": "2026-09-30",
-   "value_before": ""
   }
  ],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
