@@ -244,10 +244,12 @@ def indicator(state_path=STATE, reg_path=REG, extra=()):
     ep_paths = []
     for e in S['episodes']:
         a = (e.get('open_month') or e.get('open_pub', '')[:7]); b = (e.get('close_month') or (e.get('close_pub') or '')[:7] or today)
-        m = match(a, b) or match(a, b, allw)
+        # chronology v4 (25 Nov 2026): a call may fall on a slowdown under way that is not yet a disturbance ('open_unsettled'); it takes that
+        # window's grade so far and the status 'unsettled' until the window settles
+        m = match(a, b) or match(a, b, allw) or match(a, b, [x for x in R['episodes'] if x['status'] == 'open_unsettled'])
         if m is None: raise Miss('indicator: the call opened %s overlaps no window of the register' % a)
         e['grade'] = grade(m['damage']); e['register_window'] = [m['peak'], m['trough']]; e['graded_on'] = m.get('graded_on')
-        e['register_status'] = 'recession' if m['status'] == 'recession' else 'disturbance'
+        e['register_status'] = 'recession' if m['status'] == 'recession' else ('unsettled' if m['status'] == 'open_unsettled' else 'disturbance')
         ep_paths.append(((e.get('open_pub') or a)[:10], (e.get('close_pub') or '9999-12-31')[:10], m))
     def at(day):
         for a, b, m in ep_paths:

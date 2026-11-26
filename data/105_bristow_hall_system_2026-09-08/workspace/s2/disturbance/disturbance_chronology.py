@@ -201,9 +201,11 @@ def main():
     ap.add_argument('--fred', action='store_true')
     ap.add_argument('--fred-dir', default=None, help='with --fred: download here (overwritten each run) instead of OUT/fred_<date>')
     ap.add_argument('--out', default=os.path.join(HERE, '..', 'out'))
+    ap.add_argument('--chronology', default='v4', choices=['v4', 'v32'], help='v4: chronology version 4 (25 Nov 2026, adopted); v32: register v3.2')
     a = ap.parse_args()
     data = fetch_fred(a.fred_dir or os.path.join(a.out, 'fred_' + dt.date.today().isoformat())) if a.fred else a.data
     ser = {n: load(data, n) for n in SERIES}
+    if a.chronology == 'v4': return main_v4(a, data, ser)
     idx, weights = composite(ser)
     ly = np.log(idx); tr = hp(ly, LAMBDA); dev = 100 * (ly - tr)
     UR, IP, G, PAY = ser['UNRATE'], ser['INDPRO'], ser['GDPC1'], ser['PAYEMS']
@@ -318,6 +320,59 @@ def main():
     pd.set_option('display.width', 250)
     print(T.to_string(index=False))
     print('composite ends', last.strftime('%Y-%m'), 'weights', weights)
+
+
+def main_v4(a, data, ser):
+    """Chronology version 4 (collection 1174; RECORD-1178). Episodes from chronology_v4.build; every window graded by the one grading rule
+    (graded_window, damage_parts, unchanged) on the Conference Board index. A closed episode is a recession when it holds an NBER recession
+    month, a disturbance otherwise. An open episode with no NBER recession takes the class rule of 24 Nov 2026 (grade DAMAGE_CUT or more and
+    activity down ACT_MIN percent or more: recession, otherwise disturbance). Writes chronology.csv and chronology.json as v3.2 did, plus the
+    live reading (tier 1) and confirmation (tier 2)."""
+    sys.path.insert(0, HERE); import chronology_v4 as v4
+    lvl, dev, eps, live = v4.build(ser, NBER)
+    UR, IP, G = ser['UNRATE'], ser['INDPRO'], ser['GDPC1']; SA = sahm(UR); last = dev.index[-1]
+    cr = os.path.join(HERE, 'v4', 'confirmation_record_1960_2026.csv')
+    conf_on = {}
+    if os.path.exists(cr):
+        R = pd.read_csv(cr); conf_on = {str(r.episode)[:7]: r.confirmed for _, r in R.iterrows() if r.confirmed != 'never'}
+    rows = []
+    for e in eps:
+        p, t = e['peak'], e['trough']; te = t if t is not None else last
+        months = (te.year - p.year) * 12 + te.month - p.month
+        smax = float(SA[(SA.index >= p) & (SA.index <= te + pd.DateOffset(months=3))].max())
+        gp, gt, act = graded_window(lvl, p, te, last)
+        L, o, q, ex = damage_parts(UR, G, IP, gp, gt)
+        g_ = round(dd.grade(L, o['score'], q['score']), 2)
+        rule = 'recession' if (g_ >= DAMAGE_CUT and act['on'] == 'activity') else 'disturbance_class1'
+        status = 'recession' if e['nber'] else ('open_unsettled' if e.get('unsettled') else (rule if t is None else 'disturbance_class1'))
+        prov = t is None or (last.year - t.year) * 12 + last.month - t.month < PROVISIONAL_MONTHS
+        rows.append(dict(peak=p.strftime('%Y-%m'), trough=t.strftime('%Y-%m') if t is not None else None, open=t is None, months=months,
+                         dating='v4 ' + e['source'], source=e['source'], method_peak=e['method_peak'].strftime('%Y-%m'),
+                         method_trough=e['method_trough'].strftime('%Y-%m') if e['method_trough'] is not None else None,
+                         status=status, status_v3_1=status, class_rule_1167=rule, dev_fall_pp=e['fall_pp'], sahm_max=round(smax, 2), sahm_rerise=None,
+                         ur_rise_pp=round(float(ex.max()), 2), ip_fall_pct=round(q['pt'], 2), gdp_fall_pct=round(o['pt'], 2),
+                         L=round(L, 2), O=round(o['score'], 2), P=round(q['score'], 2), damage=g_, grade=_one1140(g_), provisional=bool(prov),
+                         confirmed=bool(e['confirmed']), confirmed_on=conf_on.get(e['method_peak'].strftime('%Y-%m')),
+                         graded_on=act['on'], graded_from=gp.strftime('%Y-%m'), graded_to=gt.strftime('%Y-%m'), activity_fall_pct=act['fall_pct'],
+                         damage_path=({m.strftime('%Y-%m'): round(dd.grade(*(lambda r: (r[0], r[1]['score'], r[2]['score']))(damage_parts(UR, G, IP, gp, m))), 2)
+                                       for m in pd.date_range(gp, gt, freq='MS')} if status == 'recession' else None),
+                         recession_months_inside=[f"{x}..{z}" for x, z in e['nber']], oecd=[f"{x}..{z}" for x, z in e['oecd']],
+                         passes_DD=bool(e['fall_pp'] >= v4.FLOOR), passes_DC=bool(smax < SAHM_C1)))
+    T = pd.DataFrame(rows); os.makedirs(a.out, exist_ok=True); T.to_csv(os.path.join(a.out, 'chronology.csv'), index=False)
+    path = pd.DataFrame({'date': dev.index.strftime('%Y-%m'), 'dev': dev.round(3).values})
+    J = dict(built=dt.datetime.now().isoformat(timespec='seconds'), data=os.path.abspath(data), chronology_version='v4',
+             composite_last_month=last.strftime('%Y-%m'), weights=v4.TCB, series_last={n: s_.index[-1].strftime('%Y-%m') for n, s_ in ser.items()},
+             rules=dict(index='Conference Board Coincident Economic Index factors (Feb 2019)', trend='centred 75-month moving average',
+                        turning_points='Bry-Boschan (1971)', floor_pp=v4.FLOOR, below_trend_at_trough=True, published_through='2000 (Zarnowitz-Ozyildirim 2002)',
+                        recessions='NBER', confirm_after_trough_months=v4.WAIT, provisional_months=PROVISIONAL_MONTHS,
+                        recession_line=DAMAGE_CUT, recession_needs_activity_fall_pct=ACT_MIN),
+             live_reading=live,
+             recessions=[dict(peak=a_, trough=b_, source='NBER' if (a_, b_) in NBER else 'Paper 1') for a_, b_ in RECESSIONS],
+             episodes=rows, deviation=path.to_dict('list'))
+    json.dump(J, open(os.path.join(a.out, 'chronology.json'), 'w'), indent=1)
+    pd.set_option('display.width', 250)
+    print(T[['peak', 'trough', 'status', 'class_rule_1167', 'dev_fall_pp', 'damage', 'grade', 'confirmed', 'confirmed_on', 'graded_on']].to_string(index=False))
+    print('live reading:', live)
 
 
 if __name__ == '__main__':

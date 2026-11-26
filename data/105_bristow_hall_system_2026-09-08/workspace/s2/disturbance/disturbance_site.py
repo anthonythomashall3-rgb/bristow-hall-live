@@ -20,7 +20,7 @@ OUT = os.path.join(H, 'out')
 
 KIND = {'disturbance_class1': 'disturbance', 'disturbance_class2': 'jobless-recovery disturbance', 'recession': 'recession window',
         'labor_bar_crossed_no_recession': 'labor bar crossed, no recession', 'fails_DD': 'too shallow', 'runup': 'run-up',
-        'open_unsettled': 'open, not yet 1.0 point deep'}
+        'open_unsettled': 'open, not yet a disturbance'}
 
 
 def changes(old, new):
