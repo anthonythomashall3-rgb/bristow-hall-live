@@ -1,13 +1,14 @@
 """Chronology version 4 of the Bristow-Hall System (collection 1174, RECORD-1174/1176/1178; rulings of 25 Nov 2026). No AI.
 The growth cycle chronology on the Conference Board's Coincident Economic Index: payrolls, real personal income less transfer payments,
 industrial production and real manufacturing and trade sales, with the Conference Board's standardization factors (effective Feb 2019).
-Trend: centred 75-month moving average (extended at the ends with the slope of its first or last 36 computed months). Turning points: the
+Trend: centred 75-month moving average of the series extended 37 months forward by an AR(12) model of monthly growth (last 30 years)
+and 37 months back at the average growth of its first 120 months (PREREG-1180, adopted 26 Nov 2026). Turning points: the
 full Bry-Boschan routine. A contraction counts when its deviation falls FLOOR points or more and ends below trend; one that fails is removed
 with its trough and the lower of its two peaks. Published dates (Zarnowitz and Ozyildirim 2002, Conference Board) stand through 2000; NBER
-dates mark recessions. Tier 1: the live reading (not a call). Tier 2: an episode is confirmed once its trough is WAIT months old."""
+dates mark recessions. Tier 1: the live reading (not a call). Tier 2: an episode is confirmed once its trough is WAIT (14) months old."""
 import numpy as np, pandas as pd
 TCB = dict(PAYEMS=0.5290, W875RX1=0.2054, INDPRO=0.1454, CMRMTSPL=0.1202)
-FLOOR = 0.95; WAIT = 18
+FLOOR = 0.95; WAIT = 14
 ZO = [('1948-01','1949-10'),('1951-01','1952-07'),('1953-03','1954-08'),('1957-02','1958-04'),('1960-01','1961-02'),
       ('1962-04','1964-01'),('1966-03','1967-10'),('1969-08','1970-11'),('1973-11','1975-04'),('1979-03','1980-07'),
       ('1981-07','1982-12'),('1984-09','1987-01'),('1989-01','1991-12'),('1995-01','1996-01')]
@@ -122,6 +123,15 @@ def ma75(y):
     for i in range(b + 1, n): m[i] = m[b] + s1 * (i - b)
     return pd.Series(m, index=y.index)
 
+def trend(y, ar_years=30, p=12, h=37):
+    """Centred 75-month moving average; the end months use the series extended h months by an AR(p) model of monthly growth."""
+    v = y.values; dy = np.diff(v)[-12 * ar_years:]; Yv = dy[p:]
+    X = np.column_stack([np.ones(len(Yv))] + [dy[p - k:-k] for k in range(1, p + 1)]); b = np.linalg.lstsq(X, Yv, rcond=None)[0]
+    hist = list(dy[-p:]); lv = v[-1]; fut = []
+    for _ in range(h): g = float(np.r_[1.0, hist[::-1][:p]] @ b); hist.append(g); lv += g; fut.append(lv)
+    g0 = (v[120] - v[0]) / 120; x = np.r_[v[0] - g0 * np.arange(h, 0, -1), v, fut]
+    return pd.Series(np.convolve(x, np.ones(75) / 75, mode='valid'), index=y.index)
+
 def contractions(dev, floor=FLOOR):
     v = dev.values; t = bry_boschan(v); changed = True
     while changed:
@@ -141,7 +151,7 @@ def contractions(dev, floor=FLOOR):
 
 def build(ser, nber):
     """Returns the deviation, the adopted episodes (peak, trough or None, source, method dates) and the tier 1 live reading."""
-    lvl, av = index(ser); y = np.log(lvl); dev = 100 * (y - ma75(y)); closed = contractions(dev)
+    lvl, av = index(ser); y = np.log(lvl); dev = 100 * (y - trend(y)); closed = contractions(dev)
     eps = []
     for a, b in ZO + [(ZO_PEAK_2000, None)]:
         pa, pb = M(a), (M(b) if b else None)
