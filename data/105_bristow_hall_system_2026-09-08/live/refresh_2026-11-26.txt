@@ -1,13 +1,7 @@
-FRED change check: 112 series tracked; 39 changed since last pulled (0 updated since 09:15 CT): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
-search week (unemp): 1 day(s) appended, through 2026-11-25 (scale 0.080 on 249 overlap days)
-search week (unemp): Google's 90-day view through 2026-11-25 = 53
-search week (layoffs): nothing new (history through 2026-11-25)
-search week (layoffs): Google's 90-day view through 2026-11-25 = 19
-search week (laidoff): 1 day(s) appended, through 2026-11-25 (scale 0.128 on 249 overlap days)
-search week (laidoff): Google's 90-day view through 2026-11-25 = 46
+FRED change check: 112 series tracked; 39 changed since last pulled (0 updated since 09:30 CT): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
 home tiles: second source: 8 series compared with the BLS and the Department of Labor, 0 mismatch
 home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Nov 21, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-12-03, IURSA 2026-12-03, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
-bls_fetch: requests this process (production role, run 45849590307-1): bls_v2_key1 1; this run so far: bls_v2_key1 1
+bls_fetch: requests this process (production role, run 45861677106-1): bls_v2_key1 1; this run so far: bls_v2_key1 1
 PAYEMS         no new vintage since 2026-11-06 (through 2026-10-01)
 GDPC1          no new vintage since 2026-11-25 (through 2026-07-01)
 GDPNOW         no new vintage since 2026-11-25 (through 2026-10-01)
@@ -23,4 +17,4 @@ S&P 500: nothing new (through 2026-11-25)
 Sahm gap: unchanged (through 2026-10-01)
 insured rate base: unchanged (through 2026-11-14)
 ---- the damage index's unemployment rate ----
-left as they stand: 81 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
+left as they stand: 82 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
