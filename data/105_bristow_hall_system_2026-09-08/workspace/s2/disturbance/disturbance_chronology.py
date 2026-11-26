@@ -314,7 +314,7 @@ def main():
              rules=dict(lambda_hp=LAMBDA, dd_min_pp=DD_MIN, sahm_class1=SAHM_C1, sahm_class2=SAHM_C2,
                         class2_months_after_trough=C2_MONTHS, provisional_months=PROVISIONAL_MONTHS,
                         recession_line=DAMAGE_CUT, recession_needs_activity_fall_pct=ACT_MIN, tie_point=TIE),
-             recessions=[dict(peak=a_, trough=b_, source='NBER' if (a_, b_) in NBER else 'Paper 1') for a_, b_ in RECESSIONS],
+             recessions=[dict(peak=a_, trough=b_, source='NBER') for a_, b_ in NBER],   # 26 Nov 2026: the 2024 recession is not shown
              episodes=rows, deviation=path.to_dict('list'))
     json.dump(J, open(os.path.join(a.out, 'chronology.json'), 'w'), indent=1)
     pd.set_option('display.width', 250)

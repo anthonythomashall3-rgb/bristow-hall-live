@@ -1814,9 +1814,12 @@ _ANN_SRC={'1948-11':'Moore (1955), The Diffusion of Business Cycles: the first N
 # from here on PK only labels the pages (the announcements panel, state['nber']: the chart bands, the stress map strip, the Time Machine, the forecaster's record).
 PK=list(PK)
 if pd.Timestamp(PK[12]).strftime('%Y-%m')=='2024-04': PK[12]=pd.Timestamp('2024-02-01')
+# 26 Nov 2026 (Anthony: "the 2024 recession shouldnt be shown"): the pages show the NBER's twelve recessions only; Paper 1's 2024 recession
+# (index 12) is no longer drawn, banded or listed anywhere on the site
+PK=PK[:12]; TR=list(TR)[:12]
 ANNS=[]
 for e in epis:
-    om=pd.Timestamp(e['open_month']+'-01'); hit=[i for i in range(13) if abs((om.year-PK[i].year)*12+om.month-PK[i].month)<=9]
+    om=pd.Timestamp(e['open_month']+'-01'); hit=[i for i in range(len(PK)) if abs((om.year-PK[i].year)*12+om.month-PK[i].month)<=9]
     if not hit: continue
     i=hit[0]; pkm=PK[i].strftime('%Y-%m'); trm=TR[i].strftime('%Y-%m')
     pa=ANN.get(pkm); ta=TANN.get(trm)
