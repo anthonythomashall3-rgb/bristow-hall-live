@@ -88,6 +88,11 @@ MERGE_MIN = 15          # slots closer than this are one run
 PUBLISHER_FIRST = {'53': 'bea_gdp', '50': 'bls_empsit', '192': 'bls_jolts', '13': 'fed_g17', '10': 'bls_cpi', '180': 'dol_claims', '112': 'bls_state'}
 LIVE_TOOLS_GROUPS = {'bls_state', 'bls_empsit', 'dol_539', 'bls_cpi'}   # 1167b: CPI too (the State page's CPI comes from the BLS at the release:
                                                                     # ops/live_tools/state_fast.py serves CPIAUCSL from CUSR0000SA0)
+# 1167e (26 Nov 2026; Anthony: "the live updating function ALWAYS works"): THE LIVE TOOLS' ROUTINE RUNS ON THE WORKER'S CLOCK. GitHub ran
+# live-tools.yml's 16:50 UTC cron of 25 Nov at 00:43 UTC and never ran its 02:20 UTC cron of 26 Nov. A slot 5 minutes before each of its
+# crons (UTC, weekday: Monday 0, None every day) starts the live tools through update.yml; the Worker ticks every minute. A slot already
+# within MERGE_MIN of it starts them instead, at its own time. A cron run after the routine run of its time rebuilds nothing (live-tools.yml).
+LT_ROUTINE_UTC = (('16:45', None), ('02:15', None), ('10:40', 3))
 # 1167b (25 Nov 2026; Anthony: "within minutes of the data release"): the State page's other inputs that FRED schedules (CPI, the State
 # building permits, the Philadelphia Fed's State coincident indexes, BEA's State personal income) start the live tools at their FRED-read
 # run (FRED's post plus 5 minutes). Until now they reached the State page only at the next twice-daily live-tools run: on 25 Nov the
@@ -1196,6 +1201,20 @@ def schedule(cal, state, pending):
             groups[-1][5] = groups[-1][5] or lt
         else:
             groups.append([t, t, [w], [pfg] if pfg else [], rel if pfg else None, lt])
+    # 1167e: the live tools' routine runs (LT_ROUTINE_UTC), added after the release runs are grouped so none is moved to a later minute
+    for day in days(lo.astimezone(UTC).date(), (hi - lo).days + 2):
+        for hm, wd in LT_ROUTINE_UTC:
+            if wd is not None and day.weekday() != wd:
+                continue
+            t = dt.datetime.combine(day, dt.time(int(hm[:2]), int(hm[3:])), tzinfo=UTC).astimezone(ET)
+            if not (lo <= t <= hi):
+                continue
+            near = [g for g in groups if abs((g[1] - t).total_seconds()) <= MERGE_MIN * 60]
+            if near:
+                near[0][5] = True
+            else:
+                groups.append([t, t, ["the live tools' routine refresh (%s UTC; was live-tools.yml's GitHub cron only)" % hm], [], None, True])
+    groups.sort(key=lambda g: g[1])
     return [dict({'ny': t.strftime('%Y-%m-%d %H:%M'), 'utc': t.astimezone(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
                   'why': list(dict.fromkeys(w))}, **({'wait': list(dict.fromkeys(p))} if p else {}),
                  **({'release_ny': rel.strftime('%Y-%m-%d %H:%M')} if (p and rel is not None) else {}),
