@@ -100,7 +100,7 @@ tr.open td{background:#fbf8ee}
     <span><i style="background:#990000"></i>Composite, percent above or below trend</span>
     <span><i style="background:#d5d9de"></i>Recession (NBER; 2024 per Paper 1)</span>
     <span><i style="background:rgba(31,78,121,.07);border:1.5px dashed #1f4e79;box-sizing:border-box"></i>Disturbance</span>
-    <span><i style="background:repeating-linear-gradient(135deg,#9aa3ad 0 3px,#fff 3px 6px)"></i>Open, not a disturbance yet</span>
+    <span id="lgopen"><i style="background:repeating-linear-gradient(135deg,#9aa3ad 0 3px,#fff 3px 6px)"></i>Open, not a disturbance yet</span>
   </div>
 </div>
 <p class="note">The line is the four NBER coincident series (payroll employment, industrial production, real income less transfers, real manufacturing and trade sales) combined by the Conference Board method and measured against a smooth trend. A disturbance is a stretch in which the line falls (activity grows more slowly than its trend, or shrinks) that stopped short of a recession.</p>
@@ -177,7 +177,7 @@ var why={labor_bar_crossed_no_recession:function(e){return 'Unemployment crossed
 var rows=NEAR.map(function(e){return '<tr><td>'+ym(e.peak)+' – '+ym(e.trough)+'</td><td>'+why[e.status](e)+'</td><td class="n">'+f2(e.dev_fall_pp)+'</td><td class="n">'+f2(e.sahm_max)+'</td><td class="n">'+f2(e.grade)+'</td></tr>';});
 var RU={};
 R.forEach(function(e){ if(RU[e.peak]) rows.push('<tr><td>'+ym(e.peak)+' slowdown</td><td>Ran into the '+RU[e.peak]+' recession with no recovery between: that recession\'s run-up, not a separate episode.</td><td class="n">–</td><td class="n">–</td><td class="n">–</td></tr>'); });
-document.querySelector('#near tbody').innerHTML=rows.join('');if(!rows.length)document.getElementById('near').parentNode.style.display='none';
+document.querySelector('#near tbody').innerHTML=rows.join('');(function(){var lg=document.getElementById('lgopen');if(!O.length){lg.style.display='none';}else if(O[0].status.indexOf('disturbance')===0){lg.innerHTML='<i style="background:repeating-linear-gradient(135deg,#1f4e79 0 3px,#fff 3px 6px);opacity:.6"></i>Open disturbance, provisional';}})();if(!rows.length)document.getElementById('near').parentNode.style.display='none';
 // open window
 var op=document.getElementById('openprose');
 if(O.length){var o=O[0];
