@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-26 11:49",
+ "built_at": "2026-11-26 12:07",
  "fallback": "weekdays 08:35, 09:35, 10:20 and 16:35 (New York time; the Cloudflare Worker's own times), used only if this list cannot be read",
- "generated_utc": "2026-11-26T16:50:14Z",
+ "generated_utc": "2026-11-26T17:07:39Z",
  "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411; 1167, 24 November 2026): a run 3 minutes BEFORE each release read from its publisher or polled on FRED, set up and waiting at the release minute (release_ny) and asking the publisher every 5 seconds from then; a run 5 minutes after each other release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
  "refresh_incomplete": null,
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
@@ -1286,10 +1286,14 @@
   },
   {
    "live_tools": true,
-   "ny": "2026-12-17 11:45",
-   "utc": "2026-12-17T16:45:00Z",
+   "ny": "2026-12-17 11:59",
+   "release_ny": "2026-12-17 12:02",
+   "utc": "2026-12-17T16:59:00Z",
+   "wait": [
+    "fred:GDPNOW:202612171202"
+   ],
    "why": [
-    "the live tools' routine refresh (16:45 UTC; was live-tools.yml's GitHub cron only)"
+    "GDPNow (12:02 PM ET); polled on FRED"
    ]
   }
  ],
