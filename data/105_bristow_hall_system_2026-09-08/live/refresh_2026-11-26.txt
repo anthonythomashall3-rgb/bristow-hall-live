@@ -1,13 +1,11 @@
-FRED change check: 112 series tracked; 39 changed since last pulled (0 updated since 08:46 CT): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
-search week (unemp): 1 day(s) appended, through 2026-11-25 (scale 0.078 on 249 overlap days)
-search week (unemp): Google's 90-day view through 2026-11-25 = 56
-search week (layoffs): 1 day(s) appended, through 2026-11-25 (scale 1.216 on 249 overlap days)
-search week (layoffs): Google's 90-day view through 2026-11-25 = 19
-search week (laidoff): 1 day(s) appended, through 2026-11-25 (scale 0.125 on 249 overlap days)
-search week (laidoff): Google's 90-day view through 2026-11-25 = 47
+FRED change check: 112 series tracked; 39 changed since last pulled (0 updated since 09:10 CT): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
+search week (unemp): pull failed (The request failed: Google returned a response with code 429); history through 2026-11-24
+search week (layoffs): 1 day(s) appended, through 2026-11-25 (scale 1.238 on 249 overlap days)
+search week (layoffs): 90-day view not refreshed (The request failed: Google returned a response with code 429)
+search week (laidoff): pull failed (The request failed: Google returned a response with code 429); history through 2026-11-24
 home tiles: second source: 8 series compared with the BLS and the Department of Labor, 0 mismatch
 home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Nov 21, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-12-03, IURSA 2026-12-03, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
-bls_fetch: requests this process (test role, run 45846329965-1): bls_v2_test 1; this run so far: bls_v2_test 1
+bls_fetch: requests this process (production role, run 45847026672-1): bls_v2_key1 1; this run so far: bls_v2_key1 1
 PAYEMS         no new vintage since 2026-11-06 (through 2026-10-01)
 GDPC1          no new vintage since 2026-11-25 (through 2026-07-01)
 GDPNOW         no new vintage since 2026-11-25 (through 2026-10-01)
