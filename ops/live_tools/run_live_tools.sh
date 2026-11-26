@@ -91,7 +91,10 @@ EOF
 } || { [ -z "$STOP" ] && STOP="stress map tests failed (beyond the known limits P1, Q1)"; }
 [ -z "$STOP" ] && { step "stress map render" $PY code/page_check_1052.py stress "$C/web/stress-map/index.html" || STOP="stress map render check failed"; }
 # 1150: the factor files and county jobs by industry the page reads when a State or a county is opened
-[ -z "$STOP" ] && { step "stress map detail" $PY code/stress_map_detail_1150.py || STOP="stress map detail files failed their checks"; }
+# 1167f (26 Nov 2026): through ops/live_tools/pyboot/run_rewritten.py (pyboot_detail.py: the same bytes; the county jobs by industry kept
+# between runs while the QCEW files are unchanged; 25 s of the run before)
+DET=code/stress_map_detail_1150.py; [ "${LT_PYBOOT:-1}" = "1" ] && DET="$OPS/pyboot/run_rewritten.py $DET"
+[ -z "$STOP" ] && { step "stress map detail" $PY $DET || STOP="stress map detail files failed their checks"; }
 [ -z "$STOP" ] && { step "county view check" $PY code/county_view_check_1150.py "$C" "$C/out/county_view_check_1150.json" || STOP="stress map county view check failed"; }
 wait $SHP; cat "$LT_OUT/run_shadow.log" >> "$L"; SH=$(cat "$LT_OUT/shadow.status" 2>/dev/null); [ -n "$SH" ] || SH="the shadow tool did not finish"
 $PY - "$LT_OUT/status.json" "$STOP" "$SH" <<'EOF'
