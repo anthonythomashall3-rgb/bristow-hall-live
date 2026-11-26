@@ -32,8 +32,8 @@ def main():
     _td = c1.get('today'); _td = _td.get('day') if isinstance(_td, dict) else _td
     if str(_td or '')[:10] != TODAY.isoformat():
         problems.append(('c1021:today', 'STARTER DID NOT RUN', 'the C1021 starter\'s reading is as of %s, not today (%s): the build reused its last outputs' % (_td, TODAY)))
-    if st.get('version') != 'C1021+E22':
-        problems.append(('c1021:version', 'VERSION', 'the published state says version %s, not C1021+E22' % st.get('version')))
+    if st.get('version') != 'C1019+E22':   # 1168 (24 Nov 2026): C1019, the job-losers door retired
+        problems.append(('c1021:version', 'VERSION', 'the published state says version %s, not C1019+E22' % st.get('version')))
     # E22 (1031): did the ender run today; are its three inputs fresh (insured unemployment week, the funds-rate month, the S&P day)
     e2 = load(os.path.join('out', 'e22_state.json')) or {}
     if str(e2.get('today') or '')[:10] != TODAY.isoformat():

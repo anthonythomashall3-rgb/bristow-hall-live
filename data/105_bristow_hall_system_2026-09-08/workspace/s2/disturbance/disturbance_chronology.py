@@ -19,8 +19,10 @@ CLASSIFY   R  Recession: the window contains an NBER recession month or Paper 1'
               pre-recession peak at the window's peak month. Scored against this bar, not D-C.
            Run-up: a non-recession window whose trough is followed by a recession window's peak with no expansion of at
               least the window's own minimum phase between them.
-GRADE      The live site's v3.76 damage grader (damage_dimensions_live_v376.py = site s2/damage_dimensions.py, verbatim)
-           on the window's own dates. No labels: the grade is the number, on the same scale as recessions.
+GRADE      The live site's v3.76 damage grader (damage_dimensions_live_v376.py = site s2/damage_dimensions.py, verbatim), by ONE RULE for
+           every window (collection 1167, 24 Nov 2026): on the fall of activity itself (the composite's high to its low, from 6 months before
+           the peak to 6 months after the trough) where it fell 1.0 percent or more, otherwise on the window's own dates. The grade is the
+           damage, one number, 0 to 10 (1929-33 = 10); 2.00 or more is a recession.
 PROVISIONAL The HP trend is two-sided, so the newest window moves as data arrive. A window is marked provisional until its
            trough is at least 24 months old. An open window is classified by the same clauses on the data so far (a window
            that contains a recession month is that recession's window, D-B) and is always provisional; an open window not yet
@@ -35,9 +37,8 @@ import numpy as np, pandas as pd
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DAMAGE_CUT = 2.0   # register v3.2: the damage at or above which a window is a recession (Anthony, 14 Nov 2026 05:35 PT: '2.0')
-# THE ONE SCALE (collection 1140, 16 Nov 2026; Anthony: "recessions and disturbances are on the same scale"): 'damage' is the damage grade as before
-# (0 to 10; the class is still read from it against DAMAGE_CUT); 'grade' is that damage on the scale the live indicator uses, where a recession
-# begins at 3.00 - 1.5 x damage for a disturbance, 3 + 0.7 x damage for a recession (s2/one_scale.py).
+# ONE NUMBER (collection 1167, 24 Nov 2026; Anthony: "graded the same way", line 2.00; was the one scale of 1140): 'grade' is 'damage', the damage
+# grade itself (0 to 10, s2/one_scale.py grade()); the class is read from it against DAMAGE_CUT, 2.00.
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.dirname(HERE))      # live system: s2/damage_dimensions.py, the site's own grader (v3.76)
 from one_scale import grade as _one1140         # 1140: the damage grade on the one scale
@@ -105,8 +106,15 @@ def hp(y, lam):
     return pd.Series(np.linalg.solve(np.eye(n) + lam * D.T @ D, y.values), index=y.index)
 
 
+# THE TIE RULE (collection 1167, doc/PREREG-1167-tie-rule-2026-11-24.md; Anthony, 24 Nov 2026: "Tie rule, tested first"): a later turning point
+# replaces an earlier one of the same kind only if it is higher (a peak) or lower (a trough) by TIE point of the deviation or more; otherwise the
+# earlier stands. Pre-set test: T1 passed, T2 (b) failed by 0.5 month only through the open contraction's own peak; adopted by Anthony's
+# ruling (24 Nov 2026), the failed bar stated in Paper 3.
+TIE = 0.05
+
+
 def bb(x, win=5, minphase=5, mincycle=15):
-    """Bry-Boschan as in growth_cycle_1024_v2.py (register v3.1), unchanged."""
+    """Bry-Boschan as in growth_cycle_1024_v2.py (register v3.1); 1167: ties within TIE point keep the earlier turning point."""
     v = x.values; n = len(v); pk = []; tr_ = []
     for i in range(win, n - win):
         seg = v[i - win:i + win + 1]
@@ -117,7 +125,7 @@ def bb(x, win=5, minphase=5, mincycle=15):
     for i, k in tp:
         if out and out[-1][1] == k:
             j = out[-1][0]
-            if (k == 'P' and v[i] > v[j]) or (k == 'T' and v[i] < v[j]): out[-1] = (i, k)
+            if (k == 'P' and v[i] > v[j] + TIE) or (k == 'T' and v[i] < v[j] - TIE): out[-1] = (i, k)
         else: out.append((i, k))
     changed = True
     while changed:
@@ -133,7 +141,7 @@ def bb(x, win=5, minphase=5, mincycle=15):
         for i, k in out:
             if b and b[-1][1] == k:
                 j = b[-1][0]
-                if (k == 'P' and v[i] > v[j]) or (k == 'T' and v[i] < v[j]): b[-1] = (i, k)
+                if (k == 'P' and v[i] > v[j] + TIE) or (k == 'T' and v[i] < v[j] - TIE): b[-1] = (i, k)
                 changed = True
             else: b.append((i, k))
         out = b
@@ -161,6 +169,27 @@ def has_recession(p, t):
     return any(overlaps(p, t, M(a), M(b)) for a, b in RECESSIONS)
 
 
+ACT_MIN = 1.0     # 1167: a fall of activity counts when it is at least this many percent (the D-D bar)
+ACT_LEAD = 6; ACT_LAG = 6
+
+
+def graded_window(idx, p, te, last):
+    """1167: the months a window is graded on. The composite's highest level in [p - 6 months, te] and its lowest level after it, up to
+    te + 6 months (not past the data); if that fall is ACT_MIN percent or more the window is graded on it, otherwise on p..te."""
+    a = idx[(idx.index >= p - pd.DateOffset(months=ACT_LEAD)) & (idx.index <= te)]; pl = a.idxmax()
+    b = idx[(idx.index >= pl) & (idx.index <= min(te + pd.DateOffset(months=ACT_LAG), last))]; tl = b.idxmin()
+    fall = float(100 * (1 - b.min() / a.max()))
+    return (pl, tl, dict(on='activity', fall_pct=round(fall, 2))) if fall >= ACT_MIN else (p, te, dict(on='trend', fall_pct=round(fall, 2)))
+
+
+def damage_parts(UR, G, IP, gp, gt):
+    """the v3.76 damage on months gp..gt: labor base = lowest UR in the 12 months before gp"""
+    pre = UR[(UR.index < gp) & (UR.index >= gp - pd.DateOffset(months=12))]; base = float(pre.min())
+    seg = UR[(UR.index >= gp) & (UR.index <= gt)]; ex = (seg - base).clip(lower=0)
+    L = dd.labour_score(float(ex.max()), float(ex.sum()))
+    return L, dd.output_dimension(G, gp, gt), dd.production_dimension(IP, gp, gt), ex
+
+
 def sahm(UR):
     u3 = UR.rolling(3).mean()          # as severity_1024_v2.py (the measurements behind rulings 2 and 6)
     return u3 - u3.rolling(12).min()
@@ -172,9 +201,11 @@ def main():
     ap.add_argument('--fred', action='store_true')
     ap.add_argument('--fred-dir', default=None, help='with --fred: download here (overwritten each run) instead of OUT/fred_<date>')
     ap.add_argument('--out', default=os.path.join(HERE, '..', 'out'))
+    ap.add_argument('--chronology', default='v4', choices=['v4', 'v32'], help='v4: chronology version 4 (25 Nov 2026, adopted); v32: register v3.2')
     a = ap.parse_args()
     data = fetch_fred(a.fred_dir or os.path.join(a.out, 'fred_' + dt.date.today().isoformat())) if a.fred else a.data
     ser = {n: load(data, n) for n in SERIES}
+    if a.chronology == 'v4': return main_v4(a, data, ser)
     idx, weights = composite(ser)
     ly = np.log(idx); tr = hp(ly, LAMBDA); dev = 100 * (ly - tr)
     UR, IP, G, PAY = ser['UNRATE'], ser['INDPRO'], ser['GDPC1'], ser['PAYEMS']
@@ -236,19 +267,22 @@ def main():
             status = 'labor_bar_crossed_no_recession'
         else:
             status = 'disturbance_class1'
-        # grade (v3.76), labor as the site: base = lowest UR in the 12 months before the peak month
-        pre = UR[(UR.index < p) & (UR.index >= p - pd.DateOffset(months=12))]; base = float(pre.min())
-        seg = UR[(UR.index >= p) & (UR.index <= te)]; ex = (seg - base).clip(lower=0)
-        L = dd.labour_score(float(ex.max()), float(ex.sum()))
-        o = dd.output_dimension(G, p, te); q = dd.production_dimension(IP, p, te)
+        # ONE GRADING RULE (collection 1167, 24 Nov 2026; Anthony: "recessions and disturbances graded the same way", "Adopt"): every window is
+        # graded on the fall of activity itself - the composite's highest level from 6 months before its peak to its trough, to its lowest level
+        # after that, up to 6 months after the trough - and where activity fell by less than ACT_MIN percent (the 1.0 bar of D-D), on its fall
+        # against trend (peak to trough), as before. The grade is that damage (v3.76 arithmetic), one number; 2.00 or more is a recession.
+        gp, gt, act = graded_window(idx, p, te, last)
+        L, o, q, ex = damage_parts(UR, G, IP, gp, gt)
         # Register v3.2 (Anthony, 14 Nov 2026 05:30 and 05:35 PT): recession or disturbance is read from the DAMAGE GRADE, not from the criteria - DAMAGE_CUT or more a
         # recession, below it a disturbance. The v3.1 status is kept in status_v3_1; class 1 / class 2 remain as descriptions of a disturbance, not as tests.
         status_v3_1 = status; g_ = round(dd.grade(L, o['score'], q['score']), 2)
         if status in ('recession', 'disturbance_class1', 'disturbance_class2', 'labor_bar_crossed_no_recession'):
-            status = 'recession' if g_ >= DAMAGE_CUT else ('disturbance_class2' if c2 else 'disturbance_class1')
+            # 1167 CLASS RULE (Anthony, 24 Nov 2026: "Disturbance", "Yes, every level"): a recession needs activity itself to fall ACT_MIN percent
+            # or more (the window graded on the fall of activity) AND a grade of DAMAGE_CUT or more; every other window is a disturbance. Grades unchanged.
+            status = 'recession' if (g_ >= DAMAGE_CUT and act['on'] == 'activity') else ('disturbance_class2' if c2 else 'disturbance_class1')
         prov = t is None or (last.year - t.year) * 12 + last.month - t.month < PROVISIONAL_MONTHS
         aft = {}
-        if t is None and has_recession(p, t):
+        if t is None and has_recession(p, t) and status == 'recession':
             # aftermath facts for an open recession window (page text): last recession month inside, the composite's high
             # after it, and payrolls against the pre-recession peak (the jobless-recovery bar)
             rs = [(M(x), M(y)) for x, y in RECESSIONS if overlaps(p, t, M(x), M(y))]; rpk, rtr = max(rs)
@@ -266,6 +300,9 @@ def main():
                          ur_rise_pp=round(float(ex.max()), 2), ip_fall_pct=round(q['pt'], 2), gdp_fall_pct=round(o['pt'], 2),
                          L=round(L, 2), O=round(o['score'], 2), P=round(q['score'], 2),
                          damage=g_, grade=_one1140(g_), provisional=bool(prov),
+                         graded_on=act['on'], graded_from=gp.strftime('%Y-%m'), graded_to=gt.strftime('%Y-%m'), activity_fall_pct=act['fall_pct'],
+                         damage_path=({m.strftime('%Y-%m'): round(dd.grade(*(lambda r: (r[0], r[1]['score'], r[2]['score']))(damage_parts(UR, G, IP, gp, m))), 2)
+                                       for m in pd.date_range(gp, gt, freq='MS')} if status == 'recession' else None),
                          recession_months_inside=rec_in, passes_DD=bool(f >= DD_MIN), passes_DC=bool(smax < SAHM_C1)))
     T = pd.DataFrame(rows)
     os.makedirs(a.out, exist_ok=True)
@@ -275,13 +312,67 @@ def main():
              composite_last_month=last.strftime('%Y-%m'), weights=weights,
              series_last={n: s.index[-1].strftime('%Y-%m') for n, s in ser.items()},
              rules=dict(lambda_hp=LAMBDA, dd_min_pp=DD_MIN, sahm_class1=SAHM_C1, sahm_class2=SAHM_C2,
-                        class2_months_after_trough=C2_MONTHS, provisional_months=PROVISIONAL_MONTHS),
-             recessions=[dict(peak=a_, trough=b_, source='NBER' if (a_, b_) in NBER else 'Paper 1') for a_, b_ in RECESSIONS],
+                        class2_months_after_trough=C2_MONTHS, provisional_months=PROVISIONAL_MONTHS,
+                        recession_line=DAMAGE_CUT, recession_needs_activity_fall_pct=ACT_MIN, tie_point=TIE),
+             recessions=[dict(peak=a_, trough=b_, source='NBER') for a_, b_ in NBER],   # 26 Nov 2026: the 2024 recession is not shown
              episodes=rows, deviation=path.to_dict('list'))
     json.dump(J, open(os.path.join(a.out, 'chronology.json'), 'w'), indent=1)
     pd.set_option('display.width', 250)
     print(T.to_string(index=False))
     print('composite ends', last.strftime('%Y-%m'), 'weights', weights)
+
+
+def main_v4(a, data, ser):
+    """Chronology version 4 (collection 1174; RECORD-1178). Episodes from chronology_v4.build; every window graded by the one grading rule
+    (graded_window, damage_parts, unchanged) on the Conference Board index. A closed episode is a recession when it holds an NBER recession
+    month, a disturbance otherwise. An open episode with no NBER recession takes the class rule of 24 Nov 2026 (grade DAMAGE_CUT or more and
+    activity down ACT_MIN percent or more: recession, otherwise disturbance). Writes chronology.csv and chronology.json as v3.2 did, plus the
+    live reading (tier 1) and confirmation (tier 2)."""
+    sys.path.insert(0, HERE); import chronology_v4 as v4
+    lvl, dev, eps, live = v4.build(ser, NBER)
+    UR, IP, G = ser['UNRATE'], ser['INDPRO'], ser['GDPC1']; SA = sahm(UR); last = dev.index[-1]
+    cr = os.path.join(HERE, 'v4', 'confirmation_record_1960_2026.csv')
+    conf_on = {}
+    if os.path.exists(cr):
+        R = pd.read_csv(cr); conf_on = {str(r.episode)[:7]: r.confirmed for _, r in R.iterrows() if r.confirmed != 'never'}
+    rows = []
+    for e in eps:
+        p, t = e['peak'], e['trough']; te = t if t is not None else last
+        months = (te.year - p.year) * 12 + te.month - p.month
+        smax = float(SA[(SA.index >= p) & (SA.index <= te + pd.DateOffset(months=3))].max())
+        gp, gt, act = graded_window(lvl, p, te, last)
+        L, o, q, ex = damage_parts(UR, G, IP, gp, gt)
+        g_ = round(dd.grade(L, o['score'], q['score']), 2)
+        rule = 'recession' if (g_ >= DAMAGE_CUT and act['on'] == 'activity') else 'disturbance_class1'
+        status = 'recession' if e['nber'] else ('open_unsettled' if e.get('unsettled') else (rule if t is None else 'disturbance_class1'))
+        prov = t is None or (last.year - t.year) * 12 + last.month - t.month < PROVISIONAL_MONTHS
+        rows.append(dict(peak=p.strftime('%Y-%m'), trough=t.strftime('%Y-%m') if t is not None else None, open=t is None, months=months,
+                         dating='v4 ' + e['source'], source=e['source'], method_peak=e['method_peak'].strftime('%Y-%m'),
+                         method_trough=e['method_trough'].strftime('%Y-%m') if e['method_trough'] is not None else None,
+                         status=status, status_v3_1=status, class_rule_1167=rule, dev_fall_pp=e['fall_pp'], sahm_max=round(smax, 2), sahm_rerise=None,
+                         ur_rise_pp=round(float(ex.max()), 2), ip_fall_pct=round(q['pt'], 2), gdp_fall_pct=round(o['pt'], 2),
+                         L=round(L, 2), O=round(o['score'], 2), P=round(q['score'], 2), damage=g_, grade=_one1140(g_), provisional=bool(prov),
+                         confirmed=bool(e['confirmed']), confirmed_on=conf_on.get(e['method_peak'].strftime('%Y-%m')),
+                         graded_on=act['on'], graded_from=gp.strftime('%Y-%m'), graded_to=gt.strftime('%Y-%m'), activity_fall_pct=act['fall_pct'],
+                         damage_path=({m.strftime('%Y-%m'): round(dd.grade(*(lambda r: (r[0], r[1]['score'], r[2]['score']))(damage_parts(UR, G, IP, gp, m))), 2)
+                                       for m in pd.date_range(gp, gt, freq='MS')} if status == 'recession' else None),
+                         recession_months_inside=[f"{x}..{z}" for x, z in e['nber']], oecd=[f"{x}..{z}" for x, z in e['oecd']],
+                         passes_DD=bool(e['fall_pp'] >= v4.FLOOR), passes_DC=bool(smax < SAHM_C1)))
+    T = pd.DataFrame(rows); os.makedirs(a.out, exist_ok=True); T.to_csv(os.path.join(a.out, 'chronology.csv'), index=False)
+    path = pd.DataFrame({'date': dev.index.strftime('%Y-%m'), 'dev': dev.round(3).values})
+    J = dict(built=dt.datetime.now().isoformat(timespec='seconds'), data=os.path.abspath(data), chronology_version='v4',
+             composite_last_month=last.strftime('%Y-%m'), weights=v4.TCB, series_last={n: s_.index[-1].strftime('%Y-%m') for n, s_ in ser.items()},
+             rules=dict(index='Conference Board Coincident Economic Index factors (Feb 2019)', trend='centred 75-month moving average',
+                        turning_points='Bry-Boschan (1971)', floor_pp=v4.FLOOR, below_trend_at_trough=True, published_through='2000 (Zarnowitz-Ozyildirim 2002)',
+                        recessions='NBER', confirm_after_trough_months=v4.WAIT, provisional_months=PROVISIONAL_MONTHS,
+                        recession_line=DAMAGE_CUT, recession_needs_activity_fall_pct=ACT_MIN),
+             live_reading=live,
+             recessions=[dict(peak=a_, trough=b_, source='NBER' if (a_, b_) in NBER else 'Paper 1') for a_, b_ in RECESSIONS],
+             episodes=rows, deviation=path.to_dict('list'))
+    json.dump(J, open(os.path.join(a.out, 'chronology.json'), 'w'), indent=1)
+    pd.set_option('display.width', 250)
+    print(T[['peak', 'trough', 'status', 'class_rule_1167', 'dev_fall_pp', 'damage', 'grade', 'confirmed', 'confirmed_on', 'graded_on']].to_string(index=False))
+    print('live reading:', live)
 
 
 if __name__ == '__main__':

@@ -3,10 +3,10 @@
  "mode": "hold",
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
- "build_day": "2026-11-25",
- "checked_at": "2026-11-26 11:08 UTC",
- "seconds": 3.3,
- "source_calls": 4,
+ "build_day": "2026-11-26",
+ "checked_at": "2026-11-26 14:42 UTC",
+ "seconds": 79.1,
+ "source_calls": 60,
  "source_errors": {},
  "counts": {
   "home": {
@@ -390,11 +390,11 @@
    "label": "Bristow-Hall Rule, recession indicator",
    "check": "matches the detector",
    "status": "PASS",
-   "value": 0.857,
-   "period": "2026-11-25",
+   "value": 0.571,
+   "period": "2026-11-26",
    "series": "BHRREALTIME",
    "transform": "the detector reading",
-   "expected": 0.857,
+   "expected": 0.571,
    "detail": ""
   },
   {
@@ -1607,7 +1607,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1799,7 +1799,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1823,7 +1823,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -2351,7 +2351,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2375,7 +2375,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2730,7 +2730,7 @@
    "label": "route: insured unemployment (not seasonally adjusted (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-25",
+   "value": "2026-12-03",
    "period": null,
    "series": "CCNSA",
    "transform": null,
@@ -2778,7 +2778,7 @@
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "freshness",
    "status": "PASS",
-   "value": 6.16,
+   "value": 5.43,
    "period": "2026-11-25",
    "series": "SP500",
    "transform": "sp_yoy",
@@ -2790,11 +2790,11 @@
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "value",
    "status": "PASS",
-   "value": 6.16,
+   "value": 5.43,
    "period": "2026-11-25",
    "series": "SP500",
    "transform": "sp_yoy",
-   "expected": 6.1618,
+   "expected": 5.4336,
    "detail": ""
   },
   {
@@ -3150,7 +3150,7 @@
    "label": "E22 leg A: insured unemployment (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-25",
+   "value": "2026-12-03",
    "period": null,
    "series": "CCSA",
    "transform": null,
@@ -3318,11 +3318,11 @@
    "label": "reading series: last day",
    "check": "phantom",
    "status": "PASS",
-   "value": 0.857,
-   "period": "2026-11-25",
+   "value": 0.571,
+   "period": "2026-11-26",
    "series": "BHRREALTIME",
    "transform": null,
-   "expected": "2026-11-25",
+   "expected": "2026-11-26",
    "detail": ""
   },
   {
@@ -3330,8 +3330,8 @@
    "label": "reading series: last day",
    "check": "cadence",
    "status": "PASS",
-   "value": 0.857,
-   "period": "2026-11-25",
+   "value": 0.571,
+   "period": "2026-11-26",
    "series": null,
    "transform": null,
    "expected": null,

@@ -158,22 +158,22 @@ early=0
 for a in S['announcements']:
     ref=a['peak']; day=datetime.date.fromisoformat(a['rule_open'])
     if day<=mend(ref): early+=1
-chk('speed panel: calls before the end of the peak month',early,8)   # C1021 (1022): eight - 1957, 1969, 1973, 1980, 1981, 1990, 2007, 2024 before the end of the peak month; 1948 +31, 1953 +74, 1960 +44, 2001 +6, 2020 +34 after it   # v3.68 (22 Sep 2026, collection 301): ten - 1960 now -5 (the concurrence branch); 1953 +31, 2020 +12, 2024 +3 after it | v3.63 (Core v7-W, 21 Sep 2026): nine of thirteen - 1953 +31, 1960 +122, 2020 +12 and 2024 +3 are after it   # v3.57 (walk97, 20 Sep 2026): seven of nine - the core alone calls 2020 twelve days and 2024 three days after the peak month ended (v3.55: nine, with legs back-dated)
-chk('speed panel: thirteen episodes',len(S['announcements']),13)   # v3.63: the walked record from 1948
+chk('speed panel: calls before the end of the peak month',early,5)   # 1168 C1019: 1957, 1969, 1973, 1980, 1981   # C1021 (1022): eight - 1957, 1969, 1973, 1980, 1981, 1990, 2007, 2024 before the end of the peak month; 1948 +31, 1953 +74, 1960 +44, 2001 +6, 2020 +34 after it   # v3.68 (22 Sep 2026, collection 301): ten - 1960 now -5 (the concurrence branch); 1953 +31, 2020 +12, 2024 +3 after it | v3.63 (Core v7-W, 21 Sep 2026): nine of thirteen - 1953 +31, 1960 +122, 2020 +12 and 2024 +3 are after it   # v3.57 (walk97, 20 Sep 2026): seven of nine - the core alone calls 2020 twelve days and 2024 three days after the peak month ended (v3.55: nine, with legs back-dated)
+chk('speed panel: twelve episodes',len(S['announcements']),12)   # v3.63: the walked record from 1948; 1168 C1019: twelve (no 2024 episode)
 chk('record: no close is retrospective (every close walked, v3.64)',[e['close_pub'] for e in S['episodes'] if e.get('close_basis')=='retrospective'],[])
 # ---- C1021 (1022, 8 November 2026): the starter's record, every open on its own release day; the closes are v3.76's, unchanged
-_C1OPENS=['1948-12-31','1953-10-13','1957-04-30','1960-06-13','1969-10-11','1973-08-01','1979-11-01','1981-06-01','1990-06-01','2001-04-06','2007-11-02','2020-04-03','2024-01-05']
-_C1CLOSES=['1949-10-20','1954-06-11','1958-06-19','1961-02-24','1970-12-24','1975-02-06','1980-07-22','1982-12-02','1991-02-07','2001-12-28','2009-07-23','2020-06-05','2024-10-01']   # E22 + depth gate (1041): the battery's thirteen closes (1031/out/gate_1041.txt)
+_C1OPENS=['1948-12-31','1953-10-13','1957-04-30','1960-06-13','1969-10-11','1973-08-01','1979-11-01','1981-06-01','1990-08-06','2001-04-06','2008-01-04','2020-04-03']   # 1168: C1019 (JL retired): 12 opens (RECORD-1019 PFS)
+_C1CLOSES=['1949-10-20','1954-06-11','1958-06-19','1961-02-24','1970-12-24','1975-02-06','1980-07-22','1982-12-02','1991-02-07','2001-12-28','2009-07-23','2020-06-05']   # 1168: no 2024 episode   # E22 + depth gate (1041): the battery's thirteen closes (1031/out/gate_1041.txt)
 # 1161i (22 Nov 2026; Anthony: 'you merge'): the ender's seasonally adjusted chain rebuilt from the corrected 1946-1951 figures moves two closes: 1949-11-02 (leg S) -> 1949-10-20 (leg A), 1954-05-27 -> 1954-06-11 (leg S)
-chk('C1021: the thirteen opens are the record\'s (RECORD-1021)',[e['open_pub'] for e in S['episodes']][:13],_C1OPENS)
-chk('E22: the thirteen closes are the harness\'s (RECORD-1030/1041)',[e.get('close_pub') for e in S['episodes']][:13],_C1CLOSES)
+chk('C1019: the twelve opens are the record\'s without the job-losers door (RECORD-1019, 1168)',[e['open_pub'] for e in S['episodes']],_C1OPENS)
+chk('E22: the twelve closes (RECORD-1030/1041; 1168: the C1019 opens)',[e.get('close_pub') for e in S['episodes']],_C1CLOSES)
 chk('C1021: every open names its door',[e['open_pub'] for e in S['episodes'] if not str(e.get('open_branch','')).startswith('C1021')],[])
-chk('C1021+E22: the state says version C1021+E22',S.get('version'),'C1021+E22')
+chk('C1019+E22: the state says version C1019+E22',S.get('version'),'C1019+E22')
 chk('E22: the ender ran today (out/e22_state.json)',(json.load(open('out/e22_state.json')).get('today') if os.path.exists('out/e22_state.json') else None),str(S.get('built'))[:10])
 chk('E22: every close names its leg',[e['close_pub'] for e in S['episodes'] if e.get('close_pub') and not str(e.get('close_branch','')).startswith('E22')],[])
 chk('C1021: the starter ran today (out/c1021_state.json)',(json.load(open('out/c1021_state.json')).get('today') or {}).get('day') if os.path.exists('out/c1021_state.json') else None,str(S.get('built'))[:10])
 chk('C1021: the v3.76 starter\'s blocks have left the state',[k for k in ('backstop_opener','activity_opener','concurrence_branch','state_breadth','claims_substitute','vacancy_bridge','payroll_backstop') if k in S],[])
-chk('C1021: the record\'s three heights with the C1021 opens (2007-09 5.9, 2020 5.7, 2024 1.5)',[e.get('damage_score') for e in S['episodes'] if e.get('open_month') in ('2007-11','2020-04','2024-01')],[5.9,5.7,1.5])   # 1167 (25 Nov 2026): 2024 is 1.5 since the G.17 annual revision of 24 Nov 2026 (2023-24 output 'little changed, on net'): production damage 3.08 -> 2.16, grade 4.27 -> 4.06; Paper 1's 1.8 was on the data before it   # 1154 (19 Nov 2026): 2020 is 5.7 since the GDP fall is measured from 2019 Q4 (9.09 per cent; was 7.88 from 2020 Q1, 5.6)
+chk('C1019: the record\'s two heights with the C1019 opens (2007-09 5.9, 2020 5.7; 1168: no 2024 episode)',[e.get('damage_score') for e in S['episodes'] if e.get('open_month') in ('2008-01','2020-04')],[5.9,5.7])   # 1167 (24 Nov 2026): the Federal Reserve's annual revision of industrial production moved 2024 from 1.8 to 1.5   # 1154 (19 Nov 2026): 2020 is 5.7 since the GDP fall is measured from 2019 Q4 (9.09 per cent; was 7.88 from 2020 Q1, 5.6)
 #   # 1041: the 2007-09 episode ends 2009-07-23 (4 more weeks read; grade code untouched)    # E22 (1031): 2020's episode now ends 2020-06-05 (was 2020-05-07), so its grade reads four more weeks: 5.6
 # ---- 6. the data page's leg channels (17 September 2026): every leg the rule arms has a status, every listed channel has a day it is in hand through
 _lf=S.get('leg_feeds',[]); _ls=S.get('leg_status',{}); _L=S['lines']
@@ -322,16 +322,16 @@ for _jp in ('home_tiles.json',):
             if isinstance(_v,str) and _re9.fullmatch(r'\s*'+_PH+r'\s*%?\s*',_v,_re9.I): _ph.append('tiles: %s.%s=%s'%(_t.get('lab'),_k,_v))
 chk('units: no published page prints a placeholder (n/a, NaN, None, null)',_ph,[])
 
-# ---- 1140 (16 Nov 2026; Anthony: "recessions and disturbances are on the same scale"): THE ONE SCALE - the recession line is 3.00 in the state and on the pages (advisory; s2/one_scale.py)
+# ---- 1167 (24 Nov 2026; Anthony: "graded the same way", line 2.00): ONE NUMBER - the grade is the damage and the recession line is 2.00 in the state and on the pages (advisory; s2/one_scale.py)
 try:
-    chk('one scale: every recession day reads 3.00 or more and every other day below 3.00',[d_ for d_,x_,p_ in zip(S['series']['dates'],S['series']['values'],S['series']['phase']) if x_ is not None and ((p_=='open' and x_<3.0) or (p_=='' and x_>=3.0))][:5],[])
-    chk('one scale: the state names its scale (recession line 3.00)',(S.get('scale') or {}).get('line'),3.0)
-    chk('one scale: every recession grades 3.00 or more',[e.get('open_month') for e in S['episodes'] if e.get('grade') is not None and e['grade']<3.0],[])
+    chk('one number: every recession day reads 2.00 or more and every other day below 2.00',[d_ for d_,x_,p_ in zip(S['series']['dates'],S['series']['values'],S['series']['phase']) if x_ is not None and ((p_=='open' and x_<2.0) or (p_=='' and x_>=2.0))][:5],[])
+    chk('one number: the state names its scale (recession line 2.00)',(S.get('scale') or {}).get('line'),2.0)
+    chk('one number: every recession grades 2.00 or more',[e.get('open_month') for e in S['episodes'] if e.get('grade') is not None and e['grade']<2.0],[])
     import subprocess as _sp1140, sys as _sy1140
-    chk('one scale: the State page and the stress map are on the scale',_sp1140.run([_sy1140.executable,'s2/one_scale.py','check'],capture_output=True,text=True).returncode,0)
+    chk('one number: the State page and the stress map are on the scale',_sp1140.run([_sy1140.executable,'s2/one_scale.py','check'],capture_output=True,text=True).returncode,0)
     _dj1140=json.load(open(os.path.join('s2','disturbance','out','chronology.json')))
-    chk('one scale: every disturbance grades below 3.00 and every recession window 3.00 or more',[e['peak'] for e in _dj1140['episodes'] if e.get('grade') is not None and ((e['status'].startswith('disturbance') and e['grade']>=3.0) or (e['status']=='recession' and e['grade']<3.0))],[])
-except Exception as _e1140: chk('one scale: the checks ran',repr(_e1140)[:80],'readable')
+    chk('one number: every disturbance grades below 2.00 or was not graded on a fall of activity, every recession window grades 2.00 or more on a fall of activity (1167 class rule), and each grade is its damage',[e['peak'] for e in _dj1140['episodes'] if e.get('grade') is not None and ((e['status'].startswith('disturbance') and e['grade']>=2.0 and e.get('graded_on')=='activity') or (e['status']=='recession' and (e['grade']<2.0 or e.get('graded_on')!='activity')) or abs(e['grade']-e['damage'])>1e-9)],[])
+except Exception as _e1140: chk('one number: the checks ran',repr(_e1140)[:80],'readable')
 bad=[r for r in R if r[3]=='FAIL']
 print('\n'.join(f'| {n} | {g} | {w} | {s} |' for n,g,w,s in R))
 print(f'\n{len(R)-len(bad)}/{len(R)} PASS')

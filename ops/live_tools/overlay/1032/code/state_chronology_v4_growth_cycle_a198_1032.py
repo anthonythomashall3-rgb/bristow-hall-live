@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+"""1032-A198 (PREREG-1032-a198; Anthony 14 Nov 2026 06:59 PT: 'Go but don't do dc since it's our own construction').
+BH STATE CHRONOLOGY V4: each of the 50 states dated exactly as the nation is (register v3.2), on the Philadelphia Fed state coincident index.
+Deviation of the log index from an HP trend (lambda 133,107.94); Bry-Boschan windows OECD (5, 5, 15) plus floor windows (2, 2, 6) that overlap no OECD window
+and fall 1.0 point or more - the national builder's own functions. Grade = mean of the labour dimension (state unemployment rate) and the output dimension
+(the index by quarter through the national output_dimension); the nation's third dimension, industrial production, has no monthly state measure.
+Status in the national order: open and under 1.0 = open_unsettled; closed and under 1.0 = fails_DD; grade 2.0 or more = recession; a non-recession window
+ending fewer than its min-phase months before a recession window's peak = runup; grade under 0.05 = no_damage; otherwise disturbance.
+Periods = recession + disturbance. A202: the class is read from the grade rounded to two places, as the national builder does (two periods at 2.00 were disturbances before). Provisional = open or trough under 24 months old. Line = running grade inside each period, zero between periods (A206, Anthony 14 Nov 2026 17:23 PT: no plateaus; as the national page, whose damage shows only while an episode is open). No AI."""
+import os, sys, json, numpy as np, pandas as pd
+C = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT = os.path.join(C, 'out'); DI = os.path.expanduser('~/Projects/Disturbance Indicator Data')
+sys.path.insert(0, os.path.join(DI, '10_chronology_site/code')); import disturbance_chronology as dc, damage_dimensions_live_v376 as dd
+CUT = 2.0; NODMG = 0.05
+X = pd.read_excel(os.path.join(C, 'data/philly/coincident-revised.xls'), sheet_name='Indexes'); X = X.set_index(pd.to_datetime(X.iloc[:, 0])).iloc[:, 1:].astype(float)
+STS = [c for c in X.columns if len(c) == 2 and c != 'US']; assert len(STS) == 50 and 'DC' not in STS
+last = X.index[-1]; mdiff = lambda a, b: (a.year - b.year) * 12 + a.month - b.month; rows = []; LINE = {}; URL = {}
+# 1167 (24 Nov 2026; Anthony: one grading rule for every contraction, and the State grade on three dimensions as the nation's): production =
+# the State production index (jobs in manufacturing, mining and utilities times national output per job, benchmarked to BEA's real output
+# of the three industries; collection 1167, PREREG-1167-limit-3, adopted), read by the national production function; every window graded
+# on the fall of the State index itself where it fell 1.0 percent or more, otherwise on its fall against trend; grade = damage; 2.00 = recession.
+SPI = pd.read_csv(os.path.join(C, 'data/spi/spi_state_monthly_benchmarked_1167.csv'), index_col=0, parse_dates=True)
+ACT_MIN = 1.0
+def graded(y, p, te, last):
+    a = y[(y.index >= p - pd.DateOffset(months=6)) & (y.index <= te)]; pl = a.idxmax()
+    b = y[(y.index >= pl) & (y.index <= min(te + pd.DateOffset(months=6), last))]; tl = b.idxmin(); fl = float(100 * (1 - b.min() / a.max()))
+    return (pl, tl, 'activity', fl) if fl >= ACT_MIN else (p, te, 'trend', fl)
+def parts(UR, base, Gq, p, m, Pm=None):
+    ex = (UR[(UR.index >= p) & (UR.index <= m)] - base).clip(lower=0); L = dd.labour_score(float(ex.max()), float(ex.sum())) if len(ex) else 0.0
+    q = dd.production_dimension(Pm, p, m) if Pm is not None and len(Pm[(Pm.index >= p - pd.DateOffset(months=12)) & (Pm.index <= m)]) >= 2 else None
+    return L, dd.output_dimension(Gq, p, m), (float(ex.max()) if len(ex) else 0.0), q
+def grade3(L, o, q): return (L + o['score'] + q['score']) / 3 if q is not None else (L + o['score']) / 2
+for st in STS:
+    y = X[st].dropna(); ly = np.log(y); dev = 100 * (ly - dc.hp(ly, dc.LAMBDA)); w5, _ = dc.windows(dev, 5, 5, 15); w2, _ = dc.windows(dev, 2, 2, 6)
+    fall = lambda p, t: float(dev[p] - (dev[t] if t is not None else dev[p:].min())); cand = [(p, t, 5) for p, t in w5]
+    for p, t in w2:
+        if not any(dc.overlaps(p, t, q, (s if s is not None else last)) for q, s, k in cand if k == 5) and fall(p, t) >= dc.DD_MIN: cand.append((p, t, 2))
+    u = pd.read_csv(os.path.join(DI, '03_data/state/fred_state_ur', f'{st}UR.csv')); UR = pd.Series(u.iloc[:, 1].astype(float).values, index=pd.to_datetime(u.iloc[:, 0])).dropna()
+    Gq = y.resample('QS').mean(); URL[st] = UR.index[-1].strftime('%Y-%m'); R = []
+    for p, t, mp in sorted(cand, key=lambda r: r[0]):
+        te = t if t is not None else last; gp, gt, on, act = graded(y, p, te, last); pre = UR[(UR.index < gp) & (UR.index >= gp - pd.DateOffset(months=12))]; assert len(pre) >= 11, (st, gp)   # 1167: the labour base before the graded months; as the national builder otherwise
+        Pm = SPI[st].dropna() if st in SPI else None
+        base = float(pre.min()); L, o, rise, q = parts(UR, base, Gq, gp, gt, Pm); g = grade3(L, o, q); f = fall(p, t)
+        R.append(dict(st=st, p=p, t=t, te=te, mp=mp, f=f, base=base, L=L, O=o['score'], P=(q['score'] if q is not None else None), pt=o['pt'], ppt=(q['pt'] if q is not None else None), rise=rise, g=g, gp=gp, gt=gt, on=on, act=act, Pm=Pm))
+    for r in R: r['status'] = 'open_unsettled' if (r['t'] is None and r['f'] < dc.DD_MIN) else ('fails_DD' if r['f'] < dc.DD_MIN else ('recession' if (round(r['g'], 2) >= CUT and r['on'] == 'activity') else ''))   # 1167 class rule: a recession needs the activity index itself to fall ACT_MIN percent or more
+    rp = [r['p'] for r in R if r['status'] == 'recession']
+    for r in R:
+        if r['status']: continue
+        r['status'] = 'runup' if any(q > r['te'] and mdiff(q, r['te']) < r['mp'] for q in rp) else ('no_damage' if r['g'] < NODMG else 'disturbance')
+    per = [r for r in R if r['status'] in ('recession', 'disturbance')]; ln = {}
+    for i, r in enumerate(per):
+        v = None; nxt = per[i + 1]['p'] if i + 1 < len(per) else last + pd.DateOffset(months=1)
+        for m in pd.date_range(r['p'], nxt - pd.DateOffset(months=1), freq='MS'):
+            if m <= r['te']:   # 1167: the running grade over the graded months (0 before they begin, the period's grade after they end)
+                if m < r['gp']: v = 0.0
+                elif m == r['te']: v = round(r['g'], 2)   # the trough month reads the period's grade (its graded months may run up to 6 months past the trough)
+                else: L, o, _, q = parts(UR, r['base'], Gq, r['gp'], min(m, r['gt']), r['Pm']); v = round(grade3(L, o, q), 2)
+            ln[m.strftime('%Y-%m')] = v if m <= r['te'] else 0.0
+            if m == r['te']: r['line_at_end'] = v
+        r['line_high'] = max(ln[m.strftime('%Y-%m')] for m in pd.date_range(r['p'], r['te'], freq='MS'))
+    LINE[st] = sorted(ln.items())
+    for r in R:
+        rows.append({'st': st, 'peak': r['p'].strftime('%Y-%m'), 'trough': r['t'].strftime('%Y-%m') if r['t'] is not None else None, 'open': r['t'] is None, 'months': mdiff(r['te'], r['p']),
+                     'dating': 'OECD 5/15' if r['mp'] == 5 else 'floor 2/6', 'status': r['status'], 'class': r['status'] if r['status'] in ('recession', 'disturbance') else '',
+                     'dev_fall_pp': round(r['f'], 2), 'ur_rise_pp': round(r['rise'], 2), 'index_fall_pct': round(r['pt'], 2), 'L': round(r['L'], 2), 'O': round(r['O'], 2),
+                     'P': (round(r['P'], 2) if r['P'] is not None else None), 'production_fall_pct': (round(r['ppt'], 2) if r['ppt'] is not None else None),
+                     'graded_on': r['on'], 'graded_from': r['gp'].strftime('%Y-%m'), 'graded_to': r['gt'].strftime('%Y-%m'), 'activity_fall_pct': round(r['act'], 2), 'grade': round(r['g'], 2),
+                     'line_at_end': r.get('line_at_end'), 'line_high': r.get('line_high'), 'provisional': bool(r['t'] is None or mdiff(last, r['t']) < dc.PROVISIONAL_MONTHS)})
+T = pd.DataFrame(rows); T.to_csv(os.path.join(OUT, 'BH-STATE-CHRONOLOGY-V4-1032.csv'), index=False); P = T[T['class'] != ''].copy()
+json.dump({'through': last.strftime('%Y-%m'), 'unemployment_through': URL, 'states': {st: {'line': LINE[st]} for st in STS}}, open(os.path.join(OUT, 'damage_line_v4_a198_1032.json'), 'w'))
+N = pd.read_csv(os.path.join(DI, '10_chronology_site/out_v3_2_damage_cut/chronology.csv')); idx = pd.period_range('1979-07', last.strftime('%Y-%m'), freq='M'); rec = pd.Series(0.0, index=idx); anyb = pd.Series(0.0, index=idx)
+for st, g in P.groupby('st'):
+    r1 = pd.Series(0, index=idx); r2 = pd.Series(0, index=idx)
+    for r in g.itertuples():
+        m = (idx > pd.Period(r.peak, 'M')) & (idx <= (pd.Period(r.trough, 'M') if isinstance(r.trough, str) else idx[-1])); r2[m] = 1
+        if r.status == 'recession': r1[m] = 1
+    rec += r1; anyb += r2
+rec /= len(STS); anyb /= len(STS); nr = pd.Series(0, index=idx); nd = pd.Series(0, index=idx); eps = []
+for r in N.itertuples():
+    cls = 'recession' if r.status == 'recession' else ('disturbance' if r.status.startswith('disturbance') else None)
+    if cls is None: continue
+    p = pd.Period(r.peak, 'M'); t = pd.Period(r.trough, 'M') if isinstance(r.trough, str) else idx[-1]
+    if t < idx[0]: continue
+    m = (idx > p) & (idx <= t); (nr if cls == 'recession' else nd)[m] = 1
+    eps.append({'window': f"{r.peak} to {r.trough if isinstance(r.trough, str) else 'open'}", 'class': cls, 'national_grade': float(r.grade), 'peak_share_of_states_in_recession': round(float(rec[m].max()), 2), 'peak_share_of_states_in_a_period': round(float(anyb[m].max()), 2)})
+quiet = (nr == 0) & (nd == 0); E = pd.DataFrame(eps); K = P[~P.open]; A7 = json.load(open(os.path.join(OUT, 'trial_state_growth_cycles_a197_1032.json')))
+sh = {'national_recession_months': round(float(anyb[nr == 1].mean()), 3), 'national_disturbance_months': round(float(anyb[nd == 1].mean()), 3), 'quiet_months': round(float(anyb[quiet].mean()), 3)}
+c1 = round(float(rec.corr(nr)), 3); d3 = float((K.line_at_end - K.grade).abs().max())
+out = {'states': len(STS), 'windows': int(len(T)), 'by_status': {k: int(v) for k, v in T.status.value_counts().items()}, 'periods': int(len(P)), 'periods_per_state_median': float(P.groupby('st').size().median()),
+       'periods_per_state_min_max': [int(P.groupby('st').size().min()), int(P.groupby('st').size().max())], 'open_periods': {k: int(v) for k, v in P[P.open].status.value_counts().items()},
+       'open_recessions': sorted(P[P.open & (P.status == 'recession')].st), 'open_disturbances': sorted(P[P.open & (P.status == 'disturbance')].st), 'provisional_periods': int(P.provisional.sum()),
+       'correlation_share_of_states_in_recession_with_national_recession_months': {'v4': c1, 'trial_A197': A7['correlation_share_of_states_in_recession_with_national_recession_months']},
+       'correlation_share_of_states_in_a_period_with_nation_in_a_period': round(float(anyb.corr(((nr + nd) > 0).astype(int))), 3),
+       'rank_correlation_national_grade_with_peak_share_in_recession_by_episode': round(float(E.national_grade.corr(E.peak_share_of_states_in_recession, method='spearman')), 3),
+       'mean_share_of_states_in_recession': {'national_recession_months': round(float(rec[nr == 1].mean()), 3), 'national_disturbance_months': round(float(rec[nd == 1].mean()), 3), 'quiet_months': round(float(rec[quiet].mean()), 3)},
+       'mean_share_of_states_in_a_period': sh, 'line_high_above_cut_in_a_disturbance': int(((P.status == 'disturbance') & (P.line_high >= CUT)).sum()), 'line_not_at_its_high_at_the_end': int((P.line_high > P.line_at_end + 0.005).sum()),
+       'predictions': {'P1_corr_0.70_or_more': bool(c1 >= 0.70), 'P2_disturbance_minus_quiet_0.20_or_more': bool(sh['national_disturbance_months'] - sh['quiet_months'] >= 0.20), 'P3_line_equals_grade_at_trough': bool(d3 <= 0.01), 'P3_largest_difference': round(d3, 4), 'P4_no_period_under_0.05': bool((P.grade >= NODMG).all())},
+       'episodes': eps}
+json.dump(out, open(os.path.join(OUT, 'state_chronology_v4_a198_1032.json'), 'w'), indent=1); print(json.dumps(out, indent=1))

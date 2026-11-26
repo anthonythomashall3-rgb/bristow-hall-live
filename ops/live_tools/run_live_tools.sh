@@ -46,6 +46,11 @@ for d in 1032_state_recession_indicator_all_states_dc_2026-11-09:1032 1052_stres
     cmp -s "$OPS/overlay/${d##*:}/$f" "$P/${d%%:*}/$f" || { mkdir -p "$(dirname "$P/${d%%:*}/$f")" && cp "$OPS/overlay/${d##*:}/$f" "$P/${d%%:*}/$f" && say "overlay: $f"; }
   done
 done
+# 1167 (24 Nov 2026, limit 3 of Paper 3): the State grade's third dimension, production. The State production index is refreshed (its inputs from 2019 on,
+# rebuilt by the collection's own scripts in 1032 data/spi/work, carried in the overlay) and replaced only if its checks hold; never stops the run
+if [ "${MODE:-full}" != "parity" ]; then
+  step "State production index (1167)" $PY "$OPS/spi_refresh_1167.py" || say "State production index refresh returned non-zero (held file kept)"
+fi
 # 1150 (19 Nov 2026): county jobs by industry (QCEW) for the stress map's county panel, kept to the newest quarter; never stops the run
 # (in a parity run only when none is held yet: the first run reads 1990 on from the BLS files)
 if [ "${MODE:-full}" != "parity" ] || ! ls "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/data/qcew_industry_county/"*.csv.gz >/dev/null 2>&1; then

@@ -1,0 +1,16 @@
+episode,cls,confirmed,months_after_peak,months_after_trough
+1960-02 to 1961-02,recession,1962-04,27,15
+1962-04 to 1964-01,disturbance,1964-12,33,12
+1966-07 to 1967-07,disturbance,1968-12,30,18
+1969-08 to 1971-08,recession,1972-01,30,6
+1973-11 to 1975-06,recession,1976-07,33,14
+1979-03 to 1980-07,recession,1981-09,31,15
+1980-12 to 1982-12,recession,1984-02,39,15
+1984-11 to 1987-01,disturbance,1988-03,41,15
+1989-01 to 1991-12,recession,1993-02,50,15
+1995-01 to 1996-01,disturbance,1997-03,27,15
+2000-04 to 2003-04,recession,2004-06,51,15
+2008-01 to 2009-06,recession,2010-08,32,15
+2012-04 to 2013-07,disturbance,2014-02,23,8
+2014-12 to 2016-05,disturbance,2018-02,39,22
+2018-12 to 2020-04,recession,2021-06,31,15
