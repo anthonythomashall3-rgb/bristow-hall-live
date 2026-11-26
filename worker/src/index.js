@@ -37,7 +37,7 @@
 
 // the deployed code's version: every workflow run compares it with the repository's copy of this file, so a starter
 // redeployed from an old clone is caught (22 September 2026, collection 306)
-const VERSION = '2026-11-19 (bristow-hall-live; C1021 starter; queue-stall recovery; ghost runs passed; day cap 40)';   // 1022: the starter for the C1021 version of the tool
+const VERSION = '2026-11-26 (bristow-hall-live; C1021 starter; queue-stall recovery; ghost runs passed; day cap 40; DOL State files watched)';   // 1022: the starter for the C1021 version of the tool
 const REPO = 'anthonythomashall3-rgb/bristow-hall-live';
 const WORKFLOW = 'update.yml';
 const SITE = 'https://bristowhallsystem.pages.dev';   // 1155: the site's address since 18 Nov 2026 (the old one only redirects)
@@ -379,6 +379,62 @@ async function decide(env, now, act) {
   return out;
 }
 
+// 1167f (26 Nov 2026; Anthony: "within minutes of the data release"): THE DEPARTMENT'S STATE FILES, WATCHED. The ETA 539 (the State weekly
+// claims, due Thursday 3:55 PM ET; the week of 21 Nov was still not posted on 26 Nov) and the ETA 5159 (monthly, no announced day) reached the
+// State page and the stress map only at the next live-tools run, up to half a day later. Every five minutes the Worker reads the last line
+// of each file (a 4 KB range request) and, when its date is newer than the last one seen, starts on main what reads it (live-tools.yml;
+// for the 539 also update.yml, whose breadth object reads it) - unless a run of that workflow is queued, or started after the file's
+// Last-Modified (that run reads the new file). The date seen is kept in KV (a
+// write only when it changes); a refused start is alerted once and tried again at the next check.
+const DOL_FILES = { ar539: 'https://oui.doleta.gov/unemploy/csv/ar539.csv', ar5159: 'https://oui.doleta.gov/unemploy/csv/ar5159.csv' };
+const DOL_MIN_FIELDS = { ar539: 20, ar5159: 40 };
+const WAITING = ['queued', 'pending', 'waiting', 'requested'];
+// what each file feeds: the live tools (the State page, the stress map) read both; the update's breadth object reads the 539 (s2/state539_live.py)
+const DOL_TARGETS = { ar539: [['live-tools.yml', { mode: 'full' }], ['update.yml', { mode: 'full', origin: 'dol' }]], ar5159: [['live-tools.yml', { mode: 'full' }]] };
+
+async function dolTail(name) {
+  const r = await fetch(DOL_FILES[name], { headers: { 'Range': 'bytes=-4096', 'User-Agent': 'bhr-dispatch', 'Cache-Control': 'no-cache' } });
+  if (r.status !== 206) { try { await r.body?.cancel(); } catch (e) { /* nothing */ } return { error: `HTTP ${r.status}` }; }
+  const lines = (await r.text()).split('\n').map(x => x.trim()).filter(Boolean);
+  const f = (lines[lines.length - 1] || '').split(',');
+  const day = (f[1] || '').replace(/"/g, '');
+  if (f.length < DOL_MIN_FIELDS[name] || !/^\d{4}-\d\d-\d\d$/.test(day)) return { error: 'no whole last line' };
+  return { day, modified: r.headers.get('last-modified') || '' };
+}
+
+async function watchDol(env, now) {
+  const out = {}; const started = {};
+  for (const name of Object.keys(DOL_FILES)) {
+    let t;
+    try { t = await dolTail(name); } catch (e) { out[name] = `not read (${String(e).slice(0, 80)})`; continue; }
+    if (t.error) { out[name] = `not read (${t.error})`; continue; }
+    const seen = await kvGet(env, `dol_tail:${name}`);
+    if (!seen) { await kvPut(env, `dol_tail:${name}`, t.day); out[name] = `first read: ${t.day}`; continue; }
+    if (t.day <= seen) { out[name] = `${t.day} (seen)`; continue; }
+    const mod = Date.parse(t.modified) || now.getTime(); const said = []; let refused = false;
+    for (const [wf, inputs] of DOL_TARGETS[name]) {
+      let covered = !!started[wf];
+      if (!covered) {
+        try {
+          const runs = (await (await gh(env, `/repos/${REPO}/actions/workflows/${wf}/runs?branch=main&per_page=10`)).json()).workflow_runs || [];
+          covered = runs.some(x => WAITING.includes(x.status) || (x.status === 'in_progress' && Date.parse(x.run_started_at || x.created_at) >= mod));
+        } catch (e) { covered = false; }
+      }
+      if (covered) { said.push(`${wf}: a run reads it already`); continue; }
+      const d = await gh(env, `/repos/${REPO}/actions/workflows/${wf}/dispatches`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: 'main', inputs }),
+      });
+      if (d.status === 204) { started[wf] = true; said.push(`${wf} started`); continue; }
+      refused = true; said.push(`GitHub refused to start ${wf}: ${d.status}`);
+      await alertOnce(env, `dolwatch-${d.status}:${name}:${wf}:${t.day}`, 86400, 'a run for the new Department file could not be started',
+        `The Department posted ${name}.csv through ${t.day}; GitHub refused to start ${wf} (${d.status}). The Worker tries again every five minutes.`, now);
+    }
+    if (!refused) await kvPut(env, `dol_tail:${name}`, t.day);
+    out[name] = `${t.day} new (was ${seen}): ${said.join('; ')}`;
+  }
+  return out;
+}
+
 export default {
   async scheduled(event, env, ctx) {
     const now = new Date(event.scheduledTime);
@@ -393,6 +449,7 @@ export default {
       try { s = await siteState(now); } catch (e) { return; }
       if (!(s.due && (!s.built || s.built < s.due) && now - nyDate(s.due) < 5 * 60000)) return;
     }
+    const watch = five ? watchDol(env, now).catch(e => ({ error: String(e).slice(0, 200) })) : Promise.resolve(null);   // 1167f: beside the decision
     ctx.waitUntil(decide(env, now, true)
       .catch(async e => {   // v3.67 (22 September 2026, collection 295): a crash of the starter is alerted, once in six hours, not only logged
         const msg = `ERROR ${String(e && e.stack || e).slice(0, 500)}`;
@@ -400,6 +457,7 @@ export default {
         return { now: ny(now), decision: msg };
       })
       .then(async o => {
+        const w = await watch; if (w) o.dol_watch = w;   // 1167f: what the Department's files showed, in the heartbeat
         o.tick_utc = new Date().toISOString();
         console.log(JSON.stringify(o));
         if (five || /started a run|started it again/.test(o.decision || ''))
@@ -417,6 +475,7 @@ export default {
     let last = null, age = null;
     try { last = JSON.parse(await kvGet(env, 'last_tick')); age = Math.round((Date.now() - Date.parse(last.tick_utc)) / 60000); } catch (e) { /* none yet */ }
     return new Response(JSON.stringify({ worker: 'bhr-dispatch', version: VERSION, what: 'starts the Bristow-Hall update at the release slots', ...o,
+      dol_watch: { ar539: await kvGet(env, 'dol_tail:ar539'), ar5159: await kvGet(env, 'dol_tail:ar5159') },   // 1167f: the newest date seen in each file
       last_tick: last, last_tick_minutes_ago: age, heartbeat: age === null ? 'none recorded yet' : (age <= 15 ? 'ok' : 'LATE') }, null, 1),
       { headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' } });
   },
