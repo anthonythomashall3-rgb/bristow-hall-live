@@ -4,9 +4,9 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-25",
- "checked_at": "2026-11-25 23:58 UTC",
- "seconds": 4.9,
- "source_calls": 5,
+ "checked_at": "2026-11-26 00:02 UTC",
+ "seconds": 6.0,
+ "source_calls": 8,
  "source_errors": {},
  "counts": {
   "home": {
@@ -4878,7 +4878,7 @@
    "label": "war surge",
    "check": "value",
    "status": "WARN",
-   "value": 4.42,
+   "value": 4.33,
    "period": null,
    "series": null,
    "transform": null,

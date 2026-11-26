@@ -1,5 +1,5 @@
 {
- "built": "2026-11-25T23:58:21Z",
+ "built": "2026-11-26T00:02:23Z",
  "size": [
   1200,
   760
@@ -43,11 +43,11 @@
   },
   "/forecaster/": {
    "png": "/forecaster/card.png",
-   "sha256": "5c6f3159f7b888a0a0ee24b3c6178db128bc8506adc60971c5a5947abc80b981",
+   "sha256": "faf66901ecfb7971609cfe2472a8dd18cd4d3157709c563d7b446e51736c2751",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1651,
+   "colours": 1645,
    "share_not_main": 0.2199
   },
   "/time-machine/": {

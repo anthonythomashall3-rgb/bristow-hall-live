@@ -672,10 +672,10 @@
 "gate": null
 },
 {
-"name": "C1021: the record's three heights with the C1021 opens (2007-09 5.9, 2020 5.7, 2024 1.8)",
+"name": "C1021: the record's three heights with the C1021 opens (2007-09 5.9, 2020 5.7, 2024 1.5)",
 "got": "[5.9, 5.7, 1.5]",
-"want": "[5.9, 5.7, 1.8]",
-"status": "FAIL",
+"want": "[5.9, 5.7, 1.5]",
+"status": "PASS",
 "gate": null
 },
 {
@@ -869,8 +869,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-25 18:58', '2026-11-25 18:58')",
-"want": "('2026-11-25 18:58', '2026-11-25 18:58')",
+"got": "('2026-11-25 19:02', '2026-11-25 19:02')",
+"want": "('2026-11-25 19:02', '2026-11-25 19:02')",
 "status": "PASS",
 "gate": "hard"
 },

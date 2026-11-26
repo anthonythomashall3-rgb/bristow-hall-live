@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-25 18:58",
+ "built_at": "2026-11-25 19:02",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-25T23:58:26Z",
+ "generated_utc": "2026-11-26T00:02:28Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -1678,7 +1678,7 @@
      "utc": "2026-12-31T20:55:00Z"
     }
    ],
-   "waiting_since_due": "2026-11-23 08:30"
+   "waiting_since_due": null
   },
   {
    "agrees_with_build": true,
@@ -1736,7 +1736,7 @@
      "utc": "2026-12-31T20:55:00Z"
     }
    ],
-   "waiting_since_due": "2026-11-23 08:30"
+   "waiting_since_due": null
   },
   {
    "agrees_with_build": true,
