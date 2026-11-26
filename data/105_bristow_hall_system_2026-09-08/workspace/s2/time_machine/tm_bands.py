@@ -11,7 +11,7 @@ src = os.path.join(H, '..', 'disturbance', 'out', 'chronology.json')
 out = os.path.abspath(os.path.join(H, '..', '..', '..', 'site', 'public', 'time-machine', 'bands.json'))
 j = json.load(open(src, encoding='utf-8'))
 nz = lambda x: None if x in (None, 'None', '') else x
-bands = [['R' if r.get('source') == 'NBER' else 'RB', r['peak'], nz(r.get('trough'))] for r in j['recessions']]
+bands = [['R', r['peak'], nz(r.get('trough'))] for r in j['recessions'] if r.get('source') == 'NBER']   # 1182: NBER's recessions only
 bands += [['D', e['peak'], nz(e.get('trough')), float(e['grade']) if nz(e.get('grade')) else None]
           for e in j['episodes'] if str(e.get('status', '')).startswith('disturbance')]
 assert sum(1 for b in bands if b[0] == 'R') >= 12 and len(j['deviation']['date']) == len(j['deviation']['dev']) > 900
