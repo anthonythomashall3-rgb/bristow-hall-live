@@ -1,10 +1,14 @@
 {
  "day": "2026-11-25",
  "requests": {
-  "bls_v2_key1": 25
+  "bls_v2_key1": 25,
+  "bls_v2_test": 1,
+  "bls_v1": 1
  },
  "alerted": {},
- "refused": {},
+ "refused": {
+  "bls_v2_test": "Request could not be serviced, as the daily threshold for total number of requests allocated to the user with registration key [redacted] has been reached."
+ },
  "hourly": {
   "bls_v2_key1": {
    "2026-11-25T00": 1,
@@ -19,6 +23,12 @@
    "2026-11-25T21": 2,
    "2026-11-25T23": 2,
    "2026-11-26T00": 2
+  },
+  "bls_v2_test": {
+   "2026-11-26T00": 1
+  },
+  "bls_v1": {
+   "2026-11-26T00": 1
   }
  }
 }

@@ -4,10 +4,14 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-25",
- "checked_at": "2026-11-26 00:02 UTC",
- "seconds": 6.0,
- "source_calls": 8,
- "source_errors": {},
+ "checked_at": "2026-11-26 00:16 UTC",
+ "seconds": 67.3,
+ "source_calls": 84,
+ "source_errors": {
+  "bls_sources": {
+   "LAUCN060370000000003": "bls_v1"
+  }
+ },
  "counts": {
   "home": {
    "PASS": 28
@@ -390,11 +394,11 @@
    "label": "Bristow-Hall Rule, recession indicator",
    "check": "matches the detector",
    "status": "PASS",
-   "value": 0.857,
+   "value": 0.571,
    "period": "2026-11-25",
    "series": "BHRREALTIME",
    "transform": "the detector reading",
-   "expected": 0.857,
+   "expected": 0.571,
    "detail": ""
   },
   {
@@ -3318,7 +3322,7 @@
    "label": "reading series: last day",
    "check": "phantom",
    "status": "PASS",
-   "value": 0.857,
+   "value": 0.571,
    "period": "2026-11-25",
    "series": "BHRREALTIME",
    "transform": null,
@@ -3330,7 +3334,7 @@
    "label": "reading series: last day",
    "check": "cadence",
    "status": "PASS",
-   "value": 0.857,
+   "value": 0.571,
    "period": "2026-11-25",
    "series": null,
    "transform": null,
