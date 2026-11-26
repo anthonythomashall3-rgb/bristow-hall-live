@@ -40,6 +40,12 @@ def main():
         if hd and re.search(r'<header class="bh">.*?</header>', t, re.S):
             nav = hd.group(0).replace(' aria-current="page"', '').replace('href="/stress-map/"', 'href="/stress-map/" aria-current="page"')
             t = re.sub(r'<header class="bh">.*?</header>', lambda _: nav, t, count=1, flags=re.S)
+    # 26 Nov 2026 (1182; Anthony: "the 2024 recession shouldnt be shown"): the page built on the Mac still carries the program-dated
+    # 2024 band (kind RB), its legend entry and its sentence. They are taken out here, whatever page.html holds.
+    t = re.sub(r'\["RB",[^\]]*\],?', '', t)
+    t = re.sub(r"<span>'\+sw\('RB'\)\+'[^<]*</span>", '', t)
+    t = re.sub(r"\(NBER dates gray; the program's own dating from 2024 hatched, as on the live page: [^)]*\)", '(NBER dates gray)', t)
+    if (J.get('v2') or {}).get('bands'): J['v2']['bands'] = [b for b in J['v2']['bands'] if b[0] != 'RB']
     os.makedirs(os.path.dirname(PAGE), exist_ok=True)
     t = t.replace('Bristow-Hall Business Cycle Program', 'Bristow-Hall System')      # the site's name since 18 November 2026 (1141); the page is built outside this step
     open(PAGE, 'w', encoding='utf-8').write(t)

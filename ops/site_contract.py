@@ -7,7 +7,8 @@ Checks, from ops/site_contract.json:
  3. the home page carries a card for every listed tool;
  4. every menu link and home-card link on every page leads to a built page or a redirect;
  5. files that must be rebuilt by every run (the forecaster's state) are fresh;
- 6. nothing on the live site's menu is missing from this build unless the contract retires it (so a tool cannot vanish by accident).
+ 6. nothing on the live site's menu is missing from this build unless the contract retires it (so a tool cannot vanish by accident);
+ 7. no built page or data file draws a recession outside the NBER's twelve.
 Standard library only; no AI. Usage: python3 ops/site_contract.py --site DIR [--no-live]"""
 import os, re, sys, json, glob, datetime as dt, urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -77,6 +78,12 @@ if '--no-live' not in sys.argv and home:
         for g in sorted(gone): bad.append('on the live menu but not in this build: "%s" (retire it in ops/site_contract.json if meant)' % g)
     except Exception as e:
         print('site contract: live menu not read (%s); the other checks stand' % e)
+
+# 7. (26 Nov 2026, 1182; Anthony: "the 2024 recession shouldnt be shown") no built page or data file draws a recession the NBER has not dated.
+for f in glob.glob(os.path.join(SITE, '**', '*.html'), recursive=True) + glob.glob(os.path.join(SITE, '**', '*.json'), recursive=True):
+    t = read(f)
+    for s_ in ('["RB"', '"source":"Paper 1"', '"source": "Paper 1"'):
+        if s_ in t: bad.append('/%s draws a recession outside the NBER\'s twelve (%s)' % (os.path.relpath(f, SITE), s_))
 
 if bad:
     print('HOLD site contract: %d failure(s) - not published' % len(bad))

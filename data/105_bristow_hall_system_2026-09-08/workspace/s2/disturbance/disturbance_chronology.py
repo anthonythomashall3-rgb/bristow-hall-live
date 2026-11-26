@@ -367,7 +367,7 @@ def main_v4(a, data, ser):
                         recessions='NBER', confirm_after_trough_months=v4.WAIT, provisional_months=PROVISIONAL_MONTHS,
                         recession_line=DAMAGE_CUT, recession_needs_activity_fall_pct=ACT_MIN),
              live_reading=live,
-             recessions=[dict(peak=a_, trough=b_, source='NBER' if (a_, b_) in NBER else 'Paper 1') for a_, b_ in RECESSIONS],
+             recessions=[dict(peak=a_, trough=b_, source='NBER') for a_, b_ in NBER],   # 26 Nov 2026 (1182): the 2024 recession is not shown (the v4 path; 317 fixed the v3.2 path only)
              episodes=rows, deviation=path.to_dict('list'))
     json.dump(J, open(os.path.join(a.out, 'chronology.json'), 'w'), indent=1)
     pd.set_option('display.width', 250)
