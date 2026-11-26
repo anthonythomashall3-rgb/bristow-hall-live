@@ -139,6 +139,13 @@ def alfred_first(series,start='2000-01-01'):
     if 'observations' not in d: raise RuntimeError(f'ALFRED error for {series}: {str(d)[:80].replace(KEY,"***")}')
     obs=[o for o in d['observations'] if o['value']!='.']
     return pd.DataFrame({'first':[float(o['value']) for o in obs],'release':[o['realtime_start'] for o in obs]},index=pd.to_datetime([o['date'] for o in obs])).sort_index()
+def alfred_asof(series,obs,day):
+    """1166 (24 Nov 2026): the value of observation `obs` that ALFRED held on `day` (the vintage in force that day), or None"""
+    url=f'https://api.stlouisfed.org/fred/series/observations?series_id={series}&api_key={KEY}&file_type=json&realtime_start={day}&realtime_end={day}&observation_start={obs}&observation_end={obs}'
+    d=_fred_call(url,40,series)
+    if not d or 'observations' not in d: return None
+    v=[o['value'] for o in d['observations'] if o['value']!='.']
+    return float(v[-1]) if v else None
 def backup(path):
     if not os.path.exists(path): return
     dst=os.path.join(BK,os.path.basename(path))
@@ -307,10 +314,18 @@ try:
     for x in rows.values():                    # a release carries the insured week seven days before its claims week
         if not x['iu_week_ended'] and x['ic_week_ended']: x['iu_week_ended']=(pd.Timestamp(x['ic_week_ended'])-pd.Timedelta(days=7)).strftime('%Y-%m-%d')
         if not x['ic_week_ended'] and x['iu_week_ended']: x['ic_week_ended']=(pd.Timestamp(x['iu_week_ended'])+pd.Timedelta(days=7)).strftime('%Y-%m-%d')
+        # 1166 (24 Nov 2026): the prior week's initial claims as revised in this release - ALFRED's ICSA vintage in force on the
+        # release day for the week before, the figure the Department prints (427 of 427 cells of 2009-2026 agree, collection 1166).
+        # Every row this path added since 10 Sep 2026 had it empty.
+        if x['ic_week_ended'] and not x['icsa_prev_rev']:
+            try:
+                _pv=alfred_asof('ICSA',(pd.Timestamp(x['ic_week_ended'])-pd.Timedelta(days=7)).strftime('%Y-%m-%d'),x['release_date'])
+                if _pv is not None: x['icsa_prev_rev']=str(_pv)
+            except Exception as _e: say(f"first prints: the prior week's revised figure in the release of {x['release_date']} not read ({_e})")
     rows=list(rows.values())
     if rows:
         backup(C45); N=pd.concat([N,pd.DataFrame(rows)],ignore_index=True); N['_rd']=pd.to_datetime(N.release_date); N=N.sort_values(['_rd','release']).drop(columns='_rd'); N.to_csv(C45,index=False)
-        say(f'first prints: {len(rows)} release(s) appended to collection 45 from ALFRED initial releases: {[(x["release_date"],x["ic_week_ended"],x["icsa"],x["iu_week_ended"],x["iur_sa"]) for x in rows]}')
+        say(f'first prints: {len(rows)} release(s) appended to collection 45 from ALFRED initial releases: {[(x["release_date"],x["ic_week_ended"],x["icsa"],x["icsa_prev_rev"],x["iu_week_ended"],x["iur_sa"]) for x in rows]}')
     else: say(f'first prints: collection 45 already carries every week ALFRED has (through {A.index.max().date()}, released {A["release"].iloc[-1]})')
 except _Skip as e: SKIPPED.append('first prints')
 except Exception as e: say(f'first prints: NOT extended ({e})')
@@ -321,10 +336,23 @@ try:
     dol_press_extend(C45,say)
 except _Skip as e: SKIPPED.append('DOL release')
 except Exception as e: say(f'DOL release: NOT read ({e})')
+# 1167 (24 Nov 2026): THE MERGED FIRST-PRINT TABLE, NOW. The starter (s2/c1021.py), the home tiles, Tool 4 and the Time Machine read
+# cache/national_first_prints_1985_live.csv before bhs_build.py rewrites it; on a release run that takes the week from the Department's
+# release (above, 8:30 AM, before FRED and ALFRED) they would read last build's table without it. Written here the same way as the build.
+try:
+    sys.path.insert(0,os.path.join(os.getcwd(),'s2')); import first_prints_merged as _fpm
+    _fpm_r=_fpm.write(os.getcwd())
+    if _fpm_r=='written': say('first prints: the merged table (cache/national_first_prints_1985_live.csv) rewritten with this run\'s weeks, before its readers run')
+except Exception as e: say(f'first prints: the merged table NOT rewritten here ({e}); bhs_build.py writes it at the build')
 # ---- the search week (v3.27): Google searches for unemployment, daily, stitched onto the history (collection 108) ----
 try:
     import subprocess
     _c108=os.path.join(MNT,'108_high_frequency_speed_2026-09-10')
+    # 1167 (24 Nov 2026): a release-slot run pulls the search week BEFORE the release, while it waits (update.yml "before the release"):
+    # this run's pull is that one, never a second one on the release's critical path
+    try: _pre=open(os.path.join('cache','search_week_pulled_run')).read().strip()
+    except Exception: _pre=''
+    if _pre and _pre==os.environ.get('GITHUB_RUN_ID',''): raise _Skip('pulled before the release in this run (out/search_week_pre.out)')
     if not FULL:
         _lastd=_last_date_of(os.path.join(_c108,'google_trends','live','unemp_stitched_daily.csv')) or ''
         if _lastd>=(datetime.date.today()-datetime.timedelta(days=1)).isoformat(): raise _Skip('history through '+_lastd)
@@ -572,7 +600,14 @@ sp_path=os.path.join(W,'lab','speed2','data','sp500_daily_yahoo.csv')
 sp=pd.read_csv(sp_path,index_col=0,parse_dates=True).iloc[:,0]
 from zoneinfo import ZoneInfo
 # only settled closes: today's row is a live price until the market has closed (4:00 ET; the feed settles by 4:15)
-_ny=datetime.datetime.now(ZoneInfo('America/New_York')); _cut=pd.Timestamp(_ny.date() if (_ny.hour,_ny.minute)>=(16,15) else _ny.date()-datetime.timedelta(days=1))
+_ny=datetime.datetime.now(ZoneInfo('America/New_York'))
+# 1166 (23 Nov 2026): on the NYSE's 1:00 PM closes (the day after Thanksgiving; Christmas Eve and July 3 from Monday to Thursday) the close settles by 1:15
+_d0=_ny.date(); _early=(_d0.month==11 and _d0.weekday()==4 and 23<=_d0.day<=29) or ((_d0.month,_d0.day) in ((12,24),(7,3)) and _d0.weekday()<=3)
+# 1167b (25 Nov 2026; Anthony: "within minutes of the data release"): a run at the close's release slot whose wait found the feed's close settled
+# (s2/publisher_first.py spx_close: after the close, unchanged for 60 s; update.yml sets BHS_SPX_SETTLED to that day) takes today's close
+# from the close on; the 4:20 PM run and FRED's official close correct it as before
+_settled=os.environ.get('BHS_SPX_SETTLED','')==_ny.date().isoformat() and (_ny.hour,_ny.minute)>=((13,0) if _early else (16,0))
+_cut=pd.Timestamp(_ny.date() if ((_ny.hour,_ny.minute)>=((13,15) if _early else (16,15)) or _settled) else _ny.date()-datetime.timedelta(days=1))
 ys=pd.Series(dtype=float)
 r=subprocess.run(['curl','-sSL','-m','40','-A','Mozilla/5.0','https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=3mo&interval=1d'],capture_output=True,text=True)
 try:

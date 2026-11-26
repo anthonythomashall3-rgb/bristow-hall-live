@@ -118,7 +118,8 @@ for _sid,(_col,_wk,_lag) in (('ICNSA',('icnsa','ic_week_ended',5)),('CCNSA',('iu
     chk(f'feed value date: {_sid} shown is the newest week in its source',(_FV.get(_sid) or {}).get('date'),str(_nw.date()) if _nw is not None else None)
     chk(f'feed value date: {_sid} shown value is that week\'s first print',_shown1052[_sid],'{:,.0f}'.format(_nv) if _nv is not None else None)
     _age=(pd.Timestamp(TODAY)-_nw).days if _nw is not None else None
-    chk(f'feed value date: {_sid} newest week within the weekly cadence',_age,f'{_lag}-{_lag+9} days',ok=_age is not None and _lag<=_age<=_lag+9)
+    # 1167 (25 Nov 2026): a release a holiday moves to Wednesday comes a day early (initial claims 4 days after their week, insured 11)
+    chk(f'feed value date: {_sid} newest week within the weekly cadence',_age,f'{_lag-1}-{_lag+9} days',ok=_age is not None and _lag-1<=_age<=_lag+9)
 # the route's insured-unemployment reading is labelled with the week it was computed for, and that week is the newest week held
 # (a reading carried over a missing base week shows its own, older week - and fails here, noted, until the base week is in hand)
 try:

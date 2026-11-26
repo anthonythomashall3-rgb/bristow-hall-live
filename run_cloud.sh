@@ -34,6 +34,15 @@ mkdir -p out cache cache/surveys cache/closers ../live ../site/public
 # read here before this run's build replaces it - the same file, for the same reason, as the call alert below.
 [ -f ../site/public/bhs_state.json ] && cp ../site/public/bhs_state.json cache/last_deployed_state.json || true
 MODE="${BHS_MODE:-full}"    # full | build | site (20 September 2026; Anthony: "make these processes as fast as possible")
+# 1167 (24 Nov 2026): tests of the faster build, on a test branch only (update.yml passes OPS_SIMULATE off main alone): memo_cold - the closers
+# computed from an empty store, one after another; memo_cold_warm - from an empty store with the warmers; serial_build - the starter, the
+# ender and the build one after another (as before 1167). Each writes the same files, so two runs are compared file for file.
+case "${OPS_SIMULATE:-}" in
+  memo_cold)      export BHS_MEMO_DIR="cache/closers_cold_${GITHUB_RUN_ID:-local}" BHS_MEMO_WARM=0 ;;
+  memo_cold_warm) export BHS_MEMO_DIR="cache/closers_cold_${GITHUB_RUN_ID:-local}" BHS_MEMO_WARM=1 ;;
+  serial_build)   export BHS_SERIAL_BUILD=1 BHS_MEMO_WARM=0 ;;
+  profile_build)  export BHS_PROFILE=1 BHS_MEMO_DIR="cache/closers_cold_${GITHUB_RUN_ID:-local}" BHS_MEMO_WARM=0 ;;   # bhs_build.py under cProfile from an empty store (out/bhs_build.prof)
+esac
 # THE RELEASE CALENDAR, ONCE A MONTH (21 September 2026, collection 278). bhs_calendar_fetch.py reads FRED's calendars for
 # the jobs report, JOLTS, housing starts and the weekly claims. The Mac ran it at the first run of each month and this
 # runner never did, so the cloud went by the calendar the bundle carried (fetched 14 September) and the usual-timing
@@ -60,20 +69,47 @@ else
   # the v3.76 starter's pre-build jobs (s2/backstop.py as an opener, s2/activity_opener.py, s2/state_breadth.py) no longer run.
   # THE C1021 STARTER (s2/c1021.py): the pillars, the calls and today's reading from first prints and vintages, before the build.
   # It MUST succeed: a starter that cannot read its inputs stops the run rather than publish a page without the alarm.
-  python3 s2/c1021.py
+  # v3.73 (23 September 2026, collection 333; collection 331): the committee watch, once a day; a dating the chronology file lacks raises a flag, moves nothing; never fails the run
+  # (1167: before the starter now; it reads and writes nothing the starter, the ender or the build's walk uses)
+  if [ "$(cat cache/chronology_watch_on 2>/dev/null)" != "$(date +%F)" ]; then python3 s2/chronology_watch.py && date +%F > cache/chronology_watch_on || true; fi
+  # 1116g (17 November 2026): FRED's release calendar is asked before the build as well (the detector's next G.17 day reads it)
+  # (1167: before the starter now, so the build that starts beside it reads this run's calendar; a release slot's run asked it before the release,
+  # and that ask is waited for first, at most 60 s, so the two never write the cache at once)
+  if [ -n "${RUNNER_TEMP:-}" ] && [ -f "$RUNNER_TEMP/pre_calendar.pid" ]; then
+    PC=$(cat "$RUNNER_TEMP/pre_calendar.pid"); for i in $(seq 1 600); do kill -0 "$PC" 2>/dev/null || break; sleep 0.1; done
+    tail -2 "$RUNNER_TEMP/pre_calendar.log" 2>/dev/null || true
+  fi
+  python3 "$HERE/ops/calendar_refresh.py" || true
   # E22 (1031, 9 November 2026; Anthony: "lets port e22"): THE ENDER (s2/e22.py) after the starter: C1021's opens, E22's closes, the closing reading.
   # If it fails, the run does NOT stop (1031b, 9 Nov 2026: the starter's alarm must keep publishing): the alert goes out on every channel,
   # the ender's last state (out/e22_state.json, committed by the last good run) stands, and the watchdog reports 'ENDER DID NOT RUN' each run
   # until it runs; with no last state at all the run stops.
-  if ! python3 s2/e22.py; then
-    bash s2/alert.sh 'ENDER FAILED' "s2/e22.py failed on run ${GITHUB_RUN_ID:-local}; the ender's last state stands ($(python3 -c "import json;print(json.load(open('out/e22_state.json')).get('today'))" 2>/dev/null || echo none))" || true
-    test -f out/e22_state.json && test -f cache/e22/closing_daily.csv || { echo 'E22: no last state to stand on - the run stops'; exit 1; }
+  # 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): THE BUILD BESIDE THE STARTER AND THE ENDER. bhs_build.py spends its first
+  # 30 to 100 s on the v3.76 walk's closers, which read none of the starter's or the ender's files; it now starts with them and waits, before it
+  # reads out/c1021_state.json, until both have finished (BHS_STARTER_DONE_FILE: "0" when the starter succeeded and the ender's state stands).
+  # A starter that fails stops the run as before, and the build never reads a state this run did not make. BHS_SERIAL_BUILD=1: one after another.
+  TMPD="${RUNNER_TEMP:-$PWD/out}"; DONE_F="$TMPD/.starter_ender_done"; BLOG="$TMPD/bhs_build.log"; rm -f "$DONE_F" "$DONE_F.tmp"   # the runner's own temp: nothing committed
+  done_mark() { echo "$1" > "$DONE_F.tmp" && mv -f "$DONE_F.tmp" "$DONE_F"; }
+  if [ "${BHS_SERIAL_BUILD:-0}" != "1" ] && grep -q BHS_STARTER_DONE_FILE bhs_build.py; then
+    if [ "${BHS_PROFILE:-0}" = "1" ]; then BPY="-m cProfile -o out/bhs_build.prof"; else BPY=""; fi
+    BHS_STARTER_DONE_FILE="$DONE_F" python3 $BPY bhs_build.py > "$BLOG" 2>&1 &
+    BUILD_PID=$!
+    end_build() { BRC=0; wait "$BUILD_PID" || BRC=$?; cat "$BLOG"; rm -f "$DONE_F"; return $BRC; }
+    if ! python3 s2/c1021.py; then done_mark starter-failed; end_build || true; echo 'C1021: the starter failed - the run stops'; exit 1; fi
+    if ! python3 s2/e22.py; then
+      bash s2/alert.sh 'ENDER FAILED' "s2/e22.py failed on run ${GITHUB_RUN_ID:-local}; the ender's last state stands ($(python3 -c "import json;print(json.load(open('out/e22_state.json')).get('today'))" 2>/dev/null || echo none))" || true
+      if ! { test -f out/e22_state.json && test -f cache/e22/closing_daily.csv; }; then done_mark ender-failed-no-state; end_build || true; echo 'E22: no last state to stand on - the run stops'; exit 1; fi
+    fi
+    done_mark 0
+    end_build
+  else
+    python3 s2/c1021.py
+    if ! python3 s2/e22.py; then
+      bash s2/alert.sh 'ENDER FAILED' "s2/e22.py failed on run ${GITHUB_RUN_ID:-local}; the ender's last state stands ($(python3 -c "import json;print(json.load(open('out/e22_state.json')).get('today'))" 2>/dev/null || echo none))" || true
+      test -f out/e22_state.json && test -f cache/e22/closing_daily.csv || { echo 'E22: no last state to stand on - the run stops'; exit 1; }
+    fi
+    python3 bhs_build.py
   fi
-  # v3.73 (23 September 2026, collection 333; collection 331): the committee watch, once a day; a dating the chronology file lacks raises a flag, moves nothing; never fails the run
-  if [ "$(cat cache/chronology_watch_on 2>/dev/null)" != "$(date +%F)" ]; then python3 s2/chronology_watch.py && date +%F > cache/chronology_watch_on || true; fi
-  # 1116g (17 November 2026): FRED's release calendar is asked before the build as well (the detector's next G.17 day reads it)
-  python3 "$HERE/ops/calendar_refresh.py" || true
-  python3 bhs_build.py
   # 818 (22 October 2026): a run through a FRED outage publishes what it has and says so in the state; the Worker reads
   # refresh_incomplete from run_slots.json and starts the next try itself (every 30 minutes) until a run refreshes in full
   python3 - <<'INCOMPLETE' || true
@@ -133,6 +169,11 @@ python3 "$HERE/ops/calendar_refresh.py" || true
 # out/backstop_state.json, and run after it they showed the last run's week (the ETA 539 week of 14 Nov was held by the gate:
 # "shows 2026-10-31 but 2026-11-07 was published", update run 44621366959, whose own backstop had read 2026-11-07).
 [ "$MODE" = "site" ] || python3 s2/backstop.py || true
+# 1167: Tool 4's inputs, fetched beside the build (update.yml), are in before the pages that show them are written
+if [ -n "${RUNNER_TEMP:-}" ] && [ -f "$RUNNER_TEMP/tool4_prefetch.pid" ]; then
+  T4=$(cat "$RUNNER_TEMP/tool4_prefetch.pid"); for i in $(seq 1 900); do kill -0 "$T4" 2>/dev/null || break; sleep 0.1; done
+  tail -3 "$RUNNER_TEMP/tool4_prefetch.log" 2>/dev/null || true
+fi
 # ONE NUMBER (24 November 2026, collection 1167; Anthony: recessions and disturbances "graded the same way", line 2.00): the register is dated
 # first, on the same FRED read as the data page, so the indicator's recession grades and the line inside them are the register's (one rule)
 if [ "${BHS_DIST_FRED_READY:-0}" = 1 ]; then python3 s2/disturbance/disturbance_chronology.py --data s2/disturbance/out/fred_latest --out s2/disturbance/out > out/register_first.out 2>&1 || echo "register first: failed; the last register stands"; fi
@@ -175,7 +216,13 @@ print('built_at: built %s, published %s' % (a, b))
 if a != b:
     sys.exit('the site published a state this run did not build')
 CHECK
-# the time machine's ALFRED pull, started above, is in before the run ends (1162)
+# the time machine's ALFRED pull, started above, is in before the run ends (1162). 1167: a release slot's run (BHS_RELEASE_RUN=1, set by the wait)
+# gives it at most 25 s more: the release's own vintage is already in (--fast, above), and anything ALFRED posts later is taken by the
+# time-machine workflow, which looks again after this run and starts a site run when ALFRED has more. Its files are written whole or not at all.
+if [ "${BHS_RELEASE_RUN:-0}" = "1" ]; then
+  for i in $(seq 1 250); do kill -0 "$TM_PULL" 2>/dev/null || break; sleep 0.1; done
+  kill -0 "$TM_PULL" 2>/dev/null && { kill "$TM_PULL" 2>/dev/null || true; echo "time machine pull: still asking ALFRED 25 s after the build; left to the time-machine workflow" >> out/tm_build.out; }
+fi
 wait "$TM_PULL" 2>/dev/null || true
 if grep -q "time machine pull: exit 0" out/tm_build.out 2>/dev/null; then grep -E "CHANGED|kept until|ALFRED differs|refused|time machine data" out/tm_build.out | tail -14 || true
 else echo "time machine pull: did not finish; the files as --fast left them stand:"; tail -6 out/tm_build.out 2>/dev/null || true; fi

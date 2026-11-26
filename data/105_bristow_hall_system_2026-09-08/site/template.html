@@ -299,7 +299,9 @@ const SITE = __SITE__;
     const nj=new Date(Date.UTC(y,0,1)).getUTCDay(); if(nj!==6) H.push(nj===0?[1,2]:[1,1]);
     const gf=new Date(easterT(y)-2*86400000); H.push([gf.getUTCMonth()+1,gf.getUTCDate()]);
     return H.some(h=>h[0]===m&&h[1]===d); }
-  function nextClose(now){ const p=now.slice(0,10).split('-').map(Number); let t=Date.UTC(p[0],p[1]-1,p[2]); if(now.slice(11)>='16:20') t+=86400000; for(let k=0;k<15;k++,t+=86400000){ if(!nyseClosed(t)) return new Date(t).toISOString().slice(0,10); } return null; }
+  // 1166 (23 Nov 2026): the NYSE closes at 1:00 PM the day after Thanksgiving, and on Christmas Eve and July 3 from Monday to Thursday; the site reads that close at 1:20 PM
+  function earlyClose(t){ const D=new Date(t), m=D.getUTCMonth()+1, d=D.getUTCDate(), w=D.getUTCDay(); if(nyseClosed(t)) return false; return (m===11&&w===5&&d>=23&&d<=29)||(((m===12&&d===24)||(m===7&&d===3))&&w>=1&&w<=4); }
+  function nextClose(now){ const p=now.slice(0,10).split('-').map(Number); let t=Date.UTC(p[0],p[1]-1,p[2]); if(now.slice(11)>=(earlyClose(t)?'13:20':'16:20')) t+=86400000; for(let k=0;k<15;k++,t+=86400000){ if(!nyseClosed(t)) return new Date(t).toISOString().slice(0,10); } return null; }
   function nextByKind(kind,now){ const e=CAL.find(x=>x.kind===kind&&(x.date+' '+x.time)>now); return e?e.date:null; }
   function tick(){
     const now=nowET(); const up=CAL.filter(x=>(x.date+' '+x.time)>now);

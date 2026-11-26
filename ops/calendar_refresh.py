@@ -19,8 +19,7 @@ def main():
     today = cb.now_et().date()
     rids = [k for k in rc if k.isdigit()]
     before = {k: list((rc.get(k) or {}).get('dates', [])) for k in rids}
-    for k in rids:
-        cb.release_dates(int(k), rc, True, today)
+    cb.prefetch_release_dates([int(k) for k in rids], rc, True, today)   # 1167: side by side (one after another: about 30 s)
     cb.jsave(cb.REL_CACHE, rc)
     moved = [k for k in rids if (rc.get(k) or {}).get('dates', []) != before[k]]
     print('release calendar asked before the site build: %d releases%s' % (len(rids), ('; changed: ' + ', '.join(

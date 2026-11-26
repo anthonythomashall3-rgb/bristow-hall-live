@@ -11,6 +11,9 @@ named in cache/bhs_version.json produced; (4) every object's latest reading agai
 called and at least 1.00 inside, unsmoothed and uncapped.
 Run from the collection 103/104 workspace: python3 bhs_build.py"""
 import sys, io, contextlib, os, json, datetime, pickle
+try:   # 1167: one pandas 3.0.5 slowdown removed, the same results (s2/pandas_speed.py; loaded from its file, so the module search path is untouched)
+    import importlib.util as _psu; _pss=_psu.spec_from_file_location('pandas_speed', os.path.join(os.path.dirname(os.path.abspath(__file__)), 's2', 'pandas_speed.py')); _psp=_psu.module_from_spec(_pss); _pss.loader.exec_module(_psp); print('pandas speed:', _psp.apply())
+except Exception as _psp_e: print('pandas speed: not applied (%s)' % _psp_e)
 import time as _tm0; _TB0=_tm0.time(); _TBF=open(os.path.join('out','bhs_build_timing.txt'),'w') if os.path.isdir('out') else None
 def _tick(lbl):
     try: _TBF.write('%7.1fs  %s\n'%(_tm0.time()-_TB0,lbl)); _TBF.flush()
@@ -77,8 +80,11 @@ def _bhs_fingerprint():
                 try: st_=os.stat(f); h.update(('UNREAD %d %f %s'%(st_.st_size,st_.st_mtime,type(e_).__name__)).encode())
                 except Exception: h.update(('UNREAD ? %s'%type(e_).__name__).encode())   # silently, so two different files can never share a key
     return h.hexdigest()
-_BHS_FP=_bhs_fingerprint(); _BHS_MEMO_DIR=os.path.join('cache','closers'); os.makedirs(_BHS_MEMO_DIR,exist_ok=True)
+_BHS_FP=_bhs_fingerprint(); _BHS_MEMO_DIR=os.environ.get('BHS_MEMO_DIR') or os.path.join('cache','closers'); os.makedirs(_BHS_MEMO_DIR,exist_ok=True)   # 1167: a test may name a fresh store
 _BHS_MEMO_STATS={'hit':0,'miss':0,'passed':0}
+for _f in _gl0.glob(os.path.join(_BHS_MEMO_DIR,'*.pkl.tmp*')):   # 1167: a write a stopped process left half done (no writer runs yet)
+    try: os.remove(_f)
+    except Exception: pass
 for _f in _gl0.glob(os.path.join(_BHS_MEMO_DIR,'*.pkl')):   # results not used for three days (a hit touches its file) go
     try:
         if _tm0.time()-os.path.getmtime(_f)>3*86400: os.remove(_f)
@@ -139,6 +145,71 @@ def _bhs_fn_hash(fn,h,seen,depth):
     g=fn.__globals__
     for n in sorted(_bhs_names(c,set())):
         if n in g: h.update(n.encode()); _bhs_obj_hash(g[n],h,seen,depth+1)
+# ---- 1167 (24 November 2026; Anthony: "under 3 minutes of data releases"): THE MEMO WARMED SIDE BY SIDE. On a day new data arrive, every
+# ---- memoised closer misses (the fingerprint moved) and the walk recomputes them one after another: 57 s on a claims day, 103 s on the G.17
+# ---- day. Each build now keeps the list of its memoised calls (cache/closers_calls.pkl: name, arguments, in order). At the first miss of a
+# ---- build, the process forks warmers (os.fork: each is this process as it stands at that moment) that take the rest of the last build's
+# ---- list in contiguous parts and compute each call through the same memo - the same key from their own state, written to the store whole -
+# ---- while this process walks on as before. A call it reaches that a warmer has finished is a hit; a key that does not match exactly (a
+# ---- warmer forked before the walk built an object the call reads) is never used, and the walk computes it itself. A warmer never returns
+# ---- into the walk, writes nothing but memo files, and is ended when the walk is done. So a hit is still exactly what the function computes
+# ---- from that key, and what this build computes is unchanged; only who computed it first. BHS_MEMO_WARM=1 turns it on (off by default).
+_BHS_CALLS=[]; _BHS_PLAN_F=os.path.join('cache','closers_calls.pkl')
+_BHS_WARM_DIR=os.path.join(os.environ.get('RUNNER_TEMP') or '/tmp','bhs_memo_warm_%d'%os.getpid())   # the warmers' results: outside the repository;
+                                                                                                    # one the walk uses is moved into the store, the rest go with the run
+# OFF by default (BHS_MEMO_WARM=1 turns it on): on the runner's four processors it saved 0 to 10 s of a 60 to 90 s walk in the 1167 tests (most
+# keys a warmer makes do not match the walk's: the walk's objects change between its calls), and with the starter, the ender and the gate's
+# fetches beside it the processors are busy. The results were identical either way (runs 45436541862, 45437665284).
+_BHS_WARM={'on':os.environ.get('BHS_MEMO_WARM','0')=='1' and hasattr(os,'fork'),'started':False,'pids':[],'child':False,'n':0,'planned':0}
+def _bhs_call_id(name,a,k):
+    try: return name+'|'+repr(a)+'|'+repr(sorted(k.items()))
+    except Exception: return None
+def _bhs_warm_start(name,a,k):
+    _BHS_WARM['started']=True
+    try: plan=_pk0.load(_bhs_real_open(_BHS_PLAN_F,'rb'))
+    except Exception: return
+    cid=_bhs_call_id(name,a,k); ids=[_bhs_call_id(*x) for x in plan]
+    i=ids.index(cid) if cid in ids else len(_BHS_CALLS)-1
+    rest=[x for x in plan[i+1:] if _bhs_call_id(*x)!=cid]
+    if not rest: return
+    nw=max(0,min(int(os.environ.get('BHS_MEMO_WARMERS') or 3),(os.cpu_count() or 2)-1,len(rest)))
+    if nw<1: return
+    cut=[round(j*len(rest)/(nw+1)) for j in range(nw+2)]   # nw+1 parts: this process walks into part 0 itself; warmer j takes part j
+    _BHS_WARM['planned']=len(rest)
+    for j in range(1,nw+1):
+        part=rest[cut[j]:cut[j+1]]
+        if not part: continue
+        try: pid=os.fork()
+        except Exception: break
+        if pid==0:
+            try:
+                _BHS_WARM['on']=False; _BHS_WARM['child']=True; os.makedirs(_BHS_WARM_DIR,exist_ok=True)
+                for nm,aa,kk in part:
+                    fw=globals().get(nm)
+                    if fw is None or not hasattr(fw,'_bhs_fn'): continue
+                    try: fw(*aa,**kk)
+                    except BaseException: pass
+            finally: os._exit(0)
+        _BHS_WARM['pids'].append(pid)
+    _BHS_WARM['n']=len(_BHS_WARM['pids'])
+def _bhs_warm_end():
+    import signal as _sg0
+    for pid in _BHS_WARM['pids']:
+        try:
+            if os.waitpid(pid,os.WNOHANG)[0]==0: os.kill(pid,_sg0.SIGKILL); os.waitpid(pid,0)
+        except Exception: pass
+    _BHS_WARM['pids']=[]
+    try:
+        import shutil as _sh0; _sh0.rmtree(_BHS_WARM_DIR,ignore_errors=True)   # what the walk did not use goes with the run
+    except Exception: pass
+    if _BHS_CALLS:
+        try:
+            keep=[]
+            for x in _BHS_CALLS:
+                try: _pk0.dumps(x); keep.append(x)
+                except Exception: pass
+            _pk0.dump(keep,_bhs_real_open(_BHS_PLAN_F+'.tmp','wb')); os.replace(_BHS_PLAN_F+'.tmp',_BHS_PLAN_F)
+        except Exception: pass
 def _BHS_MEMO(fn):
     def w(*a,**k):
         if any(hasattr(x,'index') and hasattr(x,'values') for x in list(a)+list(k.values())): _BHS_MEMO_STATS['passed']+=1; return fn(*a,**k)
@@ -146,13 +217,28 @@ def _BHS_MEMO(fn):
             h=_hl0.md5(); _bhs_fn_hash(fn,h,set(),0); h.update(repr((a,sorted(k.items()),_BHS_FP)).encode()); key=h.hexdigest()
         except Exception as e_:   # no key could be made (an object of a kind the hash does not cover): computed as before, never cached
             _BHS_MEMO_STATS['unkeyed']=_BHS_MEMO_STATS.get('unkeyed',0)+1; _BHS_MEMO_STATS.setdefault('unkeyed_names',set()).add(fn.__name__+' ('+str(e_)[:70]+')'); return fn(*a,**k)
+        if not _BHS_WARM['child']: _BHS_CALLS.append((fn.__name__,a,k))
         p=os.path.join(_BHS_MEMO_DIR,fn.__name__+'_'+key+'.pkl')
         if os.path.exists(p):
             try:
                 r=_pk0.load(_bhs_real_open(p,'rb')); _BHS_MEMO_STATS['hit']+=1; os.utime(p,None); return r
             except Exception: pass
+        pw=os.path.join(_BHS_WARM_DIR,os.path.basename(p))
+        if not _BHS_WARM['child'] and _BHS_WARM['n'] and os.path.exists(pw):   # 1167: a warmer computed this very key: moved into the store
+            try:
+                r=_pk0.load(_bhs_real_open(pw,'rb')); os.replace(pw,p); _BHS_MEMO_STATS['hit']+=1; _BHS_MEMO_STATS['warm']=_BHS_MEMO_STATS.get('warm',0)+1; return r
+            except Exception: pass
+        if _BHS_WARM['child']:   # a warmer writes only into its own folder, never the store
+            if os.path.exists(pw):
+                try: return _pk0.load(_bhs_real_open(pw,'rb'))   # a nested call this warmer (or another) already computed
+                except Exception: pass
+            r=fn(*a,**k)
+            try: _pk0.dump(r,_bhs_real_open(pw+'.tmp.%d'%os.getpid(),'wb')); os.replace(pw+'.tmp.%d'%os.getpid(),pw)
+            except Exception: pass
+            return r
+        if _BHS_WARM['on'] and not _BHS_WARM['started']: _bhs_warm_start(fn.__name__,a,k)
         r=fn(*a,**k); _BHS_MEMO_STATS['miss']+=1; _BHS_MEMO_STATS.setdefault('missed',[]).append(fn.__name__+repr(a)[:30]+repr(sorted(k.items()))[:40])
-        try: _pk0.dump(r,_bhs_real_open(p+'.tmp','wb')); os.replace(p+'.tmp',p)
+        try: _pk0.dump(r,_bhs_real_open(p+'.tmp.%d'%os.getpid(),'wb')); os.replace(p+'.tmp.%d'%os.getpid(),p)   # 1167: a temporary name of its own (a warmer may write the same key)
         except Exception: pass
         return r
     w.__name__=fn.__name__; w.__doc__=fn.__doc__; w._bhs_fn=fn; return w
@@ -200,7 +286,8 @@ try:
         _merged66=_pd66.concat([_early66[_cols66+['source','fills']],_live66[_cols66+['source','fills']]],ignore_index=True)
         os.makedirs('cache',exist_ok=True); _pm66=os.path.join('cache','national_first_prints_1985_live.csv'); _txt66=_merged66.to_csv(index=False)
         if not os.path.exists(_pm66) or _bhs_real_open(_pm66).read()!=_txt66:
-            with _bhs_real_open(_pm66,'w') as _fh66: _fh66.write(_txt66)
+            with _bhs_real_open(_pm66+'.tmp','w') as _fh66: _fh66.write(_txt66)
+            os.replace(_pm66+'.tmp',_pm66)   # 1167: moved into place whole (bhs_update.py writes the same table first: s2/first_prints_merged.py)
         FIRSTPRINTS=dict(active=True,file=_pm66,early_table=_e66_early,early_weeks=int(len(_early66)),early_from=str(_early66['ic_week_ended'].min()),early_to=str(_early66['ic_week_ended'].max()),
                          live_rows=int(len(_live66)),sources={k:int(v) for k,v in _early66['source'].map(lambda _s:_s.split('|')[0].split(' (')[0].strip()).value_counts().items()},   # E66c: by label; a press row's source names its story
                          note='the weekly claims first prints from August 1975: the closing table of the release in the bound volumes (397; the Google Books copies, 404), the wires and papers of the release day where no copy holds the week (404), the bound news releases (399), the bound volumes (396), the Archive (382); current series where marked')
@@ -304,11 +391,14 @@ if _BR_MAP:
     pd.read_csv=_rc333
     _open_before333=open   # the memo-injecting open above; the as-of vacancy object reads its vintage table through it, mini.py its pickle
     def open(f,*a,**k): return _open_before333(_br333(f),*a,**k)
-with contextlib.redirect_stdout(io.StringIO()): exec(src)
+try:
+    with contextlib.redirect_stdout(io.StringIO()): exec(src)
+finally:
+    if not _BHS_WARM['child']: _bhs_warm_end()   # 1167: the warmers end with the walk; the list of this build's calls is kept for the next
 if _BR_MAP: pd.read_csv=_real_read_csv333
 open=_bhs_real_open
 if CLAIMS_SUB.get('active'): pd.read_csv=_real_read_csv329
-print('closers memo: %d hit, %d recomputed, %d passed, %d unkeyed (fingerprint %s)'%(_BHS_MEMO_STATS['hit'],_BHS_MEMO_STATS['miss'],_BHS_MEMO_STATS['passed'],_BHS_MEMO_STATS.get('unkeyed',0),_BHS_FP[:8])+('; recomputed: '+'; '.join(_BHS_MEMO_STATS.get('missed',[])[:8]) if _BHS_MEMO_STATS['miss'] else '')+('; UNKEYED: '+'; '.join(sorted(_BHS_MEMO_STATS['unkeyed_names'])) if _BHS_MEMO_STATS.get('unkeyed') else ''))
+print('closers memo: %d hit, %d recomputed, %d passed, %d unkeyed (fingerprint %s)%s'%(_BHS_MEMO_STATS['hit'],_BHS_MEMO_STATS['miss'],_BHS_MEMO_STATS['passed'],_BHS_MEMO_STATS.get('unkeyed',0),_BHS_FP[:8],('; %d warmers took %d of the last build\'s calls, %d of them used'%(_BHS_WARM['n'],_BHS_WARM['planned'],_BHS_MEMO_STATS.get('warm',0))) if _BHS_WARM['n'] else '')+('; recomputed: '+'; '.join(_BHS_MEMO_STATS.get('missed',[])[:8]) if _BHS_MEMO_STATS['miss'] else '')+('; UNKEYED: '+'; '.join(sorted(_BHS_MEMO_STATS['unkeyed_names'])) if _BHS_MEMO_STATS.get('unkeyed') else ''))
 _tick('exec walk94 head')
 out.close()
 # ---- v3.70 (22 September 2026, collection 303; PREREG-the-four-round4 A4; Rule Zero): THE CONTINUED-CLAIMS CLOSER DATED BY ITS RELEASE. The lab's
@@ -728,6 +818,18 @@ def _ao_next():
     return _c.date().isoformat()
 _tb=_t
 # ---- C1021 (8 November 2026, collection 1022; Anthony 05:45 PT: "remove v3.76 as the starter ... make C1021 the new starter"): THE STARTER.
+# ---- 1167 (24 Nov 2026): run_cloud.sh starts this build BESIDE the starter (s2/c1021.py) and the ender (s2/e22.py); everything above reads
+# ---- none of their files. Their states are read below only once both have finished: BHS_STARTER_DONE_FILE holds "0", or the build stops.
+_SDF=os.environ.get('BHS_STARTER_DONE_FILE')
+if _SDF:
+    _t0w=_tm0.time()
+    while not os.path.exists(_SDF):
+        if _tm0.time()-_t0w>900: raise SystemExit('C1021/E22: the starter and the ender did not finish within 15 minutes of the walk (%s): the build stops'%_SDF)
+        _tm0.sleep(0.05)
+    _sdv=_bhs_real_open(_SDF).read().strip()
+    if _sdv!='0': raise SystemExit('C1021/E22: the starter or the ender did not finish (%s): the build stops before it reads their states'%_sdv)
+    print('the starter and the ender ran beside the walk; their states are in (waited %.1f s)'%(_tm0.time()-_t0w))
+    _tick('starter and ender in')
 # ---- s2/c1021.py (run before this build) writes out/c1021_state.json: the record's call pool (1021 harness, frozen) and the live tail from the
 # ---- bundle's own data. Its calls are the only opener; the walk's branches, the backstop, the activity opener, the concurrence branch and the
 # ---- state breadth open nothing. The closers are v3.76's as build_v builds them; a new call opens only outside an episode and more than 183
@@ -1072,9 +1174,16 @@ _c1chg=C1021_DAILY['reading'].diff().fillna(1.0)!=0
 _c1trade={pd.Timestamp(t).normalize() for t in _SPX.dropna().index} if '_SPX' in globals() else set()
 DAYS=sorted(set(C1021_DAILY.index[_c1chg.values].tolist())|_c1trade|{pd.Timestamp(e[k]) for e in epis for k in ('open_pub','close_pub') if e.get(k)}|{C1021_DAILY.index[-1]}); DAYS=[d for d in DAYS if pd.Timestamp('1948-01-01')<=d<=pd.Timestamp(today) and d in C1021_DAILY.index]
 _dr_keep=None   # C1021 (1022): the daily line is C1021's reading; nothing is reused from the v3.76 reading cache
+# 1167 (24 Nov 2026; Anthony: "under 3 minutes of data releases"): the row each day reads - the last C1021 day on or before it - is found by a
+# binary search of the sorted, de-duplicated index instead of a mask over all 28,800 days for each of the 20,000 days (12 s per build, every
+# build). The same row, so the same value and branch. A table that is not sorted and unique is read the old way.
+_c1ix=C1021_DAILY.index; _c1fast=bool(_c1ix.is_monotonic_increasing and _c1ix.is_unique)
 for d in DAYS:
     ins=_inside_day(d)
     if _dr_keep is not None and d<=_dr_keep and d in _dr_rows and _dr_rows[d][0]==ins: r,who=_dr_rows[d][1],_dr_rows[d][2]; _n_reused+=1
+    elif _c1fast:
+        _i=int(_c1ix.searchsorted(d,side='right'))-1
+        r=float(C1021_DAILY['reading'].iloc[_i]) if _i>=0 else np.nan; who=str(C1021_DAILY['branch'].iloc[_i]) if _i>=0 else ''
     else:
         _c1row=C1021_DAILY[C1021_DAILY.index<=d]; r=float(_c1row['reading'].iloc[-1]) if len(_c1row) else np.nan; who=str(_c1row['branch'].iloc[-1]) if len(_c1row) else ''   # C1021 (1022)
     if False and _D_new is not None and d<=_D_new: _dr_new[d]=(ins,r,who)
@@ -1304,7 +1413,7 @@ _c1row("route: Moody's Baa yield, monthly average, above its low of the prior 12
 _c1row('route: unemployment rate, the two-month average against its level three months earlier, points (on at 0.3; at 0.2 with payrolls below their high; the newest Employment Situation vintage)',_CV['HH'].get('two_month_rise'),0.3,_CV['HH'].get('month'),_nxj,'jobs')
 _c1row('route: payrolls, the newest print, below their high of the prior 12 months, thousands (on above 0 with the month down on the last)',_CV['P'].get('thousands_below_high'),0,_CV['P'].get('month'),_nxj,'jobs')
 _c1row("count door: the unemployed count's first print against the highest of the prior 12 months' first prints, thousands (on at 0 or above)",(None if _CV['CNT'].get('max_prior_12_first_prints') is None else _CV['CNT']['first_print']-_CV['CNT']['max_prior_12_first_prints']),0,_CV['CNT'].get('month'),_nxj,'jobs')
-_c1row('count door: initial or insured claims, seasonally adjusted in real time, 4-week mean against its highest print of the prior 365 days, ratio (on at 1)',_CV['CHI'].get('ratio_to_365d_max'),1.0,_CV['CHI'].get('ic_week'),nxt_claims(_CV['CHI'].get('ic_week'),5),'claims')
+_c1row('count door: initial or insured claims, seasonally adjusted in real time, 4-week mean against its highest print of the prior 365 days, ratio (on at 1)',_CV['CHI'].get('ratio_to_365d_max'),1.0,_CV['CHI'].get('ic_week'),nxt_claims(_CV['CHI'].get('ic_week'),12),'claims')   # 1167 (25 Nov 2026): + 12 as every claims row (+ 5 named the release of the week in hand: 'next 2026-11-25' after it)
 _c1row('fed-shock door: the effective federal funds rate, monthly average, rise over the previous month, points (on at 1.5; known the day after month end)',_CV['FS'].get('rise_pp'),1.5,_CV['FS'].get('month'),(pd.Timestamp(_CV['FS']['month']+'-01')+pd.DateOffset(months=2)).replace(day=1).date().isoformat(),'month')
 _c1row('job-losers door: unemployed job losers, the first print against a year earlier, log points (on at 15 while the 10-year minus 1-year Treasury spread was negative in any of the prior 12 months)',_CV['JL'].get('yoy_log_pts'),15.0,_CV['JL'].get('month'),_nxj,'jobs')
 _c1row("job-losers door's witness: the 10-year minus 1-year Treasury spread, monthly average, points (the door is armed while negative in any of the prior 12 months)",(_CV['JL'].get('spread_last') or {}).get('gs10_minus_gs1'),0,(_CV['JL'].get('spread_last') or {}).get('month'),(pd.Timestamp((_CV['JL'].get('spread_last') or {}).get('month','2026-01')+'-01')+pd.DateOffset(months=2)).replace(day=1).date().isoformat(),'month')
@@ -1358,11 +1467,11 @@ try:   # v3.76 (438): the run register - one line per build, so a forward-log bl
     import socket as _so438; _rp438=os.path.join(LIVE,'live','LIVE_LOG_runs.tsv'); _new438=not os.path.exists(_rp438)
     with open(_rp438,'a') as _f438:
         if _new438: _f438.write('run_date\tutc\thost\tversion\tworkspace\trows\n')
-        _f438.write('%s\t%s\t%s\t%s\t%s\t%d\n'%(today,datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),_so438.gethostname(),VERSION,os.path.realpath(os.getcwd()),len(R)))
+        _f438.write('%s\t%s\t%s\t%s\t%s\t%d\n'%(today,datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),_so438.gethostname(),VERSION,os.path.realpath(os.getcwd()),len(R)))
 except Exception as _e438: print('run register not written:',_e438)
 try:   # v3.76 (438): the search archive - the stitched daily series each search reading stood on (last 400 days) and the file's hash
     if 'GT_TERMS' in globals():
-        _ad438=os.path.join(LIVE,'live','search_archive'); os.makedirs(_ad438,exist_ok=True); _st438=datetime.datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')
+        _ad438=os.path.join(LIVE,'live','search_archive'); os.makedirs(_ad438,exist_ok=True); _st438=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
         for _tg438,(_day438,_g7438,_rel438) in GT_TERMS.items():
             _src438=os.path.join(_C108,'google_trends','live',_tg438+'_stitched_daily.csv') if '_C108' in globals() else None
             _h438=(_hl0.sha256(open(_src438,'rb').read()).hexdigest() if _src438 and os.path.exists(_src438) else 'n/a')
@@ -1512,14 +1621,29 @@ _FEED_IDS=[('Initial claims','ICSA, CCSA, ICNSA, CCNSA'),('Unemployment rate, pa
            ('Housing starts','HOUST, PERMIT'),('Commercial paper','DCPF1M, DCPN30, WTB3MS'),('S&P 500','SP500'),('Sahm rule','SAHMREALTIME'),('Industrial production','INDPRO'),('Federal funds target','DFEDTARU'),('State continued weeks','ETA 539'),('State unemployment rates','LAUS state rates (51)'),('Real GDP','GDPC1'),('GDPNow','GDPNOW')]   # GDPC1, GDPNOW, PAYEMS: v3.73
 from zoneinfo import ZoneInfo as _ZI0
 _now_et=datetime.datetime.now(_ZI0('America/New_York'))
+def _nyse_hol(y):   # 1167c: the NYSE's full-day holidays (ops/calendar_build.py nyse_holidays, the same rules)
+    def _nth(m,wd,n): d=datetime.date(y,m,1); d+=datetime.timedelta(days=(wd-d.weekday())%7); return d+datetime.timedelta(weeks=n-1)
+    def _last(m,wd): d=datetime.date(y+(m==12),m%12+1,1)-datetime.timedelta(days=1); return d-datetime.timedelta(days=(d.weekday()-wd)%7)
+    a,b,c=y%19,y//100,y%100; d,e=b//4,b%4; f=(b+8)//25; g=(b-f+1)//3; h=(19*a+b-d-g+15)%30; i,k=c//4,c%4; l=(32+2*e+2*i-h-k)%7; m=(a+11*h+22*l)//451
+    easter=datetime.date(y,(h+l-7*m+114)//31,(h+l-7*m+114)%31+1); out=set(); nyd=datetime.date(y,1,1)
+    if nyd.weekday()==6: out.add(nyd+datetime.timedelta(days=1))
+    elif nyd.weekday()<5: out.add(nyd)
+    for x in (datetime.date(y,6,19),datetime.date(y,7,4),datetime.date(y,12,25)):
+        out.add(x-datetime.timedelta(days=1) if x.weekday()==5 else (x+datetime.timedelta(days=1) if x.weekday()==6 else x))
+    return out|{_nth(1,0,3),_nth(2,0,3),easter-datetime.timedelta(days=2),_last(5,0),_nth(9,0,1),_nth(11,3,4)}
 for _f in FEEDS:   # 17 September 2026: the data page names the series behind each feed; a 'next weekday' becomes its date
     if isinstance(_f.get('next'),str) and 'next weekday' in _f['next']:
         # the S&P 500: today's close if the market has not closed yet today, else the next weekday's; the search week
         # (today's index is known tomorrow morning): the next weekday
-        if _f['name'].startswith('S&P') and _now_et.weekday()<5 and (_now_et.hour<16 or str(_f.get('through') or '')<str(today)): _d=pd.Timestamp(today)
+        # 1167c (25 Nov 2026): the S&P 500's day is an NYSE trading day. On 25 Nov the page gave 26 Nov (Thanksgiving) as the next close and the
+        # source gate held the 4:20 PM build (the close of 25 Nov with it); Christmas Day and Good Friday would have done the same
+        _sp=_f['name'].startswith('S&P')
+        _open=(lambda _x: _x.weekday()<5 and _x not in _nyse_hol(_x.year)) if _sp else (lambda _x: _x.weekday()<5)
+        _d0=_now_et.date(); _ch=13 if ((_d0.month==11 and _d0.weekday()==4 and 23<=_d0.day<=29) or ((_d0.month,_d0.day) in ((12,24),(7,3)) and _d0.weekday()<=3)) else 16   # the 1:00 PM closes (bhs_update.py)
+        if _sp and _open(_d0) and (_now_et.hour<_ch or str(_f.get('through') or '')<str(today)): _d=pd.Timestamp(today)
         else:
             _d=pd.Timestamp(today)+pd.Timedelta(days=1)
-            while _d.weekday()>=5: _d=_d+pd.Timedelta(days=1)
+            while not _open(_d.date()): _d=_d+pd.Timedelta(days=1)
         _f['next']=_d.date().isoformat()
     _f['ids']=next((v_ for k_,v_ in _FEED_IDS if _f['name'].startswith(k_)),None)
     if _f['ids'] is None and _f['name'].startswith('Search week'):
@@ -1537,8 +1661,8 @@ def _last_vint(sid):
 # 1052 (15 Nov 2026): THE NSA CLAIMS FEED VALUES, BY WEEK. The feed showed ICNSA 170,626 (week of Aug 29, 2026) and CCNSA 5,780,893
 # (week of Nov 28, 2020) because it took the last non-blank cell of the 45 table's icnsa/iunsa columns, which its newest (ALFRED) rows
 # leave blank. Now: the newest WEEK in the union of that table and cache/c1021/claims_nsa_first_prints.csv (the first prints the rule
-# reads), its value as first printed; the week must be within the release cadence (initial: week + 5 days, at most 14 days before today, a holiday-moved release included;
-# insured: + 12, at most 21) or the build stops, and every shown value's week is recorded for q41 (FEED_VALUE_DATES).
+# reads), its value as first printed; the week must be within the release cadence (initial: week + 5 days, + 4 when a holiday moves the release to Wednesday, at most 14 days
+# before today; insured: + 12, + 11 then, at most 21) or the build stops, and every shown value's week is recorded for q41 (FEED_VALUE_DATES).
 FEED_VALUE_DATES={}
 def _nsa_newest(sid):
     col_,wk_,lag_={'ICNSA':('icnsa','ic_week_ended',5),'CCNSA':('iunsa','iu_week_ended',12)}[sid]; fr_=[]
@@ -1548,7 +1672,9 @@ def _nsa_newest(sid):
         fr_.append(q_.dropna(subset=['w','v']))
     q_=pd.concat(fr_).sort_values(['w','r']); w_=q_['w'].max(); q_=q_[q_['w']==w_].iloc[0]   # the newest week; its earliest release
     age_=(pd.Timestamp(today)-w_).days
-    assert lag_<=age_<=lag_+9, '%s: the newest first print is the week of %s, %d days old - outside the weekly cadence (%d-%d days)'%(sid,w_.date(),age_,lag_,lag_+9)
+    # 1167 (25 Nov 2026): a release a holiday moves to Wednesday comes a day early - initial claims 4 days after their week, insured 11
+    # (the Thanksgiving release of 25 Nov 2026: ICNSA of 21 Nov, CCNSA of 14 Nov, neither shown); the latest day is unchanged
+    assert lag_-1<=age_<=lag_+9, '%s: the newest first print is the week of %s, %d days old - outside the weekly cadence (%d-%d days)'%(sid,w_.date(),age_,lag_-1,lag_+9)
     FEED_VALUE_DATES[sid]=dict(date=str(w_.date()),value=float(q_['v']),source=str(q_['f']),released=str(q_['r'].date()) if pd.notna(q_['r']) else None)
     return float(q_['v'])
 _RAWF={'ICSA':(lambda: _last_num(os.path.join(_D0,'ICSA.csv')),'{:,.0f}'),'CCSA':(lambda: _last_num(os.path.join(_D0,'CCSA.csv')),'{:,.0f}'),'IURSA':(lambda: _last_num(os.path.join(_D0,'IURSA.csv')),'{:.1f}'),
@@ -1750,7 +1876,7 @@ state=dict(built=str(today),built_at=datetime.datetime.now(_ZI('America/New_York
            frozen_episodes=[dict(open=a.date().isoformat(),close=(None if b.year==2100 else b.date().isoformat())) for a,b in FROZEN],
            nber=[dict(peak=pk.strftime('%Y-%m'),trough=tr.strftime('%Y-%m')) for pk,tr in zip(PK,TR)],
            chronology=epis,episodes=EP,series=dict(frequency='Daily, on release days',dates=[t.strftime('%Y-%m-%d') for t in SERIES_D.index],values=[round(float(v),3) for v in SERIES_D['value']],damage=[(None if (x is None or (isinstance(x,float) and not np.isfinite(x))) else x) for x in SERIES_D['damage']],reading=[round(float(v),3) for v in SERIES_D['reading']],phase=list(SERIES_D['phase']),branch=list(SERIES_D['branch']),provisional=False),series_monthly=dict(dates=[t.strftime('%Y-%m') for t in SERIES.index],values=[round(float(v),3) for v in SERIES['value']],reading=[round(float(v),3) for v in SERIES['reading']],phase=list(SERIES['phase']),branch=list(SERIES['branch'])),readings=R,
-           through=dict(claims=lastv(ICfp)[1],insured_rate=lastv(spl)[1],unemployment_rate=lastv(g_asof)[1],vacancy=lastv(G)[1],sp500=lastv(_SPX)[1],spread=lastv(cS)[1],search=(lastv(GT_REL)[1] if 'GT_REL' in globals() else None),search_terms=({k:lastv(v[2])[1] for k,v in GT_TERMS.items()} if 'GT_TERMS' in globals() else None)))
+           through=dict(claims=lastv(ICfp)[1],insured_rate=lastv(spl)[1],unemployment_rate=lastv(g_asof)[1],vacancy=lastv(G)[1],sp500=lastv(_SPX)[1]))   # 1166 (23 Nov 2026): the v3.76 paper-bill spread and Google-search days are gone from 'through' - C1021 reads neither, and the page's "Data through" took the search day (Nov 22, a Sunday) for the data's last day
 # NaN IS NOT JSON. Python writes it happily and reads it back happily, so nothing on this Mac ever noticed, but
 # JSON.parse and every strict parser reject it: on 18 September the published state file carried 9,521 NaNs in
 # series.damage and the off-Mac watchdog could not read a single field of it. Anyone opening the file in a browser

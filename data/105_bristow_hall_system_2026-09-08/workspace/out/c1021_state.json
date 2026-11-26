@@ -1,18 +1,13 @@
 {
- "tool": "C1019",
- "doors": [
-  "route",
-  "count door",
-  "FS"
- ],
- "built": "2026-11-25 01:53:55Z",
+ "tool": "C1021",
+ "built": "2026-11-26 00:01:53Z",
  "grid": {
   "day0": "2012-01-01",
-  "days": 5442
+  "days": 5443
  },
  "record_cut": "2024-07-01",
  "today": {
-  "day": "2026-11-24",
+  "day": "2026-11-25",
   "reading": 0.2857,
   "route": {
    "on": false,
@@ -41,18 +36,18 @@
    "ratio": 0.087
   },
   "jl_door": {
-   "retired": "1168: shown for information, never called",
+   "on": false,
    "ratio": 0.0,
    "armed_witness": false
   }
  },
  "values": {
   "SY": {
-   "sp_last": 7201.08984375,
-   "sp_last_day": "2026-11-24",
-   "yoy_pct": 7.4,
+   "sp_last": 7182.77978515625,
+   "sp_last_day": "2026-11-25",
+   "yoy_pct": 6.16,
    "last_day_below_year_ago": "2025-04-08",
-   "days_since": 595
+   "days_since": 596
   },
   "BAA": {
    "month": "2026-10",
@@ -90,9 +85,9 @@
    "max_prior_12_first_prints": 7831.0
   },
   "I4": {
-   "week": "2026-11-07",
-   "newest_week_held": "2026-11-07",
-   "yoy_log_pts_4wk": -13.0,
+   "week": "2026-11-14",
+   "newest_week_held": "2026-11-14",
+   "yoy_log_pts_4wk": -13.06,
    "fills": [],
    "gaps_3y": {
     "icnsa": [],
@@ -102,16 +97,16 @@
   "HW": {
    "jolts_month": "2026-09",
    "jolts_yoy_pct": 4.94,
-   "claims_4wk_yoy_log_pts": -14.04,
-   "week": "2026-11-14",
+   "claims_4wk_yoy_log_pts": -14.23,
+   "week": "2026-11-21",
    "fills": []
   },
   "CHI": {
-   "ic_week": "2026-11-14",
-   "ic_rtsa_4wk": 203370.0,
-   "iu_week": "2026-11-07",
-   "iu_rtsa_4wk": 1780927.0,
-   "ratio_to_365d_max": 0.8752
+   "ic_week": "2026-11-21",
+   "ic_rtsa_4wk": 204219.0,
+   "iu_week": "2026-11-14",
+   "iu_rtsa_4wk": 1792504.0,
+   "ratio_to_365d_max": 0.8809
   },
   "FS": {
    "month": "2026-10",
@@ -221,6 +216,11 @@
    "basis": "record"
   },
   {
+   "day": "1974-10-04",
+   "door": "JL",
+   "basis": "record"
+  },
+  {
    "day": "1979-11-01",
    "door": "FS",
    "basis": "record"
@@ -228,6 +228,11 @@
   {
    "day": "1979-11-08",
    "door": "door",
+   "basis": "record"
+  },
+  {
+   "day": "1980-03-07",
+   "door": "JL",
    "basis": "record"
   },
   {
@@ -271,6 +276,11 @@
    "basis": "record"
   },
   {
+   "day": "1990-06-01",
+   "door": "JL",
+   "basis": "record"
+  },
+  {
    "day": "1990-08-06",
    "door": "door",
    "basis": "record"
@@ -282,12 +292,17 @@
   },
   {
    "day": "2001-04-06",
-   "door": "door",
+   "door": "JL",
    "basis": "record"
   },
   {
    "day": "2001-05-07",
    "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "2007-11-02",
+   "door": "JL",
    "basis": "record"
   },
   {
@@ -302,12 +317,17 @@
   },
   {
    "day": "2020-04-03",
-   "door": "door",
+   "door": "JL",
    "basis": "record"
   },
   {
    "day": "2020-04-07",
    "door": "route",
+   "basis": "record"
+  },
+  {
+   "day": "2024-01-05",
+   "door": "JL",
    "basis": "record"
   }
  ],
@@ -316,8 +336,8 @@
   "I4": "2026-01-28",
   "HW": "2026-04-29",
   "SY": "2025-05-02",
-  "IP": "2026-11-24",
-  "BAA": "2026-11-24",
+  "IP": "2026-11-25",
+  "BAA": "2026-11-25",
   "HH": "2024-10-03",
   "P": "2026-09-03",
   "CNT": "2026-01-08",

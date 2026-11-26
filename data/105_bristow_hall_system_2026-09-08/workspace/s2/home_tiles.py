@@ -86,7 +86,7 @@ _BKEY=None
 for _l in open(ENV):
     if _l.startswith('BLS_API_KEY='): _BKEY=_l.strip().split('=',1)[1].strip().strip('"').strip("'") or None
 def _fredgraph(sid):
-    df=pd.read_csv(_io.StringIO(_curl('https://fred.stlouisfed.org/graph/fredgraph.csv?id='+sid,m=30)))
+    df=pd.read_csv(_io.StringIO(_curl('https://fred.stlouisfed.org/graph/fredgraph.csv?id='+sid+'&bhs_t=%d'%__import__('time').time(),m=30)))   # 1167: a fresh read (FRED's fredgraph answers carry max-age up to 600 s; on 24 Nov a run 5 min after the G.17 revision posted read the old file)
     assert df.shape[1]==2 and df.columns[1]==sid, 'fredgraph: unexpected columns'
     s=pd.Series(pd.to_numeric(df.iloc[:,1],errors='coerce').values,index=pd.to_datetime(df.iloc[:,0])).dropna()
     s=s[s.index>='1990-01-01'].sort_index()
@@ -212,6 +212,14 @@ _ID={"Unemployment rate":"UNRATE","Nonfarm payrolls":"PAYEMS","Payroll growth":"
 _DS={}; _NX={}
 for _s in set(_ID.values()):
     _DS[_s]=release_dates(_s); _NX[_s]=next_release(_DS[_s])
+# 1167 (25 Nov 2026): A CLAIMS TILE THAT ALREADY CARRIES TODAY'S RELEASE says the next one, not today. At 9:08 ET the tiles showed the week
+# of 21 Nov (released at 8:30) with "next 2026-11-25" until 10:30. The tile carries the release of its first date when its newest week
+# is at most 6 days before it (initial claims) or 13 (the insured rate, a week behind).
+for _s,_gap in (('ICSA',6),('IURSA',13)):
+    try:
+        _ds=_DS.get(_s) or []
+        if len(_ds)>1 and _NX.get(_s)==_ds[0] and (pd.Timestamp(_ds[0])-S[_s].index[-1]).days<=_gap: _NX[_s]=_ds[1]
+    except Exception: pass
 # Three tiles are computed rather than read, so the link under them must say so: the number shown is not the
 # series the link opens. CPI inflation is the exception that can be linked exactly — FRED's own year-over-year
 # transformation of CPIAUCSL is the figure printed.

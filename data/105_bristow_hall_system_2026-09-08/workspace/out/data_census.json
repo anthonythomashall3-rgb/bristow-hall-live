@@ -1,17 +1,17 @@
 {
- "built_at": "2026-11-24 20:54",
- "version": "C1019+E22",
- "census_date": "2026-11-24",
+ "built_at": "2026-11-25 19:02",
+ "version": "C1021+E22",
+ "census_date": "2026-11-25",
  "feeds": [
   {
    "feed": "Initial claims and continued claims, seasonally adjusted and not (the route's insured-unemployment pillar, the count door's claims condition, the closer)",
    "series": "ICSA, CCSA, ICNSA, CCNSA",
    "source": "Department of Labor (the UI claims news release; ALFRED vintages after it; the first prints back to August 1975 from the release archive, the bound news releases and volumes, the captures of the Internet Archive, the closing table of the release and the press: collections 45, 399, 396, 382, 397 and 404)",
    "every": "Weekly - Thursday 8:30 AM ET (Wednesday before a Thursday holiday)",
-   "through": "2026-11-14",
-   "next": "2026-11-25",
+   "through": "2026-11-21",
+   "next": "2026-12-03",
    "link": "https://www.dol.gov/ui/data.pdf",
-   "value": "203,000; 1,763,000; 197,492; 1,542,726",
+   "value": "189,000; 1,697,000; 212,945; 1,562,814",
    "backup": "the states' ETA 539 weekly file with the Bureau's seasonal factors (s2/claims_substitute.py, exact where tested; collection 329)",
    "format_check": "q41 feed checks; the claims loader asserts the release week columns (45)",
    "auto": "yes"
@@ -99,10 +99,10 @@
    "series": "SP500",
    "source": "Yahoo Finance close at the 5:05 PM ET run, corrected to the official close on FRED (SP500), which FRED posts the same evening, about 8 PM ET",
    "every": "Every trading day - read at the 5:05 PM ET run",
-   "through": "2026-11-24",
-   "next": "2026-11-25",
+   "through": "2026-11-25",
+   "next": "2026-11-27",
    "link": "https://finance.yahoo.com/quote/%5EGSPC/",
-   "value": "7,201.09",
+   "value": "7,182.78",
    "backup": "the official FRED SP500 close when the chart feed fails (two independent quotes)",
    "format_check": "q41: reading matches the readings table; two sources compared",
    "auto": "yes"
@@ -113,9 +113,9 @@
    "source": "Bureau of Economic Analysis, Gross Domestic Product news release (FRED GDPC1, the latest vintage)",
    "every": "Quarterly - the advance estimate about four weeks after the quarter, revised in each of the next two months; 8:30 AM ET",
    "through": "2026-07",
-   "next": "2026-11-25",
+   "next": "2026-12-23",
    "link": "https://www.bea.gov/data/gdp/gross-domestic-product",
-   "value": "24,611.1",
+   "value": "24,665.2",
    "backup": "GDPNow for the unprinted quarter; the BEA release text",
    "format_check": "damage_dimensions.py: the vintage table read by column name; q41 v3.73 checks",
    "auto": "yes"
@@ -125,10 +125,10 @@
    "series": "GDPNOW",
    "source": "Federal Reserve Bank of Atlanta, GDPNow (FRED GDPNOW, every update as a vintage)",
    "every": "Several times a month, on the days of the releases it reads (FRED carries each update between about 10:30 AM and 1 PM ET); the Atlanta Fed posts its schedule",
-   "through": "2026-11-18",
-   "next": "2026-11-25",
+   "through": "2026-11-25",
+   "next": "2026-12-01",
    "link": "https://www.atlantafed.org/cqer/research/gdpnow",
-   "value": "3.21",
+   "value": "2.90",
    "backup": "the Atlanta Fed page; the last printed quarter carried",
    "format_check": "the vintage appender names each vintage by its FRED date",
    "auto": "yes"
@@ -151,7 +151,7 @@
   {
    "channel": "initial and continued claims, insured unemployment rate (DOL weekly)",
    "status": "current",
-   "last": "2026-11-14",
+   "last": "2026-11-21",
    "limit_days": 13,
    "substitute": null
   },
@@ -207,7 +207,7 @@
   {
    "channel": "S&P 500 close",
    "status": "current",
-   "last": "2026-11-24",
+   "last": "2026-11-25",
    "limit_days": 5,
    "substitute": null
   }
@@ -216,14 +216,14 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
-   "PAYEMS": "FRED API",
    "JTSJOL": "FRED API",
    "UNRATE": "FRED API",
-   "UNEMPLOY": "FRED API",
+   "PAYEMS": "FRED API",
    "JTSQUR": "FRED API",
    "CPIAUCSL": "FRED API",
+   "ICSA": "FRED API",
    "IURSA": "FRED API",
-   "ICSA": "FRED API"
+   "UNEMPLOY": "FRED API"
   },
   "compared_with_bls": [
    "UNRATE",

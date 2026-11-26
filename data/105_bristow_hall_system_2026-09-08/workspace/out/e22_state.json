@@ -1,8 +1,8 @@
 {
  "tool": "E22",
  "version": "E22 (1031) + leg Q (1032) + leg QG (1034) + depth gate (1041)",
- "built": "2026-11-25 01:54:04Z",
- "today": "2026-11-24",
+ "built": "2026-11-26 00:02:01Z",
+ "today": "2026-11-25",
  "episodes": [
   {
    "open": "1948-12-31",
@@ -101,7 +101,7 @@
    "primed": true
   },
   {
-   "open": "1990-08-06",
+   "open": "1990-06-01",
    "two_prints": true,
    "legA_fall": "1991-07-18",
    "legA": "1991-07-18",
@@ -125,7 +125,7 @@
    "primed": true
   },
   {
-   "open": "2008-01-04",
+   "open": "2007-11-02",
    "two_prints": true,
    "legA_fall": "2009-07-23",
    "legA": "2009-07-23",
@@ -147,47 +147,59 @@
    "legQG": "2020-07-14",
    "leg": "S",
    "primed": true
+  },
+  {
+   "open": "2024-01-05",
+   "two_prints": true,
+   "legA_fall": null,
+   "legA": null,
+   "legS": "2024-10-01",
+   "close": "2024-10-01",
+   "legQ": "2024-10-03",
+   "legQG": null,
+   "leg": "S",
+   "primed": true
   }
  ],
- "standing": "closed since 2020-06-05",
+ "standing": "closed since 2024-10-01",
  "inputs": {
-  "iu_newest_week": "2026-11-07",
-  "iu_live_weeks": 8,
+  "iu_newest_week": "2026-11-14",
+  "iu_live_weeks": 9,
   "rate_month": "2026-10",
   "rate": 3.88,
   "rate_below_year_ago": true,
-  "sp_day": "2026-11-24",
-  "sp": 7201.08984375
+  "sp_day": "2026-11-25",
+  "sp": 7182.77978515625
  },
  "log": [
   "NSA holes filled from first prints (2025 on): 6 weeks",
-  "initial claims: frozen chain to 2026-08-29, 11 live weeks after",
-  "weekly insured unemployment: frozen chain to 2026-09-12, 8 live weeks after (newest week 2026-11-07, released 2026-11-19)",
+  "initial claims: frozen chain to 2026-08-29, 12 live weeks after",
+  "weekly insured unemployment: frozen chain to 2026-09-12, 9 live weeks after (newest week 2026-11-14, released 2026-11-25)",
   "policy rate: to 2026-10-01 (3.88), below a year earlier: True",
-  "S&P 500: to 2026-11-24 (7201.09)",
+  "S&P 500: to 2026-11-25 (7182.78)",
   "industrial production: 1226 ALFRED vintages, newest 2026-11-24",
-  "episodes: 1948-12-31 -> 1949-10-20 (A); 1953-10-13 -> 1954-06-11 (S); 1957-04-30 -> 1958-06-19 (A); 1960-06-13 -> 1961-02-24 (S); 1969-10-11 -> 1970-12-24 (A); 1973-08-01 -> 1975-02-06 (A); 1979-11-01 -> 1980-07-22 (S); 1981-06-01 -> 1982-12-02 (S); 1990-08-06 -> 1991-02-07 (S); 2001-04-06 -> 2001-12-28 (A); 2008-01-04 -> 2009-07-23 (A); 2020-04-03 -> 2020-06-05 (S)"
+  "episodes: 1948-12-31 -> 1949-10-20 (A); 1953-10-13 -> 1954-06-11 (S); 1957-04-30 -> 1958-06-19 (A); 1960-06-13 -> 1961-02-24 (S); 1969-10-11 -> 1970-12-24 (A); 1973-08-01 -> 1975-02-06 (A); 1979-11-01 -> 1980-07-22 (S); 1981-06-01 -> 1982-12-02 (S); 1990-06-01 -> 1991-02-07 (S); 2001-04-06 -> 2001-12-28 (A); 2007-11-02 -> 2009-07-23 (A); 2020-04-03 -> 2020-06-05 (S); 2024-01-05 -> 2024-10-01 (S)"
  ],
  "current": {
-  "open": "2020-04-03",
+  "open": "2024-01-05",
   "two_prints": true,
-  "legA_fall": "2020-06-04",
-  "legA": "2020-06-25",
-  "legS": "2020-06-05",
-  "close": "2020-06-05",
-  "legQ": "2020-08-06",
-  "legQG": "2020-07-14",
+  "legA_fall": null,
+  "legA": null,
+  "legS": "2024-10-01",
+  "close": "2024-10-01",
+  "legQ": "2024-10-03",
+  "legQG": null,
   "leg": "S",
   "primed": true
  },
  "values": {
   "iu4": {
-   "value": 1719750.0,
-   "release": "2026-11-19",
-   "week": "2026-11-07"
+   "value": 1718750.0,
+   "release": "2026-11-25",
+   "week": "2026-11-14"
   },
   "iu_nsa": {
-   "week": "2026-11-07"
+   "week": "2026-11-14"
   },
   "rate": {
    "month": "2026-10",
@@ -196,8 +208,8 @@
    "diff": -0.21
   },
   "sp": {
-   "day": "2026-11-24",
-   "close": 7201.08984375,
+   "day": "2026-11-25",
+   "close": 7182.77978515625,
    "ratio_to_low_since_open": null
   },
   "episode_open": false

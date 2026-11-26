@@ -51,7 +51,9 @@ def avgmove(g): return g.abs().expanding(min_periods=60).mean().shift(1)
 def mend_iso(p): return H.mend(p).strftime('%Y-%m-%d')
 import datetime as _dt, zoneinfo as _zi
 BUILT_AT = _dt.datetime.now(_zi.ZoneInfo('America/New_York')).strftime('%Y-%m-%d %H:%M')
-months_all = [str(p) for p in pd.period_range('1948-01', '2026-10', freq='M')]
+# 1166 (23 Nov 2026): the months run to the current month, not to a fixed October 2026: with the November indexes (January 2027) every
+# State's line and table would have stopped at October 2026 (each State's own last month and the damage line still cut the series below)
+months_all = [str(p) for p in pd.period_range('1948-01', max(pd.Period('2026-10', 'M'), pd.Timestamp.now(tz='America/New_York').tz_localize(None).to_period('M') + 1), freq='M')]
 ALL = {}
 for st in R.STATES:
     if st == 'DC': continue
@@ -314,5 +316,6 @@ i = h.index('<script>'); h = h[:i] + h[i:].replace('</script>', '</script>\n' + 
 h = h.replace('</style>', '#series{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px}#series .stp{margin-left:auto;position:relative;font-size:16px}#series .stp .btn{display:inline-flex;align-items:center;gap:8px;font-size:17px;padding:9px 14px;line-height:1.2}#series .stp .menu{position:absolute;right:0;left:auto;top:calc(100% + 6px);max-height:62vh;overflow:auto;min-width:230px;z-index:30}#series .stp .menu a{display:block;white-space:nowrap}#series .stp .menu a[aria-current]{font-weight:700}table.calls{border-collapse:collapse;font-size:15px;margin:4px 0 8px}table.calls th,table.calls td{text-align:left;padding:6px 26px 6px 0;border-bottom:1px solid #e3e6ea}table.calls th{font-weight:700;border-bottom:2px solid #cfd6de}table.calls td.v-confirmed{color:#2e7d32}table.calls td.v-withdrawn{color:#990000}table.calls td.v-pending{color:#6b6b70}table.calls td.v-aftertheend{color:#7a5c00}\n</style>', 1)
 rep('function speedPanel(side){', 'function speedPanel(side){ if(!ANN.length) return {rows:[],svg:"",sum:""};')
 os.makedirs(os.path.join(WEB, 'state-onset'), exist_ok=True)
+h = h.replace('BRISTOW-HALL BUSINESS CYCLE PROGRAM', 'BRISTOW-HALL SYSTEM').replace('Bristow-Hall Business Cycle Program', 'Bristow-Hall System').replace('<div class="l2">BUSINESS CYCLE PROGRAM</div>', '<div class="l2">SYSTEM</div>')   # 1166: the site's name (1141); the saved national page still carried the old one
 open(os.path.join(WEB, 'state-onset', 'index.html'), 'w').write(h)
 print('wrote state-onset/index.html', len(h), 'states', len(ALL))

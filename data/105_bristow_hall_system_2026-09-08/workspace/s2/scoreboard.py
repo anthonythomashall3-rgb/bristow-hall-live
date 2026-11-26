@@ -70,7 +70,7 @@ def main():
     calls = frozen_calls(); tool, live = live_calls(os.path.join(HERE, 'out', 'bhs_state.json'), os.path.join(HERE, 'out', 'backstop_state.json'))
     for k, d in live.items():
         if k in calls and (not calls[k] or d > calls[k][-1] + pd.Timedelta(days=182)): calls[k].append(d)
-    sb = score(calls, tool); sb['built_at'] = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    sb = score(calls, tool); sb['built_at'] = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
     sb['note'] = ('evidence, never a lesson: the outside rules on the programme\'s real-time data (collection 249, scored in 275), carried forward by the live tier; '
                   'a call counts for a recession inside [-122, +31] days of the peak and trough months\' ends, else it is a false alarm; the jury (three of five within a month) was tested and refused as a lesson source (collection 335)')
     sb['jury'] = dict(rule='a provisional lesson when at least three of the five non-NBER daters call a peak within one month of one another and the committee has not spoken',

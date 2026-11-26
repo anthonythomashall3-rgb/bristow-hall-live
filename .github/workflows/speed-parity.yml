@@ -93,7 +93,7 @@ jobs:
         run: |
           mkdir -p ops/speed/out
           if [ -f "$BLS_USAGE" ]; then cp "$BLS_USAGE" ops/speed/out/bls_usage_test.json; cat "$BLS_USAGE"; else echo "no BLS API request in this run"; fi
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7   # 1166: Node 24 (v4 ran on Node 20)
         if: always()
         with:
           name: parity-publisher-first

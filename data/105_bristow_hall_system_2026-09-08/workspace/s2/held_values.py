@@ -211,7 +211,7 @@ def held(path, fs):
         ud = {x[0].split(' ')[0]: x[1] for x in u['vlist']}
         return dict(vlist=[[s, v + '; ' + ud.get(s.split(' ')[0], '') + '%'] for s, v in a['vlist']], period=max(a['period'], u['period']),
                     units='payrolls, thousands of persons; unemployment rate, percent; not seasonally adjusted')
-    if 'FH_state_claims' in b: return wide_states(f, 'natural log of the month\'s initial claims, not seasonally adjusted (as held)', only='| initial claims')
+    if 'FH_state_claims' in b: return wide_states(f, 'natural log of the month\'s initial claims, not seasonally adjusted (as held)', d=3, only='| initial claims')   # 1167: three decimals (the data page showed 9.56317796268366)
     if b.endswith('ar539.csv'): return eta(f, ['c3', 'c8'], 'initial claims (c3); continued weeks claimed (c8); not seasonally adjusted, week ending')
     if b.endswith('ar5159.csv'): return eta(f, ['c1'], 'State UI initial claims (c1), not seasonally adjusted, month')
     if 'state_ic_weekly' in b: return wide_states(f, 'initial claims, not seasonally adjusted, week ending', d=0)

@@ -1,14 +1,15 @@
 {
- "built_at": "2026-11-24 20:54",
- "fallback": "weekdays 08:35, 09:45, 10:15, 16:20 and 20:10 (New York time), used only if this list cannot be read",
- "generated_utc": "2026-11-25T01:56:14Z",
- "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411): a run 5 minutes after each release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close at 4:20 PM and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
+ "built_at": "2026-11-25 19:02",
+ "fallback": "weekdays 08:35, 09:35, 10:20 and 16:35 (New York time; the Cloudflare Worker's own times), used only if this list cannot be read",
+ "generated_utc": "2026-11-26T00:02:28Z",
+ "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411; 1167, 24 November 2026): a run 3 minutes BEFORE each release read from its publisher or polled on FRED, set up and waiting at the release minute (release_ny) and asking the publisher every 5 seconds from then; a run 5 minutes after each other release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
  "refresh_incomplete": null,
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
  "slots": [
   {
-   "ny": "2026-11-23 08:31",
-   "utc": "2026-11-23T13:31:00Z",
+   "ny": "2026-11-23 08:27",
+   "release_ny": "2026-11-23 08:30",
+   "utc": "2026-11-23T13:27:00Z",
    "wait": [
     "fred:CFNAIMA3:202611230830"
    ],
@@ -17,11 +18,14 @@
    ]
   },
   {
-   "ny": "2026-11-23 08:35",
-   "utc": "2026-11-23T13:35:00Z",
+   "ny": "2026-11-23 15:57",
+   "release_ny": "2026-11-23 16:00",
+   "utc": "2026-11-23T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
    "why": [
-    "state initial claims, weekly, 1945 on (8:30 AM ET)",
-    "state weekly claims, eta 539 (8:30 AM ET)"
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
    ]
   },
   {
@@ -39,6 +43,17 @@
    ]
   },
   {
+   "ny": "2026-11-24 15:57",
+   "release_ny": "2026-11-24 16:00",
+   "utc": "2026-11-24T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
+   ]
+  },
+  {
    "ny": "2026-11-24 16:20",
    "utc": "2026-11-24T21:20:00Z",
    "why": [
@@ -53,16 +68,19 @@
    ]
   },
   {
+   "live_tools": true,
    "ny": "2026-11-25 08:10",
    "utc": "2026-11-25T13:10:00Z",
    "why": [
     "the day's full refresh before weekly claims (8:30 AM ET)",
-    "the day's full refresh before GDP (BEA) (8:30 AM ET)"
+    "the day's full refresh before GDP (BEA) (8:30 AM ET)",
+    "state building permits, units (8:05 AM ET)"
    ]
   },
   {
-   "ny": "2026-11-25 08:31",
-   "utc": "2026-11-25T13:31:00Z",
+   "ny": "2026-11-25 08:27",
+   "release_ny": "2026-11-25 08:30",
+   "utc": "2026-11-25T13:27:00Z",
    "wait": [
     "dol_claims",
     "bea_gdp"
@@ -78,21 +96,20 @@
    "why": [
     "weekly claims (8:30 AM ET)",
     "fred series w875rx1 (8:30 AM ET)",
-    "fred series cmrmtspl (8:30 AM ET)",
-    "state building permits, units (8:30 AM ET)",
-    "national disturbance register v3.2 (8:30 AM ET)"
+    "fred series cmrmtspl (8:30 AM ET)"
    ]
   },
   {
-   "ny": "2026-11-25 08:58",
-   "utc": "2026-11-25T13:58:00Z",
+   "ny": "2026-11-25 09:02",
+   "utc": "2026-11-25T14:02:00Z",
    "why": [
-    "GDP (BEA) (8:30 AM ET; FRED by about 8:53 AM)"
+    "GDP (BEA) (8:30 AM ET; FRED by about 8:57 AM)"
    ]
   },
   {
-   "ny": "2026-11-25 11:31",
-   "utc": "2026-11-25T16:31:00Z",
+   "ny": "2026-11-25 11:27",
+   "release_ny": "2026-11-25 11:30",
+   "utc": "2026-11-25T16:27:00Z",
    "wait": [
     "fred:WEI:202611251130"
    ],
@@ -101,8 +118,9 @@
    ]
   },
   {
-   "ny": "2026-11-25 12:03",
-   "utc": "2026-11-25T17:03:00Z",
+   "ny": "2026-11-25 11:59",
+   "release_ny": "2026-11-25 12:02",
+   "utc": "2026-11-25T16:59:00Z",
    "wait": [
     "fred:GDPNOW:202611251202"
    ],
@@ -112,13 +130,25 @@
   },
   {
    "live_tools": true,
-   "ny": "2026-11-25 15:56",
-   "utc": "2026-11-25T20:56:00Z",
+   "ny": "2026-11-25 15:52",
+   "release_ny": "2026-11-25 15:55",
+   "utc": "2026-11-25T20:52:00Z",
    "wait": [
     "dol_539"
    ],
    "why": [
     "the Department's ETA 539 State file (3:55 PM ET; read from the Department)"
+   ]
+  },
+  {
+   "ny": "2026-11-25 15:57",
+   "release_ny": "2026-11-25 16:00",
+   "utc": "2026-11-25T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
    ]
   },
   {
@@ -169,11 +199,21 @@
    ]
   },
   {
-   "ny": "2026-11-27 08:35",
-   "utc": "2026-11-27T13:35:00Z",
+   "ny": "2026-11-27 12:57",
+   "release_ny": "2026-11-27 13:00",
+   "utc": "2026-11-27T17:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
    "why": [
-    "state initial claims, weekly, 1945 on (8:30 AM ET)",
-    "state weekly claims, eta 539 (8:30 AM ET)"
+    "the S&P 500 close (1:00 PM ET; read from the chart feed as it settles)"
+   ]
+  },
+  {
+   "ny": "2026-11-27 13:20",
+   "utc": "2026-11-27T18:20:00Z",
+   "why": [
+    "the S&P 500 close (1:00 PM: an NYSE early close; the chart feed, settled by 1:15 PM)"
    ]
   },
   {
@@ -188,6 +228,17 @@
    "utc": "2026-11-28T01:20:00Z",
    "why": [
     "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
+   ]
+  },
+  {
+   "ny": "2026-11-30 15:57",
+   "release_ny": "2026-11-30 16:00",
+   "utc": "2026-11-30T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
    ]
   },
   {
@@ -212,8 +263,9 @@
    ]
   },
   {
-   "ny": "2026-12-01 10:01",
-   "utc": "2026-12-01T15:01:00Z",
+   "ny": "2026-12-01 09:57",
+   "release_ny": "2026-12-01 10:00",
+   "utc": "2026-12-01T14:57:00Z",
    "wait": [
     "bls_jolts"
    ],
@@ -229,13 +281,25 @@
    ]
   },
   {
-   "ny": "2026-12-01 12:03",
-   "utc": "2026-12-01T17:03:00Z",
+   "ny": "2026-12-01 11:59",
+   "release_ny": "2026-12-01 12:02",
+   "utc": "2026-12-01T16:59:00Z",
    "wait": [
     "fred:GDPNOW:202612011202"
    ],
    "why": [
     "GDPNow (12:02 PM ET); polled on FRED"
+   ]
+  },
+  {
+   "ny": "2026-12-01 15:57",
+   "release_ny": "2026-12-01 16:00",
+   "utc": "2026-12-01T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
    ]
   },
   {
@@ -250,6 +314,26 @@
    "utc": "2026-12-02T01:20:00Z",
    "why": [
     "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-02 10:05",
+   "utc": "2026-12-02T15:05:00Z",
+   "why": [
+    "county unemployment (BLS LAUS county data) (10:00 AM ET; read by the live tools)",
+    "QCEW county employment (BLS) (10:00 AM ET; read by the live tools)"
+   ]
+  },
+  {
+   "ny": "2026-12-02 15:57",
+   "release_ny": "2026-12-02 16:00",
+   "utc": "2026-12-02T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
    ]
   },
   {
@@ -274,8 +358,9 @@
    ]
   },
   {
-   "ny": "2026-12-03 08:31",
-   "utc": "2026-12-03T13:31:00Z",
+   "ny": "2026-12-03 08:27",
+   "release_ny": "2026-12-03 08:30",
+   "utc": "2026-12-03T13:27:00Z",
    "wait": [
     "dol_claims"
    ],
@@ -291,8 +376,9 @@
    ]
   },
   {
-   "ny": "2026-12-03 11:31",
-   "utc": "2026-12-03T16:31:00Z",
+   "ny": "2026-12-03 11:27",
+   "release_ny": "2026-12-03 11:30",
+   "utc": "2026-12-03T16:27:00Z",
    "wait": [
     "fred:WEI:202612031130"
    ],
@@ -302,13 +388,25 @@
   },
   {
    "live_tools": true,
-   "ny": "2026-12-03 15:56",
-   "utc": "2026-12-03T20:56:00Z",
+   "ny": "2026-12-03 15:52",
+   "release_ny": "2026-12-03 15:55",
+   "utc": "2026-12-03T20:52:00Z",
    "wait": [
     "dol_539"
    ],
    "why": [
     "the Department's ETA 539 State file (3:55 PM ET; read from the Department)"
+   ]
+  },
+  {
+   "ny": "2026-12-03 15:57",
+   "release_ny": "2026-12-03 16:00",
+   "utc": "2026-12-03T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
    ]
   },
   {
@@ -367,8 +465,9 @@
   },
   {
    "live_tools": true,
-   "ny": "2026-12-04 08:31",
-   "utc": "2026-12-04T13:31:00Z",
+   "ny": "2026-12-04 08:27",
+   "release_ny": "2026-12-04 08:30",
+   "utc": "2026-12-04T13:27:00Z",
    "wait": [
     "bls_empsit"
    ],
@@ -377,12 +476,14 @@
    ]
   },
   {
-   "ny": "2026-12-04 08:35",
-   "utc": "2026-12-04T13:35:00Z",
+   "ny": "2026-12-04 09:33",
+   "release_ny": "2026-12-04 09:36",
+   "utc": "2026-12-04T14:33:00Z",
+   "wait": [
+    "fred:SAHMREALTIME:202612040936"
+   ],
    "why": [
-    "state initial claims, weekly, 1945 on (8:30 AM ET)",
-    "state weekly claims, eta 539 (8:30 AM ET)",
-    "state coincident indexes, 50 states (8:30 AM ET)"
+    "the Sahm rule (FRED) (9:36 AM ET; FRED by about 9:42 AM); polled on FRED"
    ]
   },
   {
@@ -393,13 +494,22 @@
    ]
   },
   {
-   "ny": "2026-12-04 09:37",
-   "utc": "2026-12-04T14:37:00Z",
+   "live_tools": true,
+   "ny": "2026-12-04 10:05",
+   "utc": "2026-12-04T15:05:00Z",
+   "why": [
+    "state coincident indexes, 50 states (10:00 AM ET)"
+   ]
+  },
+  {
+   "ny": "2026-12-04 15:57",
+   "release_ny": "2026-12-04 16:00",
+   "utc": "2026-12-04T20:57:00Z",
    "wait": [
-    "fred:SAHMREALTIME:202612040936"
+    "spx_close"
    ],
    "why": [
-    "the Sahm rule (FRED) (9:36 AM ET; FRED by about 9:42 AM); polled on FRED"
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
    ]
   },
   {
@@ -417,6 +527,17 @@
    ]
   },
   {
+   "ny": "2026-12-07 15:57",
+   "release_ny": "2026-12-07 16:00",
+   "utc": "2026-12-07T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
+   ]
+  },
+  {
    "ny": "2026-12-07 16:20",
    "utc": "2026-12-07T21:20:00Z",
    "why": [
@@ -431,13 +552,25 @@
    ]
   },
   {
-   "ny": "2026-12-08 12:03",
-   "utc": "2026-12-08T17:03:00Z",
+   "ny": "2026-12-08 11:59",
+   "release_ny": "2026-12-08 12:02",
+   "utc": "2026-12-08T16:59:00Z",
    "wait": [
     "fred:GDPNOW:202612081202"
    ],
    "why": [
     "GDPNow (12:02 PM ET); polled on FRED"
+   ]
+  },
+  {
+   "ny": "2026-12-08 15:57",
+   "release_ny": "2026-12-08 16:00",
+   "utc": "2026-12-08T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
    ]
   },
   {
@@ -455,13 +588,25 @@
    ]
   },
   {
-   "ny": "2026-12-09 12:03",
-   "utc": "2026-12-09T17:03:00Z",
+   "ny": "2026-12-09 11:59",
+   "release_ny": "2026-12-09 12:02",
+   "utc": "2026-12-09T16:59:00Z",
    "wait": [
     "fred:GDPNOW:202612091202"
    ],
    "why": [
     "GDPNow (12:02 PM ET); polled on FRED"
+   ]
+  },
+  {
+   "ny": "2026-12-09 15:57",
+   "release_ny": "2026-12-09 16:00",
+   "utc": "2026-12-09T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
    ]
   },
   {
@@ -487,8 +632,10 @@
    ]
   },
   {
-   "ny": "2026-12-10 08:31",
-   "utc": "2026-12-10T13:31:00Z",
+   "live_tools": true,
+   "ny": "2026-12-10 08:27",
+   "release_ny": "2026-12-10 08:30",
+   "utc": "2026-12-10T13:27:00Z",
    "wait": [
     "dol_claims",
     "bls_cpi"
@@ -506,6 +653,7 @@
    ]
   },
   {
+   "live_tools": true,
    "ny": "2026-12-10 09:25",
    "utc": "2026-12-10T14:25:00Z",
    "why": [
@@ -513,8 +661,9 @@
    ]
   },
   {
-   "ny": "2026-12-10 11:31",
-   "utc": "2026-12-10T16:31:00Z",
+   "ny": "2026-12-10 11:27",
+   "release_ny": "2026-12-10 11:30",
+   "utc": "2026-12-10T16:27:00Z",
    "wait": [
     "fred:WEI:202612101130"
    ],
@@ -524,13 +673,33 @@
   },
   {
    "live_tools": true,
-   "ny": "2026-12-10 15:56",
-   "utc": "2026-12-10T20:56:00Z",
+   "ny": "2026-12-10 12:10",
+   "utc": "2026-12-10T17:10:00Z",
+   "why": [
+    "the CPS basic monthly files (Census) (12:05 PM ET; read by the live tools)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-10 15:52",
+   "release_ny": "2026-12-10 15:55",
+   "utc": "2026-12-10T20:52:00Z",
    "wait": [
     "dol_539"
    ],
    "why": [
     "the Department's ETA 539 State file (3:55 PM ET; read from the Department)"
+   ]
+  },
+  {
+   "ny": "2026-12-10 15:57",
+   "release_ny": "2026-12-10 16:00",
+   "utc": "2026-12-10T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
    ]
   },
   {
@@ -581,11 +750,14 @@
    ]
   },
   {
-   "ny": "2026-12-11 08:35",
-   "utc": "2026-12-11T13:35:00Z",
+   "ny": "2026-12-11 15:57",
+   "release_ny": "2026-12-11 16:00",
+   "utc": "2026-12-11T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
    "why": [
-    "state initial claims, weekly, 1945 on (8:30 AM ET)",
-    "state weekly claims, eta 539 (8:30 AM ET)"
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
    ]
   },
   {
@@ -603,6 +775,17 @@
    ]
   },
   {
+   "ny": "2026-12-14 15:57",
+   "release_ny": "2026-12-14 16:00",
+   "utc": "2026-12-14T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
+   ]
+  },
+  {
    "ny": "2026-12-14 16:20",
    "utc": "2026-12-14T21:20:00Z",
    "why": [
@@ -614,6 +797,17 @@
    "utc": "2026-12-15T01:20:00Z",
    "why": [
     "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
+   ]
+  },
+  {
+   "ny": "2026-12-15 15:57",
+   "release_ny": "2026-12-15 16:00",
+   "utc": "2026-12-15T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
    ]
   },
   {
@@ -629,8 +823,62 @@
    "why": [
     "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
    ]
+  },
+  {
+   "ny": "2026-12-16 08:55",
+   "utc": "2026-12-16T13:55:00Z",
+   "why": [
+    "the day's full refresh before industrial production (G.17) (9:15 AM ET)"
+   ]
+  },
+  {
+   "ny": "2026-12-16 09:12",
+   "release_ny": "2026-12-16 09:15",
+   "utc": "2026-12-16T14:12:00Z",
+   "wait": [
+    "fed_g17"
+   ],
+   "why": [
+    "industrial production (G.17) (9:15 AM ET; read from the publisher)"
+   ]
+  },
+  {
+   "ny": "2026-12-16 09:28",
+   "utc": "2026-12-16T14:28:00Z",
+   "why": [
+    "industrial production (G.17) (9:15 AM ET; FRED by about 9:23 AM)"
+   ]
+  },
+  {
+   "ny": "2026-12-16 11:59",
+   "release_ny": "2026-12-16 12:02",
+   "utc": "2026-12-16T16:59:00Z",
+   "wait": [
+    "fred:GDPNOW:202612161202"
+   ],
+   "why": [
+    "GDPNow (12:02 PM ET); polled on FRED"
+   ]
+  },
+  {
+   "ny": "2026-12-16 15:57",
+   "release_ny": "2026-12-16 16:00",
+   "utc": "2026-12-16T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
+   ]
+  },
+  {
+   "ny": "2026-12-16 16:20",
+   "utc": "2026-12-16T21:20:00Z",
+   "why": [
+    "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
+   ]
   }
  ],
- "version": "C1019+E22",
+ "version": "C1021+E22",
  "zone": "America/New_York"
 }

@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-24T03:09:20Z",
+ "generated_at": "2026-11-25T00:25:18Z",
  "generator": "s2/tool_inputs_mac.py (run on the Mac)",
  "tools": {
   "stress-map": {
@@ -31,7 +31,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-24T03:05Z",
+     "refreshed": "2026-11-25T00:21Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": {
       "values": [
@@ -59,8 +59,8 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "release": "derived_state",
-     "through": "2026-10",
-     "refreshed": "2026-11-24T03:05Z",
+     "through": "2026-09",
+     "refreshed": "2026-11-25T00:21Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": {
       "vlist": [
@@ -1184,13 +1184,13 @@
      "url": "/detector/",
      "freq": "daily",
      "release": "derived_detector",
-     "through": "2026-11-23 20:22",
-     "refreshed": "2026-11-24T03:06Z",
+     "through": "2026-11-24 16:21",
+     "refreshed": "2026-11-25T00:22Z",
      "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/data/live_chronology/bhs_state_origin_main.json",
      "held": {
       "value": "Closed since Oct 2024",
       "units": "the detector's standing (closed: no recession open; open: a recession called)",
-      "period": "2026-11-23"
+      "period": "2026-11-24"
      },
      "refresh": "each cloud run (a Mac copy of the published state)"
     },
@@ -4822,7 +4822,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-24T03:05Z",
+     "refreshed": "2026-11-25T00:21Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": {
       "values": [
@@ -4850,8 +4850,8 @@
      "url": "/state-onset/",
      "freq": "monthly",
      "release": "derived_state",
-     "through": "2026-10",
-     "refreshed": "2026-11-24T03:05Z",
+     "through": "2026-09",
+     "refreshed": "2026-11-25T00:21Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": {
       "vlist": [

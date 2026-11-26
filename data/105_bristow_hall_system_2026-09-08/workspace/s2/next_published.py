@@ -94,18 +94,30 @@ def from_calendar(ids):
     return [dt.datetime.strptime(t['ny'], '%Y-%m-%d %H:%M').replace(tzinfo=ET) for t in r.get('times', [])]   # the market close, the H.15 month
 
 
+def lt_runs(after, n=6):
+    """1167b (25 Nov 2026): the live-tools runs from `after` on, New York: the workflow's crons, and the release slots that start it
+    (site/public/run_slots.json live_tools; a release-time slot at its release minute, when the tools find the release). Until 25 Nov only
+    the crons were counted, so a row rebuilt at the 539 or the BLS State release showed the evening cron as its next time."""
+    sl = []
+    for s in SLOTS:
+        if not s.get('live_tools'): continue
+        try: sl.append(dt.datetime.strptime(s.get('release_ny') or s['ny'], '%Y-%m-%d %H:%M').replace(tzinfo=ET))
+        except Exception: pass
+    return sorted(set(cron_times('live-tools.yml', after, n) + [t for t in sl if t >= after]))[:n]
+
+
 def upcoming(spec, now=None, inputs=()):
     """spec: ('pub', key) | ('cal', ids) | ('static',) | ('derived_state',) | ('derived_detector',) | ('inputs', [rids])"""
     now = now or dt.datetime.now(ET); k = spec[0]
     if k == 'pub': ts = publisher(spec[1], now, spec[2] if len(spec) > 2 else ())
     elif k == 'cal': ts = from_calendar(spec[1])
     elif k == 'inputs': ts = sorted(t for rid in spec[1] if rid in RID_PUB for t in [_at(d, _hm(rid, d)) for d in _days(rid)])
-    elif k == 'static': ts = cron_times('live-tools.yml', now)
-    elif k == 'derived_state':   # the first live-tools run after the next release of any input of the State chain
-        nxt = min([t for t in inputs if t > now] or [now]); ts = cron_times('live-tools.yml', nxt)
+    elif k == 'static': ts = lt_runs(now)
+    elif k == 'derived_state':   # the first live-tools run at or after the next release of any input of the State chain
+        nxt = min([t for t in inputs if t > now] or [now]); ts = lt_runs(nxt)
     elif k == 'derived_detector':  # the detector is rebuilt at the release slots; the stress map's copy at the next live-tools run after
         sl = sorted(dt.datetime.strptime(s['ny'], '%Y-%m-%d %H:%M').replace(tzinfo=ET) for s in SLOTS if s.get('ny'))
-        nxt = next((t for t in sl if t > now), now); ts = cron_times('live-tools.yml', nxt)
+        nxt = next((t for t in sl if t > now), now); ts = lt_runs(nxt)
     else: ts = []
     return sorted(t for t in set(ts) if t > now)
 

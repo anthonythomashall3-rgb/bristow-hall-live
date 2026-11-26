@@ -1,12 +1,18 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
- "checked_at": "2026-11-25T01:56Z",
+ "checked_at": "2026-11-26T00:02Z",
  "open_misses": [
   {
-   "hours": 8.8,
+   "hours": 30.9,
    "name": "G.17 industrial production",
    "posted": "2026-11-24 12:07 ET",
    "release": 13
+  },
+  {
+   "hours": 10.1,
+   "name": "GDP",
+   "posted": "2026-11-25 08:57 ET",
+   "release": 53
   }
  ],
  "reads": [
@@ -2131,10 +2137,10 @@
   {
    "from": "2026-11-07",
    "ids": "WEI (backstop shadow reading)",
-   "lag_min": 17315,
+   "lag_min": 17322,
    "name": "the Weekly Economic Index",
    "posted": "2026-11-12 11:32 ET",
-   "read_at": "2026-11-24T17:07Z",
+   "read_at": "2026-11-24T17:14Z",
    "release": 465,
    "to": "2026-11-14"
   },
@@ -2144,9 +2150,49 @@
    "lag_min": null,
    "name": null,
    "posted": null,
-   "read_at": "2026-11-25T00:34Z",
+   "read_at": "2026-11-24T21:22Z",
    "release": null,
    "to": "2026-11-24"
+  },
+  {
+   "from": "2026-11-14",
+   "ids": "ICSA, CCSA, ICNSA, CCNSA",
+   "lag_min": 35,
+   "name": "weekly claims",
+   "posted": "2026-11-25 08:30 ET",
+   "read_at": "2026-11-25T14:05Z",
+   "release": 180,
+   "to": "2026-11-21"
+  },
+  {
+   "from": "2026-11-14",
+   "ids": "WEI (backstop shadow reading)",
+   "lag_min": 13,
+   "name": "the Weekly Economic Index",
+   "posted": "2026-11-25 11:46 ET",
+   "read_at": "2026-11-25T16:59Z",
+   "release": 465,
+   "to": "2026-11-21"
+  },
+  {
+   "from": "2026-11-18",
+   "ids": "GDPNOW",
+   "lag_min": 4,
+   "name": "GDPNow",
+   "posted": "2026-11-25 12:03 ET",
+   "read_at": "2026-11-25T17:07Z",
+   "release": 386,
+   "to": "2026-11-25"
+  },
+  {
+   "from": "2026-11-24",
+   "ids": "SP500",
+   "lag_min": null,
+   "name": null,
+   "posted": null,
+   "read_at": "2026-11-25T23:58Z",
+   "release": null,
+   "to": "2026-11-25"
   }
  ],
  "since": "2026-09-23T23:12Z"
