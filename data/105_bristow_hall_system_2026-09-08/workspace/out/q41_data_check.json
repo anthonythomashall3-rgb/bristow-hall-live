@@ -100,63 +100,63 @@
 {
 "name": "tile: Unemployment rate next release is not in the past",
 "got": "2026-12-04",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Nonfarm payrolls next release is not in the past",
 "got": "2026-12-04",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Payroll growth next release is not in the past",
 "got": "2026-12-04",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Initial claims (week) next release is not in the past",
 "got": "2026-12-03",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Insured unemployment rate next release is not in the past",
 "got": "2026-12-03",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Job openings next release is not in the past",
 "got": "2026-12-01",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Unemployed per opening next release is not in the past",
 "got": "2026-12-01",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: Quits rate next release is not in the past",
 "got": "2026-12-01",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "tile: CPI inflation next release is not in the past",
 "got": "2026-12-10",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -219,14 +219,14 @@
 {
 "name": "feed is not dated in the future: Initial claims and continued claims, sea",
 "got": "2026-11-21",
-"want": "<= 2026-11-25",
+"want": "<= 2026-11-26",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: Initial claims and continued claims, sea",
 "got": "2026-12-03",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -254,7 +254,7 @@
 {
 "name": "feed next release is not in the past: Unemployment rate, payrolls, the unemplo",
 "got": "2026-12-04",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -282,7 +282,7 @@
 {
 "name": "feed next release is not in the past: Job openings (the help-wanted pillar: op",
 "got": "2026-12-01",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -310,7 +310,7 @@
 {
 "name": "feed next release is not in the past: Industrial production (the production pi",
 "got": "2026-12-16",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -338,7 +338,7 @@
 {
 "name": "feed next release is not in the past: Moody's Baa corporate bond yield, monthl",
 "got": "2026-12-07",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -366,7 +366,7 @@
 {
 "name": "feed next release is not in the past: Effective federal funds rate, monthly av",
 "got": "2026-12-01",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -394,7 +394,7 @@
 {
 "name": "feed next release is not in the past: 10-year and 1-year Treasury yields, mont",
 "got": "2026-12-01",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -407,8 +407,8 @@
 },
 {
 "name": "feed reading matches the readings table: S&P 500 daily close (the market pillar: ",
-"got": "6.16",
-"want": "6.16",
+"got": "5.43",
+"want": "5.43",
 "status": "PASS",
 "gate": "soft"
 },
@@ -422,14 +422,14 @@
 {
 "name": "feed is not dated in the future: S&P 500 daily close (the market pillar: ",
 "got": "2026-11-25",
-"want": "<= 2026-11-25",
+"want": "<= 2026-11-26",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: S&P 500 daily close (the market pillar: ",
 "got": "2026-11-27",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -443,7 +443,7 @@
 {
 "name": "feed next release is not in the past: Real GDP (the damage grade's output dime",
 "got": "2026-12-23",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -457,14 +457,14 @@
 {
 "name": "feed is not dated in the future: GDPNow (the output dimension's bridge fo",
 "got": "2026-11-25",
-"want": "<= 2026-11-25",
+"want": "<= 2026-11-26",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: GDPNow (the output dimension's bridge fo",
 "got": "2026-12-01",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -478,7 +478,7 @@
 {
 "name": "feed next release is not in the past: Sahm rule, real time (the comparator on ",
 "got": "2026-12-04",
-"want": ">= 2026-11-25",
+"want": ">= 2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -505,7 +505,7 @@
 },
 {
 "name": "feed value date: ICNSA newest week within the weekly cadence",
-"got": "4",
+"got": "5",
 "want": "4-14 days",
 "status": "PASS",
 "gate": "hard"
@@ -526,7 +526,7 @@
 },
 {
 "name": "feed value date: CCNSA newest week within the weekly cadence",
-"got": "11",
+"got": "12",
 "want": "11-21 days",
 "status": "PASS",
 "gate": "hard"
@@ -554,8 +554,8 @@
 },
 {
 "name": "headline date = last day of the daily series",
-"got": "2026-11-25",
-"want": "2026-11-25",
+"got": "2026-11-26",
+"want": "2026-11-26",
 "status": "PASS",
 "gate": "soft"
 },
@@ -575,8 +575,8 @@
 },
 {
 "name": "standing \"since\" = the last episode's close month",
-"got": "2024-10",
-"want": "2024-10",
+"got": "2020-06",
+"want": "2020-06",
 "status": "PASS",
 "gate": "soft"
 },
@@ -596,15 +596,15 @@
 },
 {
 "name": "speed panel: calls before the end of the peak month",
-"got": "8",
-"want": "8",
+"got": "5",
+"want": "5",
 "status": "PASS",
 "gate": "soft"
 },
 {
-"name": "speed panel: thirteen episodes",
-"got": "13",
-"want": "13",
+"name": "speed panel: twelve episodes",
+"got": "12",
+"want": "12",
 "status": "PASS",
 "gate": "soft"
 },
@@ -616,16 +616,16 @@
 "gate": "soft"
 },
 {
-"name": "C1021: the thirteen opens are the record's (RECORD-1021)",
-"got": "['1948-12-31', '1953-10-13', '1957-04-30', '1960-06-13', '1969-10-11', '1973-08-01', '1979-11-01', '1981-06-01', '1990-06-01', '2001-04-06', '2007-11-02', '2020-04-03', '2024-01-05']",
-"want": "['1948-12-31', '1953-10-13', '1957-04-30', '1960-06-13', '1969-10-11', '1973-08-01', '1979-11-01', '1981-06-01', '1990-06-01', '2001-04-06', '2007-11-02', '2020-04-03', '2024-01-05']",
+"name": "C1019: the twelve opens are the record's without the job-losers door (RECORD-1019, 1168)",
+"got": "['1948-12-31', '1953-10-13', '1957-04-30', '1960-06-13', '1969-10-11', '1973-08-01', '1979-11-01', '1981-06-01', '1990-08-06', '2001-04-06', '2008-01-04', '2020-04-03']",
+"want": "['1948-12-31', '1953-10-13', '1957-04-30', '1960-06-13', '1969-10-11', '1973-08-01', '1979-11-01', '1981-06-01', '1990-08-06', '2001-04-06', '2008-01-04', '2020-04-03']",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "E22: the thirteen closes are the harness's (RECORD-1030/1041)",
-"got": "['1949-10-20', '1954-06-11', '1958-06-19', '1961-02-24', '1970-12-24', '1975-02-06', '1980-07-22', '1982-12-02', '1991-02-07', '2001-12-28', '2009-07-23', '2020-06-05', '2024-10-01']",
-"want": "['1949-10-20', '1954-06-11', '1958-06-19', '1961-02-24', '1970-12-24', '1975-02-06', '1980-07-22', '1982-12-02', '1991-02-07', '2001-12-28', '2009-07-23', '2020-06-05', '2024-10-01']",
+"name": "E22: the twelve closes (RECORD-1030/1041; 1168: the C1019 opens)",
+"got": "['1949-10-20', '1954-06-11', '1958-06-19', '1961-02-24', '1970-12-24', '1975-02-06', '1980-07-22', '1982-12-02', '1991-02-07', '2001-12-28', '2009-07-23', '2020-06-05']",
+"want": "['1949-10-20', '1954-06-11', '1958-06-19', '1961-02-24', '1970-12-24', '1975-02-06', '1980-07-22', '1982-12-02', '1991-02-07', '2001-12-28', '2009-07-23', '2020-06-05']",
 "status": "PASS",
 "gate": null
 },
@@ -637,16 +637,16 @@
 "gate": null
 },
 {
-"name": "C1021+E22: the state says version C1021+E22",
-"got": "C1021+E22",
-"want": "C1021+E22",
+"name": "C1019+E22: the state says version C1019+E22",
+"got": "C1019+E22",
+"want": "C1019+E22",
 "status": "PASS",
 "gate": null
 },
 {
 "name": "E22: the ender ran today (out/e22_state.json)",
-"got": "2026-11-25",
-"want": "2026-11-25",
+"got": "2026-11-26",
+"want": "2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -659,8 +659,8 @@
 },
 {
 "name": "C1021: the starter ran today (out/c1021_state.json)",
-"got": "2026-11-25",
-"want": "2026-11-25",
+"got": "2026-11-26",
+"want": "2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -672,9 +672,9 @@
 "gate": null
 },
 {
-"name": "C1021: the record's three heights with the C1021 opens (2007-09 5.9, 2020 5.7, 2024 1.5)",
-"got": "[5.9, 5.7, 1.5]",
-"want": "[5.9, 5.7, 1.5]",
+"name": "C1019: the record's two heights with the C1019 opens (2007-09 5.9, 2020 5.7; 1168: no 2024 episode)",
+"got": "[5.9, 5.7]",
+"want": "[5.9, 5.7]",
 "status": "PASS",
 "gate": null
 },
@@ -869,15 +869,15 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-25 20:21', '2026-11-25 20:21')",
-"want": "('2026-11-25 20:21', '2026-11-25 20:21')",
+"got": "('2026-11-26 09:42', '2026-11-26 09:42')",
+"want": "('2026-11-26 09:42', '2026-11-26 09:42')",
 "status": "PASS",
 "gate": "hard"
 },
 {
 "name": "front-page tiles fetched today",
-"got": "2026-11-25",
-"want": "2026-11-25",
+"got": "2026-11-26",
+"want": "2026-11-26",
 "status": "PASS",
 "gate": null
 },
@@ -1036,35 +1036,35 @@
 "gate": "hard"
 },
 {
-"name": "one scale: every recession day reads 3.00 or more and every other day below 3.00",
+"name": "one number: every recession day reads 2.00 or more and every other day below 2.00",
 "got": "[]",
 "want": "[]",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "one scale: the state names its scale (recession line 3.00)",
-"got": "3.0",
-"want": "3.0",
+"name": "one number: the state names its scale (recession line 2.00)",
+"got": "2.0",
+"want": "2.0",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "one scale: every recession grades 3.00 or more",
+"name": "one number: every recession grades 2.00 or more",
 "got": "[]",
 "want": "[]",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "one scale: the State page and the stress map are on the scale",
+"name": "one number: the State page and the stress map are on the scale",
 "got": "0",
 "want": "0",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "one scale: every disturbance grades below 3.00 and every recession window 3.00 or more",
+"name": "one number: every disturbance grades below 2.00 or was not graded on a fall of activity, every recession window grades 2.00 or more on a fall of activity (1167 class rule), and each grade is its damage",
 "got": "[]",
 "want": "[]",
 "status": "PASS",

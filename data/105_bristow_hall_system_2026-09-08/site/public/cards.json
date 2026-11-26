@@ -1,5 +1,5 @@
 {
- "built": "2026-11-26T11:08:52Z",
+ "built": "2026-11-26T14:42:16Z",
  "size": [
   1200,
   760
@@ -7,30 +7,30 @@
  "cards": {
   "/detector/": {
    "png": "/detector/card.png",
-   "sha256": "57dd19087c5a78c913e5f6e2ee51fb9e9000872a13320e45985ee1c271d9051b",
+   "sha256": "7118d569d37802717db6c857d3ebd517d4dec4e65f2f26cc75330c0cd45550dc",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 938,
-   "share_not_main": 0.2693
+   "colours": 756,
+   "share_not_main": 0.2513
   },
   "/disturbance/": {
    "png": "/disturbance/card.png",
-   "sha256": "f980c7d34a52cc1ede6c7c261be170e3e92b30bb73586ce67ea5eed1da1d1fd3",
+   "sha256": "c3f09be341832836b109e1da2e2eaeb0bb0c7df3055bbba3ffeb12eb70ecf6e6",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1180,
-   "share_not_main": 0.3686
+   "colours": 1551,
+   "share_not_main": 0.3563
   },
   "/state-onset/": {
    "png": "/state-onset/card.png",
-   "sha256": "556dfde43281e82116904be823eed8cb2ad126276d8bc8afcd53c0015f8f3844",
+   "sha256": "9b4d7f4b63d87aed0ff8feef9df7cb2d9d4870f3dca422b90a121d704957b572",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 704,
-   "share_not_main": 0.3074
+   "colours": 611,
+   "share_not_main": 0.3061
   },
   "/stress-map/": {
    "png": "/stress-map/card.png",
@@ -43,25 +43,25 @@
   },
   "/forecaster/": {
    "png": "/forecaster/card.png",
-   "sha256": "faf66901ecfb7971609cfe2472a8dd18cd4d3157709c563d7b446e51736c2751",
+   "sha256": "d9174f498aae934e0e45a845236ff4746bb42f7ee731871ada2f7c1e9e00b9cc",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1645,
-   "share_not_main": 0.2199
+   "colours": 1647,
+   "share_not_main": 0.2134
   },
   "/time-machine/": {
    "png": "/time-machine/card.png",
-   "sha256": "2e40c33c9850f1c1f8657a561a94653b74289679797a4d32bfb979f83fd3d495",
+   "sha256": "749be3f9ec5548ae331b38f97b4720871beafa8d90c9be4cf97dd2798fef7cad",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 534,
-   "share_not_main": 0.3929
+   "colours": 540,
+   "share_not_main": 0.5397
   },
   "/data/": {
    "png": "/data/card.png",
-   "sha256": "9bf52198651ff594e3e914b6b6449d395949a757e5ba0257bd864668387cd24b",
+   "sha256": "1321b3912678ff27146efdc1b8706239f3e1c76698185daeba03e9955c234c03",
    "on_home": false,
    "w": 1200,
    "h": 522,

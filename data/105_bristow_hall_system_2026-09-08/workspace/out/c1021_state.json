@@ -1,13 +1,18 @@
 {
- "tool": "C1021",
- "built": "2026-11-26 01:21:28Z",
+ "tool": "C1019",
+ "doors": [
+  "route",
+  "count door",
+  "FS"
+ ],
+ "built": "2026-11-26 14:41:46Z",
  "grid": {
   "day0": "2012-01-01",
-  "days": 5443
+  "days": 5444
  },
  "record_cut": "2024-07-01",
  "today": {
-  "day": "2026-11-25",
+  "day": "2026-11-26",
   "reading": 0.2857,
   "route": {
    "on": false,
@@ -36,7 +41,7 @@
    "ratio": 0.087
   },
   "jl_door": {
-   "on": false,
+   "retired": "1168: shown for information, never called",
    "ratio": 0.0,
    "armed_witness": false
   }
@@ -45,9 +50,9 @@
   "SY": {
    "sp_last": 7182.77978515625,
    "sp_last_day": "2026-11-25",
-   "yoy_pct": 6.16,
+   "yoy_pct": 5.43,
    "last_day_below_year_ago": "2025-04-08",
-   "days_since": 596
+   "days_since": 597
   },
   "BAA": {
    "month": "2026-10",
@@ -216,11 +221,6 @@
    "basis": "record"
   },
   {
-   "day": "1974-10-04",
-   "door": "JL",
-   "basis": "record"
-  },
-  {
    "day": "1979-11-01",
    "door": "FS",
    "basis": "record"
@@ -228,11 +228,6 @@
   {
    "day": "1979-11-08",
    "door": "door",
-   "basis": "record"
-  },
-  {
-   "day": "1980-03-07",
-   "door": "JL",
    "basis": "record"
   },
   {
@@ -276,11 +271,6 @@
    "basis": "record"
   },
   {
-   "day": "1990-06-01",
-   "door": "JL",
-   "basis": "record"
-  },
-  {
    "day": "1990-08-06",
    "door": "door",
    "basis": "record"
@@ -292,17 +282,12 @@
   },
   {
    "day": "2001-04-06",
-   "door": "JL",
+   "door": "door",
    "basis": "record"
   },
   {
    "day": "2001-05-07",
    "door": "route",
-   "basis": "record"
-  },
-  {
-   "day": "2007-11-02",
-   "door": "JL",
    "basis": "record"
   },
   {
@@ -317,17 +302,12 @@
   },
   {
    "day": "2020-04-03",
-   "door": "JL",
+   "door": "door",
    "basis": "record"
   },
   {
    "day": "2020-04-07",
    "door": "route",
-   "basis": "record"
-  },
-  {
-   "day": "2024-01-05",
-   "door": "JL",
    "basis": "record"
   }
  ],
@@ -336,8 +316,8 @@
   "I4": "2026-01-28",
   "HW": "2026-04-29",
   "SY": "2025-05-02",
-  "IP": "2026-11-25",
-  "BAA": "2026-11-25",
+  "IP": "2026-11-26",
+  "BAA": "2026-11-26",
   "HH": "2024-10-03",
   "P": "2026-09-03",
   "CNT": "2026-01-08",
