@@ -3,7 +3,7 @@
 did (1052 code/publish_live_pages_1052.py, imported, its own put() and norm() used unchanged), without the pull request: the workflow
 commits to main itself and starts the site deploy.
   - /state-onset/: 1032 web/state-onset/index.html -> s2/state_onset/page.html
-  - /stress-map/ : 1052 web/stress-map/index.html  -> s2/stress_map/page.html (+ s2/stress_map/stress_map_site.py)
+  - /stress-map/ : 1052 web/stress-map/index.html  -> s2/stress_map/page.html (s2/stress_map/stress_map_site.py stays the repository's: 1167h)
   - the data page's Mac-built rows: s2/tool_inputs_mac.py run in this checkout (its json compared with time stamps ignored, as the Mac did)
   - when anything changed, the runner's two site steps once, so site/public/{state-onset,stress-map}/ are committed as the runner writes them.
 Writes $LT_OUT/publish_pages.json: {changed: [...]} and exits 0 (1 only on an error)."""
@@ -31,7 +31,9 @@ def main():
         ch = R['changed']
         if P.put(P.STATE_PAGE, f'{P.WS}/s2/state_onset/page.html'): ch.append('state-onset')
         if P.put(P.STRESS_PAGE, f'{P.WS}/s2/stress_map/page.html'): ch.append('stress-map')
-        if P.put(P.SM_SITE, f'{P.WS}/s2/stress_map/stress_map_site.py'): ch.append('stress_map_site.py')
+        # 1167h (26 Nov 2026): the site's stress_map_site.py is the repository's own (1182 changed it on 26 Nov to take the 2024 band out).
+        # The 1052 collection's copy (code/live/stress_map_site.py, restored from the Mac's state) is older: put over the repository's it
+        # would undo 1182, and the site contract would hold every publish. It is no longer put.
         R['detail_files_changed'] = sync_detail()
         if R['detail_files_changed']: ch.append('stress-map-detail')
         assert P.RUNLINE in open(os.path.join(WT, 'run_cloud.sh')).read(), 'run_cloud.sh has no stress map line'
