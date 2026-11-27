@@ -176,9 +176,9 @@ ACT_LEAD = 6; ACT_LAG = 6
 def graded_window(idx, p, te, last):
     """1167: the months a window is graded on. The composite's highest level in [p - 6 months, te] and its lowest level after it, up to
     te + 6 months (not past the data); if that fall is ACT_MIN percent or more the window is graded on it, otherwise on p..te."""
-    a = idx[(idx.index >= p - pd.DateOffset(months=ACT_LEAD)) & (idx.index <= te)]; pl = a.idxmax()
-    b = idx[(idx.index >= pl) & (idx.index <= min(te + pd.DateOffset(months=ACT_LAG), last))]; tl = b.idxmin()
-    fall = float(100 * (1 - b.min() / a.max()))
+    # 1201 (27 Nov 2026): the fall of activity is the LARGEST fall inside the window, from a high in [p - 6 months, te] to the lowest level after it (to te + 6 months). The rule of 1167 took the single highest level of the whole span; where activity ended a long window above where it began, that high lay at the end and the fall read 0 (Arkansas 1980: the index fell 1.17 percent and read 0.0). National register: no class, date or grade changes. States: 9 periods become recessions.
+    s = idx[(idx.index >= p - pd.DateOffset(months=ACT_LEAD)) & (idx.index <= min(te + pd.DateOffset(months=ACT_LAG), last))]; dd_ = 1 - s / s.where(s.index <= te).cummax().ffill()
+    tl = dd_.idxmax(); pl = s[:tl].idxmax(); fall = float(100 * dd_.max())
     return (pl, tl, dict(on='activity', fall_pct=round(fall, 2))) if fall >= ACT_MIN else (p, te, dict(on='trend', fall_pct=round(fall, 2)))
 
 

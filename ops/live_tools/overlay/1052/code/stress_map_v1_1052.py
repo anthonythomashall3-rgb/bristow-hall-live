@@ -43,8 +43,9 @@ def run_v4(st, y, UR, last, allow_short=False, Pm=None):
         if not any(dc.overlaps(p, t, q, (s if s is not None else last)) for q, s, k in cand if k == 5) and fall(p, t) >= dc.DD_MIN: cand.append((p, t, 2))
     Gq = y.resample('QS').mean(); R = []
     def graded(p, te):
-        a = y[(y.index >= p - pd.DateOffset(months=6)) & (y.index <= te)]; pl = a.idxmax()
-        b = y[(y.index >= pl) & (y.index <= min(te + pd.DateOffset(months=6), last))]; tl = b.idxmin(); fl = float(100 * (1 - b.min() / a.max()))
+        # 1201 (27 Nov 2026): the fall of activity is the LARGEST fall inside the window, from a high in [p - 6 months, te] to the lowest level after it (to te + 6 months). The rule of 1167 took the single highest level of the whole span; where activity ended a long window above where it began, that high lay at the end and the fall read 0 (Arkansas 1980: the index fell 1.17 percent and read 0.0). National register: no class, date or grade changes. States: 9 periods become recessions.
+        s = y[(y.index >= p - pd.DateOffset(months=6)) & (y.index <= min(te + pd.DateOffset(months=6), last))]; dd_ = 1 - s / s.where(s.index <= te).cummax().ffill()
+        tl = dd_.idxmax(); pl = s[:tl].idxmax(); fl = float(100 * dd_.max())
         return (pl, tl, 'activity', fl) if fl >= 1.0 else (p, te, 'trend', fl)
     def parts(UR, base, Gq, p, m):
         ex = (UR[(UR.index >= p) & (UR.index <= m)] - base).clip(lower=0); L = dd.labour_score(float(ex.max()), float(ex.sum())) if len(ex) else 0.0
