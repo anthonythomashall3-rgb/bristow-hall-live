@@ -22,8 +22,10 @@ PY=${PY:-python3}; OPS="$GITHUB_WORKSPACE/ops/live_tools"; L="$LT_OUT/run.log"; 
 # (4 on GitHub), and after each call they spin (default 2^28 cycles) before sleeping. The stress map's county layer runs 4 processes
 # beside each other, so 16 threads shared 4 cores, most of them spinning: computing it took 15 to 22 minutes on GitHub, 2 minutes in the
 # cloud session (which sets OPENBLAS_NUM_THREADS=1 and so never showed it). The thread count is unchanged, so every BLAS call splits its work
-# as before and the results are the same bits (fewer threads would change them: 3,143 counties, 1 thread against 4, differ). Locally with
-# 4 threads: 376 s against 141 s, the county results byte-identical. LT_BLAS_SPIN=1 leaves it as it was.
+# as before and the results are the same bits (fewer threads would change them: 1 thread against 4 differs in 17 of 3,143 counties).
+# Measured on GitHub (PR #165's probe, 384 counties, 4 processes): 121 s spinning, 53 s sleeping, the results byte-identical; the whole
+# county layer 17 min 18 s before, 7 min 40 s with it. In the cloud session (all 3,143 counties, 4 threads, 2 processes): 376 s against
+# 141 s, byte-identical. LT_BLAS_SPIN=1 leaves it as it was.
 [ "${LT_BLAS_SPIN:-0}" = "1" ] || export OPENBLAS_THREAD_TIMEOUT=4
 say() { echo "$(date -u '+%F %T')Z $*" | tee -a "$L"; }
 STOP=""
@@ -85,7 +87,6 @@ step "1032 routine step 2" $PY code/state_v4_rebuild_1052.py || STOP="1032 routi
 if [ -z "$STOP" ]; then
   ( L="$LT_OUT/run_state_render.log"; : > "$L"; step "State page render" $PY code/page_check_1052.py state "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/web/state-onset/index.html"; echo $? > "$LT_OUT/state_render.rc" ) &
   RP=$!
-  step "county pool probe (1167m, not for main)" $PY "$OPS/county_pool_probe.py" || true
   step "stress map v3.1" $PY "$OPS/stress_map_cached.py" --all --procs "$(nproc)" || STOP="stress map v3.1 build failed"
   wait $RP; cat "$LT_OUT/run_state_render.log" >> "$L"
   [ "$(cat "$LT_OUT/state_render.rc" 2>/dev/null)" = 0 ] || STOP="State page render check failed"
