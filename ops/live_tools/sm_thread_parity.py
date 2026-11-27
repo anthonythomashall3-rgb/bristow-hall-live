@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PROBE ONLY (1167o, not for main): THE STRESS MAP WITH 4 BLAS THREADS AGAINST 2, BYTE FOR BYTE. No AI.
+"""PROBE ONLY (1167o, not for main): THE STRESS MAP WITH THE COUNTY LAYER IN 4 PROCESSES AGAINST 1, BYTE FOR BYTE. No AI.
 
 Adapted from sm_cache_parity.py (live-tools.yml mode=cache-parity).
 
@@ -29,12 +29,11 @@ def snap(dst):
     return got
 
 
-def build(cache, label, threads=None):
-    env = dict(os.environ, SM_CACHE=cache, SM_CACHE_DIR=os.path.join(LT, 'sm_thread_parity_store_%s' % (threads or 'default')))
+def build(cache, label, procs):
+    env = dict(os.environ, SM_CACHE=cache, SM_CACHE_DIR=os.path.join(LT, 'sm_thread_parity_store_%s' % procs))
     env.pop('OPENBLAS_NUM_THREADS', None)
-    if threads: env['OPENBLAS_NUM_THREADS'] = threads
     t = time.time()
-    r = subprocess.run([sys.executable, os.path.join(HERE, 'stress_map_cached.py'), '--all', '--procs', str(os.cpu_count() or 4)], env=env, cwd=C)
+    r = subprocess.run([sys.executable, os.path.join(HERE, 'stress_map_cached.py'), '--all', '--procs', str(procs)], env=env, cwd=C)
     print('%s: rc %d in %.0f s' % (label, r.returncode, time.time() - t), flush=True)
     rec = json.load(open(os.path.join(LT, 'sm_county_cache.json'))) if os.path.exists(os.path.join(LT, 'sm_county_cache.json')) else {}
     return r.returncode, round(time.time() - t, 1), rec
@@ -45,9 +44,9 @@ def main():
     # folders are put back as they were before A
     pre = os.path.join(LT, 'pre'); shutil.rmtree(pre, ignore_errors=True)
     for d in ('out', os.path.join('web', 'stress-map')): shutil.copytree(os.path.join(C, d), os.path.join(pre, d))
-    rcA, tA, recA = build('0', 'A: 4 BLAS threads (the default), county layer computed'); A = snap(os.path.join(LT, 'A'))
+    rcA, tA, recA = build('0', 'A: the county layer in 4 processes (as before), computed', 4); A = snap(os.path.join(LT, 'A'))
     for d in ('out', os.path.join('web', 'stress-map')): shutil.rmtree(os.path.join(C, d)); shutil.copytree(os.path.join(pre, d), os.path.join(C, d))
-    rcB, tB, recB = build('0', 'B: 2 BLAS threads, county layer computed', '2'); B = snap(os.path.join(LT, 'B'))
+    rcB, tB, recB = build('0', 'B: the county layer in 1 process, computed', 1); B = snap(os.path.join(LT, 'B'))
     for d in ('out', os.path.join('web', 'stress-map')): shutil.rmtree(os.path.join(C, d)); shutil.copytree(os.path.join(pre, d), os.path.join(C, d))
     same, clock_only, diff = [], [], []
     for k in sorted(set(A) | set(B)):
