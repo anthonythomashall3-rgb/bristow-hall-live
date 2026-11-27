@@ -43,7 +43,7 @@ ym = lambda t: t.strftime('%Y-%m')
 
 # ---------------- the v4 code path (state_chronology_v4_growth_cycle_a198_1032.py lines 17-46, verbatim except: inputs are arguments, `last` is the series' last month,
 # and a short pre-peak base (fewer than 11 months, only where the insured rate has not yet begun) is allowed and flagged instead of asserted) -------------
-def run_v4(st, y, UR, last, allow_short=False, Pm=None):
+def run_v4(st, y, UR, last, allow_short=False, Pm=None, one_month=False):
     # 1167 (24 Nov 2026; Anthony: one grading rule; the State grade on three dimensions): each window is graded on the fall of its own
     # index (the highest level from 6 months before the peak to the trough, to the lowest level after it, up to 6 months past the trough)
     # where it fell 1.0 percent or more, otherwise on its fall against trend; Pm = the place's production index (the State production
@@ -52,6 +52,14 @@ def run_v4(st, y, UR, last, allow_short=False, Pm=None):
     fall = lambda p, t: float(dev[p] - (dev[t] if t is not None else dev[p:].min())); cand = [(p, t, 5) for p, t in w5]
     for p, t in w2:
         if not any(dc.overlaps(p, t, q, (s if s is not None else last)) for q, s, k in cand if k == 5) and fall(p, t) >= dc.DD_MIN: cand.append((p, t, 2))
+    # 1201 (27 Nov 2026): one-month windows, as in the State chronology builder (overlay/1032), so the map's State layer stays that file. A State whose index peaked in March 2020 and troughed in April fell in ONE month, which the
+    # floor rule (phase of 2 months) cannot hold: South Dakota had no 2020 period at all (index down 23 percent, unemployment 2.4 to 8.8).
+    # A window of one month (1, 1, 3) that overlaps no window already held and falls 1.0 point or more is a candidate like a floor window.
+    # Replayed on the data of 27 Nov 2026 it adds three periods and changes none: SD Mar-Apr 2020 (recession), LA Aug-Sep 2021 (disturbance,
+    # Hurricane Ida), AK May 1979-Sep 1980 (disturbance, before the record's first month).
+    w1 = dc.windows(dev, 1, 1, 3)[0] if one_month else []   # only the State chronology layer (1979-07 on); the older layer is left as it was
+    for p, t in w1:
+        if t is not None and not any(dc.overlaps(p, t, q, (s if s is not None else last)) for q, s, k in cand) and fall(p, t) >= dc.DD_MIN: cand.append((p, t, 1))
     Gq = y.resample('QS').mean(); R = []
     def graded(p, te):
         a = y[(y.index >= p - pd.DateOffset(months=6)) & (y.index <= te)]; pl = a.idxmax()
@@ -107,7 +115,7 @@ V4UR = {}   # 19 Nov 2026 (1150): the labour input of each State-month is kept f
 V4 = {}; repro = {'states_line_identical': 0, 'states_windows_identical': 0, 'differences': []}
 for st in STS:
     y = X[st].dropna(); u = pd.read_csv(os.path.join(DI, '03_data/state/fred_state_ur', f'{st}UR.csv')); UR = pd.Series(u.iloc[:, 1].astype(float).values, index=pd.to_datetime(u.iloc[:, 0])).dropna()
-    R, ln, dev = run_v4(st, y, UR, LAST, Pm=SPI1167.get(st)); V4[st] = dict(R=R, ln=ln, dev=dev); V4UR[st] = UR   # 1167: production dimension
+    R, ln, dev = run_v4(st, y, UR, LAST, Pm=SPI1167.get(st), one_month=True); V4[st] = dict(R=R, ln=ln, dev=dev); V4UR[st] = UR   # 1167: production dimension
     pub = dict(V4J['states'][st]['line']); mine = ln
     if pub == mine: repro['states_line_identical'] += 1
     else: repro['differences'].append((st, 'line', sum(1 for k in set(pub) | set(mine) if pub.get(k) != mine.get(k))))

@@ -34,6 +34,14 @@ for st in STS:
     fall = lambda p, t: float(dev[p] - (dev[t] if t is not None else dev[p:].min())); cand = [(p, t, 5) for p, t in w5]
     for p, t in w2:
         if not any(dc.overlaps(p, t, q, (s if s is not None else last)) for q, s, k in cand if k == 5) and fall(p, t) >= dc.DD_MIN: cand.append((p, t, 2))
+    # 1201 (27 Nov 2026): one-month windows. A State whose index peaked in March 2020 and troughed in April fell in ONE month, which the
+    # floor rule (phase of 2 months) cannot hold: South Dakota had no 2020 period at all (index down 23 percent, unemployment 2.4 to 8.8).
+    # A window of one month (1, 1, 3) that overlaps no window already held and falls 1.0 point or more is a candidate like a floor window.
+    # Replayed on the data of 27 Nov 2026 it adds three periods and changes none: SD Mar-Apr 2020 (recession), LA Aug-Sep 2021 (disturbance,
+    # Hurricane Ida), AK May 1979-Sep 1980 (disturbance, before the record's first month).
+    w1, _ = dc.windows(dev, 1, 1, 3)
+    for p, t in w1:
+        if t is not None and not any(dc.overlaps(p, t, q, (s if s is not None else last)) for q, s, k in cand) and fall(p, t) >= dc.DD_MIN: cand.append((p, t, 1))
     u = pd.read_csv(os.path.join(DI, '03_data/state/fred_state_ur', f'{st}UR.csv')); UR = pd.Series(u.iloc[:, 1].astype(float).values, index=pd.to_datetime(u.iloc[:, 0])).dropna()
     Gq = y.resample('QS').mean(); URL[st] = UR.index[-1].strftime('%Y-%m'); R = []
     for p, t, mp in sorted(cand, key=lambda r: r[0]):
@@ -60,7 +68,7 @@ for st in STS:
     LINE[st] = sorted(ln.items())
     for r in R:
         rows.append({'st': st, 'peak': r['p'].strftime('%Y-%m'), 'trough': r['t'].strftime('%Y-%m') if r['t'] is not None else None, 'open': r['t'] is None, 'months': mdiff(r['te'], r['p']),
-                     'dating': 'OECD 5/15' if r['mp'] == 5 else 'floor 2/6', 'status': r['status'], 'class': r['status'] if r['status'] in ('recession', 'disturbance') else '',
+                     'dating': 'OECD 5/15' if r['mp'] == 5 else ('floor 2/6' if r['mp'] == 2 else 'one month 1/3'), 'status': r['status'], 'class': r['status'] if r['status'] in ('recession', 'disturbance') else '',
                      'dev_fall_pp': round(r['f'], 2), 'ur_rise_pp': round(r['rise'], 2), 'index_fall_pct': round(r['pt'], 2), 'L': round(r['L'], 2), 'O': round(r['O'], 2),
                      'P': (round(r['P'], 2) if r['P'] is not None else None), 'production_fall_pct': (round(r['ppt'], 2) if r['ppt'] is not None else None),
                      'graded_on': r['on'], 'graded_from': r['gp'].strftime('%Y-%m'), 'graded_to': r['gt'].strftime('%Y-%m'), 'activity_fall_pct': round(r['act'], 2), 'grade': round(r['g'], 2),
