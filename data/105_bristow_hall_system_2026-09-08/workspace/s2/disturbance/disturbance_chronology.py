@@ -299,7 +299,7 @@ def main():
                          status=status, status_v3_1=status_v3_1, dev_fall_pp=round(f, 2), sahm_max=round(smax, 2), sahm_rerise=rerise,
                          ur_rise_pp=round(float(ex.max()), 2), ip_fall_pct=round(q['pt'], 2), gdp_fall_pct=round(o['pt'], 2),
                          L=round(L, 2), O=round(o['score'], 2), P=round(q['score'], 2),
-                         damage=g_, grade=_one1140(g_), provisional=bool(prov),
+                         damage=g_, grade=_one1140(g_, status == 'recession'), provisional=bool(prov),
                          graded_on=act['on'], graded_from=gp.strftime('%Y-%m'), graded_to=gt.strftime('%Y-%m'), activity_fall_pct=act['fall_pct'],
                          damage_path=({m.strftime('%Y-%m'): round(dd.grade(*(lambda r: (r[0], r[1]['score'], r[2]['score']))(damage_parts(UR, G, IP, gp, m))), 2)
                                        for m in pd.date_range(gp, gt, freq='MS')} if status == 'recession' else None),
@@ -351,7 +351,7 @@ def main_v4(a, data, ser):
                          method_trough=e['method_trough'].strftime('%Y-%m') if e['method_trough'] is not None else None,
                          status=status, status_v3_1=status, class_rule_1167=rule, dev_fall_pp=e['fall_pp'], sahm_max=round(smax, 2), sahm_rerise=None,
                          ur_rise_pp=round(float(ex.max()), 2), ip_fall_pct=round(q['pt'], 2), gdp_fall_pct=round(o['pt'], 2),
-                         L=round(L, 2), O=round(o['score'], 2), P=round(q['score'], 2), damage=g_, grade=_one1140(g_), provisional=bool(prov),
+                         L=round(L, 2), O=round(o['score'], 2), P=round(q['score'], 2), damage=g_, grade=_one1140(g_, status == 'recession'), provisional=bool(prov),
                          confirmed=bool(e['confirmed']), confirmed_on=conf_on.get(e['method_peak'].strftime('%Y-%m')),
                          graded_on=act['on'], graded_from=gp.strftime('%Y-%m'), graded_to=gt.strftime('%Y-%m'), activity_fall_pct=act['fall_pct'],
                          damage_path=({m.strftime('%Y-%m'): round(dd.grade(*(lambda r: (r[0], r[1]['score'], r[2]['score']))(damage_parts(UR, G, IP, gp, m))), 2)
