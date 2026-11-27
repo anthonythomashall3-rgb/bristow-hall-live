@@ -23,7 +23,11 @@
    "value_before": "0.03"
   }
  ],
+<<<<<<< HEAD
  "last_check_ny": "2026-11-27 10:54",
+=======
+ "last_check_ny": "2026-11-27 11:03",
+>>>>>>> origin/main
  "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }

@@ -8989,6 +8989,7 @@ run_date	side	object	reading	line	at_or_above	data_through
 2026-11-27	close	E22 leg A: insured unemployment, 4-week mean of the seasonally adjusted first prints, thousands (inside an episode: primed by 8 straight weekly rises; ends when it falls more than 3 times its median weekly move below its high, its 8-week second difference is negative and the policy rate is below a year earlier)	1718.75	None	no	2026-11-14
 2026-11-27	close	E22 legs A and S: the federal funds rate, monthly average, against its level 12 months earlier, points (on below 0; known the first business day after the month)	-0.21	0	no	2026-10
 2026-11-27	close	E22 leg S: the S&P 500 against its lowest close since the episode opened, ratio (on at 1.20, the bull-market definition, with insured unemployment off its high; read only inside an episode)	None	1.2	no	2026-11-25
+<<<<<<< HEAD
 2026-11-27	open	route: insured unemployment (not seasonally adjusted, 4-week sum) above the same weeks a year earlier, log points (on at 0; first prints, known on the release day)	-13.06	0	no	2026-11-14
 2026-11-27	open	route: job openings (JOLTS) growing slower than initial claims - openings year-on-year less claims 4-week NSA year-on-year, points (on below 0; passes while no openings print stands)	19.17	0	no	2026-09-30
 2026-11-27	open	route: S&P 500 against its close 365 days earlier, percent (on when below a year ago on any of the last 25 days)	5.43	0	no	2026-11-25
@@ -9004,3 +9005,5 @@ run_date	side	object	reading	line	at_or_above	data_through
 2026-11-27	close	E22 leg A: insured unemployment, 4-week mean of the seasonally adjusted first prints, thousands (inside an episode: primed by 8 straight weekly rises; ends when it falls more than 3 times its median weekly move below its high, its 8-week second difference is negative and the policy rate is below a year earlier)	1718.75	None	no	2026-11-14
 2026-11-27	close	E22 legs A and S: the federal funds rate, monthly average, against its level 12 months earlier, points (on below 0; known the first business day after the month)	-0.21	0	no	2026-10
 2026-11-27	close	E22 leg S: the S&P 500 against its lowest close since the episode opened, ratio (on at 1.20, the bull-market definition, with insured unemployment off its high; read only inside an episode)	None	1.2	no	2026-11-25
+=======
+>>>>>>> origin/main

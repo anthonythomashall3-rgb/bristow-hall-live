@@ -1,7 +1,13 @@
 {
+<<<<<<< HEAD
  "built_at": "2026-11-27 10:59",
  "fomc_list_ends": "2028-01-26",
  "generated_utc": "2026-11-27T15:59:42Z",
+=======
+ "built_at": "2026-11-27 11:07",
+ "fomc_list_ends": "2028-01-26",
+ "generated_utc": "2026-11-27T16:08:08Z",
+>>>>>>> origin/main
  "rows": [
   {
    "agrees_with_build": true,

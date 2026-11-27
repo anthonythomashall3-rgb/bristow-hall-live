@@ -1,3 +1,4 @@
+<<<<<<< HEAD
    12.9s  exec walk94 head
    16.2s  opening scores
    16.8s  build_v (pending)
@@ -9,3 +10,16 @@
    27.3s  readings
    27.5s  feeds
    28.3s  state written
+=======
+   11.4s  exec walk94 head
+   14.2s  opening scores
+   14.7s  build_v (pending)
+   15.2s  concurrence branch
+   17.7s  starter and ender in
+   17.7s  build_c1021
+   17.8s  closing series
+   24.0s  daily series
+   24.3s  readings
+   24.4s  feeds
+   25.2s  state written
+>>>>>>> origin/main
