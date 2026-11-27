@@ -5,10 +5,11 @@ Trend: centred 75-month moving average of the series extended 37 months forward 
 and 37 months back at the average growth of its first 120 months (PREREG-1180, adopted 26 Nov 2026). Turning points: the
 full Bry-Boschan routine. A contraction counts when its deviation falls FLOOR points or more and ends below trend; one that fails is removed
 with its trough and the lower of its two peaks. Published dates (Zarnowitz and Ozyildirim 2002, Conference Board) stand through 2000; NBER
-dates mark recessions. Tier 1: the live reading (not a call). Tier 2: an episode is confirmed once its trough is WAIT (14) months old."""
+dates mark recessions. Tier 1: the live reading (not a call). Tier 2: an episode is confirmed once its trough is WAIT (10) months old."""
 import numpy as np, pandas as pd
 TCB = dict(PAYEMS=0.5290, W875RX1=0.2054, INDPRO=0.1454, CMRMTSPL=0.1202)
-FLOOR = 0.95; WAIT = 14
+FLOOR = 0.95; WAIT = 10          # 1193: an episode is confirmed closed once it meets the rule on the day's data and its trough is 10 months old (RECORD-1182)
+IND_FALL = 0.7; IND_PROD = 2.0   # 1193: the real-time indicator's start rule (RECORD-1190)
 ZO = [('1948-01','1949-10'),('1951-01','1952-07'),('1953-03','1954-08'),('1957-02','1958-04'),('1960-01','1961-02'),
       ('1962-04','1964-01'),('1966-03','1967-10'),('1969-08','1970-11'),('1973-11','1975-04'),('1979-03','1980-07'),
       ('1981-07','1982-12'),('1984-09','1987-01'),('1989-01','1991-12'),('1995-01','1996-01')]
@@ -143,6 +144,9 @@ def contractions(dev, floor=FLOOR):
                 if nx is None: break
                 drop = [a, a + 1] if v[i] < v[t[nx][0]] else [a + 1, nx]
                 t = [x for q, x in enumerate(t) if q not in drop]; changed = True; break
+    # 1193 (RECORD-1182): the loop above cannot test the last contraction (removal needs a later peak). One that does not meet the rule is
+    # not counted; it stays part of the open slowdown until it does.
+    if len(t) >= 2 and t[-2][1] == 'P' and t[-1][1] == 'T' and not (v[t[-1][0]] < 0 and v[t[-2][0]] - v[t[-1][0]] >= floor): t = t[:-2]
     out = []; p = None
     for i, k in t:
         if k == 'P': p = i
@@ -181,3 +185,20 @@ def build(ser, nber):
                 fall_to_lowest=round(fall, 2), meets_disturbance_rule_on_todays_data=bool(meets),
                 typical_error_latest_month_pp=2.3, note='a reading of current conditions, not a call')
     return lvl, dev, eps, live
+
+
+def indicator(ser, dev):
+    """The real-time disturbance indicator (RECORD-1190). Reading since the last counted contraction: the high is the largest 3-month median
+    of the gap, the low the smallest monthly gap after it. Value = the smaller of (index fall / IND_FALL) and (production gap fall / IND_PROD);
+    the start rule is met at 1.00 or more, at least 3 months after the high. No false alarm on 1,242 release days, 1962 to 2026."""
+    closed = contractions(dev); base = max(t for _, t in closed) if closed else dev.index[0]
+    hi = dev.rolling(3).median(); after = hi[hi.index > base].dropna()
+    out = dict(line=1.0, index_fall_line=IND_FALL, production_fall_line=IND_PROD, value=0.0, index_fall=0.0, production_fall=0.0, high_month=None, low_month=None, months_since_high=0, met_today=False)
+    if len(after) >= 2:
+        pk = after.idxmax(); post = dev[dev.index > pk]
+        if len(post) >= 1:
+            low = post.idxmin(); x = ser['INDPRO']; x = x[(x.index >= pd.Timestamp('1947-01-01')) & (x.index <= dev.index[-1])]; li = np.log(x); ipd = 100 * (li - trend(li))
+            fall = float(hi[pk] - dev[low]); pf = float(ipd[ipd.index <= pk].iloc[-1] - ipd[ipd.index <= low].iloc[-1]); val = max(0.0, min(fall / IND_FALL, pf / IND_PROD))
+            out.update(value=round(val, 2), index_fall=round(fall, 2), production_fall=round(pf, 2), high_month=pk.strftime('%Y-%m'), low_month=low.strftime('%Y-%m'), months_since_high=len(post),
+                       met_today=bool(len(post) >= 3 and fall >= IND_FALL and pf >= IND_PROD))
+    return out, closed

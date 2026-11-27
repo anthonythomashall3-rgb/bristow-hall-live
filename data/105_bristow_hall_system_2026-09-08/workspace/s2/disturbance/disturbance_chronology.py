@@ -330,6 +330,25 @@ def main_v4(a, data, ser):
     live reading (tier 1) and confirmation (tier 2)."""
     sys.path.insert(0, HERE); import chronology_v4 as v4
     lvl, dev, eps, live = v4.build(ser, NBER)
+    # 1193: the real-time disturbance indicator (RECORD-1190). On by the start rule on the day's data; off when the chronology confirms the
+    # episode closed (rule met on the day, trough WAIT months old). The state is carried from the last run's chronology.json; the first run
+    # takes it from the replay record (v4/indicator_record_1962_2026.csv).
+    ind, counted = v4.indicator(ser, dev)
+    irec = pd.read_csv(os.path.join(HERE, 'v4', 'indicator_record_1962_2026.csv'), dtype=str).fillna('')
+    pj = os.path.join(a.out, 'chronology.json'); st = None
+    try: st = (json.load(open(pj)).get('indicator') or {}).get('state') if os.path.exists(pj) else None
+    except Exception: st = None
+    if not st:
+        o = irec[irec.end_confirmed == '']
+        st = dict(on=True, start_confirmed=o.iloc[-1].start_confirmed, high_month=ind['high_month'], end_confirmed=None) if len(o) else dict(on=False, start_confirmed=None, high_month=None, end_confirmed=irec.iloc[-1].end_confirmed)
+    today_ = dt.date.today().isoformat(); last_ = dev.index[-1]
+    if st.get('on'):
+        hm = pd.Timestamp((st.get('high_month') or '1900-01') + '-01')
+        done = [t for p_, t in counted if t > hm and v4.mdiff(last_, t) >= v4.WAIT]
+        if done: st = dict(on=False, start_confirmed=st.get('start_confirmed'), high_month=st.get('high_month'), end_confirmed=today_, trough=max(done).strftime('%Y-%m'))
+    elif ind['met_today']:
+        st = dict(on=True, start_confirmed=today_, high_month=ind['high_month'], end_confirmed=None)
+    ind['state'] = st; ind['record'] = irec.to_dict('records')
     UR, IP, G = ser['UNRATE'], ser['INDPRO'], ser['GDPC1']; SA = sahm(UR); last = dev.index[-1]
     cr = os.path.join(HERE, 'v4', 'confirmation_record_1960_2026.csv')
     conf_on = {}
@@ -367,12 +386,14 @@ def main_v4(a, data, ser):
                         recessions='NBER', confirm_after_trough_months=v4.WAIT, provisional_months=PROVISIONAL_MONTHS,
                         recession_line=DAMAGE_CUT, recession_needs_activity_fall_pct=ACT_MIN),
              live_reading=live,
+             indicator=ind,
              recessions=[dict(peak=a_, trough=b_, source='NBER') for a_, b_ in NBER],   # 26 Nov 2026 (1182): the 2024 recession is not shown (the v4 path; 317 fixed the v3.2 path only)
              episodes=rows, deviation=path.to_dict('list'))
     json.dump(J, open(os.path.join(a.out, 'chronology.json'), 'w'), indent=1)
     pd.set_option('display.width', 250)
     print(T[['peak', 'trough', 'status', 'class_rule_1167', 'dev_fall_pp', 'damage', 'grade', 'confirmed', 'confirmed_on', 'graded_on']].to_string(index=False))
     print('live reading:', live)
+    print('indicator:', {k: v for k, v in ind.items() if k != 'record'})
 
 
 if __name__ == '__main__':
