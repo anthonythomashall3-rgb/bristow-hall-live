@@ -869,8 +869,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-27 14:47', '2026-11-27 14:47')",
-"want": "('2026-11-27 14:47', '2026-11-27 14:47')",
+"got": "('2026-11-27 16:40', '2026-11-27 16:40')",
+"want": "('2026-11-27 16:40', '2026-11-27 16:40')",
 "status": "PASS",
 "gate": "hard"
 },
@@ -1036,21 +1036,21 @@
 "gate": "hard"
 },
 {
-"name": "one number: every recession day reads 2.00 or more and every other day below 2.00",
+"name": "one number: every recession day reads 1.00 or more and every other day below 1.00",
 "got": "[]",
 "want": "[]",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "one number: the state names its scale (recession line 2.00)",
-"got": "2.0",
-"want": "2.0",
+"name": "one number: the state names its scale (recession line 1.00)",
+"got": "1.0",
+"want": "1.0",
 "status": "PASS",
 "gate": null
 },
 {
-"name": "one number: every recession grades 2.00 or more",
+"name": "one number: every recession grades 1.00 or more",
 "got": "[]",
 "want": "[]",
 "status": "PASS",
@@ -1064,7 +1064,7 @@
 "gate": null
 },
 {
-"name": "one number: every disturbance grades below 2.00 or was not graded on a fall of activity, every recession window grades 2.00 or more on a fall of activity (1167 class rule), and each grade is its damage",
+"name": "one number: every disturbance grades below 1.00, every recession window grades 1.00 or more on a fall of activity (1167 class rule), and each grade is its damage on the published scale (1198: a recession 1 + 1.125 x (damage - 2), a disturbance damage x 0.5, at most 0.99)",
 "got": "[]",
 "want": "[]",
 "status": "PASS",

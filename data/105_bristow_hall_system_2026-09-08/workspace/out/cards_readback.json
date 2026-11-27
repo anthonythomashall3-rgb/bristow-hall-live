@@ -1,8 +1,8 @@
 {
- "at": "2026-11-27T19:48:26Z",
+ "at": "2026-11-27T21:41:21Z",
  "cards": {
   "/detector/": {
-   "img": "/detector/card.png?v=7888f6ca",
+   "img": "/detector/card.png?v=bf14c96b",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
@@ -14,13 +14,13 @@
    "ok": true
   },
   "/state-onset/": {
-   "img": "/state-onset/card.png?v=2a7ad117",
+   "img": "/state-onset/card.png?v=a39ed26f",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/stress-map/": {
-   "img": "/stress-map/card.png?v=996ff9a4",
+   "img": "/stress-map/card.png?v=1cfa776b",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
