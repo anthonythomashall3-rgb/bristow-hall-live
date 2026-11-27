@@ -1,5 +1,5 @@
 {
- "built": "2026-11-27T09:23:09",
+ "built": "2026-11-27T09:43:28",
  "data": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/workspace/s2/disturbance/out/fred_latest",
  "chronology_version": "v4",
  "composite_last_month": "2026-10",
@@ -25,7 +25,7 @@
   "below_trend_at_trough": true,
   "published_through": "2000 (Zarnowitz-Ozyildirim 2002)",
   "recessions": "NBER",
-  "confirm_after_trough_months": 14,
+  "confirm_after_trough_months": 10,
   "provisional_months": 24,
   "recession_line": 2.0,
   "recession_needs_activity_fall_pct": 1.0
@@ -47,6 +47,136 @@
   "meets_disturbance_rule_on_todays_data": true,
   "typical_error_latest_month_pp": 2.3,
   "note": "a reading of current conditions, not a call"
+ },
+ "indicator": {
+  "line": 1.0,
+  "index_fall_line": 0.7,
+  "production_fall_line": 2.2,
+  "hours_route": {
+   "index_fall_line": 0.6,
+   "hours_drop_line": 0.2
+  },
+  "value": 0.29,
+  "index_fall": 1.25,
+  "production_fall": 0.64,
+  "hours_drop": 0.0,
+  "high_month": "2023-05",
+  "low_month": "2026-10",
+  "months_since_high": 41,
+  "met_today": false,
+  "state": {
+   "on": true,
+   "start_confirmed": "2024-07-05",
+   "high_month": "2023-05",
+   "end_confirmed": null
+  },
+  "record": [
+   {
+    "peak": "1962-04",
+    "trough": "1964-01",
+    "cls": "disturbance",
+    "start_confirmed": "1963-05-02",
+    "end_confirmed": "1965-03-16"
+   },
+   {
+    "peak": "1966-07",
+    "trough": "1967-07",
+    "cls": "disturbance",
+    "start_confirmed": "1967-05-09",
+    "end_confirmed": "1968-09-16"
+   },
+   {
+    "peak": "1969-08",
+    "trough": "1971-08",
+    "cls": "recession",
+    "start_confirmed": "1970-02-06",
+    "end_confirmed": "1971-10-18"
+   },
+   {
+    "peak": "1973-11",
+    "trough": "1975-06",
+    "cls": "recession",
+    "start_confirmed": "1974-04-05",
+    "end_confirmed": "1976-05-14"
+   },
+   {
+    "peak": "1979-03",
+    "trough": "1980-07",
+    "cls": "recession",
+    "start_confirmed": "1979-08-16",
+    "end_confirmed": "1981-06-16"
+   },
+   {
+    "peak": "1980-12",
+    "trough": "1982-12",
+    "cls": "recession",
+    "start_confirmed": "1981-12-04",
+    "end_confirmed": "1983-11-15"
+   },
+   {
+    "peak": "1984-11",
+    "trough": "1987-01",
+    "cls": "disturbance",
+    "start_confirmed": "1986-05-15",
+    "end_confirmed": "1987-12-14"
+   },
+   {
+    "peak": "1989-01",
+    "trough": "1991-12",
+    "cls": "recession",
+    "start_confirmed": "1990-01-05",
+    "end_confirmed": "1992-11-16"
+   },
+   {
+    "peak": "1995-01",
+    "trough": "1996-01",
+    "cls": "disturbance",
+    "start_confirmed": "1995-10-06",
+    "end_confirmed": "1996-12-16"
+   },
+   {
+    "peak": "2000-04",
+    "trough": "2003-04",
+    "cls": "recession",
+    "start_confirmed": "2001-03-09",
+    "end_confirmed": "2004-03-15"
+   },
+   {
+    "peak": "2008-01",
+    "trough": "2009-06",
+    "cls": "recession",
+    "start_confirmed": "2008-10-03",
+    "end_confirmed": "2010-05-14"
+   },
+   {
+    "peak": "2012-04",
+    "trough": "2013-07",
+    "cls": "disturbance",
+    "start_confirmed": "2013-01-04",
+    "end_confirmed": "2014-12-23"
+   },
+   {
+    "peak": "2014-12",
+    "trough": "2016-05",
+    "cls": "disturbance",
+    "start_confirmed": "2016-08-29",
+    "end_confirmed": "2017-05-16"
+   },
+   {
+    "peak": "2018-12",
+    "trough": "2020-04",
+    "cls": "recession",
+    "start_confirmed": "2019-12-06",
+    "end_confirmed": "2021-05-28"
+   },
+   {
+    "peak": "2023-01",
+    "trough": "",
+    "cls": "open",
+    "start_confirmed": "2024-07-05",
+    "end_confirmed": ""
+   }
+  ]
  },
  "recessions": [
   {
@@ -330,7 +460,7 @@
    "grade": 3.93,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "1962-04",
+   "confirmed_on": null,
    "graded_on": "activity",
    "graded_from": "1960-04",
    "graded_to": "1961-02",
@@ -380,7 +510,7 @@
    "grade": 0.73,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "1964-12",
+   "confirmed_on": "1965-03-16",
    "graded_on": "trend",
    "graded_from": "1962-04",
    "graded_to": "1964-01",
@@ -416,7 +546,7 @@
    "grade": 1.16,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "1968-12",
+   "confirmed_on": "1968-09-16",
    "graded_on": "trend",
    "graded_from": "1966-03",
    "graded_to": "1967-10",
@@ -452,7 +582,7 @@
    "grade": 3.73,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "1972-01",
+   "confirmed_on": "1971-10-18",
    "graded_on": "activity",
    "graded_from": "1969-10",
    "graded_to": "1970-11",
@@ -505,7 +635,7 @@
    "grade": 5.04,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "1976-07",
+   "confirmed_on": "1976-05-14",
    "graded_on": "activity",
    "graded_from": "1973-11",
    "graded_to": "1975-03",
@@ -561,7 +691,7 @@
    "grade": 3.76,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "1981-09",
+   "confirmed_on": "1981-06-16",
    "graded_on": "activity",
    "graded_from": "1980-01",
    "graded_to": "1980-07",
@@ -607,7 +737,7 @@
    "grade": 5.14,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "1984-02",
+   "confirmed_on": "1983-11-15",
    "graded_on": "activity",
    "graded_from": "1981-08",
    "graded_to": "1982-12",
@@ -663,7 +793,7 @@
    "grade": 1.18,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "1988-03",
+   "confirmed_on": "1987-12-14",
    "graded_on": "trend",
    "graded_from": "1984-09",
    "graded_to": "1987-01",
@@ -699,7 +829,7 @@
    "grade": 3.16,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "1993-02",
+   "confirmed_on": "1992-11-16",
    "graded_on": "activity",
    "graded_from": "1990-06",
    "graded_to": "1991-03",
@@ -748,7 +878,7 @@
    "grade": 0.63,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "1997-03",
+   "confirmed_on": "1996-12-16",
    "graded_on": "trend",
    "graded_from": "1995-01",
    "graded_to": "1996-01",
@@ -784,7 +914,7 @@
    "grade": 3.17,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "2004-06",
+   "confirmed_on": "2004-03-15",
    "graded_on": "activity",
    "graded_from": "2000-12",
    "graded_to": "2001-12",
@@ -838,7 +968,7 @@
    "grade": 5.8,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "2010-08",
+   "confirmed_on": "2010-05-14",
    "graded_on": "activity",
    "graded_from": "2008-01",
    "graded_to": "2009-06",
@@ -897,7 +1027,7 @@
    "grade": 0.23,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "2014-02",
+   "confirmed_on": "2014-12-23",
    "graded_on": "activity",
    "graded_from": "2012-12",
    "graded_to": "2013-01",
@@ -935,7 +1065,7 @@
    "grade": 1.71,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "2018-02",
+   "confirmed_on": "2017-05-16",
    "graded_on": "trend",
    "graded_from": "2014-12",
    "graded_to": "2016-05",
@@ -973,7 +1103,7 @@
    "grade": 5.4,
    "provisional": false,
    "confirmed": true,
-   "confirmed_on": "2021-06",
+   "confirmed_on": "2021-05-28",
    "graded_on": "activity",
    "graded_from": "2020-02",
    "graded_to": "2020-04",
