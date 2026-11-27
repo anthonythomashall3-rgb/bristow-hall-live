@@ -407,8 +407,8 @@
 },
 {
 "name": "feed reading matches the readings table: S&P 500 daily close (the market pillar: ",
-"got": "5.43",
-"want": "5.43",
+"got": "7.12",
+"want": "7.12",
 "status": "PASS",
 "gate": "soft"
 },
@@ -421,14 +421,14 @@
 },
 {
 "name": "feed is not dated in the future: S&P 500 daily close (the market pillar: ",
-"got": "2026-11-25",
+"got": "2026-11-27",
 "want": "<= 2026-11-27",
 "status": "PASS",
 "gate": "soft"
 },
 {
 "name": "feed next release is not in the past: S&P 500 daily close (the market pillar: ",
-"got": "2026-11-27",
+"got": "2026-11-30",
 "want": ">= 2026-11-27",
 "status": "PASS",
 "gate": null
@@ -869,8 +869,8 @@
 },
 {
 "name": "public state copies are this build",
-"got": "('2026-11-27 14:47', '2026-11-27 14:47')",
-"want": "('2026-11-27 14:47', '2026-11-27 14:47')",
+"got": "('2026-11-27 15:03', '2026-11-27 15:03')",
+"want": "('2026-11-27 15:03', '2026-11-27 15:03')",
 "status": "PASS",
 "gate": "hard"
 },

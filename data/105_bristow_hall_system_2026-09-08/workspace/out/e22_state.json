@@ -1,7 +1,7 @@
 {
  "tool": "E22",
  "version": "E22 (1031) + leg Q (1032) + leg QG (1034) + depth gate (1041)",
- "built": "2026-11-27 19:47:06Z",
+ "built": "2026-11-27 20:03:19Z",
  "today": "2026-11-27",
  "episodes": [
   {
@@ -156,15 +156,15 @@
   "rate_month": "2026-10",
   "rate": 3.88,
   "rate_below_year_ago": true,
-  "sp_day": "2026-11-25",
-  "sp": 7182.77978515625
+  "sp_day": "2026-11-27",
+  "sp": 7297.490234375
  },
  "log": [
   "NSA holes filled from first prints (2025 on): 6 weeks",
   "initial claims: frozen chain to 2026-08-29, 12 live weeks after",
   "weekly insured unemployment: frozen chain to 2026-09-12, 9 live weeks after (newest week 2026-11-14, released 2026-11-25)",
   "policy rate: to 2026-10-01 (3.88), below a year earlier: True",
-  "S&P 500: to 2026-11-25 (7182.78)",
+  "S&P 500: to 2026-11-27 (7297.49)",
   "industrial production: 1226 ALFRED vintages, newest 2026-11-24",
   "episodes: 1948-12-31 -> 1949-10-20 (A); 1953-10-13 -> 1954-06-11 (S); 1957-04-30 -> 1958-06-19 (A); 1960-06-13 -> 1961-02-24 (S); 1969-10-11 -> 1970-12-24 (A); 1973-08-01 -> 1975-02-06 (A); 1979-11-01 -> 1980-07-22 (S); 1981-06-01 -> 1982-12-02 (S); 1990-08-06 -> 1991-02-07 (S); 2001-04-06 -> 2001-12-28 (A); 2008-01-04 -> 2009-07-23 (A); 2020-04-03 -> 2020-06-05 (S)"
  ],
@@ -196,8 +196,8 @@
    "diff": -0.21
   },
   "sp": {
-   "day": "2026-11-25",
-   "close": 7182.77978515625,
+   "day": "2026-11-27",
+   "close": 7297.490234375,
    "ratio_to_low_since_open": null
   },
   "episode_open": false

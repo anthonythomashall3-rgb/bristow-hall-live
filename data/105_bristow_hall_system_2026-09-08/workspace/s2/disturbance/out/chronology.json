@@ -1,5 +1,5 @@
 {
- "built": "2026-11-27T13:47:24",
+ "built": "2026-11-27T14:06:44",
  "data": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/workspace/s2/disturbance/out/fred_latest",
  "chronology_version": "v4",
  "composite_last_month": "2026-10",
@@ -59,7 +59,7 @@
   "forecast_route": {
    "index_fall_line": 0.4,
    "production_fall_line": 1.5,
-   "forecast_cut_line": 1.0
+   "forecast_cut_line": 0.8
   },
   "pmi_route": {
    "index_fall_line": 0.3,
@@ -68,6 +68,10 @@
   "production_route": {
    "index_fall_line": 0.3,
    "production_fall_line": 3.2
+  },
+  "sales_route": {
+   "index_fall_line": 0.2,
+   "sales_fall_line": 3.25
   },
   "value": 0.29,
   "index_fall": 1.25,
@@ -79,6 +83,7 @@
   "met_today": false,
   "forecast_cut": 0.04,
   "pmi_fall": 0.1,
+  "sales_fall": null,
   "state": {
    "on": true,
    "start_confirmed": "2024-07-05",
@@ -160,7 +165,7 @@
     "peak": "2008-01",
     "trough": "2009-06",
     "cls": "recession",
-    "start_confirmed": "2008-09-15",
+    "start_confirmed": "2008-10-03",
     "end_confirmed": "2010-05-14"
    },
    {
@@ -174,7 +179,7 @@
     "peak": "2014-12",
     "trough": "2016-05",
     "cls": "disturbance",
-    "start_confirmed": "2016-02-26",
+    "start_confirmed": "2015-06-15",
     "end_confirmed": "2017-05-16"
    },
    {
