@@ -91,6 +91,19 @@ STATE_TEXT = [   # the State page as its builder (collection 1032) writes it is 
 ]
 
 
+def v4_basis():
+    """1167k: what each State period was graded on, from the State chronology itself (1032 out/BH-STATE-CHRONOLOGY-V4-1032.csv, a198:
+    'activity' where the State index fell 1.0 percent or more, otherwise 'trend'): {(State, peak): graded_on}; {} where it is not here"""
+    import glob, csv
+    out = {}
+    for f in glob.glob(os.path.expanduser('~/Projects/Onset Detector Data/1032_*/out/BH-STATE-CHRONOLOGY-V4-1032.csv')):
+        try:
+            for r in csv.DictReader(open(f, newline='')):
+                if r.get('graded_on'): out[(r['st'], r['peak'])] = r['graded_on']
+        except Exception: pass
+    return out
+
+
 def convert_state(t):
     """the published State page on one number: every period's grade is its damage; every State's line is its damage so far, a month of a
     recession period never below 2.00, and the words"""
@@ -98,6 +111,7 @@ def convert_state(t):
     m = re.search(r'const ALL = (\{.*?\});\n', t, re.S)
     if not m: raise Miss('state page: no data (const ALL)')
     A = json.loads(m.group(1)); rows = pts = 0
+    BASIS = v4_basis()
     if len(A) < 50: raise Miss('state page: %d States in the data' % len(A))
     for st, S in A.items():
         ser = S['series']; per = S.get('nber') or []; mk = [str(d)[:7] for d in ser['dates']]
@@ -108,7 +122,11 @@ def convert_state(t):
         for r in per:
             if r.get('damage') is not None:
                 r['damage_points'] = r['damage']; r['damage'] = recession_grade(r['damage']) if r.get('cls') == 'recession' else grade(r['damage']); rows += 1
-                if (r['damage'] >= LINE) != (r.get('cls') == 'recession'): raise Miss('state page: %s %s is a %s with damage %s' % (st, r.get('peak'), r.get('cls'), r['damage_points']))
+                # 1167k (27 Nov 2026): the 1167 class rule, as the national register and q41 have it: a recession grades 2.00 or more on a fall of
+                # activity; a disturbance grades below 2.00 or was not graded on a fall of activity (graded on its fall against trend: a198
+                # graded_on 'trend'). AL 1990-01 (State index fall 0.32%, graded on trend, 3.00) stopped every State page from 26 Nov.
+                if (r['damage'] >= LINE) != (r.get('cls') == 'recession') and not (r.get('cls') == 'disturbance' and (r.get('graded_on') or BASIS.get((st, r.get('slow') or r.get('peak')))) == 'trend'):   # 'slow': the chronology's own peak (state_page_1032 moves 'peak' to the line's first month)
+                    raise Miss('state page: %s %s is a %s with damage %s' % (st, r.get('peak'), r.get('cls'), r['damage_points']))
         S['scale'] = MARK
     t = t[:m.start(1)] + json.dumps(A, separators=(',', ':'), ensure_ascii=False) + t[m.end(1):]
     t = _swap(t, STATE_TEXT, 'state page')
