@@ -346,7 +346,7 @@ def main_v4(a, data, ser):
         hm = pd.Timestamp((st.get('high_month') or '1900-01') + '-01')
         done = [t for p_, t in counted if t > hm and v4.mdiff(last_, t) >= v4.WAIT]
         if done: st = dict(on=False, start_confirmed=st.get('start_confirmed'), high_month=st.get('high_month'), end_confirmed=today_, trough=max(done).strftime('%Y-%m'))
-    elif ind['met_today']:
+    elif ind['met_today'] and not [t for p_, t in counted if ind['high_month'] and t > pd.Timestamp(ind['high_month'] + '-01') and v4.mdiff(last_, t) >= v4.WAIT]:   # no start for an episode already confirmed closed
         ps = st.get('pending_since') or today_
         if (dt.date.fromisoformat(today_) - dt.date.fromisoformat(ps)).days >= v4.IND_HOLD_DAYS: st = dict(on=True, start_confirmed=today_, high_month=ind['high_month'], end_confirmed=None)
         else: st = dict(st, pending_since=ps)
