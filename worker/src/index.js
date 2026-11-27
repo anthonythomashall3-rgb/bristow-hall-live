@@ -37,7 +37,7 @@
 
 // the deployed code's version: every workflow run compares it with the repository's copy of this file, so a starter
 // redeployed from an old clone is caught (22 September 2026, collection 306)
-const VERSION = '2026-11-26 (bristow-hall-live; C1021 starter; queue-stall recovery; ghost runs passed; day cap 40; DOL State files watched)';   // 1022: the starter for the C1021 version of the tool
+const VERSION = '2026-11-27 (bristow-hall-live; C1021 starter; queue-stall recovery; ghost runs passed; day cap 40; DOL State files watched by size)';   // 1022: the starter for the C1021 version of the tool
 const REPO = 'anthonythomashall3-rgb/bristow-hall-live';
 const WORKFLOW = 'update.yml';
 const SITE = 'https://bristowhallsystem.pages.dev';   // 1155: the site's address since 18 Nov 2026 (the old one only redirects)
@@ -382,9 +382,9 @@ async function decide(env, now, act) {
 // 1167f (26 Nov 2026; Anthony: "within minutes of the data release"): THE DEPARTMENT'S STATE FILES, WATCHED. The ETA 539 (the State weekly
 // claims, due Thursday 3:55 PM ET; the week of 21 Nov was still not posted on 26 Nov) and the ETA 5159 (monthly, no announced day) reached the
 // State page and the stress map only at the next live-tools run, up to half a day later. Every five minutes the Worker reads the last line
-// of each file (a 4 KB range request) and, when its date is newer than the last one seen, starts on main what reads it (live-tools.yml;
+// of each file (a 4 KB range request) and, when its date is newer than the last one seen or the file is larger (1167l), starts on main what reads it (live-tools.yml;
 // for the 539 also update.yml, whose breadth object reads it) - unless a run of that workflow is queued, or started after the file's
-// Last-Modified (that run reads the new file). The date seen is kept in KV (a
+// Last-Modified (that run reads the new file). The date and size seen are kept in KV (a
 // write only when it changes); a refused start is alerted once and tried again at the next check.
 const DOL_FILES = { ar539: 'https://oui.doleta.gov/unemploy/csv/ar539.csv', ar5159: 'https://oui.doleta.gov/unemploy/csv/ar5159.csv' };
 const DOL_MIN_FIELDS = { ar539: 20, ar5159: 40 };
@@ -399,7 +399,8 @@ async function dolTail(name) {
   const f = (lines[lines.length - 1] || '').split(',');
   const day = (f[1] || '').replace(/"/g, '');
   if (f.length < DOL_MIN_FIELDS[name] || !/^\d{4}-\d\d-\d\d$/.test(day)) return { error: 'no whole last line' };
-  return { day, modified: r.headers.get('last-modified') || '' };
+  const size = ((r.headers.get('content-range') || '').split('/')[1] || '').trim();   // 1167l: the file's whole size
+  return { day, size, modified: r.headers.get('last-modified') || '' };
 }
 
 async function watchDol(env, now) {
@@ -408,9 +409,17 @@ async function watchDol(env, now) {
     let t;
     try { t = await dolTail(name); } catch (e) { out[name] = `not read (${String(e).slice(0, 80)})`; continue; }
     if (t.error) { out[name] = `not read (${t.error})`; continue; }
-    const seen = await kvGet(env, `dol_tail:${name}`);
-    if (!seen) { await kvPut(env, `dol_tail:${name}`, t.day); out[name] = `first read: ${t.day}`; continue; }
-    if (t.day <= seen) { out[name] = `${t.day} (seen)`; continue; }
+    // 1167l (27 Nov 2026): the file's size as well as its last line's date. The file is sorted by State, so its last line is Wyoming's:
+    // the 539 week of 21 Nov came out on 26 Nov for every State but NV and WY, the last line still read 14 Nov, and nothing was started.
+    // A new week or month makes the file larger: a newer last line, or the same last line in a larger file, starts the runs. A file no
+    // larger than the largest seen starts nothing (and is not kept), so an older copy served for a moment cannot start them twice.
+    const kept = (await kvGet(env, `dol_tail:${name}`)) || ''; const [seen, seenSize] = kept.split('|');
+    const size = Number(t.size) || 0, was = Number(seenSize) || 0, now_ = `${t.day}|${t.size}`;
+    if (!seen) { await kvPut(env, `dol_tail:${name}`, now_); out[name] = `first read: ${t.day}, ${t.size} bytes`; continue; }
+    if (!(t.day > seen || (t.day === seen && was > 0 && size > was))) {
+      if (t.day === seen && !was && size) await kvPut(env, `dol_tail:${name}`, now_);   // a date kept before 1167l: its size added, nothing started
+      out[name] = `${t.day}, ${t.size} bytes (seen: ${kept})`; continue;
+    }
     const mod = Date.parse(t.modified) || now.getTime(); const said = []; let refused = false;
     for (const [wf, inputs] of DOL_TARGETS[name]) {
       let covered = !!started[wf];
@@ -429,8 +438,8 @@ async function watchDol(env, now) {
       await alertOnce(env, `dolwatch-${d.status}:${name}:${wf}:${t.day}`, 86400, 'a run for the new Department file could not be started',
         `The Department posted ${name}.csv through ${t.day}; GitHub refused to start ${wf} (${d.status}). The Worker tries again every five minutes.`, now);
     }
-    if (!refused) await kvPut(env, `dol_tail:${name}`, t.day);
-    out[name] = `${t.day} new (was ${seen}): ${said.join('; ')}`;
+    if (!refused) await kvPut(env, `dol_tail:${name}`, now_);
+    out[name] = `${t.day}, ${t.size} bytes new (was ${kept}): ${said.join('; ')}`;
   }
   return out;
 }
@@ -475,7 +484,7 @@ export default {
     let last = null, age = null;
     try { last = JSON.parse(await kvGet(env, 'last_tick')); age = Math.round((Date.now() - Date.parse(last.tick_utc)) / 60000); } catch (e) { /* none yet */ }
     return new Response(JSON.stringify({ worker: 'bhr-dispatch', version: VERSION, what: 'starts the Bristow-Hall update at the release slots', ...o,
-      dol_watch: { ar539: await kvGet(env, 'dol_tail:ar539'), ar5159: await kvGet(env, 'dol_tail:ar5159') },   // 1167f: the newest date seen in each file
+      dol_watch: { ar539: await kvGet(env, 'dol_tail:ar539'), ar5159: await kvGet(env, 'dol_tail:ar5159') },   // 1167f: the newest date seen in each file (1167l: and its size)
       last_tick: last, last_tick_minutes_ago: age, heartbeat: age === null ? 'none recorded yet' : (age <= 15 ? 'ok' : 'LATE') }, null, 1),
       { headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' } });
   },
