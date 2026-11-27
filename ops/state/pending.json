@@ -1,5 +1,12 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-11-27 13:22",
+   "due_ny": "2026-11-27 13:00",
+   "ids": "sp500",
+   "short": "the S&P 500 close"
+  }
+ ],
  "early": {
   "sp500": {
    "at": "2026-11-27 13:05",
@@ -28,7 +35,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-27 13:06",
+ "last_check_ny": "2026-11-27 13:17",
  "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }
