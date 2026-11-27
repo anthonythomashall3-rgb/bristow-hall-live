@@ -65,7 +65,7 @@ def run_v4(st, y, UR, last, allow_short=False, Pm=None, one_month=False, W=None)
     def graded(p, te, lo=None, hi=None):
         # 1201 (27 Nov 2026): the fall of activity is the LARGEST fall inside the window, from a high in [p - 6 months, te] to the lowest level after it (to te + 6 months). The rule of 1167 took the single highest level of the whole span; where activity ended a long window above where it began, that high lay at the end and the fall read 0 (Arkansas 1980: the index fell 1.17 percent and read 0.0). National register: no class, date or grade changes. States: 9 periods become recessions.
         s = y[(y.index >= p - pd.DateOffset(months=6)) & (y.index <= min(te + pd.DateOffset(months=6), last))]; dd_ = 1 - s / s.where(s.index <= te).cummax().ffill()
-        tl = dd_.idxmax(); pl = s[:tl].idxmax(); fl = float(100 * dd_.max())
+        tl = dd_.idxmax(); pl = s[s.index <= min(tl, te)].idxmax(); fl = float(100 * dd_.max())
         if fl >= 1.0: return pl, tl, 'activity', fl
         # 1207 (PREREG-1207, 27 Nov 2026): as the State chronology builder (overlay/1032): where the State index fell under 1.0 percent, payrolls are read the same way
         pf = spa1207.fall(W, p, te, last, lo, hi) if W is not None else None

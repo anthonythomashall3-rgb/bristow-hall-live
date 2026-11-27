@@ -29,5 +29,5 @@ def fall(w, p, te, last, lo=None, hi=None):
     if hi is not None: b = min(b, hi - pd.DateOffset(months=1))
     s = w[(w.index >= a) & (w.index <= max(b, te))]
     if len(s) < 2 or not (s.index <= te).any(): return None
-    dd_ = 1 - s / s.where(s.index <= te).cummax().ffill(); tl = dd_.idxmax(); pl = s[:tl].idxmax()
+    dd_ = 1 - s / s.where(s.index <= te).cummax().ffill(); tl = dd_.idxmax(); pl = s[s.index <= min(tl, te)].idxmax()
     return pl, tl, float(100 * dd_.max())
