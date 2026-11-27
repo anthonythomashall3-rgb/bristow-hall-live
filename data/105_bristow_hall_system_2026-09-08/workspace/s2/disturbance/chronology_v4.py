@@ -9,7 +9,7 @@ dates mark recessions. Tier 1: the live reading (not a call). Tier 2: an episode
 import numpy as np, pandas as pd
 TCB = dict(PAYEMS=0.5290, W875RX1=0.2054, INDPRO=0.1454, CMRMTSPL=0.1202)
 FLOOR = 0.95; WAIT = 10          # 1193: an episode is confirmed closed once it meets the rule on the day's data and its trough is 10 months old (RECORD-1182)
-IND_FALL = 0.7; IND_PROD = 2.0; IND_HOLD_DAYS = 7   # 1194: the real-time indicator's start rule: index fall 0.7, production gap fall 2.0, held for a week (noise test, RECORD-1194)
+IND_FALL = 0.7; IND_PROD = 2.2; IND_FALL2 = 0.6; IND_HOURS = 0.2; IND_HOLD_DAYS = 7   # 1195: the indicator's start rule, two routes, held a week (RECORD-1195)
 ZO = [('1948-01','1949-10'),('1951-01','1952-07'),('1953-03','1954-08'),('1957-02','1958-04'),('1960-01','1961-02'),
       ('1962-04','1964-01'),('1966-03','1967-10'),('1969-08','1970-11'),('1973-11','1975-04'),('1979-03','1980-07'),
       ('1981-07','1982-12'),('1984-09','1987-01'),('1989-01','1991-12'),('1995-01','1996-01')]
@@ -187,19 +187,26 @@ def build(ser, nber):
     return lvl, dev, eps, live
 
 
-def indicator(ser, dev):
-    """The real-time disturbance indicator (RECORD-1190). Reading since the last counted contraction: the high is the largest 3-month median
-    of the gap, the low the smallest monthly gap after it. Value = the smaller of (index fall / IND_FALL) and (production gap fall / IND_PROD);
-    the start rule is met at 1.00 or more, at least 3 months after the high, and a start is confirmed once it has held for IND_HOLD_DAYS.
-    No false alarm on 1,242 release days, 1962 to 2026; a false alarm in 8 of 999 draws of print-sized noise (RECORD-1194)."""
+def indicator(ser, dev, hours=None):
+    """The real-time disturbance indicator (RECORD-1195). Reading since the last counted contraction: the high is the largest 3-month median
+    of the gap, the low the smallest monthly gap after it, at least 3 months after the high. Start rule, either route:
+      1. index fall IND_FALL (0.7) and production's own gap down IND_PROD (2.2) between the high month and the low month;
+      2. index fall IND_FALL2 (0.6), the same production fall, and factory hours (3-month average) IND_HOURS (0.2) below their 12-month high.
+    A start is confirmed once the rule has held IND_HOLD_DAYS. Value = the larger route's smallest ratio to its line; met at 1.00 or more.
+    Record on 1,242 release days, 1962 to 2026: no false alarm, 6 of 6 disturbances; a false alarm in 3 to 5 of 999 draws of print-sized noise."""
     closed = contractions(dev); base = max(t for _, t in closed) if closed else dev.index[0]
     hi = dev.rolling(3).median(); after = hi[hi.index > base].dropna()
-    out = dict(line=1.0, index_fall_line=IND_FALL, production_fall_line=IND_PROD, value=0.0, index_fall=0.0, production_fall=0.0, high_month=None, low_month=None, months_since_high=0, met_today=False)
+    out = dict(line=1.0, index_fall_line=IND_FALL, production_fall_line=IND_PROD, hours_route=dict(index_fall_line=IND_FALL2, hours_drop_line=IND_HOURS), value=0.0, index_fall=0.0, production_fall=0.0,
+               hours_drop=None, high_month=None, low_month=None, months_since_high=0, met_today=False)
+    hd = None
+    if hours is not None and len(hours) > 20:
+        h3 = hours.rolling(3).mean().dropna(); hd = float(h3.iloc[-12:].max() - h3.iloc[-1]); out['hours_drop'] = round(hd, 2)
     if len(after) >= 2:
         pk = after.idxmax(); post = dev[dev.index > pk]
         if len(post) >= 1:
             low = post.idxmin(); x = ser['INDPRO']; x = x[(x.index >= pd.Timestamp('1947-01-01')) & (x.index <= dev.index[-1])]; li = np.log(x); ipd = 100 * (li - trend(li))
-            fall = float(hi[pk] - dev[low]); pf = float(ipd[ipd.index <= pk].iloc[-1] - ipd[ipd.index <= low].iloc[-1]); val = max(0.0, min(fall / IND_FALL, pf / IND_PROD))
-            out.update(value=round(val, 2), index_fall=round(fall, 2), production_fall=round(pf, 2), high_month=pk.strftime('%Y-%m'), low_month=low.strftime('%Y-%m'), months_since_high=len(post),
-                       met_today=bool(len(post) >= 3 and fall >= IND_FALL and pf >= IND_PROD))
+            fall = float(hi[pk] - dev[low]); pf = float(ipd[ipd.index <= pk].iloc[-1] - ipd[ipd.index <= low].iloc[-1])
+            r1 = min(fall / IND_FALL, pf / IND_PROD); r2 = min(fall / IND_FALL2, pf / IND_PROD, hd / IND_HOURS) if hd is not None else 0.0
+            out.update(value=round(max(0.0, r1, r2), 2), index_fall=round(fall, 2), production_fall=round(pf, 2), high_month=pk.strftime('%Y-%m'), low_month=low.strftime('%Y-%m'), months_since_high=len(post),
+                       met_today=bool(len(post) >= 3 and pf >= IND_PROD and (fall >= IND_FALL or (fall >= IND_FALL2 and hd is not None and hd >= IND_HOURS))))
     return out, closed

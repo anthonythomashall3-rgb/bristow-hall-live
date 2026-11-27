@@ -333,7 +333,12 @@ def main_v4(a, data, ser):
     # 1193: the real-time disturbance indicator (RECORD-1190). On by the start rule on the day's data; off when the chronology confirms the
     # episode closed (rule met on the day, trough WAIT months old). The state is carried from the last run's chronology.json; the first run
     # takes it from the replay record (v4/indicator_record_1962_2026.csv).
-    ind, counted = v4.indicator(ser, dev)
+    hours = None
+    try:   # factory hours (AWHMAN), newest vintage, from the file the recession tool keeps current; without it the hours route is off and route 1 still runs
+        hv = pd.read_csv(os.path.join(HERE, '..', '..', '..', '..', 'onset-detector-new-2026-08-23', '27_realtime_vintages', 'alfred_all_vintages', 'AWHMAN_all_vintages.csv'), index_col=0, parse_dates=True)
+        hours = pd.to_numeric(hv[hv.columns[-1]], errors='coerce').dropna(); hours = hours[hours.index <= dev.index[-1]]
+    except Exception as e_: print('indicator: factory hours not read (%s); the hours route is off' % e_)
+    ind, counted = v4.indicator(ser, dev, hours)
     irec = pd.read_csv(os.path.join(HERE, 'v4', 'indicator_record_1962_2026.csv'), dtype=str).fillna('')
     pj = os.path.join(a.out, 'chronology.json'); st = None
     try: st = (json.load(open(pj)).get('indicator') or {}).get('state') if os.path.exists(pj) else None
