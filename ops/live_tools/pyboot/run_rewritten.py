@@ -55,6 +55,10 @@ REWRITES = {
     '5f824cd0c9f8ddecae6e3041c0c44ad1c259d561cb0211ce12d79fde08f3778c': [_DET_INTS, _DET_IND],   # 1052 code/stress_map_detail_1150.py (1167f, 26 Nov 2026)
     '4b7c469872b36e52ca22d19a8b3a94b0dfcca6d1550852596dcfe4b06ace48ad': [_A198_Q],   # 1032 a198 since c2f1d5e3 (#147, 26 Nov 2026; 1167m)
     '2e92b5129b7e18fe2375382c7aa57ac3216332bce1f0ac9f01363f1a5bb90bb1': [_NESTED_Q],   # 1052 stress_map_v3_1_1052.py since c2f1d5e3 (1167m)
+    '74886cc5bfd826f7d3b7155f22bd3647a8851988cf2792626d06053ff260a1b4': [_A198_Q],   # 1032 a198 with the repairs of 1201 (27 Nov 2026); parts() unchanged
+    '455ea170b6d7fb5780ec45015afcbdacd86693df10232def33f021f0398432fa': [_NESTED_Q],   # 1052 stress_map_v3_1_1052.py with the repairs of 1201
+    '5096f850d3bb8ce6b60f6d97937237d08c3e8836700b8d50794eb1592905818c': [_A198_Q],   # 1032 a198 with the payroll rule of 1207 (27 Nov 2026); parts() unchanged
+    'bc4b56ca16b4243850774a96ae506fd79d7dbebf482368caf520886ea09f9e50': [_NESTED_Q],   # 1052 stress_map_v3_1_1052.py with the payroll rule of 1207
 }
 
 

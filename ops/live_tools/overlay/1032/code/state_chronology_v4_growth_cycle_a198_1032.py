@@ -10,6 +10,7 @@ Periods = recession + disturbance. A202: the class is read from the grade rounde
 import os, sys, json, numpy as np, pandas as pd
 C = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT = os.path.join(C, 'out'); DI = os.path.expanduser('~/Projects/Disturbance Indicator Data')
 sys.path.insert(0, os.path.join(DI, '10_chronology_site/code')); import disturbance_chronology as dc, damage_dimensions_live_v376 as dd
+import state_payroll_activity_1207 as spa   # 1207: the class rule reads payrolls as well as the State index
 CUT = 2.0; NODMG = 0.05
 X = pd.read_excel(os.path.join(C, 'data/philly/coincident-revised.xls'), sheet_name='Indexes'); X = X.set_index(pd.to_datetime(X.iloc[:, 0])).iloc[:, 1:].astype(float)
 STS = [c for c in X.columns if len(c) == 2 and c != 'US']; assert len(STS) == 50 and 'DC' not in STS
@@ -20,11 +21,15 @@ last = X.index[-1]; mdiff = lambda a, b: (a.year - b.year) * 12 + a.month - b.mo
 # on the fall of the State index itself where it fell 1.0 percent or more, otherwise on its fall against trend; grade = damage; 2.00 = recession.
 SPI = pd.read_csv(os.path.join(C, 'data/spi/spi_state_monthly_benchmarked_1167.csv'), index_col=0, parse_dates=True)
 ACT_MIN = 1.0
-def graded(y, p, te, last):
+def graded(y, p, te, last, w=None, lo=None, hi=None):
     # 1201 (27 Nov 2026): the fall of activity is the LARGEST fall inside the window, from a high in [p - 6 months, te] to the lowest level after it (to te + 6 months). The rule of 1167 took the single highest level of the whole span; where activity ended a long window above where it began, that high lay at the end and the fall read 0 (Arkansas 1980: the index fell 1.17 percent and read 0.0). National register: no class, date or grade changes. States: 9 periods become recessions.
     s = y[(y.index >= p - pd.DateOffset(months=6)) & (y.index <= min(te + pd.DateOffset(months=6), last))]; dd_ = 1 - s / s.where(s.index <= te).cummax().ffill()
     tl = dd_.idxmax(); pl = s[:tl].idxmax(); fl = float(100 * dd_.max())
-    return (pl, tl, 'activity', fl) if fl >= ACT_MIN else (p, te, 'trend', fl)
+    if fl >= ACT_MIN: return pl, tl, 'activity', fl, 'index', None
+    # 1207 (PREREG-1207, 27 Nov 2026): where the State index fell under ACT_MIN percent, payrolls (three-month average) are read the same way; a fall of spa.PAY_MIN percent or more grades the window on the months payrolls fell
+    pf = spa.fall(w, p, te, last, lo, hi) if w is not None else None
+    if pf is not None and pf[2] >= spa.PAY_MIN: return pf[0], pf[1], 'activity', fl, 'payrolls', pf[2]
+    return p, te, 'trend', fl, None, (pf[2] if pf is not None else None)
 def parts(UR, base, Gq, p, m, Pm=None):
     ex = (UR[(UR.index >= p) & (UR.index <= m)] - base).clip(lower=0); L = dd.labour_score(float(ex.max()), float(ex.sum())) if len(ex) else 0.0
     q = dd.production_dimension(Pm, p, m) if Pm is not None and len(Pm[(Pm.index >= p - pd.DateOffset(months=12)) & (Pm.index <= m)]) >= 2 else None
@@ -45,11 +50,13 @@ for st in STS:
         if t is not None and not any(dc.overlaps(p, t, q, (s if s is not None else last)) for q, s, k in cand) and fall(p, t) >= dc.DD_MIN: cand.append((p, t, 1))
     u = pd.read_csv(os.path.join(DI, '03_data/state/fred_state_ur', f'{st}UR.csv')); UR = pd.Series(u.iloc[:, 1].astype(float).values, index=pd.to_datetime(u.iloc[:, 0])).dropna()
     Gq = y.resample('QS').mean(); URL[st] = UR.index[-1].strftime('%Y-%m'); R = []
-    for p, t, mp in sorted(cand, key=lambda r: r[0]):
-        te = t if t is not None else last; gp, gt, on, act = graded(y, p, te, last); pre = UR[(UR.index < gp) & (UR.index >= gp - pd.DateOffset(months=12))]; assert len(pre) >= 11, (st, gp)   # 1167: the labour base before the graded months; as the national builder otherwise
+    W = spa.series(st, os.path.join(DI, '03_data/state/fred_state_payrolls'), os.path.join(C, 'data/fred_nsa')); cs = sorted(cand, key=lambda r: r[0])   # 1207
+    for i, (p, t, mp) in enumerate(cs):
+        te = t if t is not None else last; lo = (cs[i - 1][1] if cs[i - 1][1] is not None else last) if i else None; hi = cs[i + 1][0] if i + 1 < len(cs) else None
+        gp, gt, on, act, ab, pfl = graded(y, p, te, last, W, lo, hi); pre = UR[(UR.index < gp) & (UR.index >= gp - pd.DateOffset(months=12))]; assert len(pre) >= 11, (st, gp)   # 1167: the labour base before the graded months; as the national builder otherwise
         Pm = SPI[st].dropna() if st in SPI else None
         base = float(pre.min()); L, o, rise, q = parts(UR, base, Gq, gp, gt, Pm); g = grade3(L, o, q); f = fall(p, t)
-        R.append(dict(st=st, p=p, t=t, te=te, mp=mp, f=f, base=base, L=L, O=o['score'], P=(q['score'] if q is not None else None), pt=o['pt'], ppt=(q['pt'] if q is not None else None), rise=rise, g=g, gp=gp, gt=gt, on=on, act=act, Pm=Pm))
+        R.append(dict(st=st, p=p, t=t, te=te, mp=mp, f=f, base=base, L=L, O=o['score'], P=(q['score'] if q is not None else None), pt=o['pt'], ppt=(q['pt'] if q is not None else None), rise=rise, g=g, gp=gp, gt=gt, on=on, act=act, ab=ab, pfl=pfl, Pm=Pm))
     for r in R: r['status'] = 'open_unsettled' if (r['t'] is None and r['f'] < dc.DD_MIN) else ('fails_DD' if r['f'] < dc.DD_MIN else ('recession' if (round(r['g'], 2) >= CUT and r['on'] == 'activity') else ''))   # 1167 class rule: a recession needs the activity index itself to fall ACT_MIN percent or more
     rp = [r['p'] for r in R if r['status'] == 'recession']
     for r in R:
@@ -72,7 +79,7 @@ for st in STS:
                      'dating': 'OECD 5/15' if r['mp'] == 5 else ('floor 2/6' if r['mp'] == 2 else 'one month 1/3'), 'status': r['status'], 'class': r['status'] if r['status'] in ('recession', 'disturbance') else '',
                      'dev_fall_pp': round(r['f'], 2), 'ur_rise_pp': round(r['rise'], 2), 'index_fall_pct': round(r['pt'], 2), 'L': round(r['L'], 2), 'O': round(r['O'], 2),
                      'P': (round(r['P'], 2) if r['P'] is not None else None), 'production_fall_pct': (round(r['ppt'], 2) if r['ppt'] is not None else None),
-                     'graded_on': r['on'], 'graded_from': r['gp'].strftime('%Y-%m'), 'graded_to': r['gt'].strftime('%Y-%m'), 'activity_fall_pct': round(r['act'], 2), 'grade': round(r['g'], 2),
+                     'graded_on': r['on'], 'graded_from': r['gp'].strftime('%Y-%m'), 'graded_to': r['gt'].strftime('%Y-%m'), 'activity_fall_pct': round(r['act'], 2), 'activity_fall_on': r['ab'], 'payroll_fall_pct': (round(r['pfl'], 2) if r['pfl'] is not None else None), 'grade': round(r['g'], 2),
                      'line_at_end': r.get('line_at_end'), 'line_high': r.get('line_high'), 'provisional': bool(r['t'] is None or mdiff(last, r['t']) < dc.PROVISIONAL_MONTHS)})
 T = pd.DataFrame(rows); T.to_csv(os.path.join(OUT, 'BH-STATE-CHRONOLOGY-V4-1032.csv'), index=False); P = T[T['class'] != ''].copy()
 json.dump({'through': last.strftime('%Y-%m'), 'unemployment_through': URL, 'states': {st: {'line': LINE[st]} for st in STS}}, open(os.path.join(OUT, 'damage_line_v4_a198_1032.json'), 'w'))
