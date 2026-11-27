@@ -122,7 +122,7 @@ PASS  378: the Department's latest iusa first print agrees with FRED (CCSA, week
 PASS  378: the Department's latest iur_sa first print agrees with FRED (IURSA, week 2026-11-14)  got=1.1  want=1.1
 PASS  data page: every leg channel has a title  got=[]  want=[]
 PASS  record: every episode carries a damage score  got=[]  want=[]
-PASS  public state copies are this build  got=('2026-11-27 14:47', '2026-11-27 14:47')  want=('2026-11-27 14:47', '2026-11-27 14:47')
+PASS  public state copies are this build  got=('2026-11-27 16:45', '2026-11-27 16:45')  want=('2026-11-27 16:45', '2026-11-27 16:45')
 PASS  front-page tiles fetched today  got=2026-11-27  want=2026-11-27
 PASS  no leg channel stale past its cadence  got=[]  want=[]
 PASS  data page: every leg channel shows where it stands  got=[]  want=[]
@@ -146,8 +146,8 @@ PASS  data page: the search terms are on Google's own scale  got=[]  want=[]
 PASS  data page: every percent carries its % sign  got=[]  want=[]
 PASS  units: every front-page tile is a number  got=[]  want=[]
 PASS  units: no published page prints a placeholder (n/a, NaN, None, null)  got=[]  want=[]
-PASS  one number: every recession day reads 2.00 or more and every other day below 2.00  got=[]  want=[]
-PASS  one number: the state names its scale (recession line 2.00)  got=2.0  want=2.0
-PASS  one number: every recession grades 2.00 or more  got=[]  want=[]
+PASS  one number: every recession day reads 1.00 or more and every other day below 1.00  got=[]  want=[]
+PASS  one number: the state names its scale (recession line 1.00)  got=1.0  want=1.0
+PASS  one number: every recession grades 1.00 or more  got=[]  want=[]
 PASS  one number: the State page and the stress map are on the scale  got=0  want=0
-PASS  one number: every disturbance grades below 2.00 or was not graded on a fall of activity, every recession window grades 2.00 or more on a fall of activity (1167 class rule), and each grade is its damage  got=[]  want=[]
+PASS  one number: every disturbance grades below 1.00, every recession window grades 1.00 or more on a fall of activity (1167 class rule), and each grade is its damage on the published scale (1198: a recession 1 + 1.125 x (damage - 2), a disturbance damage x 0.5, at most 0.99)  got=[]  want=[]

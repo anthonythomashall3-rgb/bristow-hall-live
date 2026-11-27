@@ -4,8 +4,8 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-27",
- "checked_at": "2026-11-27 19:47 UTC",
- "seconds": 3.3,
+ "checked_at": "2026-11-27 21:45 UTC",
+ "seconds": 4.6,
  "source_calls": 4,
  "source_errors": {},
  "counts": {
@@ -390,11 +390,11 @@
    "label": "Bristow-Hall Rule, recession indicator",
    "check": "matches the detector",
    "status": "PASS",
-   "value": 0.571,
+   "value": 0.286,
    "period": "2026-11-27",
    "series": "BHRREALTIME",
    "transform": "the detector reading",
-   "expected": 0.571,
+   "expected": 0.286,
    "detail": ""
   },
   {
@@ -1602,12 +1602,12 @@
    "label": "state claims and payments, eta 5159",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-27",
+   "value": "2026-11-28",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1782,12 +1782,12 @@
    "label": "state production index, 50 states (mining, manufacturing and utilities; 2017 = 100)",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-27",
+   "value": "2026-11-28",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1818,12 +1818,12 @@
    "label": "bristow-hall state chronology v4",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-27",
+   "value": "2026-11-28",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1842,12 +1842,12 @@
    "label": "bristow-hall state damage line v4",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-27",
+   "value": "2026-11-28",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1998,7 +1998,7 @@
    "label": "national disturbance register v3.2",
    "check": "freshness",
    "status": "INFO",
-   "value": "open from the jun 2024 peak: recession, damage 2.12, provisional",
+   "value": "open from the may 2023 peak: disturbance, grade 0.99, provisional",
    "period": "2026-10-31",
    "series": "payems, indpro, w875rx1, cmrmtspl, unrate, gdpc1",
    "transform": null,
@@ -2370,12 +2370,12 @@
    "label": "bristow-hall state chronology v4",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-27",
+   "value": "2026-11-28",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2394,12 +2394,12 @@
    "label": "bristow-hall state damage line v4",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-27",
+   "value": "2026-11-28",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -3342,7 +3342,7 @@
    "label": "reading series: last day",
    "check": "phantom",
    "status": "PASS",
-   "value": 0.571,
+   "value": 0.286,
    "period": "2026-11-27",
    "series": "BHRREALTIME",
    "transform": null,
@@ -3354,7 +3354,7 @@
    "label": "reading series: last day",
    "check": "cadence",
    "status": "PASS",
-   "value": 0.571,
+   "value": 0.286,
    "period": "2026-11-27",
    "series": null,
    "transform": null,
@@ -4698,11 +4698,11 @@
    "label": "WY claims through",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-14",
-   "period": "2026-11-14",
+   "value": "2026-11-21",
+   "period": "2026-11-21",
    "series": "DOL539:WY:ic",
    "transform": "week",
-   "expected": "2026-11-14",
+   "expected": "2026-11-21",
    "detail": ""
   },
   {
