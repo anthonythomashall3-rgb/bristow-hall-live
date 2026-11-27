@@ -1,5 +1,5 @@
 {
- "built": "2026-11-27T14:19:51",
+ "built": "2026-11-27T14:24:10",
  "data": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/workspace/s2/disturbance/out/fred_latest",
  "chronology_version": "v4",
  "composite_last_month": "2026-10",
@@ -87,7 +87,7 @@
   "met_today": false,
   "forecast_cut": 0.04,
   "pmi_fall": 0.1,
-  "sales_fall": null,
+  "sales_fall": 0.0,
   "unemployment_rise": 0.0,
   "state": {
    "on": true,

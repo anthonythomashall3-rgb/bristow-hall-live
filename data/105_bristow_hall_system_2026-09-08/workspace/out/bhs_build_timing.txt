@@ -1,11 +1,11 @@
-   12.9s  exec walk94 head
-   16.3s  opening scores
-   16.9s  build_v (pending)
-   17.5s  concurrence branch
-   20.3s  starter and ender in
-   20.3s  build_c1021
-   20.5s  closing series
-   27.6s  daily series
-   27.9s  readings
-   28.1s  feeds
-   28.9s  state written
+   11.1s  exec walk94 head
+   13.9s  opening scores
+   14.5s  build_v (pending)
+   14.9s  concurrence branch
+   17.3s  starter and ender in
+   17.3s  build_c1021
+   17.4s  closing series
+   23.7s  daily series
+   24.0s  readings
+   24.1s  feeds
+   24.8s  state written
