@@ -18,7 +18,7 @@ def thumb(t, Wd=420, Hh=150, pad=5):
     A = json.loads(re.search(r'const ALL = (\{.*?\});\n', t, re.S).group(1))
     dft = re.search(r'return ALL\[k\]\?k:"([A-Z]{2})"', t); S = A[dft.group(1) if dft else 'CA']
     mk = [m[:7] for m in S['series']['dates']]; vals = S['series']['values']; n = len(mk)
-    X = lambda i: pad + i / max(1, n - 1) * (Wd - 2 * pad); TOP = 5 if 'one-number-1198' in t else 10   # 1198: the converted page holds grades on 0 to 5
+    X = lambda i: pad + i / max(1, n - 1) * (Wd - 2 * pad); TOP = 10
     Y = lambda v: Hh - pad - min(max(v, 0), TOP) / TOP * (Hh - 2 * pad)
     pos = lambda m: mk.index(m) if m in mk else (0 if m < mk[0] else n - 1)
     g = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" preserveAspectRatio="none">' % (Wd, Hh),

@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """RELABEL (collection 1198, 27 Nov 2026; Anthony: "can we switch the recession line to 1.00", "relabel the scale", option "Halve every
-grade"): every PUBLISHED grade is the damage x 0.5, so the recession line reads 1.00 and 1929-33 reads 5.00. Nothing is re-dated or
+grade"; then, the same day, "can we still make it on a scale of 10 and make it a logarithmic scale", "what do you recommend and do it"):
+the PUBLISHED grade runs 0 to 10 with the recession line at 1.00. A recession reads 1 + 1.125 x (damage - 2.00): 1.00 at the line,
+10.00 at 1929-33 (the damage is a log measure, so this is a log scale; one grade point is about 1.5 times the size). A disturbance
+reads damage x 0.5 and never reaches the line (at most 0.99), also where it was graded on trend. Nothing is re-dated or
 re-classed: the damage itself (0 to 10, the cut at 2.00) is computed exactly as before inside the register, the State chronology and
 the stress map; only the numbers and words the pages and the state publish are halved here. A grade below the line never rounds up to
 it (at most 0.99). What follows is the 1167 text, with its numbers as they stood on the damage scale.
@@ -27,7 +30,8 @@ is printed, an alert goes to the phone once a day, and the run goes on. No AI.""
 import os, re, sys, json, subprocess, traceback, datetime
 from decimal import Decimal, ROUND_HALF_UP
 
-K = 0.5             # 1198: a published grade is the damage x K
+K = 0.5             # 1198: below the line a published grade is the damage x K
+UP = 9.0 / 8.0      # 1198: above the line a recession's grade rises 1.125 per damage point, so 1929-33 (damage 10) reads 10.00
 DLINE = 2.0         # the recession line on the damage scale (1167), unchanged: the class cut everywhere inside
 LINE = 1.0          # 1198: the recession line as published (DLINE x K)
 CUT = 2.0
@@ -45,27 +49,35 @@ def _q(d):
     return Decimal(str(d)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
 
 
-def grade(d):
-    """1198: the published grade, the damage (0 to 10) x 0.5 at two decimals, half up (0 to 5; the line at 1.00). A damage below the
-    line (2.00 at two decimals) never reads the line: at most 0.99."""
-    if d is None: return None
+def _pub(d, recession):
+    """1198 (second ruling, 27 Nov 2026: "a scale of 10", "a logarithmic scale"; and a disturbance reads below the line): the published
+    grade of a damage. The damage (0 to 10) is already a log measure (10 x ln(1 + size) / ln(1 + size of 1929-33)), so a straight line
+    in it is a log scale. A RECESSION reads 1.00 at the line (damage 2.00) and 10.00 at 1929-33: 1 + 1.125 x (damage - 2.00), never
+    below 1.00. Anything that is NOT a recession (a disturbance, a quiet month) reads damage x 0.5 and never reaches the line: at most
+    0.99, whatever its damage (a disturbance graded on trend can carry damage of 2.00 or more; it is still below the line)."""
     d2 = max(_q(d), Decimal(0))
-    g = (d2 * Decimal(str(K))).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
-    if d2 < Decimal(str(DLINE)): g = min(g, Decimal('0.99'))
-    return float(g)
+    if recession:
+        g = (Decimal(1) + (d2 - Decimal(str(DLINE))) * Decimal(str(UP))).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        return float(max(g, Decimal('1.00')))
+    return float(min((d2 * Decimal(str(K))).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP), Decimal('0.99')))
+
+
+def grade(d, recession=False):
+    """the published grade at two decimals, half up (see _pub). recession=True for a period or month the tool classes a recession."""
+    if d is None: return None
+    return _pub(d, bool(recession))
 
 
 def grade100(gi, red=None):
-    """the same in whole hundredths (the stress map stores damage x 100). red=True: a month the tool holds at recession grade
-    (at least 2.00, whatever its damage so far); otherwise the damage"""
+    """the stress map's own unit (damage x 100), unchanged; the page publishes it through G1"""
     if gi is None: return None
     gi = max(0, int(gi))
-    return max(200, gi) if red else gi          # still on the damage scale (the stress map's own unit); the page halves it in G1
+    return max(200, gi) if red else gi
 
 
 def recession_grade(d):
     """a month or period the tool classes as a recession: its published grade so far, never below the line (1.00)"""
-    return max(LINE, float((max(_q(d), Decimal(0)) * Decimal(str(K))).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)))
+    return _pub(d, True)
 
 
 def index_quiet(share):
@@ -74,8 +86,8 @@ def index_quiet(share):
 
 
 def index_recession(damage):
-    """the real-time indicator inside a recession: the published grade so far (damage x 0.5), never below 1.00 (1.00 on the call day)"""
-    return max(LINE, K * float(damage))
+    """the real-time indicator inside a recession: the published grade so far (1 + 1.125 x (damage - 2.00)), never below 1.00 (1.00 on the call day)"""
+    return max(LINE, 1.0 + UP * (float(damage) - DLINE))
 
 
 class Miss(Exception):
@@ -93,16 +105,13 @@ def _swap(t, pairs, what):
 
 # ---------------------------------------------------------------- /state-onset/
 STATE_TEXT = [   # the State page as its builder (collection 1032) writes it is already in damage grade with the cut at 2.0; 1167 names the line
-    ('<div class="lab">Units:</div>Damage grade,<br>0 to 10</div>', '<div class="lab">Units:</div>Damage grade, 0 to 5,<br>1.00 = recession</div>', 1),
-    ('<b>Units:</b> Damage grade, 0 to 10: labor and output, Great Depression = 10', '<b>Units:</b> Damage grade, 0 to 5: 1.00 = recession, Great Depression = 5', 1),
+    ('<div class="lab">Units:</div>Damage grade,<br>0 to 10</div>', '<div class="lab">Units:</div>Damage grade, 0 to 10,<br>1.00 = recession</div>', 1),
+    ('<b>Units:</b> Damage grade, 0 to 10: labor and output, Great Depression = 10', '<b>Units:</b> Damage grade, 0 to 10: 1.00 = recession, Great Depression = 10', 1),
     ('Shaded: recessions (damage grade 2.0 or more). Lined: disturbances (below 2.0).', 'Shaded: recessions (damage grade 1.00 or more). Lined: disturbances (below 1.00).', 1),
-    ('<th>Damage, 0 to 10</th>', '<th>Damage grade, 0 to 5</th>', 1),
-    ('<p>Units: Damage grade, 0 to 10</p>', '<p>Units: Damage grade, 0 to 5, 1.00 = recession</p>', 1),
-    ("units:'Damage grade, 0 to 10'", "units:'Damage grade, 0 to 5, 1.00 = recession'", 1),
-    ("['Units','Index, 1.00 = recession, 0\\u201310 damage']", "['Units','Damage grade, 0 to 5, 1.00 = recession']", (0, 1)),
-    # 1198: the two places the page still said the Depression is 10 and drew its axis to 10
-    ('scores (Great Depression = 10). Index through', 'scores (Great Depression = 5). Index through', 1),
-    ('{lo:0,hi:10,step:2}', '{lo:0,hi:5,step:1}', 1),
+    ('<th>Damage, 0 to 10</th>', '<th>Damage grade, 0 to 10</th>', 1),
+    ('<p>Units: Damage grade, 0 to 10</p>', '<p>Units: Damage grade, 0 to 10, 1.00 = recession</p>', 1),
+    ("units:'Damage grade, 0 to 10'", "units:'Damage grade, 0 to 10, 1.00 = recession'", 1),
+    ("['Units','Index, 1.00 = recession, 0\\u201310 damage']", "['Units','Damage grade, 0 to 10, 1.00 = recession']", (0, 1)),
 ]
 
 
@@ -165,34 +174,35 @@ def convert_state(t):
 
 
 # ---------------------------------------------------------------- /stress-map/
-G1_JS = ("// one number (1167), relabeled (1198): the page holds damage in hundredths (0 to 1000); the grade shown is damage x 0.5. red = the cell is at\n"
-         "// recession grade (its color band is red or deep red, or the period is a recession): never below 1.00. A cell below the line reads at most 0.99.\n"
-         "function G1(gi,red){if(gi==null||isNaN(gi))return null;gi=Math.max(0,Math.round(gi));var g=Math.round((red?Math.max(200,gi):gi)/2+1e-9)/100;return (!red&&gi<200)?Math.min(0.99,g):g;}\n"
-         "function GH(x){if(x==null||isNaN(x))return null;var g=Math.round(x*50+1e-9)/100;return x<2?Math.min(0.99,g):g;}\n"
+G1_JS = ("// one number (1167), relabeled (1198): the page holds damage in hundredths (0 to 1000). rec = the month or period is a RECESSION: it reads\n"
+         "// 1 + 1.125 x (damage - 2.00), never below 1.00 (10.00 at 1929-33). Anything else (a disturbance, no period) reads damage x 0.5, at most 0.99.\n"
+         "function G1(gi,rec){if(gi==null||isNaN(gi))return null;gi=Math.max(0,Math.round(gi));if(rec===true)return Math.max(1,Math.round(100+1.125*(gi-200)+1e-9)/100);return Math.min(0.99,Math.round(gi/2+1e-9)/100);}\n"
+         "function GH(x,rec){return (x==null||isNaN(x))?null:G1(Math.round(x*100),rec);}\n"
          "function RD(b){return b==='r'||b==='D';}\n")
 STRESS_JS = [
     ('function abs_(s){', G1_JS + 'function abs_(s){', 1),
-    ("'<br>Running damage grade <b>'+f2(c.g[i]/100)+'</b>'", "'<br>Running damage grade <b>'+f2(G1(c.g[i],RD(c.b[i])))+'</b>'", 1),
-    ("'Labor damage grade <b>'+f2(D.v[f][i]/100)+'</b> (rise of", "'Labor damage grade <b>'+f2(G1(D.v[f][i],RD(D.b[f][i])))+'</b> (rise of", 1),
-    ("'<br>Running damage grade <b>'+f2(D.v[f][i]/100)+'</b>'", "'<br>Running damage grade <b>'+f2(G1(D.v[f][i],RD(D.b[f][i])))+'</b>'", 1),
-    ("running grade '+f2(c.g[ni]/100)", "running grade '+f2(G1(c.g[ni],RD(c.b[ni])))", 2),
-    ("labor grade '+f2(c.g[ni]/100)", "labor grade '+f2(G1(c.g[ni],RD(c.b[ni])))", 1),
+    ("'<br>Running damage grade <b>'+f2(c.g[i]/100)+'</b>'", "'<br>Running damage grade <b>'+f2(G1(c.g[i],code==='R'))+'</b>'", 1),
+    ("'Labor damage grade <b>'+f2(D.v[f][i]/100)+'</b> (rise of", "'Labor damage grade <b>'+f2(G1(D.v[f][i],code==='R'))+'</b> (rise of", 1),
+    ("'<br>Running damage grade <b>'+f2(D.v[f][i]/100)+'</b>'", "'<br>Running damage grade <b>'+f2(G1(D.v[f][i],code==='R'))+'</b>'", 1),
+    ("running grade '+f2(c.g[ni]/100)", "running grade '+f2(G1(c.g[ni],code==='R'))", 2),
+    ("labor grade '+f2(c.g[ni]/100)", "labor grade '+f2(G1(c.g[ni],code==='R'))", 1),
     # 1198: every other grade and cut the page prints, halved
-    ("(grade at the trough '+f2(pr[3])+')'", "(grade at the trough '+f2(GH(pr[3]))+')'", 2),
-    ("G1(g,RD(b)):g/100;}", "G1(g,RD(b)):g/200;}", 1),
+    ("(grade at the trough '+f2(pr[3])+')'", "(grade at the trough '+f2(GH(pr[3],code==='R'))+')'", 2),
+    ("function GR(g,b){return (typeof G1==='function')?G1(g,RD(b)):g/100;}", "function GR(g,b,rec){return G1(g,rec===true);}", 1),
+    ("(grade '+f2(GR(D.v[f][i],D.b[f][i]))+')';}", "(grade '+f2(GR(D.v[f][i],D.b[f][i],code==='R'))+')';}", 1),
     ("(labor damage grade under 0.05)", "(labor damage grade under 0.03)", 1),
-    ("[[-4,'grade 4.0'],[-3,'2.0 (recession bar)'],[-2,'1.0'],[-1,'0.05 · −1 SD']", "[[-4,'grade 2.00'],[-3,'1.00 (recession line)'],[-2,'0.50'],[-1,'0.03 · −1 SD']", 1),
-    ("'Deep red: grade 4.0 or more'", "'Deep red: grade 2.00 or more'", 1),
-    ("'Red: grade 2.0 to 4.0'", "'Red: grade 1.00 to 2.00'", 1),
+    ("[[-4,'grade 4.0'],[-3,'2.0 (recession bar)'],[-2,'1.0'],[-1,'0.05 · −1 SD']", "[[-4,'grade 3.25'],[-3,'1.00 (recession line)'],[-2,'0.50'],[-1,'0.03 · −1 SD']", 1),
+    ("'Deep red: grade 4.0 or more'", "'Deep red: grade 3.25 or more'", 1),
+    ("'Red: grade 2.0 to 4.0'", "'Red: grade 1.00 to 3.25'", 1),
     ("'Orange: period under 2.0, or index below trend'", "'Orange: period under 1.00, or index below trend'", 1),
     ("'2.0 = recession damage</span>'", "'1.00 = recession</span>'", 1),
 ]
 STRESS_DESC = [   # (where, old, new), 1198: the page's method text, written on the damage scale with the bar at 2.0, on the published scale
-    ('desc', 'the Great Depression at 10): orange while the grade is small, full red at 2.0 (the recession bar), deep red at 4.0 and above', 'the Great Depression at 5): orange while the grade is small, full red at 1.00 (the recession line), deep red at 2.00 and above'),
-    ('desc', 'The cut points (grade 0.05, 1.0, 2.0, 4.0;', 'The cut points (grade 0.03, 0.50, 1.00, 2.00;'),
+    ('desc', 'the Great Depression at 10): orange while the grade is small, full red at 2.0 (the recession bar), deep red at 4.0 and above', 'the Great Depression at 10): orange while the grade is small, full red at 1.00 (the recession line), deep red at 3.25 and above'),
+    ('desc', 'The cut points (grade 0.05, 1.0, 2.0, 4.0;', 'The cut points (grade 0.03, 0.50, 1.00, 3.25;'),
     ('desc', 'a window must fall at least 1.0 point, grade 2.0 or more is a recession', 'a window must fall at least 1.0 point, grade 1.00 or more is a recession'),
     ('v2.desc', '(yellow when under 0.05)', '(yellow when under 0.03)'),
-    ('v2.desc', '(deep red at grade 4.0 or more)', '(deep red at grade 2.00 or more)'),
+    ('v2.desc', '(deep red at grade 4.0 or more)', '(deep red at grade 3.25 or more)'),
     ('v2.short', '(full red at the recession grade of 2.0)', '(full red at the recession grade of 1.00)'),
 ]
 
@@ -314,7 +324,7 @@ def indicator(state_path=STATE, reg_path=REG, extra=()):
         # window's grade so far and the status 'unsettled' until the window settles
         m = match(a, b) or match(a, b, allw) or match(a, b, [x for x in R['episodes'] if x['status'] == 'open_unsettled'])
         if m is None: raise Miss('indicator: the call opened %s overlaps no window of the register' % a)
-        e['grade'] = grade(m['damage']); e['register_window'] = [m['peak'], m['trough']]; e['graded_on'] = m.get('graded_on')
+        e['grade'] = grade(m['damage'], m['status'] == 'recession'); e['register_window'] = [m['peak'], m['trough']]; e['graded_on'] = m.get('graded_on')
         e['register_status'] = 'recession' if m['status'] == 'recession' else ('unsettled' if m['status'] == 'open_unsettled' else 'disturbance')
         ep_paths.append(((e.get('open_pub') or a)[:10], (e.get('close_pub') or '9999-12-31')[:10], m))
     def at(day):
@@ -333,7 +343,7 @@ def indicator(state_path=STATE, reg_path=REG, extra=()):
         if bad: raise Miss('indicator: %s reads off the line on %d days, first %s' % (key, len(bad), bad[0]))
     S['scale'] = dict(name='one number', line=LINE, collection='1198_relabel_line_1_2026-11-27',
                       indicator='outside a recession the share of conditions met (series.reading), at most 0.99; inside one the register grade so far, never below 1.00 (1.00 on the call day)',
-                      grade='the damage x 0.5, 0 to 5 (1929-33 = 5); every contraction by one rule; 1.00 or more is a recession (damage 2.00 or more)', damage_per_grade=1.0 / K, relabel='1198, 27 Nov 2026')
+                      grade='0 to 10, a log scale: a recession reads 1 + 1.125 x (damage - 2.00), 1.00 at the line and 10.00 at 1929-33; a disturbance reads damage x 0.5, at most 0.99', relabel='1198, 27 Nov 2026')
     for p in (state_path,) + tuple(extra):
         json.dump(S, open(p, 'w'), allow_nan=False)
     print('one number: indicator state written (%d recessions from the register)' % len(ep_paths))

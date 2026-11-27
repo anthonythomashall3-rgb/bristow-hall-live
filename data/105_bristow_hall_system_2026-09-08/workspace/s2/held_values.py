@@ -165,12 +165,13 @@ def bls_flat_series(f, want):
     return best
 
 
-def _grade1198(d):
-    """1198: the published grade of a damage (s2/one_scale.py grade); the damage itself if that file cannot be read"""
+def _grade1198(d, recession=False):
+    """1198: the published grade of a damage (s2/one_scale.py grade: a recession on the log scale from 1.00, anything else below the line);
+    the damage itself if that file cannot be read"""
     try:
         import importlib.util as _iu
         _sp = _iu.spec_from_file_location('one_scale', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'one_scale.py')); _m = _iu.module_from_spec(_sp); _sp.loader.exec_module(_m)
-        return _m.grade(float(d))
+        return _m.grade(float(d), recession)
     except Exception:
         return d
 
@@ -289,10 +290,14 @@ def held(path, fs):
         return _fam([(want[s], num(v[1]), v[0]) for s, v in B.items()], 'total nonfarm, thousands of persons, seasonally adjusted')
     if 'BH-STATE-CHRONOLOGY-V4' in b: return chron_v4(f)
     if 'damage_line_v4' in b:
-        D = json.load(open(f)); M = D['through']; out = []
+        D = json.load(open(f)); M = D['through']; out = []; rec = set()
+        for cf in glob.glob(os.path.join(os.path.dirname(f), 'BH-STATE-CHRONOLOGY-V4*.csv')):   # 1198: the States in a recession that month (the chronology beside the line), as chron_v4 reads them
+            with open(cf, newline='') as h:
+                for r in csv.DictReader(h):
+                    if r['status'] == 'recession' and r['peak'] <= M and (r['open'] == 'True' or (r['trough'] or '9999') >= M): rec.add(r['st'])
         for s, v in (D.get('states') or {}).items():
             ln = [x for x in (v.get('line') or []) if x[1] is not None]
-            if ln: out.append((s, num(_grade1198(ln[-1][1])), ln[-1][0]))   # 1198: shown as the published grade (the damage x 0.5), as the State page and the stress map show it
+            if ln: out.append((s, num(_grade1198(ln[-1][1], s in rec)), ln[-1][0]))   # 1198: shown as the published grade, as the State page and the stress map show it
         return _fam(out, 'damage grade v4 (1.00 = recession), latest month')
     if 'out_v3_2_damage_cut/chronology.csv' in b:
         with open(f, newline='') as h: rows = list(csv.DictReader(h))
