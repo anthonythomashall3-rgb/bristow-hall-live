@@ -4,17 +4,20 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-27",
- "checked_at": "2026-11-27 18:05 UTC",
- "seconds": 3.4,
+ "checked_at": "2026-11-27 18:13 UTC",
+ "seconds": 4.6,
  "source_calls": 4,
  "source_errors": {},
  "counts": {
   "home": {
    "PASS": 28
   },
+  "sources": {
+   "WARN": 1
+  },
   "data/detector": {
-   "PASS": 69,
-   "WARN": 3
+   "WARN": 4,
+   "PASS": 68
   },
   "data/disturbance": {
    "PASS": 18
@@ -34,8 +37,8 @@
    "WARN": 5
   },
   "detector": {
-   "PASS": 58,
-   "WARN": 7
+   "PASS": 55,
+   "WARN": 10
   },
   "state-onset": {
    "PASS": 100
@@ -49,12 +52,12 @@
   }
  },
  "totals": {
-  "checks": 403,
-  "figures": 271,
+  "checks": 404,
+  "figures": 272,
   "fail": 0,
-  "warn": 43,
+  "warn": 48,
   "unverified": 0,
-  "passed": 354
+  "passed": 350
  },
  "failures": [],
  "rows": [
@@ -410,24 +413,24 @@
    "page": "data/detector",
    "label": "s&p 500 daily close: SP500",
    "check": "freshness",
-   "status": "PASS",
-   "value": "7,297.49",
-   "period": "2026-11-27",
+   "status": "WARN",
+   "value": "7,182.78",
+   "period": "2026-11-25",
    "series": "SP500",
    "transform": "level",
    "expected": "2026-11-27",
-   "detail": ""
+   "detail": "a newer period (2026-11-27) was published 2026-11-27, on or after the build day: the next run takes it"
   },
   {
    "page": "data/detector",
    "label": "s&p 500 daily close: SP500",
    "check": "value",
    "status": "PASS",
-   "value": 7297.49,
-   "period": "2026-11-27",
+   "value": 7182.78,
+   "period": "2026-11-25",
    "series": "SP500",
    "transform": "level",
-   "expected": 7297.49,
+   "expected": 7182.78,
    "detail": ""
   },
   {
@@ -2798,24 +2801,24 @@
    "page": "detector",
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "freshness",
-   "status": "PASS",
-   "value": 7.12,
-   "period": "2026-11-27",
+   "status": "WARN",
+   "value": 5.43,
+   "period": "2026-11-25",
    "series": "SP500",
    "transform": "sp_yoy",
    "expected": "2026-11-27",
-   "detail": ""
+   "detail": "a newer period (2026-11-27) was published 2026-11-27, on or after the build day: the next run takes it"
   },
   {
    "page": "detector",
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "value",
    "status": "PASS",
-   "value": 7.12,
-   "period": "2026-11-27",
+   "value": 5.43,
+   "period": "2026-11-25",
    "series": "SP500",
    "transform": "sp_yoy",
-   "expected": 7.11739,
+   "expected": 5.4336,
    "detail": ""
   },
   {
@@ -3218,13 +3221,13 @@
    "page": "detector",
    "label": "E22 leg S: the S&P 500 against its lowest close since the episode opened",
    "check": "freshness",
-   "status": "PASS",
+   "status": "WARN",
    "value": null,
-   "period": "2026-11-27",
+   "period": "2026-11-25",
    "series": "SP500",
    "transform": "reading",
    "expected": "2026-11-27",
-   "detail": ""
+   "detail": "a newer period (2026-11-27) was published 2026-11-27, on or after the build day: the next run takes it"
   },
   {
    "page": "detector",
@@ -3326,13 +3329,13 @@
    "page": "detector",
    "label": "current through: sp500",
    "check": "freshness",
-   "status": "PASS",
-   "value": "2026-11-27",
-   "period": "2026-11-27",
+   "status": "WARN",
+   "value": "2026-11-25",
+   "period": "2026-11-25",
    "series": "SP500",
    "transform": "through",
    "expected": "2026-11-27",
-   "detail": ""
+   "detail": "a newer period (2026-11-27) was published 2026-11-27, on or after the build day: the next run takes it"
   },
   {
    "page": "detector",
@@ -3459,7 +3462,7 @@
    "label": "feed: S&P 500 daily close (the market pillar: below its close a ye (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-30",
+   "value": "2026-11-27",
    "period": null,
    "series": "SP500",
    "transform": null,

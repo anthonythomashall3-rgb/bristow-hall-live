@@ -1,7 +1,7 @@
 {
- "built_at": "2026-11-27 13:04",
+ "built_at": "2026-11-27 13:12",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-27T18:05:13Z",
+ "generated_utc": "2026-11-27T18:13:52Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -19,7 +19,7 @@
    "short": "the S&P 500 close",
    "slots": false,
    "source": "rule: nyse_close",
-   "through": "2026-11-27",
+   "through": "2026-11-25",
    "time_known": true,
    "time_note": "the market close",
    "times": [
