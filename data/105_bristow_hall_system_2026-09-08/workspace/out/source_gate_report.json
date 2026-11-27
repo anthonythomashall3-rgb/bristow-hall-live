@@ -4,13 +4,8 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-27",
-<<<<<<< HEAD
- "checked_at": "2026-11-27 15:59 UTC",
- "seconds": 4.4,
-=======
- "checked_at": "2026-11-27 16:08 UTC",
- "seconds": 4.3,
->>>>>>> origin/main
+ "checked_at": "2026-11-27 18:05 UTC",
+ "seconds": 3.4,
  "source_calls": 4,
  "source_errors": {},
  "counts": {
@@ -412,18 +407,18 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "FRED has not posted the close of 2026-11-25 yet: checked against the chart feed the page names (Yahoo Finance ^GSPC)"
+   "detail": "FRED has not posted the close of 2026-11-27 yet: checked against the chart feed the page names (Yahoo Finance ^GSPC)"
   },
   {
    "page": "data/detector",
    "label": "s&p 500 daily close: SP500",
    "check": "freshness",
    "status": "PASS",
-   "value": "7,182.78",
-   "period": "2026-11-25",
+   "value": "7,297.49",
+   "period": "2026-11-27",
    "series": "SP500",
    "transform": "level",
-   "expected": "2026-11-25",
+   "expected": "2026-11-27",
    "detail": ""
   },
   {
@@ -431,11 +426,11 @@
    "label": "s&p 500 daily close: SP500",
    "check": "value",
    "status": "PASS",
-   "value": 7182.78,
-   "period": "2026-11-25",
+   "value": 7297.49,
+   "period": "2026-11-27",
    "series": "SP500",
    "transform": "level",
-   "expected": 7182.78,
+   "expected": 7297.49,
    "detail": ""
   },
   {
@@ -443,7 +438,7 @@
    "label": "s&p 500 daily close",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-27",
+   "value": "2026-11-30",
    "period": null,
    "series": "SP500",
    "transform": null,
@@ -1968,7 +1963,7 @@
    "check": "value",
    "status": "WARN",
    "value": "closed since jun 5, 2020",
-   "period": "2026-11-26",
+   "period": "2026-11-27",
    "series": "",
    "transform": "derived",
    "expected": null,
@@ -1980,7 +1975,7 @@
    "check": "freshness",
    "status": "WARN",
    "value": "closed since jun 5, 2020",
-   "period": "2026-11-26",
+   "period": "2026-11-27",
    "series": null,
    "transform": null,
    "expected": null,
@@ -2807,11 +2802,11 @@
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "freshness",
    "status": "PASS",
-   "value": 5.43,
-   "period": "2026-11-25",
+   "value": 7.12,
+   "period": "2026-11-27",
    "series": "SP500",
    "transform": "sp_yoy",
-   "expected": "2026-11-25",
+   "expected": "2026-11-27",
    "detail": ""
   },
   {
@@ -2819,11 +2814,11 @@
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "value",
    "status": "PASS",
-   "value": 5.43,
-   "period": "2026-11-25",
+   "value": 7.12,
+   "period": "2026-11-27",
    "series": "SP500",
    "transform": "sp_yoy",
-   "expected": 5.4336,
+   "expected": 7.11739,
    "detail": ""
   },
   {
@@ -3228,10 +3223,10 @@
    "check": "freshness",
    "status": "PASS",
    "value": null,
-   "period": "2026-11-25",
+   "period": "2026-11-27",
    "series": "SP500",
    "transform": "reading",
-   "expected": "2026-11-25",
+   "expected": "2026-11-27",
    "detail": ""
   },
   {
@@ -3335,11 +3330,11 @@
    "label": "current through: sp500",
    "check": "freshness",
    "status": "PASS",
-   "value": "2026-11-25",
-   "period": "2026-11-25",
+   "value": "2026-11-27",
+   "period": "2026-11-27",
    "series": "SP500",
    "transform": "through",
-   "expected": "2026-11-25",
+   "expected": "2026-11-27",
    "detail": ""
   },
   {
@@ -3467,7 +3462,7 @@
    "label": "feed: S&P 500 daily close (the market pillar: below its close a ye (next)",
    "check": "next published",
    "status": "PASS",
-   "value": "2026-11-27",
+   "value": "2026-11-30",
    "period": null,
    "series": "SP500",
    "transform": null,

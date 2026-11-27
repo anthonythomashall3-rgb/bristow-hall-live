@@ -1,6 +1,11 @@
 {
  "came_in": [],
- "early": {},
+ "early": {
+  "sp500": {
+   "at": "2026-11-27 13:05",
+   "through": "2026-11-27"
+  }
+ },
  "expired": [
   {
    "due_ny": "2026-10-20 10:00",
@@ -23,11 +28,7 @@
    "value_before": "0.03"
   }
  ],
-<<<<<<< HEAD
- "last_check_ny": "2026-11-27 10:54",
-=======
- "last_check_ny": "2026-11-27 11:03",
->>>>>>> origin/main
+ "last_check_ny": "2026-11-27 13:00",
  "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }

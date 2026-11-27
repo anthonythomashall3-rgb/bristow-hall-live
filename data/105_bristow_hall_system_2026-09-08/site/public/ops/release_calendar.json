@@ -1,17 +1,11 @@
 {
-<<<<<<< HEAD
- "built_at": "2026-11-27 10:59",
+ "built_at": "2026-11-27 13:04",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-27T15:59:42Z",
-=======
- "built_at": "2026-11-27 11:07",
- "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-27T16:08:08Z",
->>>>>>> origin/main
+ "generated_utc": "2026-11-27T18:05:13Z",
  "rows": [
   {
    "agrees_with_build": true,
-   "build_next": "2026-11-27",
+   "build_next": "2026-11-30",
    "confirmed_through": "2027-03-19",
    "fred_clock": null,
    "freq": "daily",
@@ -19,13 +13,13 @@
    "link": "/detector/",
    "name": "s&p 500 daily close",
    "next_expected": false,
-   "next_ny": "2026-11-27 13:00",
+   "next_ny": "2026-11-30 16:00",
    "read_lag_min": 0,
    "release_id": null,
    "short": "the S&P 500 close",
    "slots": false,
    "source": "rule: nyse_close",
-   "through": "2026-11-25",
+   "through": "2026-11-27",
    "time_known": true,
    "time_note": "the market close",
    "times": [
@@ -457,11 +451,6 @@
    "time_known": true,
    "time_note": "FRED's posting clock, the median of its last nine posts (the Atlanta Fed publishes no hour)",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-17 12:02",
-     "utc": "2026-11-17T17:02:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-18 12:02",

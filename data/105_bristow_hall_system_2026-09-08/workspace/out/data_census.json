@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
- "built_at": "2026-11-27 10:59",
-=======
- "built_at": "2026-11-27 11:07",
->>>>>>> origin/main
+ "built_at": "2026-11-27 13:04",
  "version": "C1019+E22",
  "census_date": "2026-11-27",
  "feeds": [
@@ -103,10 +99,10 @@
    "series": "SP500",
    "source": "Yahoo Finance close at the 5:05 PM ET run, corrected to the official close on FRED (SP500), which FRED posts the same evening, about 8 PM ET",
    "every": "Every trading day - read at the 5:05 PM ET run",
-   "through": "2026-11-25",
-   "next": "2026-11-27",
+   "through": "2026-11-27",
+   "next": "2026-11-30",
    "link": "https://finance.yahoo.com/quote/%5EGSPC/",
-   "value": "7,182.78",
+   "value": "7,297.49",
    "backup": "the official FRED SP500 close when the chart feed fails (two independent quotes)",
    "format_check": "q41: reading matches the readings table; two sources compared",
    "auto": "yes"
@@ -211,7 +207,7 @@
   {
    "channel": "S&P 500 close",
    "status": "current",
-   "last": "2026-11-25",
+   "last": "2026-11-27",
    "limit_days": 5,
    "substitute": null
   }
@@ -220,25 +216,14 @@
  "note": "every input the live tool reads, with its backup, schedule, holdings and format guard; the quarterly census reads this and closes the gaps (plan item 15, R1)",
  "tiles": {
   "routes": {
-<<<<<<< HEAD
    "PAYEMS": "FRED API",
    "JTSJOL": "FRED API",
    "UNRATE": "FRED API",
-   "CPIAUCSL": "FRED API",
-   "JTSQUR": "FRED API",
    "UNEMPLOY": "FRED API",
+   "JTSQUR": "FRED API",
+   "CPIAUCSL": "FRED API",
    "ICSA": "FRED API",
    "IURSA": "FRED API"
-=======
-   "JTSJOL": "FRED API",
-   "UNRATE": "FRED API",
-   "PAYEMS": "FRED API",
-   "JTSQUR": "FRED API",
-   "UNEMPLOY": "FRED API",
-   "CPIAUCSL": "FRED API",
-   "IURSA": "FRED API",
-   "ICSA": "FRED API"
->>>>>>> origin/main
   },
   "compared_with_bls": [
    "UNRATE",

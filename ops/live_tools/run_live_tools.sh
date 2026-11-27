@@ -18,6 +18,15 @@ PY=${PY:-python3}; OPS="$GITHUB_WORKSPACE/ops/live_tools"; L="$LT_OUT/run.log"; 
 # the peak-to-trough arithmetic of damage_dimensions_live_v376 in one pass on the arrays, and pandas' date-array indexing without its runtime
 # Union - bit-identical, each only when the code it replaces is the code read that day (LT_PYBOOT=0 runs without it)
 [ "${LT_PYBOOT:-1}" = "1" ] && export PYTHONPATH="$OPS/pyboot${PYTHONPATH:+:$PYTHONPATH}"
+# 1167m (27 Nov 2026): OpenBLAS's idle threads sleep at once instead of spinning. Each Python process starts one OpenBLAS thread a core
+# (4 on GitHub), and after each call they spin (default 2^28 cycles) before sleeping. The stress map's county layer runs 4 processes
+# beside each other, so 16 threads shared 4 cores, most of them spinning: computing it took 15 to 22 minutes on GitHub, 2 minutes in the
+# cloud session (which sets OPENBLAS_NUM_THREADS=1 and so never showed it). The thread count is unchanged, so every BLAS call splits its work
+# as before and the results are the same bits (fewer threads would change them: 1 thread against 4 differs in 17 of 3,143 counties).
+# Measured on GitHub (PR #165's probe, 384 counties, 4 processes): 121 s spinning, 53 s sleeping, the results byte-identical; the whole
+# county layer 17 min 18 s before, 7 min 40 s with it. In the cloud session (all 3,143 counties, 4 threads, 2 processes): 376 s against
+# 141 s, byte-identical. LT_BLAS_SPIN=1 leaves it as it was.
+[ "${LT_BLAS_SPIN:-0}" = "1" ] || export OPENBLAS_THREAD_TIMEOUT=4
 say() { echo "$(date -u '+%F %T')Z $*" | tee -a "$L"; }
 STOP=""
 step() { local name="$1"; shift; say "-- $name"; "$@" >> "$L" 2>&1; local rc=$?; say "   $name rc=$rc"; return $rc; }
