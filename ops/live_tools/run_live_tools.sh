@@ -87,7 +87,15 @@ step "1032 routine step 2" $PY code/state_v4_rebuild_1052.py || STOP="1032 routi
 if [ -z "$STOP" ]; then
   ( L="$LT_OUT/run_state_render.log"; : > "$L"; step "State page render" $PY code/page_check_1052.py state "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/web/state-onset/index.html"; echo $? > "$LT_OUT/state_render.rc" ) &
   RP=$!
-  step "stress map v3.1" $PY "$OPS/stress_map_cached.py" --all --procs "$(nproc)" || STOP="stress map v3.1 build failed"
+  # 1167o (27 Nov 2026): the county layer in ONE process, not one a CPU. GitHub's runner has 4 CPUs on 2 cores, and OpenBLAS starts 4 threads in
+  # each process; with 4 processes the 16 threads waited on each other: 0.43 s a county in each process, 0.05 s in one process alone, so one
+  # process computes the layer about twice as fast as four. The thread count stays 4: 2 threads a process would be faster still but changes
+  # the results (on GitHub 2 threads against 4 differ in the county table; 1 thread differs in 17 of 3,143 counties in the cloud session).
+  # Each county is computed alone, so the number of processes cannot change it. Checked on GitHub (PR #168's probe): the whole stress map built
+  # with 4 processes and with 1, every file compared - the county table, the periods, the State layer and the page's county data identical;
+  # only the build's clock and the main commit read at build time differ. The county layer 421 s against 218 s, the whole build 479 s against
+  # 276 s. LT_SM_PROCS sets another count.
+  step "stress map v3.1" $PY "$OPS/stress_map_cached.py" --all --procs "${LT_SM_PROCS:-1}" || STOP="stress map v3.1 build failed"
   wait $RP; cat "$LT_OUT/run_state_render.log" >> "$L"
   [ "$(cat "$LT_OUT/state_render.rc" 2>/dev/null)" = 0 ] || STOP="State page render check failed"
 fi
