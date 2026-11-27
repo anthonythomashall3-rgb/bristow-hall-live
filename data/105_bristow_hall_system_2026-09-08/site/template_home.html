@@ -105,11 +105,11 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;',
   const st=H.standing||{}, open=st.state==='open';
   const own='<div class="tile"><div class="lab">Bristow-Hall Rule, recession indicator</div>'
     +'<div class="val"><b>'+(open?'RECESSION OPEN':'NO RECESSION')+'</b></div>'
-    // Inside a recession the line is the damage grade itself - 2.00 at the call, 10 for 1929-33 (one number, collection 1167, 24 Nov 2026) -
-    // so the tile reads the grade and the day the rule called; outside one it reads the indicator against 2.00, as
+    // Inside a recession the line is the damage grade - 1.00 at the call, 5 for 1929-33 (one number, collection 1167, 24 Nov 2026; relabeled, 1197, 27 Nov 2026) -
+    // so the tile reads the grade and the day the rule called; outside one it reads the indicator against 1.00, as
     // before (20 September 2026, collection 274: the tile read "reading 2.92 of 1.00" through the fire drill).
-    +'<div class="sub">'+(open?'opened '+fmtD(st.since||'')+'; grade '+(H.last_value==null?'-':H.last_value.toFixed(2))+' of 10, '
-                             :'none since '+fmtM(st.since||st.dated||'')+'; reading '+(H.last_value==null?'-':H.last_value.toFixed(2))+' of 2.00, ')+fmtD(H.last_date)+'</div>'
+    +'<div class="sub">'+(open?'opened '+fmtD(st.since||'')+'; grade '+(H.last_value==null?'-':H.last_value.toFixed(2))+' of 5, '
+                             :'none since '+fmtM(st.since||st.dated||'')+'; reading '+(H.last_value==null?'-':H.last_value.toFixed(2))+' of 1.00, ')+fmtD(H.last_date)+'</div>'
     +'<div class="lnk"><a href="/detector/">the indicator &#8599;</a></div></div>';
   const rest=(H.tiles||[]).map(t=>'<div class="tile"><div class="lab">'+esc(t.lab)+'</div>'
     +'<div class="val"><b>'+esc(t.val)+'</b></div>'
@@ -141,11 +141,11 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;',
   const t=d=>Date.parse(d+'T00:00:00Z');
   const x0=t(s.dates[0]), x1=t(s.dates[s.dates.length-1]);
   const X=d=>pad+(t(d)-x0)/(x1-x0)*(W-2*pad);
-  const vmax=Math.max(3.2,...s.values.filter(v=>v!=null));
+  const vmax=Math.max(1.6,...s.values.filter(v=>v!=null));
   const Y=v=>Hh-pad-(Math.min(v,vmax)/vmax)*(Hh-2*pad);
   let g='';
   for(const r of (H.bands||[])){ const a=X(r[0]),b=X(r[1]); if(b>=pad&&a<=W-pad) g+='<rect x="'+Math.max(pad,a).toFixed(1)+'" y="0" width="'+Math.max(1,(Math.min(W-pad,b)-Math.max(pad,a))).toFixed(1)+'" height="'+Hh+'" fill="#e9edf2"/>'; }
-  g+='<line x1="'+pad+'" x2="'+(W-pad)+'" y1="'+Y(2).toFixed(1)+'" y2="'+Y(2).toFixed(1)+'" stroke="#FFCC00" stroke-width="1"/>';
+  g+='<line x1="'+pad+'" x2="'+(W-pad)+'" y1="'+Y(1).toFixed(1)+'" y2="'+Y(1).toFixed(1)+'" stroke="#FFCC00" stroke-width="1"/>';
   let d='',pen=false;
   s.dates.forEach((dt,i)=>{ const v=s.values[i]; if(v==null){pen=false;return;} const px=X(dt).toFixed(1), py=Y(v).toFixed(1); d+=(pen?'L':'M')+px+' '+py+' '; pen=true; });
   g+='<path d="'+d+'" fill="none" stroke="#990000" stroke-width="1.2"/>';

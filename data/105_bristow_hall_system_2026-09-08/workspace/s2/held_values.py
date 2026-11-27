@@ -165,6 +165,16 @@ def bls_flat_series(f, want):
     return best
 
 
+def _grade1197(d):
+    """1197: the published grade of a damage (s2/one_scale.py grade); the damage itself if that file cannot be read"""
+    try:
+        import importlib.util as _iu
+        _sp = _iu.spec_from_file_location('one_scale', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'one_scale.py')); _m = _iu.module_from_spec(_sp); _sp.loader.exec_module(_m)
+        return _m.grade(float(d))
+    except Exception:
+        return d
+
+
 def chron_v4(f):
     """the State chronology v4 in its latest month (the month of the damage line it is built with, as the stress map reads it)"""
     D = json.load(open(os.path.join(os.path.dirname(f), 'damage_line_v4_a198_1032.json'))); M = D['through']
@@ -282,12 +292,12 @@ def held(path, fs):
         D = json.load(open(f)); M = D['through']; out = []
         for s, v in (D.get('states') or {}).items():
             ln = [x for x in (v.get('line') or []) if x[1] is not None]
-            if ln: out.append((s, num(ln[-1][1]), ln[-1][0]))
-        return _fam(out, 'damage line v4 (points), latest month')
+            if ln: out.append((s, num(_grade1197(ln[-1][1])), ln[-1][0]))   # 1197: shown as the published grade (the damage x 0.5), as the State page and the stress map show it
+        return _fam(out, 'damage grade v4 (1.00 = recession), latest month')
     if 'out_v3_2_damage_cut/chronology.csv' in b:
         with open(f, newline='') as h: rows = list(csv.DictReader(h))
         r = max(rows, key=lambda r: r['peak'])
-        txt = '%s from the %s peak%s: %s, damage %s%s' % ('Open' if r['open'] == 'True' else 'Closed', per(r['peak']), '' if r['open'] == 'True' else ' to the %s trough' % per(r['trough']),
+        txt = '%s from the %s peak%s: %s, grade %s%s' % ('Open' if r['open'] == 'True' else 'Closed', per(r['peak']), '' if r['open'] == 'True' else ' to the %s trough' % per(r['trough']),
                                                      r['status'], r['grade'], ', provisional' if r['provisional'] == 'True' else '')
         return dict(value=txt, units='the register\'s latest dated row', period=r.get('payroll_latest_month') or r['peak'])
     if 'bhs_state' in os.path.basename(b):
