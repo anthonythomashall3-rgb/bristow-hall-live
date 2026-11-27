@@ -1,5 +1,5 @@
 {
- "built": "2026-11-27T14:06:44",
+ "built": "2026-11-27T14:19:51",
  "data": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/workspace/s2/disturbance/out/fred_latest",
  "chronology_version": "v4",
  "composite_last_month": "2026-10",
@@ -73,6 +73,10 @@
    "index_fall_line": 0.2,
    "sales_fall_line": 3.25
   },
+  "labour_route": {
+   "unemployment_rise_line": 0.25,
+   "pmi_fall_line": 10.0
+  },
   "value": 0.29,
   "index_fall": 1.25,
   "production_fall": 0.64,
@@ -84,6 +88,7 @@
   "forecast_cut": 0.04,
   "pmi_fall": 0.1,
   "sales_fall": null,
+  "unemployment_rise": 0.0,
   "state": {
    "on": true,
    "start_confirmed": "2024-07-05",
@@ -95,7 +100,7 @@
     "peak": "1962-04",
     "trough": "1964-01",
     "cls": "disturbance",
-    "start_confirmed": "1963-05-02",
+    "start_confirmed": "1962-12-05",
     "end_confirmed": "1965-03-16"
    },
    {
