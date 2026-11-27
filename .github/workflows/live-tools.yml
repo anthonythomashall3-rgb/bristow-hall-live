@@ -90,7 +90,12 @@ jobs:
           done = [r for r in runs if str(r['id']) != os.environ['GITHUB_RUN_ID'] and r.get('conclusion') == 'success' and r.get('event') != 'pull_request'
                   and dt.datetime.fromisoformat((r.get('run_started_at') or r['created_at']).replace('Z', '+00:00')) >= since]
           def full(r):          # a full run (refresh, build, publish) keeps its record as live-tools-full-<run id>; a parity run on main does not count
-              try: return any(a['name'].startswith('live-tools-full-') for a in api('actions/runs/%s/artifacts' % r['id'])['artifacts'])
+              # 1167l (27 Nov 2026): and its refresh step itself ran and passed. A cron run this step skipped also passes: on 27 Nov the 16:50
+              # cron of 26 Nov (00:50 UTC) counted the 19:50 run, itself a skipped late cron, and nothing was refreshed for it.
+              try:
+                  if not any(a['name'].startswith('live-tools-full-') for a in api('actions/runs/%s/artifacts' % r['id'])['artifacts']): return False
+                  return any(st.get('name', '').startswith('refresh, rebuild and check') and st.get('conclusion') == 'success'
+                             for j in api('actions/runs/%s/jobs' % r['id'])['jobs'] for st in j.get('steps', []))
               except Exception: return False
           done = [r for r in done if full(r)][:1]
           if done:
@@ -144,11 +149,11 @@ jobs:
       # code (ops/live_tools/stress_map_cached.py) and taken from the store when they are unchanged - a State, ETA 539 or jobs release
       # leaves them unchanged. The store is kept between runs in GitHub's cache (the newest run's copy is restored).
       - name: the stress map's county layer from the last run (when its inputs are unchanged)
-        if: env.MODE == 'full'
-        uses: actions/cache@v5
+        if: env.MODE == 'full' && env.LT_SKIP != '1'
+        uses: actions/cache/restore@v5      # 1167l: restore here; kept below whatever the run's outcome (actions/cache kept it only on success)
         with:
           path: ${{ runner.temp }}/sm_cache
-          key: sm-county-${{ github.run_id }}
+          key: sm-county-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: sm-county-
 
       # 1167 (25 Nov 2026; Anthony: "under 3 minutes of data releases"): A RUN STARTED BEFORE ITS RELEASE (update.yml, a release-time slot)
@@ -188,6 +193,17 @@ jobs:
           SM_CACHE_DIR: ${{ runner.temp }}/sm_cache
           SM_CACHE: ${{ env.MODE == 'full' && '1' || '0' }}
         run: bash ops/live_tools/run_live_tools.sh; cat "$LT_OUT/status.json"
+
+      # 1167l (27 Nov 2026): the county layer store (and the detail and production-index keys beside it) kept whatever the run's outcome.
+      # actions/cache kept it only when the whole job passed: from 26 Nov every run held later by its checks (gate, deploy) threw away a
+      # county layer it had computed in 14 minutes, and the next run computed it again.
+      - name: keep the county layer store for the next run
+        if: always() && env.MODE == 'full' && env.LT_SKIP != '1'
+        continue-on-error: true
+        uses: actions/cache/save@v5
+        with:
+          path: ${{ runner.temp }}/sm_cache
+          key: sm-county-${{ github.run_id }}-${{ github.run_attempt }}   # a re-run keeps its own (a key is written once)
 
       - name: the county layer from the store against the county layer computed (cache-parity)
         if: env.MODE == 'cache-parity'
