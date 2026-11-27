@@ -29,6 +29,7 @@ A page that cannot be converted is never published half converted: the last conv
 is printed, an alert goes to the phone once a day, and the run goes on. No AI."""
 import os, re, sys, json, subprocess, traceback, datetime
 from decimal import Decimal, ROUND_HALF_UP
+import base64, gzip, collections
 
 K = 0.5             # 1198: below the line a published grade is the damage x K
 UP = 9.0 / 8.0      # 1198: above the line a recession's grade rises 1.125 per damage point, so 1929-33 (damage 10) reads 10.00
@@ -196,6 +197,8 @@ STRESS_JS = [
     ("'Red: grade 2.0 to 4.0'", "'Red: grade 1.00 to 3.25'", 1),
     ("'Orange: period under 2.0, or index below trend'", "'Orange: period under 1.00, or index below trend'", 1),
     ("'2.0 = recession damage</span>'", "'1.00 = recession</span>'", 1),
+    ("'Disturbance (register v3.2, class 1 and class 2)</span>", "'Disturbance (national register)</span>", 1),
+    ("D1:'disturbance (class 1)',D2:'jobless-recovery disturbance (class 2)'", "D1:'disturbance',D2:'disturbance'", 1),
 ]
 STRESS_DESC = [   # (where, old, new), 1198: the page's method text, written on the damage scale with the bar at 2.0, on the published scale
     ('desc', 'the Great Depression at 10): orange while the grade is small, full red at 2.0 (the recession bar), deep red at 4.0 and above', 'the Great Depression at 10): orange while the grade is small, full red at 1.00 (the recession line), deep red at 3.25 and above'),
@@ -204,6 +207,10 @@ STRESS_DESC = [   # (where, old, new), 1198: the page's method text, written on 
     ('v2.desc', '(yellow when under 0.05)', '(yellow when under 0.03)'),
     ('v2.desc', '(deep red at grade 4.0 or more)', '(deep red at grade 3.25 or more)'),
     ('v2.short', '(full red at the recession grade of 2.0)', '(full red at the recession grade of 1.00)'),
+    # 1198: the strip's disturbances are the live national register's (the builder still reads the Mac's register v3.2)
+    ('desc', 'orange while the grade is small, full red at 1.00 (the recession line), deep red at 3.25 and above', 'a disturbance is orange, deeper as its grade nears the line; a recession is red from 1.00 (the recession line), deep red at 3.25 and above'),
+    ('v2.desc', 'disturbances are the register v3.2 rows of class 1 and class 2, dashed.', "disturbances are the live national register's, dashed."),
+    ('v2.desc', " The register's class-2 (jobless-recovery) disturbance, Jun 2002 to Apr 2003, is drawn dashed like the other disturbances.", ''),
 ]
 
 
@@ -218,6 +225,48 @@ def convert_stress(t):
         o = J if where == 'desc' else V; k = where.split('.')[-1]
         if o.get(k, '').count(old) != 1: raise Miss('stress map %s: %r found %d time(s), expected 1' % (where, old[:80], o.get(k, '').count(old)))
         o[k] = o[k].replace(old, new)
+    # 1198: the strip's disturbance bands, and the page's own national lists, from the LIVE national register (the builder reads the Mac's
+    # register v3.2, which still held 1959, 1993, 2002-03 and 2021-22 and lacked the disturbance open since 2023). Recession bands are
+    # left as built: the live Recession Indicator's own list.
+    R = json.load(open(REG)); MS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; lab = lambda k: MS[int(k[5:7]) - 1] + ' ' + k[:4]
+    dis = [e for e in R['episodes'] if str(e['status']).startswith('disturbance') and e.get('damage') is not None]
+    if not dis: raise Miss('stress map: the live register holds no disturbance')
+    keep = [b for b in (V.get('bands') or []) if b[0] not in ('D1', 'D2')]
+    for e in sorted(dis, key=lambda e: e['peak']):
+        tr = e.get('trough') or None
+        keep.append(['D1', e['peak'], tr, e['damage'], ('Disturbance: %s to %s, grade %.2f' % (lab(e['peak']), lab(tr), e['damage'])) if tr else ('Disturbance: from %s, open, running grade %.2f' % (lab(e['peak']), e['damage'])), bool(e.get('provisional'))])
+    V['bands'] = keep
+    J['nrec'] = [[e['peak'], e.get('trough') or None] for e in R['episodes'] if e['status'] == 'recession' and (e.get('trough') or '9999') >= J['start']]
+    J['ndis'] = [[e['peak'], e.get('trough') or None] for e in dis if (e.get('trough') or '9999') >= J['start']]
+    # 1198: a disturbance never reaches the line, so its months are never drawn red. The palette runs from orange (60) to red (20) without a
+    # step, so a disturbance month is placed on the orange half alone: color 60 at no damage to 40 (deep orange) at damage 2.00 or more,
+    # 60 - damage x 10; its band letter is 'o'. Red (20 and below) is a recession. Recession months are untouched.
+    rec_n = 0
+    def recolor(c, b, s, g):
+        nonlocal rec_n
+        b = list(b)
+        for i, ch in enumerate(s):
+            if ch == 'D':
+                rec_n += b[i] in 'rD'; b[i] = 'o'; c[i] = 60 - int(round(min(max(g[i] or 0, 0), 200) / 10.0))
+        return ''.join(b)
+    for st, S in (J.get('states') or {}).items():
+        if not (len(S['c']) == len(S['b']) == len(S['s'])): raise Miss('stress map: %s color, band and code differ in length' % st)
+        S['b'] = recolor(S['c'], S['b'], S['s'], S['g'])
+    BL = ['D', 'r', 'o', 'y', 'l', 'g']
+    for i in range(len(J.get('share') or [])):
+        cnt = collections.Counter(S['b'][i] for S in J['states'].values() if i < len(S['b']))
+        new = [cnt.get(k, 0) for k in BL]
+        if sum(new) + J['share'][i][6] != sum(J['share'][i]): raise Miss('stress map: the band counts of month %d do not add up after recoloring' % i)
+        J['share'][i] = new + [J['share'][i][6]]
+    for st, z in (V.get('st') or {}).items():
+        d = json.loads(gzip.decompress(base64.b64decode(z)))
+        for f in d['order']:
+            c = list(d['c'][f]); v = list(d['v'][f])
+            for i in range(1, len(c)): c[i] += c[i - 1]; v[i] += v[i - 1]
+            if not (len(c) == len(v) == len(d['b'][f]) == len(d['s'][f])): raise Miss('stress map: county %s color, band and code differ in length' % f)
+            if 'D' in d['s'][f]:
+                d['b'][f] = recolor(c, d['b'][f], d['s'][f], v); d['c'][f] = [c[0]] + [c[i] - c[i - 1] for i in range(1, len(c))]
+        V['st'][st] = base64.b64encode(gzip.compress(json.dumps(d, separators=(',', ':')).encode('utf-8'), 9, mtime=0)).decode('ascii')
     nb = 0
     for b in V.get('bands') or []:
         if len(b) > 4 and b[3] is not None:
@@ -232,7 +281,7 @@ def convert_stress(t):
     else: asc = False
     t = t[:m.start(1)] + json.dumps(J, separators=(',', ':'), ensure_ascii=asc).replace('</', '<\\/') + t[m.end(1):]
     t = _swap(t, STRESS_JS, 'stress map')
-    return t, dict(bands=nb, states=len(J.get('states') or {}))
+    return t, dict(bands=nb, states=len(J.get('states') or {}), disturbance_months_recolored=rec_n)
 
 
 CONV = {'state': convert_state, 'stress': convert_stress}

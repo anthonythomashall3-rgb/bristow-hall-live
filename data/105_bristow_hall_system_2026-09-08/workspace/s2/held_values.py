@@ -300,11 +300,14 @@ def held(path, fs):
             if ln: out.append((s, num(_grade1198(ln[-1][1], s in rec)), ln[-1][0]))   # 1198: shown as the published grade, as the State page and the stress map show it
         return _fam(out, 'damage grade v4 (1.00 = recession), latest month')
     if 'out_v3_2_damage_cut/chronology.csv' in b:
-        with open(f, newline='') as h: rows = list(csv.DictReader(h))
-        r = max(rows, key=lambda r: r['peak'])
+        # 1198: the row shown is the LIVE register's (s2/disturbance/out/chronology.csv, rebuilt on every run), not the Mac's copy of
+        # register v3.2, which still held 2024 as a recession; the Mac's file is read only if the live one is missing
+        lf = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'disturbance', 'out', 'chronology.csv')
+        with open(lf if os.path.exists(lf) else f, newline='') as h: rows = list(csv.DictReader(h))
+        r = max(rows, key=lambda r: r['peak']); r['status'] = 'disturbance' if r['status'].startswith('disturbance') else r['status']
         txt = '%s from the %s peak%s: %s, grade %s%s' % ('Open' if r['open'] == 'True' else 'Closed', per(r['peak']), '' if r['open'] == 'True' else ' to the %s trough' % per(r['trough']),
-                                                     r['status'], r['grade'], ', provisional' if r['provisional'] == 'True' else '')
-        return dict(value=txt, units='the register\'s latest dated row', period=r.get('payroll_latest_month') or r['peak'])
+                                                     r['status'], ('%.2f' % float(r['grade'])) if r.get('grade') not in (None, '') else '', ', provisional' if r['provisional'] == 'True' else '')
+        return dict(value=txt, units='the register\'s latest dated row', period=r.get('payroll_latest_month') or r.get('graded_to') or r['peak'])
     if 'bhs_state' in os.path.basename(b):
         S = json.load(open(f)); sd = S.get('standing') or {}
         txt = '%s since %s' % (str(sd.get('state', '')).capitalize(), per(sd.get('since'))) if sd else ''
