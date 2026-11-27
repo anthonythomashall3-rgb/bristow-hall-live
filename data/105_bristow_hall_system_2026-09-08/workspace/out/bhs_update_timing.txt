@@ -1,20 +1,20 @@
-    7.0s  FRED change check: 112 series tracked; 39 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
-    9.5s  home tiles: second source: 8 series compared with the BLS and the Department of Labor, 0 mismatch
-    9.5s  home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Nov 21, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-12-03, IURSA 2026-12-03, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
-    9.5s  bls_fetch: requests this process (test role, run 46072175332-1): bls_v2_test 1; this run so far: bls_v2_test 1
-   10.0s  PAYEMS         no new vintage since 2026-11-06 (through 2026-10-01)
-   10.4s  GDPC1          no new vintage since 2026-11-25 (through 2026-07-01)
-   10.8s  GDPNOW         no new vintage since 2026-11-25 (through 2026-10-01)
-   11.1s  UNEMPLOY       no new vintage since 2026-11-06 (through 2026-10-01)
-   11.5s  LNS13023621    no new vintage since 2026-11-06 (through 2026-10-01)
-   12.4s  c1021 claims NSA first prints: unchanged
-   12.5s  indeed postings  4956 rows, last 2026-11-13
-   12.6s  relcal_HOUST: unchanged (through 2026-10)
-   12.7s  relcal_UNRATE: unchanged (through 2026-10)
-   12.7s  relcal_JTSJOL: unchanged (through 2026-09)
-   12.7s  vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
-   13.1s  S&P 500: nothing new (through 2026-11-27)
-   13.9s  Sahm gap: unchanged (through 2026-10-01)
-   13.9s  insured rate base: unchanged (through 2026-11-14)
-   13.9s  ---- the damage index's unemployment rate ----
-   13.9s  left as they stand: 82 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
+   28.6s  FRED change check: 112 series tracked; 39 changed since last pulled (every release asked (the list since the last check ran long)): AWOTMAN, AUTHNOTT, BBKMCOIX, BSCICP02DEM460S, BORROW, CASACBW027NBOG, CCNSA, BUSINV, CFNAIMA3, DCOILWTICO, DCPF3M, DEXSLUS ...
+   31.1s  home tiles: second source: 8 series compared with the BLS and the Department of Labor, 0 mismatch
+   31.1s  home tiles: unchanged | 9 readings through Oct 2026 (unemployment rate), Nov 21, 2026 (claims); next releases CPIAUCSL 2026-12-10, ICSA 2026-12-03, IURSA 2026-12-03, JTSJOL 2026-12-01, JTSQUR 2026-12-01, PAYEMS 2026-12-04, UNRATE 2026-12-04; saved to collection 109
+   31.1s  bls_fetch: requests this process (test role, run 46074273782-1): bls_v2_test 1; this run so far: bls_v2_test 1
+   31.5s  PAYEMS         no new vintage since 2026-11-06 (through 2026-10-01)
+   32.0s  GDPC1          no new vintage since 2026-11-25 (through 2026-07-01)
+   32.4s  GDPNOW         no new vintage since 2026-11-25 (through 2026-10-01)
+   32.8s  UNEMPLOY       no new vintage since 2026-11-06 (through 2026-10-01)
+   33.4s  LNS13023621    no new vintage since 2026-11-06 (through 2026-10-01)
+   34.6s  c1021 claims NSA first prints: unchanged
+   34.7s  indeed postings  4956 rows, last 2026-11-13
+   34.7s  relcal_HOUST: unchanged (through 2026-10)
+   34.8s  relcal_UNRATE: unchanged (through 2026-10)
+   34.8s  relcal_JTSJOL: unchanged (through 2026-09)
+   34.8s  vacancy: openings/labour force does not reproduce the level file on recent months [(Timestamp('2026-05-01 00:00:00'), 4.431496137066523, 4.431496137066523), (Timestamp('2026-06-01 00:00:00'), 4.240720839877656, 4.240720839877656), (Timestamp('2026-07-01 00:00:00'), 4.299975161744356, 4.337823932250701)]; NOT appended
+   35.2s  S&P 500: nothing new (through 2026-11-27)
+   35.9s  Sahm gap: unchanged (through 2026-10-01)
+   35.9s  insured rate base: unchanged (through 2026-11-14)
+   35.9s  ---- the damage index's unemployment rate ----
+   35.9s  left as they stand: 82 series/steps (FRED reports no change since they were last pulled; the rest not due by the calendar)
