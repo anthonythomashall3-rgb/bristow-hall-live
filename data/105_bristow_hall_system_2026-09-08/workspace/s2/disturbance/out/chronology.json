@@ -1,5 +1,5 @@
 {
- "built": "2026-11-27T09:59:36",
+ "built": "2026-11-27T10:16:50",
  "data": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/workspace/s2/disturbance/out/fred_latest",
  "chronology_version": "v4",
  "composite_last_month": "2026-10",
@@ -61,6 +61,10 @@
    "production_fall_line": 1.5,
    "forecast_cut_line": 1.0
   },
+  "pmi_route": {
+   "index_fall_line": 0.3,
+   "pmi_fall_line": 12.0
+  },
   "value": 0.29,
   "index_fall": 1.25,
   "production_fall": 0.64,
@@ -70,6 +74,7 @@
   "months_since_high": 41,
   "met_today": false,
   "forecast_cut": 0.04,
+  "pmi_fall": 0.1,
   "state": {
    "on": true,
    "start_confirmed": "2024-07-05",
@@ -88,7 +93,7 @@
     "peak": "1966-07",
     "trough": "1967-07",
     "cls": "disturbance",
-    "start_confirmed": "1967-05-09",
+    "start_confirmed": "1967-01-09",
     "end_confirmed": "1968-09-16"
    },
    {
@@ -116,7 +121,7 @@
     "peak": "1980-12",
     "trough": "1982-12",
     "cls": "recession",
-    "start_confirmed": "1981-12-04",
+    "start_confirmed": "1981-11-06",
     "end_confirmed": "1983-11-15"
    },
    {
@@ -137,14 +142,14 @@
     "peak": "1995-01",
     "trough": "1996-01",
     "cls": "disturbance",
-    "start_confirmed": "1995-10-06",
+    "start_confirmed": "1995-07-07",
     "end_confirmed": "1996-12-16"
    },
    {
     "peak": "2000-04",
     "trough": "2003-04",
     "cls": "recession",
-    "start_confirmed": "2001-03-09",
+    "start_confirmed": "2001-01-17",
     "end_confirmed": "2004-03-15"
    },
    {
