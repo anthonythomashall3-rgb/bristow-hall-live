@@ -2,6 +2,7 @@
   warn("""Cannot parse header or footer so it will be ignored""")
 /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/openpyxl/worksheet/header_footer.py:48: UserWarning: Cannot parse header or footer so it will be ignored
   warn("""Cannot parse header or footer so it will be ignored""")
+indicator: purchasing managers file not extended (The read operation timed out); the held file is used
    peak  trough             status    class_rule_1167  dev_fall_pp  damage  grade  confirmed confirmed_on graded_on
 1948-01 1949-10          recession          recession         9.63    4.78   4.78       True          NaN  activity
 1951-01 1952-07 disturbance_class1 disturbance_class1         3.45    1.33   1.33       True          NaN  activity
@@ -24,4 +25,4 @@
 2018-12 2020-04          recession          recession        15.37    5.40   5.40       True   2021-05-28  activity
 2023-05     NaN disturbance_class1 disturbance_class1         1.37    2.19   2.19      False          NaN     trend
 live reading: {'data_through': '2026-10', 'components_in_latest_month': ['PAYEMS', 'W875RX1', 'INDPRO'], 'gap_from_trend': -0.25, 'below_trend': True, 'high_since_last_trough': '2023-05', 'high_gap': 1.11, 'lowest_since_high': '2026-10', 'lowest_gap': -0.25, 'fall_to_lowest': 1.37, 'meets_disturbance_rule_on_todays_data': True, 'typical_error_latest_month_pp': 2.3, 'note': 'a reading of current conditions, not a call'}
-indicator: {'line': 1.0, 'index_fall_line': 0.7, 'production_fall_line': 2.2, 'hours_route': {'index_fall_line': 0.6, 'hours_drop_line': 0.2}, 'forecast_route': {'index_fall_line': 0.4, 'production_fall_line': 1.5, 'forecast_cut_line': 1.0}, 'value': 0.29, 'index_fall': 1.25, 'production_fall': 0.64, 'hours_drop': 0.0, 'high_month': '2023-05', 'low_month': '2026-10', 'months_since_high': 41, 'met_today': False, 'forecast_cut': 0.04, 'state': {'on': True, 'start_confirmed': '2024-07-05', 'high_month': '2023-05', 'end_confirmed': None}}
+indicator: {'line': 1.0, 'index_fall_line': 0.7, 'production_fall_line': 2.2, 'hours_route': {'index_fall_line': 0.6, 'hours_drop_line': 0.2}, 'forecast_route': {'index_fall_line': 0.4, 'production_fall_line': 1.5, 'forecast_cut_line': 1.0}, 'pmi_route': {'index_fall_line': 0.3, 'pmi_fall_line': 12.0}, 'value': 0.29, 'index_fall': 1.25, 'production_fall': 0.64, 'hours_drop': 0.0, 'high_month': '2023-05', 'low_month': '2026-10', 'months_since_high': 41, 'met_today': False, 'forecast_cut': 0.04, 'pmi_fall': 0.1, 'state': {'on': True, 'start_confirmed': '2024-07-05', 'high_month': '2023-05', 'end_confirmed': None}}

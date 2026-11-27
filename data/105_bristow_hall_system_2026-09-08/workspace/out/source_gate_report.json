@@ -12,9 +12,6 @@
   "home": {
    "PASS": 28
   },
-  "sources": {
-   "WARN": 1
-  },
   "data/detector": {
    "PASS": 69,
    "WARN": 3
@@ -52,10 +49,10 @@
   }
  },
  "totals": {
-  "checks": 404,
-  "figures": 272,
+  "checks": 403,
+  "figures": 271,
   "fail": 0,
-  "warn": 44,
+  "warn": 43,
   "unverified": 0,
   "passed": 354
  },
