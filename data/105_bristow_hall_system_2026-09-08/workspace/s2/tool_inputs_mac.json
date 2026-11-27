@@ -4369,17 +4369,222 @@
     },
     {
      "key": "data/spi/spi_state_monthly_benchmarked_1167.csv",
-     "name": "data/spi/spi_state_monthly_benchmarked_1167.csv (not classified)",
-     "ids": "data/spi/spi_state_monthly_benchmarked_1167.csv",
-     "source": "not classified",
-     "url": "",
-     "freq": "",
-     "release": "",
+     "name": "State production index, 50 States (mining, manufacturing and utilities; 2017 = 100)",
+     "ids": "ALMFGN ... WYMFGN, ALNRMNN ... WYNRMNN, IPMAN, IPMINE, IPUTIL",
+     "source": "Bristow-Hall (collection 1167), from BLS State payrolls, the Federal Reserve G.17 and BEA real output",
+     "url": "/state-onset/",
+     "freq": "monthly",
+     "release": "derived_state",
      "through": "2026-10-01",
      "refreshed": "2026-11-26T16:47Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/spi/spi_state_monthly_benchmarked_1167.csv",
-     "held": null,
-     "refresh": "manual: Mac rebuild of the tool"
+     "held": {
+      "vlist": [
+       [
+        "AL",
+        "122.0"
+       ],
+       [
+        "AK",
+        "110.5"
+       ],
+       [
+        "AZ",
+        "142.1"
+       ],
+       [
+        "AR",
+        "119.4"
+       ],
+       [
+        "CA",
+        "118.4"
+       ],
+       [
+        "CO",
+        "125.0"
+       ],
+       [
+        "CT",
+        "120.1"
+       ],
+       [
+        "DE",
+        "134.1"
+       ],
+       [
+        "FL",
+        "152.8"
+       ],
+       [
+        "GA",
+        "118.9"
+       ],
+       [
+        "HI",
+        "115.0"
+       ],
+       [
+        "ID",
+        "152.5"
+       ],
+       [
+        "IL",
+        "118.3"
+       ],
+       [
+        "IN",
+        "125.7"
+       ],
+       [
+        "IA",
+        "114.1"
+       ],
+       [
+        "KS",
+        "118.4"
+       ],
+       [
+        "KY",
+        "114.4"
+       ],
+       [
+        "LA",
+        "130.2"
+       ],
+       [
+        "ME",
+        "115.8"
+       ],
+       [
+        "MD",
+        "111.6"
+       ],
+       [
+        "MA",
+        "123.9"
+       ],
+       [
+        "MI",
+        "113.8"
+       ],
+       [
+        "MN",
+        "106.9"
+       ],
+       [
+        "MS",
+        "119.9"
+       ],
+       [
+        "MO",
+        "114.7"
+       ],
+       [
+        "MT",
+        "102.4"
+       ],
+       [
+        "NE",
+        "139.0"
+       ],
+       [
+        "NV",
+        "123.7"
+       ],
+       [
+        "NH",
+        "116.5"
+       ],
+       [
+        "NJ",
+        "131.3"
+       ],
+       [
+        "NM",
+        "220.3"
+       ],
+       [
+        "NY",
+        "103.1"
+       ],
+       [
+        "NC",
+        "103.5"
+       ],
+       [
+        "ND",
+        "138.7"
+       ],
+       [
+        "OH",
+        "107.6"
+       ],
+       [
+        "OK",
+        "114.9"
+       ],
+       [
+        "OR",
+        "102.5"
+       ],
+       [
+        "PA",
+        "102.6"
+       ],
+       [
+        "RI",
+        "110.5"
+       ],
+       [
+        "SC",
+        "121.0"
+       ],
+       [
+        "SD",
+        "100.7"
+       ],
+       [
+        "TN",
+        "108.4"
+       ],
+       [
+        "TX",
+        "154.9"
+       ],
+       [
+        "UT",
+        "153.2"
+       ],
+       [
+        "VT",
+        "115.7"
+       ],
+       [
+        "VA",
+        "121.0"
+       ],
+       [
+        "WA",
+        "94.7"
+       ],
+       [
+        "WV",
+        "126.2"
+       ],
+       [
+        "WI",
+        "107.3"
+       ],
+       [
+        "WY",
+        "102.9"
+       ]
+      ],
+      "units": "index, 2017 = 100 (to one decimal)",
+      "period": "2026-10"
+     },
+     "refresh": "each live-tools run on GitHub: inputs from the BLS and FRED, the index rebuilt when they change (ops/live_tools/spi_refresh_1167.py)"
     },
     {
      "key": "data/state_industry_releases_1994_2026_a168.csv",
@@ -5078,16 +5283,5 @@
    ]
   }
  },
- "unclassified": [
-  [
-   "state-onset",
-   "data/spi/spi_state_monthly_benchmarked_1167.csv",
-   "/Users/anthonyhall/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/spi/spi_state_monthly_benchmarked_1167.csv"
-  ],
-  [
-   "state-onset",
-   "data/spi/spi_state_monthly_benchmarked_1167.csv",
-   "no held value read"
-  ]
- ]
+ "unclassified": []
 }
