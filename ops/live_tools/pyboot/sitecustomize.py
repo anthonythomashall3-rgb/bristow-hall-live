@@ -110,22 +110,25 @@ def _patch_subprocess(m):
 
 _SM2_SHA = '7de81b0575fb412e2fb2b3a6fac0918ffc219d3a820028b09d10cc03401229f5'   # 1052 code/stress_map_v2_1052.py, read on 25 Nov 2026
 _V1_SHA = '2b841ee52de7441e97530f670ccfce70b3076b6f26ccf0920109a265e37f5d44'    # 1052 code/stress_map_v1_1052.py
+_V1_SHA_Q = '94ec0ac0c619cf5fd25aae6fd66e8968ddbd3e3286717f1c371f79477e04fba5'  # the same since c2f1d5e3 (#147, 26 Nov 2026: parts() with q; 1167m)
 
 
 def _patch_sm2(m):
     """4 (1167b). The stress map's county layer: stress_map_v2_1052 builds run_v4_main (the county path, c0_county_v3) from the v1
     script's run_v4 by two textual changes; here it is built the same way with the third, the parts() call of run_rewritten.py. Only
     for the two files read on 25 Nov 2026 (SHA-256). stress_map_cached.py calls this for the module it loads; the county workers, which
-    import the module by name, get it from the finder below. LT_PYBOOT_REWRITE=0 leaves it as it is."""
+    import the module by name, get it from the finder below. LT_PYBOOT_REWRITE=0 leaves it as it is. 1167m (27 Nov 2026): also the v1 file of
+    c2f1d5e3 (#147: parts() with the production dimension q), with run_rewritten.py's _NESTED_Q."""
     import os, importlib.util
     if os.environ.get('LT_PYBOOT_REWRITE') == '0' or getattr(m, '_bhs_sm2', False): return
 
     def sha(p):
         with open(p, 'rb') as f: return hashlib.sha256(f.read()).hexdigest()
-    if sha(m.__file__) != _SM2_SHA or sha(m.V1PY) != _V1_SHA: return
+    v1 = sha(m.V1PY) if sha(m.__file__) == _SM2_SHA else None
+    if v1 not in (_V1_SHA, _V1_SHA_Q): return
     here = os.path.dirname(os.path.abspath(__file__))
     spec = importlib.util.spec_from_file_location('_bhs_run_rewritten', os.path.join(here, 'run_rewritten.py')); rr = importlib.util.module_from_spec(spec); spec.loader.exec_module(rr)
-    old, new = rr._NESTED
+    old, new = rr._NESTED if v1 == _V1_SHA else rr._NESTED_Q
     src = m._src
     if src.count(old) != 1 or src.count("def run_v4(") != 1 or src.count("w2, _ = dc.windows(dev, 2, 2, 6)") != 1: return
     exec(src.replace(old, new).replace("def run_v4(", "def run_v4_main(").replace("w2, _ = dc.windows(dev, 2, 2, 6)", "w2 = []"), m._G3)

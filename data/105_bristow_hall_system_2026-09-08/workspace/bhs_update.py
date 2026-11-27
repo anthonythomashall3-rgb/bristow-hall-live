@@ -606,7 +606,10 @@ _d0=_ny.date(); _early=(_d0.month==11 and _d0.weekday()==4 and 23<=_d0.day<=29) 
 # 1167b (25 Nov 2026; Anthony: "within minutes of the data release"): a run at the close's release slot whose wait found the feed's close settled
 # (s2/publisher_first.py spx_close: after the close, unchanged for 60 s; update.yml sets BHS_SPX_SETTLED to that day) takes today's close
 # from the close on; the 4:20 PM run and FRED's official close correct it as before
-_settled=os.environ.get('BHS_SPX_SETTLED','')==_ny.date().isoformat() and (_ny.hour,_ny.minute)>=((13,0) if _early else (16,0))
+# 1167p (27 Nov 2026): and it stays taken. A later run before the :15 cut dropped it again as "intraday": at 13:09 ET on 27 Nov the update a merge
+# started dropped the close of 13:04 (7,297.49) and the site showed 25 Nov's close until the 1:20 PM run. A row for today in the held file can only
+# come from a run that took the close settled (every run before the close drops today's row and never writes it), so from the close on it stands.
+_settled=(os.environ.get('BHS_SPX_SETTLED','')==_ny.date().isoformat() or (len(sp)>0 and sp.index[-1].date()==_ny.date())) and (_ny.hour,_ny.minute)>=((13,0) if _early else (16,0))
 _cut=pd.Timestamp(_ny.date() if ((_ny.hour,_ny.minute)>=((13,15) if _early else (16,15)) or _settled) else _ny.date()-datetime.timedelta(days=1))
 ys=pd.Series(dtype=float)
 r=subprocess.run(['curl','-sSL','-m','40','-A','Mozilla/5.0','https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=3mo&interval=1d'],capture_output=True,text=True)
