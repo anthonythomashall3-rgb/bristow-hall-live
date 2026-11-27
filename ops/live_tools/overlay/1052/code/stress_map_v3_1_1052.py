@@ -37,13 +37,14 @@ C = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT = os.path.j
 ROOT = os.path.dirname(C); DI = os.path.expanduser('~/Projects/Disturbance Indicator Data')
 V4D = os.path.join(ROOT, '1032_state_recession_indicator_all_states_dc_2026-11-09')
 sys.path.insert(0, os.path.join(DI, '10_chronology_site/code')); import disturbance_chronology as dc, damage_dimensions_live_v376 as dd
+sys.path.insert(0, os.path.join(V4D, 'code')); import state_payroll_activity_1207 as spa1207   # 1207: the class rule reads payrolls as well as the State index
 CUT = 2.0; NODMG = 0.05; SEAM = pd.Timestamp('1979-07-01'); START = pd.Timestamp('1947-01-01')
 mdiff = lambda a, b: (a.year - b.year) * 12 + a.month - b.month
 ym = lambda t: t.strftime('%Y-%m')
 
 # ---------------- the v4 code path (state_chronology_v4_growth_cycle_a198_1032.py lines 17-46, verbatim except: inputs are arguments, `last` is the series' last month,
 # and a short pre-peak base (fewer than 11 months, only where the insured rate has not yet begun) is allowed and flagged instead of asserted) -------------
-def run_v4(st, y, UR, last, allow_short=False, Pm=None, one_month=False):
+def run_v4(st, y, UR, last, allow_short=False, Pm=None, one_month=False, W=None):
     # 1167 (24 Nov 2026; Anthony: one grading rule; the State grade on three dimensions): each window is graded on the fall of its own
     # index (the highest level from 6 months before the peak to the trough, to the lowest level after it, up to 6 months past the trough)
     # where it fell 1.0 percent or more, otherwise on its fall against trend; Pm = the place's production index (the State production
@@ -61,18 +62,24 @@ def run_v4(st, y, UR, last, allow_short=False, Pm=None, one_month=False):
     for p, t in w1:
         if t is not None and not any(dc.overlaps(p, t, q, (s if s is not None else last)) for q, s, k in cand) and fall(p, t) >= dc.DD_MIN: cand.append((p, t, 1))
     Gq = y.resample('QS').mean(); R = []
-    def graded(p, te):
+    def graded(p, te, lo=None, hi=None):
         # 1201 (27 Nov 2026): the fall of activity is the LARGEST fall inside the window, from a high in [p - 6 months, te] to the lowest level after it (to te + 6 months). The rule of 1167 took the single highest level of the whole span; where activity ended a long window above where it began, that high lay at the end and the fall read 0 (Arkansas 1980: the index fell 1.17 percent and read 0.0). National register: no class, date or grade changes. States: 9 periods become recessions.
         s = y[(y.index >= p - pd.DateOffset(months=6)) & (y.index <= min(te + pd.DateOffset(months=6), last))]; dd_ = 1 - s / s.where(s.index <= te).cummax().ffill()
         tl = dd_.idxmax(); pl = s[s.index <= min(tl, te)].idxmax(); fl = float(100 * dd_.max())
-        return (pl, tl, 'activity', fl) if fl >= 1.0 else (p, te, 'trend', fl)
+        if fl >= 1.0: return pl, tl, 'activity', fl
+        # 1207 (PREREG-1207, 27 Nov 2026): as the State chronology builder (overlay/1032): where the State index fell under 1.0 percent, payrolls are read the same way
+        pf = spa1207.fall(W, p, te, last, lo, hi) if W is not None else None
+        if pf is not None and pf[2] >= spa1207.PAY_MIN: return pf[0], pf[1], 'activity', fl
+        return p, te, 'trend', fl
     def parts(UR, base, Gq, p, m):
         ex = (UR[(UR.index >= p) & (UR.index <= m)] - base).clip(lower=0); L = dd.labour_score(float(ex.max()), float(ex.sum())) if len(ex) else 0.0
         q = dd.production_dimension(Pm, p, m) if Pm is not None and len(Pm[(Pm.index >= p - pd.DateOffset(months=12)) & (Pm.index <= m)]) >= 2 else None
         return L, dd.output_dimension(Gq, p, m), (float(ex.max()) if len(ex) else 0.0), q
     g3 = lambda L, o, q: (L + o['score'] + q['score']) / 3 if q is not None else (L + o['score']) / 2
-    for p, t, mp in sorted(cand, key=lambda r: r[0]):
-        te = t if t is not None else last; gp, gt, on, act = graded(p, te)
+    cs = sorted(cand, key=lambda r: r[0])
+    for i, (p, t, mp) in enumerate(cs):
+        te = t if t is not None else last; lo = (cs[i - 1][1] if cs[i - 1][1] is not None else last) if i else None; hi = cs[i + 1][0] if i + 1 < len(cs) else None
+        gp, gt, on, act = graded(p, te, lo, hi)
         pre = UR[(UR.index < gp) & (UR.index >= gp - pd.DateOffset(months=12))]; short = len(pre) < 11
         if short:
             assert allow_short, (st, gp)
@@ -116,7 +123,7 @@ V4UR = {}   # 19 Nov 2026 (1150): the labour input of each State-month is kept f
 V4 = {}; repro = {'states_line_identical': 0, 'states_windows_identical': 0, 'differences': []}
 for st in STS:
     y = X[st].dropna(); u = pd.read_csv(os.path.join(DI, '03_data/state/fred_state_ur', f'{st}UR.csv')); UR = pd.Series(u.iloc[:, 1].astype(float).values, index=pd.to_datetime(u.iloc[:, 0])).dropna()
-    R, ln, dev = run_v4(st, y, UR, LAST, Pm=SPI1167.get(st), one_month=True); V4[st] = dict(R=R, ln=ln, dev=dev); V4UR[st] = UR   # 1167: production dimension
+    R, ln, dev = run_v4(st, y, UR, LAST, Pm=SPI1167.get(st), one_month=True, W=spa1207.series(st, os.path.join(DI, '03_data/state/fred_state_payrolls'), os.path.join(V4D, 'data/fred_nsa'))); V4[st] = dict(R=R, ln=ln, dev=dev); V4UR[st] = UR   # 1167: production dimension
     pub = dict(V4J['states'][st]['line']); mine = ln
     if pub == mine: repro['states_line_identical'] += 1
     else: repro['differences'].append((st, 'line', sum(1 for k in set(pub) | set(mine) if pub.get(k) != mine.get(k))))
