@@ -9,7 +9,7 @@ dates mark recessions. Tier 1: the live reading (not a call). Tier 2: an episode
 import numpy as np, pandas as pd
 TCB = dict(PAYEMS=0.5290, W875RX1=0.2054, INDPRO=0.1454, CMRMTSPL=0.1202)
 FLOOR = 0.95; WAIT = 10          # 1193: an episode is confirmed closed once it meets the rule on the day's data and its trough is 10 months old (RECORD-1182)
-IND_FALL = 0.7; IND_PROD = 2.2; IND_FALL2 = 0.6; IND_HOURS = 0.2; IND_FALL3 = 0.4; IND_PROD3 = 1.5; IND_FC_CUT = 0.8; IND_FALL4 = 0.3; IND_PMI = 12.0; IND_PROD5 = 3.2; IND_FALL6 = 0.2; IND_SALES = 3.25; IND_HOLD_DAYS = 7   # 1196: the indicator's start rule, six routes, held a week (RECORDS 1195, 1196, 1197, 1200, 1203)
+IND_FALL = 0.7; IND_PROD = 2.2; IND_FALL2 = 0.6; IND_HOURS = 0.2; IND_FALL3 = 0.4; IND_PROD3 = 1.5; IND_FC_CUT = 0.8; IND_FALL4 = 0.3; IND_PMI = 12.0; IND_PROD5 = 3.2; IND_FALL6 = 0.2; IND_SALES = 3.25; IND_UR = 0.25; IND_PMI7 = 10.0; IND_HOLD_DAYS = 7   # 1196: the indicator's start rule, seven routes, held a week (RECORDS 1195, 1196, 1197, 1200, 1203, 1204)
 ZO = [('1948-01','1949-10'),('1951-01','1952-07'),('1953-03','1954-08'),('1957-02','1958-04'),('1960-01','1961-02'),
       ('1962-04','1964-01'),('1966-03','1967-10'),('1969-08','1970-11'),('1973-11','1975-04'),('1979-03','1980-07'),
       ('1981-07','1982-12'),('1984-09','1987-01'),('1989-01','1991-12'),('1995-01','1996-01')]
@@ -187,7 +187,7 @@ def build(ser, nber):
     return lvl, dev, eps, live
 
 
-def indicator(ser, dev, hours=None, fc_cut=None, pmi_fall=None, sales_fall=None):
+def indicator(ser, dev, hours=None, fc_cut=None, pmi_fall=None, sales_fall=None, ur_rise=None):
     """The real-time disturbance indicator (RECORD-1195). Reading since the last counted contraction: the high is the largest 3-month median
     of the gap, the low the smallest monthly gap after it, at least 3 months after the high. Start rule, either route:
       1. index fall IND_FALL (0.7) and production's own gap down IND_PROD (2.2) between the high month and the low month;
@@ -197,11 +197,12 @@ def indicator(ser, dev, hours=None, fc_cut=None, pmi_fall=None, sales_fall=None)
       4. index fall IND_FALL4 (0.3) and the purchasing managers' index IND_PMI (12) points or more below its 12-month high (pmi_fall).
       5. index fall IND_FALL4 (0.3) and production's gap down IND_PROD5 (3.2).
       6. index fall IND_FALL6 (0.2) and total business sales IND_SALES (3.25) percent or more below their 12-month high (sales_fall).
+      7. unemployment (3-month average) up IND_UR (0.25) or more from its low of the 12 months before, and the purchasing managers' index IND_PMI7 (10) or more below its 12-month high.
     A start is confirmed once the rule has held IND_HOLD_DAYS. Value = the larger route's smallest ratio to its line; met at 1.00 or more.
     Record on 1,242 release days, 1962 to 2026: no false alarm, 6 of 6 disturbances; a false alarm in 3 to 7 of 999 draws of print-sized noise."""
     closed = contractions(dev); base = max(t for _, t in closed) if closed else dev.index[0]
     hi = dev.rolling(3).median(); after = hi[hi.index > base].dropna()
-    out = dict(line=1.0, index_fall_line=IND_FALL, production_fall_line=IND_PROD, hours_route=dict(index_fall_line=IND_FALL2, hours_drop_line=IND_HOURS), forecast_route=dict(index_fall_line=IND_FALL3, production_fall_line=IND_PROD3, forecast_cut_line=IND_FC_CUT), pmi_route=dict(index_fall_line=IND_FALL4, pmi_fall_line=IND_PMI), production_route=dict(index_fall_line=IND_FALL4, production_fall_line=IND_PROD5), sales_route=dict(index_fall_line=IND_FALL6, sales_fall_line=IND_SALES), value=0.0, index_fall=0.0, production_fall=0.0,
+    out = dict(line=1.0, index_fall_line=IND_FALL, production_fall_line=IND_PROD, hours_route=dict(index_fall_line=IND_FALL2, hours_drop_line=IND_HOURS), forecast_route=dict(index_fall_line=IND_FALL3, production_fall_line=IND_PROD3, forecast_cut_line=IND_FC_CUT), pmi_route=dict(index_fall_line=IND_FALL4, pmi_fall_line=IND_PMI), production_route=dict(index_fall_line=IND_FALL4, production_fall_line=IND_PROD5), sales_route=dict(index_fall_line=IND_FALL6, sales_fall_line=IND_SALES), labour_route=dict(unemployment_rise_line=IND_UR, pmi_fall_line=IND_PMI7), value=0.0, index_fall=0.0, production_fall=0.0,
                hours_drop=None, high_month=None, low_month=None, months_since_high=0, met_today=False)
     hd = None
     if hours is not None and len(hours) > 20:
@@ -216,6 +217,7 @@ def indicator(ser, dev, hours=None, fc_cut=None, pmi_fall=None, sales_fall=None)
             r4 = min(fall / IND_FALL4, pmi_fall / IND_PMI) if pmi_fall is not None else 0.0
             r5 = min(fall / IND_FALL4, pf / IND_PROD5)
             r6 = min(fall / IND_FALL6, sales_fall / IND_SALES) if sales_fall is not None else 0.0
-            out.update(forecast_cut=(round(float(fc_cut), 2) if fc_cut is not None else None), pmi_fall=(round(float(pmi_fall), 1) if pmi_fall is not None else None), sales_fall=(round(float(sales_fall), 2) if sales_fall is not None else None), value=round(max(0.0, r1, r2, r3, r4, r5, r6), 2), index_fall=round(fall, 2), production_fall=round(pf, 2), high_month=pk.strftime('%Y-%m'), low_month=low.strftime('%Y-%m'), months_since_high=len(post),
-                       met_today=bool(len(post) >= 3 and ((pf >= IND_PROD and (fall >= IND_FALL or (fall >= IND_FALL2 and hd is not None and hd >= IND_HOURS))) or (fc_cut is not None and fall >= IND_FALL3 and pf >= IND_PROD3 and fc_cut >= IND_FC_CUT) or (pmi_fall is not None and fall >= IND_FALL4 and pmi_fall >= IND_PMI) or (fall >= IND_FALL4 and pf >= IND_PROD5) or (sales_fall is not None and fall >= IND_FALL6 and sales_fall >= IND_SALES))))
+            r7 = min(ur_rise / IND_UR, pmi_fall / IND_PMI7) if (ur_rise is not None and pmi_fall is not None) else 0.0
+            out.update(forecast_cut=(round(float(fc_cut), 2) if fc_cut is not None else None), pmi_fall=(round(float(pmi_fall), 1) if pmi_fall is not None else None), sales_fall=(round(float(sales_fall), 2) if sales_fall is not None else None), unemployment_rise=(round(float(ur_rise), 2) if ur_rise is not None else None), value=round(max(0.0, r1, r2, r3, r4, r5, r6, r7), 2), index_fall=round(fall, 2), production_fall=round(pf, 2), high_month=pk.strftime('%Y-%m'), low_month=low.strftime('%Y-%m'), months_since_high=len(post),
+                       met_today=bool(len(post) >= 3 and ((pf >= IND_PROD and (fall >= IND_FALL or (fall >= IND_FALL2 and hd is not None and hd >= IND_HOURS))) or (fc_cut is not None and fall >= IND_FALL3 and pf >= IND_PROD3 and fc_cut >= IND_FC_CUT) or (pmi_fall is not None and fall >= IND_FALL4 and pmi_fall >= IND_PMI) or (fall >= IND_FALL4 and pf >= IND_PROD5) or (sales_fall is not None and fall >= IND_FALL6 and sales_fall >= IND_SALES) or (ur_rise is not None and pmi_fall is not None and ur_rise >= IND_UR and pmi_fall >= IND_PMI7))))
     return out, closed

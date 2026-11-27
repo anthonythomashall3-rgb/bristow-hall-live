@@ -377,7 +377,11 @@ def main_v4(a, data, ser):
         if len(bs) >= 12 and (pd.Timestamp(dt.date.today()) - bs.index[-1]).days <= 150:
             lb = np.log(bs.iloc[-12:].values.astype(float)) * 100; sales_fall = float(lb.max() - lb[-1])
     except Exception as e_: print('indicator: sales route off (%s)' % str(e_)[:80])
-    ind, counted = v4.indicator(ser, dev, hours, fc_cut, pmi_fall, sales_fall)
+    ur_rise = None
+    try:
+        u3 = pd.to_numeric(ser['UNRATE'], errors='coerce').dropna().rolling(3).mean().dropna(); ur_rise = float(u3.iloc[-1] - u3.iloc[-13:-1].min())
+    except Exception as e_: print('indicator: labour route off (%s)' % str(e_)[:80])
+    ind, counted = v4.indicator(ser, dev, hours, fc_cut, pmi_fall, sales_fall, ur_rise)
     irec = pd.read_csv(os.path.join(HERE, 'v4', 'indicator_record_1962_2026.csv'), dtype=str).fillna('')
     pj = os.path.join(a.out, 'chronology.json'); st = None
     try: st = (json.load(open(pj)).get('indicator') or {}).get('state') if os.path.exists(pj) else None
