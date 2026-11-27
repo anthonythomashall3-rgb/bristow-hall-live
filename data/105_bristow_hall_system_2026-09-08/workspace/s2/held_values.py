@@ -165,8 +165,8 @@ def bls_flat_series(f, want):
     return best
 
 
-def _grade1197(d):
-    """1197: the published grade of a damage (s2/one_scale.py grade); the damage itself if that file cannot be read"""
+def _grade1198(d):
+    """1198: the published grade of a damage (s2/one_scale.py grade); the damage itself if that file cannot be read"""
     try:
         import importlib.util as _iu
         _sp = _iu.spec_from_file_location('one_scale', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'one_scale.py')); _m = _iu.module_from_spec(_sp); _sp.loader.exec_module(_m)
@@ -292,7 +292,7 @@ def held(path, fs):
         D = json.load(open(f)); M = D['through']; out = []
         for s, v in (D.get('states') or {}).items():
             ln = [x for x in (v.get('line') or []) if x[1] is not None]
-            if ln: out.append((s, num(_grade1197(ln[-1][1])), ln[-1][0]))   # 1197: shown as the published grade (the damage x 0.5), as the State page and the stress map show it
+            if ln: out.append((s, num(_grade1198(ln[-1][1])), ln[-1][0]))   # 1198: shown as the published grade (the damage x 0.5), as the State page and the stress map show it
         return _fam(out, 'damage grade v4 (1.00 = recession), latest month')
     if 'out_v3_2_damage_cut/chronology.csv' in b:
         with open(f, newline='') as h: rows = list(csv.DictReader(h))

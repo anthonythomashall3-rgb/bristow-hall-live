@@ -88,7 +88,7 @@ def as_published(J):
         if seen is None and e['status'] in CLASSED and k >= A['replay_from']: led[k] = run; seen = run; changed = True   # before 1962 no vintages: none
         e['first_seen'] = seen
         if e.get('provisional') and e['status'] in CLASSED:
-            e['band'] = round(A['band_damage_p90'] * 0.5, 2)   # one number (1167): the band is on the grade itself; 1197: the grade is the damage x 0.5
+            e['band'] = round(A['band_damage_p90'] * 0.5, 2)   # one number (1167): the band is on the grade itself; 1198: the grade is the damage x 0.5
     if changed: json.dump(A, open(AP, 'w'), indent=1)
 
 
