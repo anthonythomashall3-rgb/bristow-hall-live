@@ -344,14 +344,14 @@ def main_v4(a, data, ser):
         sf = os.path.join(HERE, 'v4', 'spf_median_rgdp_growth.xlsx')
         try:
             rq = urllib.request.Request('https://www.philadelphiafed.org/-/media/frbp/assets/surveys-and-data/survey-of-professional-forecasters/data-files/files/median_rgdp_growth.xlsx', headers={'User-Agent': 'Mozilla/5.0'})
-            body = urllib.request.urlopen(rq, timeout=20).read()
+            body = urllib.request.urlopen(rq, timeout=45).read()
             if len(body) > 8000 and body[:2] == b'PK':
                 tmp_ = sf + '.new'; open(tmp_, 'wb').write(body); chk = pd.read_excel(tmp_)
                 if {'YEAR', 'QUARTER', 'DRGDP3', 'DRGDP6'} <= set(chk.columns) and len(chk) >= 230: os.replace(tmp_, sf)
                 else: os.remove(tmp_)
         except Exception as e_: print('indicator: forecasters file not refreshed (%s); the held file is used' % str(e_)[:80])
         sp = pd.read_excel(sf); sp['known'] = [pd.Timestamp(year=int(y_), month=int(q_) * 3 - 1, day=20) for y_, q_ in zip(sp.YEAR, sp.QUARTER)]
-        sp['g4'] = sp[['DRGDP3', 'DRGDP4', 'DRGDP5', 'DRGDP6']].mean(axis=1); sp['cut8'] = sp.g4.rolling(8, min_periods=4).max() - sp.g4
+        sp['g4'] = sp[['DRGDP3', 'DRGDP4', 'DRGDP5', 'DRGDP6']].mean(axis=1); sp['cut8'] = sp.g4.rolling(4, min_periods=4).max() - sp.g4   # 1203: the high of the last 4 surveys (was 8)
         sp = sp[sp.known <= pd.Timestamp(dt.date.today())]; fc_cut = float(sp.cut8.iloc[-1]) if len(sp) else None
     except Exception as e_: print('indicator: forecasters route off (%s)' % str(e_)[:80])
     pmi_fall = None
@@ -359,14 +359,25 @@ def main_v4(a, data, ser):
         pm = pd.read_csv(os.path.join(HERE, 'v4', 'pmi_spliced_1948_2026.csv'), index_col=0, parse_dates=True).iloc[:, 0].dropna()
         try:
             rq = urllib.request.Request('https://fred.stlouisfed.org/graph/fredgraph.csv?id=BSCICP02USM460S', headers={'User-Agent': 'Mozilla/5.0'})
-            oe = pd.read_csv(io.BytesIO(urllib.request.urlopen(rq, timeout=20).read()), index_col=0, parse_dates=True).iloc[:, 0]; oe = pd.to_numeric(oe, errors='coerce').dropna()
+            oe = pd.read_csv(io.BytesIO(urllib.request.urlopen(rq, timeout=45).read()), index_col=0, parse_dates=True).iloc[:, 0]; oe = pd.to_numeric(oe, errors='coerce').dropna()
             new_ = 50 + oe[oe.index > pm.index[-1]] / 2
             if len(new_) and new_.between(25, 80).all(): pm = pd.concat([pm, new_])
         except Exception as e_: print('indicator: purchasing managers file not extended (%s); the held file is used' % str(e_)[:80])
         today_ = pd.Timestamp(dt.date.today()); pm = pm[pm.index <= (today_.replace(day=1) - pd.DateOffset(months=1 if today_.day >= 3 else 2))]
         if len(pm) >= 12 and (today_ - pm.index[-1]).days <= 130: pmi_fall = float(pm.iloc[-12:].max() - pm.iloc[-1])
     except Exception as e_: print('indicator: purchasing managers route off (%s)' % str(e_)[:80])
-    ind, counted = v4.indicator(ser, dev, hours, fc_cut, pmi_fall)
+    sales_fall = None
+    try:   # total business sales (manufacturing and trade, Census; FRED TOTBUSSMSA): percent below the 12-month high. The held file is used when the download fails.
+        bs = pd.read_csv(os.path.join(HERE, 'v4', 'total_business_sales.csv'), index_col=0, parse_dates=True).iloc[:, 0].dropna()
+        try:
+            rq = urllib.request.Request('https://fred.stlouisfed.org/graph/fredgraph.csv?id=TOTBUSSMSA', headers={'User-Agent': 'Mozilla/5.0'})
+            nb = pd.read_csv(io.BytesIO(urllib.request.urlopen(rq, timeout=45).read()), index_col=0, parse_dates=True).iloc[:, 0]; nb = pd.to_numeric(nb, errors='coerce').dropna()
+            if len(nb) >= 300 and nb.index[-1] >= bs.index[-1] and (nb > 0).all(): bs = nb; bs.rename('TOTBUSSMSA').to_csv(os.path.join(HERE, 'v4', 'total_business_sales.csv'))
+        except Exception as e_: print('indicator: business sales file not refreshed (%s); the held file is used' % str(e_)[:80])
+        if len(bs) >= 12 and (pd.Timestamp(dt.date.today()) - bs.index[-1]).days <= 150:
+            lb = np.log(bs.iloc[-12:].values.astype(float)) * 100; sales_fall = float(lb.max() - lb[-1])
+    except Exception as e_: print('indicator: sales route off (%s)' % str(e_)[:80])
+    ind, counted = v4.indicator(ser, dev, hours, fc_cut, pmi_fall, sales_fall)
     irec = pd.read_csv(os.path.join(HERE, 'v4', 'indicator_record_1962_2026.csv'), dtype=str).fillna('')
     pj = os.path.join(a.out, 'chronology.json'); st = None
     try: st = (json.load(open(pj)).get('indicator') or {}).get('state') if os.path.exists(pj) else None
