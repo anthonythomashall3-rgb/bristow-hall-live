@@ -110,3 +110,58 @@ def parts(UR, base, Gq, p, m, dd):
     else:
         mx = 0.0; L = 0.0
     return L, _output_dimension(dd, Gq, p, m), mx
+
+
+# 1167n (27 Nov 2026): THE PRODUCTION DIMENSION q, ON THE ARRAYS. Since c2f1d5e3 (#147, 26 Nov) each parts() also computes
+#     q = dd.production_dimension(Pm, p, m) if Pm is not None and len(Pm[(Pm.index >= p - pd.DateOffset(months=12)) & (Pm.index <= m)]) >= 2 else None
+# (in a198 about 7 of the 10 seconds parts() takes). production_q is the same line: the months counted and selected by binary search on the
+# sorted dates (the same rows the comparisons select), then production_dimension's own steps on that slice - the same pt_and_cum (with
+# not_before), the same score2 and rounding, the same dict. Anything else (an unsorted, repeated or missing date, a date that is not a plain
+# Timestamp, a damage module whose functions are not the code read on 27 Nov 2026) runs the original line.
+_SHA_Q = {'production_dimension': '6f4d79e7aefa6ae6943fe9c9b0f4245fc730a057ff799267fe329d9a66797da1',
+          'score2': '71bb1309ef051b19bc0a6efa6640e63beb3fea58d0a4ad5926413dfdb3b82e3d',
+          'pt_and_cum': '7b06690898f1d617d9cc2ed81cd2489bd3263e50fed6236eb965dcc2d1f97fe9'}
+_READY_Q = {}
+STATS.update(q_fast=0, q_orig=0)
+
+
+def _ready_q(dd):
+    k = id(dd)
+    if k not in _READY_Q:
+        try:
+            ok = dict(getattr(dd, 'DEP', {})) == _DEP
+            for n, h in _SHA_Q.items():
+                f = getattr(dd, n); f = getattr(f, '_bhs_orig', f)
+                ok = ok and hashlib.sha256(inspect.getsource(f).encode()).hexdigest() == h
+        except Exception:
+            ok = False
+        _READY_Q[k] = ok
+    return _READY_Q[k]
+
+
+def _orig_q(Pm, p, m, dd):
+    STATS['q_orig'] += 1
+    return dd.production_dimension(Pm, p, m) if Pm is not None and len(Pm[(Pm.index >= p - pd.DateOffset(months=12)) & (Pm.index <= m)]) >= 2 else None
+
+
+def production_q(Pm, p, m, dd):
+    """the scripts' q line (see above)"""
+    if Pm is None:
+        return None
+    try:
+        if not (_ready_q(dd) and _ts(p) and _ts(m) and isinstance(Pm, pd.Series) and _plain(Pm.index)):
+            return _orig_q(Pm, p, m, dd)
+        idx = Pm.index
+        n = int(idx.searchsorted(m, side='right')) - int(idx.searchsorted(p - pd.DateOffset(months=12), side='left'))
+        if n < 2:
+            STATS['q_fast'] += 1
+            return None
+        m_call = pd.Timestamp(pd.Timestamp(p).year, pd.Timestamp(p).month, 1); m1 = pd.Timestamp(pd.Timestamp(m).year, pd.Timestamp(m).month, 1)
+        j0 = int(idx.searchsorted(m_call - pd.DateOffset(months=12), side='left')); j1 = int(idx.searchsorted(m1, side='right'))
+        seg = Pm.iloc[j0:max(j0, j1)]
+    except Exception:
+        return _orig_q(Pm, p, m, dd)
+    STATS['q_fast'] += 1
+    if len(seg) < 2: return dict(pt=0.0, cum=0.0, score=0.0, months=int(len(seg)), through=(str(seg.index.max().date()) if len(seg) else None))
+    pt, cum = dd.pt_and_cum(seg, not_before=m_call)
+    return dict(pt=round(float(pt), 4), cum=round(float(cum), 4), score=round(float(dd.score2(pt, cum, dd.DEP["ip_pt"], dd.DEP["ip_cum"])), 4), months=int(len(seg)), through=str(seg.index.max().date()))

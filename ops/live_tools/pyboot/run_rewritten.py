@@ -23,16 +23,16 @@ _NESTED = ('''    def parts(UR, base, Gq, p, m):
         return __import__('pyboot_fast').parts(UR, base, Gq, p, m, dd)   # 1167b pyboot: the same arithmetic on the arrays (ops/live_tools/pyboot)
         pass
 ''')
-# 1167m (27 Nov 2026): the same parts() since c2f1d5e3 (#147, 26 Nov: the State grade's production dimension q). The labour score, the output
-# dimension and the highest excess come from pyboot_fast.parts as before; q is the script's own line, unchanged. The three are pure functions of
-# their arguments (no shared state), so computing q after the output dimension, not before, changes nothing.
+# 1167m/n (27 Nov 2026): the same parts() since c2f1d5e3 (#147, 26 Nov: the State grade's production dimension q). The labour score, the output
+# dimension and the highest excess come from pyboot_fast.parts as before, q from pyboot_fast.production_q (the script's q line on the arrays).
+# The functions are pure (no shared state), so computing q after the output dimension, not before, changes nothing.
 _A198_Q = ('''def parts(UR, base, Gq, p, m, Pm=None):
     ex = (UR[(UR.index >= p) & (UR.index <= m)] - base).clip(lower=0); L = dd.labour_score(float(ex.max()), float(ex.sum())) if len(ex) else 0.0
     q = dd.production_dimension(Pm, p, m) if Pm is not None and len(Pm[(Pm.index >= p - pd.DateOffset(months=12)) & (Pm.index <= m)]) >= 2 else None
     return L, dd.output_dimension(Gq, p, m), (float(ex.max()) if len(ex) else 0.0), q
 ''', '''def parts(UR, base, Gq, p, m, Pm=None):
     L, o, mx = __import__('pyboot_fast').parts(UR, base, Gq, p, m, dd)   # 1167m pyboot: the same arithmetic on the arrays (ops/live_tools/pyboot)
-    q = dd.production_dimension(Pm, p, m) if Pm is not None and len(Pm[(Pm.index >= p - pd.DateOffset(months=12)) & (Pm.index <= m)]) >= 2 else None
+    q = __import__('pyboot_fast').production_q(Pm, p, m, dd)   # 1167n pyboot: the production dimension on the arrays (the same dict)
     return L, o, mx, q
 ''')
 _NESTED_Q = ('''    def parts(UR, base, Gq, p, m):
@@ -41,7 +41,7 @@ _NESTED_Q = ('''    def parts(UR, base, Gq, p, m):
         return L, dd.output_dimension(Gq, p, m), (float(ex.max()) if len(ex) else 0.0), q
 ''', '''    def parts(UR, base, Gq, p, m):
         L, o, mx = __import__('pyboot_fast').parts(UR, base, Gq, p, m, dd)   # 1167m pyboot: the same arithmetic on the arrays (ops/live_tools/pyboot)
-        q = dd.production_dimension(Pm, p, m) if Pm is not None and len(Pm[(Pm.index >= p - pd.DateOffset(months=12)) & (Pm.index <= m)]) >= 2 else None
+        q = __import__('pyboot_fast').production_q(Pm, p, m, dd)   # 1167n pyboot: the production dimension on the arrays (the same dict)
         return L, o, mx, q
 ''')
 _DET_INTS = ("def ints(a, mul): return [None if not np.isfinite(v) else int(round(v * mul)) for v in a]\n",
