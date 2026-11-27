@@ -78,6 +78,9 @@ step "1032 routine step 2" $PY code/state_v4_rebuild_1052.py || STOP="1032 routi
 if [ -z "$STOP" ]; then
   ( L="$LT_OUT/run_state_render.log"; : > "$L"; step "State page render" $PY code/page_check_1052.py state "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/web/state-onset/index.html"; echo $? > "$LT_OUT/state_render.rc" ) &
   RP=$!
+  ( cd "$P/1032_state_recession_indicator_all_states_dc_2026-11-09" && step "probe (1167n, not for main): a198 as itself" $PY code/state_chronology_v4_growth_cycle_a198_1032.py ) || true
+  ( cd "$P/1032_state_recession_indicator_all_states_dc_2026-11-09" && PYBOOT_STATS=1 step "probe (1167n, not for main): a198 rewritten" $PY "$OPS/pyboot/run_rewritten.py" code/state_chronology_v4_growth_cycle_a198_1032.py ) || true
+  step "probe (1167n, not for main): county pool" $PY "$OPS/county_pool_probe.py" || true
   step "stress map v3.1" $PY "$OPS/stress_map_cached.py" --all --procs "$(nproc)" || STOP="stress map v3.1 build failed"
   wait $RP; cat "$LT_OUT/run_state_render.log" >> "$L"
   [ "$(cat "$LT_OUT/state_render.rc" 2>/dev/null)" = 0 ] || STOP="State page render check failed"

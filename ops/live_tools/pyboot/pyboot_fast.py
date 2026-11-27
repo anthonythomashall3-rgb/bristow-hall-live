@@ -165,3 +165,7 @@ def production_q(Pm, p, m, dd):
     if len(seg) < 2: return dict(pt=0.0, cum=0.0, score=0.0, months=int(len(seg)), through=(str(seg.index.max().date()) if len(seg) else None))
     pt, cum = dd.pt_and_cum(seg, not_before=m_call)
     return dict(pt=round(float(pt), 4), cum=round(float(cum), 4), score=round(float(dd.score2(pt, cum, dd.DEP["ip_pt"], dd.DEP["ip_cum"])), 4), months=int(len(seg)), through=str(seg.index.max().date()))
+
+
+import os as _os, atexit as _atexit   # PROBE ONLY (1167n, not for main)
+if _os.environ.get('PYBOOT_STATS'): _atexit.register(lambda: print('pyboot_fast STATS', dict(STATS), flush=True))
