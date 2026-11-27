@@ -352,13 +352,13 @@ def main_v4(a, data, ser):
         except Exception as e_: print('indicator: forecasters file not refreshed (%s); the held file is used' % str(e_)[:80])
         sp = pd.read_excel(sf); sp['known'] = [pd.Timestamp(year=int(y_), month=int(q_) * 3 - 1, day=20) for y_, q_ in zip(sp.YEAR, sp.QUARTER)]
         sp['g4'] = sp[['DRGDP3', 'DRGDP4', 'DRGDP5', 'DRGDP6']].mean(axis=1); sp['cut8'] = sp.g4.rolling(4, min_periods=4).max() - sp.g4   # 1203: the high of the last 4 surveys (was 8)
-        sp = sp[sp.known <= pd.Timestamp(dt.date.today())]; fc_cut = float(sp.cut8.iloc[-1]) if len(sp) else None
+        sp = sp[sp.known <= pd.Timestamp(dt.date.today())]; fc_cut = float(sp.cut8.iloc[-1]) if len(sp) and (pd.Timestamp(dt.date.today()) - sp.known.iloc[-1]).days <= 200 else None   # a survey more than 200 days old switches the route off
     except Exception as e_: print('indicator: forecasters route off (%s)' % str(e_)[:80])
     pmi_fall = None
     try:   # purchasing managers' index: the held file (FRED archive to 2015, then mapped), extended by the OECD manufacturing confidence balance on FRED as 50 + balance / 2
         pm = pd.read_csv(os.path.join(HERE, 'v4', 'pmi_spliced_1948_2026.csv'), index_col=0, parse_dates=True).iloc[:, 0].dropna()
         try:
-            rq = urllib.request.Request('https://fred.stlouisfed.org/graph/fredgraph.csv?id=BSCICP02USM460S', headers={'User-Agent': 'Mozilla/5.0'})
+            rq = urllib.request.Request('https://fred.stlouisfed.org/graph/fredgraph.csv?id=BSCICP02USM460S')   # no browser header: FRED stalls requests that carry one
             oe = pd.read_csv(io.BytesIO(urllib.request.urlopen(rq, timeout=45).read()), index_col=0, parse_dates=True).iloc[:, 0]; oe = pd.to_numeric(oe, errors='coerce').dropna()
             new_ = 50 + oe[oe.index > pm.index[-1]] / 2
             if len(new_) and new_.between(25, 80).all(): pm = pd.concat([pm, new_])
@@ -370,7 +370,7 @@ def main_v4(a, data, ser):
     try:   # total business sales (manufacturing and trade, Census; FRED TOTBUSSMSA): percent below the 12-month high. The held file is used when the download fails.
         bs = pd.read_csv(os.path.join(HERE, 'v4', 'total_business_sales.csv'), index_col=0, parse_dates=True).iloc[:, 0].dropna()
         try:
-            rq = urllib.request.Request('https://fred.stlouisfed.org/graph/fredgraph.csv?id=TOTBUSSMSA', headers={'User-Agent': 'Mozilla/5.0'})
+            rq = urllib.request.Request('https://fred.stlouisfed.org/graph/fredgraph.csv?id=TOTBUSSMSA')
             nb = pd.read_csv(io.BytesIO(urllib.request.urlopen(rq, timeout=45).read()), index_col=0, parse_dates=True).iloc[:, 0]; nb = pd.to_numeric(nb, errors='coerce').dropna()
             if len(nb) >= 300 and nb.index[-1] >= bs.index[-1] and (nb > 0).all(): bs = nb; bs.rename('TOTBUSSMSA').to_csv(os.path.join(HERE, 'v4', 'total_business_sales.csv'))
         except Exception as e_: print('indicator: business sales file not refreshed (%s); the held file is used' % str(e_)[:80])
