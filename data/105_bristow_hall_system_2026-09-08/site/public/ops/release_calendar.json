@@ -1,7 +1,7 @@
 {
  "built_at": "2026-11-27 11:46",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-27T16:46:57Z",
+ "generated_utc": "2026-11-27T17:08:08Z",
  "rows": [
   {
    "agrees_with_build": true,
@@ -451,11 +451,6 @@
    "time_known": true,
    "time_note": "FRED's posting clock, the median of its last nine posts (the Atlanta Fed publishes no hour)",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-17 12:02",
-     "utc": "2026-11-17T17:02:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-18 12:02",
