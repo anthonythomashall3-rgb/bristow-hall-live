@@ -1,3 +1,4 @@
+import io
 """Bristow-Hall Disturbance Chronology (retrospective). Built 9 Nov 2026 for the BH System site.
 
 A disturbance is a national growth-cycle contraction that did not reach the recession bar. Every number below is the
@@ -353,7 +354,19 @@ def main_v4(a, data, ser):
         sp['g4'] = sp[['DRGDP3', 'DRGDP4', 'DRGDP5', 'DRGDP6']].mean(axis=1); sp['cut8'] = sp.g4.rolling(8, min_periods=4).max() - sp.g4
         sp = sp[sp.known <= pd.Timestamp(dt.date.today())]; fc_cut = float(sp.cut8.iloc[-1]) if len(sp) else None
     except Exception as e_: print('indicator: forecasters route off (%s)' % str(e_)[:80])
-    ind, counted = v4.indicator(ser, dev, hours, fc_cut)
+    pmi_fall = None
+    try:   # purchasing managers' index: the held file (FRED archive to 2015, then mapped), extended by the OECD manufacturing confidence balance on FRED as 50 + balance / 2
+        pm = pd.read_csv(os.path.join(HERE, 'v4', 'pmi_spliced_1948_2026.csv'), index_col=0, parse_dates=True).iloc[:, 0].dropna()
+        try:
+            rq = urllib.request.Request('https://fred.stlouisfed.org/graph/fredgraph.csv?id=BSCICP02USM460S', headers={'User-Agent': 'Mozilla/5.0'})
+            oe = pd.read_csv(io.BytesIO(urllib.request.urlopen(rq, timeout=20).read()), index_col=0, parse_dates=True).iloc[:, 0]; oe = pd.to_numeric(oe, errors='coerce').dropna()
+            new_ = 50 + oe[oe.index > pm.index[-1]] / 2
+            if len(new_) and new_.between(25, 80).all(): pm = pd.concat([pm, new_])
+        except Exception as e_: print('indicator: purchasing managers file not extended (%s); the held file is used' % str(e_)[:80])
+        today_ = pd.Timestamp(dt.date.today()); pm = pm[pm.index <= (today_.replace(day=1) - pd.DateOffset(months=1 if today_.day >= 3 else 2))]
+        if len(pm) >= 12 and (today_ - pm.index[-1]).days <= 130: pmi_fall = float(pm.iloc[-12:].max() - pm.iloc[-1])
+    except Exception as e_: print('indicator: purchasing managers route off (%s)' % str(e_)[:80])
+    ind, counted = v4.indicator(ser, dev, hours, fc_cut, pmi_fall)
     irec = pd.read_csv(os.path.join(HERE, 'v4', 'indicator_record_1962_2026.csv'), dtype=str).fillna('')
     pj = os.path.join(a.out, 'chronology.json'); st = None
     try: st = (json.load(open(pj)).get('indicator') or {}).get('state') if os.path.exists(pj) else None
