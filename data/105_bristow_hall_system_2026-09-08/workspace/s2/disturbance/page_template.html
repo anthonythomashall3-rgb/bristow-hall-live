@@ -162,7 +162,7 @@ var tiles=[
  ['Disturbances dated','<b>'+D.length+'</b>','since '+D[0].peak.slice(0,4)],
  ['Most recent closed',''+'<b>'+ym(last.peak)+' – '+ym(last.trough)+'</b>','grade '+f2(last.grade)],
  ['Grade range, disturbances','<b>'+f2(Math.min.apply(null,gr))+' – '+f2(Math.max.apply(null,gr))+'</b>','same scale as recessions'],
- (function(){var lr=J.live_reading||{};var g=lr.gap_from_trend;return ['Today ('+ym(lr.data_through)+')','<b>'+(g>=0?'+':'')+f2(g)+' vs trend</b>',f2(lr.high_gap-g)+' below its '+ym(lr.high_since_last_trough)+' high; '+(lr.meets_disturbance_rule_on_todays_data?'meets the rule, not confirmed':'not a disturbance')];})()
+ (function(){var lr=J.live_reading||{};var g=lr.gap_from_trend;return ['Today ('+ym(lr.data_through)+')','<b>'+(g>=0?'+':'')+f2(g)+' vs trend</b>',f2(lr.high_gap-g)+' below its '+ym(lr.high_since_last_trough)+' high; '+((J.indicator&&J.indicator.state&&J.indicator.state.on)?'disturbance under way':(lr.meets_disturbance_rule_on_todays_data?'meets the rule, not confirmed':'not a disturbance'))];})()
 ];
 (function(){var I=J.indicator;if(!I||!I.state)return;var MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];function dl(x){if(!x)return '';var p=String(x).split('-');return (p[2]?(+p[2])+' ':'')+MN[+p[1]-1]+' '+p[0];}tiles.push(['Disturbance indicator','<b>'+(I.state.on?'On':'Off')+'</b>',(I.state.on?'since '+dl(I.state.start_confirmed):(I.state.end_confirmed?'ended '+dl(I.state.end_confirmed):''))+' · reading '+f2(I.value)+', line 1.00']);})();
 document.getElementById('tiles').innerHTML=tiles.map(function(t){return '<div class="tile"><div class="lab">'+t[0]+'</div><div class="val">'+t[1]+'</div><div class="sub">'+t[2]+'</div></div>';}).join('');

@@ -9,7 +9,7 @@ dates mark recessions. Tier 1: the live reading (not a call). Tier 2: an episode
 import numpy as np, pandas as pd
 TCB = dict(PAYEMS=0.5290, W875RX1=0.2054, INDPRO=0.1454, CMRMTSPL=0.1202)
 FLOOR = 0.95; WAIT = 10          # 1193: an episode is confirmed closed once it meets the rule on the day's data and its trough is 10 months old (RECORD-1182)
-IND_FALL = 0.7; IND_PROD = 2.0   # 1193: the real-time indicator's start rule (RECORD-1190)
+IND_FALL = 0.8; IND_PROD = 2.0; IND_HOLD_DAYS = 7   # 1194: the real-time indicator's start rule: index fall 0.8, production gap fall 2.0, held for a week (noise test, RECORD-1194)
 ZO = [('1948-01','1949-10'),('1951-01','1952-07'),('1953-03','1954-08'),('1957-02','1958-04'),('1960-01','1961-02'),
       ('1962-04','1964-01'),('1966-03','1967-10'),('1969-08','1970-11'),('1973-11','1975-04'),('1979-03','1980-07'),
       ('1981-07','1982-12'),('1984-09','1987-01'),('1989-01','1991-12'),('1995-01','1996-01')]
@@ -190,7 +190,8 @@ def build(ser, nber):
 def indicator(ser, dev):
     """The real-time disturbance indicator (RECORD-1190). Reading since the last counted contraction: the high is the largest 3-month median
     of the gap, the low the smallest monthly gap after it. Value = the smaller of (index fall / IND_FALL) and (production gap fall / IND_PROD);
-    the start rule is met at 1.00 or more, at least 3 months after the high. No false alarm on 1,242 release days, 1962 to 2026."""
+    the start rule is met at 1.00 or more, at least 3 months after the high, and a start is confirmed once it has held for IND_HOLD_DAYS.
+    No false alarm on 1,242 release days, 1962 to 2026; a false alarm in 1 of 999 draws of print-sized noise (RECORD-1194)."""
     closed = contractions(dev); base = max(t for _, t in closed) if closed else dev.index[0]
     hi = dev.rolling(3).median(); after = hi[hi.index > base].dropna()
     out = dict(line=1.0, index_fall_line=IND_FALL, production_fall_line=IND_PROD, value=0.0, index_fall=0.0, production_fall=0.0, high_month=None, low_month=None, months_since_high=0, met_today=False)
