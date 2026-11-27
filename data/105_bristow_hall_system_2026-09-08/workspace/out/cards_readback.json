@@ -1,8 +1,8 @@
 {
- "at": "2026-11-26T17:08:37Z",
+ "at": "2026-11-27T15:24:40Z",
  "cards": {
   "/detector/": {
-   "img": "/detector/card.png?v=7118d569",
+   "img": "/detector/card.png?v=7888f6ca",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
@@ -14,25 +14,25 @@
    "ok": true
   },
   "/state-onset/": {
-   "img": "/state-onset/card.png?v=9b4d7f4b",
+   "img": "/state-onset/card.png?v=2a7ad117",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/stress-map/": {
-   "img": "/stress-map/card.png?v=d5ba26e1",
+   "img": "/stress-map/card.png?v=996ff9a4",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/forecaster/": {
-   "img": "/forecaster/card.png?v=d9174f49",
+   "img": "/forecaster/card.png?v=4c71fe75",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/time-machine/": {
-   "img": "/time-machine/card.png?v=cf1690f5",
+   "img": "/time-machine/card.png?v=83ef15ce",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true

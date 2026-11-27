@@ -1,44 +1,11 @@
 {
- "built_at": "2026-11-26 12:07",
+ "built_at": "2026-11-27 10:22",
  "fallback": "weekdays 08:35, 09:35, 10:20 and 16:35 (New York time; the Cloudflare Worker's own times), used only if this list cannot be read",
- "generated_utc": "2026-11-26T17:07:39Z",
+ "generated_utc": "2026-11-27T15:23:18Z",
  "made_by": "ops/calendar_build.py (22 September 2026; faster from 25 September 2026, collection 411; 1167, 24 November 2026): a run 3 minutes BEFORE each release read from its publisher or polled on FRED, set up and waiting at the release minute (release_ny) and asking the publisher every 5 seconds from then; a run 5 minutes after each other release the site shows (FRED-read releases: FRED's measured post plus 5 minutes), the S&P 500 close and its official close at FRED's evening post on NYSE trading days, a look-again only for a release that is due and not posted (10, 30 and 90 minutes); nothing else",
  "refresh_incomplete": null,
  "rule": "a run is started when a slot has passed since built_at and no run is under way, at most three times for one slot, eight minutes apart; the Cloudflare Worker checks every five minutes and GitHub's own schedule is the second line; nothing depends on the Mac",
  "slots": [
-  {
-   "ny": "2026-11-23 15:57",
-   "release_ny": "2026-11-23 16:00",
-   "utc": "2026-11-23T20:57:00Z",
-   "wait": [
-    "spx_close"
-   ],
-   "why": [
-    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
-   ]
-  },
-  {
-   "ny": "2026-11-23 16:20",
-   "utc": "2026-11-23T21:20:00Z",
-   "why": [
-    "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
-   ]
-  },
-  {
-   "ny": "2026-11-23 20:20",
-   "utc": "2026-11-24T01:20:00Z",
-   "why": [
-    "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
-   ]
-  },
-  {
-   "live_tools": true,
-   "ny": "2026-11-23 21:15",
-   "utc": "2026-11-24T02:15:00Z",
-   "why": [
-    "the live tools' routine refresh (02:15 UTC; was live-tools.yml's GitHub cron only)"
-   ]
-  },
   {
    "live_tools": true,
    "ny": "2026-11-24 11:45",
@@ -1294,6 +1261,107 @@
    ],
    "why": [
     "GDPNow (12:02 PM ET); polled on FRED"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-17 15:52",
+   "release_ny": "2026-12-17 15:55",
+   "utc": "2026-12-17T20:52:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "the Department's ETA 539 State file (3:55 PM ET; read from the Department)"
+   ]
+  },
+  {
+   "ny": "2026-12-17 15:57",
+   "release_ny": "2026-12-17 16:00",
+   "utc": "2026-12-17T20:57:00Z",
+   "wait": [
+    "spx_close"
+   ],
+   "why": [
+    "the S&P 500 close (4:00 PM ET; read from the chart feed as it settles)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-17 16:16",
+   "utc": "2026-12-17T21:16:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
+   ]
+  },
+  {
+   "ny": "2026-12-17 16:20",
+   "utc": "2026-12-17T21:20:00Z",
+   "why": [
+    "the S&P 500 close (the chart feed, settled by 4:15 PM) and the day's H.15 post (FRED 4:16 PM)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-17 16:36",
+   "utc": "2026-12-17T21:36:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-17 16:56",
+   "utc": "2026-12-17T21:56:00Z",
+   "wait": [
+    "dol_539"
+   ],
+   "why": [
+    "look again: the Department's ETA 539 State file (due 3:55 PM ET)"
+   ]
+  },
+  {
+   "ny": "2026-12-17 20:20",
+   "utc": "2026-12-18T01:20:00Z",
+   "why": [
+    "the S&P 500 official close (FRED SP500, posted about 8:02 PM)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-17 21:15",
+   "utc": "2026-12-18T02:15:00Z",
+   "why": [
+    "the live tools' routine refresh (02:15 UTC; was live-tools.yml's GitHub cron only)"
+   ]
+  },
+  {
+   "ny": "2026-12-18 09:40",
+   "utc": "2026-12-18T14:40:00Z",
+   "why": [
+    "the day's full refresh before state payrolls by industry, as first pub (10:00 AM ET)",
+    "the day's full refresh before state unemployment rates, 50 states and  (10:00 AM ET)",
+    "the day's full refresh before state payrolls and unemployment rates, n (10:00 AM ET)"
+   ]
+  },
+  {
+   "live_tools": true,
+   "ny": "2026-12-18 09:57",
+   "release_ny": "2026-12-18 10:00",
+   "utc": "2026-12-18T14:57:00Z",
+   "wait": [
+    "bls_state"
+   ],
+   "why": [
+    "state payrolls by industry, as first pub (10:00 AM ET; read from the publisher)",
+    "state unemployment rates, 50 states and  (10:00 AM ET; read from the publisher)",
+    "state payrolls and unemployment rates, n (10:00 AM ET; read from the publisher)"
    ]
   }
  ],

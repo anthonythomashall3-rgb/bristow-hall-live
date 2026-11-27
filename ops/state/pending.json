@@ -1,5 +1,17 @@
 {
- "came_in": [],
+ "came_in": [
+  {
+   "came_in": "2026-11-27 10:23",
+   "due_ny": "2026-11-25 08:30",
+   "expected_day": false,
+   "ids": "alinsuredur ... wyinsuredur",
+   "short": "weekly claims",
+   "since_ny": "2026-11-25 09:05",
+   "through_before": "2026-11-07",
+   "through_now": "2026-11-14",
+   "value_before": "0"
+  }
+ ],
  "early": {},
  "expired": [
   {
@@ -23,17 +35,7 @@
    "value_before": "0.03"
   }
  ],
- "last_check_ny": "2026-11-26 12:02",
- "pending": [
-  {
-   "due_ny": "2026-11-25 08:30",
-   "expected_day": false,
-   "ids": "alinsuredur ... wyinsuredur",
-   "short": "weekly claims",
-   "since_ny": "2026-11-25 09:05",
-   "through_before": "2026-11-07",
-   "value_before": "0"
-  }
- ],
+ "last_check_ny": "2026-11-27 10:18",
+ "pending": [],
  "what": "releases whose time passed without their row moving: looked for again 30 and 90 minutes after they were found missing, then at every scheduled run (ops/calendar_build.py)"
 }

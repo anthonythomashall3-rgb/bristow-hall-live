@@ -203,6 +203,11 @@ def held(path, fs):
         p = str(pd.to_datetime(X.iloc[-1, 0]).date())[:7]
         return _fam([(c, num('%.2f' % X[c].dropna().iloc[-1]), str(pd.to_datetime(X.loc[X[c].notna()].iloc[-1, 0]).date())[:7]) for c in X.columns if c in ST],
                     'index, 2007=100, seasonally adjusted (to two decimals)')
+    if b.endswith('spi_state_monthly_benchmarked_1167.csv'):   # 1167j (27 Nov 2026): the State production index, each State's newest month
+        import pandas as pd
+        X = pd.read_csv(fs[0])
+        return _fam([(c, num('%.1f' % X[c].dropna().iloc[-1]), str(X.loc[X[c].notna(), X.columns[0]].iloc[-1])[:7]) for c in X.columns if c in ST],
+                    'index, 2017 = 100 (to one decimal)')
     if 'fred_state_ur' in b: return state_dir(fs, 'UR', 'percent, seasonally adjusted')
     if 'fred_state_payrolls' in b: return state_dir(fs, 'NA', 'thousands of persons, seasonally adjusted')
     if 'state_nan' in b: return state_dir(fs, 'NAN', 'thousands of persons, not seasonally adjusted')

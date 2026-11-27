@@ -11,8 +11,10 @@ The State grade's third dimension (production) reads 1032 data/spi/spi_state_mon
 Checks: a refreshed series agrees with the held one on months both hold that are more than 36 months old (median relative difference
 under 0.1%; else that series keeps its held values); every State is in the new index; its last month is not earlier than the held one;
 on 1979-2018 the new and held monthly log changes correlate at 0.99 or more in every State.
+1167i (26 Nov 2026): FRED read through its API first, 20 s at most, the four side by side; the rebuild skipped when nothing it reads
+changed since the last one (a key in $SM_CACHE_DIR; SM_CACHE=0 always rebuilds).
     python3 ops/live_tools/spi_refresh_1167.py"""
-import os, sys, json, time, subprocess, urllib.request, datetime, numpy as np, pandas as pd
+import os, sys, json, time, subprocess, urllib.request, urllib.parse, datetime, hashlib, concurrent.futures, numpy as np, pandas as pd
 P = '/Users/anthonyhall/Projects/Onset Detector Data'; D = os.path.join(P, '1032_state_recession_indicator_all_states_dc_2026-11-09')
 WORK = os.path.join(D, 'data', 'spi', 'work'); FRED = os.path.join(WORK, 'data', 'l3', 'fred')
 LIVE = os.path.join(D, 'data', 'spi', 'spi_state_monthly_benchmarked_1167.csv'); Y0 = 2019
@@ -61,15 +63,45 @@ def bls(ids):
     return out, served
 
 def fred(fid):
-    url = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=%s&cosd=%d-01-01' % (fid, Y0)
-    for k in range(2):
+    """1167i (26 Nov 2026): FRED's API first (FRED_API_KEY, as the gate reads it), then fredgraph with a unique parameter; 20 s each, once.
+    On 26 Nov at 11:47 ET fredgraph answered none of the four in 2 x 60 s each: the step held the live tools for 8 min 45 s."""
+    k = os.environ.get('FRED_API_KEY', '').strip()
+    if k:
         try:
-            b = urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'}), timeout=60).read().decode()
-            x = [ln.split(',') for ln in b.strip().splitlines()[1:]]
-            s = pd.Series({pd.Timestamp(a): float(v) for a, v in x if v not in ('', '.')}).sort_index()
+            u = ('https://api.stlouisfed.org/fred/series/observations?series_id=%s&observation_start=%d-01-01&file_type=json&api_key=%s'
+                 % (fid, Y0, urllib.parse.quote(k)))
+            j = json.loads(urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'bhs-live-tools'}), timeout=20).read().decode())
+            s = pd.Series({pd.Timestamp(o['date']): float(o['value']) for o in j.get('observations', []) if o.get('value') not in ('', '.')}).sort_index()
             if len(s): return s
-        except Exception as e: err = e; time.sleep(5)
+        except Exception: pass
+    try:
+        url = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=%s&cosd=%d-01-01&bhs_t=%d' % (fid, Y0, time.time())
+        b = urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'}), timeout=20).read().decode()
+        x = [ln.split(',') for ln in b.strip().splitlines()[1:]]
+        s = pd.Series({pd.Timestamp(a): float(v) for a, v in x if v not in ('', '.')}).sort_index()
+        if len(s): return s
+    except Exception: pass
     return None
+
+def rebuild_key():
+    """1167i: what the two scripts read (every file of the working copy but their outputs: out/ and the two l3 index files) and the held index; the same key, the same
+    result (the scripts are deterministic), so the rebuild (46 s on GitHub) runs only when an input changed"""
+    h = hashlib.sha256(b'1167i-1')
+    outs = {os.path.realpath(os.path.join(WORK, 'data', 'l3', f)) for f in ('spi_state_monthly_1167.csv', 'spi_state_monthly_benchmarked_1167.csv')}
+    for dp, dn, fs in os.walk(WORK):
+        dn[:] = sorted(d for d in dn if os.path.realpath(os.path.join(dp, d)) != os.path.realpath(os.path.join(WORK, 'out')))   # the scripts' own outputs
+        for f in sorted(fs):
+            q = os.path.join(dp, f)
+            if os.path.realpath(q) in outs or f.endswith(('.pyc', '.tmp')): continue
+            with open(q, 'rb') as fh: h.update(os.path.relpath(q, WORK).encode() + b'\0' + hashlib.sha256(fh.read()).digest())
+    with open(LIVE, 'rb') as fh: h.update(b'live\0' + hashlib.sha256(fh.read()).digest())
+    return h.hexdigest()
+
+def keep_key():   # the key of the inputs as they now stand (the index replaced or kept)
+    try: os.makedirs(os.path.dirname(KEYF), exist_ok=True); open(KEYF, 'w').write(rebuild_key())
+    except Exception as e: say('rebuild key not kept (%s)' % type(e).__name__)
+
+KEYF = os.path.join(os.environ.get('SM_CACHE_DIR') or os.path.expanduser('~/.cache/bhr_sm_county'), 'spi_rebuild_1167.key')
 
 def main():
     if not os.path.isdir(FRED): say('no working copy at', WORK); return 1
@@ -77,9 +109,13 @@ def main():
     want = {fid: sid for fid, sid in BLS_OF.items() if held(fid) is not None}
     got, served = bls(sorted(set(want.values())))
     for fid, sid in want.items(): changed += splice(fid, got.get(sid), why)
-    for fid in FRED_ONLY: changed += splice(fid, fred(fid), why)
+    with concurrent.futures.ThreadPoolExecutor(len(FRED_ONLY)) as ex: fetched = dict(zip(FRED_ONLY, ex.map(fred, FRED_ONLY)))   # 1167i: side by side
+    for fid in FRED_ONLY: changed += splice(fid, fetched[fid], why)
     say('series refreshed: %d changed of %d; not refreshed: %d' % (changed, len(want) + len(FRED_ONLY), len(why)))
     for k, v in sorted(why.items()): say('  ', k, v)
+    key = rebuild_key()
+    if os.environ.get('SM_CACHE', '1') != '0' and os.path.exists(KEYF) and open(KEYF).read().strip() == key:
+        say('inputs unchanged since the last rebuild (%s): index unchanged' % key[:16]); return 0
     for sc in ('spi_1167.py', 'spi_bench_1167.py'):
         r = subprocess.run([sys.executable, '-I', os.path.join(WORK, 'code', sc), WORK], capture_output=True, text=True)
         if r.returncode: say(sc, 'failed:', r.stderr[-800:]); return 1
@@ -90,12 +126,13 @@ def main():
         if new[st].dropna().index[-1] < old[st].dropna().index[-1]: bad.append(st + ' ends earlier')
         a = np.log(new[st]).diff(); b = np.log(old[st]).diff(); j = a.dropna().index.intersection(b.dropna().index); j = j[(j >= '1979-01-01') & (j <= '2018-12-01')]
         if len(j) > 24 and float(np.corrcoef(a[j], b[j])[0, 1]) < 0.99: bad.append(st + ' history changed')
-    if bad: say('checks failed (held file kept):', '; '.join(bad)); return 1
-    if new.round(4).equals(old.round(4)): say('index unchanged, through', str(new.index[-1])[:7]); return 0
+    if bad: say('checks failed (held file kept):', '; '.join(bad)); keep_key(); return 1
+    if new.round(4).equals(old.round(4)): say('index unchanged, through', str(new.index[-1])[:7]); keep_key(); return 0
     tmp = LIVE + '.tmp'; new.to_csv(tmp); os.replace(tmp, LIVE)
     say('index replaced: %s..%s, %d States (held ended %s)' % (str(new.index[0])[:7], str(new.index[-1])[:7], new.shape[1], str(old.index[-1])[:7]))
     json.dump(dict(at=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), through=str(new.index[-1])[:7], served=sorted(set(served.values())), not_refreshed=why),
               open(os.path.join(D, 'data', 'spi', 'spi_refresh_1167.json'), 'w'), indent=1)
+    keep_key()
     return 0
 
 if __name__ == '__main__':
