@@ -1,12 +1,12 @@
 {
- "built_at": "2026-11-26 12:07",
+ "built_at": "2026-11-27 10:22",
  "fomc_list_ends": "2028-01-26",
- "generated_utc": "2026-11-26T17:07:39Z",
+ "generated_utc": "2026-11-27T15:23:18Z",
  "rows": [
   {
    "agrees_with_build": true,
    "build_next": "2026-11-27",
-   "confirmed_through": "2027-03-18",
+   "confirmed_through": "2027-03-19",
    "fred_clock": null,
    "freq": "daily",
    "ids": "sp500",
@@ -23,11 +23,6 @@
    "time_known": true,
    "time_note": "the market close",
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-19 16:00",
-     "utc": "2026-11-19T21:00:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-11-20 16:00",
@@ -427,6 +422,11 @@
      "expected": false,
      "ny": "2027-03-18 16:00",
      "utc": "2027-03-18T20:00:00Z"
+    },
+    {
+     "expected": false,
+     "ny": "2027-03-19 16:00",
+     "utc": "2027-03-19T20:00:00Z"
     }
    ],
    "waiting_since_due": null
@@ -747,7 +747,7 @@
    "short": "weekly claims",
    "slots": true,
    "source": "FRED release 180",
-   "through": "2026-11-07",
+   "through": "2026-11-14",
    "time_known": true,
    "time_note": null,
    "times": [
@@ -787,7 +787,7 @@
      "utc": "2026-12-31T13:30:00Z"
     }
    ],
-   "waiting_since_due": "2026-11-25 08:30"
+   "waiting_since_due": null
   },
   {
    "agrees_with_build": true,
@@ -847,11 +847,6 @@
    "time_known": true,
    "time_note": null,
    "times": [
-    {
-     "expected": false,
-     "ny": "2026-11-17 09:15",
-     "utc": "2026-11-17T14:15:00Z"
-    },
     {
      "expected": false,
      "ny": "2026-12-16 09:15",
@@ -1638,7 +1633,7 @@
    "short": "the State weekly claims (ETA 539)",
    "slots": false,
    "source": "rule: eta539",
-   "through": "2026-11-14",
+   "through": "2026-11-21",
    "time_known": true,
    "time_note": "the Department's ETA 539 State file, posted on the national claims day at about 3:55 PM ET (measured; the Department publishes no hour)",
    "times": [
@@ -1696,7 +1691,7 @@
    "short": "the State weekly claims (ETA 539)",
    "slots": false,
    "source": "rule: eta539",
-   "through": "2026-11-14",
+   "through": "2026-11-21",
    "time_known": true,
    "time_note": "the Department's ETA 539 State file, posted on the national claims day at about 3:55 PM ET (measured; the Department publishes no hour)",
    "times": [

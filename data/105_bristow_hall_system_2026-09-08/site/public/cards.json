@@ -1,5 +1,5 @@
 {
- "built": "2026-11-26T17:07:35Z",
+ "built": "2026-11-27T15:23:15Z",
  "size": [
   1200,
   760
@@ -7,12 +7,12 @@
  "cards": {
   "/detector/": {
    "png": "/detector/card.png",
-   "sha256": "7118d569d37802717db6c857d3ebd517d4dec4e65f2f26cc75330c0cd45550dc",
+   "sha256": "7888f6cafcde71e4d8e4b243c0ed8e34ed06f79c290bd96da6b13aefc6ad68ad",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 756,
-   "share_not_main": 0.2513
+   "colours": 744,
+   "share_not_main": 0.2508
   },
   "/disturbance/": {
    "png": "/disturbance/card.png",
@@ -25,47 +25,47 @@
   },
   "/state-onset/": {
    "png": "/state-onset/card.png",
-   "sha256": "9b4d7f4b63d87aed0ff8feef9df7cb2d9d4870f3dca422b90a121d704957b572",
+   "sha256": "2a7ad117b6198db53e068ba192d0c36af43b4734226651e2786b78bc80df00da",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 611,
-   "share_not_main": 0.3061
+   "colours": 1049,
+   "share_not_main": 0.1772
   },
   "/stress-map/": {
    "png": "/stress-map/card.png",
-   "sha256": "d5ba26e1faa36d269dbe76250e2faa6d76cb15919b54b502c0fd26d5d3c3e9e8",
+   "sha256": "996ff9a46786f0c4bc77f29010e33dc0d2d396c14942d6881066e23f7dfbb008",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1391,
+   "colours": 1437,
    "share_not_main": 0.3409
   },
   "/forecaster/": {
    "png": "/forecaster/card.png",
-   "sha256": "d9174f498aae934e0e45a845236ff4746bb42f7ee731871ada2f7c1e9e00b9cc",
+   "sha256": "4c71fe752bb7ff884db0ce4f17f3010ce4389de1f304b4335323545201e3f655",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1647,
+   "colours": 1640,
    "share_not_main": 0.2134
   },
   "/time-machine/": {
    "png": "/time-machine/card.png",
-   "sha256": "cf1690f584db372eb2745de025eb92645a99cff29eb0fe70c0de5ef89b7d6971",
+   "sha256": "83ef15ceec3f9b522d68f43c40d3c26c7ab479a1f7b06f58a7fb77ed2f91318d",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 318,
+   "colours": 347,
    "share_not_main": 0.5192
   },
   "/data/": {
    "png": "/data/card.png",
-   "sha256": "1321b3912678ff27146efdc1b8706239f3e1c76698185daeba03e9955c234c03",
+   "sha256": "803f1a905e1f24428ebb527fb4d1d4c3f86c1a44397cdab3428c058b22332c24",
    "on_home": false,
    "w": 1200,
    "h": 522,
-   "colours": 1682,
+   "colours": 1660,
    "share_not_main": 0.1229
   }
  }
