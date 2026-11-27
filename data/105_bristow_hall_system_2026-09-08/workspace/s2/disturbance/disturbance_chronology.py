@@ -338,7 +338,22 @@ def main_v4(a, data, ser):
         hv = pd.read_csv(os.path.join(HERE, '..', '..', '..', '..', 'onset-detector-new-2026-08-23', '27_realtime_vintages', 'alfred_all_vintages', 'AWHMAN_all_vintages.csv'), index_col=0, parse_dates=True)
         hours = pd.to_numeric(hv[hv.columns[-1]], errors='coerce').dropna(); hours = hours[hours.index <= dev.index[-1]]
     except Exception as e_: print('indicator: factory hours not read (%s); the hours route is off' % e_)
-    ind, counted = v4.indicator(ser, dev, hours)
+    fc_cut = None
+    try:   # Survey of Professional Forecasters, median real GDP growth forecasts (Philadelphia Fed; quarterly, never revised). The held file is used when the download fails.
+        sf = os.path.join(HERE, 'v4', 'spf_median_rgdp_growth.xlsx')
+        try:
+            rq = urllib.request.Request('https://www.philadelphiafed.org/-/media/frbp/assets/surveys-and-data/survey-of-professional-forecasters/data-files/files/median_rgdp_growth.xlsx', headers={'User-Agent': 'Mozilla/5.0'})
+            body = urllib.request.urlopen(rq, timeout=20).read()
+            if len(body) > 8000 and body[:2] == b'PK':
+                tmp_ = sf + '.new'; open(tmp_, 'wb').write(body); chk = pd.read_excel(tmp_)
+                if {'YEAR', 'QUARTER', 'DRGDP3', 'DRGDP6'} <= set(chk.columns) and len(chk) >= 230: os.replace(tmp_, sf)
+                else: os.remove(tmp_)
+        except Exception as e_: print('indicator: forecasters file not refreshed (%s); the held file is used' % str(e_)[:80])
+        sp = pd.read_excel(sf); sp['known'] = [pd.Timestamp(year=int(y_), month=int(q_) * 3 - 1, day=20) for y_, q_ in zip(sp.YEAR, sp.QUARTER)]
+        sp['g4'] = sp[['DRGDP3', 'DRGDP4', 'DRGDP5', 'DRGDP6']].mean(axis=1); sp['cut8'] = sp.g4.rolling(8, min_periods=4).max() - sp.g4
+        sp = sp[sp.known <= pd.Timestamp(dt.date.today())]; fc_cut = float(sp.cut8.iloc[-1]) if len(sp) else None
+    except Exception as e_: print('indicator: forecasters route off (%s)' % str(e_)[:80])
+    ind, counted = v4.indicator(ser, dev, hours, fc_cut)
     irec = pd.read_csv(os.path.join(HERE, 'v4', 'indicator_record_1962_2026.csv'), dtype=str).fillna('')
     pj = os.path.join(a.out, 'chronology.json'); st = None
     try: st = (json.load(open(pj)).get('indicator') or {}).get('state') if os.path.exists(pj) else None
