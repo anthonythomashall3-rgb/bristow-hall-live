@@ -4370,7 +4370,7 @@
     {
      "key": "data/spi/spi_state_monthly_benchmarked_1167.csv",
      "name": "State production index, 50 States (mining, manufacturing and utilities; 2017 = 100)",
-     "ids": "ALMFGN ... WYMFGN, ALNRMNN ... WYNRMNN, IPMAN, IPMINE, IPUTIL",
+     "ids": "",
      "source": "Bristow-Hall (collection 1167), from BLS State payrolls, the Federal Reserve G.17 and BEA real output",
      "url": "/state-onset/",
      "freq": "monthly",
