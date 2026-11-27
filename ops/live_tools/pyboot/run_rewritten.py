@@ -55,6 +55,8 @@ REWRITES = {
     '5f824cd0c9f8ddecae6e3041c0c44ad1c259d561cb0211ce12d79fde08f3778c': [_DET_INTS, _DET_IND],   # 1052 code/stress_map_detail_1150.py (1167f, 26 Nov 2026)
     '4b7c469872b36e52ca22d19a8b3a94b0dfcca6d1550852596dcfe4b06ace48ad': [_A198_Q],   # 1032 a198 since c2f1d5e3 (#147, 26 Nov 2026; 1167m)
     '2e92b5129b7e18fe2375382c7aa57ac3216332bce1f0ac9f01363f1a5bb90bb1': [_NESTED_Q],   # 1052 stress_map_v3_1_1052.py since c2f1d5e3 (1167m)
+    '46a8d0d3efd2efe215c3994210e251249783e06ae129e7a5630b9b0817b485f1': [_A198_Q],   # 1032 a198 with the repairs of 1201 (27 Nov 2026); parts() unchanged
+    '24ce63e574c7b049fd8a825fe2e29d2efcf562262af2a89ef70495512edf9249': [_NESTED_Q],   # 1052 stress_map_v3_1_1052.py with the repairs of 1201
 }
 
 

@@ -18,12 +18,13 @@ def thumb(t, Wd=420, Hh=150, pad=5):
     A = json.loads(re.search(r'const ALL = (\{.*?\});\n', t, re.S).group(1))
     dft = re.search(r'return ALL\[k\]\?k:"([A-Z]{2})"', t); S = A[dft.group(1) if dft else 'CA']
     mk = [m[:7] for m in S['series']['dates']]; vals = S['series']['values']; n = len(mk)
-    X = lambda i: pad + i / max(1, n - 1) * (Wd - 2 * pad); Y = lambda v: Hh - pad - min(max(v, 0), 10) / 10 * (Hh - 2 * pad)
+    X = lambda i: pad + i / max(1, n - 1) * (Wd - 2 * pad); TOP = 10
+    Y = lambda v: Hh - pad - min(max(v, 0), TOP) / TOP * (Hh - 2 * pad)
     pos = lambda m: mk.index(m) if m in mk else (0 if m < mk[0] else n - 1)
     g = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" preserveAspectRatio="none">' % (Wd, Hh),
          '<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
          '<line x1="0" y1="0" x2="0" y2="6" stroke="#b9c0c7" stroke-width="2"/></pattern></defs>', '<rect width="%d" height="%d" fill="#fff"/>' % (Wd, Hh)]
-    for v in (2, 4, 6, 8, 10):
+    for v in ((1, 2, 3, 4, 5) if TOP == 5 else (2, 4, 6, 8, 10)):
         g.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" stroke="#e3e6ea" stroke-width="1" vector-effect="non-scaling-stroke"/>' % (pad, Wd - pad, Y(v), Y(v)))
     for r in S['nber']:
         a, b = X(pos(r['peak'])), X(pos(r['trough']))

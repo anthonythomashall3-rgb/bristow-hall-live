@@ -165,6 +165,17 @@ def bls_flat_series(f, want):
     return best
 
 
+def _grade1198(d, recession=False):
+    """1198: the published grade of a damage (s2/one_scale.py grade: a recession on the log scale from 1.00, anything else below the line);
+    the damage itself if that file cannot be read"""
+    try:
+        import importlib.util as _iu
+        _sp = _iu.spec_from_file_location('one_scale', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'one_scale.py')); _m = _iu.module_from_spec(_sp); _sp.loader.exec_module(_m)
+        return _m.grade(float(d), recession)
+    except Exception:
+        return d
+
+
 def chron_v4(f):
     """the State chronology v4 in its latest month (the month of the damage line it is built with, as the stress map reads it)"""
     D = json.load(open(os.path.join(os.path.dirname(f), 'damage_line_v4_a198_1032.json'))); M = D['through']
@@ -279,17 +290,24 @@ def held(path, fs):
         return _fam([(want[s], num(v[1]), v[0]) for s, v in B.items()], 'total nonfarm, thousands of persons, seasonally adjusted')
     if 'BH-STATE-CHRONOLOGY-V4' in b: return chron_v4(f)
     if 'damage_line_v4' in b:
-        D = json.load(open(f)); M = D['through']; out = []
+        D = json.load(open(f)); M = D['through']; out = []; rec = set()
+        for cf in glob.glob(os.path.join(os.path.dirname(f), 'BH-STATE-CHRONOLOGY-V4*.csv')):   # 1198: the States in a recession that month (the chronology beside the line), as chron_v4 reads them
+            with open(cf, newline='') as h:
+                for r in csv.DictReader(h):
+                    if r['status'] == 'recession' and r['peak'] <= M and (r['open'] == 'True' or (r['trough'] or '9999') >= M): rec.add(r['st'])
         for s, v in (D.get('states') or {}).items():
             ln = [x for x in (v.get('line') or []) if x[1] is not None]
-            if ln: out.append((s, num(ln[-1][1]), ln[-1][0]))
-        return _fam(out, 'damage line v4 (points), latest month')
+            if ln: out.append((s, num(_grade1198(ln[-1][1], s in rec)), ln[-1][0]))   # 1198: shown as the published grade, as the State page and the stress map show it
+        return _fam(out, 'damage grade v4 (1.00 = recession), latest month')
     if 'out_v3_2_damage_cut/chronology.csv' in b:
-        with open(f, newline='') as h: rows = list(csv.DictReader(h))
-        r = max(rows, key=lambda r: r['peak'])
-        txt = '%s from the %s peak%s: %s, damage %s%s' % ('Open' if r['open'] == 'True' else 'Closed', per(r['peak']), '' if r['open'] == 'True' else ' to the %s trough' % per(r['trough']),
-                                                     r['status'], r['grade'], ', provisional' if r['provisional'] == 'True' else '')
-        return dict(value=txt, units='the register\'s latest dated row', period=r.get('payroll_latest_month') or r['peak'])
+        # 1198: the row shown is the LIVE register's (s2/disturbance/out/chronology.csv, rebuilt on every run), not the Mac's copy of
+        # register v3.2, which still held 2024 as a recession; the Mac's file is read only if the live one is missing
+        lf = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'disturbance', 'out', 'chronology.csv')
+        with open(lf if os.path.exists(lf) else f, newline='') as h: rows = list(csv.DictReader(h))
+        r = max(rows, key=lambda r: r['peak']); r['status'] = 'disturbance' if r['status'].startswith('disturbance') else r['status']
+        txt = '%s from the %s peak%s: %s, grade %s%s' % ('Open' if r['open'] == 'True' else 'Closed', per(r['peak']), '' if r['open'] == 'True' else ' to the %s trough' % per(r['trough']),
+                                                     r['status'], ('%.2f' % float(r['grade'])) if r.get('grade') not in (None, '') else '', ', provisional' if r['provisional'] == 'True' else '')
+        return dict(value=txt, units='the register\'s latest dated row', period=r.get('payroll_latest_month') or r.get('graded_to') or r['peak'])
     if 'bhs_state' in os.path.basename(b):
         S = json.load(open(f)); sd = S.get('standing') or {}
         txt = '%s since %s' % (str(sd.get('state', '')).capitalize(), per(sd.get('since'))) if sd else ''

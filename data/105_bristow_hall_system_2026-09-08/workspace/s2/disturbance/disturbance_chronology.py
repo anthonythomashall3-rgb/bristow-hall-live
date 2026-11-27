@@ -177,9 +177,9 @@ ACT_LEAD = 6; ACT_LAG = 6
 def graded_window(idx, p, te, last):
     """1167: the months a window is graded on. The composite's highest level in [p - 6 months, te] and its lowest level after it, up to
     te + 6 months (not past the data); if that fall is ACT_MIN percent or more the window is graded on it, otherwise on p..te."""
-    a = idx[(idx.index >= p - pd.DateOffset(months=ACT_LEAD)) & (idx.index <= te)]; pl = a.idxmax()
-    b = idx[(idx.index >= pl) & (idx.index <= min(te + pd.DateOffset(months=ACT_LAG), last))]; tl = b.idxmin()
-    fall = float(100 * (1 - b.min() / a.max()))
+    # 1201 (27 Nov 2026): the fall of activity is the LARGEST fall inside the window, from a high in [p - 6 months, te] to the lowest level after it (to te + 6 months). The rule of 1167 took the single highest level of the whole span; where activity ended a long window above where it began, that high lay at the end and the fall read 0 (Arkansas 1980: the index fell 1.17 percent and read 0.0). National register: no class, date or grade changes. States: 9 periods become recessions.
+    s = idx[(idx.index >= p - pd.DateOffset(months=ACT_LEAD)) & (idx.index <= min(te + pd.DateOffset(months=ACT_LAG), last))]; dd_ = 1 - s / s.where(s.index <= te).cummax().ffill()
+    tl = dd_.idxmax(); pl = s[s.index <= min(tl, te)].idxmax(); fall = float(100 * dd_.max())
     return (pl, tl, dict(on='activity', fall_pct=round(fall, 2))) if fall >= ACT_MIN else (p, te, dict(on='trend', fall_pct=round(fall, 2)))
 
 
@@ -300,7 +300,7 @@ def main():
                          status=status, status_v3_1=status_v3_1, dev_fall_pp=round(f, 2), sahm_max=round(smax, 2), sahm_rerise=rerise,
                          ur_rise_pp=round(float(ex.max()), 2), ip_fall_pct=round(q['pt'], 2), gdp_fall_pct=round(o['pt'], 2),
                          L=round(L, 2), O=round(o['score'], 2), P=round(q['score'], 2),
-                         damage=g_, grade=_one1140(g_), provisional=bool(prov),
+                         damage=g_, grade=_one1140(g_, status == 'recession'), provisional=bool(prov),
                          graded_on=act['on'], graded_from=gp.strftime('%Y-%m'), graded_to=gt.strftime('%Y-%m'), activity_fall_pct=act['fall_pct'],
                          damage_path=({m.strftime('%Y-%m'): round(dd.grade(*(lambda r: (r[0], r[1]['score'], r[2]['score']))(damage_parts(UR, G, IP, gp, m))), 2)
                                        for m in pd.date_range(gp, gt, freq='MS')} if status == 'recession' else None),
@@ -422,7 +422,7 @@ def main_v4(a, data, ser):
                          method_trough=e['method_trough'].strftime('%Y-%m') if e['method_trough'] is not None else None,
                          status=status, status_v3_1=status, class_rule_1167=rule, dev_fall_pp=e['fall_pp'], sahm_max=round(smax, 2), sahm_rerise=None,
                          ur_rise_pp=round(float(ex.max()), 2), ip_fall_pct=round(q['pt'], 2), gdp_fall_pct=round(o['pt'], 2),
-                         L=round(L, 2), O=round(o['score'], 2), P=round(q['score'], 2), damage=g_, grade=_one1140(g_), provisional=bool(prov),
+                         L=round(L, 2), O=round(o['score'], 2), P=round(q['score'], 2), damage=g_, grade=_one1140(g_, status == 'recession'), provisional=bool(prov),
                          confirmed=bool(e['confirmed']), confirmed_on=conf_on.get(e['method_peak'].strftime('%Y-%m')),
                          graded_on=act['on'], graded_from=gp.strftime('%Y-%m'), graded_to=gt.strftime('%Y-%m'), activity_fall_pct=act['fall_pct'],
                          damage_path=({m.strftime('%Y-%m'): round(dd.grade(*(lambda r: (r[0], r[1]['score'], r[2]['score']))(damage_parts(UR, G, IP, gp, m))), 2)

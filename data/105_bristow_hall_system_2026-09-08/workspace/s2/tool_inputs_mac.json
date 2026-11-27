@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-27T17:07:01Z",
+ "generated_at": "2026-11-27T21:26:04Z",
  "generator": "s2/tool_inputs_mac.py (run on the Mac)",
  "tools": {
   "stress-map": {
@@ -31,7 +31,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-27T16:49Z",
+     "refreshed": "2026-11-27T21:24Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": {
       "values": [
@@ -60,13 +60,13 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-27T16:49Z",
+     "refreshed": "2026-11-27T21:24Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": {
       "vlist": [
        [
         "AL",
-        "1.37"
+        "0.69"
        ],
        [
         "AK",
@@ -74,11 +74,11 @@
        ],
        [
         "AZ",
-        "3.13"
+        "0.99"
        ],
        [
         "AR",
-        "2.07"
+        "0.99"
        ],
        [
         "CA",
@@ -102,11 +102,11 @@
        ],
        [
         "GA",
-        "2.86"
+        "0.99"
        ],
        [
         "HI",
-        "1.93"
+        "0.97"
        ],
        [
         "ID",
@@ -114,7 +114,7 @@
        ],
        [
         "IL",
-        "2.41"
+        "0.99"
        ],
        [
         "IN",
@@ -130,7 +130,7 @@
        ],
        [
         "KY",
-        "1.98"
+        "0.99"
        ],
        [
         "LA",
@@ -138,7 +138,7 @@
        ],
        [
         "ME",
-        "3.49"
+        "0.99"
        ],
        [
         "MD",
@@ -186,11 +186,11 @@
        ],
        [
         "NM",
-        "2.88"
+        "0.99"
        ],
        [
         "NY",
-        "3.47"
+        "0.99"
        ],
        [
         "NC",
@@ -206,7 +206,7 @@
        ],
        [
         "OK",
-        "2.53"
+        "0.99"
        ],
        [
         "OR",
@@ -234,7 +234,7 @@
        ],
        [
         "TX",
-        "2.65"
+        "0.99"
        ],
        [
         "UT",
@@ -246,11 +246,11 @@
        ],
        [
         "VA",
-        "2.54"
+        "0.99"
        ],
        [
         "WA",
-        "3.38"
+        "0.99"
        ],
        [
         "WV",
@@ -265,7 +265,7 @@
         "0.0"
        ]
       ],
-      "units": "damage line v4 (points), latest month",
+      "units": "damage grade v4 (1.00 = recession), latest month",
       "period": "2026-09"
      },
      "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
@@ -1170,7 +1170,7 @@
      "refreshed": "2026-11-14T13:36Z",
      "path": "~/Projects/Disturbance Indicator Data/10_chronology_site/out_v3_2_damage_cut/chronology.csv",
      "held": {
-      "value": "Open from the Jun 2024 peak: recession, damage 2.12, provisional",
+      "value": "Open from the May 2023 peak: disturbance, grade 0.99, provisional",
       "units": "the register's latest dated row",
       "period": "2026-10"
      },
@@ -1184,8 +1184,8 @@
      "url": "/detector/",
      "freq": "daily",
      "release": "derived_detector",
-     "through": "2026-11-27 11:46",
-     "refreshed": "2026-11-27T16:49Z",
+     "through": "2026-11-27 14:47",
+     "refreshed": "2026-11-27T21:24Z",
      "path": "~/Projects/Onset Detector Data/1052_stress_map_fix_parse_collect_2026-11-12/data/live_chronology/bhs_state_origin_main.json",
      "held": {
       "value": "Closed since Jun 5, 2020",
@@ -3199,7 +3199,7 @@
      "freq": "weekly",
      "release": "eta539",
      "through": "2026-11-21",
-     "refreshed": "2026-11-27T02:17Z",
+     "refreshed": "2026-11-27T21:23Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/data/dol/ar539.csv",
      "held": {
       "vlist": [
@@ -3404,8 +3404,8 @@
         "3,101; 16,285"
        ],
        [
-        "WY (Nov 14, 2026)",
-        "421; 1,677"
+        "WY",
+        "386; 1,711"
        ]
       ],
       "units": "initial claims (c3); continued weeks claimed (c8); not seasonally adjusted, week ending",
@@ -5041,7 +5041,7 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-27T16:49Z",
+     "refreshed": "2026-11-27T21:24Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/BH-STATE-CHRONOLOGY-V4-1032.csv",
      "held": {
       "values": [
@@ -5070,13 +5070,13 @@
      "freq": "monthly",
      "release": "derived_state",
      "through": "2026-09",
-     "refreshed": "2026-11-27T16:49Z",
+     "refreshed": "2026-11-27T21:24Z",
      "path": "~/Projects/Onset Detector Data/1032_state_recession_indicator_all_states_dc_2026-11-09/out/damage_line_v4_a198_1032.json",
      "held": {
       "vlist": [
        [
         "AL",
-        "1.37"
+        "0.69"
        ],
        [
         "AK",
@@ -5084,11 +5084,11 @@
        ],
        [
         "AZ",
-        "3.13"
+        "0.99"
        ],
        [
         "AR",
-        "2.07"
+        "0.99"
        ],
        [
         "CA",
@@ -5112,11 +5112,11 @@
        ],
        [
         "GA",
-        "2.86"
+        "0.99"
        ],
        [
         "HI",
-        "1.93"
+        "0.97"
        ],
        [
         "ID",
@@ -5124,7 +5124,7 @@
        ],
        [
         "IL",
-        "2.41"
+        "0.99"
        ],
        [
         "IN",
@@ -5140,7 +5140,7 @@
        ],
        [
         "KY",
-        "1.98"
+        "0.99"
        ],
        [
         "LA",
@@ -5148,7 +5148,7 @@
        ],
        [
         "ME",
-        "3.49"
+        "0.99"
        ],
        [
         "MD",
@@ -5196,11 +5196,11 @@
        ],
        [
         "NM",
-        "2.88"
+        "0.99"
        ],
        [
         "NY",
-        "3.47"
+        "0.99"
        ],
        [
         "NC",
@@ -5216,7 +5216,7 @@
        ],
        [
         "OK",
-        "2.53"
+        "0.99"
        ],
        [
         "OR",
@@ -5244,7 +5244,7 @@
        ],
        [
         "TX",
-        "2.65"
+        "0.99"
        ],
        [
         "UT",
@@ -5256,11 +5256,11 @@
        ],
        [
         "VA",
-        "2.54"
+        "0.99"
        ],
        [
         "WA",
-        "3.38"
+        "0.99"
        ],
        [
         "WV",
@@ -5275,7 +5275,7 @@
         "0.0"
        ]
       ],
-      "units": "damage line v4 (points), latest month",
+      "units": "damage grade v4 (1.00 = recession), latest month",
       "period": "2026-09"
      },
      "refresh": "each live-tools run on GitHub: rebuilt (1032 routine step 2)"
