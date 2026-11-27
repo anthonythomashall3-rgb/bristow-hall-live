@@ -184,6 +184,7 @@ jobs:
           BLS_API_KEY_2: ${{ env.BLS_ROLE == 'production' && secrets.BLS_API_KEY_2 || '' }}
           BLS_API_KEY_TEST: ${{ env.BLS_ROLE == 'test' && secrets.BLS_API_KEY_TEST || '' }}
           BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}   # 1167i: the State production index reads FRED's API (ops/live_tools/spi_refresh_1167.py)
           SM_CACHE_DIR: ${{ runner.temp }}/sm_cache
           SM_CACHE: ${{ env.MODE == 'full' && '1' || '0' }}
         run: bash ops/live_tools/run_live_tools.sh; cat "$LT_OUT/status.json"
