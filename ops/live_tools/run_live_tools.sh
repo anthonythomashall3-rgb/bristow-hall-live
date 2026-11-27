@@ -87,15 +87,14 @@ step "1032 routine step 2" $PY code/state_v4_rebuild_1052.py || STOP="1032 routi
 if [ -z "$STOP" ]; then
   ( L="$LT_OUT/run_state_render.log"; : > "$L"; step "State page render" $PY code/page_check_1052.py state "$P/1032_state_recession_indicator_all_states_dc_2026-11-09/web/state-onset/index.html"; echo $? > "$LT_OUT/state_render.rc" ) &
   RP=$!
-  step "probe (1167o, not for main): the stress map with 4 BLAS threads against 2" $PY "$OPS/sm_thread_parity.py" || true
-  # 1167o (27 Nov 2026): the stress map with 2 OpenBLAS threads a process, not one a core. GitHub's runner has 4 CPUs on 2 cores (2 threads a
-  # core); the county layer runs 4 processes, and with 4 BLAS threads each the processes waited on each other (4 processes no faster than one:
-  # 0.43 s a county in each against 0.05 s alone). With 2 threads: 0.10 s, the county layer about 3.5 times faster. The results are the same
-  # bits with 2 threads as with 4 (OpenBLAS's threaded code path either way; 1 thread is another path and differs in 17 of 3,143 counties):
-  # checked on GitHub, the whole stress map built both ways, every file compared (ops/live_tools/sm_thread_parity.py, PR #168).
-  # LT_SM_BLAS_THREADS sets another count; empty leaves OpenBLAS's own (one a core).
-  SMT=${LT_SM_BLAS_THREADS-2}; SMENV=(); if [ -n "$SMT" ]; then SMENV=(OPENBLAS_NUM_THREADS="$SMT"); fi
-  step "stress map v3.1" env "${SMENV[@]}" $PY "$OPS/stress_map_cached.py" --all --procs "$(nproc)" || STOP="stress map v3.1 build failed"
+  step "probe (1167o, not for main): the stress map with 4 processes against 1" $PY "$OPS/sm_thread_parity.py" || true
+  # 1167o (27 Nov 2026): the county layer in ONE process, not one a CPU. GitHub's runner has 4 CPUs on 2 cores, and OpenBLAS starts 4 threads in
+  # each process; with 4 processes the 16 threads waited on each other: 0.43 s a county in each process, 0.05 s in one process alone, so one
+  # process computes the layer about twice as fast as four. The thread count stays 4: 2 threads a process would be faster still but changes
+  # the results (on GitHub 2 threads against 4 differ in the county table; 1 thread differs in 17 of 3,143 counties in the cloud session).
+  # Each county is computed alone, so the number of processes cannot change it: checked on GitHub, the whole stress map built with 4 processes
+  # and with 1, every file compared (ops/live_tools/sm_thread_parity.py, PR #168). LT_SM_PROCS sets another count.
+  step "stress map v3.1" $PY "$OPS/stress_map_cached.py" --all --procs "${LT_SM_PROCS:-1}" || STOP="stress map v3.1 build failed"
   wait $RP; cat "$LT_OUT/run_state_render.log" >> "$L"
   [ "$(cat "$LT_OUT/state_render.rc" 2>/dev/null)" = 0 ] || STOP="State page render check failed"
 fi
