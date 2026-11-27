@@ -1,5 +1,5 @@
 {
- "built": "2026-11-27T16:08:08Z",
+ "built": "2026-11-27T19:43:40Z",
  "size": [
   1200,
   760
@@ -7,12 +7,12 @@
  "cards": {
   "/detector/": {
    "png": "/detector/card.png",
-   "sha256": "7888f6cafcde71e4d8e4b243c0ed8e34ed06f79c290bd96da6b13aefc6ad68ad",
+   "sha256": "bf14c96b64cc586db43d990afc18de145f8904cbbe7885896f0431768d905a60",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 744,
-   "share_not_main": 0.2508
+   "colours": 662,
+   "share_not_main": 0.2222
   },
   "/disturbance/": {
    "png": "/disturbance/card.png",
@@ -25,12 +25,12 @@
   },
   "/state-onset/": {
    "png": "/state-onset/card.png",
-   "sha256": "2a7ad117b6198db53e068ba192d0c36af43b4734226651e2786b78bc80df00da",
+   "sha256": "a39ed26ffcfd94bba67496c1341b4149dc94306227291f09504ce929584be072",
    "on_home": true,
    "w": 2400,
    "h": 1044,
-   "colours": 1049,
-   "share_not_main": 0.1772
+   "colours": 754,
+   "share_not_main": 0.1742
   },
   "/stress-map/": {
    "png": "/stress-map/card.png",
@@ -61,11 +61,11 @@
   },
   "/data/": {
    "png": "/data/card.png",
-   "sha256": "803f1a905e1f24428ebb527fb4d1d4c3f86c1a44397cdab3428c058b22332c24",
+   "sha256": "33b61166b44864ddafc2401bbab7181cca06332e3fcdc2e7ed5f06fccef7219f",
    "on_home": false,
    "w": 1200,
    "h": 522,
-   "colours": 1660,
+   "colours": 1668,
    "share_not_main": 0.1229
   }
  }

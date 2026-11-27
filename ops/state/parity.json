@@ -1,15 +1,15 @@
 {
  "_what": "the real-time parity ledger (collection 362): every advance of a data-page row's through, when the run read it and the publisher's post it followed (fred_posted.json; the Department's Thursday 8:30 for claims); open_misses = posts older than 6 h with no read",
- "checked_at": "2026-11-27T16:08Z",
+ "checked_at": "2026-11-27T19:43Z",
  "open_misses": [
   {
-   "hours": 71.0,
+   "hours": 74.6,
    "name": "G.17 industrial production",
    "posted": "2026-11-24 12:07 ET",
    "release": 13
   },
   {
-   "hours": 50.2,
+   "hours": 53.8,
    "name": "GDP",
    "posted": "2026-11-25 08:57 ET",
    "release": 53
@@ -2193,6 +2193,16 @@
    "read_at": "2026-11-25T23:58Z",
    "release": null,
    "to": "2026-11-25"
+  },
+  {
+   "from": "2026-11-25",
+   "ids": "SP500",
+   "lag_min": null,
+   "name": null,
+   "posted": null,
+   "read_at": "2026-11-27T19:43Z",
+   "release": null,
+   "to": "2026-11-27"
   }
  ],
  "since": "2026-09-23T23:12Z"
