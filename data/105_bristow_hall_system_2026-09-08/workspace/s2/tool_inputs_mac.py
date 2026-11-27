@@ -46,6 +46,7 @@ META = [
  ('state_metro_payrolls_all', ('State payrolls by supersector', '', 'Bureau of Labor Statistics, CES State and Metro', 'https://download.bls.gov/pub/time.series/sm/', 'monthly', 'bls_state')),
  ('cb_2024_us_county', ('County boundaries, 2024', '', 'Census Bureau, cartographic boundary files', 'https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html', 'static', 'static')),
  ('state_shapes_cb2024', ('State boundaries, 2024 (drawn from the Census file)', '', 'Census Bureau, cartographic boundary files', 'https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html', 'static', 'static')),
+ ('spi_state_monthly_benchmarked_1167', ('State production index, 50 States (mining, manufacturing and utilities; 2017 = 100)', 'ALMFGN ... WYMFGN, ALNRMNN ... WYNRMNN, IPMAN, IPMINE, IPUTIL', 'Bristow-Hall (collection 1167), from BLS State payrolls, the Federal Reserve G.17 and BEA real output', '/state-onset/', 'monthly', 'derived_state')),   # 1167j (27 Nov 2026): the State grade's production dimension (c2f1d5e3)
  ('BH-STATE-CHRONOLOGY-V4', ('Bristow-Hall State chronology v4', '', 'Bristow-Hall (collection 1032)', '/state-onset/', 'monthly', 'derived_state')),
  ('damage_line_v4', ('Bristow-Hall State damage line v4', '', 'Bristow-Hall (collection 1032)', '/state-onset/', 'monthly', 'derived_state')),
  ('out_v3_2_damage_cut/chronology.csv', ('National disturbance register v3.2', 'PAYEMS, INDPRO, W875RX1, CMRMTSPL, UNRATE, GDPC1', 'Bristow-Hall (Disturbance Indicator)', '/disturbance/', 'monthly', 'inputs')),
@@ -66,6 +67,7 @@ def refresher(p):
         if any(k in p for k in ('coincident-revised', 'fred_state_ur', 'fred_state_payrolls', 'county_tot', '/dol/ar5')): return 'each live-tools run on GitHub: publisher fetch (held file kept, dated copy)'
         if 'qcew_industry_county' in p: return 'each live-tools run on GitHub: BLS QCEW open data, newest quarter added (add-only, code/qcew_county_ind_refresh_1150.py)'
         if any(k in p for k in ('BH-STATE-CHRONOLOGY-V4', 'damage_line_v4')): return 'each live-tools run on GitHub: rebuilt (1032 routine step 2)'
+        if 'data/spi/' in p: return 'each live-tools run on GitHub: inputs from the BLS and FRED, the index rebuilt when they change (ops/live_tools/spi_refresh_1167.py)'
     if '191_standing_collector' in p: return 'continuous: Mac launchd collector191new'
     if '/612_' in p: return 'release days: Mac 612 feeds + launchd liveunion823'
     if 'bhs_state' in p: return 'each cloud run (a Mac copy of the published state)'
