@@ -90,8 +90,6 @@ tr.open td{background:#fbf8ee}
   <p class="by" id="vintage"></p>
 </div>
 
-<h2>At a glance</h2><div class="rule"></div>
-<div class="tiles" id="tiles"></div>
 
 <h2>Activity against its trend, 1948 to today</h2><div class="rule"></div>
 <div class="chartbox">
@@ -165,7 +163,7 @@ var tiles=[
  (function(){var lr=J.live_reading||{};var g=lr.gap_from_trend;return ['Today ('+ym(lr.data_through)+')','<b>'+(g>=0?'+':'')+f2(g)+' vs trend</b>',f2(lr.high_gap-g)+' below its '+ym(lr.high_since_last_trough)+' high; '+((J.indicator&&J.indicator.state&&J.indicator.state.on)?'disturbance under way':(lr.meets_disturbance_rule_on_todays_data?'meets the rule, not confirmed':'not a disturbance'))];})()
 ];
 (function(){var I=J.indicator;if(!I||!I.state)return;var MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];function dl(x){if(!x)return '';var p=String(x).split('-');return (p[2]?(+p[2])+' ':'')+MN[+p[1]-1]+' '+p[0];}tiles.push(['Disturbance indicator','<b>'+(I.state.on?'On':'Off')+'</b>',(I.state.on?'since '+dl(I.state.start_confirmed):(I.state.end_confirmed?'ended '+dl(I.state.end_confirmed):''))+' · reading '+f2(I.value)+', line 1.00']);})();
-document.getElementById('tiles').innerHTML=tiles.map(function(t){return '<div class="tile"><div class="lab">'+t[0]+'</div><div class="val">'+t[1]+'</div><div class="sub">'+t[2]+'</div></div>';}).join('');
+var TL=document.getElementById('tiles');if(TL)TL.innerHTML=tiles.map(function(t){return '<div class="tile"><div class="lab">'+t[0]+'</div><div class="val">'+t[1]+'</div><div class="sub">'+t[2]+'</div></div>';}).join('');
 // register table
 function RT(e){var I=J.indicator||{},MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];function dl(x){if(!x)return '–';var p=String(x).split('-');return (+p[2])+' '+MN[+p[1]-1]+' '+p[0];}if(e.open){var st=I.state||{};return [st.on?dl(st.start_confirmed):'–','–'];}var rr=(I.record||[]).filter(function(r){return r.cls!=='recession'&&r.trough&&r.peak<=(e.trough||'9999')&&r.trough>=e.peak;})[0];return rr?[dl(rr.start_confirmed),dl(rr.end_confirmed)]:['–','–'];}
 var kind={disturbance_class1:'Disturbance',disturbance_class2:'Jobless-recovery disturbance'};

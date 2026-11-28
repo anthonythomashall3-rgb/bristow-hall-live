@@ -3,10 +3,10 @@
  "mode": "hold",
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
- "build_day": "2026-11-27",
- "checked_at": "2026-11-28 02:20 UTC",
- "seconds": 3.8,
- "source_calls": 4,
+ "build_day": "2026-11-28",
+ "checked_at": "2026-11-28 09:14 UTC",
+ "seconds": 35.5,
+ "source_calls": 58,
  "source_errors": {},
  "counts": {
   "home": {
@@ -391,7 +391,7 @@
    "check": "matches the detector",
    "status": "PASS",
    "value": 0.286,
-   "period": "2026-11-27",
+   "period": "2026-11-28",
    "series": "BHRREALTIME",
    "transform": "the detector reading",
    "expected": 0.286,
@@ -1607,7 +1607,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1787,7 +1787,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1823,7 +1823,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1847,7 +1847,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/state-onset",
@@ -1991,7 +1991,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2375,7 +2375,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2399,7 +2399,7 @@
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
@@ -2802,7 +2802,7 @@
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "freshness",
    "status": "PASS",
-   "value": 7.12,
+   "value": 6.55,
    "period": "2026-11-27",
    "series": "SP500",
    "transform": "sp_yoy",
@@ -2814,11 +2814,11 @@
    "label": "route: S&P 500 against its close 365 days earlier",
    "check": "value",
    "status": "PASS",
-   "value": 7.12,
+   "value": 6.55,
    "period": "2026-11-27",
    "series": "SP500",
    "transform": "sp_yoy",
-   "expected": 7.11739,
+   "expected": 6.54686,
    "detail": ""
   },
   {
@@ -3343,10 +3343,10 @@
    "check": "phantom",
    "status": "PASS",
    "value": 0.286,
-   "period": "2026-11-27",
+   "period": "2026-11-28",
    "series": "BHRREALTIME",
    "transform": null,
-   "expected": "2026-11-27",
+   "expected": "2026-11-28",
    "detail": ""
   },
   {
@@ -3355,7 +3355,7 @@
    "check": "cadence",
    "status": "PASS",
    "value": 0.286,
-   "period": "2026-11-27",
+   "period": "2026-11-28",
    "series": null,
    "transform": null,
    "expected": null,
