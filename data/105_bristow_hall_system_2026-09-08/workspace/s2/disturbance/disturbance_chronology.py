@@ -1,3 +1,4 @@
+import io
 """Bristow-Hall Disturbance Chronology (retrospective). Built 9 Nov 2026 for the BH System site.
 
 A disturbance is a national growth-cycle contraction that did not reach the recession bar. Every number below is the
@@ -330,6 +331,76 @@ def main_v4(a, data, ser):
     live reading (tier 1) and confirmation (tier 2)."""
     sys.path.insert(0, HERE); import chronology_v4 as v4
     lvl, dev, eps, live = v4.build(ser, NBER)
+    # 1193: the real-time disturbance indicator (RECORD-1190). On by the start rule on the day's data; off when the chronology confirms the
+    # episode closed (rule met on the day, trough WAIT months old). The state is carried from the last run's chronology.json; the first run
+    # takes it from the replay record (v4/indicator_record_1962_2026.csv).
+    hours = None
+    try:   # factory hours (AWHMAN), newest vintage, from the file the recession tool keeps current; without it the hours route is off and route 1 still runs
+        hv = pd.read_csv(os.path.join(HERE, '..', '..', '..', '..', 'onset-detector-new-2026-08-23', '27_realtime_vintages', 'alfred_all_vintages', 'AWHMAN_all_vintages.csv'), index_col=0, parse_dates=True)
+        hours = pd.to_numeric(hv[hv.columns[-1]], errors='coerce').dropna(); hours = hours[hours.index <= dev.index[-1]]
+    except Exception as e_: print('indicator: factory hours not read (%s); the hours route is off' % e_)
+    fc_cut = None
+    try:   # Survey of Professional Forecasters, median real GDP growth forecasts (Philadelphia Fed; quarterly, never revised). The held file is used when the download fails.
+        sf = os.path.join(HERE, 'v4', 'spf_median_rgdp_growth.xlsx')
+        try:
+            rq = urllib.request.Request('https://www.philadelphiafed.org/-/media/frbp/assets/surveys-and-data/survey-of-professional-forecasters/data-files/files/median_rgdp_growth.xlsx', headers={'User-Agent': 'Mozilla/5.0'})
+            body = urllib.request.urlopen(rq, timeout=45).read()
+            if len(body) > 8000 and body[:2] == b'PK':
+                tmp_ = sf + '.new'; open(tmp_, 'wb').write(body); chk = pd.read_excel(tmp_)
+                if {'YEAR', 'QUARTER', 'DRGDP3', 'DRGDP6'} <= set(chk.columns) and len(chk) >= 230: os.replace(tmp_, sf)
+                else: os.remove(tmp_)
+        except Exception as e_: print('indicator: forecasters file not refreshed (%s); the held file is used' % str(e_)[:80])
+        sp = pd.read_excel(sf); sp['known'] = [pd.Timestamp(year=int(y_), month=int(q_) * 3 - 1, day=20) for y_, q_ in zip(sp.YEAR, sp.QUARTER)]
+        sp['g4'] = sp[['DRGDP3', 'DRGDP4', 'DRGDP5', 'DRGDP6']].mean(axis=1); sp['cut8'] = sp.g4.rolling(4, min_periods=4).max() - sp.g4   # 1203: the high of the last 4 surveys (was 8)
+        sp = sp[sp.known <= pd.Timestamp(dt.date.today())]; fc_cut = float(sp.cut8.iloc[-1]) if len(sp) and (pd.Timestamp(dt.date.today()) - sp.known.iloc[-1]).days <= 200 else None   # a survey more than 200 days old switches the route off
+    except Exception as e_: print('indicator: forecasters route off (%s)' % str(e_)[:80])
+    pmi_fall = None
+    try:   # purchasing managers' index: the held file (FRED archive to 2015, then mapped), extended by the OECD manufacturing confidence balance on FRED as 50 + balance / 2
+        pm = pd.read_csv(os.path.join(HERE, 'v4', 'pmi_spliced_1948_2026.csv'), index_col=0, parse_dates=True).iloc[:, 0].dropna()
+        try:
+            rq = urllib.request.Request('https://fred.stlouisfed.org/graph/fredgraph.csv?id=BSCICP02USM460S')   # no browser header: FRED stalls requests that carry one
+            oe = pd.read_csv(io.BytesIO(urllib.request.urlopen(rq, timeout=45).read()), index_col=0, parse_dates=True).iloc[:, 0]; oe = pd.to_numeric(oe, errors='coerce').dropna()
+            new_ = 50 + oe[oe.index > pm.index[-1]] / 2
+            if len(new_) and new_.between(25, 80).all(): pm = pd.concat([pm, new_])
+        except Exception as e_: print('indicator: purchasing managers file not extended (%s); the held file is used' % str(e_)[:80])
+        today_ = pd.Timestamp(dt.date.today()); pm = pm[pm.index <= (today_.replace(day=1) - pd.DateOffset(months=1 if today_.day >= 3 else 2))]
+        if len(pm) >= 12 and (today_ - pm.index[-1]).days <= 130: pmi_fall = float(pm.iloc[-12:].max() - pm.iloc[-1])
+    except Exception as e_: print('indicator: purchasing managers route off (%s)' % str(e_)[:80])
+    sales_fall = None
+    try:   # total business sales (manufacturing and trade, Census; FRED TOTBUSSMSA): percent below the 12-month high. The held file is used when the download fails.
+        bs = pd.read_csv(os.path.join(HERE, 'v4', 'total_business_sales.csv'), index_col=0, parse_dates=True).iloc[:, 0].dropna()
+        try:
+            rq = urllib.request.Request('https://fred.stlouisfed.org/graph/fredgraph.csv?id=TOTBUSSMSA')
+            nb = pd.read_csv(io.BytesIO(urllib.request.urlopen(rq, timeout=45).read()), index_col=0, parse_dates=True).iloc[:, 0]; nb = pd.to_numeric(nb, errors='coerce').dropna()
+            if len(nb) >= 300 and nb.index[-1] >= bs.index[-1] and (nb > 0).all(): bs = nb; bs.rename('TOTBUSSMSA').to_csv(os.path.join(HERE, 'v4', 'total_business_sales.csv'))
+        except Exception as e_: print('indicator: business sales file not refreshed (%s); the held file is used' % str(e_)[:80])
+        if len(bs) >= 12 and (pd.Timestamp(dt.date.today()) - bs.index[-1]).days <= 150:
+            lb = np.log(bs.iloc[-12:].values.astype(float)) * 100; sales_fall = float(lb.max() - lb[-1])
+    except Exception as e_: print('indicator: sales route off (%s)' % str(e_)[:80])
+    ur_rise = None
+    try:
+        u3 = pd.to_numeric(ser['UNRATE'], errors='coerce').dropna().rolling(3).mean().dropna(); ur_rise = float(u3.iloc[-1] - u3.iloc[-13:-1].min())
+    except Exception as e_: print('indicator: labour route off (%s)' % str(e_)[:80])
+    ind, counted = v4.indicator(ser, dev, hours, fc_cut, pmi_fall, sales_fall, ur_rise)
+    irec = pd.read_csv(os.path.join(HERE, 'v4', 'indicator_record_1962_2026.csv'), dtype=str).fillna('')
+    pj = os.path.join(a.out, 'chronology.json'); st = None
+    try: st = (json.load(open(pj)).get('indicator') or {}).get('state') if os.path.exists(pj) else None
+    except Exception: st = None
+    if not st:
+        o = irec[irec.end_confirmed == '']
+        st = dict(on=True, start_confirmed=o.iloc[-1].start_confirmed, high_month=ind['high_month'], end_confirmed=None) if len(o) else dict(on=False, start_confirmed=None, high_month=None, end_confirmed=irec.iloc[-1].end_confirmed)
+    today_ = dt.date.today().isoformat(); last_ = dev.index[-1]
+    if st.get('on'):
+        hm = pd.Timestamp((st.get('high_month') or '1900-01') + '-01')
+        done = [t for p_, t in counted if t > hm and v4.mdiff(last_, t) >= v4.WAIT]
+        if done: st = dict(on=False, start_confirmed=st.get('start_confirmed'), high_month=st.get('high_month'), end_confirmed=today_, trough=max(done).strftime('%Y-%m'))
+    elif ind['met_today'] and not [t for p_, t in counted if ind['high_month'] and t > pd.Timestamp(ind['high_month'] + '-01') and v4.mdiff(last_, t) >= v4.WAIT]:   # no start for an episode already confirmed closed
+        ps = st.get('pending_since') or today_
+        if (dt.date.fromisoformat(today_) - dt.date.fromisoformat(ps)).days >= v4.IND_HOLD_DAYS: st = dict(on=True, start_confirmed=today_, high_month=ind['high_month'], end_confirmed=None)
+        else: st = dict(st, pending_since=ps)
+    elif st.get('pending_since'):
+        st = {k_: v_ for k_, v_ in st.items() if k_ != 'pending_since'}
+    ind['state'] = st; ind['record'] = irec.to_dict('records')
     UR, IP, G = ser['UNRATE'], ser['INDPRO'], ser['GDPC1']; SA = sahm(UR); last = dev.index[-1]
     cr = os.path.join(HERE, 'v4', 'confirmation_record_1960_2026.csv')
     conf_on = {}
@@ -367,12 +438,14 @@ def main_v4(a, data, ser):
                         recessions='NBER', confirm_after_trough_months=v4.WAIT, provisional_months=PROVISIONAL_MONTHS,
                         recession_line=DAMAGE_CUT, recession_needs_activity_fall_pct=ACT_MIN),
              live_reading=live,
+             indicator=ind,
              recessions=[dict(peak=a_, trough=b_, source='NBER') for a_, b_ in NBER],   # 26 Nov 2026 (1182): the 2024 recession is not shown (the v4 path; 317 fixed the v3.2 path only)
              episodes=rows, deviation=path.to_dict('list'))
     json.dump(J, open(os.path.join(a.out, 'chronology.json'), 'w'), indent=1)
     pd.set_option('display.width', 250)
     print(T[['peak', 'trough', 'status', 'class_rule_1167', 'dev_fall_pp', 'damage', 'grade', 'confirmed', 'confirmed_on', 'graded_on']].to_string(index=False))
     print('live reading:', live)
+    print('indicator:', {k: v for k, v in ind.items() if k != 'record'})
 
 
 if __name__ == '__main__':

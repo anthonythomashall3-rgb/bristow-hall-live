@@ -107,7 +107,7 @@ tr.open td{background:#fbf8ee}
 
 <h2>The disturbances</h2><div class="rule"></div>
 <div class="tw"><table id="reg"><thead><tr>
-  <th>Peak</th><th>Trough</th><th class="n">Months</th><th>Kind</th><th class="n">Fall vs trend (pp)</th><th class="n">Sahm max</th><th class="n">Production fall (%)</th><th class="n">Grade</th><th>Status</th><th>Confirmed in</th>
+  <th>Peak</th><th>Trough</th><th>Started (real time)</th><th>Ended (real time)</th><th class="n">Months</th><th>Kind</th><th class="n">Fall vs trend (pp)</th><th class="n">Sahm max</th><th class="n">Production fall (%)</th><th class="n">Grade</th><th>Status</th><th>Confirmed in</th>
 </tr></thead><tbody></tbody></table></div>
 <p class="note">Grade: the program's damage grade (labor, output and production), by the same rule as every recession: on the fall of activity itself, or on the fall against trend where activity fell less than 1 percent. 1.00 or more is a recession. No labels; the number is the grade. Confirmed: the trough is at least 14 months old. Newer dates can still move as data are revised.</p>
 
@@ -162,14 +162,16 @@ var tiles=[
  ['Disturbances dated','<b>'+D.length+'</b>','since '+D[0].peak.slice(0,4)],
  ['Most recent closed',''+'<b>'+ym(last.peak)+' – '+ym(last.trough)+'</b>','grade '+f2(last.grade)],
  ['Grade range, disturbances','<b>'+f2(Math.min.apply(null,gr))+' – '+f2(Math.max.apply(null,gr))+'</b>','same scale as recessions'],
- (function(){var lr=J.live_reading||{};var g=lr.gap_from_trend;return ['Today ('+ym(lr.data_through)+')','<b>'+(g>=0?'+':'')+f2(g)+' vs trend</b>',f2(lr.high_gap-g)+' below its '+ym(lr.high_since_last_trough)+' high; '+(lr.meets_disturbance_rule_on_todays_data?'meets the rule, not confirmed':'not a disturbance')];})()
+ (function(){var lr=J.live_reading||{};var g=lr.gap_from_trend;return ['Today ('+ym(lr.data_through)+')','<b>'+(g>=0?'+':'')+f2(g)+' vs trend</b>',f2(lr.high_gap-g)+' below its '+ym(lr.high_since_last_trough)+' high; '+((J.indicator&&J.indicator.state&&J.indicator.state.on)?'disturbance under way':(lr.meets_disturbance_rule_on_todays_data?'meets the rule, not confirmed':'not a disturbance'))];})()
 ];
+(function(){var I=J.indicator;if(!I||!I.state)return;var MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];function dl(x){if(!x)return '';var p=String(x).split('-');return (p[2]?(+p[2])+' ':'')+MN[+p[1]-1]+' '+p[0];}tiles.push(['Disturbance indicator','<b>'+(I.state.on?'On':'Off')+'</b>',(I.state.on?'since '+dl(I.state.start_confirmed):(I.state.end_confirmed?'ended '+dl(I.state.end_confirmed):''))+' · reading '+f2(I.value)+', line 1.00']);})();
 document.getElementById('tiles').innerHTML=tiles.map(function(t){return '<div class="tile"><div class="lab">'+t[0]+'</div><div class="val">'+t[1]+'</div><div class="sub">'+t[2]+'</div></div>';}).join('');
 // register table
+function RT(e){var I=J.indicator||{},MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];function dl(x){if(!x)return '–';var p=String(x).split('-');return (+p[2])+' '+MN[+p[1]-1]+' '+p[0];}if(e.open){var st=I.state||{};return [st.on?dl(st.start_confirmed):'–','–'];}var rr=(I.record||[]).filter(function(r){return r.cls!=='recession'&&r.trough&&r.peak<=(e.trough||'9999')&&r.trough>=e.peak;})[0];return rr?[dl(rr.start_confirmed),dl(rr.end_confirmed)]:['–','–'];}
 var kind={disturbance_class1:'Disturbance',disturbance_class2:'Jobless-recovery disturbance'};
 document.querySelector('#reg tbody').innerHTML=D.map(function(e){
- return '<tr><td>'+ym(e.peak)+'</td><td>'+ym(e.trough)+'</td><td class="n">'+e.months+'</td><td>'+kind[e.status]+'</td><td class="n">'+f2(e.dev_fall_pp)+'</td><td class="n">'+f2(e.status==='disturbance_class2'?e.sahm_rerise:e.sahm_max)+(e.status==='disturbance_class2'?'*':'')+'</td><td class="n">'+f2(e.ip_fall_pct)+'</td><td class="n grade">'+f2(e.grade)+'</td><td>'+(e.confirmed?'<span class="pill set">CONFIRMED</span>':'<span class="pill prov">PROVISIONAL</span>')+'</td><td>'+(e.confirmed_on?ym(e.confirmed_on):'–')+'</td></tr>';
-}).join('')+(D.some(function(e){return e.status==='disturbance_class2';})?'<tr><td colspan="10" style="color:#666;font-size:12.5px;border-bottom:none">* For a jobless-recovery disturbance the Sahm column shows the re-rise inside the window, the measure its own bar uses.</td></tr>':'');
+ var q=RT(e);return '<tr><td>'+ym(e.peak)+'</td><td>'+ym(e.trough)+'</td><td>'+q[0]+'</td><td>'+q[1]+'</td><td class="n">'+e.months+'</td><td>'+kind[e.status]+'</td><td class="n">'+f2(e.dev_fall_pp)+'</td><td class="n">'+f2(e.status==='disturbance_class2'?e.sahm_rerise:e.sahm_max)+(e.status==='disturbance_class2'?'*':'')+'</td><td class="n">'+f2(e.ip_fall_pct)+'</td><td class="n grade">'+f2(e.grade)+'</td><td>'+(e.confirmed?'<span class="pill set">CONFIRMED</span>':'<span class="pill prov">PROVISIONAL</span>')+'</td><td>'+(e.confirmed_on?ym(e.confirmed_on):'–')+'</td></tr>';
+}).join('')+(D.some(function(e){return e.status==='disturbance_class2';})?'<tr><td colspan="12" style="color:#666;font-size:12.5px;border-bottom:none">* For a jobless-recovery disturbance the Sahm column shows the re-rise inside the window, the measure its own bar uses.</td></tr>':'');
 // near misses
 var why={labor_bar_crossed_no_recession:function(e){return 'Unemployment crossed the recession bar (Sahm '+f2(e.sahm_max)+') but no recession followed'+(e.peak==='1959-06'?': the 116-day steel strike of 1959':'')+'.';},
  fails_DD:function(e){return 'Too shallow: the composite fell only '+f2(e.dev_fall_pp)+' points against trend.';},

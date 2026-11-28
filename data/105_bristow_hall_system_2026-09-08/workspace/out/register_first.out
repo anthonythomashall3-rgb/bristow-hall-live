@@ -1,22 +1,27 @@
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/openpyxl/worksheet/header_footer.py:48: UserWarning: Cannot parse header or footer so it will be ignored
+  warn("""Cannot parse header or footer so it will be ignored""")
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/openpyxl/worksheet/header_footer.py:48: UserWarning: Cannot parse header or footer so it will be ignored
+  warn("""Cannot parse header or footer so it will be ignored""")
    peak  trough             status    class_rule_1167  dev_fall_pp  damage  grade  confirmed confirmed_on graded_on
 1948-01 1949-10          recession          recession         9.63    4.78   4.13       True          NaN  activity
 1951-01 1952-07 disturbance_class1 disturbance_class1         3.45    1.33   0.67       True          NaN  activity
 1953-03 1954-08          recession          recession         8.09    5.04   4.42       True          NaN  activity
 1957-02 1958-04          recession          recession         8.73    4.92   4.29       True          NaN  activity
-1960-01 1961-02          recession          recession         4.23    3.93   3.17       True      1962-04  activity
-1962-04 1964-01 disturbance_class1 disturbance_class1         1.25    0.73   0.37       True      1964-12     trend
-1966-03 1967-10 disturbance_class1 disturbance_class1         1.85    1.16   0.58       True      1968-12     trend
-1969-08 1970-11          recession          recession         5.58    3.73   2.95       True      1972-01  activity
-1973-11 1975-04          recession          recession         9.91    5.04   4.42       True      1976-07  activity
-1979-03 1980-07          recession          recession         4.40    3.76   2.98       True      1981-09  activity
-1981-07 1982-12          recession          recession         6.45    5.14   4.53       True      1984-02  activity
-1984-09 1987-01 disturbance_class1 disturbance_class1         2.40    1.18   0.59       True      1988-03     trend
-1989-01 1991-12          recession          recession         4.55    3.16   2.31       True      1993-02  activity
-1995-01 1996-01 disturbance_class1 disturbance_class1         1.56    0.63   0.32       True      1997-03     trend
-2000-06 2003-04          recession          recession         4.98    3.17   2.32       True      2004-06  activity
-2008-01 2009-06          recession          recession         8.95    5.80   5.28       True      2010-08  activity
-2012-04 2013-07 disturbance_class1 disturbance_class1         0.98    0.23   0.12       True      2014-02  activity
-2014-12 2016-05 disturbance_class1 disturbance_class1         1.46    1.71   0.86       True      2018-02     trend
-2018-12 2020-04          recession          recession        15.37    5.40   4.83       True      2021-06  activity
+1960-01 1961-02          recession          recession         4.23    3.93   3.17       True          NaN  activity
+1962-04 1964-01 disturbance_class1 disturbance_class1         1.25    0.73   0.37       True   1965-03-16     trend
+1966-03 1967-10 disturbance_class1 disturbance_class1         1.85    1.16   0.58       True   1968-09-16     trend
+1969-08 1970-11          recession          recession         5.58    3.73   2.95       True   1971-10-18  activity
+1973-11 1975-04          recession          recession         9.91    5.04   4.42       True   1976-05-14  activity
+1979-03 1980-07          recession          recession         4.40    3.76   2.98       True   1981-06-16  activity
+1981-07 1982-12          recession          recession         6.45    5.14   4.53       True   1983-11-15  activity
+1984-09 1987-01 disturbance_class1 disturbance_class1         2.40    1.18   0.59       True   1987-12-14     trend
+1989-01 1991-12          recession          recession         4.55    3.16   2.31       True   1992-11-16  activity
+1995-01 1996-01 disturbance_class1 disturbance_class1         1.56    0.63   0.32       True   1996-12-16     trend
+2000-06 2003-04          recession          recession         4.98    3.17   2.32       True   2004-03-15  activity
+2008-01 2009-06          recession          recession         8.95    5.80   5.28       True   2010-05-14  activity
+2012-04 2013-07 disturbance_class1 disturbance_class1         0.98    0.23   0.12       True   2014-12-23  activity
+2014-12 2016-05 disturbance_class1 disturbance_class1         1.46    1.71   0.86       True   2017-05-16     trend
+2018-12 2020-04          recession          recession        15.37    5.40   4.83       True   2021-05-28  activity
 2023-05     NaN disturbance_class1 disturbance_class1         1.37    2.19   0.99      False          NaN     trend
 live reading: {'data_through': '2026-10', 'components_in_latest_month': ['PAYEMS', 'W875RX1', 'INDPRO'], 'gap_from_trend': -0.25, 'below_trend': True, 'high_since_last_trough': '2023-05', 'high_gap': 1.11, 'lowest_since_high': '2026-10', 'lowest_gap': -0.25, 'fall_to_lowest': 1.37, 'meets_disturbance_rule_on_todays_data': True, 'typical_error_latest_month_pp': 2.3, 'note': 'a reading of current conditions, not a call'}
+indicator: {'line': 1.0, 'index_fall_line': 0.7, 'production_fall_line': 2.2, 'hours_route': {'index_fall_line': 0.6, 'hours_drop_line': 0.2}, 'forecast_route': {'index_fall_line': 0.4, 'production_fall_line': 1.5, 'forecast_cut_line': 0.8}, 'pmi_route': {'index_fall_line': 0.3, 'pmi_fall_line': 12.0}, 'production_route': {'index_fall_line': 0.3, 'production_fall_line': 3.2}, 'sales_route': {'index_fall_line': 0.2, 'sales_fall_line': 3.25}, 'labour_route': {'unemployment_rise_line': 0.25, 'pmi_fall_line': 10.0}, 'value': 0.29, 'index_fall': 1.25, 'production_fall': 0.64, 'hours_drop': 0.0, 'high_month': '2023-05', 'low_month': '2026-10', 'months_since_high': 41, 'met_today': False, 'forecast_cut': 0.04, 'pmi_fall': 0.1, 'sales_fall': 0.0, 'unemployment_rise': 0.0, 'state': {'on': True, 'start_confirmed': '2024-07-05', 'high_month': '2023-05', 'end_confirmed': None}}
