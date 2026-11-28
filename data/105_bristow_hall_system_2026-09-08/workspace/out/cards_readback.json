@@ -1,5 +1,5 @@
 {
- "at": "2026-11-27T22:06:46Z",
+ "at": "2026-11-28T01:22:40Z",
  "cards": {
   "/detector/": {
    "img": "/detector/card.png?v=bf14c96b",
@@ -14,19 +14,19 @@
    "ok": true
   },
   "/state-onset/": {
-   "img": "/state-onset/card.png?v=a39ed26f",
+   "img": "/state-onset/card.png?v=93cf1f3e",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/stress-map/": {
-   "img": "/stress-map/card.png?v=1cfa776b",
+   "img": "/stress-map/card.png?v=81dea38a",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
   },
   "/forecaster/": {
-   "img": "/forecaster/card.png?v=4c71fe75",
+   "img": "/forecaster/card.png?v=bc5120e3",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
