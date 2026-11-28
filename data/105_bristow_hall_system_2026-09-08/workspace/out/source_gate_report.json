@@ -4,8 +4,8 @@
  "decision": "PASS",
  "site": "/home/runner/work/bristow-hall-live/bristow-hall-live/data/105_bristow_hall_system_2026-09-08/site/public",
  "build_day": "2026-11-27",
- "checked_at": "2026-11-28 01:57 UTC",
- "seconds": 4.7,
+ "checked_at": "2026-11-28 02:17 UTC",
+ "seconds": 4.1,
  "source_calls": 4,
  "source_errors": {},
  "counts": {
@@ -1986,12 +1986,12 @@
    "label": "live recession chronology (the detector)",
    "check": "next published",
    "status": "WARN",
-   "value": "2026-11-27",
+   "value": "2026-11-28",
    "period": null,
    "series": null,
    "transform": null,
    "expected": null,
-   "detail": "after the build time, but no publisher calendar to confirm it (no series id on the row)"
+   "detail": "after the build day, but no publisher calendar to confirm it (no series id on the row)"
   },
   {
    "page": "data/stress-map",
