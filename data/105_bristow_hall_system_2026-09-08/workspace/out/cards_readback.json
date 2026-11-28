@@ -1,5 +1,5 @@
 {
- "at": "2026-11-28T01:22:40Z",
+ "at": "2026-11-28T01:58:26Z",
  "cards": {
   "/detector/": {
    "img": "/detector/card.png?v=bf14c96b",
@@ -8,7 +8,7 @@
    "ok": true
   },
   "/disturbance/": {
-   "img": "/disturbance/card.png?v=fb1a036e",
+   "img": "/disturbance/card.png?v=4502bd99",
    "same_as_build": true,
    "page_vs_card_pixels_differing": 0.0,
    "ok": true
